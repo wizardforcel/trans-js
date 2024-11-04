@@ -4,11 +4,13 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 迭代器与生成器
 - en: 像数组这样的内置对象可以使用`[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)`循环进行迭代。与其使用简单的`for`循环逐个访问数组值、在每次迭代后递增索引，并且还要知道何时结束迭代以避免访问超出边界的索引，使用`for...of`循环，所有这一切都为我们处理好了。我们无需担心索引或循环终止条件。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像数组这样的内置对象可以使用`[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)`循环进行迭代。与其使用简单的`for`循环逐个访问数组值、在每次迭代后递增索引，并且还要知道何时结束迭代以避免访问超出边界的索引，使用`for...of`循环，所有这一切都为我们处理好了。我们无需担心索引或循环终止条件。
 - en: '[PRE0]'
   id: totrans-2
   prefs: []
@@ -19,82 +21,97 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，您可以在其中运行上述代码：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example1” />
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example1” />
 - en: '`for...of`循环如何帮助我们迭代数组？它如何知道何时结束迭代？'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for...of`循环如何帮助我们迭代数组？它如何知道何时结束迭代？'
 - en: 要理解这一点，我们需要了解以下两个概念：
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要理解这一点，我们需要了解以下两个概念：
 - en: 可迭代对象
   id: totrans-7
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 可迭代对象
 - en: 迭代器
   id: totrans-8
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 迭代器
 - en: 可迭代对象
   id: totrans-9
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 可迭代对象
 - en: 可迭代对象是实现了[可迭代协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol)的对象。根据可迭代协议，如果一个对象定义了可以被`for...of`循环用于迭代该对象中值的迭代行为，那么该对象就是可迭代的。该对象可以实现一个由`[Symbol.iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator)`表示的属性所引用的方法；这是定义迭代行为的众所周知的符号之一。众所周知的符号在与符号相关的模块中讨论过。
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 可迭代对象是实现了[可迭代协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol)的对象。根据可迭代协议，如果一个对象定义了可以被`for...of`循环用于迭代该对象中值的迭代行为，那么该对象就是可迭代的。该对象可以实现一个由`[Symbol.iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator)`表示的属性所引用的方法；这是定义迭代行为的众所周知的符号之一。众所周知的符号在与符号相关的模块中讨论过。
 - en: 在数组的情况下，这个方法在`Array.prototype`对象中定义。这个方法定义了适合数组的迭代行为。其他对象也可以实现这个方法，以定义适合它们的迭代行为。
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在数组的情况下，这个方法在`Array.prototype`对象中定义。这个方法定义了适合数组的迭代行为。其他对象也可以实现这个方法，以定义适合它们的迭代行为。
 - en: '`Symbol.iterator`返回什么可以被像`for...of`循环这样的构造用于迭代一个对象？它返回一个迭代器对象。'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Symbol.iterator`返回什么可以被像`for...of`循环这样的构造用于迭代一个对象？它返回一个迭代器对象。'
 - en: 迭代器
   id: totrans-13
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 迭代器
 - en: 迭代器是实现了[迭代器协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol)的对象。根据迭代器协议，如果一个对象实现了一个名为`next`的方法，该方法接受零个或一个参数，并返回一个具有以下属性的对象，那么该对象就是一个迭代器：
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 迭代器是实现了[迭代器协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol)的对象。根据迭代器协议，如果一个对象实现了一个名为`next`的方法，该方法接受零个或一个参数，并返回一个具有以下属性的对象，那么该对象就是一个迭代器：
 - en: '`done`：指示迭代器是否可以生成或返回另一个值。如果可以，其值为`false`，否则为`true`。`true`值等同于在`next`方法返回的对象中省略此属性。'
   id: totrans-15
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`done`：指示迭代器是否可以生成或返回另一个值。如果可以，其值为`false`，否则为`true`。`true`值等同于在`next`方法返回的对象中省略此属性。'
 - en: '`value`：迭代器对象返回的值。如果`done`属性的值为`true`，此属性可以省略或其值可以为`undefined`。'
   id: totrans-16
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`value`：迭代器对象返回的值。如果`done`属性的值为`true`，此属性可以省略或其值可以为`undefined`。'
 - en: 以下是具有上述属性的迭代器对象的示例：
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是具有上述属性的迭代器对象的示例：
 - en: '[PRE1]'
   id: totrans-18
   prefs: []
@@ -111,6 +128,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们使用``for...of``循环迭代数组时，它会在内部从数组获取迭代器，并持续调用其``next``方法，直到迭代器返回所有值。使用``for...of``循环时，我们间接使用了迭代器。我们也可以直接使用迭代器。数组是可迭代的，我们知道可迭代对象实现了返回包含``next``方法的迭代器对象的``Symbol.iterator``方法。以下代码示例展示了我们如何获取数组迭代器并直接使用它来获取数组中的值：
 - en: '[PRE2]'
   id: totrans-20
   prefs: []
@@ -121,11 +139,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个您可以运行上述代码的Replit：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example2” />
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example2” />
 - en: 'Each [built-in iterator object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator#description)
     provides iterators that define a specific iteration behavior for the iterable
     object. The following is an example of using the ``Map`` object’s iterator directly:'
@@ -133,6 +153,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个[内置迭代器对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator#description)提供定义可迭代对象特定迭代行为的迭代器。以下是直接使用``Map``对象的迭代器的示例：
 - en: '[PRE3]'
   id: totrans-24
   prefs: []
@@ -143,11 +164,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个您可以运行上述代码的Replit：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example3” />
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example3” />
 - en: The value of the ``value`` property on the iterator result object for the ``Map``
     object is a key-value pair contained in an array. You can use [``Map.prototype.values()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
     to get an iterator that just returns values in the ``Map``, or [``Map.prototype.keys()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)
@@ -156,12 +179,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于``Map``对象，迭代器结果对象上的``value``属性的值是包含在数组中的键值对。您可以使用[``Map.prototype.values()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)获取一个仅返回``Map``中值的迭代器，或者使用[``Map.prototype.keys()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)获取一个返回``Map``中所有键的迭代器。
 - en: Iterator prototype
   id: totrans-28
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 迭代器原型
 - en: Each iterator object inherits from the respective iterator prototype object.
     For example, the array iterator inherits from the Array Iterator prototype object.
     Similarly, the string iterator inherits from the String Iterator prototype object.
@@ -336,6 +361,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example10"
+    />`'
 - en: 'We can fix this either by explicitly setting up the prototype chain link between
     the `Iterator.prototype` object and our `studentIterator` object, or an easier
     way is to just implement the `Symbol.iterator` method in the `studentIterator`
@@ -344,6 +371,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以通过显式设置`Iterator.prototype`对象与我们的`studentIterator`对象之间的原型链链接来解决这个问题，或者更简单的方法是直接在`studentIterator`对象中实现`Symbol.iterator`方法，使其可迭代：
 - en: '[PRE11]'
   id: totrans-56
   prefs: []
@@ -355,6 +383,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，`studentIterator`对象是可迭代的，因此如果我们想，可以用`for...of`循环使用它。
 - en: 'There’s one more improvement we can make to the above code example. We have
     defined the `Symbol.iterator` method in the `Student.prototype` object, but it
     is [enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties),
@@ -364,6 +393,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们还可以对上述代码示例进行一个改进。我们已经在`Student.prototype`对象中定义了`Symbol.iterator`方法，但它是[可枚举的](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties)，这并不理想。我们可以通过使用[Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)方法将其设置为不可枚举，如下所示：
 - en: '[PRE12]'
   id: totrans-59
   prefs: []
@@ -374,11 +404,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 生成器是JavaScript中的特殊函数，它们可以在执行的不同点暂停其执行，然后从暂停的地方恢复。就像迭代器一样，生成器函数可以用于生成可以被`for...of`循环等结构消费的值序列。实际上，生成器函数返回一个生成器对象，而生成器对象是一个迭代器。因此，我们可以像使用其他迭代器一样使用生成器函数的返回值。
 - en: 以下是一个生成器函数的示例，该函数生成从0到10的奇数：
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是一个生成器函数的示例，该函数生成从0到10的奇数：
 - en: '[PRE13]'
   id: totrans-62
   prefs: []
@@ -389,40 +421,48 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码运行的Replit示例：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example1”
     />`'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example1”
+    />`'
 - en: 请注意上述生成器函数中的以下两点：
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意上述生成器函数中的以下两点：
 - en: '`function*`语法将一个函数标记为生成器函数。在`*`和`function`之间的空格也是有效语法：`function *`。'
   id: totrans-66
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`function*`语法将一个函数标记为生成器函数。在`*`和`function`之间的空格也是有效语法：`function *`。'
 - en: '`yield`关键字生成一个值。`yield`关键字右侧的值是我们在调用从生成器函数返回的迭代器对象的`next`方法时得到的。`yield`关键字还标记了生成器函数暂停的地方。'
   id: totrans-67
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`yield`关键字生成一个值。`yield`关键字右侧的值是我们在调用从生成器函数返回的迭代器对象的`next`方法时得到的。`yield`关键字还标记了生成器函数暂停的地方。'
 - en: 无限序列
   id: totrans-68
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 无限序列
 - en: 生成器函数也可以用于创建无限序列，如下所示：
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 生成器函数也可以用于创建无限序列，如下所示：
 - en: '[PRE14]'
   id: totrans-70
   prefs: []
@@ -433,33 +473,40 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码运行的Replit示例：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example2”
     />`'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example2”
+    />`'
 - en: 上述代码示例仅记录了10个随机数，但可以使用生成器生成无限个随机数。这是可能的，因为生成器函数是惰性评估的；它们的执行会被暂停，直到请求新的值。
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码示例仅记录了10个随机数，但可以使用生成器生成无限个随机数。这是可能的，因为生成器函数是惰性评估的；它们的执行会被暂停，直到请求新的值。
 - en: 在上述代码示例中，我们使用`next`方法消费生成器。注意，调用生成器函数并不会执行它；相反，它返回一个生成器对象。生成器对象既是一个迭代器也是一个可迭代对象。因此，我们可以像迭代器一样使用它，通过调用其上的`next`方法。对生成器对象调用`next`方法返回生成器所生成的值。对`next`方法的多次调用将继续返回生成器所生成的值，直到生成器对象停止生成值。在此时，我们得到一个`done`属性设置为`true`的对象。然而，上述生成器函数可以无限生成值。
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述代码示例中，我们使用`next`方法消费生成器。注意，调用生成器函数并不会执行它；相反，它返回一个生成器对象。生成器对象既是一个迭代器也是一个可迭代对象。因此，我们可以像迭代器一样使用它，通过调用其上的`next`方法。对生成器对象调用`next`方法返回生成器所生成的值。对`next`方法的多次调用将继续返回生成器所生成的值，直到生成器对象停止生成值。在此时，我们得到一个`done`属性设置为`true`的对象。然而，上述生成器函数可以无限生成值。
 - en: 实现迭代器
   id: totrans-75
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 实现迭代器
 - en: 由于生成器函数返回一个迭代器对象，生成器函数使得编写迭代器变得方便。我们可以使用生成器函数重写上一课中的学生迭代器示例，如下所示：
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于生成器函数返回一个迭代器对象，生成器函数使得编写迭代器变得方便。我们可以使用生成器函数重写上一课中的学生迭代器示例，如下所示：
 - en: '[PRE15]'
   id: totrans-77
   prefs: []
@@ -470,17 +517,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码运行的Replit示例：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example3”
     />`'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example3”
+    />`'
 - en: 比较上一课中`Symbol.iterator`方法的实现与新的使用生成器函数实现学生迭代器的方法。代码更简单、简洁且易于阅读。生成器函数确实使得实现迭代器变得容易。
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 比较上一课中`Symbol.iterator`方法的实现与新的使用生成器函数实现学生迭代器的方法。代码更简单、简洁且易于阅读。生成器函数确实使得实现迭代器变得容易。
 - en: As an added bonus, the iterator object returned by the generator function is
     automatically iterable; as a result, the student iterator is iterable without
     us needing to manually set up the prototype chain link or implement the ``Symbol.iterator``
@@ -489,12 +540,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 作为额外的好处，生成器函数返回的迭代器对象是自动可迭代的；因此，学生迭代器是可迭代的，而不需要我们手动设置原型链链接或在迭代器对象中实现``Symbol.iterator``方法。
 - en: Consuming values
   id: totrans-82
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 消费值
 - en: 'While simple iterators only produce values, generators can also consume values.
     We can pass a value to the generator using the ``next`` method. The value passed
     to the generator becomes the value of the ``yield`` expression. Consider the following
@@ -503,6 +556,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然简单的迭代器仅产生值，但生成器也可以消费值。我们可以使用``next``方法向生成器传递一个值。传递给生成器的值成为``yield``表达式的值。考虑以下生成器消费值的代码示例：
 - en: '[PRE16]'
   id: totrans-84
   prefs: []
@@ -513,12 +567,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码在Replit中的运行示例：
 - en: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example4``
     />
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example4``
+    />
 - en: The first ``next`` method call yields the first value, i.e., ``What is your
     name?``. At this point, the generator function pauses. The value of the ``yield``
     expression will be calculated depending on how we call the ``next`` method again.
