@@ -1,50 +1,74 @@
 - en: Closures
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Closure is one of the fundamental topics in JavaScript and can be tricky to
     understand for beginners. It is a powerful feature, and developing a good understanding
     of this topic is essential. In this module, we will take a deeper look at what
     closures are and how they work.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: What is a closure?
+  id: totrans-2
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The closure is a combination of the following two things:'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A Function
+- en: A `Function`
+  id: totrans-4
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: A reference to the environment/scope in which that function is created
+  id: totrans-5
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In other words, whenever we define a function in JavaScript, that function
     saves a reference to the environment in which it was created. This is what’s referred
     to as a closure: a function along with a reference to the environment in which
     it is created.'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Closures allow a nested function to access the declarations inside the containing
     function, even after the execution of the containing function has ended.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example1”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example1”>`'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How does the `innerFn`, function returned by `outerFn`, have access to the `outerVar`
     variable declared in `outerFn` even after the “outerFn” execution is complete?
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The above code works because JavaScript functions always create closures when
     they are created. In some programming languages, a function’s locally defined
@@ -52,60 +76,88 @@
     execution ends, variables defined in its local scope are destroyed. But that’s
     not the case in JavaScript, as is evident from the code example above. So, how
     do closures work?
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How do closures work?
+  id: totrans-13
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: To understand how closures work, we need to understand how JavaScript resolves
     the scope of any identifier.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Although we had a detailed discussion on scope in an earlier module dedicated
     to the topic of scope, let us once again briefly go over how the lexical scope
     is resolved. Consider the following code example:'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example2”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example2”>`'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When the `learnJavaScript` function is invoked to log the value of the `isReading`
     variable, the JavaScript first needs to identify where it is defined. The first
     place where JavaScript will search is the local scope of the `learnJavaScript`
     function because this is where a reference to the `isReading` variable was found.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As the `isReading` variable is not defined in the local scope of the `learnJavaScript`
     function, JavaScript will search for this variable in the outer scope, which in
     this case is the global scope. JavaScript will find the declaration of the `isReading`
     variable in the global scope, so it will get its value and pass it to the `console.log`
     function so that it can be logged to the console.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let us take a look at another code example that involves a nested function:'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example3”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example3”>`'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this code example, we have a nested function, `stepsToLearnJavaScript`, that
     logs the value of a variable defined in the global scope. If JavaScript hasn’t
     already determined the scope of the `isReading` variable, how will it find its
     declaration? Recall the scope chain!
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: JavaScript will need to traverse the scope chain to find the declaration of
     the `isReading` variable. As in the earlier example, the declaration is first
@@ -117,170 +169,250 @@
     local scope of the `learnJavaScript` function. The declaration doesn’t exist in
     this scope either; JavaScript traverses to the outer scope of the `learnJavaScript`
     function scope. The outer scope now is the global scope.
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the code example above, the variable declaration is found in the global scope,
     so the search for the variable declaration will be stopped when the search reaches
     the global scope. But what will happen if we remove the variable declaration from
     the above code example?
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example4”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example4”>`'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, the `stepsToLearnJavaScript` function is logging an undeclared variable.
     Now, what will happen when the search for the variable declaration reaches the
-    global scope? At this point, javascript will do one of the following two things:'
+    global scope? At this point, JavaScript will do one of the following two things:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: throw an error if the code is in strict mode
+  id: totrans-32
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: declare a global variable for you in non-strict mode (recall “implicit globals”
     in the scope module)
+  id: totrans-33
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: How are different scopes linked?
+  id: totrans-34
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: At this point, we know how the scope is resolved, and the different scopes are
     linked together, forming a chain that is known as the “scope chain.” But have
     you wondered how different scopes are linked? It can’t be magic; some mechanism
     must link different scopes together. How does JavaScript determine the outer scope
     of the current scope?
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let us revisit one of the code examples presented earlier in this lesson:'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example5”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example5”>`'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We know that when the `learnJavaScript` function is invoked, the local scope
     of this function is linked to the global scope, but how? The answer is the hidden
-    internal slot named [[[Environment]]](https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects).
+    internal slot named `[[[Environment]]]`(https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects).
     This `[[Environment]]` internal slot exists on the functions, and it contains
     a reference to the outer scope/environment. In other words, this internal slot
-    contains a reference to the scope on which the containing function has *closed
-    over* or formed a “closure.”
+    contains a reference to the scope on which the containing function has `closed
+    over` or formed a “closure.”
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: :::info
+- en: '`:::info`'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: There are many [hidden internal slots](https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript)
+- en: 'There are many [hidden internal slots](https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript)
     mentioned in the ECMAScript specification. The specification uses these hidden
     internal slots to define the required behavior. These hidden internal slots, just
     like abstract operations, may or may not be actual things that are implemented
-    by the different JavaScript engines.
+    by the different JavaScript engines.  '
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::'
+- en: ':::  '
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the code example above, when the `learnJavaScript` function is created, as
-    it is created in the global scope, a reference to the global environment is saved
-    in the internal `[[Environment]]` slot of the function object. Later, when the
-    function is called, a new environment is created for the execution of the code
-    inside the function. This environment (local scope of the function) is linked
+- en: 'In the code example above, when the `learnJavaScript` function is created,
+    as it is created in the global scope, a reference to the global environment is
+    saved in the internal `[[Environment]]` slot of the function object. Later, when
+    the function is called, a new environment is created for the execution of the
+    code inside the function. This environment (local scope of the function) is linked
     to the global environment by getting a value that is saved in the `[[Environment]]`
     slot of the `learnJavaScript` function and saving it in an internal slot named
-    [[[OuterEnv]]](https://tc39.es/ecma262/#sec-environment-records). Each environment
-    object has an internal slot that contains a reference to the outer environment.
+    `[[[OuterEnv]]]`(https://tc39.es/ecma262/#sec-environment-records). Each environment
+    object has an internal slot that contains a reference to the outer environment.  '
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The linkage of scopes in the above example can be conceptually visualized in
-    the image below:'
+    the image below:  '
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![scope linkage](images/missing.png)'
+- en: '![scope linkage](images/missing.png)  '
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: scope linkage
+- en: '`scope linkage`  '
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s revisit one of the earlier examples from this lesson that involved a
-    nested function:'
+    nested function:  '
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE5]'
+- en: 'Here’s a Replit of the code above:  '
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example6”>
+- en: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example6”>  '
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In this code example, we have three different environments:'
+- en: 'In this code example, we have three different environments:  '
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The global environment
+- en: 'The global environment  '
+  id: totrans-53
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The local environment of the `learnJavaScript` function (created when the function
-    is invoked)
+- en: 'The local environment of the `learnJavaScript` function (created when the function
+    is invoked)  '
+  id: totrans-54
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The local environment of the `stepsToLearnJavaScript` function (created when
-    the function is invoked)
+- en: 'The local environment of the `stepsToLearnJavaScript` function (created when
+    the function is invoked)  '
+  id: totrans-55
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The linkage between different scopes can be visualized in the image below:'
+- en: 'The linkage between different scopes can be visualized in the image below:  '
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![scope linkage](images/module_05----lesson_05.01----public----assets----closure-scope-linkage-2.png)'
+- en: '![scope linkage](images/module_05----lesson_05.01----public----assets----closure-scope-linkage-2.png)  '
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: scope linkage
+- en: '`scope linkage`  '
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Hopefully, the above two code examples and images have clarified how different
     scopes are linked together, forming a scope chain. This scope chain is traversed
     by the JavaScript engine, if needed, to resolve the scope of any identifier.
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This linkage between different environments, i.e., the scope chain, is what
+- en: 'This linkage between different environments, i.e., the scope chain, is what
     makes closures possible in JavaScript. Due to this scope chain, a nested function
     can still access variables from the outer function even after the execution of
     the outer function has ended. This outer environment is kept in memory as long
-    as the inner function has a reference to it.
+    as the inner function has a reference to it.  '
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, let us revisit the first code example in this lesson, which involves invoking
-    a nested function from a different scope than the one it is defined in.
+- en: 'Now, let us revisit the first code example in this lesson, which involves invoking
+    a nested function from a different scope than the one it is defined in.  '
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE6]'
+- en: 'Here’s a Replit of the code above:  '
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example7”>
+- en: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example7”>  '
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Hopefully, you can now explain how the nested function has access to the `outerVar`
-    variable, even after the completion of the `outerFn` execution.
+- en: 'Hopefully, you can now explain how the nested function has access to the `outerVar`
+    variable, even after the completion of the `outerFn` execution.  '
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `inner` function has a reference to the local scope of the `outerFn` function,
     saved in its `[[Environment]]` internal slot. When the `inner` function is returned
@@ -289,58 +421,82 @@
     function is invoked, the value of the `[[Environment]]` slot of the `inner` function
     is saved in the `[[OuterEnv]]` internal slot of the environment created for the
     execution of the `inner` function.
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To summarize, every time a javascript function is created, a closure is formed,
+- en: To summarize, every time a JavaScript function is created, a closure is formed,
     which allows that function to access the scope chain that was in effect when that
-    function was defined. Each time a function is created, javascript saves the reference
+    function was defined. Each time a function is created, JavaScript saves the reference
     to the surrounding environment of the function in the internal `[[Environment]]`
     slot on the function object. When that function is called, a new environment is
-    created for that function call, and javascript saves the value of `[[Environment]]`
+    created for that function call, and JavaScript saves the value of `[[Environment]]`
     slot on the function in the `[[OuterEnv]]` slot of the environment object.
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It is a common misconception among beginners that closures are only formed when
     any function returns a nested function. But that is not the case.
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Every time a function is created in JavaScript, it forms a closure over the
     environment in which that function was created. Forming a closure is a fancy way
     of saying that when a function is created, it saves a reference to the environment
     in which it was created.
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'What is the cause of this misconception? It is because of the following two
     reasons:'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Many online resources introduce the concept of closures with code examples containing
     a function that returns a nested function.
+  id: totrans-71
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Closures are only noticeable when a function is invoked from a different scope
     than the one it is defined in.
+  id: totrans-72
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Most functions are usually invoked from the same scope in which they are defined.
     This makes the closures go unnoticed. It is only when a function is invoked from
     a different scope than the one it is defined in that closures become noticeable.
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the following code example, a function is defined and invoked from the global
     scope, so a closure formed by the function is unnoticeable.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
-- en: 'You can see the code above in this Replit:'
+  zh: '[PRE7]'
+- en: 'You can see the code above in this `Replit`:'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example1”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example1”>`'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Unlike the code example above, in the following code example, closure is noticeable
     as the nested `greet` function has access to the `greetMsg` parameter of the containing
@@ -348,304 +504,407 @@
     The closure is noticeable because the `greet` function is invoked from a different
     scope than the one it is defined in. The `greet` function is defined in the local
     scope of the `createGreeting` function, but it is invoked from the global scope.
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE8]'
+- en: 'Here’s a `Replit` of the code above:'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example2”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example2”>`'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: What output do you expect from the following code example?
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: 'You might expect the following output:'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'Although the above output seems reasonable, it is not the output we get from
     the code example above. The actual output is as shown below:'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
-- en: 'Here is the output of the code example above in a Replit:'
+  zh: '[PRE11]'
+- en: 'Here is the output of the code example above in a `Replit`:'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example1”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example1”>`'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If this output surprised you, then this lesson is for you. Even if it didn’t,
     do you understand the reasons behind this output? In this lesson, we will explore
-    what causes this problem, also known as the “**closures in loop**” problem, and
+    what causes this problem, also known as the “`closures in loop`” problem, and
     how we can fix it.
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: What causes this problem?
+  id: totrans-91
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The code example above suffers from this infamous “closures in loop” problem
-    because the callback function of each `setTimeout` forms a closure over the *same*
-    variable `i`. As there are a total of three loop iterations in our example, `setTimeout`
+- en: The code example above suffers from this infamous “`closures in loop`” problem
+    because the callback function of each `setTimeout` forms a closure over the `same`
+    variable `i`。As there are a total of three loop iterations in our example, `setTimeout`
     is called three times, so we have three callback functions, all having a closure
-    over the *same* variable `i`.
+    over the `same` variable `i`。
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The callback function of each `setTimeout` call is invoked *after* the loop
+- en: The callback function of each `setTimeout` call is invoked `after` the loop
     execution has completed. The value of variable `i` after the last iteration of
-    the loop is “4”, and because each callback function of the “setTimeout” has a
-    closure over the *same* variable `i`, all three of them see “4” as the value of
-    the `i`. This is the reason they all log “4” on the console.
+    the loop is “`4`”，and because each callback function of the “`setTimeout`” has
+    a closure over the `same` variable `i`，all three of them see “`4`” as the value
+    of the `i`。This is the reason they all log “`4`” on the console.
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The scope linkage for the code example above can be visualized in the image
     below:'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-in-loop-problem.png)'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: scope linkage
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It is important to note that functions form closures over variables, not their
-    values. Closure over variables implies that each function logs the *latest* value
+    values. Closure over variables implies that each function logs the `latest` value
     of the variable it has closed over; if functions formed closure over values rather
     than variables, they would log the snapshot of the value in effect when the closure
     was formed.
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In our example, if the closure was over the values of `i` instead of the `i`
     variable, then each callback would have logged the value of `i` that was in effect
     in the iteration in which that callback was created. This means we would have
-    gotten the expected output, i.e., `1 2 3` instead of `4 4 4`. But as is evident
+    gotten the expected output, i.e., `1 2 3` instead of `4 4 4`。But as is evident
     from the output of the code example, closures are formed over variables. As a
     result, each callback function of `setTimeout` has a closure over the variable
-    `i`, and when each callback is executed, it sees the latest value of `i`.
+    `i`，and when each callback is executed, it sees the latest value of `i`。
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How to resolve this problem?
+  id: totrans-99
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we understand what the “closures in loop” problem is and what causes
-    it let us discuss how this problem was tackled before ES2015.
+- en: Now that we understand what the “`closures in loop`” problem is and what causes
+    it, let us discuss how this problem was tackled before `ES2015`。
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Pre-ES2015 solution
+- en: Pre-`ES2015` solution
+  id: totrans-101
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: Before the introduction of ES2015, also known as ES6, one way to solve this
-    problem was to use an [IIFE (Immediately Invoked Function Expression)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE).
-    The following code example shows how using an IIFE resolves this problem.
+- en: Before the introduction of `ES2015`，also known as `ES6`，one way to solve this
+    problem was to use an [`IIFE (Immediately Invoked Function Expression)`](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)。The
+    following code example shows how using an `IIFE` resolves this problem.
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
-- en: 'Here is the output of the code example above in a Replit:'
+  zh: '[PRE12]'
+- en: 这是上述代码示例在Replit中的输出：
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example2”>
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example2">`'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: How does the use of an IIFE solve this problem?
+- en: 使用IIFE如何解决这个问题？
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recall that the problem is caused by the closure of different callbacks over
-    the *same* variable. But with the use of an IIFE, we can pass the value of `i`
-    in each iteration to the IIFE as a parameter. This parameter (`counter`) is then
-    used inside the callback function of the `setTimeout` function. This solves the
-    problem because the `counter` parameter is closed over by each callback function,
-    and in each iteration, a new IIFE is created, along with the new callback function
-    of `setTimeout`. Each new instance of the IIFE gets passed a new value of `i`,
-    i.e., “1” in the first iteration, “2” in the second iteration, and so on. So now,
-    with the use of an IIFE, each callback function has a closure over a different
-    `counter` variable.
+- en: 回想一下，问题是由于不同回调对*同一个*变量的闭包造成的。但通过使用IIFE，我们可以在每次迭代中将`i`的值作为参数传递给IIFE。这个参数（`counter`）随后在`setTimeout`函数的回调函数中使用。这解决了问题，因为`counter`参数被每个回调函数闭包所封闭，并且在每次迭代中都会创建一个新的IIFE，以及新的`setTimeout`回调函数。每个IIFE的新实例都会传递一个新的`i`值，即在第一次迭代中为“1”，第二次迭代中为“2”，依此类推。因此，现在，通过使用IIFE，每个回调函数都有一个不同的`counter`变量的闭包。
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The image below helps visualize the scope chain in the above code example (function
-    objects are not shown in the image below to keep it simple):'
+- en: 下面的图片帮助可视化上述代码示例中的作用域链（为了简单起见，函数对象未在下面的图片中显示）：
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-problem-pre-es6-solution.png)'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: scope linkage
+- en: '`scope linkage`'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Although the callbacks of the `setTimeout` function log the `counter` variable,
-    they still have access to the `i` variable as well. What if we log both `counter`
-    and `i`? How will the output change?
+- en: 尽管`setTimeout`函数的回调日志记录了`counter`变量，但它们仍然可以访问`i`变量。如果我们同时记录`counter`和`i`会怎样？输出会如何变化？
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
-- en: 'The output of the code example above can be seen in the Replit below:'
+  zh: '[PRE13]'
+- en: 以上代码示例的输出可以在下面的Replit中查看：
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example3”>
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example3">`'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Each callback has a closure over a *different* instance of the `counter` variable,
-    but they all still share the *same* variable `i` from the global scope. As a result,
-    they log the latest value of `i`, i.e., “4”.
+- en: 每个回调都对*不同*实例的`counter`变量有一个闭包，但它们仍然共享来自全局作用域的*同一个*变量`i`。结果，它们记录了`i`的最新值，即“4”。
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ES2015 solution
+- en: '`ES2015 solution`'
+  id: totrans-116
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: ES2015 introduced block-scoped variables and constants with the help of `let`
-    and `const` keywords, respectively. We can solve the “closures in loop” problem
-    simply by replacing the `var` keyword with the `let` keyword in our original code
-    example that had this problem.
+- en: ES2015引入了块级作用域的变量和常量，分别使用`let`和`const`关键字。我们可以通过将原始代码示例中的`var`关键字替换为`let`关键字，简单地解决“循环中的闭包”问题。
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
-- en: 'Here is the output of the code example above in a Replit:'
+  zh: '[PRE14]'
+- en: 这是上述代码示例在Replit中的输出：
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example4”>
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example4">`'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Using the `let` keyword solves this problem because, unlike each callback function
-    closing over the *same* variable `i`, the `let` being block-scoped causes each
-    iteration of the loop to have a *different* copy of the variable `i`. This is
-    the key idea that solves the problem of “closures in loop”. Each iteration has
-    its own *separate* copy of variable `i`, which means that the `setTimeout` callback
-    created in each iteration closes over the copy of variable `i` that is limited
-    to that particular iteration of the loop.
+- en: 使用`let`关键字解决了这个问题，因为与每个回调函数闭包于*同一个*变量`i`不同，`let`是块级作用域，导致每次循环迭代都有一个*不同*的`i`变量副本。这是解决“循环中的闭包”问题的关键思路。每次迭代都有自己的*独立*副本的`i`变量，这意味着在每次迭代中创建的`setTimeout`回调闭包于那个特定迭代的`i`变量副本。
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In our code example, we have three iterations of the loop and separate copies
-    of variable `i`, each limited to a particular iteration of the loop. Although
-    it seems that we have a single variable `i`, behind the scenes, each iteration
-    gets its own copy of the variable `i`.
+- en: 在我们的代码示例中，我们有三次循环迭代和`i`变量的独立副本，每个副本仅限于特定的循环迭代。尽管看似我们只有一个`i`变量，但在幕后，每次迭代都有自己的`i`变量副本。
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To understand how each iteration gets its own copy of variable `i`, the following
+- en: 'To understand how each iteration gets its own copy of variable `i`，the following
     steps explain how the above code is executed:'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Before the execution of the `for` loop starts, an environment object (let’s
-    call it `initEnv`) is created, and it contains the variables declared in the initialization
-    part of the `for` loop. In our case, we have only one variable, `i`, so the `initEnv`
-    environment object contains a copy of variable `i`. This environment object is
+- en: Before the execution of the `for` loop starts，an environment object (let’s call
+    it `initEnv`) is created，and it contains the variables declared in the initialization
+    part of the `for` loop. In our case，we have only one variable，`i`，so the `initEnv`
+    environment object contains a copy of variable `i`。This environment object is
     linked to the outer environment by saving a reference to the outer environment
-    in the `[[OuterEnv]]` internal slot. The outer environment, in this case, is the
+    in the `[[OuterEnv]]` internal slot. The outer environment，in this case，is the
     global environment.
+  id: totrans-124
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: To start the first iteration of the `for` loop, a new environment object is
-    created (let’s call it `iter1Env`). This environment object also gets the global
-    environment as its outer environment. The variable `i` is copied into this newly
-    created `iter1Env` object by copying it from the `initEnv` object (created in
-    step 1).
+- en: To start the first iteration of the `for` loop，a new environment object is created
+    (let’s call it `iter1Env`). This environment object also gets the global environment
+    as its outer environment. The variable `i` is copied into this newly created `iter1Env`
+    object by copying it from the `initEnv` object (created in step 1).
+  id: totrans-125
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: The loop condition `i <= 3` is `true`, so the body of the loop is executed as
+- en: The loop condition `i <= 3` is `true`，so the body of the loop is executed as
     part of the first iteration of the loop. The callback function for the `setTimeout`
-    is created, saving a reference to the environment object of the first loop iteration
+    is created，saving a reference to the environment object of the first loop iteration
     `iter1Env` (created in step 2) in the internal `[[Environment]]` slot of the callback
-    function. After that, the callback function is passed to the `setTimeout` function
+    function. After that，the callback function is passed to the `setTimeout` function
     as an argument to be executed later.
+  id: totrans-126
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The first iteration has been completed. The following image shows the linkage
     between different environments created so far:'
+  id: totrans-127
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '![closue in loop - iteration 1](images/module_05----lesson_05.03----public----assets----closure-loop-iter-1.png)'
+- en: '![`closue` in loop - iteration 1](images/module_05----lesson_05.03----public----assets----closure-loop-iter-1.png)'
+  id: totrans-128
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_IMG
-- en: closue in loop - iteration 1
+- en: '`closue` in loop - iteration 1'
+  id: totrans-129
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, to start the second iteration, a new environment object is created (let’s
+- en: Now，to start the second iteration，a new environment object is created (let’s
     call it `iter2Env`). The variable `i` is copied from the `initEnv` environment
-    object (created in step 1), but the value of `i` in `iter2Env` is the value of
+    object (created in step 1)，but the value of `i` in `iter2Env` is the value of
     `i` in `iter1Env` (created in step 2). The value of `i` in `iter2Env` is then
     incremented due to the increment part (`i++`) of the `for` loop.
+  id: totrans-130
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: As in the previous iteration, a new callback function is created, and the reference
+- en: As in the previous iteration，a new callback function is created，and the reference
     to the `iter2Env` is saved in its `[[Environment]]` internal slot. The callback
     function is then passed to the `setTimeout` function as an argument.
+  id: totrans-131
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: This process is repeated for the third and final iteration of the loop.
+  id: totrans-132
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following diagram shows how different environments are linked together
     after three iterations of the loop:'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![closue in loop - all iterations](images/module_05----lesson_05.03----public----assets----closure-loop-iter.png)'
+- en: '![`closue` in loop - all iterations](images/module_05----lesson_05.03----public----assets----closure-loop-iter.png)'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: closue in loop - all iterations
+- en: '`closue` in loop - all iterations'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Hopefully, the final diagram clarifies why using the `let` keyword solves the
     “closures in loop” problem. As each environment object created for each iteration
-    of the loop has its *separate* copy of the variable `i`, the closure of each callback
+    of the loop has its `separate` copy of the variable `i`, the closure of each callback
     created in different iterations of the loop forms a closure over a separate copy
     of the variable `i`. As a result, they log the value they have closed over, giving
-    us the expected output, i.e., `1 2 3`.
+    us the expected output, i.e., `1 2 3` .
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: With the recent additions to the JavaScript language, it is now possible to
     have [private fields and methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
     in JavaScript. However, before these changes were introduced in the language,
     closures were the go-to option for hiding data from public access. In object-oriented
     programming terminology, this is referred to as “data hiding” and “encapsulation”.
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Following is an example of how we can have private variables and methods using
     closures:'
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-139
   prefs: []
   type: TYPE_PRE
-- en: The code inside the IIFE is executed, and an object is returned from the IIFE
+  zh: '[PRE15]'
+- en: The code inside the`IIFE` is executed, and an object is returned from the`IIFE`
     that is assigned to the `bank` variable. The object returned only contains the
-    data that needs to be accessible from outside the IIFE. The code that is meant
+    data that needs to be accessible from outside the`IIFE` . The code that is meant
     to be private is not returned; as a result, that data remains private, limited
-    to the boundary walls of the IIFE. However, thanks to closures, publicly exposed
-    data that is returned from the IIFE can still access the private data inside the
-    IIFE.
+    to the boundary walls of the`IIFE` . However, thanks to closures, publicly exposed
+    data that is returned from the`IIFE` can still access the private data inside
+    the`IIFE` .
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Further reading
+  id: totrans-141
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Emulating private methods with closures - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#emulating_private_methods_with_closures)'
+  id: totrans-142
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL

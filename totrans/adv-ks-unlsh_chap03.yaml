@@ -1,789 +1,1097 @@
-- en: Coercion
+- en: '`Coercion`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Coercion in JavaScript is the conversion of one type of value into another type
-    of value.
+- en: '`Coercion` in JavaScript is the conversion of one type of value into another
+    type of value.'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[MDN defines coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
     as:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Type coercion is the automatic or implicit conversion of values from one data
-    type to another (such as strings to numbers).
+- en: '`Type coercion` is the automatic or implicit conversion of values from one
+    data type to another (such as strings to numbers).'
+  id: totrans-3
   prefs:
   - PREF_BQ
+  stylish: true
   type: TYPE_NORMAL
-- en: According to MDN’s definition, if the conversion of values is *implicit*, then
-    it is *coercion*, whereas *type conversion* can either be *implicit* or *explicit*.
+- en: According to MDN’s definition, if the conversion of values is `implicit`, then
+    it is `coercion`, whereas `type conversion` can either be `implicit` or `explicit`.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So, if the developer expresses the intention to convert one type of value into
-    another, it is just type conversion. The following code example is an example
-    of an *explicit* type conversion:'
+    another, it is just `type conversion`. The following code example is an example
+    of an `explicit` type conversion:'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
-- en: 'And if the type conversion is implicit, where the developer expressed no intention
-    to convert any value into another value, then it is implicit type conversion or
-    coercion. The following code is an example of coercion:'
+  zh: '[PRE0]'
+- en: 'And if the type conversion is `implicit`, where the developer expressed no
+    intention to convert any value into another value, then it is `implicit type conversion`
+    or `coercion`. The following code is an example of `coercion`:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Whenever JavaScript sees a value of one type in a context that expects a value
     of a different type, it tries to coerce or convert the value into the expected
     type. In the above code example, `"50"` is the unexpected value type because the
     operation is subtraction. The subtraction is between numbers, not between a string
     and a number. So `"50"`, being an unexpected value, gets converted into a number,
     i.e. `50`.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, some might argue that any type of conversion in a dynamically typed
-    language can be considered coercion. Moreover, the difference between *implicit*
-    and *explicit* type conversion depends on how one views *implicit* and *explicit*
+    language can be considered `coercion`. Moreover, the difference between `implicit`
+    and `explicit` type conversion depends on how one views `implicit` and `explicit`
     type conversion.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Having said that, what’s important is that we understand the process of type
-    conversion in JavaScript. The goal of this module is to help you understand how
-    JavaScript converts one type of value into another and make type conversion (implicit
-    or explicit) less scary.
+- en: Having said that, what’s important is that we understand the process of `type
+    conversion` in JavaScript. The goal of this module is to help you understand how
+    JavaScript converts one type of value into another and make `type conversion`
+    (implicit or explicit) less scary.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Coercion is one of those topics that many JavaScript developers generally misunderstand,
-    and this is because most online resources advise staying away from coercion and
-    presenting it as a topic that should be avoided instead of taking the time to
-    understand it and take advantage of it where possible.
+- en: '`Coercion` is one of those topics that many JavaScript developers generally
+    misunderstand, and this is because most online resources advise staying away from
+    `coercion` and presenting it as a topic that should be avoided instead of taking
+    the time to understand it and take advantage of it where possible.'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What makes coercion scary for many JavaScript developers, especially beginners,
-    is the need for more understanding of this topic. Coercion is presented as a feature
-    of JavaScript that is better avoided than understood.
+- en: What makes `coercion` scary for many JavaScript developers, especially beginners,
+    is the need for more understanding of this topic. `Coercion` is presented as a
+    feature of JavaScript that is better avoided than understood.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Coercion is one of the core topics of JavaScript, and its understanding is key
-    to understanding JavaScript in depth. No matter how many online resources tell
-    you to avoid this topic, it is unavoidable if you work with JavaScript. Instead
+- en: '`Coercion` is one of the core topics of JavaScript, and its understanding is
+    key to understanding JavaScript in depth. No matter how many online resources
+    tell you to avoid this topic, it is unavoidable if you work with JavaScript. Instead
     of avoiding it, why not make an effort to understand it? With this in mind, in
     this module, we will take a deeper look at this topic, and hopefully, by the end
-    of this module, you will have a solid understanding of type coercion.
+    of this module, you will have a solid understanding of `type coercion`.'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Coercion is one of the core topics of JavaScript, and its understanding is key
-    to understanding JavaScript in depth. No matter how many online resources tell
-    you to avoid this topic, it is unavoidable if you work with JavaScript. So, instead
-    of avoiding it, why not try to understand it? With this in mind, in this module,
-    we will take a deeper look at this topic, and hopefully, by the end of this module,
-    you will have a solid understanding of type coercion.
+- en: 强制类型转换是JavaScript的核心主题之一，其理解是深入理解JavaScript的关键。无论有多少在线资源告诉你避免这个主题，如果你使用JavaScript，这个主题是不可避免的。因此，与其避免它，不如试着去理解它？考虑到这一点，在本模块中，我们将更深入地探讨这个主题，希望到模块结束时，你能对类型强制转换有一个扎实的理解。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To understand coercion in-depth, we need to understand how JavaScript goes about
-    converting one value into another type of value. We need to understand what algorithms
-    or steps JavaScript takes to perform type conversion.
+- en: 要深入理解强制类型转换，我们需要了解JavaScript如何将一个值转换为另一种类型的值。我们需要理解JavaScript执行类型转换时所采取的算法或步骤。
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To deep dive into the world of coercion, let us understand the following:'
+- en: 为了深入了解强制类型转换，让我们理解以下内容：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Abstract operations
+- en: 抽象操作
+  id: totrans-18
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Abstract equality operator (==)
+- en: 抽象相等运算符（`==`）
+  id: totrans-19
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Addition operation (+)
+- en: 加法运算符（`+`）
+  id: totrans-20
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Relational operators (<, >, <=, >=)
+- en: 关系运算符（`<`，`>`，`<=`，`>=`）
+  id: totrans-21
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Understanding the above-mentioned topics will help us lay the foundation for
-    understanding the process of type conversion in JavaScript. So, without further
-    ado, let us begin by understanding the first item on our list, i.e., abstract
-    operations.
+- en: 理解上述主题将帮助我们奠定理解JavaScript中类型转换过程的基础。因此，事不宜迟，让我们开始理解我们列表中的第一个项目，即抽象操作。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The ECMAScript specification has documented several mechanisms that are used
-    by the JavaScript language to convert one type of value into another type of value.
-    These mechanisms are known as “**abstract operations**”; abstract in the sense
-    that these are not some real functions that can be referred to or called by the
-    JavaScript code; instead, they are just algorithmic steps internally used by the
-    language to perform type conversion.
+- en: ECMAScript规范记录了几种机制，JavaScript语言用于将一种类型的值转换为另一种类型的值。这些机制被称为“**抽象操作**”；抽象的意思是这些并不是可以被JavaScript代码引用或调用的真实函数；相反，它们只是语言内部用于执行类型转换的算法步骤。
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: These abstract operations are written in the specification as though they were
-    actual functions. For example, `operationName(arg1, arg2, ...)`, but the specification
-    clarifies that the abstract operations are algorithms rather than actual functions
-    that can be invoked.
+- en: 这些抽象操作在规范中写成似乎是实际函数的样子。例如，`operationName(arg1, arg2, ...)`，但规范明确指出，抽象操作是算法而不是可以被调用的实际函数。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'There are many [abstract operations](https://262.ecma-international.org/13.0/#sec-abstract-operations)
-    mentioned in the ECMAScript specification, but some of the common ones that come
-    into play when dealing with coercion are mentioned below:'
+- en: ECMAScript规范中提到了许多[抽象操作](https://262.ecma-international.org/13.0/#sec-abstract-operations)，但在处理强制转换时，以下一些常见操作也被提及：
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ToPrimitive
+- en: '`ToPrimitive`'
+  id: totrans-26
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: ToNumber
+- en: '`ToNumber`'
+  id: totrans-27
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: ToString
+- en: '`ToString`'
+  id: totrans-28
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: ToBoolean
+- en: '`ToBoolean`'
+  id: totrans-29
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Although the names of the above-mentioned abstract operations are self-descriptive,
-    let us understand how exactly they aid in type conversion.
+- en: 尽管上述提到的抽象操作名称自我描述，但让我们理解它们是如何在类型转换中发挥作用的。
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ToPrimitive
+- en: '`ToPrimitive`'
+  id: totrans-31
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The [ToPrimitive](https://262.ecma-international.org/13.0/#sec-toprimitive)
-    abstract operation is used to convert an object to a primitive value. This operation
-    takes two arguments:'
+- en: '`[ToPrimitive](https://262.ecma-international.org/13.0/#sec-toprimitive)`抽象操作用于将对象转换为原始值。该操作接受两个参数：'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`input`: an object that should be converted into a primitive value'
+- en: '`input`：一个应该被转换为原始值的对象'
+  id: totrans-33
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`preferredType`: an optional second argument that specifies the type that should
-    be favored when converting an object into a primitive value'
+- en: '`preferredType`：一个可选的第二个参数，指定在将对象转换为原始值时应优先考虑的类型'
+  id: totrans-34
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: OrdinaryToPrimitive
+- en: '`OrdinaryToPrimitive`'
+  id: totrans-35
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This operation invokes another abstract operation known as [OrdinaryToPrimitive](https://262.ecma-international.org/13.0/#sec-ordinarytoprimitive)
-    to do the actual conversion, and it also takes two arguments:'
+- en: 该操作调用另一个抽象操作，称为`OrdinaryToPrimitive`，以执行实际转换，并且它还接受两个参数：
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`O`: an object that should be converted into a primitive value'
+- en: '`O`：一个应该被转换为原始值的对象'
+  id: totrans-37
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`hint`: a type that should be favored when converting an object to a primitive
-    value'
+- en: '``hint``: a type that should be favored when converting an object to a primitive
+    value.'
+  id: totrans-38
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`ToPrimitive` abstract operation invokes the `OrdinaryToPrimitive` abstract
+- en: '``ToPrimitive`` abstract operation invokes the ``OrdinaryToPrimitive`` abstract
     operation, passing in the object, that is to be converted into a primitive value,
-    as the first argument, and the second argument hint is set based on the value
-    of `preferredType` argument as described below:'
+    as the first argument, and the second argument ``hint`` is set based on the value
+    of ``preferredType`` argument as described below:'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the `preferredType` is “string”, set `hint` to string
+- en: If the ``preferredType`` is “string”, set ``hint`` to string.
+  id: totrans-40
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the `preferredType` is a “number”, set `hint` to the number
+- en: If the ``preferredType`` is a “number”, set ``hint`` to the number.
+  id: totrans-41
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If `preferredType` is not specified, set `hint` to the number
+- en: If ``preferredType`` is not specified, set ``hint`` to the number.
+  id: totrans-42
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Each object in JavaScript inherits the following two methods from the object
-    that sits at the top of the inheritance hierarchy, i.e., the Object.prototype
+    that sits at the top of the inheritance hierarchy, i.e., the ``Object.prototype``
     object:'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`toString()`'
+- en: '``toString()``'
+  id: totrans-44
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`valueOf()`'
+- en: '``valueOf()``'
+  id: totrans-45
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: toString( )
+- en: '``toString()``'
+  id: totrans-46
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `toString` method is used to convert an object into its string representation.
-    The default behavior of the `toString` method is to convert objects in the following
+- en: 'The ``toString`` method is used to convert an object into its string representation.
+    The default behavior of the ``toString`` method is to convert objects in the following
     (not so-useful) form:'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Here’s the above code in action:'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example1”
     />
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As the default implementation of the `toString` method is not useful at all,
+- en: 'As the default implementation of the ``toString`` method is not useful at all,
     different objects override this method to make its output more useful. The built-in
-    `Date` object, for example, when converted to a string, outputs a human-readable
+    ``Date`` object, for example, when converted to a string, outputs a human-readable
     string representation of the date:'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Here’s the above code in action:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example2”
     />
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: valueOf( )
+- en: '``valueOf()``'
+  id: totrans-55
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
-- en: The `valueOf` method is used to convert an object into a primitive value. The
-    default implementation of this method, like the `toString` method, is useless,
+- en: The ``valueOf`` method is used to convert an object into a primitive value.
+    The default implementation of this method, like the ``toString`` method, is useless,
     as it just returns the object on which this method is called.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Here’s the above code in action:'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example3”
     />
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It is meant to be overridden by other objects. Many built-in objects override
-    this method. For example, for the `Date` objects, this method returns the number
+    this method. For example, for the ``Date`` objects, this method returns the number
     of milliseconds since midnight 01 January 1, 1970 UTC.
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'Here’s the above code in action:'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example4”
     />
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `OrdinaryToPrimitive` abstract operation invokes the `toString` and the
-    `valueOf` methods to convert an object into a primitive value. Among these two
-    methods, in some cases, only one of them is called; in other cases, both of them
-    are called.
+- en: The ``OrdinaryToPrimitive`` abstract operation invokes the ``toString`` and
+    the ``valueOf`` methods to convert an object into a primitive value. Among these
+    two methods, in some cases, only one of them is called; in other cases, both of
+    them are called.
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `hint` argument received by the `OrdinaryToPrimitive` abstract operation
+- en: The ``hint`` argument received by the ``OrdinaryToPrimitive`` abstract operation
     determines which of these two methods is called first.
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Prefer string
+- en: Prefer string.
+  id: totrans-66
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: If the `hint` argument is “string”, then the `OrdinaryToPrimitive` abstract
-    operation first invokes the `toString` method on the object. If the `toString`
-    method returns a primitive value, *even if that primitive value is not of the
-    string type*, then that primitive value is used as a primitive representation
+- en: If the ``hint`` argument is “string”, then the ``OrdinaryToPrimitive`` abstract
+    operation first invokes the ``toString`` method on the object. If the ``toString``
+    method returns a primitive value, ``even if that primitive value is not of the
+    string type``, then that primitive value is used as a primitive representation
     of the object.
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the `toString` method doesn’t exist or doesn’t return a primitive value,
     then the `valueOf` method is invoked. If the `valueOf` method returns a primitive
     value, then that value is used; otherwise, a `TypeError` is thrown, indicating
     that the object couldn’t be converted to a primitive value.
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 'Here’s the above code in action:'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example5”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example5”
+    />`'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the above code example, we have an object containing overridden implementations
     of the `toString` and the `valueOf` method. At the end of the code example, we
     are trying to log `obj`, embedded in a [template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals),
     to the console. In this case, the `obj` will be converted into a string.
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As discussed above, when the `hint` argument of the `OrdinaryToPrimitive` abstract
     operation is “string”, the `toString` method is invoked to convert an object into
     a primitive value, preferably into a value of string type.
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As the `toString` implementation of the `obj` object is returning a string primitive
     value, the `valueOf` method is not invoked, and the object-to-primitive conversion
     process for the `obj` object is complete at this point. The primitive value returned
     by the `toString` method of the `obj` object is used by the template literal.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'But it was mentioned above that the value returned by the `toString` method
     can be of non-string primitive type. The following code example verifies this
     claim:'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Here’s the above code in action:'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example6”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example6”
+    />`'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `toString` method in the above code example returns a boolean (non-string)
     primitive value. Instead of invoking the `valueOf` method or converting the non-string
     return value of the `toString` method into a string value, the boolean value is
     accepted as the primitive representation of the `obj` object.
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The next case we need to verify is what happens if the `toString` method doesn’t
     return a primitive value. The following code example demonstrates this case:'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: 'Here’s the above code in action:'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example7”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example7”
+    />`'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As explained earlier, if the `toString` method doesn’t return a primitive value,
     the `valueOf` method will be invoked to get a primitive representation of the
     object. In the code example above, the `toString` method returns an empty array
     of an object type; as a result, the `valueOf` method is invoked.
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The `valueOf` method is invoked even if the `toString` is not defined for an
     object. The following code example shows this behavior:'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: 'Here’s the above code in action:'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example8”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example8”
+    />`'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The last case we need to verify is what happens when JavaScript can’t get a
     primitive value, even after invoking the `toString` and the `valueOf` method.
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'Here’s the above code in action:'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example9”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/abstract-operations-example9"
+    />`'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When JavaScript can’t get a primitive value after invoking both methods, a `TypeError`
-    is thrown, indicating that the object couldn’t be converted into a primitive value.
-    So, it is important to remember when overriding these methods that at least one
-    of them should return a primitive value.
+- en: 当JavaScript在调用了两个方法后仍无法获取原始值时，会抛出`TypeError`，指示对象无法转换为原始值。因此，重要的是要记住在重写这些方法时，至少其中一个方法应返回一个原始值。
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We have discussed what happens when the preferred type is a string in the object-to-primitive
-    conversion process. Next, let’s discuss what happens when the preferred type is
-    a number.
+- en: 我们已经讨论了当首选类型为字符串时在对象到原始值转换过程中的情况。接下来，让我们讨论当首选类型为数字时会发生什么。
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Prefer number
+- en: 优先考虑数字
+  id: totrans-95
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: If the hint argument is “number”, then the `OrdinaryToPrimitive` abstract operation
-    first invokes the `valueOf` method and then the `toString` method, if needed.
+- en: 如果提示参数为“number”，那么`OrdinaryToPrimitive`抽象操作会首先调用`valueOf`方法，然后在需要时调用`toString`方法。
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This is similar to the “prefer string” case discussed above, except that the
-    order in which the `valueOf` and the `toString` methods are invoked is the opposite.
+- en: 这类似于上面讨论的“优先考虑字符串”案例，不同之处在于调用`valueOf`和`toString`方法的顺序是相反的。
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the above code in action:'
+  zh: '[PRE11]'
+- en: 下面是上述代码的实际运行：
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example10”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/abstract-operations-example10"
+    />`'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This code example above is the same as the one shown in the section above, except
-    that instead of embedding `obj` in a template literal and logging it to the console,
-    we are adding 1 to `obj`. We are using `obj` as if it were a number.
+- en: 上面的代码示例与上面部分中显示的示例相同，除了我们不是将`obj`嵌入模板字面量并记录到控制台，而是将1加到`obj`。我们将`obj`视为数字。
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So when JavaScript gets an object in a context where it expects a number, it
-    tries to coerce the object into a primitive type, preferably into a number type.
+- en: 因此，当JavaScript在期望数字的上下文中获取对象时，它会尝试将对象强制转换为原始类型，优先转换为数字类型。
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this case, the `hint` argument passed to the `OrdinaryToPrimitive` abstract
-    operation is “number”; as a result, the `valueOf` method is invoked first. Since
-    it returned a primitive value, there is no need to invoke the `toString` method.
+- en: 在这种情况下，传递给`OrdinaryToPrimitive`抽象操作的`hint`参数是“number”；因此，首先调用`valueOf`方法。由于它返回了一个原始值，因此无需调用`toString`方法。
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rest of the cases are the same as discussed in the “prefer string” section.
-    The only difference is that the `valueOf` method is invoked first when the preferred
-    type is “number”.
+- en: 剩下的情况与“优先考虑字符串”部分中讨论的相同。唯一的区别是，当首选类型为“number”时，首先调用`valueOf`方法。
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What will happen if the `valueOf` method returns a boolean value? It is a primitive
-    value. It is not a number but still a primitive value. So JavaScript should accept
-    it as a primitive representation of the `obj` object, right?
+- en: 如果`valueOf`方法返回布尔值，会发生什么？这是一个原始值。它不是数字，但仍然是一个原始值。因此，JavaScript应该将其视为`obj`对象的原始表示，对吗？
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Consider the following code example:'
+- en: 考虑以下代码示例：
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-107
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the above code in action:'
+  zh: '[PRE12]'
+- en: 下面是上述代码的实际运行：
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example11”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/abstract-operations-example11"
+    />`'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Why did we get two as an output? The answer is that `true` is accepted as a
-    primitive representation of the `obj` object, but we cannot add `true` and `1`.
-    JavaScript expects a number in this context. So, it tries to coerce `true` into
-    the expected type of value, which in this case is `1`. If the `valueOf` method
-    had returned `false`, it would have been coerced to `0`.
+- en: 我们为什么会得到2作为输出？答案是`true`被视为`obj`对象的原始表示，但我们无法将`true`与`1`相加。JavaScript在这个上下文中期望的是一个数字。因此，它会尝试将`true`强制转换为期望的值类型，在这种情况下为`1`。如果`valueOf`方法返回`false`，它将被强制转换为`0`。
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: No preference
+- en: 无偏好
+  id: totrans-111
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: When the `ToPrimitive` abstract operation is called without the preferred type
-    or hint, or if the hint is set to “default”, then this operation generally behaves
-    as if the hint were “number”. So, by default, the `ToPrimitive` prefers the conversion
-    to number type.
+- en: 当调用`ToPrimitive`抽象操作而没有指定首选类型或提示，或者如果提示被设置为“default”，那么该操作通常表现得好像提示是“number”。因此，默认情况下，`ToPrimitive`更倾向于转换为数字类型。
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, the objects can override this default `ToPrimitive` behavior by implementing
-    the [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
-    function. This function is passed a preferred type as an argument, and it returns
-    the primitive representation of the object.
+- en: 然而，对象可以通过实现[`Symbol.toPrimitive`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)函数来覆盖这种默认的`ToPrimitive`行为。该函数接受一个首选类型作为参数，并返回对象的原始表示。
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the above code in action:'
+  zh: '[PRE13]'
+- en: 以上代码的实际效果如下：
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example12”
     />
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Out of the built-in objects, only the `Date` and `Symbol` objects override the
-    default behavior of the `ToPrimitive` abstract operation. The `Date` objects implement
-    the default behavior as if the preferred type or hint is “string.”
+- en: 在内置对象中，只有`Date`和`Symbol`对象覆盖了`ToPrimitive`抽象操作的默认行为。`Date`对象将默认行为实现为首选类型或提示为“string”时的效果。
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the above code in action:'
+  zh: '[PRE14]'
+- en: 以上代码的实际效果如下：
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example13”
     />
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: :::note
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We rarely need to call the `Symbol.toPrimitive` function explicitly. JavaScript
-    calls this function automatically when it needs to convert an object into a primitive
-    value.
+- en: 我们很少需要显式调用`Symbol.toPrimitive`函数。JavaScript在需要将对象转换为原始值时会自动调用此函数。
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: ':::'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `ToPrimitive` abstract operation is summarized in the image below:'
+- en: '`ToPrimitive`抽象操作在下面的图像中进行了总结：'
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![Object to primitive conversion summarized](images/module_04----lesson_04.03----public----assets----ToPrimitive.png)'
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Object to primitive conversion summarized
+- en: 对象到原始值转换的总结
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ToNumber
+- en: '`ToNumber`'
+  id: totrans-127
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The [ToNumber](https://262.ecma-international.org/13.0/#sec-tonumber) abstract
-    operation is used whenever JavaScript needs to convert any non-number value into
-    a number.
+- en: '[`ToNumber`](https://262.ecma-international.org/13.0/#sec-tonumber)抽象操作在JavaScript需要将任何非数字值转换为数字时使用。'
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following table shows the results of this abstract operation applied to
-    some non-number values:'
+- en: 以下表格显示了此抽象操作应用于一些非数字值的结果：
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Value | ToNumber(value) |'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ”” | 0 |'
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| “0” | 0 |'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| “-0” | -0 |'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ” 123 “ | 123 |'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| “45” | 45 |'
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| “abc” | NaN |'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| false | 0 |'
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| true | 1 |'
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| undefined | NaN |'
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| null | 0 |'
+  id: totrans-141
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: As far as objects are concerned, the `ToNumber` abstract operation first converts
-    the object into a primitive value using the `ToPrimitive` abstract operation with
-    “number” as the preferred type, and then the resulting value is converted into
-    a number.
+- en: 就对象而言，`ToNumber`抽象操作首先使用`ToPrimitive`抽象操作将对象转换为原始值，首选类型为“number”，然后将结果值转换为数字。
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
-    values allow *explicit* conversion into a number type, but the *implicit* conversion
-    is not allowed; implicit conversion throws a `TypeError`.
+- en: '[`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)值允许*显式*转换为数字类型，但*隐式*转换是不允许的；隐式转换会抛出`TypeError`。'
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-144
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the above code in action:'
+  zh: '[PRE15]'
+- en: 以上代码的实际效果如下：
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-operations-example14”
     />
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ToString
+- en: '`ToString`'
+  id: totrans-147
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The [ToString](https://262.ecma-international.org/13.0/#sec-tostring) abstract
-    operation is used to convert any value into a string.
+- en: '[`ToString`](https://262.ecma-international.org/13.0/#sec-tostring)抽象操作用于将任何值转换为字符串。'
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following table shows the results of this abstract operation applied to
-    some non-string values:'
+- en: 以下表格显示了此抽象操作应用于一些非字符串值的结果：
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Value | ToNumber(value) |'
+  id: totrans-150
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| null | “null” |'
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| undefined | “undefined” |'
+  id: totrans-153
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 0 | “0” |'
+  id: totrans-154
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| -0 | “0” |'
+  id: totrans-155
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| true | “true” |'
+  id: totrans-156
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| false | “false” |'
+  id: totrans-157
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 123 | “123” |'
+  id: totrans-158
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| NaN | “NaN” |'
+  id: totrans-159
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: In the case of objects, the `ToString` abstract operation first converts the
-    object into a primitive value using the `ToPrimitive` abstract operation with
-    “string” as the preferred type, and then the resulting value is converted into
-    a string.
+- en: 在对象的情况下，`ToString`抽象操作首先使用`ToPrimitive`抽象操作将对象转换为原始值，首选类型为“string”，然后将结果值转换为字符串。
+  id: totrans-160
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ToBoolean
+- en: '`ToBoolean`'
+  id: totrans-161
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: The [ToBoolean](https://262.ecma-international.org/13.0/#sec-toboolean) abstract
     operation is used to convert a value into a boolean value.
+  id: totrans-162
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Unlike the above-mentioned abstract operations, this operation is simply a lookup
     of whether a value is a [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy)
     value. If it is, we get `false` as a return value; for all other values, this
     operation returns `true`.
+  id: totrans-163
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following is a list of falsy values:'
+  id: totrans-164
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'false'
+- en: '`false`'
+  id: totrans-165
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 0, -0, 0n
+- en: '`0`, `-0`, `0n`'
+  id: totrans-166
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: undefined
+- en: '`undefined`'
+  id: totrans-167
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'null'
+- en: '`null`'
+  id: totrans-168
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: NaN
+- en: '`NaN`'
+  id: totrans-169
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: ””
+- en: '`""`'
+  id: totrans-170
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: As mentioned earlier, there are many [abstract operations](https://262.ecma-international.org/13.0/#sec-abstract-operations)
     mentioned in the ECMAScript specification that are used for type conversion; in
     this lesson, we have only discussed the common ones.
+  id: totrans-171
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Further reading
+  id: totrans-172
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Number coercion - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number#number_coercion)'
+  id: totrans-173
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[String coercion - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#string_coercion)'
+  id: totrans-174
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Boolean coercion - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean#boolean_coercion)'
+  id: totrans-175
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Coercing values - (You Don’t Know JS Yet )](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/types-grammar/ch4.md)'
+  id: totrans-176
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s discuss the infamous “double equal” operator that is used for *loosely*
-    comparing two values. It is also known as the “abstract equality” operator.
+- en: Let’s discuss the infamous `double equal` operator that is used for `loosely`
+    comparing two values. It is also known as the `abstract equality` operator.
+  id: totrans-177
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This operator is infamous because many resources online, and JavaScript developers,
-    in general, discourage its use because of its coercive behavior.Instead of blindly
-    ignoring the double equality operator, we should try to understand how it behaves,
+    in general, discourage its use because of its coercive behavior. Instead of blindly
+    ignoring the `double equality` operator, we should try to understand how it behaves,
     and then we can decide for ourselves whether we want to not use it at all in our
     code or use it where it is safe to use.
+  id: totrans-178
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Despite what you hear about his operator, it behaves according to some predefined
+- en: Despite what you hear about this operator, it behaves according to some predefined
     algorithmic steps, and if we understand how it works, this operator won’t scare
     us, and we might even prefer this operator in some cases over its cousin, the
-    strict equality operator (===).
+    strict equality operator (`===`).
+  id: totrans-179
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When two values are compared using the double equals operator, the steps taken
+- en: When two values are compared using the `double equals` operator, the steps taken
     by JavaScript to compare the two values are described by an abstract operation
     known as [IsLooselyEqual](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal).
+  id: totrans-180
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Summary of abstract equality operator
+  id: totrans-181
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The working of the double equals operator is roughly summarized in the steps
+- en: 'The working of the `double equals` operator is roughly summarized in the steps
     below:'
+  id: totrans-182
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the values being compared are of the same type, then perform the [strict
     equality comparison](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-isstrictlyequal).
+  id: totrans-183
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If one value is `undefined` or `null` and the other value is also `undefined`
     or `null`, return true.
+  id: totrans-184
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If one or both values are objects, they are converted into primitive types,
     preferring the number type.
+  id: totrans-185
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If both values are primitives but are of different types, convert the types
     until they match, preferring the number type for coercing values.
+  id: totrans-186
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Delegating to strict equality comparison
+  id: totrans-187
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: Think about the first point mentioned above. If the types of values being compared
     using this operator are the same, under the hood, the two values get compared
@@ -791,71 +1099,105 @@
     the same type of values will get compared in some piece of code, it doesn’t make
     any difference whether we use the double equals or the triple equals operator;
     in this case, we will always have the strict equality operator.
+  id: totrans-188
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: null vs undefined
+- en: '`null` vs `undefined`'
+  id: totrans-189
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: The second point is also worth pondering over. Unlike the strict equality operator,
     the abstract or loose equality operator considers `null == undefined` comparison
     to be true.
+  id: totrans-190
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-191
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: 'You can see the code above in action below:'
+  id: totrans-192
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-equality-operator-example1”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-equality-operator-example1”
+    />`'
+  id: totrans-193
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The fact that `null` and `undefined` are equal to each other according to the
     abstract equality operator makes for an interesting use case of the abstract equality
     operator. When writing JavaScript code, it is common to check if a value is neither
     `null` nor `undefined`.
+  id: totrans-194
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'With the strict equality operator, we will have a check that looks something
     like the following:'
+  id: totrans-195
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-196
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: 'Whereas with the abstract equality operator, we can shorten this check to just
     one condition:'
+  id: totrans-197
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE18]'
+  id: totrans-198
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Considering how often we need to guard against `null` and `undefined` in our
     JavaScript code, I feel the abstract equality operator is ideal for this case.
     Having said that, you won’t be wrong if you use the strict equality operator in
     this case.
+  id: totrans-199
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: “if” conditions
+  id: totrans-200
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Although the coercive behavior of the abstract equality operator is predictable,
     as explained above, people often fall into a trap because of how they use this
     operator in the `if` statement conditions. Consider the following code example:'
+  id: totrans-201
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE19]'
+  id: totrans-202
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: 'You can see the code above in action below:'
+  id: totrans-203
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-equality-operator-example4”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/abstract-equality-operator-example4”
+    />`'
+  id: totrans-204
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We know from an earlier lesson that objects are [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
     values. So, in the above code example, it seems reasonable to assume that the
@@ -863,259 +1205,309 @@
     block. But, if you execute the above code, you might be surprised to know that
     instead of the `if` block, the `else` would execute because the `someVal == true`
     check would evaluate to `false`.
+  id: totrans-205
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If either operand of the abstract equality operator is a boolean value, it
     is first converted to a number - `false` into `0` and `true` into `1`. So the
     `if` condition in the above code example would be evaluated as follows:'
+  id: totrans-206
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'One operand is an object, and the other one is a boolean, so according to **step
-    10** of the [isLooselyEqual](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal)
+- en: 'One operand is an object, and the other one is a boolean, so according to `step
+    10` of the [isLooselyEqual](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal)
     abstract operation, if one operand is a boolean value, convert it into a number
     using the `ToNumber` abstract operation. So our condition would become:'
+  id: totrans-207
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE20]'
+  id: totrans-208
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'After coercing a boolean value into a number, we have a comparison between
-    an object and a number. According to **step 12** of the `isLooselyEqual` abstract
-    operation, the object `someVal` would be converted into a primitive value using
-    the `ToPrimitive` abstract operation, passing “number” as the preferred type.
-    The default primitive representation of object literals is `"[object Object]"`,
-    so our condition after coercion would become: `js "[object Object]" == 1;`'
+  zh: '[PRE20]'
+- en: 在将布尔值转换为数字后，我们有一个对象与数字之间的比较。根据`isLooselyEqual`抽象操作的**第12步**，对象`someVal`将使用`ToPrimitive`抽象操作转换为原始值，优先类型为“数字”。对象字面量的默认原始表示为`"[object
+    Object]"`，因此经过强制转换后的条件将变为：`js "[object Object]" == 1;`
+  id: totrans-209
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now, we have a comparison between a string and a number. According to **step
-    6** of the `isLooselyEqual` abstract operation, if one operand is a string and
-    the other one is a number, convert a string into a number. Converting `"[object
-    Object]"` into a number will give us [NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN).
-    So our condition would become:'
+- en: 现在，我们有一个字符串与数字之间的比较。根据`isLooselyEqual`抽象操作的**第6步**，如果一个操作数是字符串，另一个是数字，则将字符串转换为数字。将`"[object
+    Object]"`转换为数字将给我们`[NaN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN)`。所以我们的条件将变为：
+  id: totrans-210
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE21]'
+  id: totrans-211
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: After coercing three times, we have a comparison between a `NaN` value and a
-    number. They are not equal to each other. *(`NaN` value is not equal to any other
-    value, including itself.)*. So our condition fails to evaluate as `true`.
+  zh: '[PRE21]'
+- en: 在进行三次强制转换后，我们有一个`NaN`值与一个数字之间的比较。它们彼此不相等。(`NaN`值与任何其他值（包括它自身）都不相等。)因此我们的条件未能评估为`true`。
+  id: totrans-212
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: The purpose of the above discussion is to understand that checking if a value
-    is `true` or `false` using the abstract equality operator doesn’t always work
-    as one might expect. It is easy to blame the abstract equality operator in such
-    cases. Still, the fact is that those who write such code need help understanding
-    or remembering how the abstract equality operator works.
+- en: 上述讨论的目的在于理解，使用抽象相等运算符检查一个值是`true`还是`false`并不总是如预期那样有效。在这种情况下，很容易指责抽象相等运算符。但事实是，编写这种代码的人需要帮助，以理解或记住抽象相等运算符的工作原理。
+  id: totrans-213
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In such cases where we want to check if a value is truthy or falsy, instead
-    of using the abstract equality operator, it is enough to take advantage of the
-    coercive behavior of the `if` statement. What I mean is that the `if` condition
-    in the above code should be written as:'
+- en: 在这种情况下，如果我们想要检查一个值是真值还是假值，不需要使用抽象相等运算符，利用`if`语句的强制行为就足够了。我所说的是，上述代码中的`if`条件应该写为：
+  id: totrans-214
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE22]'
+  id: totrans-215
   prefs: []
   type: TYPE_PRE
-- en: With the above condition, we will get the expected result because `someVal`
-    will be checked if it is a truthy value; if it is, the condition will evaluate
-    to true, leading to the execution of the `if` block.
+  zh: '[PRE22]'
+- en: 在上述条件下，我们将获得预期结果，因为`someVal`会被检查是否为真值；如果是，条件将评估为真，从而执行`if`块。
+  id: totrans-216
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So, as a piece of advice, avoid checks such as `someVal == true`, where one
-    operand is a boolean value. In such cases, take advantage of the implicit coercive
-    nature of the `if` statement, which will check if the value is a valid value or
-    not.
+- en: 所以，作为建议，避免进行如`someVal == true`的检查，其中一个操作数是布尔值。在这种情况下，利用`if`语句的隐式强制特性将检查值是否有效。
+  id: totrans-217
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Further reading
+- en: 深入阅读
+  id: totrans-218
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Boolean gotcha - You Don’t Know JS Yet](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/types-grammar/ch4.md#-boolean-gotcha)'
+- en: '[布尔陷阱 - 你还不知道JS](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/types-grammar/ch4.md#-boolean-gotcha)'
+  id: totrans-219
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Runtime semantics of “if” statement (ECMAScript specification)](https://tc39.es/ecma262/multipage/ecmascript-language-statements-and-declarations.html#sec-if-statement)'
+- en: '[“if”语句的运行时语义（ECMAScript规范）](https://tc39.es/ecma262/multipage/ecmascript-language-statements-and-declarations.html#sec-if-statement)'
+  id: totrans-220
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Addition Operator
+- en: 加法运算符
+  id: totrans-221
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The addition operator can be used to perform the addition of two numbers, or
-    it can be used to join two strings, also known as string concatenation.
+- en: 加法运算符可以用来对两个数字进行加法运算，也可以用来连接两个字符串，这被称为字符串连接。
+  id: totrans-222
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The working of this operator is based on the [ApplyStringOrNumericBinaryOperator](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator).
-    The way this works is that if any or both operands are non-primitive values, they
-    are converted into primitive values using the `ToPrimitive` abstract operation,
-    and no preferred type is specified. As a result, the “number” is the preferred
-    type in this case because that is the default behavior of the `ToPrimitive` abstract
-    operation.
+- en: 该运算符的工作原理基于[ApplyStringOrNumericBinaryOperator](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator)。其工作方式是，如果任一或两个操作数是非原始值，则使用`ToPrimitive`抽象操作将它们转换为原始值，并且未指定首选类型。因此，“number”在这种情况下是首选类型，因为这是`ToPrimitive`抽象操作的默认行为。
+  id: totrans-223
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: After checking for non-primitive operands and coercing them, if any, into primitive
-    values, the next step is to check if either or both operands are strings. If that’s
-    the case, then the non-string operands, if any, are coerced into strings, and
-    string concatenation is performed.
+- en: 在检查非原始操作数并将它们（如果有的话）强制转换为原始值后，下一步是检查一个或两个操作数是否为字符串。如果是这种情况，则将非字符串操作数（如果有的话）强制转换为字符串，并执行字符串连接。
+  id: totrans-224
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If neither operand is a string, then the addition is performed after coercing
-    non-number operands into numbers.
+- en: 如果两个操作数都不是字符串，则在将非数字操作数强制转换为数字后执行加法。
+  id: totrans-225
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Relational operators
+- en: 关系运算符
+  id: totrans-226
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The relational operators (<, >, <=, >=) are used to compare both strings and
-    numbers. The abstract operation invoked in the case of relational operators is
-    [IsLessThan](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islessthan)
-    abstract operation. Despite its name, this operation handles “<=”, “>”, and “>=”
-    comparisons as well.
+- en: 关系运算符（`<`，`>`，`<=`，`>=`）用于比较字符串和数字。在关系运算符的情况下调用的抽象操作是[IsLessThan](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islessthan)抽象操作。尽管其名称如此，但该操作也处理“<=”、“>”和“>=”比较。
+  id: totrans-227
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If either operand is an object, it is converted into a primitive value with
-    “number” as the preferred type. If both operands are strings, then they are compared
-    using their Unicode code points. If not strings, then the operands are generally
-    converted into numbers and then compared.
+- en: 如果任一操作数是对象，则将其转换为原始值，首选类型为“number”。如果两个操作数都是字符串，则使用它们的Unicode码点进行比较。如果不是字符串，则操作数通常会转换为数字，然后进行比较。
+  id: totrans-228
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We can also compare date objects using relational operators. Recall that the
-    `Date` objects are converted into strings when converted into primitive values
-    using the `ToPrimitive` operation with no preferred type, but in the case of relational
-    operators, `Date` objects, when converted into primitives, result in a number
-    representation of the `Date` objects because in the case of relational operators,
-    `ToPrimitive` abstract operation is passed “number” as the preferred type.
+- en: 我们还可以使用关系运算符比较`Date`对象。请记住，当使用`ToPrimitive`操作将`Date`对象转换为原始值时，它们会被转换为字符串，但在关系运算符的情况下，`Date`对象在转换为原始值时会以数字表示，因为在关系运算符的情况下，`ToPrimitive`抽象操作被传递了“number”作为首选类型。
+  id: totrans-229
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE23]'
+  id: totrans-230
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the above code in action:'
+  zh: '[PRE23]'
+- en: 这是上述代码的实际效果的Replit：
+  id: totrans-231
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/relational-operators-example1”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/relational-operators-example1"
+    />`'
+  id: totrans-232
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we have had a deeper look at coercion and how some of the common abstract
-    operations work to make coercion work, let us test what we learned in this module.
-    This following exercise will allow us to consolidate our understanding of the
-    topic of coercion.
+- en: 现在我们已经更深入地了解了强制转换以及一些常见抽象操作如何工作以使强制转换生效，让我们测试一下我们在本模块中所学到的知识。以下练习将使我们巩固对强制转换主题的理解。
+  id: totrans-233
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Following are some expressions that involve coercion. Try to guess the output
-    based on the knowledge you gained in this module. Don’t worry if you don’t understand
-    all of them. Their explanation is also given below. You can obviously refer to
-    the specification and the earlier lessons in this module to understand and guess
-    the output of the expressions below.
+- en: 以下是一些涉及强制转换的表达式。根据您在本模块中获得的知识，尝试猜测输出。如果您不理解所有内容，请不要担心。它们的解释也在下面提供。您显然可以参考规范以及本模块中的早期课程，以理解和猜测下面表达式的输出。
+  id: totrans-234
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE24]'
+  id: totrans-235
   prefs: []
   type: TYPE_PRE
-- en: Below is an explanation of the output of each of the above-mentioned expressions.
+  zh: '[PRE24]'
+- en: 下面是对上述每个表达式输出的解释。
+  id: totrans-236
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`0 == false`'
+  id: totrans-237
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s start with an easy one, and most people will probably get it right, even
     without reading this module. Now that we know how the abstract equality operator
     works let us understand the steps taken to evaluate this expression as `true`.
+  id: totrans-238
   prefs: []
-  type: TYPE_NORMAL
-- en: 'As the types are not equal and one of the operands is a boolean, the boolean
-    operand is converted into a number using the [ToNumber](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-tonumber)
-    abstract operation. So, the first coercive step is to convert `false` into a number,
-    i.e., `0`. The expression becomes:'
-  prefs:
-  - PREF_OL
-  type: TYPE_NORMAL
-- en: '[PRE25]'
-  prefs:
-  - PREF_IND
-  type: TYPE_PRE
-- en: Now the types are equal, so the strict equality comparison is performed, i.e.,
-    `0 === 0`, giving us `true` as an output.
-  prefs:
-  - PREF_OL
-  type: TYPE_NORMAL
-- en: '`"" == false`'
-  prefs:
-  - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'As the types are not equal and one of the operands is a boolean, the boolean
     operand is converted into a number using the `ToNumber` abstract operation. So,
     the first coercive step is to convert `false` into a number, i.e., `0`. The expression
     becomes:'
+  id: totrans-239
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[PRE26]'
+- en: '[PRE25]'
+  id: totrans-240
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE25]'
+- en: Now the types are equal, so the strict equality comparison is performed, i.e.,
+    `0 === 0`, giving us `true` as an output.
+  id: totrans-241
+  prefs:
+  - PREF_OL
+  stylish: true
+  type: TYPE_NORMAL
+- en: '`"" == false`'
+  id: totrans-242
+  prefs:
+  - PREF_H4
+  stylish: true
+  type: TYPE_NORMAL
+- en: 'As the types are not equal and one of the operands is a boolean, the boolean
+    operand is converted into a number using the `ToNumber` abstract operation. So,
+    the first coercive step is to convert `false` into a number, i.e., `0`. The expression
+    becomes:'
+  id: totrans-243
+  prefs:
+  - PREF_OL
+  stylish: true
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  id: totrans-244
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+  zh: '[PRE26]'
 - en: 'Now, we have a string and a number. Recall that the abstract equality operator
     prefers number comparison, so the string operand is converted into a number using
     the `ToNumber` abstract operation. An empty string, when converted into a number,
     outputs `0`. So the expression becomes:'
+  id: totrans-245
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE27]'
+  id: totrans-246
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: The types are equal, so the strict equality comparison is performed, i.e., `0
     === 0`, giving us `true` as an output.
+  id: totrans-247
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`0 == []`'
+  id: totrans-248
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The array is converted into a primitive value using the `ToPrimitive` abstract
     operation. As the abstract equality operator prefers number comparison, the array
     is converted into a primitive value with a number as the preferred type. An empty
     array, when converted into a primitive value, outputs an empty string. So the
     expression becomes:'
+  id: totrans-249
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE28]'
+  id: totrans-250
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: 'Next, the string will be converted into a number. An empty string converted
     into a number outputs `0`. So the expression becomes:'
+  id: totrans-251
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE29]'
+  id: totrans-252
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: The types are equal, so the strict equality comparison is performed, i.e., `0
     === 0`, giving us `true` as an output.
+  id: totrans-253
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`[123] == 123`'
+  id: totrans-254
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: We have a comparison between an array and a number. So, the array is converted
     into a primitive value using the `ToPrimitive` abstract operation, with number
@@ -1126,175 +1518,214 @@
     arrays; for an array like `[1, 2, 3]`, it returns the contents of the array as
     a string, joined by commas, i.e., `"1,2,3"`. Each array element is coerced into
     a string and then joined by comma(s).
+  id: totrans-255
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In our case, we have a single element in an array, i.e., `[123]`, so it will
     be coerced into `"123"`. So the expression becomes:'
+  id: totrans-256
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE30]'
+  id: totrans-257
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: 'Next, the string will be converted into a number. So the expression becomes:'
+  id: totrans-258
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE31]'
+  id: totrans-259
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: The types are equal, so the strict equality comparison is performed, i.e., `123
     === 123`, giving us `true` as an output.
+  id: totrans-260
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::info Weird fact about array conversion into a primitive value: an array
-    containing `null` or `undefined` is coerced into an empty string, i.e., `[null]`
-    —> `""` and `[undefined]` —> `""`. Similarly, an array containing both of them
-    is coerced into a string containing a single comma, i.e., `[null, undefined]`
-    —> `","`. Why don’t we get `"null"`, `"undefined"`, and `"null,undefined"` for
-    such arrays, respectively? This is just one of the corner cases of coercion. :::'
+- en: ':::info 关于数组转换为原始值的奇怪事实：包含`null`或`undefined`的数组会被强制转换为一个空字符串，即`[null]` —> `""`
+    和 `[undefined]` —> `""`。类似地，包含两者的数组会被强制转换为包含单个逗号的字符串，即`[null, undefined]` —> `","`。为什么我们不会得到`"null"`、`"undefined"`和`"null,undefined"`这样的数组呢？这只是强制转换的一个边缘情况。:::'
+  id: totrans-261
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`[1] < [2]`'
+  id: totrans-262
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This is a comparison between two objects. Both arrays are converted into primitive
-    values using the `ToPrimitive` abstract operation, with number as the preferred
-    type. As explained in the previous example, the `toString` will eventually be
-    called to convert both arrays into primitive values, giving us `"1"` and `"2"`
-    as output, respectively. So the expression becomes:'
+- en: 这是两个对象之间的比较。两个数组都使用`ToPrimitive`抽象操作被转换为原始值，以数字为首选类型。如前面的示例所述，`toString`最终会被调用，将两个数组转换为原始值，分别输出为`"1"`和`"2"`。因此表达式变为：
+  id: totrans-263
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE32]'
+  id: totrans-264
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Now, we have two strings. The types are equal, so the strict equality comparison
-    is performed, i.e., `"1" < "2"`, giving us `true` as an output because the strings
-    are compared using their Unicode code points.
+  zh: '[PRE32]'
+- en: 现在，我们有两个字符串。类型相等，因此执行严格相等比较，即`"1" < "2"`，输出结果为`true`，因为字符串是根据它们的Unicode代码点进行比较的。
+  id: totrans-265
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`[] == ![]`'
+  id: totrans-266
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In this comparison, we have two operators: the abstract equality operator and
-    the [Not (!)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT)
-    operator. The Not operator has a higher [precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
-    than the equality operator, so the sub-expression `![]` is evaluated first.'
+- en: 在这个比较中，我们有两个运算符：抽象相等运算符和[Not (!)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT)运算符。Not运算符的优先级高于相等运算符，因此子表达式`![]`会被首先计算。
+  id: totrans-267
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The Not operator converts true into false, and vice versa. But here it is used
-    with a non-boolean value. So what happens when JavaScript sees a value of one
-    type in a context where it expects a value of a different type? Coercion! So `[]`
-    will be coerced into a boolean value, as boolean is the expected type, using the
-    `ToBoolean` abstract operation. As `[]` is a truthy value, it is coerced into
-    `true` and then the Not operator negates it, converting `true` into `false`. So
-    the expression becomes:'
+- en: Not运算符将`true`转换为`false`，反之亦然。但在这里它与非布尔值一起使用。那么，当JavaScript在期望不同类型值的上下文中看到某个类型的值时会发生什么？强制转换！所以`[]`会被强制转换为布尔值，因为布尔值是期望的类型，使用`ToBoolean`抽象操作。由于`[]`是一个真值，它被强制转换为`true`，然后Not运算符否定它，将`true`转换为`false`。因此表达式变为：
+  id: totrans-268
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE33]'
+  id: totrans-269
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'Next, the boolean operand, i.e., `false` is converted into a number, i.e.,
-    `0`. The expression is now:'
+  zh: '[PRE33]'
+- en: 接下来，布尔操作数，即`false`被转换为数字，即`0`。表达式现在是：
+  id: totrans-270
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE34]'
+  id: totrans-271
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'Now we have a comparison between an object and a number. Recalling how the
-    abstract equality operator works, the object will be converted into a primitive
-    value, preferring the number type. As mentioned in one of the earlier examples,
-    an empty array is converted into an empty string, so the expression becomes:'
+  zh: '[PRE34]'
+- en: 现在我们在对象和数字之间进行比较。回忆一下抽象相等运算符的工作方式，对象将被转换为原始值，优先考虑数字类型。如前面的一个示例所述，空数组被转换为一个空字符串，因此表达式变为：
+  id: totrans-272
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE35]'
+  id: totrans-273
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Next, the empty string is converted into a number, i.e., `0`, using the `ToNumber`
-    abstract operation.
+  zh: '[PRE35]'
+- en: 接下来，空字符串被转换为数字，即`0`，使用`ToNumber`抽象操作。
+  id: totrans-274
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE36]'
+  id: totrans-275
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: The types are equal, so the strict equality comparison is performed, i.e., `0
-    === 0`, giving us `true` as an output.
+  zh: '[PRE36]'
+- en: 类型相等，因此执行严格相等比较，即`0 === 0`，输出结果为`true`。
+  id: totrans-276
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: :::note If you are wondering how I know which operand, either left or right,
     is coerced first and what coercion is performed, I am simply referring to the
     steps mentioned in the ECMAScript specification. For example, for an expression
     involving a comparison using the abstract equality operator, I am referring to
-    the steps of the [IsLooselyEqual](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal)
+    the steps of the [`IsLooselyEqual`](https://tc39.es/ecma262/multipage/abstract-operations.html#sec-islooselyequal)
     abstract operation.
+  id: totrans-277
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This is what you should do as well. There is no need to memorize every step.
     Just understand the basics of how coercion is performed, which abstract operations
     are involved, and just refer to the specification. :::'
+  id: totrans-278
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`!!"true" == !!"false"`'
+  id: totrans-279
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: Again, we have two operators in an expression. As mentioned before, the precedence
-    of the logical Not operator is higher, so the sub-expressions `!!"true"` and `!!"false"`
-    will be evaluated first.
+    of the logical `Not` operator is higher, so the sub-expressions `!!"true"` and
+    `!!"false"` will be evaluated first.
+  id: totrans-280
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: The string `"true"` in the expression `!!"true"` is a truthy value, so it will
     be coerced to the boolean value `true`. So the expression will become `!!true`.
-    Next, we have two occurrences of the Not operator. Applying it twice to `true`
+    Next, we have two occurrences of the `Not` operator. Applying it twice to `true`
     will first convert it to `false` and then back to `true`.
+  id: totrans-281
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The second sub-expression `!!"false"` will also evaluate to `true` because
     the string `"false"` is a truthy value, so same as the first sub-expression, the
-    expression will become `!!true` and then applying the Not operator twice will
+    expression will become `!!true` and then applying the `Not` operator twice will
     give us `true`. So after the sub-expressions have been coerced and evaluated,
     our expression will become:'
+  id: totrans-282
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE37]'
+  id: totrans-283
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: The types are equal, so the strict equality comparison is performed, i.e., `true
     === true`, giving us `true` as an output.
+  id: totrans-284
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`[1, 2, 3] + [4, 5, 6]`'
+- en: '[`[1, 2, 3] + [4, 5, 6]`](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator)'
+  id: totrans-285
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: Recall how the addition operator works. The abstract operation involved here
-    is [ApplyStringOrNumericBinaryOperator](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator).
+    is [`ApplyStringOrNumericBinaryOperator`](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator).
+  id: totrans-286
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'As both of the operands are objects, they are first converted into primitive
     values with no preferred type specified for the `ToPrimitive` abstract operation.
@@ -1302,100 +1733,127 @@
     values, are converted into primitive values using the `toString` method. For the
     array that we have in our expression, we will get `"1,2,3"` and `"4,5,6"` respectively.
     So the expression becomes:'
+  id: totrans-287
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE38]'
+  id: totrans-288
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: As both operands, after coercion, are strings, instead of addition, concatenation
     is performed, joining both strings, giving us `"1,2,34,5,6"` as output.
+  id: totrans-289
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`[undefined] == 0`'
+- en: '[`[undefined] == 0`](https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-applystringornumericbinaryoperator)'
+  id: totrans-290
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'As we have seen many times in this lesson when there is a comparison between
     an object and a number using the abstract equality operator, the object is first
     converted into a primitive value. Recall from a note earlier in this lesson that
     `[undefined]`, when converted into a primitive value, outputs an empty string.
     So the expression becomes:'
+  id: totrans-291
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE39]'
+  id: totrans-292
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: 'An empty string, when converted into a number, gives us `0`. So the expression
     becomes:'
+  id: totrans-293
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE40]'
+  id: totrans-294
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: The types are equal, so the strict equality comparison is performed, i.e., `0
-    === 0`, giving us `true` as an output.
+  zh: '[PRE40]'
+- en: 类型相等，因此执行严格相等比较，即`0 === 0`，输出为`true`。
+  id: totrans-295
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`[[]] == ''''`'
+  id: totrans-296
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In this expression, we have an array containing an empty array and an empty
-    string. The array operand is first converted into a primitive value. Recall how
-    arrays are converted into primitive values. Apart from some corner cases mentioned
-    earlier, arrays are converted into primitives by coercing their elements into
-    strings and then joining them using commas. So, the nested empty array will be
-    converted into a primitive value. What do we get when an empty array is converted
-    into a primitive value? Yes, an empty string. So, the outer array is also converted
-    into an empty string. The expression after coercion becomes:'
+- en: 在这个表达式中，我们有一个包含空数组和空字符串的数组。数组操作数首先被转换为原始值。回想一下数组是如何转换为原始值的。除了前面提到的一些特殊情况，数组通过将其元素强制转换为字符串并用逗号连接它们来转换为原始值。因此，嵌套的空数组将被转换为原始值。当空数组被转换为原始值时，我们得到什么？是的，一个空字符串。所以，外层数组也被转换为一个空字符串。强制转换后的表达式变为：
+  id: totrans-297
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE41]'
+  id: totrans-298
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: An empty string is equal to an empty string, so the output is `true`.
+  zh: '[PRE41]'
+- en: 空字符串等于空字符串，因此输出为`true`。
+  id: totrans-299
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`[] + {}`'
+  id: totrans-300
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: As the operator is an addition operator and both operands are objects, they
-    are both converted into primitives with no preferred type. So, by default, the
-    preferred type is set to “number”.
+- en: 由于运算符是加法运算符，且两个操作数都是对象，因此它们都被转换为没有优先类型的原始值。因此，默认情况下，优先类型被设置为“数字”。
+  id: totrans-301
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'An empty array is converted into an empty string, and the default primitive
-    representation of object literals is the string `"[object Object]"`. So the expression
-    becomes:'
+- en: 空数组被转换为一个空字符串，而对象字面量的默认原始表示为字符串`"[object Object]"`。所以表达式变为：
+  id: totrans-302
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE42]'
+  id: totrans-303
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Both operands are now strings that are concatenated, giving us `“[object Object]”
-    as an output.
+  zh: '[PRE42]'
+- en: 两个操作数现在都是字符串，并且被连接，输出为`"[object Object]"`。
+  id: totrans-304
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: References
+- en: 参考文献
+  id: totrans-305
   prefs:
   - PREF_H5
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Some of the expressions above were taken from the following github repo: [wtfjs](https://github.com/denysdovhan/wtfjs)'
+- en: 上述一些表达式来自以下 GitHub 仓库：[wtfjs](https://github.com/denysdovhan/wtfjs)
+  id: totrans-306
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
