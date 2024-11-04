@@ -1,291 +1,307 @@
-- en: Prototypes
+- en: 原型
   id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Inheritance** is a general object-oriented programming concept allowing objects
-    to inherit other objects’ methods and properties. This reduces code duplication
-    and promotes code sharing between different objects.'
+- en: '`Inheritance`是一个通用的面向对象编程概念，允许对象继承其他对象的方法和属性。这减少了代码重复并促进了不同对象之间的代码共享。'
   id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Unlike traditional object-oriented programming languages like Java or C#, JavaScript
-    has a different way of dealing with inheritance. Objects in JavaScript are *linked*
-    to other objects, and this linkage allows an object to use the functionality of
-    another object to which it is linked.
+- en: 与传统的面向对象编程语言（如Java或C#）不同，JavaScript处理继承的方式不同。JavaScript中的对象是`linked`到其他对象，这种链接允许一个对象使用其所链接的另一个对象的功能。
   id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The linkage between objects in JavaScript forms a chain. This chain is known
-    as the “**prototype chain**”. Think of the scope chain, where each scope is linked
-    to another scope until we reach the global scope. The prototype chain is similar:
-    one object is linked to another object. This other object, in turn, is linked
-    to another object, forming a chain between objects.'
+- en: JavaScript中对象之间的链接形成了一条链。这条链被称为“`prototype chain`”。可以想象一下作用域链，每个作用域都链接到另一个作用域，直到我们达到全局作用域。原型链类似：一个对象链接到另一个对象。这个其他对象又链接到另一个对象，形成对象之间的链。
   id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The prototype chain allows the sharing of properties between objects, and this
-    is the idea of inheritance in JavaScript, known as the “**prototypal inheritance**”.
-    In prototypal inheritance, an object from which other objects inherit properties
-    is known as the “**prototype**” of those objects.
+- en: 原型链允许对象之间共享属性，这就是JavaScript中的继承概念，称为“`prototypal inheritance`”。在原型继承中，从其他对象继承属性的对象称为这些对象的“`prototype`”。
   id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When we create an object literal in JavaScript, it is, by default, linked to
-    the built-in `Object.prototype` object.
+- en: 当我们在JavaScript中创建一个对象字面量时，它默认链接到内置的`Object.prototype`对象。
   id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
   id: totrans-6
   prefs: []
   type: TYPE_PRE
   zh: '[PRE0]'
-- en: The `Object.prototype` object is the **prototype** of the `obj` object in the
-    code example above.
+- en: 在上面的代码示例中，`Object.prototype`对象是`obj`对象的`prototype`。
   id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: How are objects linked?
+- en: 对象是如何链接的？
   id: totrans-8
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Objects in JavaScript have a hidden internal slot named `[[Prototype]]`. When
-    an object is created, it is linked to another object by saving a reference to
-    the other object in the `[[Prototype]]` internal slot of the newly created object.
-    The other object whose reference is saved in the internal slot will serve as the
-    “prototype” of the newly created object.
+- en: JavaScript中的对象有一个隐藏的内部槽`[[Prototype]]`。当一个对象被创建时，它通过将另一个对象的引用保存到新创建对象的`[[Prototype]]`内部槽中，与另一个对象链接。保存于内部槽中的其他对象将作为新创建对象的“原型”。
   id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the code example above, the `[[Prototype]]` slot of the `obj` object contains
-    a reference to the `Object.prototype` object. So, `obj.[[Prototype]]` gives us
-    the prototype of the `obj` object, the object from which `obj` is linked to and
-    inherits the properties. But as `[[Prototype]]` is an internal slot not accessible
-    by JavaScript, later in this lesson, we will see how we can access the prototype
-    of any object.
+- en: 在上面的代码示例中，`obj`对象的`[[Prototype]]`槽包含对`Object.prototype`对象的引用。因此，`obj.[[Prototype]]`给我们提供了`obj`对象的原型，即`obj`所链接并继承属性的对象。但由于`[[Prototype]]`是JavaScript无法访问的内部槽，稍后在本课程中，我们将看到如何访问任何对象的原型。
   id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The “prototype” property
+- en: “`prototype`”属性
   id: totrans-11
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In our discussion of prototypal inheritance so far, you might have noticed
-    the term “prototype” used in two different contexts: one as a property, i.e.,
-    `Object.prototype` and the other as a general term used to describe an object
-    that shares its properties with another object. This clash of names creates confusion
-    among many when they first start learning about prototypal inheritance in JavaScript.'
+- en: 在我们对原型继承的讨论中，你可能注意到“`prototype`”这个术语在两个不同的上下文中使用：一个作为属性，即`Object.prototype`，另一个作为用于描述与另一个对象共享属性的对象的通用术语。这些名称的冲突在许多人刚开始学习JavaScript中的原型继承时造成了混淆。
   id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As functions are objects in JavaScript, they can have properties just like any
-    other object. The property name “prototype” is one of the functions’ properties.
-    The arrow functions do not have this property.
+- en: 由于函数在JavaScript中也是对象，因此它们可以像任何其他对象一样拥有属性。属性名称“`prototype`”是函数的属性之一。箭头函数没有这个属性。
   id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The prototype property of a function refers to an object that is used as the
+- en: The `prototype` property of a function refers to an object that is used as the
     “prototype” of other objects when that function is invoked as a “constructor function”
     using the “new” keyword. Again, the term “prototype” has been used in two contexts
-    here:'
+    here：
   id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The “prototype” property on functions
+- en: The `prototype` property on functions
   id: totrans-15
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: An object is referred to as a “prototype” when it is linked and shares its properties
     with other objects.
   id: totrans-16
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following code example shows that the property named “prototype” exists
-    on functions:'
+- en: The following code example shows that the property named “prototype” exists
+    on functions：
   id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
   id: totrans-18
   prefs: []
   type: TYPE_PRE
   zh: '[PRE1]'
-- en: 'You can run the above code in the Replit below:'
+- en: You can run the above code in the Replit below：
   id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example1”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example1”
+    />`'
   id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: You can probably tell from the code above that the `Car` function is meant to
     be used as a constructor function. However, it is indeed just a normal function.
-    The “prototype” property is only useful when we invoke a function as a constructor,
+    The `prototype` property is only useful when we invoke a function as a constructor,
     i.e., with the `new` keyword.
   id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Any properties added to the `Car.prototype` object will be shared by all the
     instances created from the `Car` constructor function. The `Car.prototype` function
     will serve as the “prototype” for all the instances of the `Car` constructor function.
   id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Initially, the object pointed to by the prototype property on any function just
-    contains a single property named “constructor”. The value of this “constructor”
+- en: Initially, the object pointed to by the `prototype` property on any function
+    just contains a single property named “constructor”。 The value of this “constructor”
     property is a reference to the constructor function. In the case of `Car.prototype`
     object, `Car.prototype.constructor` refers to the `Car` constructor function.
   id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
   id: totrans-24
   prefs: []
   type: TYPE_PRE
   zh: '[PRE2]'
-- en: 'The following code example verifies that `Car.prototype.constructor` refers
-    to the `Car` function:'
+- en: The following code example verifies that `Car.prototype.constructor` refers
+    to the `Car` function：
   id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
   id: totrans-26
   prefs: []
   type: TYPE_PRE
   zh: '[PRE3]'
-- en: 'You can run the above code in the Replit below:'
+- en: You can run the above code in the Replit below：
   id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example2”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example2”
+    />`'
   id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: :::note
   id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The [constructor property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)
+- en: The [`constructor` property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)
     is rarely used, if at all, in the JavaScript code that we write.
   id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: ':::'
   id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s add a property on the `Car.prototype` object:'
+- en: Let’s add a property on the `Car.prototype` object：
   id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
   id: totrans-33
   prefs: []
   type: TYPE_PRE
   zh: '[PRE4]'
-- en: 'You can run the above code in the Replit below:'
+- en: You can run the above code in the Replit below：
   id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example3”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example3”
+    />`'
   id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When a function is invoked using the `new` keyword, one of the steps during
     the creation of a new object is that the `[[Prototype]]` internal slot of the
-    newly created object is pointed to the object referenced by the function’s prototype
+    newly created object is pointed to the object referenced by the function’s `prototype`
     property. As a result, the newly created object has access to the properties defined
-    on the object referred to by the constructor function’s prototype property.
+    on the object referred to by the constructor function’s `prototype` property.
   id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Getting prototype of any object
   id: totrans-37
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The `Object` function has a static method named [getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)
+- en: The `Object` function has a static method named [`getPrototypeOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)
     that can be used to get the prototype of any object. It returns the value of the
     internal `[[Prototype]]` property of the object.
   id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For the `honda` object created in the previous code example, `Object.getPrototypeOf`
     function returns the `Car.prototype` object because the `Car.prototype` object
     is the prototype of all the instances of the `Car` constructor function.
   id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
   id: totrans-40
   prefs: []
   type: TYPE_PRE
   zh: '[PRE5]'
-- en: 'You can run the above code in the Replit below:'
+- en: 'You can run the above code in the `Replit` below:'
   id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example4”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example4”
+    />`'
   id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now that we know what prototypal inheritance is let us explore the prototype
     chain.
   id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Object.prototype - parent of all objects
+- en: '`Object.prototype` - parent of all objects'
   id: totrans-44
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: At the top of the prototypal inheritance hierarchy is the `Object.prototype`
     object. It is the root object or parent of all objects. When we create an object
     literal, its prototype is the `Object.prototype` object.
   id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
   id: totrans-46
   prefs: []
   type: TYPE_PRE
   zh: '[PRE6]'
-- en: 'You can run the above code in the Replit below:'
+- en: 'You can run the above code in the `Replit` below:'
   id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example1”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example1”
+    />`'
   id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We didn’t define any properties on the `obj` object. But we can still call some
     methods on it.
   id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
   id: totrans-50
   prefs: []
   type: TYPE_PRE
   zh: '[PRE7]'
-- en: 'You can run the above code in the Replit below:'
+- en: 'You can run the above code in the `Replit` below:'
   id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example2”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example2”
+    />`'
   id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We didn’t define a method named `toString` on the `obj` object; how is it accessible
     in the code example above? You guessed it: it is defined on the `Object.prototype`
@@ -293,11 +309,13 @@
     on `Object.prototype` are inherited by `obj`, `toString` being one of them.'
   id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Objects created in this way are instances of the `Object` constructor function.
     We can also define `obj` as shown below:'
   id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
   id: totrans-55
@@ -311,6 +329,7 @@
     of all objects created via `new Object()` or through object literal notation.'
   id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'At this point, you might ask: isn’t `toString` callable on all objects? Yes,
     it is; some objects inherit it from the `Object.prototype` object, while other
@@ -318,6 +337,7 @@
     object, which overrides the `toString` implementation defined in `Object.prototype`.'
   id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Some objects are directly linked to the `Object.prototype` object, while others
     are linked indirectly. Arrays, for example, are linked indirectly. Each array
@@ -326,135 +346,132 @@
     that ends at the `Object.prototype` object.
   id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
   id: totrans-59
   prefs: []
   type: TYPE_PRE
   zh: '[PRE9]'
-- en: 'You can run the above code in the Replit below:'
+- en: 'You can run the above code in the `Replit` below:'
   id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example3”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example3”
+    />`'
   id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The prototype chain demonstrated in the code above can be visualized in the
     image below:'
   id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![array prototype chain](images/module_06----lesson_06.02----public----assets----prototype-chain-array.png)'
   id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: array prototype chain
   id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `Array.prototype` object contains the methods that are callable on every
-    array, for example, `map`, `filter`, etc. The `Object.prototype` object contains
-    the methods that are available to all objects, for example, the `toString` method.
+- en: '`Array.prototype`对象包含可以在每个数组上调用的方法，例如`map`、`filter`等。`Object.prototype`对象包含所有对象可用的方法，例如`toString`方法。'
   id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Just as JavaScript traverses the scope chain to find the declaration of an identifier
-    that can’t be found in the current scope, JavaScript traverses the prototype chain
-    to find the properties that cannot be found in the current object. The prototype
-    chain has to end somewhere. Otherwise, JavaScript will keep traversing an endless
-    chain; it ends at the `Object.prototype` object. Accessing the prototype of `Object.prototype`
-    returns `null`.
+- en: 就像JavaScript遍历作用域链以查找当前作用域中无法找到的标识符的声明一样，JavaScript遍历原型链以查找当前对象中无法找到的属性。原型链必须在某处结束。否则，JavaScript将继续遍历一个无尽的链；它在`Object.prototype`对象处结束。访问`Object.prototype`的原型返回`null`。
   id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
   id: totrans-67
   prefs: []
   type: TYPE_PRE
   zh: '[PRE10]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example4”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example4”
+    />`'
   id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The prototype chain for strings is similar to that for arrays, except that instead
-    of the `Array.prototype` object, there is the `String.prototype` object, which
-    serves as the prototype of all string instances. This `String.prototype` object
-    is, in turn, linked to the `Object.prototype` object, where the `Object.prototype`
-    object serves as the prototype of the `String.prototype` object.
+- en: 字符串的原型链类似于数组的原型链，只是用`String.prototype`对象代替了`Array.prototype`对象，后者作为所有字符串实例的原型。这个`String.prototype`对象又链接到`Object.prototype`对象，而`Object.prototype`对象作为`String.prototype`对象的原型。
   id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: “Function” function
+- en: “Function”函数
   id: totrans-71
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: As confusing as it may sound, there’s a function named [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
-    Functions in JavaScript are objects and are instances of this “Function” constructor
-    function. The `Function.prototype` object provides properties that are accessible
-    by all functions; for example, methods like `bind`, `apply`, etc.
+- en: 尽管听起来令人困惑，但确实有一个名为[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)的函数。JavaScript中的函数是对象，并且是这个“Function”构造函数的实例。`Function.prototype`对象提供所有函数可访问的属性；例如，像`bind`、`apply`等方法。
   id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `Function.prototype` object serves as the prototype for functions, including
-    the `Object` function. Even the `Function` function, to which the `Function.prototype`
-    object belongs, inherits properties from the `Function.prototype` object because
-    `Function` is, after all, just a function itself. So it makes sense to make it
-    inherit from the `Function.prototype` object, which contains the common properties
-    for functions.
+- en: '`Function.prototype`对象作为函数的原型，包括`Object`函数。即使是`Function`函数，`Function.prototype`对象所属的函数，也继承自`Function.prototype`对象的属性，因为`Function`毕竟只是一个函数。因此，让它继承自`Function.prototype`对象是有意义的，这个对象包含了函数的公共属性。'
   id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
   id: totrans-74
   prefs: []
   type: TYPE_PRE
   zh: '[PRE11]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example5”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example5”
+    />`'
   id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The prototype chain described above can be visualized in the following image:'
+- en: 上述描述的原型链可以在以下图像中可视化：
   id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![array prototype chain](images/module_06----lesson_06.02----public----assets----function-prototype-chain.png)'
   id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: array prototype chain
   id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As the `Object.prototype` object is the root or parent object, it is part of
-    the prototype chain, directly linked to the `Function.prototype` object.
+- en: 由于`Object.prototype`对象是根或父对象，它是原型链的一部分，直接链接到`Function.prototype`对象。
   id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `__proto__` property is defined on the `Object.prototype` object. It is
-    a getter and a setter that returns or sets the prototype of an object. In other
-    words, it returns or sets the value of the internal `[[Prototype]]` property of
-    an object.
+- en: '`__proto__`属性被定义在`Object.prototype`对象上。它是一个getter和setter，用于返回或设置对象的原型。换句话说，它返回或设置对象的内部`[[Prototype]]`属性的值。'
   id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Although this property can be used to set and get the prototype of an object,
-    its use is discouraged. This property has been deprecated, and better alternatives
-    have been provided to get and set the prototype of an object.
+- en: 尽管可以使用此属性来设置和获取对象的原型，但不鼓励这样做。此属性已被弃用，并提供了更好的替代方案来获取和设置对象的原型。
   id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
   id: totrans-83
@@ -464,38 +481,44 @@
 - en: 'You can run the above code in the Replit below:'
   id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/proto-property-example1”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/proto-property-example1"
+    />`'
   id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The above code example shows the use of the `__proto__` property as a *getter*
-    to get the prototype of the `user` object. It can also be used as a *setter* to
+- en: The above code example shows the use of the `__proto__` property as a `getter`
+    to get the prototype of the `user` object. It can also be used as a `setter` to
     set the value of the `[[Prototype]]` internal property of an object. Again, its
     use is discouraged, and there are better alternatives. For setting the prototype,
-    we can use the [setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)
+    we can use the [`setPrototypeOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)
     method.
   id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The prototype of the `user` object in the code example above is the `Object.prototype`
     object. As a result, the `user` object has access to the `__proto__` property.
     As the `__proto__` property, when used as a getter, simply exposes the value of
-    the internal `[[Prototype]]` property of an object, in the case of `user`, it
+    the internal `[[Prototype]]` property of an object; in the case of `user`, it
     returns the `Object.prototype` object.
   id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Problems with __proto__
+- en: Problems with `__proto__`
   id: totrans-88
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: There are multiple reasons to avoid using `__proto__` property to get or set
     the prototype of an object.
   id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As mentioned earlier, the `__proto__` property has been deprecated, and better
     alternatives exist to set and get the prototype of an object. This property wasn’t
@@ -506,6 +529,7 @@
     it already existed in several JavaScript engines running in the browsers.
   id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Another problem with the `__proto__` property is that it may not be available
     on all objects. You might ask how that is possible. Don’t all objects directly
@@ -514,6 +538,7 @@
     object (we will discuss this in the next lesson).
   id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So far, we have seen built-in objects, such as `Object.prototype`, automatically
     being set as prototypes of objects. How can we use our own objects as prototypes
@@ -521,6 +546,7 @@
     use as a prototype of some other object:'
   id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
   id: totrans-93
@@ -531,6 +557,7 @@
     `setPrototypeOf` method:'
   id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
   id: totrans-95
@@ -540,248 +567,236 @@
 - en: 'You can run the above code in the Replit below:'
   id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example2”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/Custom-prototypes-example2"
+    />`'
   id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The deprecated `__proto__` property can also be used to achieve the same result,
     but as it is deprecated, we will instead discuss another option to set the prototype
     of an object explicitly.
   id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Object.create method
   id: totrans-99
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `Object.create` method is used to create a new object with another object,
-    passed as the first argument, as the prototype of the newly created object. This
-    method lets us explicitly set the prototype of an object. The code example above
-    can be rewritten with `Object.create` as shown below:'
+- en: '`Object.create`方法用于创建一个新对象，其原型为作为第一个参数传入的另一个对象。此方法让我们可以显式设置对象的原型。上面的代码示例可以用`Object.create`重写，如下所示：'
   id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
   id: totrans-101
   prefs: []
   type: TYPE_PRE
   zh: '[PRE15]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example3”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/Custom-prototypes-example3"
+    />`'
   id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Null prototype object
+- en: 空原型对象
   id: totrans-104
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: All objects ultimately inherit from the `Object.prototype` object because it
-    sits at the top of the prototype chain and is the parent of all objects. However,
-    we can create objects that do not inherit properties from any object. We just
-    have to set `null` as the value of the internal `[[Prototype]]` property using
-    the methods discussed above.
+- en: 所有对象最终都继承自`Object.prototype`对象，因为它位于原型链的顶部，是所有对象的父对象。然而，我们可以创建不从任何对象继承属性的对象。我们只需将`null`作为内部`[[Prototype]]`属性的值，使用上述讨论的方法设置即可。
   id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
   id: totrans-106
   prefs: []
   type: TYPE_PRE
   zh: '[PRE16]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example4”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/Custom-prototypes-example4"
+    />`'
   id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `obj` object in the above example doesn’t have a prototype. If its prototype
-    wasn’t explicitly set to `null`, its prototype would have been the `Object.prototype`
-    object, and it would have inherited the `toString` method, but as is evident from
-    the code example above, `obj` doesn’t have access to the `toString` method.
+- en: 上述示例中的`obj`对象没有原型。如果其原型没有显式设置为`null`，其原型将是`Object.prototype`对象，它将继承`toString`方法，但正如上面的代码示例所示，`obj`并没有访问`toString`方法的权限。
   id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `null` prototype objects may seem useless, but they are useful in some cases.
-    For example, such objects are safe from attacks such as the [prototype pollution](https://learn.snyk.io/lessons/prototype-pollution/javascript/)
-    attack, where a malicious code might add some properties to the prototype chain
-    of an object that could change the normal flow of code execution.
+- en: '`null`原型对象可能看起来毫无用处，但在某些情况下却非常有用。例如，这些对象可以防止诸如[原型污染](https://learn.snyk.io/lessons/prototype-pollution/javascript/)攻击，这种攻击可能会向对象的原型链添加一些属性，从而改变代码执行的正常流程。'
   id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Consider the following simplified example:'
+- en: 考虑以下简化的示例：
   id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
   id: totrans-112
   prefs: []
   type: TYPE_PRE
   zh: '[PRE17]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example5”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/Custom-prototypes-example5"
+    />`'
   id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the prototype of the `user` object was `null`, malicious code wouldn’t have
-    an effect on our code.
+- en: 如果`user`对象的原型是`null`，恶意代码将不会对我们的代码产生影响。
   id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE18]'
   id: totrans-116
   prefs: []
   type: TYPE_PRE
   zh: '[PRE18]'
-- en: 'You can run the above code in the Replit below:'
+- en: 你可以在下面的Replit中运行上述代码：
   id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example6”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/Custom-prototypes-example6"
+    />`'
   id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In conventional object-oriented languages like Java or C#, we can extend or
-    inherit a class to reuse its functionality. Extending a class creates a parent-child
-    relationship where the child class extends the parent class. It promotes code
-    reusability.
+- en: 在像`Java`或`C#`这样的传统面向对象语言中，我们可以扩展或继承一个类来重用其功能。扩展一个类会创建父子关系，其中子类扩展父类。这促进了代码的重用性。
   id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Until 2015, JavaScript didn’t have classes. Constructor functions were used
-    instead. To inherit from a constructor function, JavaScript developers explicitly
-    created a link between the prototype properties of two different constructor functions
-    by using the `Object.create` method. The following code example shows how one
-    constructor function could extend another constructor function to reuse some functionality:'
+- en: 直到2015年，JavaScript才没有类。相反，使用构造函数。要从构造函数继承，JavaScript开发人员显式地通过使用`Object.create`方法创建两个不同构造函数的原型属性之间的链接。以下代码示例展示了一个构造函数如何扩展另一个构造函数以重用某些功能：
   id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE19]'
   id: totrans-121
   prefs: []
   type: TYPE_PRE
   zh: '[PRE19]'
-- en: 'Here’s a Replit embed to run the code above:'
+- en: 这是一个Replit嵌入，用于运行上述代码：
   id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/ES6-classes-and-prototypes-example1”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/ES6-classes-and-prototypes-example1"
+    />`'
   id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following three points are worth noting in the code example above:'
+- en: 在上面的代码示例中，有以下三点值得注意：
   id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`Person.call(...)` is invoked inside the `Student` constructor function to
-    *delegate* the responsibility of adding and initializing the `name` and `age`
-    properties on the newly created instance or object of `Student`.'
+- en: '`Person.call(...)`在`Student`构造函数内部被调用，以*委托*将`name`和`age`属性的添加和初始化的责任交给新创建的`Student`实例或对象。'
   id: totrans-125
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`Object.create` is used to create a `Student.prototype` object, and `Person.prototype`
-    is set as the prototype of the newly created object.'
+- en: '`Object.create`用于创建`Student.prototype`对象，并将`Person.prototype`设置为新创建对象的原型。'
   id: totrans-126
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Normally, the object referred to by the “prototype” property of a function has
-    a `constructor` property that points back to the function. As the object created
-    by the `Object.create` method doesn’t have the `constructor` property, we explicitly
-    added the `constructor` property to the newly created `Student.prototype` object.
+- en: 通常，函数的“prototype”属性所指的对象具有一个指向该函数的`constructor`属性。由于由`Object.create`方法创建的对象没有`constructor`属性，因此我们显式地将`constructor`属性添加到新创建的`Student.prototype`对象。
   id: totrans-127
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The linkage between the `Student.prototype` object and the `Person.prototype`
-    object allows the instances of `Student` to use the properties defined on the
-    `Person.prototype` object.
+- en: '`Student.prototype`对象与`Person.prototype`对象之间的链接允许`Student`的实例使用在`Person.prototype`对象上定义的属性。'
   id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The image below helps visualize the prototype chain created as a result of
-    our code example:'
+- en: 下图有助于可视化我们的代码示例创建的原型链：
   id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![constructor function prototype chain](images/module_06----lesson_06.05----public----assets----constructor-function-prototype-chain.png)'
   id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: constructor function prototype chain
+- en: 构造函数原型链
   id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Although the code above works, it is error-prone because there are multiple
-    steps to set a prototype link correctly between the two constructors. Imagine
-    having more than two constructors that need to be linked like this. It is easy
-    to forget any steps necessary to set up the prototype link correctly. Ideally,
-    we want a more declarative way of achieving the same result. Ideally, we want
-    a more declarative way of achieving the same result. A declarative solution will
-    allow us to get the same result without having to explicitly create a link between
-    the `Student.prototype` and `Person.prototype` objects.
+- en: 尽管上述代码有效，但由于在两个构造函数之间正确设置原型链接需要多个步骤，这使得代码容易出错。想象一下，如果有多个构造函数需要这样链接，很容易忘记设置原型链接所需的任何步骤。理想情况下，我们希望有一种更声明式的方法来实现相同的结果。理想情况下，我们希望有一种更声明式的方法来实现相同的结果。一种声明式解决方案将允许我们在不显式创建`Student.prototype`和`Person.prototype`对象之间的链接的情况下获得相同的结果。
   id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ES2015 classes
+- en: ES2015类
   id: totrans-133
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As of 2015, JavaScript has classes. They provide a declarative way of writing
-    code that is less error-prone. Classes come with the [extends](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
-    keyword that helps create a parent-child relationship between classes. The code
-    example above can be rewritten using classes, as shown below:'
+- en: 从2015年起，JavaScript引入了类。它们提供了一种更不易出错的声明式编写代码的方法。类带有[`extends`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)关键字，有助于在类之间创建父子关系。上述代码示例可以使用类重写，如下所示：
   id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE20]'
   id: totrans-135
   prefs: []
   type: TYPE_PRE
   zh: '[PRE20]'
-- en: 'The code above gives us the same result as the one with the constructor functions.
-    It also creates the same prototype linkages. We can verify this with the following
-    comparisons:'
+- en: 上述代码给出的结果与构造函数的结果相同。它也创建了相同的原型链接。我们可以通过以下比较来验证这一点：
   id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE21]'
   id: totrans-137
   prefs: []
   type: TYPE_PRE
   zh: '[PRE21]'
-- en: One important thing to mention here is that the classes are just syntactic sugar
-    over the traditional constructor functions. Under the hood, we are still using
-    the constructor functions, but classes allow us to write the code in a more declarative
-    way.
+- en: 这里需要提到的一件重要事情是，类仅仅是传统构造函数的语法糖。在底层，我们仍在使用构造函数，但类允许我们以更声明的方式编写代码。
   id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: One extra thing that the `extends` keyword does is that, apart from setting
-    the linkage between `Student.prototype` and `Person.prototype` objects, it also
-    links the constructor functions. It does this by setting the `Person` class as
-    the prototype of the `Student` class. The following code verifies the second prototype
-    chain that the `extends` keyword sets up for us behind the scenes.
+- en: '`extends`关键字做的另一件事是，除了在`Student.prototype`和`Person.prototype`对象之间设置链接外，它还链接构造函数。它通过将`Person`类设置为`Student`类的原型来实现这一点。以下代码验证了`extends`关键字为我们在幕后设置的第二个原型链。'
   id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE22]'
   id: totrans-140
