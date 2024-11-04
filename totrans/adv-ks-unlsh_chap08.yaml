@@ -1,194 +1,215 @@
-- en: Asynchronous JavaScript
+- en: '`Asynchronous JavaScript`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: In this module, we will cover asynchronous programming in JavaScript. We will
-    learn what asynchronous programming means and how it was traditionally done in
-    JavaScript. We will also discuss the problems with the traditional way of handling
-    asynchronous code in JavaScript and how promises, introduced in ES2015, changed
-    the way we handle asynchronous code in JavaScript. We will discuss promises in
-    detail and also learn about the `async-await` syntax that simplifies using promises.
+- en: 在本模块中，我们将涵盖`JavaScript`中的异步编程。我们将学习异步编程意味着什么，以及在`JavaScript`中传统上是如何做到的。我们还将讨论传统处理异步代码的方法存在的问题，以及`ES2015`中引入的承诺如何改变我们处理异步代码的方式。我们将详细讨论承诺，并学习简化使用承诺的`async-await`语法。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What does asynchronous mean?
+- en: 异步是什么意思？
+  id: totrans-2
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: In the context of programming, “asynchronous” means that the program starts
-    a potentially long-running task and is free to do other tasks while the long-running
-    task is executed in the background. The key point to understand here is that the
-    program doesn’t have to wait for the long-running task to be completed; it is
-    free to do other tasks. Once the task is complete, the program is notified and
-    presented with the result of the task.
+- en: 在编程的上下文中，“异步”意味着程序启动一个潜在的长时间运行任务，并可以在该任务在后台执行时自由进行其他任务。关键点在于，程序不必等待长时间运行的任务完成；它可以自由执行其他任务。一旦任务完成，程序将收到通知并呈现任务的结果。
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Asynchronous programming is needed because of the problems with traditional
-    synchronous programming. In synchronous programs, each instruction is executed
-    one after the other in a sequential manner. Instructions are executed in the order
-    they appear in the program. As a result, synchronous programs are easier to reason
-    about, but they also present problems that are solved by asynchronous programming.
+- en: 由于传统同步编程存在的问题，因此需要异步编程。在同步程序中，每条指令都是按顺序一个接一个地执行的。指令按程序中出现的顺序执行。因此，同步程序更容易推理，但它们也存在异步编程所解决的问题。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The problem with synchronous programs is that a potentially long-running task
-    will block the program’s execution until its completion. This presents problems
-    like poor program performance, poor user experience, and inefficient resource
-    utilization.
+- en: 同步程序的问题在于，一个潜在的长时间运行任务会阻塞程序的执行，直到其完成。这会导致性能差、用户体验差以及资源利用效率低等问题。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Although asynchronous programs solve the problems presented by synchronous programs,
-    asynchronous programs come with their own set of challenges, like error handling,
-    managing the shared state and resources, managing the coordination between different
-    parts of the program, etc.
+- en: 尽管异步程序解决了同步程序所呈现的问题，但异步程序也带来了自己的一系列挑战，如错误处理、管理共享状态和资源、协调程序不同部分之间的关系等。
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Asynchronous JavaScript
+- en: '`Asynchronous JavaScript`'
+  id: totrans-7
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Before we dive into how asynchronous code can be written in JavaScript and
-    how it is handled behind the scenes, let’s take a step back and see the problem
-    we face in JavaScript if we execute some long-running code, like a loop in the
-    following example:'
+- en: 在我们深入探讨如何在`JavaScript`中编写异步代码以及它如何在幕后处理之前，让我们先退一步，看看如果我们执行一些长时间运行的代码（如以下示例中的循环），我们在`JavaScript`中面临的问题。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
-- en: 'You can see the code above in this Replit:'
+  zh: '[PRE0]'
+- en: 你可以在这个`Replit`中查看上面的代码：
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example1”>
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/overview-example1">`'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: JavaScript is a single-threaded language, which has its pros and cons. JavaScript
-    developers generally don’t have to worry about problems that come with multi-threaded
-    programs, like [race conditions](https://stackoverflow.com/questions/34510/what-is-a-race-condition)
-    and [deadlocks](https://stackoverflow.com/questions/34512/what-is-a-deadlock).
-    However, the limitation of the single thread is evident in the code example above.
+- en: '`JavaScript`是一种单线程语言，这有其优缺点。`JavaScript`开发者通常不必担心多线程程序所带来的问题，比如[`race conditions`](https://stackoverflow.com/questions/34510/what-is-a-race-condition)和[`deadlocks`](https://stackoverflow.com/questions/34512/what-is-a-deadlock)。然而，单线程的限制在上面的代码示例中显而易见。'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The code example above is designed to simulate some long-running code that takes
-    approximately 3 seconds to complete. During these 3 seconds, the main thread on
-    which our JavaScript code is executed is blocked; nothing else executes during
-    those 3 seconds. If this JavaScript code is attached to an HTML file and executed
-    in a browser, the UI will freeze until the loop ends.
+- en: 上面的代码示例旨在模拟一些大约需要3秒钟才能完成的长时间运行的代码。在这3秒钟内，执行我们JavaScript代码的主线程被阻塞；在这3秒钟内没有其他代码执行。如果这段JavaScript代码附加到HTML文件并在浏览器中执行，UI将冻结，直到循环结束。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To see the frozen UI in action, try adding the above Javascript code to a file
-    named `index.js` and attaching it to an HTML file containing the following HTML:'
+- en: 要查看冻结的UI效果，可以尝试将上述JavaScript代码添加到一个名为`index.js`的文件中，并将其附加到包含以下HTML的HTML文件中：
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
-- en: 'You can see the code above in this Replit:'
+  zh: '[PRE1]'
+- en: 您可以在这个Replit中看到上面的代码：
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example2”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example2”>`'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: On the initial page load, you will notice that the button is not clickable for
-    a few seconds. The UI will stay frozen until the JavaScript code has been executed,
-    specifically the long-running loop.
+- en: 在初始页面加载时，您会注意到按钮在几秒钟内不可点击。UI会保持冻结，直到JavaScript代码执行完成，特别是长时间运行的循环。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This presents a horrible user experience in web applications. The single thread
-    puts a hard limit on what we can do with JavaScript on the main thread.
+- en: 这在Web应用程序中提供了糟糕的用户体验。单线程对我们在主线程中使用JavaScript所能做的施加了严格的限制。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Nowadays, JavaScript engines are good enough to execute the code at a very good
-    speed; engines are designed to heavily optimize the JavaScript code to execute
-    it as efficiently as possible. Still, one needs to be mindful that the main thread
-    should not be blocked by any code that could take long enough to make the delay
-    noticeable.
+- en: 现在，JavaScript引擎足够强大，能够以非常好的速度执行代码；引擎旨在高度优化JavaScript代码，以尽可能高效地执行它。不过，仍然需要注意，主线程不应被任何可能需要很长时间才能使延迟变得明显的代码阻塞。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: :::info
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: JavaScript also allows us to execute some code in another thread, independent
-    of the main thread, using the [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+- en: JavaScript还允许我们在另一个线程中执行一些代码，与主线程独立，使用`[web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)`。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::'
+- en: '::::'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Next, let’s discuss the traditional way of writing asynchronous code in JavaScript
-    using callbacks. We will also discuss the problems with using callbacks.
+- en: 接下来，让我们讨论使用回调编写异步代码的传统方式。我们还将讨论使用回调时的问题。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Using callback functions to handle asynchronous code has been the traditional
-    way of writing asynchronous code in JavaScript. A callback function is a function
-    that is passed to another function as an argument and is intended to be invoked
-    after some asynchronous operation. The function that receives the callback function
-    as an argument typically invokes the callback function with the result of the
-    asynchronous operation or the error if the asynchronous operation fails.
+- en: 使用回调函数处理异步代码一直是JavaScript中编写异步代码的传统方式。回调函数是作为参数传递给另一个函数的函数，旨在在某个异步操作完成后调用。接收回调函数作为参数的函数通常会使用异步操作的结果或在异步操作失败时的错误来调用回调函数。
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Operations like HTTP requests are asynchronous, but they aren’t handled by JavaScript.
-    The code we write initiates the asynchronous operation; the actual asynchronous
-    operation is handled by the browser in the case of client-side JavaScript, background
-    threads, or the operating system itself in the case of the NodeJS runtime.
+- en: 类似HTTP请求的操作是异步的，但它们并不是由JavaScript处理的。我们编写的代码启动异步操作；在客户端JavaScript的情况下，实际的异步操作由浏览器处理，而在NodeJS运行时的情况下，则由后台线程或操作系统本身处理。
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In simple words, asynchronous operations take place in the background (outside
-    of JavaScript land), and in the meantime, other things can execute on the main
-    thread (in JavaScript land).
+- en: 简单来说，异步操作在后台（JavaScript领域之外）进行，而与此同时，其他事情可以在主线程（JavaScript领域）中执行。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When the asynchronous operation is completed, our JavaScript code is notified,
-    leading to the execution of the callback function that we provided at the time
-    of initiating the asynchronous operation.
+- en: 当异步操作完成时，我们的JavaScript代码会收到通知，导致执行我们在启动异步操作时提供的回调函数。
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is how JavaScript gets around its limitation of a single thread. The asynchronous
     operations are actually handled by the runtime (browser, NodeJS, etc.). In the
     meantime, JavaScript can do other things.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
 - en: 'The following code example shows the use of a callback function by sending
     an HTTP request to a fake REST API:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'You can run the code above in the Replit below:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example1” />
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
 - en: A callback function passed to the `addEventListener` method handles the result
     of the HTTP request.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
 - en: Different DOM events, for example, the click event, are also handled asynchronously
     using the callback functions. A callback is registered as an event handler and
     is invoked later whenever the event is triggered.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Similarly, different timer functions like `setTimeout` are also provided with
     a callback function that is intended to be invoked after the specified amount
     of time has elapsed.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'You can run the code above in the Replit below:'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example3” />
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
 - en: There is a common misconception that the callback provided to `setTimeout` is
     invoked exactly after the specified amount of time has passed. The time we specify
     when invoking `setTimeout` is the *minimum* amount of time after which the provided
     callback will be invoked.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
 - en: 'In the code example provided above, we have specified 2 seconds (2000 milliseconds)
@@ -199,41 +220,52 @@
     will block the main thread, which means that the callback function provided to
     `setTimeout` cannot be executed until the loop ends. The following code example
     demonstrates this scenario:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'You can run the code above in the Replit below:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example4” />
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
 - en: The above code example shows that the `setTimeout` callback or the callback
     provided to the `setInterval` function may not be invoked after the specified
     time has passed; some other code can block them from being invoked after the specified
     time.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
 - en: JavaScript is single-threaded; only one thing can execute at a time on the main
     thread. Currently, executing code cannot be interrupted to execute some other
     code, like the callback function of `setTimeout` in the code example above.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
 - en: The callback functions are at the heart of asynchronous code in JavaScript.
     Using callbacks works, but they also come with problems.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
 - en: Problems with callbacks
+  id: totrans-49
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
 - en: Using the traditional way of using callbacks to handle asynchronous code presents
     multiple problems that make it hard to use callbacks effectively.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
 - en: Callback hell
+  id: totrans-51
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
@@ -242,137 +274,162 @@
     such a scenario, we have to nest callbacks, which, depending on the number of
     asynchronous operations, can lead to code that is hard to read and maintain. The
     following code example shows this in action:'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
-- en: This is what’s referred to as the **Callback Hell** or the **Pyramid of Doom**
-    because the nesting at each level creates a structure that looks like a pyramid.
+  zh: '[PRE6]'
+- en: This is what’s referred to as the `Callback Hell` or the `Pyramid of Doom` because
+    the nesting at each level creates a structure that looks like a pyramid.
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Looking at the code example above, it is not hard to imagine that it will get
     harder to read as more operations are added to the sequence of asynchronous operations.
     Not only is it hard to read, but it is also hard to maintain and refactor. Note
     that the code example above does not include any error handling; add that to the
     code above, and you will have the following:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
-- en: 'The code above fits its name: “Callback Hell”. No one wants to deal with such
-    a code. It is hard to reason about. We will see in later lessons in this module
-    how the same code can be rewritten using promises and async-await syntax to make
-    it more readable and maintainable.'
+  zh: '[PRE7]'
+- en: 'The code above fits its name: “`Callback Hell`”. No one wants to deal with
+    such a code. It is hard to reason about. We will see in later lessons in this
+    module how the same code can be rewritten using `promises` and `async-await` syntax
+    to make it more readable and maintainable.'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Error handling
+  id: totrans-58
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: Writing error handling code using callbacks, as shown above, is not a pleasant
     experience. As shown in the code above, we need to handle errors in each callback,
     which can lead to duplication of error handling logic. There is no central place
     where we can catch and handle errors for all the asynchronous operations.
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this lesson, we discussed how callbacks are used to write asynchronous code
-    in JavaScript. Though there are better alternatives like promises and async-await
+    in JavaScript. Though there are better alternatives like `promises` and `async-await`
     that solve the problems with callbacks discussed above, callbacks are still commonly
-    used. Although promises solve the problems with callbacks, they still use callbacks,
-    but in a more manageable way that helps us avoid the callback hell.
+    used. Although `promises` solve the problems with callbacks, they still use callbacks,
+    but in a more manageable way that helps us avoid the `callback hell`.
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As we know already, the JavaScript language is single-threaded. Long-running
     code on the main thread can block the thread; in the case of browsers, blocking
     the main thread means that browsers cannot respond to user interactions and cannot
     render changes on the UI. This is why the screen freezes when some long-running
-    code blocks the main thread. In the case of NodeJs, in the context of application
+    code blocks the main thread. In the case of `NodeJs`, in the context of application
     servers, blocking the main thread means that the server cannot handle the incoming
-    HTTP requests until the main thread is unblocked.
+    `HTTP` requests until the main thread is unblocked.
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To get around the limitation of a single thread where JavaScript code executes,
     as discussed in the previous lesson, any asynchronous operation is handled in
     the background, and in the meantime, the main thread can do other things.
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Asynchronous operations like HTTP requests are handled by the browser in the
-    background, and when the HTTP request is completed, our JavaScript code is executed
-    using the callback we provided at the time of starting the HTTP request. The same
-    is true for other asynchronous operations, like file handling in NodeJS. Every
-    asynchronous operation in NodeJs is either handled by the internal thread pool
-    of NodeJS or the operating system itself.
+- en: 像`HTTP`请求这样的异步操作由浏览器在后台处理，当`HTTP`请求完成时，我们的`JavaScript`代码会使用我们在开始`HTTP`请求时提供的回调执行。同样，其他异步操作（如`NodeJS`中的文件处理）也是如此。每个`NodeJS`中的异步操作都由`NodeJS`的内部线程池或操作系统本身处理。
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we consider the main thread as the “JavaScript world”, then the asynchronous
-    operations actually happen outside the JavaScript world. Once the operation is
-    completed, to get back into the JavaScript world, callbacks are used, which are
-    invoked to execute the JavaScript code in response to the successful completion
-    or failure of the operation.
+- en: 如果我们将主线程视为“JavaScript世界”，那么异步操作实际上发生在JavaScript世界之外。一旦操作完成，要重新回到JavaScript世界，就需要使用回调，这些回调被调用以执行`JavaScript`代码，以响应操作成功完成或失败。
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So, in short, the code we write that executes on the main thread only initiates
-    the asynchronous operation. Instead of waiting for the operation to complete,
-    the main thread is free to do other things. The asynchronous operation is handled
-    in the background by the environment in which our JavaScript code is executed.
-    It can be a browser or a runtime like NodeJS. But how does the execution get back
-    from the background to the main thread where our code is executed? This is where
-    the **event loop** comes into the picture.
+- en: 简而言之，我们编写的代码在主线程上执行，仅仅是启动异步操作。主线程不需要等待操作完成，而是可以自由地做其他事情。异步操作在执行我们`JavaScript`代码的环境的后台中处理。这个环境可以是浏览器或像`NodeJS`这样的运行时。但是，如何将执行从后台带回到执行我们代码的主线程呢？这就是`event
+    loop`进入画面的地方。
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What is an event loop?
+- en: 什么是事件循环？
+  id: totrans-66
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The event loop in JavaScript is one of those concepts that is explained abstractly
-    to make it easier for others to understand. This lesson will aim to create a solid
-    understanding of the event loop.
+- en: '`JavaScript`中的事件循环是一个抽象概念，旨在使其他人更容易理解。本课将旨在创建对事件循环的扎实理解。'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The event loop helps to execute asynchronous operations in a non-blocking manner.
-    When an asynchronous operation is completed in the background to execute the JavaScript
-    callback that we provided at the time of initiating the asynchronous operation,
-    it needs to be pushed onto the call stack.
+- en: 事件循环帮助以非阻塞的方式执行异步操作。当后台中的异步操作完成以执行我们在启动异步操作时提供的`JavaScript`回调时，需要将其推入调用堆栈。
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The call stack is a stack data structure used to keep track of the currently
-    executing code. Every function call is added to the stack as a stack frame. The
-    frame is popped off the stack when the function execution ends.
+- en: '`The call stack`是一个堆栈数据结构，用于跟踪当前正在执行的代码。每个函数调用都作为一个堆栈帧被添加到堆栈中。当函数执行结束时，该帧会从堆栈中弹出。'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let us understand the event loop using the following code example:'
+- en: 让我们通过以下代码示例理解事件循环：
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the code above in the Replit below:'
+  zh: '[PRE8]'
+- en: 您可以在下面的`Replit`中运行上面的代码：
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/event-loop-example1” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/event-loop-example1”
+    />`'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The code above logs “after setTimeout” before “hello world” which is inside
-    the callback of `setTimeout`. The following steps explain how the code above executes:'
+- en: 上面的代码在`setTimeout`的回调中记录“after setTimeout”在“hello world”之前。以下步骤解释了上面的代码是如何执行的：
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To execute the code, a task is created and pushed onto the call stack. This
-    is what’s commonly referred to as the “global execution context”.
+- en: 要执行代码，会创建一个任务并将其推入调用堆栈。这通常被称为“全局执行上下文”。
+  id: totrans-75
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Once the code execution starts, the first thing to do is to invoke the `setTimeout`
-    function, passing in a callback that is to be invoked after approximately 2 seconds.
-    Calling `setTimeout` starts a timer in the background that will expire after 2
-    seconds in our code example. In the meantime, the main thread continues executing
-    the code instead of waiting for the timer to expire. This is why “after setTimeout”
-    is logged before “hello world”.
+- en: 一旦代码执行开始，第一件事就是调用`setTimeout`函数，传入一个将在大约2秒后被调用的回调。调用`setTimeout`会在后台启动一个计时器，该计时器将在我们代码示例中的2秒后到期。在此期间，主线程继续执行代码，而不是等待计时器到期。这就是为什么“after
+    setTimeout”在“hello world”之前被记录的原因。
+  id: totrans-76
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, the `console.log` is executed, logging “after setTimeout” on the console.
+  id: totrans-77
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -382,6 +439,7 @@
     *no asynchronous callback can be invoked until the synchronous execution of the
     code has ended*. Remember, only one thing executes at a time on the main thread,
     and the currently executing code cannot be interrupted.'
+  id: totrans-78
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -390,6 +448,7 @@
     soon as the timer expires, a task is enqueued in a **task queue** to execute the
     callback of `setTimeout`. The task queue is where different tasks are queued until
     they can be pushed onto the call stack and executed.
+  id: totrans-79
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -400,6 +459,7 @@
     loop only pushes the tasks onto the call stack if the call stack is empty. In
     our case, the call stack is empty, so the callback of `setTimeout` can be executed.
     As a result, “hello world” is logged on the console.
+  id: totrans-80
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -409,241 +469,309 @@
     allows asynchronous code to be executed in JavaScript in a non-blocking manner.
     The event loop can be thought of as a loop that continuously checks if there are
     any tasks waiting to be executed.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
 - en: 'The event loop is what connects the two worlds: the “JavaScript world”, where
     our code executes, and the “background world”, where the asynchronous operations
     are actually executed.'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
 - en: 'The above steps can be visualized in the following image:'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
 - en: '![function parameter scope](images/module_09----lesson_09.03----public----assets----__event-loop-visualization.gif)'
+  id: totrans-84
   prefs: []
   type: TYPE_IMG
 - en: function parameter scope
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
 - en: Take your time to understand exactly what happens behind the scenes. The timer
     is intentionally shown to take longer than 2 seconds to make the visualization
     easier to understand. Understanding the steps above before seeing the image will
     make it easy to understand how our code example executes.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
 - en: Any user interaction like the click event requires scheduling a task; the same
     is true for executing the callbacks of timing functions like `setTimeout`. Tasks
     are queued in the task queue until the event loop processes them. The task queue
     is also referred to as the **event queue** or the **callback queue**.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
 - en: The event loop processes a single task during its single turn, commonly referred
     to as the “event loop tick” or just “tick”. The next task is processed during
     the next turn or tick of the event loop. The browser may choose to render UI updates
     between tasks.
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The event loop can have multiple sources of tasks, and the browser decides which
     source to process tasks from during each tick of the event loop. Another queue
-    is known as the microtask queue, which we will discuss later in this module. The
-    event loop also processes microtasks, but there is a difference in how the event
-    loop processes tasks and microtasks. The difference will be clear when we discuss
-    the microtask queue.
+    is known as the `microtask queue`, which we will discuss later in this module.
+    The event loop also processes microtasks, but there is a difference in how the
+    event loop processes tasks and microtasks. The difference will be clear when we
+    discuss the microtask queue.
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In this lesson, we discussed what an event loop is and how tasks are processed:
     a single task per tick of the event loop.'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Tool to visualize the event loop
+  id: totrans-91
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following is a great tool to visualize the workings of an event loop using
     our code:'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[loupe](http://latentflip.com/loupe)'
+- en: '[`loupe`](http://latentflip.com/loupe)'
+  id: totrans-93
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Further reading
+  id: totrans-94
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following resources are recommended to further our understanding of the
     event loop:'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[The event loop (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)'
+- en: '[`The event loop (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)'
+  id: totrans-96
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[What the heck is the event loop anyway? | Philip Roberts (youtube video)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)'
+- en: '[`What the heck is the event loop anyway? | Philip Roberts (youtube video)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)'
+  id: totrans-97
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Jake Archibald on the web browser event loop, setTimeout, micro tasks, requestAnimationFrame
+- en: '[`Jake Archibald on the web browser event loop, setTimeout, micro tasks, requestAnimationFrame
     (youtube video)](https://www.youtube.com/watch?v=cCOL7MC4Pl0)'
+  id: totrans-98
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Promises introduced in ES2015 have transformed the way we handle asynchronous
+- en: Promises introduced in `ES2015` have transformed the way we handle asynchronous
     code in JavaScript. Promises are meant to address the problems we discussed with
     callbacks.
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A promise represents an object that acts as a *placeholder* for a value that
+- en: A promise represents an object that acts as a `placeholder` for a value that
     is typically produced as a result of an asynchronous operation. In other words,
     a promise object represents the successful completion or failure of an asynchronous
     operation. There is a common misconception among beginners that promises to make
     our code asynchronous; they do not. Think of promises as a notification mechanism
-    that notifies us about the success or failure of some operation that is *already*
+    that notifies us about the success or failure of some operation that is `already`
     asynchronous. Promises wrap asynchronous operations and allow us to execute code
     when an asynchronous operation is successfully completed or when it fails. That’s
     all a promise does. Nothing more, nothing less. It is only meant to observe the
     asynchronous operation and notify us when that operation is completed.
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Before we learn how we can create promise objects, let us first learn how we
     can deal with promises using the built-in `fetch` function that allows us to make
     HTTP requests from the JavaScript code running in the browser.
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When the `fetch` function is called, instead of making the calling code wait
-    for the HTTP request to complete, it returns a promise object. We can associate
-    callback functions with the returned promise object to execute code when the HTTP
-    request is complete. We still use callbacks with promises, but the problems we
-    discussed with callbacks in an earlier lesson in this module don’t exist when
-    using promises. Compared to callbacks, promises provide a clean and structured
-    way to handle asynchronous operations in JavaScript.
+- en: 当调用`fetch`函数时，函数不会使调用代码等待HTTP请求完成，而是返回一个承诺对象。我们可以将回调函数与返回的承诺对象关联，以便在HTTP请求完成时执行代码。我们仍然使用回调与承诺，但我们在本模块之前的课程中讨论的与回调相关的问题在使用承诺时不存在。与回调相比，承诺提供了一种干净且结构化的方式来处理JavaScript中的异步操作。
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
-- en: The promise returned by the `fetch` function can be thought of as the `fetch`
-    function *promising* us to supply a value when the HTTP request completes some
-    time in the future. In the meantime, the main thread is free to do other things.
+  zh: '[PRE9]'
+- en: '`fetch`函数返回的承诺可以看作是`fetch`函数`承诺`我们在HTTP请求未来某个时间完成时提供一个值。在此期间，主线程可以自由执行其他操作。'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What can we do with the returned promise? We can register callbacks with the
-    promise object that will be invoked when the network request completes. We can
-    register separate callbacks to handle the success or failure of the network request.
+- en: 我们可以对返回的承诺做什么？我们可以在网络请求完成时注册与承诺对象的回调。我们可以注册不同的回调以处理网络请求的成功或失败。
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Promise states
+- en: 承诺状态
+  id: totrans-106
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Promises can be in one of the following three states in their lifecycle:'
+- en: 承诺在其生命周期中可以处于以下三种状态之一：
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**pending:** the initial state in which promises typically start when they
-    are created. It indicates that the asynchronous operation associated with the
-    promise is in progress.'
+- en: '`pending`：承诺通常在创建时的初始状态。这表示与承诺关联的异步操作正在进行中。'
+  id: totrans-108
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**fulfilled:** means that the asynchronous operation associated with the promise
-    has been completed successfully.'
+- en: '`fulfilled`：意味着与承诺关联的异步操作已成功完成。'
+  id: totrans-109
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**rejected:** means that the asynchronous operation associated with the promise
-    has failed.'
+- en: '`rejected`：意味着与承诺关联的异步操作失败了。'
+  id: totrans-110
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: During the lifecycle of a promise, its state changes from pending to either
-    fulfilled or rejected. The state of a promise is saved in the hidden internal
-    slot named [[[PromiseState]]](https://262.ecma-international.org/14.0/#table-internal-slots-of-promise-instances).
+- en: 在承诺的生命周期中，它的状态从`pending`变为`fulfilled`或`rejected`。承诺的状态保存在名为`[[[PromiseState]]]`的隐藏内部插槽中（[链接](https://262.ecma-international.org/14.0/#table-internal-slots-of-promise-instances)）。
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A promise in the pending state is considered *unsettled*. Once the promise transitions
-    from the pending state into either a fulfilled or rejected state, it is said to
-    have *settled*.
+- en: 处于`pending`状态的承诺被视为`unsettled`。一旦承诺从`pending`状态转换为`fulfilled`或`rejected`状态，就被认为是`settled`。
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Promise instance methods
+- en: 承诺实例方法
+  id: totrans-113
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'There are three instance methods we can call on promise instances:'
+- en: 我们可以在承诺实例上调用的三种实例方法：
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.then()`'
+  id: totrans-115
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.catch()`'
+  id: totrans-116
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.finally()`'
+  id: totrans-117
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: then method
+- en: '`then`方法'
+  id: totrans-118
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `then` method is used to register a callback that is invoked asynchronously
-    once the promise is fulfilled, i.e., the asynchronous operation wrapped by the
-    promise completes successfully. This method allows us to execute code upon the
-    successful completion of an asynchronous operation. Consider the following code
-    example:'
+- en: '`then`方法用于注册一个回调函数，该函数在承诺被满足时异步调用，即被承诺包装的异步操作成功完成时。此方法允许我们在异步操作成功完成时执行代码。考虑以下代码示例：'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
-- en: 'The `then` method accepts two callback functions as arguments: the **fulfillment
-    handler** and the **rejection handler**. The fulfillment handler is the first
-    argument, as shown in the code example above. The rejection handler is the optional
-    second argument that is invoked if the promise on which the `then` method is called
-    gets rejected.'
+  zh: '[PRE10]'
+- en: '`then`方法接受两个回调函数作为参数：`fulfillment handler`和`rejection handler`。`fulfillment
+    handler`是第一个参数，如上面的代码示例所示。`rejection handler`是可选的第二个参数，如果调用`then`方法的承诺被拒绝，则会调用它。'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: The fulfillment handler is passed the result of the asynchronous operation as
     an argument. In other words, the fulfillment handler receives the value with which
     the promise is fulfilled. In the case of an HTTP request, the promise is fulfilled
     with the server response, so the fulfillment handler receives the server response
     as an argument. On the other hand, the rejection handler receives the rejection
     reason as an argument if the promise is rejected.
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: catch method
+- en: '`catch` method'
+  id: totrans-124
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: We learned in the previous section that we can pass the rejection handler as
     the second argument to the `then` method to handle the promise rejection. There
     is another option to register the rejection handler, and that is through the `catch`
     method. Instead of passing the rejection handler to the `then` method, we can
     call the `catch` method on the promise to register the rejection handler.
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-126
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: 'The `catch` method is similar to the `then` method that is called with only
     a rejection handler, as shown below:'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: However, using the `catch` method to register a rejection handler is more common
     than using the second argument of the `then` method.
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: finally method
+- en: '`finally` method'
+  id: totrans-130
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Imagine a scenario where we want to send an HTTP request to a server, and while
     the request is in progress, we show a loading spinner to the user to indicate
@@ -651,11 +779,15 @@
     unsuccessfully, we want to hide the loading spinner. To achieve this, we will
     have to duplicate the code that hides the loading spinner in the fulfillment and
     rejection handlers, as shown in the following code example:'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: 'We want to avoid code duplication, and the `finally` method can help us remove
     the code duplication. The `finally` method allows us to execute code regardless
     of promise fulfillment or rejection. Just like the `then` and `catch` methods,
@@ -664,39 +796,53 @@
     the `finally` method is the perfect place for the code that we want to execute
     regardless of whether the asynchronous operation fails or completes successfully.
     We can refactor the code above as shown below:'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Unlike the callbacks of the `then` and `catch` methods, the callback passed
     to the `finally` method receives no arguments.
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Creating promises
+  id: totrans-136
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We can create new promise objects using the `Promise` constructor, as shown
     below:'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-138
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: The `Promise` constructor takes a callback function as an argument, referred
-    to as the **executor** function, that is invoked *synchronously* to create the
-    promise object. It is common to incorrectly assume that any code inside the executor
-    function is executed asynchronously, but that is not the case. The executor function
-    is invoked synchronously to create the promise object. The code inside the executor
+    to as the `executor` function, that is invoked `synchronously` to create the promise
+    object. It is common to incorrectly assume that any code inside the executor function
+    is executed asynchronously, but that is not the case. The executor function is
+    invoked synchronously to create the promise object. The code inside the executor
     function should be any code that starts some asynchronous operation. The newly
     created promise object will observe that asynchronous operation. The promise object
     will notify us about the success or failure of the asynchronous operation that
     is initiated inside the executor function.
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How is the asynchronous operation linked to the newly created promise? Through
-    the `resolve` and `reject` functions that, the executor function receives as arguments.
+    the `resolve` and `reject` functions that the executor function receives as arguments.
     The parameters could be given different names, but it is common practice to name
     them `resolve` and `reject` to clearly indicate their purpose. The `resolve` function
     is used to resolve or fulfill the promise, and the `reject` function is used to
@@ -704,60 +850,86 @@
     how we can create a promise object that wraps around an asynchronous operation
     and is resolved or rejected depending on whether the asynchronous operation succeeds
     or fails.
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-141
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promises-example9” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promises-example9” />`'
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The code example above shows how a promise object can be wrapped around an asynchronous
     operation and be resolved or rejected when the asynchronous operation succeeds
     or fails. In response to the promise being fulfilled or rejected, the appropriate
     handler (fulfillment or rejection) is invoked asynchronously.
+  id: totrans-144
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It is important to note that the promise won’t be fulfilled or rejected until
     the `resolve` or `reject` functions are called within the executor function. As
     a result, any registered fulfillment or rejection handlers won’t be called until
     the promise is settled.
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The code example above might not make you see how promises are an improvement
     over the traditional way of using callbacks to handle asynchronous code, but wait
     until we discuss promise chaining and `async-await` syntax in the upcoming lessons
     in this module. These two topics will help you see how promises address the two
     main problems with callbacks: Callback hell and error handling.'
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Using promises with callback-based API
+  id: totrans-147
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: If you noticed in the code example in the previous section, we just wrapped
     a promise around the callback-based `XMLHttpRequest` API. We wrapped a promise
     around it so that we could interact with it using promises.
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Similar to what we did above, we can convert any callback-based API into a
     promise-based API. All we need to do is place the callback-based code in the executor
     function and call the `resolve` and `reject` functions at appropriate places to
     fulfill or reject the promise. Following is an example of wrapping a promise around
     `setTimeout` to add an artificial delay in the code:'
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE18]'
+  id: totrans-150
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promises-example10” />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promises-example10" />`'
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the code example above, we wrapped `setTimeout` in a promise to add an artificial
     delay in the code. To resolve the promise after the specified delay (2 seconds
@@ -765,464 +937,575 @@
     of `setTimeout`. Note that we didn’t call or use the `reject` function because
     we didn’t need it to reject the promise. We just want the promise to be fulfilled
     after the specified delay.
+  id: totrans-153
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Promise specification
+  id: totrans-154
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Promises/A+](https://promisesaplus.com/) is a standard that defines the behavior
     of promises in JavaScript. It ensures that different implementations of promises
     in different environments conform to the standard behavior defined in the specification
     to ensure consistency in the behavior of promises across different environments.'
+  id: totrans-155
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Promise vs thenable
+- en: Promise vs `thenable`
+  id: totrans-156
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If you read the promise specification, you will find the word “**thenable**”
-    mentioned multiple times. A thenable is any object that has defined a method named
-    `then` but is not a promise. It is a generic term for objects with a method named
-    `then`. As promises have a method named `then`, we can say that all promises are
-    thenables, but the reverse is not true: every thenable is not a promise.'
+- en: 'If you read the promise specification, you will find the word "`thenable`"
+    mentioned multiple times. A `thenable` is any object that has defined a method
+    named `then` but is not a promise. It is a generic term for objects with a method
+    named `then`. As promises have a method named `then`, we can say that all promises
+    are `thenables`, but the reverse is not true: every `thenable` is not a promise.'
+  id: totrans-157
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To summarize the difference, thenable is an object with a `then` method, and
-    promise is an object with a `then` method that conforms to the [Promises/A+](https://promisesaplus.com/)
+- en: To summarize the difference, `thenable` is an object with a `then` method, and
+    `promise` is an object with a `then` method that conforms to the [Promises/A+](https://promisesaplus.com/)
     specification.
+  id: totrans-158
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In the previous lesson, we discussed the following instance methods of promises:'
+  id: totrans-159
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.then()`'
+  id: totrans-160
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.catch()`'
+  id: totrans-161
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '`Promise.prototype.finally()`'
+  id: totrans-162
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: We discussed what each of these methods allows us to do, but what we didn’t
     discuss is what each of these methods returns. Their return value is important
     because it allows for promise chaining, which is the topic of this lesson.
+  id: totrans-163
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Each of the instance methods of promises returns a new promise, which enables
     us to create a chain of method calls, effectively creating a chain of asynchronous
     operations. Promise chaining helps resolve the two main problems we face when
     using callbacks: “Callback Hell” and error handling.'
+  id: totrans-164
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following code example shows how we have registered fulfillment and rejection
     handlers with the promise returned by the `fetch` function:'
+  id: totrans-165
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE19]'
+  id: totrans-166
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: 'As each promise instance method returns a new promise, we can rewrite the above
     code as shown below:'
+  id: totrans-167
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE20]'
+  id: totrans-168
   prefs: []
   type: TYPE_PRE
-- en: 'The refactored code achieves the same result as the first code example, but
-    technically, the first code example is different compared to the refactored code.
-    In the first code example, the rejection handler is registered on the promise
-    returned by the `fetch` function, whereas in the refactored code, the rejection
-    handler is registered on the promise returned by the `then` method. The promise
-    chain in the refactored code can be split into different parts, as shown below
-    to make it easier to understand:'
+  zh: '[PRE20]'
+- en: 重构后的代码实现了与第一个代码示例相同的结果，但从技术上讲，第一个代码示例与重构后的代码是不同的。在第一个代码示例中，拒绝处理程序是在`fetch`函数返回的`promise`上注册的，而在重构后的代码中，拒绝处理程序是在`then`方法返回的`promise`上注册的。重构后的代码中的`promise`链可以分成不同的部分，如下所示，以便更容易理解：
+  id: totrans-169
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE21]'
+  id: totrans-170
   prefs: []
   type: TYPE_PRE
-- en: Notice the promises for which fulfillment and rejection handlers have been registered.
-    The fulfillment handler is registered on the promise returned by the `fetch` function,
-    but unlike the first code example, the rejection handler is registered on the
-    promise returned by the `then` method. So does it mean that if the promise returned
-    by the `fetch` function is rejected, there is no rejection handler registered
-    to handle the rejection? No, the rejection handler registered on the `pThen` promise
-    will handle the rejection. To understand how it works, we have to understand how
-    the promise chain works.
+  zh: '[PRE21]'
+- en: 注意已经注册了满足和拒绝处理程序的`promise`。满足处理程序是在`fetch`函数返回的`promise`上注册的，但与第一个代码示例不同，拒绝处理程序是在`then`方法返回的`promise`上注册的。那么，这是否意味着如果`fetch`函数返回的`promise`被拒绝，就没有注册处理拒绝的处理程序？不，注册在`pThen``promise`上的拒绝处理程序将处理拒绝。要理解它是如何工作的，我们必须理解`promise`链是如何工作的。
+  id: totrans-171
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Further code examples in this lesson will use the following function that simulates
-    an HTTP request that takes approximately two seconds to complete:'
+- en: 本节的进一步代码示例将使用以下函数，该函数模拟一个大约需要两秒钟才能完成的HTTP请求：
+  id: totrans-172
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE22]'
+  id: totrans-173
   prefs: []
   type: TYPE_PRE
-- en: This above function will make it easy for us to understand the promise chaining.
-    The function takes a boolean parameter that specifies whether we want our fake
-    request to be fulfilled or rejected. The default value of the parameter is `true`,
-    so we only need to pass the argument if we want the request to fail. Inside the
-    function, a promise is returned that wraps around the `setTimeout` to simulate
-    a request that takes approximately two seconds to complete. After the timer expires,
-    the promise is fulfilled or rejected, depending on the value of the `isSuccessRequest`
-    parameter.
+  zh: '[PRE22]'
+- en: 这个函数将使我们更容易理解`promise`链。该函数接受一个布尔参数，指定我们是否希望我们的假请求被满足或拒绝。该参数的默认值为`true`，因此如果我们希望请求失败，只需传递参数即可。在函数内部，返回一个包装在`setTimeout`中的`promise`，以模拟一个大约需要两秒钟才能完成的请求。在定时器到期后，`promise`会被满足或拒绝，具体取决于`isSuccessRequest`参数的值。
+  id: totrans-174
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With the `fakeRequest` function defined, let us dive into the world of promise
-    chaining.
+- en: 定义了`fakeRequest`函数后，让我们深入`promise`链的世界。
+  id: totrans-175
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: then promise
+- en: '`then` `promise`'
+  id: totrans-176
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Calling the `then` method on a promise registers a fulfillment handler on that
-    promise. The `then` method itself returns a new promise that is different from
-    the original promise on which the `then` method is called.
+- en: 在一个`promise`上调用`then`方法会在该`promise`上注册一个满足处理程序。`then`方法本身返回一个新的`promise`，该`promise`与调用`then`方法的原始`promise`不同。
+  id: totrans-177
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE23]'
+  id: totrans-178
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE23]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-179
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example5”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example5"
+    />`'
+  id: totrans-180
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The promise returned by the `then` method fulfills or gets rejected based on
-    the following two questions:'
+- en: '`then`方法返回的`promise`根据以下两个问题来满足或拒绝：'
+  id: totrans-181
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What happens to the promise on which the `then` method is called? In our case,
-    the `then` method is called on the `pRequest` promise.
+- en: 调用`then`方法的`promise`会发生什么？在我们的案例中，`then`方法是在`pRequest``promise`上调用的。
+  id: totrans-182
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: What is returned from the fulfillment or rejection handlers passed to the `then`
-    method? Which handler will affect the promise returned by the `then` method depends
-    on which handler is invoked when the original promise on which the `then` method
-    is called settles.
+- en: 从传递给`then`方法的满足或拒绝处理程序返回的是什么？哪个处理程序会影响`then`方法返回的`promise`取决于在调用`then`方法的原始`promise`解决时哪个处理程序被调用。
+  id: totrans-183
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Keeping the above two questions in mind, let us discuss the different scenarios
-    that can affect the promise returned by the `then` method:'
+- en: 记住上述两个问题，让我们讨论可能影响`then`方法返回的`promise`的不同场景：
+  id: totrans-184
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Scenario 1: Original promise gets fulfilled'
+- en: 场景1：原始`promise`被满足
+  id: totrans-185
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If the original promise on which the `then` method is called is fulfilled,
-    the promise returned by the `then` method depends on what happens inside the fulfillment
-    handler. Following are different things a fulfillment handler can do that affect
-    the promise returned by the `then` method:'
+- en: 如果调用`then`方法的原始承诺被实现，则`then`方法返回的承诺取决于实现处理程序内部发生的事情。以下是实现处理程序可以执行的不同操作，这些操作会影响`then`方法返回的承诺：
+  id: totrans-186
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the fulfillment handler is registered and it returns a value that is not
-    a promise or a thenable, then the promise returned by the `then` method gets fulfilled
-    with that returned value.
+- en: 如果注册了实现处理程序，并且它返回的值不是一个承诺或可then的对象，则`then`方法返回的承诺将以该返回值完成。
+  id: totrans-187
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE24]'
+  id: totrans-188
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE24]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-189
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example6”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example6"
+    />`'
+  id: totrans-190
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the fulfillment handler doesn’t explicitly return any value, the promise
-    returned by the `then` method is fulfilled with `undefined` as the fulfillment
-    value.
+- en: 如果实现处理程序没有显式返回任何值，则`then`方法返回的承诺以`undefined`作为实现值完成。
+  id: totrans-191
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE25]'
+  id: totrans-192
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE25]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-193
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example7”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example7"
+    />`'
+  id: totrans-194
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the `then` method is called on a promise but the fulfillment handler isn’t
-    provided, the promise returned by the `then` method gets fulfilled with the same
-    fulfillment value as the original promise.
+- en: 如果在一个承诺上调用`then`方法但没有提供实现处理程序，则`then`方法返回的承诺将以与原始承诺相同的实现值完成。
+  id: totrans-195
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE26]'
+  id: totrans-196
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE26]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-197
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example8”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example8"
+    />`'
+  id: totrans-198
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the fulfillment handler throws any value or an error, the promise returned
-    by the `then` method gets rejected with the thrown value as the rejection reason
-    or value.
+- en: 如果实现处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
+  id: totrans-199
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE27]'
+  id: totrans-200
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE27]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-201
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example9”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example9"
+    />`'
+  id: totrans-202
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the fulfillment handler returns a promise, the promise returned by the `then`
-    method gets *resolved* to the promise returned by the fulfillment handler. One
-    promise getting *resolved to another promise* simply means that the fate of one
-    promise (let’s call it `p1`) depends on the other promise (let’s call it `p2`).
-    If `p2` is fulfilled, `p1` also gets fulfilled with the same fulfillment value.
-    If `p2` gets rejected, `p1` also gets rejected with the same rejection value.
-    Promise `p1` will wait for `p2` to settle before it also settles and will eventually
-    meet the same fate as `p2`.
+- en: 如果实现处理程序返回一个承诺，则`then`方法返回的承诺将被*解析*为实现处理程序返回的承诺。一个承诺被*解析为另一个承诺*意味着一个承诺（我们称之为`p1`）的命运取决于另一个承诺（我们称之为`p2`）。如果`p2`被实现，`p1`也将以相同的实现值被实现。如果`p2`被拒绝，`p1`也将以相同的拒绝值被拒绝。承诺`p1`将等待`p2`解决后再解决，最终与`p2`达到相同的命运。
+  id: totrans-203
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE28]'
+  id: totrans-204
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE28]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-205
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example10”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example10"
+    />`'
+  id: totrans-206
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the above code example, `pThen` promise returned by the `then` method gets
-    *resolved* to the promise returned by the fulfillment handler of the `pRequest`
-    promise.
+- en: 在上面的代码示例中，`then`方法返回的承诺`pThen`通过`pRequest`承诺的实现处理程序返回的承诺被*解析*。
+  id: totrans-207
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Scenario 2: Original promise gets rejected'
+- en: 场景 2：原始承诺被拒绝
+  id: totrans-208
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If the original promise on which the `then` method is called is rejected, the
-    promise returned by the `then` method depends on the following scenarios:'
+- en: 如果调用`then`方法的原始承诺被拒绝，则`then`方法返回的承诺取决于以下场景：
+  id: totrans-209
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If only the fulfillment handler is passed to the `then` method, the promise
-    returned by the `then` method also gets rejected with the same rejection reason
-    or value with which the original promise was rejected.
+- en: 如果只将实现处理程序传递给`then`方法，则`then`方法返回的承诺也将以与原始承诺被拒绝时相同的拒绝原因或值被拒绝。
+  id: totrans-210
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE29]'
+  id: totrans-211
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE29]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-212
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example11”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example11"
+    />`'
+  id: totrans-213
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If a rejection handler is passed to the `then` method, then the promise returned
-    by the `then` method depends on what happens inside the rejection handler. This
-    works similarly to how it works in the case of the fulfillment handler:'
+- en: 如果将拒绝处理程序传递给`then`方法，那么`then`方法返回的承诺将取决于拒绝处理程序内部发生的事情。这在履行处理程序的情况下工作类似：
+  id: totrans-214
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the rejection handler returns a non-promise value, the promise returned by
-    the `then` method gets fulfilled with the value returned by the rejection handler.
-  prefs:
-  - PREF_IND
-  - PREF_UL
-  type: TYPE_NORMAL
-- en: If the rejection handler doesn’t explicitly return any value, the promise returned
-    by the `then` method is fulfilled with `undefined` as the fulfillment value.
+- en: 如果拒绝处理程序返回一个非承诺值，则`then`方法返回的承诺将以拒绝处理程序返回的值被兑现。
+  id: totrans-215
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the `then` method is called on the original promise but the rejection handler
-    isn’t provided, the promise returned by the `then` method gets rejected with the
-    same rejection value as the original promise.
+- en: 如果拒绝处理程序没有明确返回任何值，那么`then`方法返回的承诺将以`undefined`作为满足值被兑现。
+  id: totrans-216
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the rejection handler throws any value or an error, the promise returned
-    by the `then` method gets rejected with the thrown value as the rejection reason
-    or value.
+- en: 如果在原始承诺上调用`then`方法，但没有提供拒绝处理程序，则`then`方法返回的承诺将以与原始承诺相同的拒绝值被拒绝。
+  id: totrans-217
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the rejection handler returns a promise, the promise returned by the `then`
-    method gets resolved to the promise returned by the rejection handler, the same
-    as in the case of the fulfillment handler discussed earlier.
+- en: 如果拒绝处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
+  id: totrans-218
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we have discussed how the promise returned by the `then` method settles
-    in different scenarios, next we will discuss the promise returned by the `catch`
-    method.
+- en: 如果拒绝处理程序返回一个承诺，则`then`方法返回的承诺将被解析为拒绝处理程序返回的承诺，就像之前讨论的履行处理程序的情况一样。
+  id: totrans-219
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  stylish: true
+  type: TYPE_NORMAL
+- en: 现在我们已经讨论了`then`方法返回的承诺在不同场景下是如何解决的，接下来我们将讨论`catch`方法返回的承诺。
+  id: totrans-220
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: catch promise
+- en: 捕获承诺
+  id: totrans-221
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `catch` method is used to register a rejection handler for a promise in
-    which it is called. Just like the `then` method, the `catch` method also returns
-    a new promise, and just like the `then` method promise, the promise returned by
-    the `catch` method settles depending on the following two questions:'
+- en: '`catch`方法用于为调用它的承诺注册拒绝处理程序。与`then`方法一样，`catch`方法也返回一个新的承诺，并且与`then`方法的承诺一样，`catch`方法返回的承诺的解决情况取决于以下两个问题：'
+  id: totrans-222
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What happens to the promise on which the `catch` method is called?
+- en: 在调用`catch`方法的承诺上发生了什么？
+  id: totrans-223
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: What is returned from the rejection handler passed to the `catch` method?
+- en: 传递给`catch`方法的拒绝处理程序返回了什么？
+  id: totrans-224
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Scenario 1: Original promise gets fulfilled'
+- en: 场景1：原始承诺被兑现
+  id: totrans-225
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: Suppose the original promise on which the `catch` method is called is fulfilled.
-    In that case, the rejection handler registered using the `catch` method isn’t
-    called, and the promise returned by the `catch` method gets fulfilled with the
-    same fulfillment value as the original promise.
+- en: 假设调用`catch`方法的原始承诺已经兑现。在这种情况下，使用`catch`方法注册的拒绝处理程序不会被调用，`catch`方法返回的承诺将以与原始承诺相同的满足值被兑现。
+  id: totrans-226
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE30]'
+  id: totrans-227
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE30]'
+- en: 您可以在下面的Replit中运行上述代码：
+  id: totrans-228
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example12”
     />
+  id: totrans-229
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Scenario 2: Original promise gets rejected'
+- en: 场景2：原始承诺被拒绝
+  id: totrans-230
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The rejection handler registered using the `catch` handler is called when the
-    original promise on which the `catch` method is called gets rejected. If the original
-    promise is rejected, then the promise returned by the `catch` method, just like
-    the promise returned by the `then` method, depends on what happens inside the
-    rejection handler:'
+- en: 使用`catch`处理程序注册的拒绝处理程序在调用`catch`方法的原始承诺被拒绝时被调用。如果原始承诺被拒绝，那么`catch`方法返回的承诺，就像`then`方法返回的承诺一样，取决于拒绝处理程序内部发生的事情：
+  id: totrans-231
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If the rejection handler returns a non-promise value, the promise returned by
-    the `catch` method gets fulfilled with the value returned by the rejection handler.
+- en: 如果拒绝处理程序返回一个非承诺值，则`catch`方法返回的承诺将以拒绝处理程序返回的值被兑现。
+  id: totrans-232
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE31]'
+  id: totrans-233
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE31]'
+- en: 您可以在下面的Replit中运行上述代码：
+  id: totrans-234
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example13”
     />
+  id: totrans-235
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the rejection handler doesn’t explicitly return any value, the promise returned
     by the `catch` method is fulfilled with `undefined` as the fulfillment value.
+  id: totrans-236
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE32]'
+  id: totrans-237
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-238
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example14”
     />
+  id: totrans-239
   prefs: []
   type: TYPE_NORMAL
 - en: If the `catch` method is called on the original promise but the rejection handler
     isn’t provided, the promise returned by the `catch` method gets rejected with
     the same rejection value as the original promise.
+  id: totrans-240
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE33]'
+  id: totrans-241
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-242
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example15”
     />
+  id: totrans-243
   prefs: []
   type: TYPE_NORMAL
 - en: If the rejection handler throws any value or an error, the promise returned
     by the `catch` method gets rejected with the thrown value as the rejection reason
     or value.
+  id: totrans-244
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE34]'
+  id: totrans-245
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-246
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example16”
     />
+  id: totrans-247
   prefs: []
   type: TYPE_NORMAL
 - en: If the rejection handler returns a promise, the promise returned by the `catch`
     method gets resolved to the promise returned by the rejection handler, the same
     as in the case of the fulfillment handler discussed earlier.
+  id: totrans-248
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE35]'
+  id: totrans-249
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-250
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example17”
     />
+  id: totrans-251
   prefs: []
   type: TYPE_NORMAL
 - en: finally promise
+  id: totrans-252
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
@@ -1232,17 +1515,21 @@
     or rejected. Just like the `then` and `catch` methods, the `finally` method also
     returns a new promise, and the settlement of the promise returned by the `finally`
     method depends on the following two questions:'
+  id: totrans-253
   prefs: []
   type: TYPE_NORMAL
 - en: What happens to the promise on which the `finally` method is called?
+  id: totrans-254
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: What is returned from the callback function passed to the `finally` method?
+  id: totrans-255
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: 'Scenario 1: Original promise gets fulfilled'
+  id: totrans-256
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
@@ -1250,25 +1537,32 @@
     In that case, the promise returned by the finally method also gets fulfilled with
     the same fulfillment value as the original promise, provided that the following
     conditions are met:'
+  id: totrans-257
   prefs: []
   type: TYPE_NORMAL
 - en: The `finally` callback doesn’t throw an error or a value.
+  id: totrans-258
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: The `finally` callback doesn’t return a rejected promise or a promise that eventually
     gets rejected.
+  id: totrans-259
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE36]'
+  id: totrans-260
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: 'Here’s the code in the Replit:'
+  id: totrans-261
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example18”
     />
+  id: totrans-262
   prefs: []
   type: TYPE_NORMAL
 - en: Note that the `finally` callback didn’t explicitly return any value, but the
@@ -1276,294 +1570,333 @@
     promise. This behavior is different than that of the `then` and `catch` methods;
     their promise is fulfilled with the value `undefined` if their callback implicitly
     returns `undefined`.
+  id: totrans-263
   prefs: []
   type: TYPE_NORMAL
 - en: 'Scenario 2: Original promise gets rejected'
+  id: totrans-264
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
-- en: 'Suppose the original promise on which the `finally` method is called is rejected.
-    In that case, the promise returned by the `finally` method also gets rejected
-    with the same rejection value as the original promise, provided that the same
-    two conditions mentioned previously are met:'
+- en: 假设调用`finally`方法的原始 promise 被拒绝。在这种情况下，`finally`方法返回的 promise 也会以与原始 promise
+    相同的拒绝值被拒绝，前提是满足之前提到的相同两个条件：
+  id: totrans-265
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The finally callback doesn’t throw an error or a value.
+- en: '`finally`回调不会抛出错误或值。'
+  id: totrans-266
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The finally callback doesn’t return a rejected promise or a promise that eventually
-    gets rejected.
+- en: '`finally`回调不会返回被拒绝的 promise 或最终被拒绝的 promise。'
+  id: totrans-267
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE37]'
+  id: totrans-268
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s the code in the Replit:'
+  zh: '[PRE37]'
+- en: 下面是 Replit 中的代码：
+  id: totrans-269
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example19”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example19”
+    />`'
+  id: totrans-270
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Scenario 3: shadowing original promise settlement'
+- en: 场景 3：遮蔽原始 promise 的结算
+  id: totrans-271
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: Unlike the `then` and `catch` methods, the return value of the `finally` callback
-    is ignored, and the promise returned by the `finally` method simply meets the
-    same fate as the original promise on which it is called; if the original promise
-    fulfills, the `finally` promise also fulfills; if the original promise gets rejected,
-    the `finally` promise also gets rejected.
+- en: 与`then`和`catch`方法不同，`finally`回调的返回值被忽略，`finally`方法返回的 promise 简单地与调用它的原始 promise
+    同样的命运；如果原始 promise 被满足，`finally` promise 也会被满足；如果原始 promise 被拒绝，`finally` promise
+    也会被拒绝。
+  id: totrans-272
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, the two conditions mentioned in the first two scenarios of the `finally`
-    method are exceptions to this rule. If the `finally` callback throws an error,
-    the `finally` promise gets rejected with the thrown value.
+- en: 然而，`finally`方法的前两个场景中提到的两个条件是这个规则的例外。如果`finally`回调抛出错误，`finally` promise 将以抛出的值被拒绝。
+  id: totrans-273
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE38]'
+  id: totrans-274
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE38]'
+- en: 你可以在下面的 Replit 中运行上述代码：
+  id: totrans-275
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example20”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example20”
+    />`'
+  id: totrans-276
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rejection of the `finally` method shadowed the rejection of the original
-    `pRequest` promise. The same thing will happen if the `pRequest` promise is fulfilled.
-    Throwing an error from the `finally` callback simply rejects the `finally` promise,
-    regardless of what happens to the original promise.
+- en: '`finally`方法的拒绝遮蔽了原始`pRequest` promise 的拒绝。如果`pRequest` promise 被满足，也会发生同样的情况。从`finally`回调中抛出错误会简单地拒绝`finally`
+    promise，而不管原始 promise 发生了什么。'
+  id: totrans-277
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Similarly, returning a promise that is rejected from the `finally` callback
-    rejects the `finally` promise, regardless of what happens to the original promise.
+- en: 同样，从`finally`回调返回一个被拒绝的 promise 也会拒绝`finally` promise，而不管原始 promise 发生了什么。
+  id: totrans-278
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE39]'
+  id: totrans-279
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE39]'
+- en: 你可以在下面的 Replit 中运行上述代码：
+  id: totrans-280
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example21”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example21”
+    />`'
+  id: totrans-281
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Making sense of promise chaining
+- en: 理解 promise 链接
+  id: totrans-282
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: We have discussed every scenario that can reject or fulfill the promise returned
-    by each of the promise instance methods. Finally, we can make sense of how the
-    promise chain works. We will go through a series of examples to solidify our understanding.
+- en: 我们已经讨论了每个 promise 实例方法返回的 promise 可以拒绝或满足的每种场景。最后，我们可以理解 promise 链是如何工作的。我们将通过一系列示例来巩固我们的理解。
+  id: totrans-283
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Example 1
+- en: 示例 1
+  id: totrans-284
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE40]'
+  id: totrans-285
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE40]'
+- en: 你可以在下面的 Replit 中运行上述代码：
+  id: totrans-286
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example22”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example22”
+    />`'
+  id: totrans-287
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'What output do you expect in the above code example? Keep in mind that each
-    instance method returns a new promise, and its fulfillment or rejection depends
-    on two things:'
+- en: 你在上述代码示例中预期的输出是什么？请记住，每个实例方法返回一个新的 promise，它的满足或拒绝取决于两个因素：
+  id: totrans-288
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What happens to the original promise on which the method is called?
+- en: 调用该方法的原始 promise 会发生什么？
+  id: totrans-289
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: What happens inside the callback function of that method?
+- en: 什么会发生在该方法的回调函数内部？
+  id: totrans-290
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Considering the different scenarios discussed above that can fulfill or reject
-    the promise returned by each of the promise instance methods, try to test your
-    understanding by guessing the output of the above code. Below is an explanation
-    of the output produced by the above code:'
+- en: 考虑到上述不同场景，这些场景可以使每个 promise 实例方法返回的 promise 被满足或拒绝，尝试通过猜测上述代码的输出测试你的理解。下面是对上述代码输出的解释：
+  id: totrans-291
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Starting from the top of the promise chain, the promise returned by the `fakeRequest`
-    function will be fulfilled, resulting in the invocation of its fulfillment handler
-    that is registered using the first invocation of the `then` method. As a result,
-    the following is logged on the console:'
+- en: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
+  id: totrans-292
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE41]'
+  id: totrans-293
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: The promise returned by the `fakeRequest` function has been settled. The next
-    promise in the chain is the one returned by the first `then` method call. As the
-    original promise is fulfilled, the first `then` promise now depends on what happens
-    inside its callback function. As it returns the string “hello world”, the first
-    `then` promise will get fulfilled with “hello world” as the fulfillment value.
+  zh: '[PRE41]'
+- en: '`fakeRequest`函数返回的承诺已解决。链中的下一个承诺是由第一个`then`方法调用返回的承诺。当原始承诺得到履行时，第一个`then`承诺现在依赖于其回调函数内部发生的事情。由于它返回字符串“hello
+    world”，第一个`then`承诺将以“hello world”作为履行值来履行。'
+  id: totrans-294
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As a result, its fulfillment handler is called, which was registered using
-    the second `then` method call. The fulfillment handler of the first `then` promise
-    receives its fulfillment value, i.e., “hello world”, as an argument. This results
-    in “hello world” getting logged to the console. The console output so far is shown
-    below:'
+- en: 结果是，它的履行处理程序被调用，该处理程序是使用第二个`then`方法调用注册的。第一个`then`承诺的履行处理程序将其履行值，即“hello world”，作为参数接收。这导致“hello
+    world”被记录到控制台。目前的控制台输出如下所示：
+  id: totrans-295
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE42]'
+  id: totrans-296
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: At this point, two promises in the promise chain have settled. The next promise
-    in the chain is the one returned by the second `then` method. Just like the first
-    `then` method, the promise returned by the second `then` method depends on the
-    original promise on which it is called, i.e., the promise returned by the first
-    `then` method. As the original promise is fulfilled, the second `then` promise
-    now depends on what happens inside its callback function. Its callback returns
-    the string “123”. So the second `then` promise fulfills with “123” as its fulfillment
-    value.
+  zh: '[PRE42]'
+- en: 此时，承诺链中的两个承诺已解决。链中的下一个承诺是由第二个`then`方法返回的。与第一个`then`方法一样，第二个`then`方法返回的承诺依赖于其被调用的原始承诺，即第一个`then`方法返回的承诺。当原始承诺得到履行时，第二个`then`承诺现在依赖于其回调函数内部发生的事情。它的回调返回字符串“123”。因此，第二个`then`承诺以“123”作为其履行值来履行。
+  id: totrans-297
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: But there is no fulfillment handler registered for the second `then` promise;
-    only the rejection handler is registered using the `catch` method. As a result,
-    no fulfillment handler is invoked in response to the fulfillment of the second
-    `then` method. The promise chain moves to the last promise in the chain, i.e.,
-    the one returned by the `catch` method.
+- en: 但是没有为第二个`then`承诺注册履行处理程序；只有使用`catch`方法注册了拒绝处理程序。因此，没有履行处理程序会在响应第二个`then`方法的履行时被调用。承诺链移动到链中的最后一个承诺，即`catch`方法返回的承诺。
+  id: totrans-298
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The promise returned by the `catch` method is called on the promise returned
-    by the second `then` method. As the second `then` promise is fulfilled, the `catch`
-    promise also gets fulfilled with the same fulfillment value as the second `then`
-    promise. But there is no fulfillment or rejection handler registered for the `catch`
-    promise, so its fulfillment is simply ignored. The final output of the code is
-    shown below:'
+- en: '`catch`方法返回的承诺是在第二个`then`方法返回的承诺上调用的。当第二个`then`承诺得到履行时，`catch`承诺也会以与第二个`then`承诺相同的履行值得到履行。但是，没有为`catch`承诺注册履行或拒绝处理程序，因此其履行被简单忽略。代码的最终输出如下所示：'
+  id: totrans-299
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE43]'
+  id: totrans-300
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Example 2
+  zh: '[PRE43]'
+- en: 示例 2
+  id: totrans-301
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE44]'
+  id: totrans-302
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE44]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-303
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example23”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example23”
+    />`'
+  id: totrans-304
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Below is an explanation of the output produced by the above code:'
+- en: 以下是对上述代码生成的输出的解释：
+  id: totrans-305
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Starting from the top of the promise chain, the promise returned by the `fakeRequest`
-    function will be fulfilled, resulting in the invocation of its fulfillment handler
-    that is registered using the first invocation of the `then` method. As a result,
-    the following is logged on the console:'
+- en: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
+  id: totrans-306
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE45]'
+  id: totrans-307
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: The promise returned by the `fakeRequest` function has been settled. The next
-    promise in the chain is the one returned by the first `then` method call. As the
-    original promise is fulfilled, the first `then` promise now depends on what happens
-    inside its callback function. As it is returning a new promise by calling the
-    `fakeRequest` function, the first `then` promise will get *resolved* to the promise
-    returned from its callback function. The `then` promise will wait for the promise
-    returned from its callback function to settle before settling itself.
+  zh: '[PRE45]'
+- en: 由`fakeRequest`函数返回的承诺已经完成。链中的下一个承诺是由第一个`then`方法调用返回的承诺。由于原始承诺已完成，第一个`then`承诺现在依赖于其回调函数内部发生的事情。由于它通过调用`fakeRequest`函数返回一个新承诺，第一个`then`承诺将被`resolved`为其回调函数返回的承诺。`then`承诺将在其回调函数返回的承诺完成之前等待其自身完成。
+  id: totrans-308
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The promise returned from the callback function of the first `then` method
-    will be fulfilled after approximately two seconds. As soon as it is fulfilled,
-    the promise returned by the `then` method will also get fulfilled with the same
-    fulfillment value as the promise returned by its callback. As a result, its fulfillment
-    handler is called, which was registered using the second `then` method call. The
-    fulfillment handler of the first `then` promise receives its fulfillment value
-    as an argument, which is logged inside the fulfillment handler. The console output
-    so far is shown below:'
+- en: 返回自第一个`then`方法的回调函数的承诺将在大约两秒后完成。它完成后，`then`方法返回的承诺将以与其回调返回的承诺相同的完成值完成。因此，它的完成处理程序被调用，这是通过第二个`then`方法调用注册的。第一个`then`承诺的完成处理程序将其完成值作为参数接收，并在完成处理程序内部记录。到目前为止，控制台输出如下所示：
+  id: totrans-309
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE46]'
+  id: totrans-310
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: At this point, two promises in the promise chain have settled. The next promise
-    in the chain is the one returned by the second `then` method. Just like the first
-    `then` method, the promise returned by the second `then` method depends on the
-    original promise on which it is called, i.e., the promise returned by the first
-    `then` method. As the original promise is fulfilled, the second `then` promise
-    now depends on what happens inside its callback function. Its callback implicitly
-    returns `undefined`. So the second `then` promise fulfills with `undefined` as
-    its fulfillment value.
+  zh: '[PRE46]'
+- en: 此时，承诺链中的两个承诺已完成。链中的下一个承诺是由第二个`then`方法返回的。与第一个`then`方法一样，第二个`then`方法返回的承诺依赖于其调用的原始承诺，即由第一个`then`方法返回的承诺。由于原始承诺已完成，第二个`then`承诺现在依赖于其回调函数内部发生的事情。它的回调隐式返回`undefined`。因此，第二个`then`承诺以`undefined`作为其完成值完成。
+  id: totrans-311
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: But there is no fulfillment handler registered for the second `then` promise;
-    only the rejection handler is registered using the `catch` method. As a result,
-    no fulfillment handler is invoked in response to the fulfillment of the second
-    `then` method. The promise chain moves to the last promise in the chain, i.e.,
-    the one returned by the `catch` method.
+- en: 但是没有为第二个`then`承诺注册完成处理程序；只有通过`catch`方法注册了拒绝处理程序。因此，没有完成处理程序在响应第二个`then`方法的完成时被调用。承诺链移动到链中的最后一个承诺，即由`catch`方法返回的承诺。
+  id: totrans-312
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The promise returned by the `catch` method is called on the promise returned
-    by the second `then` method. As the second `then` promise is fulfilled, the `catch`
-    promise also gets fulfilled with the same fulfillment value as the second `then`
-    promise. But there is no fulfillment or rejection handler registered for the `catch`
-    promise, so its fulfillment is simply ignored. The final output of the code is
-    shown below:'
+- en: '`catch`方法返回的承诺是在由第二个`then`方法返回的承诺上调用的。由于第二个`then`承诺已完成，`catch`承诺也将以与第二个`then`承诺相同的完成值完成。但是没有为`catch`承诺注册完成或拒绝处理程序，因此其完成被简单忽略。代码的最终输出如下所示：'
+  id: totrans-313
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE47]'
+  id: totrans-314
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Example 3
+  zh: '[PRE47]'
+- en: 示例3
+  id: totrans-315
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE48]'
+  id: totrans-316
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE48]'
+- en: 您可以在下面的Replit中运行上述代码：
+  id: totrans-317
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example24”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example24”
+    />`'
+  id: totrans-318
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Below is an explanation of the output produced by the above code:'
+- en: 下面是对上述代码生成的输出的解释：
+  id: totrans-319
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
     function will get rejected, but there is no rejection handler registered for this
     promise; only a fulfillment handler is registered. As a result, no rejection handler
     will be invoked for this promise. We move on to the next promise in the chain.
+  id: totrans-320
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -1574,17 +1907,21 @@
     the same rejection value as the original promise. As a result, its rejection handler,
     registered using the `catch` method, is invoked, logging the following on the
     console:'
+  id: totrans-321
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '[PRE49]'
+  id: totrans-322
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE49]'
 - en: The error object with which the first promise got rejected is the same value
     with which the promise returned by the `then` method also got rejected. The promise
     chain moves to the last promise in the chain, i.e., the one returned by the `catch`
     method.
+  id: totrans-323
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
@@ -1595,13 +1932,16 @@
     the `catch` promise getting fulfilled with `undefined` as a fulfillment value.
     But there is no fulfillment handler registered for the `catch` promise, so its
     fulfillment is simply ignored. The final output of the code is shown below:'
+  id: totrans-324
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '[PRE50]'
+  id: totrans-325
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE50]'
 - en: One thing to note in the above code example is that the rejection of the promise
     returned by the `fakeRequest` function was eventually handled by the rejection
     handler registered for the promise returned by the `then` method. This is one
@@ -1612,29 +1952,37 @@
     chain and only one rejection handler at the end of the promise chain, registered
     using the `catch` method. This makes error handling easy to manage in a promise
     chain.
+  id: totrans-326
   prefs: []
   type: TYPE_NORMAL
 - en: Example 4
+  id: totrans-327
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
 - en: '[PRE51]'
+  id: totrans-328
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE51]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-329
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example25”
     />
+  id: totrans-330
   prefs: []
   type: TYPE_NORMAL
 - en: 'Below is an explanation of the output produced by the above code:'
+  id: totrans-331
   prefs: []
   type: TYPE_NORMAL
 - en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
     function will be fulfilled, resulting in the invocation of its fulfillment handler
     that is registered using the first invocation of the `then` method, passing the
     fulfillment value to its fulfillment handler as an argument.
+  id: totrans-332
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -1645,6 +1993,7 @@
     `fakeRequest` function, the first `then` promise will get *resolved* to the promise
     returned from its callback function. The `then` promise will wait for the promise
     returned from its callback function to settle before settling itself.
+  id: totrans-333
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -1654,6 +2003,7 @@
     as the promise returned by its callback. As a result, its rejection handler is
     called, which was registered using the first `catch` method call. The rejection
     handler of the first `then` promise receives its rejection value as an argument.
+  id: totrans-334
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
@@ -1663,6 +2013,7 @@
     promise now depends on what happens inside its callback function. It returns an
     object literal. As a result, the first `catch` promise fulfills the returned object
     as its fulfillment value.
+  id: totrans-335
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -1676,6 +2027,7 @@
     `then` method would also be rejected with the same rejection value as the first
     `then` promise, and the rejection would finally be handled in the last `catch`
     method call.
+  id: totrans-336
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
@@ -1687,13 +2039,16 @@
     value of the first `catch` promise and implicitly returns undefined, resulting
     in the second `then` promise getting fulfilled with `undefined` as the fulfillment
     value. Following is the console output up to this point:'
+  id: totrans-337
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '[PRE52]'
+  id: totrans-338
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE52]'
 - en: At this point, the first four promises in the promise chain have settled. The
     next promise in the chain is the one returned by the third `then` method call.
     As the promise (the second `then` promise) on which the third `then` method is
@@ -1702,6 +2057,7 @@
     in the third `then` promise getting rejected with the thrown error as the rejection
     reason or value. As a result, its rejection handler, registered using the last
     `catch` method, is invoked, passing in the rejection value as an argument.
+  id: totrans-339
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
@@ -1712,45 +2068,57 @@
     getting fulfilled with `undefined` as the fulfillment value. But there is no fulfillment
     handler registered for the last `catch` promise, so its fulfillment is simply
     ignored. The final console output of the code is shown below:'
+  id: totrans-340
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '[PRE53]'
+  id: totrans-341
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE53]'
 - en: Hopefully, the examples above, along with the earlier discussion in this lesson
     on different scenarios that can reject or fulfill the promise returned by each
     of the promise instance methods, have laid a solid foundation for understanding
     the promise chains and making use of them in your own code.
+  id: totrans-342
   prefs: []
   type: TYPE_NORMAL
 - en: Rejection handler in then vs catch
+  id: totrans-343
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
 - en: 'In the previous lesson, it was mentioned that a rejection handler can be registered
     by passing a second argument to the `then` method, as shown below:'
+  id: totrans-344
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE54]'
+  id: totrans-345
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE54]'
 - en: 'There is one thing that should be kept in mind when registering a rejection
     handler using the `then` method: the rejection handler registered using the `then`
     method is not invoked if the promise returned by the `then` method, to which the
     rejection handler is passed as an argument, gets rejected. The following code
     example shows this in action:'
+  id: totrans-346
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE55]'
+  id: totrans-347
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE55]'
 - en: The rejection handler registered using the `then` method is only invoked if
     the original promise on which the `then` method is called gets rejected. As a
     result, we have an *unhandled promise rejection* in the above code example, which,
     in the worst case, can terminate the program. As a result, always remember to
     handle all the possible promise rejections in your code when working with promises.
+  id: totrans-348
   prefs: []
   type: TYPE_NORMAL
 - en: 'In this lesson, we will discuss a couple of common use cases of the two [static
@@ -1758,99 +2126,112 @@
     of promises and learn how they can be useful. Other promise static methods are
     also useful, but in my opinion, the following two use cases are the most common
     ones:'
+  id: totrans-349
   prefs: []
   type: TYPE_NORMAL
 - en: Making concurrent requests
+  id: totrans-350
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Implementing request timeout
+  id: totrans-351
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Concurrent requests
+  id: totrans-352
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-- en: Imagine a scenario where we want to initiate multiple HTTP requests all at once
-    and wait for their collective results. We cannot use a promise chain, as shown
-    below, because it will execute each request in a sequential manner.
+- en: 想象一个场景，我们希望同时发起多个HTTP请求，并等待它们的集体结果。我们不能使用如下的promise链，因为这样会按顺序执行每个请求。
+  id: totrans-353
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE56]'
+  id: totrans-354
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE56]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-355
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example1”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example1"
     />
+  id: totrans-356
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As each request in the above code is independent, instead of initiating the
-    requests in a sequential manner, we want [concurrent](https://en.wikipedia.org/wiki/Concurrent_computing)
-    requests. This can be achieved using the `Promise.all` method. It allows us to
-    start each request one after the other without waiting for one request to complete
-    before starting the other one. As a result, all three requests are initiated concurrently,
-    and we can wait for their collective results.
+- en: 由于上述代码中的每个请求都是独立的，因此我们希望发起[并发](https://en.wikipedia.org/wiki/Concurrent_computing)请求，而不是按顺序发起请求。这可以通过使用`Promise.all`方法实现。它允许我们一个接一个地开始每个请求，而无需等待一个请求完成后再开始另一个请求。因此，所有三个请求都是并发发起的，我们可以等待它们的集体结果。
+  id: totrans-357
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `Promise.all` method takes an [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
-    of promises as an input and returns a promise that fulfills once all the promises
-    passed to it are fulfilled. The fulfillment value of the promise returned by this
-    method is an array of fulfillment values of all the promises passed to this method
-    as input. The promise this method returns gets rejected if any of the input promises
-    gets rejected. We can rewrite the above code example using the `Promise.all` method
-    as shown below:'
+- en: '`Promise.all`方法接收一个[可迭代对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)作为输入，并返回一个promise，只有在所有传递给它的promise都完成后才会完成。该方法返回的promise的完成值是一个数组，包含了所有传递给该方法作为输入的promise的完成值。如果任何输入的promise被拒绝，该方法返回的promise也会被拒绝。我们可以按照如下方式重写上述代码示例，使用`Promise.all`方法：'
+  id: totrans-358
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE57]'
+  id: totrans-359
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE57]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-360
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example2”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example2"
     />
+  id: totrans-361
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Request timeout
+- en: 请求超时
+  id: totrans-362
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: An HTTP request can sometimes just hang due to some problem on the server. We
-    do not want the request to be in a pending state for longer than a few seconds.
-    To avoid longer request pending times, we can implement the request timeout feature,
-    which lets our code know that a request is taking longer than expected. This allows
-    us to take the appropriate action.
+- en: 有时，HTTP请求可能由于服务器上的某些问题而挂起。我们不希望请求在待处理状态下停留超过几秒钟。为了避免请求待处理时间过长，我们可以实现请求超时功能，以便让我们的代码知道请求正在花费超过预期的时间。这使我们能够采取适当的措施。
+  id: totrans-363
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Using the `Promise.race` method, we can initiate an HTTP request with a timeout.
-    This method, just like the `Promise.all` method, takes an iterable of promises
-    and returns a promise that fulfills when any of the promises out of one or more
-    promises provided to this method as an input fulfills. Similarly, the promise
-    returned by this method is rejected when any of the input promises is rejected.
+- en: 使用`Promise.race`方法，我们可以发起一个带有超时的HTTP请求。该方法与`Promise.all`方法类似，接收一个可迭代的promise集合，并返回一个promise，当输入的一个或多个promise中的任何一个完成时，它就会完成。同样，当任何一个输入promise被拒绝时，该方法返回的promise也会被拒绝。
+  id: totrans-364
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following code example shows the request timeout implemented using the
-    `Promise.race` method:'
+- en: 以下代码示例展示了如何使用`Promise.race`方法实现请求超时：
+  id: totrans-365
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE58]'
+  id: totrans-366
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE58]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-367
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example3”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example3"
     />
+  id: totrans-368
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this lesson, we discussed only two static methods, but it’s worth learning
-    about the other [static methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods)
-    available on the `Promise` constructor. Each static method has its own use cases;
-    we just discussed two use cases that I think are the most commonly needed.
+- en: 在本课中，我们只讨论了两个静态方法，但值得学习`Promise`构造函数上其他可用的[静态方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods)。每个静态方法都有其自己的使用场景；我们只讨论了我认为最常用的两个使用场景。
+  id: totrans-369
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While promises have changed the way we write asynchronous code in JavaScript,
     we still use callbacks to register fulfillment and rejection handlers with promises.
@@ -1859,192 +2240,285 @@
     traditional way of using callbacks. What if there was an easier, more concise,
     and more intuitive way to deal with promises? What if we could get rid of callbacks
     when using promises? Enter `async await`!
+  id: totrans-370
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `async await` can be considered a syntax sugar over the traditional way
     of using promises. It allows us to deal with promises using code that executes
     asynchronously but looks synchronous. It also allows us to write more concise
     code that is easier to reason about, as the code doesn’t include callbacks, and
     the flow of the code looks like that of synchronous code.
+  id: totrans-371
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s take a look at the following code example that uses promise chaining:'
+  id: totrans-372
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE59]'
+  id: totrans-373
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE59]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-374
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example1” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example1”
+    />`'
+  id: totrans-375
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The code above is certainly an improvement over the traditional way of using
     callbacks for writing asynchronous code, but it still has room for improvement,
     at least in terms of readability. The `async await` syntax can be used to rewrite
     the above code example as shown below:'
+  id: totrans-376
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE60]'
+  id: totrans-377
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE60]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-378
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example2” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example2”
+    />`'
+  id: totrans-379
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The revised code achieves the same result but is more readable, doesn’t use
     any callbacks, and is easier to reason about as compared to the earlier example
     that uses promise chaining. Although the code looks like synchronous code, it
     is asynchronous. Let us understand how `async await` works.
+  id: totrans-380
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Two things should be noted in the code example above that uses the `async await`
     syntax: the `async` keyword in the function signature and the `await` keyword
     inside the function. Following are the two main steps to using the `async await`
     syntax:'
+  id: totrans-381
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Mark any function as “async” using the `async` keyword. This is needed because
     the `await` keyword can only be used inside an “async” function.
+  id: totrans-382
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Use the `await` keyword inside the `async` function to wait for any promises
     to settle.
+  id: totrans-383
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: :::info While the `await` keyword is mostly used inside an `async` function
     because the `await` keyword was only allowed inside `async` functions until a
     recent change in the language that allows using the [await keyword at the top-level
     of a module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#top_level_await)
+  id: totrans-384
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::'
+- en: '::::'
+  id: totrans-385
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: async functions
+- en: '`async` functions'
+  id: totrans-386
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'An `async` function allows the use of the `await` keyword inside its body.
     An `async` function is different from a non-async function because an `async`
     function always returns a promise. An `async` function implicitly creates and
     returns a promise, similar to how each promise instance method creates and returns
     a new promise. The following code verifies this claim:'
+  id: totrans-387
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE61]'
+  id: totrans-388
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE61]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-389
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example3” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example3”
+    />`'
+  id: totrans-390
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The fulfillment or rejection of the promise returned by an `async` function
     depends on what happens inside its body, similar to how the promise returned by
     each of the promise instance methods depends on the events occurring within its
     callback function. The following points summarize the settlement of the `async`
     function promise:'
+  id: totrans-391
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Returning any non-promise value from an `async` function leads to the fulfillment
     of the `async` function promise, using the returned value as the fulfillment value.
+  id: totrans-392
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE62]'
+  id: totrans-393
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE62]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-394
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example4” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example4”
+    />`'
+  id: totrans-395
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Not returning any value from the function implicitly returns `undefined`. This
     leads to the function promise getting fulfilled with `undefined` as the fulfillment
     value.
+  id: totrans-396
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE63]'
+  id: totrans-397
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE63]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-398
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example5” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example5”
+    />`'
+  id: totrans-399
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Throwing an error inside the `async` function rejects the `async` function promise,
     using the thrown value as the rejection reason.
+  id: totrans-400
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE64]'
+  id: totrans-401
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE64]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-402
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example6” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example6”
+    />`'
+  id: totrans-403
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Returning a promise from the `async` function results in the `async` function
-    promise getting *resolved* to the promise returned inside the function body. As
-    we learned about one promise *resolving* to another promise in one of the earlier
+    promise getting `resolved` to the promise returned inside the function body. As
+    we learned about one promise `resolving` to another promise in one of the earlier
     lessons in this module, the promise created by the `async` function will wait
     for the promise, returned inside its body, to settle. Eventually, the `async`
     function promise will be fulfilled or rejected depending on what happens to the
     promise returned inside the `async` function.
+  id: totrans-404
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE65]'
+  id: totrans-405
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE65]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-406
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example7” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example7”
+    />`'
+  id: totrans-407
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: await keyword
+- en: '`await` keyword'
+  id: totrans-408
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The `await` keyword, also referred to as the `await` operator, is used to wait
     for a promise to settle. The following is an example of using the `await` keyword
     to wait for a promise to settle:'
+  id: totrans-409
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE66]'
+  id: totrans-410
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE66]'
 - en: The `await fetch(url)` is an expression that will either evaluate the fulfillment
     value of the promise returned by the `fetch` function or it will throw the rejection
     value if the promise returned by the `fetch` function gets rejected. The thrown
     value can either be caught in the `catch` block of the surrounding `try-catch`
     block or, if `try-catch` is not wrapped around the `await` statement, rejection
-    of the *awaited* promise can reject the `async` function promise, allowing the
+    of the `awaited` promise can reject the `async` function promise, allowing the
     calling code to handle the promise rejection.
+  id: totrans-411
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Unlike promise chaining, where we have to register the fulfillment handler to
     get the fulfillment value of the promise, the `await` expressions evaluate the
     promise fulfillment value, which we can save in a variable. But how does it work?
     Isn’t it blocking the main thread while waiting for the promise to settle?
+  id: totrans-412
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Whenever an `async` function is called, it is executed synchronously until the
     first `await` expression is encountered. The function’s execution is suspended
@@ -2054,7 +2528,9 @@
     is resumed, resuming the code execution after the `await` expression if the promise
     is fulfilled or throwing the rejection value of the promise if the awaited promise
     is rejected.
+  id: totrans-413
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'What’s important to note is that the code inside the `async` function is executed
     synchronously until the first `await` expression. What if the `async` function
@@ -2063,46 +2539,68 @@
     and it will either get fulfilled or rejected depending on what happens inside
     the `async` function. This means that the following code doesn’t work as one might
     expect:'
+  id: totrans-414
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE67]'
+  id: totrans-415
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE67]'
 - en: 'The `async` function in the above code example didn’t use the `await` keyword,
     so the code inside it is executed synchronously, but does it return the value
-    “123” synchronously as well? No, it doesn’t. The function is `async`, which means
-    it returns a promise, so the `result` in the above example contains the promise
-    and not the value “123”. To get the fulfillment value of the promise, we can either
-    use promise chaining as shown below:'
+    `“123”` synchronously as well? No, it doesn’t. The function is `async`, which
+    means it returns a promise, so the `result` in the above example contains the
+    promise and not the value `“123”`. To get the fulfillment value of the promise,
+    we can either use promise chaining as shown below:'
+  id: totrans-416
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE68]'
+  id: totrans-417
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE68]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-418
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example10”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example10”
+    />`'
+  id: totrans-419
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Or `await` the promise returned by the `foo` function using the `async await`
     syntax as shown below:'
+  id: totrans-420
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE69]'
+  id: totrans-421
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE69]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-422
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example11”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example11”
+    />`'
+  id: totrans-423
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Multiple await expressions
+- en: Multiple `await` expressions
+  id: totrans-424
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: An `async` function is not limited to using the `await` keyword only once inside
     its body. You can use the `await` keyword as many times as you want inside an
@@ -2111,159 +2609,237 @@
     one after the other. The function execution will be paused at each `await` expression,
     and the next `await` expression can only be executed after the ones before it
     has been executed.
+  id: totrans-425
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE70]'
+  id: totrans-426
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE70]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-427
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example12”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example12”
+    />`'
+  id: totrans-428
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Each of the `await` expressions in the above code example takes approximately
     1 second, so the function takes approximately 3 seconds to evaluate all the `await`
     expressions, logging their value at the end.
+  id: totrans-429
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE71]'
+  id: totrans-430
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE71]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-431
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example13”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example13”
+    />`'
+  id: totrans-432
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The two `await` expressions in the above code example are also not executed
     in parallel; instead, they are executed one after the other, from left to right.
+  id: totrans-433
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Suppose we want concurrent asynchronous operations inside an `async` function.
     In that case, we can use the `Promise.all` function, providing all the promises
     as input and awaiting the promise returned by `Promise.all`.
+  id: totrans-434
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE72]'
+  id: totrans-435
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE72]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-436
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example14”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example14”
+    />`'
+  id: totrans-437
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Error handling
+  id: totrans-438
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To handle promise rejections inside an `async` function, we can wrap the `await`
     expressions with the `try-catch` block as shown below:'
+  id: totrans-439
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE73]'
+  id: totrans-440
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE73]'
 - en: If any of the promises awaited in the `try` block are rejected, the code after
     that `await` expression won’t be executed, and the execution will jump to the
     `catch` block. The `await` keyword throws the promise rejection value, allowing
     the `catch` block to catch the rejection.
+  id: totrans-441
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Alternatively, we can omit the `try-catch` block, but in this case, the code
     that calls the `async` function must handle the promise rejection, either by using
     the promise chaining:'
+  id: totrans-442
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE74]'
+  id: totrans-443
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE74]'
 - en: 'or using the `try-catch` block in the calling code if we are using the `async
     await` syntax:'
+  id: totrans-444
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE75]'
+  id: totrans-445
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE75]'
 - en: Returning vs awaiting promise
+  id: totrans-446
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Forgetting to `await` a promise inside an `async` function can lead to bugs,
     causing unexpected output. The code below shows the problem it can cause:'
+  id: totrans-447
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE76]'
+  id: totrans-448
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE76]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-449
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example18”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example18”
+    />`'
+  id: totrans-450
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The `getPromise` function returns a promise that can be rejected, but the promise
     returned by the `foo` function is always fulfilled. Why? The `foo` function has
-    a problem: it didn’t return or `await` the promise returned by the `getPromise`
+    a problem: it didn’t `return` or `await` the promise returned by the `getPromise`
     function. As a result, the `foo` function doesn’t wait for the promise returned
     by the `getPromise` function to settle; instead, it just calls the `getPromise`
     function, and the function execution ends, implicitly returning `undefined`, leading
     to the `foo` function promise getting fulfilled with `undefined` as the fulfillment
     value.'
+  id: totrans-451
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Further code examples will use the `getPromise` function defined above.
+  id: totrans-452
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To catch the rejection of the promise returned by the `getPromise` function,
     we have the following options:'
+  id: totrans-453
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: return the promise returned by the `getPromise` function.
+- en: '`return` the promise returned by the `getPromise` function.'
+  id: totrans-454
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE77]'
+  id: totrans-455
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE77]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-456
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example19”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example19”
+    />`'
+  id: totrans-457
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Returning the promise *resolves* the `foo` function of the promise returned
+- en: Returning the promise `resolves` the `foo` function of the promise returned
     inside its body. As a result, whatever happens to the promise returned by `getPromise`,
     the `foo` function promise meets the same fate.
+  id: totrans-458
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: await the promise returned by the `getPromise` function.
+- en: '`await` the promise returned by the `getPromise` function.'
+  id: totrans-459
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE78]'
+  id: totrans-460
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE78]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-461
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example20”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example20”
+    />`'
+  id: totrans-462
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As mentioned earlier, if the awaited promise is rejected, its rejection value
     is thrown inside the `async` function. As there is no `try-catch` block inside
     the `foo` function, the promise rejection causes the `foo` function promise to
     also get rejected with the same rejection reason.
+  id: totrans-463
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, one thing to note in this code example is that if the promise returned
     by `getPromise` is fulfilled, the `foo` function promise doesn’t fulfill with
@@ -2272,381 +2848,459 @@
     we know what happens to the `async` function promise when we don’t explicitly
     return any value inside the function: the `async` function promise gets fulfilled
     with `undefined` as the fulfillment value.'
+  id: totrans-464
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: await the promise returned by the `getPromise` function and surround it with
-    the `try-catch` block.
+- en: '`await` the promise returned by the `getPromise` function and surround it with
+    the `try-catch` block.'
+  id: totrans-465
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE79]'
+  id: totrans-466
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE79]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-467
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example21”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example21”
+    />`'
+  id: totrans-468
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Awaiting the `getPromise` call will catch the promise rejection, causing the
-    `catch` block to execute. However, the promise returned by the `foo` function
-    will always be fulfilled. Why? Because the `catch` block didn’t throw an error
-    or return a promise that gets rejected. As a result, the `foo` function promise
-    always fulfills with the return value of the `catch` block. We can throw the error
-    from the `catch` to fix this problem. Having said that, if all we do inside the
-    `catch` block is throw the error, then it’s better to just omit the `try-catch`
-    block and let the promise rejection automatically reject the `foo` function promise.
+- en: 等待`getPromise`调用将捕获promise拒绝，导致`catch`块执行。然而，`foo`函数返回的promise将始终被解决。为什么？因为`catch`块没有抛出错误或返回被拒绝的promise。结果，`foo`函数的promise总是以`catch`块的返回值解决。我们可以从`catch`中抛出错误来解决这个问题。话虽如此，如果我们在`catch`块中所做的只是抛出错误，那么最好省略`try-catch`块，让promise拒绝自动拒绝`foo`函数的promise。
+  id: totrans-469
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Another problem in this code example is that we didn’t explicitly return any
-    value in case the promise was fulfilled and the `catch` block was never executed.
-    So the `foo` function promise will be fulfilled with `undefined`. Adding the `return`
-    keyword before the `await` expression will do the job.
+- en: 此代码示例中的另一个问题是，如果promise被解决而`catch`块从未执行，我们没有显式返回任何值。因此，`foo`函数的promise将以`undefined`解决。在`await`表达式前添加`return`关键字可以解决这个问题。
+  id: totrans-470
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::caution Can’t we just do `return getPromise();` instead of `return await
-    getPromise();`? We could have if the `await` expression wasn’t wrapped in the
-    `try-catch` block. What difference does `try-catch` make? With the `try-catch`
-    block, `return getPromise();` will lead to the `catch` block inside the `foo`
-    function never executing. For the `catch` block inside the `foo` function to execute,
-    we need to `await` the promise inside the `try` block instead of just returning
-    it. For more details, read: [await vs return vs return await](https://jakearchibald.com/2017/await-vs-return-vs-return-await/)
+- en: ':::caution 我们能不能只做`return getPromise();`而不是`return await getPromise();`？如果`await`表达式没有被包装在`try-catch`块中，我们是可以的。`try-catch`块有什么区别呢？有了`try-catch`块，`return
+    getPromise();`将导致`foo`函数内的`catch`块永远不会执行。为了使`foo`函数中的`catch`块执行，我们需要在`try`块中`await`这个promise，而不仅仅是返回它。更多细节，请阅读：[await
+    vs return vs return await](https://jakearchibald.com/2017/await-vs-return-vs-return-await/)
     :::'
+  id: totrans-471
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Awaiting non-promise value
+- en: 等待非promise值
+  id: totrans-472
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `await` keyword is usually used to wait for a promise to settle, but it
-    can also be used with a non-promise value. The following code example shows this
-    action:'
+- en: '`await`关键字通常用于等待一个promise解决，但它也可以与非promise值一起使用。以下代码示例展示了这一行为：'
+  id: totrans-473
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE80]'
+  id: totrans-474
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE80]'
+- en: 这是一个Replit，你可以运行上述代码：
+  id: totrans-475
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example22”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example22"
     />
+  id: totrans-476
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If you execute the above code example, you will note that the `console.log`
-    statement at the end of the code example is logged *before* the random number
-    is printed, even though the function is called *before* the last `console.log`
-    statement. Why is that? We haven’t awaited any promises, so what’s happening here?
+- en: 如果你执行上述代码示例，你会注意到代码示例最后的`console.log`语句在随机数打印之前被记录，尽管函数在最后的`console.log`语句之前被调用。这是为什么呢？因为我们没有等待任何promise，所以这里发生了什么？
+  id: totrans-477
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When the `await` keyword is used with a non-promise value, a new promise is
-    created, and that promise is fulfilled with the value we used with the `await`
-    keyword. In our code example, we have awaited a random number; it is not a promise,
-    so a new promise is created and fulfilled with the generated random number. Code
-    after the `await` expression is executed as though it were in a fulfillment handler.
-    As a result, when the promise is fulfilled, the code after the `await` expression
-    is not immediately executed. It is executed asynchronously, and as we learned
-    in the lesson about event loop, any asynchronous code is only executed after the
-    synchronous execution of our code ends. The last `console.log` statement is executed
-    as part of the synchronous execution of our code. As a result, it is logged before
-    the random number.
+- en: 当`await`关键字与非承诺值一起使用时，会创建一个新的承诺，该承诺会用我们在`await`关键字中使用的值来满足。在我们的代码示例中，我们等待了一个随机数；它不是一个承诺，因此会创建一个新的承诺，并用生成的随机数来满足。在`await`表达式之后的代码将被执行，就好像它在一个满足处理程序中一样。因此，当承诺被满足时，`await`表达式之后的代码并不会立即执行。它是异步执行的，正如我们在关于事件循环的课程中学到的，任何异步代码只有在我们代码的同步执行结束后才会被执行。最后的`console.log`语句作为我们代码的同步执行的一部分被执行。因此，它在随机数之前被记录。
+  id: totrans-478
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Using `await` with a non-promise value is hardly useful, but just be aware that
-    it is possible, and the value is implicitly wrapped in a promise.
+- en: 使用`await`与非承诺值几乎没有用，但要注意的是，这种情况是可能的，该值会被隐式封装在一个承诺中。
+  id: totrans-479
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We learned in one of the earlier lessons in this module that executing DOM event
-    listeners and `setTimeout` or `setInterval` callbacks require scheduling a “task”.
-    Tasks are enqueued in a task queue until the event loop processes them. What about
-    the promise fulfillment or rejection handlers? Does their execution also require
-    scheduling a task? Not exactly a task, but a “microtask”.
+- en: 我们在本模块的早期课程中了解到，执行DOM事件监听器和`setTimeout`或`setInterval`回调需要调度一个“任务”。任务在任务队列中排队，直到事件循环处理它们。那么承诺的履行或拒绝处理程序呢？它们的执行是否也需要调度一个任务？并不是严格意义上的任务，而是一个“微任务”。
+  id: totrans-480
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Microtasks, which the ECMAScript specification calls [jobs](https://tc39.es/ecma262/#sec-promise-jobs),
-    are scheduled for things that have higher priority than “tasks”. Microtasks are
-    processed after:'
+- en: 微任务，ECMAScript规范称之为[jobs](https://tc39.es/ecma262/#sec-promise-jobs)，被调度用于比“任务”更高优先级的事情。微任务在以下情况下被处理：
+  id: totrans-481
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: each callback, provided that the callstack is empty.
+- en: 每个回调，只要调用栈是空的。
+  id: totrans-482
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: each task
+- en: 每个任务
+  id: totrans-483
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Whereas “tasks” are executed in the order they are enqueued in the task queue,
-    only one task is executed per one turn or tick of the event loop.
+- en: “任务”按照它们在任务队列中排队的顺序执行，每个事件循环的一个轮次中只执行一个任务。
+  id: totrans-484
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Another important thing to note about microtasks is that while only one task
-    is processed per tick of the event loop, microtasks are processed until the microtask
-    queue is empty. If a task schedules another task, it won’t be processed until
-    the next turn or tick of the event loop, but in the case of microtasks, if any
-    microtask is queued by a microtask, the queued microtask will also be processed.
-    This means that the event loop can get stuck in an infinite loop if each microtask
-    keeps queuing another microtask.
+- en: 另一个关于微任务的重要注意事项是，虽然每个事件循环的滴答中仅处理一个任务，但微任务会一直处理，直到微任务队列为空。如果一个任务调度了另一个任务，它不会在下一个事件循环的轮次中被处理，但在微任务的情况下，如果一个微任务由另一个微任务排队，排队的微任务也将被处理。这意味着如果每个微任务不断排队另一个微任务，事件循环可能会陷入无限循环。
+  id: totrans-485
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Consider the following code example:'
+- en: 考虑以下代码示例：
+  id: totrans-486
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE81]'
+  id: totrans-487
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the above code in action:'
+  zh: '[PRE81]'
+- en: 这是上面代码在行动中的一个Replit：
+  id: totrans-488
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/microtasks-example1” />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/microtasks-example1"
+    />`'
+  id: totrans-489
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Executing the above code requires scheduling tasks and microtasks. The following
-    steps explain how different tasks and microtasks are scheduled to execute the
-    code above:'
+- en: 执行上述代码需要调度任务和微任务。以下步骤解释了如何调度不同的任务和微任务以执行上述代码：
+  id: totrans-490
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A task is created to execute the script, starting the synchronous execution
-    of the code.
+- en: 创建一个任务来执行脚本，开始代码的同步执行。
+  id: totrans-491
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: The first `console.log` statement is executed, logging “start” on the console.
+- en: 第一个`console.log`语句被执行，在控制台上记录“start”。
+  id: totrans-492
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE82]'
+  id: totrans-493
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Next, we have the `setTimeout` call with a 500ms delay. This starts a timer
-    in the background, and its expiration will result in a task to execute the `setTimeout`
-    callback getting queued in the task queue.
+  zh: '[PRE82]'
+- en: 接下来，我们有一个`setTimeout`调用，延迟500毫秒。这在后台启动一个定时器，其到期将导致一个任务被排队到任务队列中以执行`setTimeout`回调。
+  id: totrans-494
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE83]'
+  id: totrans-495
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Moving on with the synchronous execution of the code, [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
-    is called, which creates a resolved promise. To execute its fulfillment handler,
-    a microtask or job is queued in the microtask queue.
+  zh: '[PRE83]'
+- en: 继续进行代码的同步执行，调用`Promise.resolve`，它创建了一个已解决的承诺。为了执行其履行处理程序，一个微任务或工作被排队到微任务队列中。
+  id: totrans-496
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE84]'
+  id: totrans-497
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Next, we have a `setTimeout` call with a 0ms delay. This also schedules a task
-    to execute its callback.
+  zh: '[PRE84]'
+- en: 接下来，我们有一个`setTimeout`调用，延迟为0毫秒。这也安排了一个任务来执行其回调。
+  id: totrans-498
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE85]'
+  id: totrans-499
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Finally, the synchronous execution reaches its end with the final `console.log`
-    statement, logging “end” on the console. At this point, the callstack is empty,
-    and the event loop can start processing the scheduled tasks and microtasks.
+  zh: '[PRE85]'
+- en: 最后，同步执行以最终的`console.log`语句结束，在控制台上记录“end”。此时，调用栈为空，事件循环可以开始处理已安排的任务和微任务。
+  id: totrans-500
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE86]'
+  id: totrans-501
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: As mentioned earlier, microtasks are processed after each task as well as after
-    each callback, provided that the callstack is empty. The synchronous execution
-    of the code is a task, and when it ends, the callstack is empty, so any microtasks
-    in the microtask queue are ready to be processed by the event loop. We have only
-    one microtask in the microtask queue. It will be processed by logging “first ‘then’
-    callback” on the console.
+  zh: '[PRE86]'
+- en: 如前所述，微任务在每个任务以及每个回调之后处理，前提是调用栈为空。代码的同步执行是一个任务，当它结束时，调用栈为空，因此微任务队列中的任何微任务都准备好由事件循环处理。我们在微任务队列中只有一个微任务。它将通过在控制台上记录“first
+    ‘then’ callback”来处理。
+  id: totrans-502
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE87]'
+  id: totrans-503
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: The callback function of the first `then` method implicitly returns `undefined`,
-    and as a result, the promise returned by the `then` method is fulfilled with `undefined`
-    as the fulfillment value. This queues another microtask in the microtask queue
-    to execute the fulfillment handler of the promise returned by the first `then`
-    method.
+  zh: '[PRE87]'
+- en: 第一个`then`方法的回调函数隐式返回`undefined`，因此`then`方法返回的承诺以`undefined`作为履行值被履行。这在微任务队列中排队了另一个微任务，以执行第一个`then`方法返回的承诺的履行处理程序。
+  id: totrans-504
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE88]'
+  id: totrans-505
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: As mentioned earlier, microtasks are processed until the microtask queue is
-    empty, so the newly queued microtask will also be processed, logging “second ‘then’
-    callback” on the console.
+  zh: '[PRE88]'
+- en: 如前所述，微任务会被处理直到微任务队列为空，因此新排队的微任务也会被处理，在控制台上记录“second ‘then’ callback”。
+  id: totrans-506
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE89]'
+  id: totrans-507
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Similar to step 8, the callback function of the second `then` method implicitly
-    returns `undefined`, and as a result, the promise returned by the `then` method
-    is fulfilled with `undefined` as the fulfillment value. This queues another microtask
-    in the microtask queue to execute the fulfillment handler of the promise returned
-    by the second `then` method.
+  zh: '[PRE89]'
+- en: 类似于第8步，第二个`then`方法的回调函数隐式返回`undefined`，因此`then`方法返回的承诺以`undefined`作为履行值被履行。这在微任务队列中排队了另一个微任务，以执行第二个`then`方法返回的承诺的履行处理程序。
+  id: totrans-508
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE90]'
+  id: totrans-509
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: This results in the “third ‘then’ callback” getting logged on the console.
+  zh: '[PRE90]'
+- en: 这导致“third ‘then’ callback”在控制台上被记录。
+  id: totrans-510
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE91]'
+  id: totrans-511
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: We didn’t do anything with the promise returned by the third `then` method,
-    so its fulfillment is ignored. At this point, all the microtasks have been processed,
-    and the microtask queue is empty. The event loop can now process the first task
-    in the task queue.
+  zh: '[PRE91]'
+- en: 我们没有对第三个`then`方法返回的承诺做任何操作，因此其履行被忽略。此时，所有微任务都已被处理，微任务队列为空。事件循环现在可以处理任务队列中的第一个任务。
+  id: totrans-512
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: The first task in the task queue is that of the second `setTimeout` call because
-    it had less delay than the first one, so it was queued before the task of the
-    other `setTimeout` callback, which had a 500ms delay. Processing it results in
-    a “setTimeout callback with 0ms delay” being logged on the console.
+- en: 任务队列中的第一个任务是第二个`setTimeout`调用，因为它的延迟小于第一个，因此它在另一个`setTimeout`回调的任务之前排队，后者的延迟为500毫秒。处理它导致在控制台上记录“setTimeout
+    callback with 0ms delay”。
+  id: totrans-513
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE92]'
+  id: totrans-514
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: Finally, the last task in the task queue is that of the first `setTimeout` call
-    with a 500ms delay, resulting in “setTimeout callback with 500ms delay” getting
-    logged on the console.
+  zh: '[PRE92]'
+- en: 最后，任务队列中的最后一个任务是第一个`setTimeout`调用，其延迟为500毫秒，导致“setTimeout callback with 500ms
+    delay”在控制台上被记录。
+  id: totrans-515
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE93]'
+  id: totrans-516
   prefs:
   - PREF_IND
   type: TYPE_PRE
-- en: :::note In this module, we have used the term “resolved” to refer to a promise
-    that is waiting for another promise to settle. In other words, we have used the
-    term “resolved” to refer to a promise in a pending state.
+  zh: '[PRE93]'
+- en: :::note 在本模块中，我们使用“resolved”一词来指代一个正在等待另一个承诺解决的承诺。换句话说，我们使用“resolved”一词来指代一个待处理状态的承诺。
+  id: totrans-517
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Having said that, the term “resolved” can also be used to refer to a promise
     that has either been fulfilled or rejected. For more details, read: [promises-unwrapping
-    - States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md)'
+    - States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md) '
+  id: totrans-518
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::'
+- en: '::: '
+  id: totrans-519
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Further reading
+- en: 'Further reading '
+  id: totrans-520
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following are links to some of the Stackoverflow questions that I answered
     that are related to microtasks and explain the execution of code examples similar
-    to the one discussed above:'
+    to the one discussed above: '
+  id: totrans-521
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[How to explain the output order of this code snippet?](https://stackoverflow.com/questions/63052649/how-to-explain-the-output-order-of-this-code-snippet)'
+- en: '[How to explain the output order of this code snippet?](https://stackoverflow.com/questions/63052649/how-to-explain-the-output-order-of-this-code-snippet) '
+  id: totrans-522
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[JavaScript quiz of printing sequence with a combination of promise.then and
-    async function](https://stackoverflow.com/questions/72306157/javascript-quiz-of-printing-sequence-with-combination-of-promise-then-and-async)'
+- en: '[JavaScript quiz of printing sequence with a combination of `promise.then`
+    and `async` function](https://stackoverflow.com/questions/72306157/javascript-quiz-of-printing-sequence-with-combination-of-promise-then-and-async) '
+  id: totrans-523
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Promise chain .then .catch](https://stackoverflow.com/questions/68784426/promise-chain-then-catch)'
+- en: '[Promise chain `.then` `.catch`](https://stackoverflow.com/questions/68784426/promise-chain-then-catch) '
+  id: totrans-524
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Asynchronous Execution Order in JavaScript](https://stackoverflow.com/questions/68882535/asynchronous-execution-order-in-javascript)'
+- en: '[Asynchronous Execution Order in JavaScript](https://stackoverflow.com/questions/68882535/asynchronous-execution-order-in-javascript) '
+  id: totrans-525
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following is an article that explains the execution of tasks and microtasks
-    with the help of interactive examples:'
+    with the help of interactive examples: '
+  id: totrans-526
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Tasks, microtasks, queues, and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)'
+- en: '[Tasks, microtasks, queues, and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/) '
+  id: totrans-527
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In this lesson, we will discuss common promise-related anti-patterns that should
-    be avoided. Following is a list of anti-patterns we will discuss:'
+    be avoided. Following is a list of anti-patterns we will discuss: '
+  id: totrans-528
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Unnecessary use of the Promise constructor
+- en: Unnecessary use of the `Promise` constructor
+  id: totrans-529
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Incorrect error handling
+- en: 'Incorrect error handling '
+  id: totrans-530
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Converting promise rejection into fulfillment
+- en: 'Converting promise rejection into fulfillment '
+  id: totrans-531
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Async executor function
+- en: 'Async executor function '
+  id: totrans-532
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Unnecessary use of the Promise Constructor
+- en: 'Unnecessary use of the `Promise` constructor '
+  id: totrans-533
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'One of the most common mistakes made by JavaScript developers, especially those
     who don’t have much experience with promises, is creating promises unnecessarily
-    using the `Promise` constructor function. Let’s take a look at an example:'
+    using the `Promise` constructor function. Let’s take a look at an example: '
+  id: totrans-534
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE94]'
+  id: totrans-535
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE94]'
 - en: 'The above code will work if you pass a URL to the `fetchData` function and
     then wait for the promise to resolve, but the use of the `Promise` constructor
     is unnecessary in the above code example. The `fetch` function already returns
-    a promise, so instead of wrapping the `fetch` function call with the promise constructor,
-    we can re-write the above function as shown below:'
+    a promise, so instead of wrapping the `fetch` function call with the `Promise`
+    constructor, we can re-write the above function as shown below: '
+  id: totrans-536
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE95]'
+  id: totrans-537
   prefs: []
   type: TYPE_PRE
-- en: The revised version of the `fetchData` function is concise, easy to read, free
+  zh: '[PRE95]'
+- en: 'The revised version of the `fetchData` function is concise, easy to read, free
     from the creation of any unnecessary promises, and allows the code that calls
     the `fetchData` function to catch and handle any errors. The older version of
-    the fetchData function also allowed the calling code to handle errors, but the
-    revised version does it without using the catch method call.
+    the `fetchData` function also allowed the calling code to handle errors, but the
+    revised version does it without using the `catch` method call. '
+  id: totrans-538
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Unnecessary use of the promise constructor can lead to another problem: if
     we forget to add the `catch` method call to the promise chain inside the `Promise`
     constructor, then any error thrown during the HTTP request won’t be caught. Forgetting
     to call the `reject` function inside the executor function can hide the failure
     of the asynchronous operation inside the executor function.'
+  id: totrans-539
   prefs: []
   type: TYPE_NORMAL
 - en: Incorrect Error Handling
+  id: totrans-540
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
@@ -2654,144 +3308,185 @@
     in mind is to *either catch and handle the error or return the promise to allow
     the calling code to catch and handle it*. This fundamental rule can help you avoid
     hidden bugs in the code that uses promises.
+  id: totrans-541
   prefs: []
   type: TYPE_NORMAL
 - en: 'Let’s take a look at an example of incorrect handling of errors that breaks
     the above rule:'
+  id: totrans-542
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE96]'
+  id: totrans-543
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE96]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-544
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example3”
     />
+  id: totrans-545
   prefs: []
   type: TYPE_NORMAL
 - en: The above code throws an error because the `fetchData` function doesn’t return
     the promise. It also doesn’t allow the calling code to do any kind of error handling.
+  id: totrans-546
   prefs: []
   type: TYPE_NORMAL
 - en: 'There are two ways to fix the above code:'
+  id: totrans-547
   prefs: []
   type: TYPE_NORMAL
 - en: Return the promise from the `fetchData` function by adding the `return` keyword
     before `fetch(...)`.
+  id: totrans-548
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE97]'
+  id: totrans-549
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE97]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-550
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example4”
     />
+  id: totrans-551
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: As the above function just makes the HTTP request and returns the response data
     after calling the `json()` method on the response object, the calling code is
     responsible for using the response data as well as handling any error.
+  id: totrans-552
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: '[PRE98]'
+  id: totrans-553
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE98]'
 - en: Handle the error inside the `fetchData` function by chaining the `catch` method
     to the `then` method.
+  id: totrans-554
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE99]'
+  id: totrans-555
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE99]'
 - en: 'and you call the function above as shown below:'
+  id: totrans-556
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: '[PRE100]'
+  id: totrans-557
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE100]'
 - en: Converting promise rejection into fulfillment
+  id: totrans-558
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
 - en: 'Each method on the `Promise.prototype` object returns a new promise. If we
     are not careful, we can write code that can implicitly convert promise rejection
     into promise fulfillment. Let’s take a look at an example:'
+  id: totrans-559
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE101]'
+  id: totrans-560
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE101]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-561
   prefs: []
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example8”
     />
+  id: totrans-562
   prefs: []
   type: TYPE_NORMAL
 - en: 'What output do you expect? The output is shown below:'
+  id: totrans-563
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE102]'
+  id: totrans-564
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE102]'
 - en: 'We called [Promise.reject](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject)
     inside the `getData` function, so instead of logging “then block”, why didn’t
     “catch block” get logged? Instead of the catch block, why was the callback function
     of the `then` method invoked? Let’s understand how the above code executes:'
+  id: totrans-565
   prefs: []
   type: TYPE_NORMAL
 - en: '`getData` function is invoked.'
+  id: totrans-566
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '`Promise.reject(new Error())` creates a rejected promise.'
+  id: totrans-567
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: As a result of the promise rejection, the callback function of the `catch` method
     is invoked.
+  id: totrans-568
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: “inside catch block in getData function” gets logged on the console.
+  id: totrans-569
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: As the callback function of the `catch` method didn’t explicitly return anything,
     the callback function implicitly returns `undefined`.
+  id: totrans-570
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: The promise returned by the `catch` method is fulfilled with the return value
     of its callback function, i.e., `undefined`.
+  id: totrans-571
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: This fulfilled promise is returned to its calling code by the `getData` function.
+  id: totrans-572
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: As the promise returned by the `getData` function is fulfilled with the value
     `undefined`, the `then` method’s callback is invoked in the calling code, which
     logs “then block”.
+  id: totrans-573
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: See this [stackoverflow post](https://stackoverflow.com/questions/62859190/handle-promise-catches-in-typescript),
     which explains this behavior in more detail.
+  id: totrans-574
   prefs: []
   type: TYPE_NORMAL
 - en: Although the above code is a contrived example, imagine if there was a `fetch`
@@ -2800,18 +3495,22 @@
     request fails, the `catch` method in the `getData` function will convert promise
     rejection into promise fulfillment. As a result, instead of returning a rejected
     promise, the `getData` function will return a fulfilled promise.
+  id: totrans-575
   prefs: []
   type: TYPE_NORMAL
 - en: :::info
+  id: totrans-576
   prefs: []
   type: TYPE_NORMAL
 - en: Sometimes, you do want to convert promise rejection into promise fulfillment
     to handle the rejection and let the promise chain continue. This is fine if done
     intentionally. Just be aware that promise rejection can turn into promise fulfillment
     if you are not careful. Doing this will certainly lead to bugs in your code.
+  id: totrans-577
   prefs: []
   type: TYPE_NORMAL
 - en: ':::'
+  id: totrans-578
   prefs: []
   type: TYPE_NORMAL
 - en: Suppose you are wondering why the promise returned by the `catch` method got
@@ -2820,48 +3519,61 @@
     fulfilled if their callback function explicitly or implicitly returns a value
     instead of throwing an error or returning a rejected promise or a promise that
     eventually gets rejected.
+  id: totrans-579
   prefs: []
   type: TYPE_NORMAL
 - en: 'So, how can we fix the above code example to avoid this problem? There are
     two ways to fix this problem:'
+  id: totrans-580
   prefs: []
   type: TYPE_NORMAL
 - en: Throw the error from the callback function of the `catch` method.
+  id: totrans-581
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE103]'
+  id: totrans-582
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE103]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-583
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example9”
     />
+  id: totrans-584
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: This will reject the promise returned by the `catch` method, and the `getData`
     function will return this rejected promise. As a result, as expected, `catch`
     method callback in the calling code will be invoked.
+  id: totrans-585
   prefs: []
   type: TYPE_NORMAL
 - en: Remove the `catch` method call.
+  id: totrans-586
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE104]'
+  id: totrans-587
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE104]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-588
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example10”
     />
+  id: totrans-589
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
@@ -2871,39 +3583,48 @@
     this approach instead of throwing the error from the `catch` method callback.
     Just allow the calling code to catch and handle the errors. The `catch` method
     callback that just re-throws the error is unnecessary. :::'
+  id: totrans-590
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
 - en: Async executor function
+  id: totrans-591
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
 - en: When creating a new promise using the `Promise` constructor, we pass a function
     to the promise constructor. This function is known as the **executor** function.
     The executor function should never be an `async` function. Why is that?
+  id: totrans-592
   prefs: []
   type: TYPE_NORMAL
 - en: Suppose the executor function is an `async` function. In that case, any errors
     thrown by the `async` executor function will not be caught, and the thrown error
     won’t cause the newly-constructed promise to reject.
+  id: totrans-593
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE105]'
+  id: totrans-594
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE105]'
 - en: In the above code example, as the executor function is an `async` function,
     the error thrown inside it doesn’t reject the newly-created promise `p`. As a
     result, the callback function of the `catch` method, called on promise `p`, never
     gets called.
+  id: totrans-595
   prefs: []
   type: TYPE_NORMAL
 - en: If the executor function is a synchronous function, then any error thrown inside
     the executor function will automatically reject the newly created promise. Try
     removing the `async` keyword in the above code example and observe the output.
+  id: totrans-596
   prefs: []
   type: TYPE_NORMAL
 - en: Another thing to note is that if you find yourself using `await` inside the
     executor function, this should be a signal to you that you don’t need the promise
     constructor at all (remember the first anti-pattern discussed above).
+  id: totrans-597
   prefs: []
   type: TYPE_NORMAL
