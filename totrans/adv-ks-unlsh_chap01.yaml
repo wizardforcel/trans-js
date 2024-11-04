@@ -469,21 +469,25 @@
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 类声明
 - en: 像函数声明一样，类声明也被提升，但与函数声明相比，它们是*以不同的方式*被提升的。
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像函数声明一样，类声明也被提升，但与函数声明相比，它们是*以不同的方式*被提升的。
 - en: 虽然我们可以在函数声明*之前*访问它，但在类声明的情况下我们不能这样做。这难道不意味着类声明没有被提升吗？不，它们是被提升的，但*以不同的方式*。
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然我们可以在函数声明*之前*访问它，但在类声明的情况下我们不能这样做。这难道不意味着类声明没有被提升吗？不，它们是被提升的，但*以不同的方式*。
 - en: 让我们先通过以下代码示例验证类声明确实被提升：
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们先通过以下代码示例验证类声明确实被提升：
 - en: '[PRE8]'
   id: totrans-68
   prefs: []
@@ -494,37 +498,44 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个展示上述代码的Replit：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example9" />`'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example9" />`'
 - en: 上述代码抛出错误，证明类声明确实被提升。
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码抛出错误，证明类声明确实被提升。
 - en: 如果类声明没有被提升，那么`console.log`函数调用应该在控制台打印“Honda”，但事实并非如此。这是因为`if`块中的类声明是被提升的，而任何在`Car`声明之前或之后访问`Car`的代码将会访问类声明，而不是在`if`语句之前声明的`Car`变量。`if`块中标识符`Car`指向类声明而不是在`if`语句之前声明的`Car`变量，这证明了类声明确实是被提升的。
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果类声明没有被提升，那么`console.log`函数调用应该在控制台打印“Honda”，但事实并非如此。这是因为`if`块中的类声明是被提升的，而任何在`Car`声明之前或之后访问`Car`的代码将会访问类声明，而不是在`if`语句之前声明的`Car`变量。`if`块中标识符`Car`指向类声明而不是在`if`语句之前声明的`Car`变量，这证明了类声明确实是被提升的。
 - en: 所以，如果类声明是被提升的，为什么我们不能在其声明*之前*访问它们呢？这个问题的答案是“**Temporal Dead Zone (TDZ)**”。
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以，如果类声明是被提升的，为什么我们不能在其声明*之前*访问它们呢？这个问题的答案是“**Temporal Dead Zone (TDZ)**”。
 - en: Temporal Dead Zone (TDZ)
   id: totrans-74
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: Temporal Dead Zone (TDZ)
 - en: '[Temporal Dead Zone (TDZ)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz)指的是在块级作用域变量（`let`、`const`）或类声明无法被访问的时间。这个时间从作用域的开始到声明被执行的时间开始。以下代码示例将帮助我们可视化TDZ：'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '[Temporal Dead Zone (TDZ)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#temporal_dead_zone_tdz)指的是在块级作用域变量（`let`、`const`）或类声明无法被访问的时间。这个时间从作用域的开始到声明被执行的时间开始。以下代码示例将帮助我们可视化TDZ：'
 - en: '[PRE9]'
   id: totrans-76
   prefs: []
@@ -535,32 +546,38 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: TDZ是类声明无法在其声明被执行之前被访问的原因，发生在代码逐步执行的过程中。
 - en: '`let`和`const`'
   id: totrans-78
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: '`let`和`const`'
 - en: 由于TDZ也适用于`let`和`const`，那么使用`let`声明的变量或使用`const`声明的常量也被提升吗？是的，它们也是被提升的，但与类声明一样，它们的提升是*不同的*，因为TDZ的原因。
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于TDZ也适用于`let`和`const`，那么使用`let`声明的变量或使用`const`声明的常量也被提升吗？是的，它们也是被提升的，但与类声明一样，它们的提升是*不同的*，因为TDZ的原因。
 - en: :::info
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info
 - en: 这是一个常见的误解，认为块级作用域变量和常量没有被提升，但正如我们之前讨论的，它们是被提升的；只不过它们的提升与使用`var`关键字声明的变量相比是*不同的*。
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个常见的误解，认为块级作用域变量和常量没有被提升，但正如我们之前讨论的，它们是被提升的；只不过它们的提升与使用`var`关键字声明的变量相比是*不同的*。
 - en: ':::'
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: '[PRE10]'
   id: totrans-83
   prefs: []
@@ -571,22 +588,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在以下Replit中查看上述代码示例的实际情况：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example11" />`'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example11" />`'
 - en: 函数和类表达式
   id: totrans-86
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 函数和类表达式
 - en: 函数和类表达式没有被提升。考虑以下代码示例：
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 函数和类表达式没有被提升。考虑以下代码示例：
 - en: '[PRE11]'
   id: totrans-88
   prefs: []
@@ -597,39 +618,47 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码示例在Replit中的实际情况：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example12" />`'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example12" />`'
 - en: 在上述代码示例中，由于变量`Car`和`Person`是使用`var`关键字声明的，我们可以在它们的声明之前访问它们，并且它们的值为`undefined`。这是因为只有声明被提升，而不是它们的值。在上述代码示例中，值是表达式，并没有被提升。
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述代码示例中，由于变量`Car`和`Person`是使用`var`关键字声明的，我们可以在它们的声明之前访问它们，并且它们的值为`undefined`。这是因为只有声明被提升，而不是它们的值。在上述代码示例中，值是表达式，并没有被提升。
 - en: 如果我们尝试创建`Car`类的实例或调用`Person`构造函数，我们会遇到一个错误。值得注意的是，在这种情况下我们得到的错误不是引用错误（在未声明标识符的情况下抛出的错误），而是类型错误，这是因为`Car`和`Person`被提升并初始化为`undefined`，我们不能将`undefined`作为构造函数调用。请记住，在这种情况下只有声明被提升，而不是它们的值。
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们尝试创建`Car`类的实例或调用`Person`构造函数，我们会遇到一个错误。值得注意的是，在这种情况下我们得到的错误不是引用错误（在未声明标识符的情况下抛出的错误），而是类型错误，这是因为`Car`和`Person`被提升并初始化为`undefined`，我们不能将`undefined`作为构造函数调用。请记住，在这种情况下只有声明被提升，而不是它们的值。
 - en: 提升可能是一个让人感到困惑的概念，特别是对于初学者，因为提升与`var`变量、函数声明以及ES2015变化（即块作用域变量/常量和ES2015类）之间的差异。
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 提升可能是一个让人感到困惑的概念，特别是对于初学者，因为提升与`var`变量、函数声明以及ES2015变化（即块作用域变量/常量和ES2015类）之间的差异。
 - en: 关于提升的常见误解
   id: totrans-94
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 关于提升的常见误解
 - en: 许多JavaScript初学者对提升的概念有误解，认为JavaScript引擎*移动*了提升的声明到文件的顶部。虽然这使得理解提升的概念变得容易，但这并不是现实。
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 许多JavaScript初学者对提升的概念有误解，认为JavaScript引擎*移动*了提升的声明到文件的顶部。虽然这使得理解提升的概念变得容易，但这并不是现实。
 - en: JavaScript引擎不会将提升的声明移动到文件的顶部。相反，它们只是处理声明，然后逐步执行代码。在`var`变量的情况下，它们在声明被执行之前被赋值为`undefined`。在块作用域变量的情况下，它们被标记为“未初始化”。
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript引擎不会将提升的声明移动到文件的顶部。相反，它们只是处理声明，然后逐步执行代码。在`var`变量的情况下，它们在声明被执行之前被赋值为`undefined`。在块作用域变量的情况下，它们被标记为“未初始化”。

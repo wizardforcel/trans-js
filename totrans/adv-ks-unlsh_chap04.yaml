@@ -615,6 +615,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你期望从以下代码示例中得到什么输出？
 - en: '[PRE9]'
   id: totrans-83
   prefs: []
@@ -625,6 +626,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可能期望以下输出：
 - en: '[PRE10]'
   id: totrans-85
   prefs: []
@@ -636,6 +638,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管上述输出看起来合理，但它并不是我们从上述代码示例中得到的输出。实际输出如下所示：
 - en: '[PRE11]'
   id: totrans-87
   prefs: []
@@ -646,11 +649,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上述代码示例在`Replit`中的输出：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example1”>`'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example1”>`'
 - en: If this output surprised you, then this lesson is for you. Even if it didn’t,
     do you understand the reasons behind this output? In this lesson, we will explore
     what causes this problem, also known as the “`closures in loop`” problem, and
@@ -659,12 +664,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果这个输出让你感到惊讶，那么这节课就是为你准备的。即使没有，你是否理解这个输出背后的原因？在这节课中，我们将探讨导致这个问题的原因，也称为“`循环中的闭包`”问题，以及我们如何解决它。
 - en: What causes this problem?
   id: totrans-91
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个问题的原因是什么？
 - en: The code example above suffers from this infamous “`closures in loop`” problem
     because the callback function of each `setTimeout` forms a closure over the `same`
     variable `i`。As there are a total of three loop iterations in our example, `setTimeout`
@@ -674,6 +681,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码示例受到这个臭名昭著的“`循环中的闭包`”问题的影响，因为每个`setTimeout`的回调函数都对`同一`变量`i`形成了闭包。由于我们的示例中总共有三次循环迭代，`setTimeout`被调用三次，因此我们有三个回调函数，全部对`同一`变量`i`形成闭包。
 - en: The callback function of each `setTimeout` call is invoked `after` the loop
     execution has completed. The value of variable `i` after the last iteration of
     the loop is “`4`”，and because each callback function of the “`setTimeout`” has
@@ -683,22 +691,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个`setTimeout`调用的回调函数在循环执行完成`后`被调用。循环最后一次迭代后，变量`i`的值是“`4`”，由于每个“`setTimeout`”的回调函数都对`同一`变量`i`形成了闭包，因此它们都看到`i`的值为“`4`”。这就是它们在控制台上都记录“`4`”的原因。
 - en: 'The scope linkage for the code example above can be visualized in the image
     below:'
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码示例的作用域链接可以在下图中可视化：
 - en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-in-loop-problem.png)'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![作用域链接](images/module_05----lesson_05.03----public----assets----closure-in-loop-problem.png)'
 - en: scope linkage
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 作用域链接
 - en: It is important to note that functions form closures over variables, not their
     values. Closure over variables implies that each function logs the `latest` value
     of the variable it has closed over; if functions formed closure over values rather
@@ -708,6 +720,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重要的是要注意，函数对变量形成闭包，而不是对其值。对变量的闭包意味着每个函数记录它所闭包的变量的`最新`值；如果函数对值而不是变量形成闭包，它们将记录在形成闭包时值的快照。
 - en: In our example, if the closure was over the values of `i` instead of the `i`
     variable, then each callback would have logged the value of `i` that was in effect
     in the iteration in which that callback was created. This means we would have
@@ -719,24 +732,29 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的示例中，如果闭包是围绕`i`的值而不是`i`变量，那么每个回调将记录在创建该回调时迭代中有效的`i`值。这意味着我们将得到预期的输出，即`1 2
+    3`而不是`4 4 4`。但从代码示例的输出中显而易见，闭包是围绕变量形成的。因此，每个`setTimeout`的回调函数都对变量`i`形成了闭包，当每个回调被执行时，它看到的是`i`的最新值。
 - en: How to resolve this problem?
   id: totrans-99
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 如何解决这个问题？
 - en: Now that we understand what the “`closures in loop`” problem is and what causes
     it, let us discuss how this problem was tackled before `ES2015`。
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们理解了“`循环中的闭包`”问题是什么以及其原因，让我们讨论一下在`ES2015`之前是如何解决这个问题的。
 - en: Pre-`ES2015` solution
   id: totrans-101
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 预`ES2015`解决方案
 - en: Before the introduction of `ES2015`，also known as `ES6`，one way to solve this
     problem was to use an [`IIFE (Immediately Invoked Function Expression)`](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)。The
     following code example shows how using an `IIFE` resolves this problem.
@@ -744,6 +762,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在引入`ES2015`（也称为`ES6`）之前，解决这个问题的一种方法是使用[`IIFE（立即调用函数表达式）`](https://developer.mozilla.org/en-US/docs/Glossary/IIFE)。以下代码示例展示了使用`IIFE`如何解决这个问题。
 - en: '[PRE12]'
   id: totrans-103
   prefs: []
@@ -754,41 +773,53 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码示例在Replit中的输出：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example2">`'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example2">`'
 - en: 使用IIFE如何解决这个问题？
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用 IIFE 如何解决这个问题？
 - en: 回想一下，问题是由于不同回调对*同一个*变量的闭包造成的。但通过使用IIFE，我们可以在每次迭代中将`i`的值作为参数传递给IIFE。这个参数（`counter`）随后在`setTimeout`函数的回调函数中使用。这解决了问题，因为`counter`参数被每个回调函数闭包所封闭，并且在每次迭代中都会创建一个新的IIFE，以及新的`setTimeout`回调函数。每个IIFE的新实例都会传递一个新的`i`值，即在第一次迭代中为“1”，第二次迭代中为“2”，依此类推。因此，现在，通过使用IIFE，每个回调函数都有一个不同的`counter`变量的闭包。
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 回想一下，问题是由于不同回调对*同一个*变量的闭包造成的。但通过使用 IIFE，我们可以在每次迭代中将 `i` 的值作为参数传递给 IIFE。这个参数（`counter`）随后在
+    `setTimeout` 函数的回调函数中使用。这解决了问题，因为 `counter` 参数被每个回调函数的闭包所封闭，并且在每次迭代中都会创建一个新的 IIFE，以及新的
+    `setTimeout` 回调函数。每个 IIFE 的新实例都会传递一个新的 `i` 值，即在第一次迭代中为“1”，第二次迭代中为“2”，依此类推。因此，现在，通过使用
+    IIFE，每个回调函数都有一个不同的 `counter` 变量的闭包。
 - en: 下面的图片帮助可视化上述代码示例中的作用域链（为了简单起见，函数对象未在下面的图片中显示）：
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面的图片帮助可视化上述代码示例中的作用域链（为了简单起见，函数对象未在下面的图片中显示）：
 - en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-problem-pre-es6-solution.png)'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![作用域链接](images/module_05----lesson_05.03----public----assets----closure-problem-pre-es6-solution.png)'
 - en: '`scope linkage`'
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`作用域链接`'
 - en: 尽管`setTimeout`函数的回调日志记录了`counter`变量，但它们仍然可以访问`i`变量。如果我们同时记录`counter`和`i`会怎样？输出会如何变化？
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管 `setTimeout` 函数的回调记录了 `counter` 变量，但它们仍然可以访问 `i` 变量。如果我们同时记录 `counter` 和
+    `i` 会怎样？输出会如何变化？
 - en: '[PRE13]'
   id: totrans-112
   prefs: []
@@ -799,27 +830,33 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以上代码示例的输出可以在下面的 Replit 中查看：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example3">`'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example3">`'
 - en: 每个回调都对*不同*实例的`counter`变量有一个闭包，但它们仍然共享来自全局作用域的*同一个*变量`i`。结果，它们记录了`i`的最新值，即“4”。
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个回调都对*不同*实例的 `counter` 变量有一个闭包，但它们仍然共享来自全局作用域的*同一个*变量 `i`。结果，它们记录了 `i` 的最新值，即“4”。
 - en: '`ES2015 solution`'
   id: totrans-116
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: '`ES2015 解决方案`'
 - en: ES2015引入了块级作用域的变量和常量，分别使用`let`和`const`关键字。我们可以通过将原始代码示例中的`var`关键字替换为`let`关键字，简单地解决“循环中的闭包”问题。
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ES2015 引入了块级作用域的变量和常量，分别使用 `let` 和 `const` 关键字。我们可以通过将原始代码示例中的 `var` 关键字替换为
+    `let` 关键字，简单地解决“循环中的闭包”问题。
 - en: '[PRE14]'
   id: totrans-118
   prefs: []
@@ -830,27 +867,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码示例在 Replit 中的输出：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example4">`'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closures-in-loops-example4">`'
 - en: 使用`let`关键字解决了这个问题，因为与每个回调函数闭包于*同一个*变量`i`不同，`let`是块级作用域，导致每次循环迭代都有一个*不同*的`i`变量副本。这是解决“循环中的闭包”问题的关键思路。每次迭代都有自己的*独立*副本的`i`变量，这意味着在每次迭代中创建的`setTimeout`回调闭包于那个特定迭代的`i`变量副本。
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用 `let` 关键字解决了这个问题，因为与每个回调函数闭包于*同一个*变量 `i` 不同，`let` 是块级作用域，导致每次循环迭代都有一个*不同*的
+    `i` 变量副本。这是解决“循环中的闭包”问题的关键思路。每次迭代都有自己的*独立*副本的 `i` 变量，这意味着在每次迭代中创建的 `setTimeout`
+    回调闭包于那个特定迭代的 `i` 变量副本。
 - en: 在我们的代码示例中，我们有三次循环迭代和`i`变量的独立副本，每个副本仅限于特定的循环迭代。尽管看似我们只有一个`i`变量，但在幕后，每次迭代都有自己的`i`变量副本。
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的代码示例中，我们有三次循环迭代和 `i` 变量的独立副本，每个副本仅限于特定的循环迭代。尽管看似我们只有一个 `i` 变量，但在幕后，每次迭代都有自己的
+    `i` 变量副本。
 - en: 'To understand how each iteration gets its own copy of variable `i`，the following
     steps explain how the above code is executed:'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了理解每次迭代如何获得自己的 `i` 变量副本，以下步骤解释了上述代码是如何执行的：
 - en: Before the execution of the `for` loop starts，an environment object (let’s call
     it `initEnv`) is created，and it contains the variables declared in the initialization
     part of the `for` loop. In our case，we have only one variable，`i`，so the `initEnv`
@@ -863,6 +908,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在 `for` 循环开始执行之前，会创建一个环境对象（我们称之为 `initEnv`），它包含 `for` 循环初始化部分声明的变量。在我们的案例中，我们只有一个变量
+    `i`，因此 `initEnv` 环境对象包含变量 `i` 的副本。这个环境对象通过在 `[[OuterEnv]]` 内部插槽中保存对外部环境的引用，与外部环境链接。在这种情况下，外部环境是全局环境。
 - en: To start the first iteration of the `for` loop，a new environment object is created
     (let’s call it `iter1Env`). This environment object also gets the global environment
     as its outer environment. The variable `i` is copied into this newly created `iter1Env`
@@ -872,6 +919,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了开始 `for` 循环的第一次迭代，会创建一个新的环境对象（我们称之为 `iter1Env`）。这个环境对象也将全局环境作为其外部环境。变量 `i`
+    被从 `initEnv` 对象（在步骤 1 中创建）中复制到这个新创建的 `iter1Env` 对象。
 - en: The loop condition `i <= 3` is `true`，so the body of the loop is executed as
     part of the first iteration of the loop. The callback function for the `setTimeout`
     is created，saving a reference to the environment object of the first loop iteration
@@ -883,6 +932,9 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 循环条件 `i <= 3` 为 `true`，因此循环体在循环的第一次迭代中被执行。`setTimeout` 的回调函数被创建，并将第一次循环迭代的环境对象
+    `iter1Env`（在步骤 2 中创建）保存在回调函数的内部 `[[Environment]]` 插槽中。之后，回调函数作为参数传递给 `setTimeout`
+    函数以便稍后执行。
 - en: 'The first iteration has been completed. The following image shows the linkage
     between different environments created so far:'
   id: totrans-127
@@ -890,18 +942,21 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一轮迭代已完成。以下图像显示了迄今为止创建的不同环境之间的链接：
 - en: '![`closue` in loop - iteration 1](images/module_05----lesson_05.03----public----assets----closure-loop-iter-1.png)'
   id: totrans-128
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![`循环中的闭包` - 第一次迭代](images/module_05----lesson_05.03----public----assets----closure-loop-iter-1.png)'
 - en: '`closue` in loop - iteration 1'
   id: totrans-129
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '`循环中的闭包` - 第一次迭代'
 - en: Now，to start the second iteration，a new environment object is created (let’s
     call it `iter2Env`). The variable `i` is copied from the `initEnv` environment
     object (created in step 1)，but the value of `i` in `iter2Env` is the value of
@@ -912,6 +967,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，为了开始第二次迭代，创建了一个新的环境对象（我们称之为`iter2Env`）。变量`i`是从`initEnv`环境对象（在第1步中创建）复制过来的，但在`iter2Env`中的`i`的值是`iter1Env`中的`i`的值（在第2步中创建）。由于`for`循环的增量部分（`i++`），`iter2Env`中的`i`的值随后被增加。
 - en: As in the previous iteration，a new callback function is created，and the reference
     to the `iter2Env` is saved in its `[[Environment]]` internal slot. The callback
     function is then passed to the `setTimeout` function as an argument.
@@ -920,28 +976,33 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 与前一次迭代一样，创建了一个新的回调函数，并将对`iter2Env`的引用保存在其`[[Environment]]`内部槽中。然后，将回调函数作为参数传递给`setTimeout`函数。
 - en: This process is repeated for the third and final iteration of the loop.
   id: totrans-132
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此过程在循环的第三次也是最后一次迭代中重复进行。
 - en: 'The following diagram shows how different environments are linked together
     after three iterations of the loop:'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下图显示了在循环的三次迭代后，不同环境是如何连接在一起的：
 - en: '![`closue` in loop - all iterations](images/module_05----lesson_05.03----public----assets----closure-loop-iter.png)'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`closue` 在循环中 - 所有迭代](images/module_05----lesson_05.03----public----assets----closure-loop-iter.png)'
 - en: '`closue` in loop - all iterations'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`closue` 在循环中 - 所有迭代'
 - en: Hopefully, the final diagram clarifies why using the `let` keyword solves the
     “closures in loop” problem. As each environment object created for each iteration
     of the loop has its `separate` copy of the variable `i`, the closure of each callback
@@ -952,6 +1013,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 希望最终的图解可以澄清为什么使用`let`关键字解决了“循环中的闭包”问题。由于为循环的每次迭代创建的每个环境对象都有其`单独的`变量`i`的副本，因此在循环的不同迭代中创建的每个回调的闭包对变量`i`的单独副本形成了闭包。因此，它们记录了它们闭合的值，给出了我们预期的输出，即`1
+    2 3`。
 - en: With the recent additions to the JavaScript language, it is now possible to
     have [private fields and methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
     in JavaScript. However, before these changes were introduced in the language,
@@ -961,12 +1024,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 随着JavaScript语言的最新增加，现在可以在JavaScript中拥有[私有字段和方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)。然而，在这些更改引入之前，闭包是隐藏公共访问数据的首选选项。在面向对象编程术语中，这被称为“数据隐藏”和“封装”。
 - en: 'Following is an example of how we can have private variables and methods using
     closures:'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是如何使用闭包拥有私有变量和方法的示例：
 - en: '[PRE15]'
   id: totrans-139
   prefs: []
@@ -983,15 +1048,18 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`IIFE`内部的代码被执行，并从`IIFE`中返回一个对象，该对象被赋值给`bank`变量。返回的对象只包含需要从外部访问的数据，而不返回旨在私有的代码；因此，这些数据保持私有，限制在`IIFE`的边界墙内。然而，得益于闭包，从`IIFE`返回的公共暴露数据仍然可以访问`IIFE`内部的私有数据。'
 - en: Further reading
   id: totrans-141
   prefs:
   - PREF_H5
   stylish: true
   type: TYPE_NORMAL
+  zh: 进一步阅读
 - en: '[Emulating private methods with closures - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#emulating_private_methods_with_closures)'
   id: totrans-142
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[使用闭包模拟私有方法 - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#emulating_private_methods_with_closures)'
