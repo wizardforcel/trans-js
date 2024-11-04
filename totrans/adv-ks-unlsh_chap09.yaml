@@ -170,6 +170,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个迭代器对象都继承自相应的迭代器原型对象。例如，数组迭代器从数组迭代器原型对象继承。同样，字符串迭代器从字符串迭代器原型对象继承。所有迭代器原型对象都继承自``Iterator.prototype``对象。
 - en: '[PRE4]'
   id: totrans-30
   prefs: []
@@ -180,11 +181,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，你可以运行上述代码：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example4” />
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example4" />
 - en: The code example above shows one way to get the array iterator prototype object,
     and it also shows that the ``next`` method is inherited from the array iterator
     prototype object. If we get the prototype of the array iterator prototype object,
@@ -194,6 +197,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码示例展示了一种获取数组迭代器原型对象的方法，它还显示了`next`方法是从数组迭代器原型对象继承的。如果我们获取数组迭代器原型对象的原型，我们将得到``Iterator.prototype``对象，所有迭代器原型对象共享该对象。
 - en: '[PRE5]'
   id: totrans-34
   prefs: []
@@ -205,11 +209,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info 我们无法直接访问``Iterator.prototype``对象，因为它是一个所有内置迭代器继承的隐藏全局对象。
 - en: ':::'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: The ``Iterator.prototype`` object itself is an iterable object, which means
     that it implements the iterable protocol. But the ``Symbol.iterator`` method that
     it implements simply returns the iterator on which this method is called. This
@@ -219,6 +225,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '``Iterator.prototype``对象本身就是一个可迭代对象，这意味着它实现了可迭代协议。但它实现的``Symbol.iterator``方法仅仅返回调用此方法的迭代器。这意味着任何迭代器对象本身都是可迭代的，意味着我们可以将其与``for...of``循环等构造函数一起使用。'
 - en: '[PRE6]'
   id: totrans-38
   prefs: []
@@ -229,17 +236,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example6" />`'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example6" />`'
 - en: Making custom iterable objects
   id: totrans-41
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建自定义可迭代对象
 - en: At this point, we have learned enough about iterables and iterators to make
     custom iterable objects. To make a custom iterable object, we need to implement
     the `Symbol.iterator` method that returns the iterator object containing the `next`
@@ -249,6 +259,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 到此为止，我们已经了解了足够多关于可迭代对象和迭代器的知识，可以创建自定义可迭代对象。要创建一个自定义可迭代对象，我们需要实现返回包含`next`方法的迭代器对象的`Symbol.iterator`方法。让我们考虑一个学生对象的例子，我们希望使其可迭代，以便可以轻松使用`for...of`循环打印它们的属性。
 - en: '[PRE7]'
   id: totrans-43
   prefs: []
@@ -261,6 +272,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是将用于创建学生对象的`Student`构造函数。为了使所有学生对象可迭代，我们需要在`Student.prototype`对象中实现`Symbol.iterator`方法，如下所示：
 - en: '[PRE8]'
   id: totrans-45
   prefs: []
@@ -272,6 +284,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，如果我们尝试遍历任何学生实例，我们将得到在学生迭代器的`next`方法中定义的格式化值，如下所示：
 - en: '[PRE9]'
   id: totrans-47
   prefs: []
@@ -282,11 +295,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example9" />`'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example9" />`'
 - en: We can define the iteration behavior according to whatever logic we want and
     format the value returned in the iterator result object in whatever way we want.
     This gives us the flexibility to define the iteration behavior for any object(s)
@@ -295,6 +310,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以根据任何逻辑定义迭代行为，并以我们希望的方式格式化迭代器结果对象中返回的值。这使我们能够灵活地为任何适合特定对象或相关对象组的对象定义迭代行为。
 - en: Remember that each iterator prototype object, for example, the array iterator
     prototype object, inherits from the `Iterator.prototype` object, but the `studentIterator`
     object doesn’t. As a result, the student iterator object is not iterable.
@@ -302,6 +318,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请记住，每个迭代器原型对象，例如数组迭代器原型对象，都是从`Iterator.prototype`对象继承的，但`studentIterator`对象则不是。因此，学生迭代器对象不可迭代。
 - en: '[PRE10]'
   id: totrans-52
   prefs: []
@@ -312,6 +329,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example10"
     />`'
   id: totrans-54
@@ -513,6 +531,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一次``next``方法调用生成第一个值，即``What is your name?``。此时，生成器函数暂停。``yield``表达式的值将根据我们如何再次调用``next``方法来计算。如果我们在第二次调用``next``方法时传递一个参数，该参数将成为``yield``表达式的值。在上述代码示例中，提供的参数是字符串``John``，所以第一次``yield``表达式的值是``John``，并且这被保存在生成器函数内部的``name``常量中。
 - en: The second ``next`` method call provides a value for the first ``yield`` expression
     and results in the generator function yielding the next value, which is also a
     string in the code example above. The second ``yield`` value is calculated using
@@ -522,6 +541,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二次``next``方法调用为第一次``yield``表达式提供了一个值，并导致生成器函数生成下一个值，在上述代码示例中也是一个字符串。第二个``yield``值是使用``name``常量的值计算得出的。因此，我们从生成器函数获得``Hello
+    John!``作为第二个值。
 - en: ':::note We didn’t pass any argument to the first ``next`` method call; this
     is because any value provided to the first ``next`` method call is ignored. The
     first ``next`` method call cannot provide a value for the first ``yield`` expression.
@@ -532,6 +553,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::note 我们没有向第一次``next``方法调用传递任何参数；这是因为传递给第一次``next``方法调用的任何值都会被忽略。第一次``next``方法调用无法为第一次``yield``表达式提供值。第一次``yield``表达式的值将由第二次``next``方法调用提供；同样，第二次``yield``表达式的值可以由第三次``next``方法调用提供，以此类推。
+    :::'
 - en: The following is an example of a generator that produces random numbers infinitely
     and allows us to pass the upper limit of the range in which the random number
     should be produced. The number we pass is not included in the range.
@@ -539,6 +562,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是一个生成器的示例，它无限生成随机数，并允许我们传递随机数应该生成的范围的上限。我们传递的数字不包含在范围内。
 - en: '[PRE17]'
   id: totrans-91
   prefs: []
@@ -549,18 +573,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上述代码运行的Replit：
 - en: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example5``
     />
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example5``
+    />
 - en: Delegating to other iterators
   id: totrans-94
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 委托给其他迭代器
 - en: 'Another cool thing about generators is that they allow us to delegate the responsibility
     of producing values to other iterators, such as generators. To delegate the responsibility,
     we need to use the ``yield*`` operator. This operator takes any iterator and yields
@@ -571,6 +599,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 关于生成器的另一个很酷的功能是，它们允许我们将生成值的责任委托给其他迭代器，例如生成器。要委托责任，我们需要使用``yield*``操作符。这个操作符接受任何迭代器，并从中生成值，直到迭代器完成。以下是使用``yield*``操作符将生成偶数或奇数的责任委托给各自的生成函数的示例：
 - en: '[PRE18]'
   id: totrans-96
   prefs: []
@@ -581,11 +610,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上述代码运行的Replit：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example6” />
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example6” />
 - en: The `printNums` generator delegates the responsibility of producing values to
     one of the other two generator functions depending on the value of the `isEven`
     parameter.
@@ -593,24 +624,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`printNums`生成器根据`isEven`参数的值将生成值的责任委托给另外两个生成函数之一。'
 - en: Further reading
   id: totrans-100
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 进一步阅读
 - en: '[Generator (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)'
   id: totrans-101
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[生成器 (MDN 文章)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)'
 - en: '[yield* (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)'
   id: totrans-102
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[yield* (MDN 文章)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)'
 - en: We learned about iterables and iterators in the first lesson of this module.
     An iterable is an object that implements the iterable protocol, and an iterator
     is an object that implements the iterator protocol. The iterators we learned about
@@ -619,6 +654,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们在本模块的第一课中学习了可迭代对象和迭代器。可迭代对象是实现可迭代协议的对象，而迭代器是实现迭代器协议的对象。我们学习的迭代器是同步的。
 - en: 'JavaScript also has asynchronous iterators that work similarly to synchronous
     iterators. The synchronous iterators contain a method named `next` that, when
     called, returns an object with two properties: `done` and `value`. The asynchronous
@@ -628,6 +664,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript也有异步迭代器，其工作方式类似于同步迭代器。同步迭代器包含一个名为`next`的方法，当调用时，返回一个具有两个属性：`done`和`value`的对象。异步迭代器也包含一个名为`next`的方法，但它返回的是一个承诺，而不是返回具有之前提到的属性的对象。
 - en: Objects implement the `Symbol.iterator` method to implement the iterable protocol.
     Objects can implement the [async iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_async_iterator_and_async_iterable_protocols)
     by implementing the [Symbol.asyncIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator)
@@ -636,12 +673,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对象实现`Symbol.iterator`方法以实现可迭代协议。对象可以通过实现[Symbol.asyncIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator)方法来实现[异步可迭代协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_async_iterator_and_async_iterable_protocols)。
 - en: 'The following is an example of using an async iterator to fetch users from
     an API:'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是使用异步迭代器从API获取用户的示例：
 - en: '[PRE19]'
   id: totrans-107
   prefs: []
@@ -652,12 +691,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个Replit，展示了上述代码的运行效果：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-iterators-example1”
     />
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/async-iterators-example1"
+    />
 - en: In the above code example, we are using the async iterator directly instead
     of using a construct like the `for...of` loop. Later in this module, we will see
     how we can consume an async iterator using a loop.
@@ -665,6 +707,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述代码示例中，我们直接使用异步迭代器，而不是使用像`for...of`循环这样的结构。稍后在本模块中，我们将看到如何使用循环消费异步迭代器。
 - en: Note in the above code example that the `userAsyncIterator` object inside the
     `fetchUsers` function implements the `Symbol.asyncIterator` method to implement
     the async iterable protocol. We discussed in the lesson about iterators that each
@@ -681,38 +724,45 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意在上述代码示例中，`fetchUsers`函数中的`userAsyncIterator`对象实现了`Symbol.asyncIterator`方法，以实现异步可迭代协议。我们在关于迭代器的课程中讨论到，每个内置迭代器都继承自`Iterator.prototype`对象，并且本身也是可迭代的。为了使我们的自定义迭代器也成为可迭代的，我们可以使我们的迭代器继承自`iterator.prototype`对象，或者可以在我们的迭代器对象中实现`Symbol.iterator`方法以使其成为可迭代的。类似地，异步迭代器继承自`AsyncIterator.prototype`对象，这也是一个隐藏的全球对象，就像`Iterator.prototype`对象一样。我们可以使`userAsyncIterator`对象继承自`AsyncIterator.prototype`以使其成为可迭代的，或者可以实现`Symbol.asyncIterator`方法，如上面的代码示例所示。
 - en: 简而言之，同步迭代器和异步迭代器之间的主要区别在于，异步迭代器的`next`方法返回一个承诺。接下来，我们将讨论异步生成器，正如常规生成器一样，它们可以帮助我们轻松实现`async`迭代器。
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 简而言之，同步迭代器和异步迭代器之间的主要区别在于，异步迭代器的`next`方法返回一个承诺。接下来，我们将讨论异步生成器，正如常规生成器一样，它们可以帮助我们轻松实现`async`迭代器。
 - en: 进一步阅读
   id: totrans-113
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 进一步阅读
 - en: '[`AsyncIterator (MDN article)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator)'
   id: totrans-114
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`AsyncIterator (MDN 文章)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator)'
 - en: 与同步迭代器和异步迭代器之间的区别类似，常规生成器和异步生成器之间的主要区别在于，异步生成器`yield`一个承诺。
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与同步迭代器和异步迭代器之间的区别类似，常规生成器和异步生成器之间的主要区别在于，异步生成器`yield`一个承诺。
 - en: '`async`生成器是`async`函数和生成器的结合。因此，我们可以在`async`生成器内部使用`await`和`yield`关键字。调用一个`async`生成器会返回一个[`AsyncGenerator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)对象，该对象实现了`async`迭代器和`async`可迭代协议。`AsyncGenerator`对象的`next`方法返回一个承诺。'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async`生成器是`async`函数和生成器的结合。因此，我们可以在`async`生成器内部使用`await`和`yield`关键字。调用一个`async`生成器会返回一个[`AsyncGenerator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)对象，该对象实现了`async`迭代器和`async`可迭代协议。`AsyncGenerator`对象的`next`方法返回一个承诺。'
 - en: 让我们将上节课的`async`迭代器示例重写为使用`async`生成器：
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将上节课的`async`迭代器示例重写为使用`async`生成器：
 - en: '[PRE20]'
   id: totrans-118
   prefs: []
@@ -723,40 +773,50 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码的一个`Replit`：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-generators-example1"
     />`'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-generators-example1"
+    />`'
 - en: :::info 在`fetchUsers`函数内部，我们可以简单地`yield` `response.json()`，而不是等待`response.json()`的结果并随后`yield`
     `userData`对象。这也会有效，因为从`async`函数返回一个承诺会将`async`函数的承诺解析为其主体内部返回的承诺。相同的原理在这里适用：如果我们`yield`一个承诺，`async`生成器的承诺将被解析为其内部`yield`的承诺。
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info 在`fetchUsers`函数内部，我们可以简单地`yield` `response.json()`，而不是等待`response.json()`的结果并随后`yield`
+    `userData`对象。这也会有效，因为从`async`函数返回一个承诺会将`async`函数的承诺解析为其主体内部返回的承诺。相同的原理在这里适用：如果我们`yield`一个承诺，`async`生成器的承诺将被解析为其内部`yield`的承诺。
 - en: ':::  '
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::  '
 - en: '`async`生成器使实现`async`迭代器变得非常简单，这就是您通常实现`async`迭代器的方式。'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async`生成器使实现`async`迭代器变得非常简单，这就是您通常实现`async`迭代器的方式。'
 - en: '`for await…of`循环'
   id: totrans-124
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for await…of`循环'
 - en: 到目前为止，我们通过调用`next`方法直接消费了异步迭代器。`for...of`循环帮助我们迭代可迭代对象，而它有一个对应的循环，即[`for await…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)循环，帮助我们迭代异步可迭代对象。以下代码示例展示了我们如何重写`getData`函数以使用`for
     await...of`循环：
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 到目前为止，我们通过调用`next`方法直接消费了异步迭代器。`for...of`循环帮助我们迭代可迭代对象，而它有一个对应的循环，即[`for await…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)循环，帮助我们迭代异步可迭代对象。以下代码示例展示了我们如何重写`getData`函数以使用`for
+    await...of`循环：
 - en: '[PRE21]'
   id: totrans-126
   prefs: []
@@ -767,15 +827,18 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for await...of`循环只能在可以使用`await`关键字的上下文中使用，即在`async`函数和模块内部。'
 - en: 进一步阅读
   id: totrans-128
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 进一步阅读
 - en: '[`async function* (MDN article)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*)'
   id: totrans-129
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`async function* (MDN 文章)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*)'
