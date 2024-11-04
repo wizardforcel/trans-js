@@ -1,489 +1,669 @@
-- en: Iterators and Generators
+- en: 迭代器与生成器
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Built-in objects like arrays can be iterated over using the [for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
-    loop. Instead of iterating over an array with a simple `for` loop where we have
-    to access the value using an index, increment the index after each iteration,
-    and also know when to end the iteration so that we don’t access indexes that are
-    out of bounds, with `for...of` loop, everything is handled for us. We don’t have
-    to worry about the indexes or the loop termination condition.
+- en: 像数组这样的内置对象可以使用`[for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)`循环进行迭代。与其使用简单的`for`循环逐个访问数组值、在每次迭代后递增索引，并且还要知道何时结束迭代以避免访问超出边界的索引，使用`for...of`循环，所有这一切都为我们处理好了。我们无需担心索引或循环终止条件。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-2
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE0]'
+- en: 这是一个Replit，您可以在其中运行上述代码：
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example1” />
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: How does `for...of` loop help us iterate over an array? How does it know when
-    to end the iteration?
+- en: '`for...of`循环如何帮助我们迭代数组？它如何知道何时结束迭代？'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To understand this, we need to understand the following two concepts:'
+- en: 要理解这一点，我们需要了解以下两个概念：
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterables
+- en: 可迭代对象
+  id: totrans-7
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterators
+- en: 迭代器
+  id: totrans-8
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterables
+- en: 可迭代对象
+  id: totrans-9
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterable is an object that implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol).
-    According to the iterable protocol, an object is iterable if it defines the iteration
-    behavior that can be used by the `for...of` loop to iterate over the values in
-    the object. The object can implement a method that is referred to by the property
-    represented by [Symbol.iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator);
-    it is one of the well-known symbols to define the iteration behavior. The well-known
-    symbols were discussed in the module related to symbols.
+- en: 可迭代对象是实现了[可迭代协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol)的对象。根据可迭代协议，如果一个对象定义了可以被`for...of`循环用于迭代该对象中值的迭代行为，那么该对象就是可迭代的。该对象可以实现一个由`[Symbol.iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator)`表示的属性所引用的方法；这是定义迭代行为的众所周知的符号之一。众所周知的符号在与符号相关的模块中讨论过。
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the case of arrays, this method is defined in the `Array.prototype` object.
-    This method defines the iteration behavior that is appropriate for arrays. Other
-    objects can also implement this method to define an iteration behavior that is
-    appropriate for them.
+- en: 在数组的情况下，这个方法在`Array.prototype`对象中定义。这个方法定义了适合数组的迭代行为。其他对象也可以实现这个方法，以定义适合它们的迭代行为。
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What does the `Symbol.iterator` return that can be used by constructs like `for...of`
-    loop to iterate over an object? It returns an iterator object.
+- en: '`Symbol.iterator`返回什么可以被像`for...of`循环这样的构造用于迭代一个对象？它返回一个迭代器对象。'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterators
+- en: 迭代器
+  id: totrans-13
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Iterators are objects that implement the [iterator protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol).
-    According to the iterator protocol, an object is an iterator if it implements
-    a method named `next` that takes zero or one argument and returns an object with
-    the following properties:'
+- en: 迭代器是实现了[迭代器协议](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol)的对象。根据迭代器协议，如果一个对象实现了一个名为`next`的方法，该方法接受零个或一个参数，并返回一个具有以下属性的对象，那么该对象就是一个迭代器：
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`done`: indicates whether the iterator can produce or return another. If it
-    can, its value is `false`, otherwise, `true`. The `true` value is the same as
-    omitting this property in the object returned by the `next` method.'
+- en: '`done`：指示迭代器是否可以生成或返回另一个值。如果可以，其值为`false`，否则为`true`。`true`值等同于在`next`方法返回的对象中省略此属性。'
+  id: totrans-15
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '`value`: the value returned by the iterator object. This property can be omitted
-    or its value can be `undefined` if the value of the `done` property is `true`.'
+- en: '`value`：迭代器对象返回的值。如果`done`属性的值为`true`，此属性可以省略或其值可以为`undefined`。'
+  id: totrans-16
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following are examples of iterator objects with the above mentioned properties:'
+- en: 以下是具有上述属性的迭代器对象的示例：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
-- en: 'When we iterate over an array using the `for...of` loop, it internally gets
-    the iterator from the array and keeps calling its `next` method until the iterator
-    has returned all values. With the `for...of` loop, we use the iterator indirectly.
+  zh: '[PRE1]'
+- en: 'When we iterate over an array using the ``for...of`` loop, it internally gets
+    the iterator from the array and keeps calling its ``next`` method until the iterator
+    has returned all values. With the ``for...of`` loop, we use the iterator indirectly.
     We can also use the iterator directly. Arrays are iterables, and we know that
-    iterables implement the `Symbol.iterator` method that returns the iterator object
-    that contains the `next` method. The following code example shows how we can get
-    the array iterator and use it directly to get the values in the array:'
+    iterables implement the ``Symbol.iterator`` method that returns the iterator object
+    that contains the ``next`` method. The following code example shows how we can
+    get the array iterator and use it directly to get the values in the array:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example2” />
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Each [built-in iterator object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator#description)
     provides iterators that define a specific iteration behavior for the iterable
-    object. The following is an example of using the `Map` object’s iterator directly:'
+    object. The following is an example of using the ``Map`` object’s iterator directly:'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example3” />
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The value of the `value` property on the iterator result object for the `Map`
-    object is a key-value pair contained in an array. You can use [Map.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
-    to get an iterator that just returns values in the `Map`, or [Map.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)
-    to get an iterator that returns all the keys in the `Map`.
+- en: The value of the ``value`` property on the iterator result object for the ``Map``
+    object is a key-value pair contained in an array. You can use [``Map.prototype.values()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
+    to get an iterator that just returns values in the ``Map``, or [``Map.prototype.keys()``](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)
+    to get an iterator that returns all the keys in the ``Map``.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Iterator prototype
+  id: totrans-28
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Each iterator object inherits from the respective iterator prototype object.
     For example, the array iterator inherits from the Array Iterator prototype object.
     Similarly, the string iterator inherits from the String Iterator prototype object.
-    All iterator prototype objects inherit from the `Iterator.prototype` object.
+    All iterator prototype objects inherit from the ``Iterator.prototype`` object.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example4” />
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The code example above shows one way to get the array iterator prototype object,
-    and it also shows that the `next` method is inherited from the array iterator
+    and it also shows that the ``next`` method is inherited from the array iterator
     prototype object. If we get the prototype of the array iterator prototype object,
-    we will get the `Iterator.prototype` object, which is shared by all iterator prototype
-    objects.
+    we will get the ``Iterator.prototype`` object, which is shared by all iterator
+    prototype objects.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
-- en: :::info We cannot access the `Iterator.prototype` object directly because it
-    is a hidden global object that all built-in iterators inherit from.
+  zh: '[PRE5]'
+- en: :::info We cannot access the ``Iterator.prototype`` object directly because
+    it is a hidden global object that all built-in iterators inherit from.
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: ':::'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `Iterator.prototype` object itself is an iterable object, which means that
-    it implements the iterable protocol. But the `Symbol.iterator` method that it
-    implements simply returns the iterator on which this method is called. This means
-    that any iterator object itself is iterable, meaning that we can use it with constructors
-    like the `for...of` loop.
+- en: The ``Iterator.prototype`` object itself is an iterable object, which means
+    that it implements the iterable protocol. But the ``Symbol.iterator`` method that
+    it implements simply returns the iterator on which this method is called. This
+    means that any iterator object itself is iterable, meaning that we can use it
+    with constructors like the ``for...of`` loop.
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example6” />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example6" />`'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Making custom iterable objects
+  id: totrans-41
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: At this point, we have learned enough about iterables and iterators to make
     custom iterable objects. To make a custom iterable object, we need to implement
-    `Symbol.iterator` method that returns the iterator object containing the `next`
+    the `Symbol.iterator` method that returns the iterator object containing the `next`
     method. Let’s consider an example of student objects that we want to make iterable
     so that we can easily print their properties with the `for...of` loop.
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'This is the `Student` constructor that will be used to make student objects.
     To make all the student objects iterable, we need to implement the `Symbol.iterator`
     method in the `Student.prototype` object, as shown below:'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: 'Now, if we try to iterate over any student instance, we will get the formatted
     values as we defined in the student iterator’s `next` method, as shown below:'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example9” />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example9" />`'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can define the iteration behavior according to whatever logic we want and
     format the value returned in the iterator result object in whatever way we want.
     This gives us the flexibility to define the iteration behavior for any object(s)
     that is appropriate for a particular object or for a group of related objects.
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Remember that each iterator prototype object, for example, the array iterator
     prototype object, inherits from the `Iterator.prototype` object, but the `studentIterator`
     object doesn’t. As a result, the student iterator object is not iterable.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'Here’s a Replit where you can run the above code:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example10” />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/iterators-example10"
+    />`'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We can fix this either by explicitly setting up the prototype chain link between
     the `Iterator.prototype` object and our `studentIterator` object, or an easier
     way is to just implement the `Symbol.iterator` method in the `studentIterator`
     object to make it iterable:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Now the `studentIterator` object is iterable, so we can use it with the `for...of`
     loop if we want to.
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'There’s one more improvement we can make to the above code example. We have
-    defined `Symbol.iterator` method in the `Student.prototype` object, but it is
-    [enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties),
+    defined the `Symbol.iterator` method in the `Student.prototype` object, but it
+    is [enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties),
     which is not ideal. We can make it non-enumerable by defining it using the [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
     method, as shown below:'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
-- en: Generators are special functions in JavaScript that can suspend their execution
-    at different points in their execution and then resume from the point at which
-    they were paused. Just like iterators, generator functions can be used to produce
-    a sequence of values that can be consumed by constructs like the `for...of` loop.
-    In fact, a generator function returns a generator object, which is an iterator.
-    So, we can use the return value of a generator function just like any other iterator.
+  zh: '[PRE12]'
+- en: 生成器是JavaScript中的特殊函数，它们可以在执行的不同点暂停其执行，然后从暂停的地方恢复。就像迭代器一样，生成器函数可以用于生成可以被`for...of`循环等结构消费的值序列。实际上，生成器函数返回一个生成器对象，而生成器对象是一个迭代器。因此，我们可以像使用其他迭代器一样使用生成器函数的返回值。
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Following is an example of a generator function that produces odd numbers from
-    0 to 10:'
+- en: 以下是一个生成器函数的示例，该函数生成从0到10的奇数：
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the above code in action:'
+  zh: '[PRE13]'
+- en: 这是上述代码运行的Replit示例：
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example1” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example1”
+    />`'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Note the following two things in the generator function above:'
+- en: 请注意上述生成器函数中的以下两点：
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The `function*` syntax marks a function as a generator function. Space between
-    `*` and `function` is also valid syntax: `function *`.'
+- en: '`function*`语法将一个函数标记为生成器函数。在`*`和`function`之间的空格也是有效语法：`function *`。'
+  id: totrans-66
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The `yield` keyword produces a value. The value on the right of the `yield`
-    keyword is what we get when we call the `next` method on the iterator object returned
-    from the generator function. The `yield` keyword also marks a place where a generator
-    function is paused.
+- en: '`yield`关键字生成一个值。`yield`关键字右侧的值是我们在调用从生成器函数返回的迭代器对象的`next`方法时得到的。`yield`关键字还标记了生成器函数暂停的地方。'
+  id: totrans-67
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Infinite sequence
+- en: 无限序列
+  id: totrans-68
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Generator functions can also be used to create an infinite sequence. as shown
-    below:'
+- en: 生成器函数也可以用于创建无限序列，如下所示：
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the above code in action:'
+  zh: '[PRE14]'
+- en: 这是上述代码运行的Replit示例：
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example2” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example2”
+    />`'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The code example above logs only 10 random numbers, but it is possible to use
-    the generator to generate an infinite number of random numbers. This is possible
-    because generator functions are evaluated lazily; their execution is paused until
-    a new value is requested.
+- en: 上述代码示例仅记录了10个随机数，但可以使用生成器生成无限个随机数。这是可能的，因为生成器函数是惰性评估的；它们的执行会被暂停，直到请求新的值。
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the above code example, we are consuming the generator using the `next` method.
-    Note that calling the generator function doesn’t execute it; instead, it returns
-    a generator object. The generator object is an iterator as well as an iterable.
-    So we can use it like an iterator by calling the next method on it. Calling the
-    `next` method on a generator object returns the values that the generator yields.
-    Multiple calls to the `next` method keep returning the value that the generator
-    yields until the generator object stops yielding the values. At this point, we
-    get an object with the `done` property set to `true`. However, the generator function
-    above can yield values infinitely.
+- en: 在上述代码示例中，我们使用`next`方法消费生成器。注意，调用生成器函数并不会执行它；相反，它返回一个生成器对象。生成器对象既是一个迭代器也是一个可迭代对象。因此，我们可以像迭代器一样使用它，通过调用其上的`next`方法。对生成器对象调用`next`方法返回生成器所生成的值。对`next`方法的多次调用将继续返回生成器所生成的值，直到生成器对象停止生成值。在此时，我们得到一个`done`属性设置为`true`的对象。然而，上述生成器函数可以无限生成值。
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Implementing iterators
+- en: 实现迭代器
+  id: totrans-75
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As a generator function returns an iterator object, generator functions make
-    it convenient to write iterators. We can rewrite the student iterator example
-    in the previous lesson using a generator function, as shown below:'
+- en: 由于生成器函数返回一个迭代器对象，生成器函数使得编写迭代器变得方便。我们可以使用生成器函数重写上一课中的学生迭代器示例，如下所示：
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the above code in action:'
+  zh: '[PRE15]'
+- en: 这是上述代码运行的Replit示例：
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example3” />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example3”
+    />`'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Compare the implementation of the `Symbol.iterator` method in the previous lesson
-    and the new one that uses a generator function to implement the student iterator.
-    Code is simpler, concise, and easy to read. Generator functions really make it
-    easy to implement iterators.
+- en: 比较上一课中`Symbol.iterator`方法的实现与新的使用生成器函数实现学生迭代器的方法。代码更简单、简洁且易于阅读。生成器函数确实使得实现迭代器变得容易。
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As an added bonus, the iterator object returned by the generator function is
     automatically iterable; as a result, the student iterator is iterable without
-    us needing to manually set up the prototype chain link or implement the `Symbol.iterator`
+    us needing to manually set up the prototype chain link or implement the ``Symbol.iterator``
     method in the iterator object.
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Consuming values
+  id: totrans-82
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'While simple iterators only produce values, generators can also consume values.
-    We can pass a value to the generator using the `next` method. The value passed
-    to the generator becomes the value of the `yield` expression. Consider the following
+    We can pass a value to the generator using the ``next`` method. The value passed
+    to the generator becomes the value of the ``yield`` expression. Consider the following
     code example of a generator consuming a value:'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example4” />
+- en: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example4``
+    />
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The first `next` method call yields the first value, i.e.,”What is your name?”.
-    At this point, the generator function pauses. The value of the `yield` expression
-    will be calculated depending on how we call the `next` method again. If we pass
-    an argument to the second call to the `next` method, that argument will become
-    the value of the `yield` expression. In the above code example, the argument provided
-    is the string “John”, so the value of the first `yield` expression is “John”,
-    and that is saved in the `name` constant inside the generator function.
+- en: The first ``next`` method call yields the first value, i.e., ``What is your
+    name?``. At this point, the generator function pauses. The value of the ``yield``
+    expression will be calculated depending on how we call the ``next`` method again.
+    If we pass an argument to the second call to the ``next`` method, that argument
+    will become the value of the ``yield`` expression. In the above code example,
+    the argument provided is the string ``John``, so the value of the first ``yield``
+    expression is ``John``, and that is saved in the ``name`` constant inside the
+    generator function.
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The second `next` method call provides a value for the first `yield` expression
+- en: The second ``next`` method call provides a value for the first ``yield`` expression
     and results in the generator function yielding the next value, which is also a
-    string in the code example above. The second `yield` value is calculated using
-    the value of the `name` constant. As a result, we get “Hello John!” as the second
-    value from the generator function.
+    string in the code example above. The second ``yield`` value is calculated using
+    the value of the ``name`` constant. As a result, we get ``Hello John!`` as the
+    second value from the generator function.
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::note We didn’t pass any argument to the first `next` method call; this is
-    because any value provided to the first `next` method call is ignored. The first
-    `next` method call cannot provide a value for the first `yield` expression. The
-    value of the first `yield` expression will be provided by the second `next` method
-    call; similarly, the value of the second `yield` expression can be provided by
-    the third `next` method call, and so on. :::'
+- en: ':::note We didn’t pass any argument to the first ``next`` method call; this
+    is because any value provided to the first ``next`` method call is ignored. The
+    first ``next`` method call cannot provide a value for the first ``yield`` expression.
+    The value of the first ``yield`` expression will be provided by the second ``next``
+    method call; similarly, the value of the second ``yield`` expression can be provided
+    by the third ``next`` method call, and so on. :::'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The following is an example of a generator that produces random numbers infinitely
     and allows us to pass the upper limit of the range in which the random number
     should be produced. The number we pass is not included in the range.
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example5” />
+- en: <ReplitEmbed src=``https://replit.com/@newlineauthors/generators-example5``
+    />
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Delegating to other iterators
+  id: totrans-94
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Another cool thing about generators is that they allow us to delegate the responsibility
     of producing values to other iterators, such as generators. To delegate the responsibility,
-    we need to use the `yield*` operator. This operator takes any iterator and yields
+    we need to use the ``yield*`` operator. This operator takes any iterator and yields
     values from it until the iterator is done. The following is an example of using
-    the `yield*` operator to delegate the responsibility of producing even or odd
+    the ``yield*`` operator to delegate the responsibility of producing even or odd
     numbers to respective generator functions:'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE18]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example6” />
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `printNums` generator delegates the responsibility of producing values to
     one of the other two generator functions depending on the value of the `isEven`
     parameter.
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Further reading
+  id: totrans-100
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Generator (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)'
+  id: totrans-101
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '[yield* (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)'
+  id: totrans-102
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: We learned about iterables and iterators in the first lesson of this module.
     An iterable is an object that implements the iterable protocol, and an iterator
     is an object that implements the iterator protocol. The iterators we learned about
     were synchronous.
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'JavaScript also has asynchronous iterators that work similarly to synchronous
     iterators. The synchronous iterators contain a method named `next` that, when
     called, returns an object with two properties: `done` and `value`. The asynchronous
     iterators also contain a method named `next`, but instead of returning an object
     with the previously mentioned properties, it returns a promise.'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Objects implement the `Symbol.iterator` method to implement the iterable protocol.
     Objects can implement the [async iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_async_iterator_and_async_iterable_protocols)
     by implementing the [Symbol.asyncIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator)
     method.
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following is an example of using an async iterator to fetch users from
     an API:'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE19]'
+  id: totrans-107
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: 'Here’s a Replit of the above code in action:'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-iterators-example1”
     />
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the above code example, we are using the async iterator directly instead
     of using a construct like the `for...of` loop. Later in this module, we will see
     how we can consume an async iterator using a loop.
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Note in the above code example that the `userAsyncIterator` object inside the
     `fetchUsers` function implements the `Symbol.asyncIterator` method to implement
@@ -497,86 +677,105 @@
     object inherit from the `AsyncIterator.prototype` to make it an iterable, or we
     could implement the `Symbol.asyncIterator` method, as shown in the above code
     example.
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In short, the main difference between a synchronous iterator and an async iterator
-    is that the `next` method of an async iterator returns a promise. Next, we will
-    discuss the asynchronous generators that, just like regular generators, can make
-    it easy for us to implement the async iterators.
+- en: 简而言之，同步迭代器和异步迭代器之间的主要区别在于，异步迭代器的`next`方法返回一个承诺。接下来，我们将讨论异步生成器，正如常规生成器一样，它们可以帮助我们轻松实现`async`迭代器。
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Further reading
+- en: 进一步阅读
+  id: totrans-113
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: '[AsyncIterator (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator)'
+- en: '[`AsyncIterator (MDN article)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator)'
+  id: totrans-114
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Similar to the difference between synchronous iterators and async iterators,
-    the main difference between a regular generator and an async generator is that
-    an async generator yields a promise.
+- en: 与同步迭代器和异步迭代器之间的区别类似，常规生成器和异步生成器之间的主要区别在于，异步生成器`yield`一个承诺。
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Async generators are a combination of `async` functions and generators. As a
-    result, we can use both the `await` and the `yield` keywords inside an async generator.
-    Calling an async generator returns an [AsyncGenerator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)
-    object that implements both async iterator as well as async iterable protocols.
-    The next method of the `AsyncGenerator` object returns a promise.
+- en: '`async`生成器是`async`函数和生成器的结合。因此，我们可以在`async`生成器内部使用`await`和`yield`关键字。调用一个`async`生成器会返回一个[`AsyncGenerator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)对象，该对象实现了`async`迭代器和`async`可迭代协议。`AsyncGenerator`对象的`next`方法返回一个承诺。'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let us rewrite the async iterator example in the previous lesson to use an
-    async generator:'
+- en: 让我们将上节课的`async`迭代器示例重写为使用`async`生成器：
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE20]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE20]'
+- en: 这是上述代码的一个`Replit`：
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-generators-example1”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-generators-example1"
+    />`'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::info Inside the `fetchUsers` function, instead of awaiting the result of
-    `response.json()` and then yielding the `userData` object, we could simply yield
-    `response.json()`. This will also work because returning a promise from an `async`
-    function resolves the `async` function promise to the promise returned inside
-    its body. The same principle applies here: if we `yield` a promise, the `async`
-    generator promise will be resolved to the promise that is `yield` inside it.'
+- en: :::info 在`fetchUsers`函数内部，我们可以简单地`yield` `response.json()`，而不是等待`response.json()`的结果并随后`yield`
+    `userData`对象。这也会有效，因为从`async`函数返回一个承诺会将`async`函数的承诺解析为其主体内部返回的承诺。相同的原理在这里适用：如果我们`yield`一个承诺，`async`生成器的承诺将被解析为其内部`yield`的承诺。
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ':::'
+- en: ':::  '
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The async generators make it really easy to implement async iterators, and this
-    is how you would normally implement async iterators.
+- en: '`async`生成器使实现`async`迭代器变得非常简单，这就是您通常实现`async`迭代器的方式。'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: for await…of loop
+- en: '`for await…of`循环'
+  id: totrans-124
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So far, we have consumed the async iterators directly by calling the `next`
-    method. The `for...of` loop, which helps us iterate over the iterable objects,
-    has a counterpart known as the [for await…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
-    loop that helps us iterate over the async iterable. The following code example
-    shows how we can rewrite the `getData` function to use the `for await...of` loop:'
+- en: 到目前为止，我们通过调用`next`方法直接消费了异步迭代器。`for...of`循环帮助我们迭代可迭代对象，而它有一个对应的循环，即[`for await…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)循环，帮助我们迭代异步可迭代对象。以下代码示例展示了我们如何重写`getData`函数以使用`for
+    await...of`循环：
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE21]'
+  id: totrans-126
   prefs: []
   type: TYPE_PRE
-- en: The `for await...of` loop can only be used in a context where we can use the
-    `await` keyword, i.e., inside an `async` function and a module.
+  zh: '[PRE21]'
+- en: '`for await...of`循环只能在可以使用`await`关键字的上下文中使用，即在`async`函数和模块内部。'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Further reading
+- en: 进一步阅读
+  id: totrans-128
   prefs:
   - PREF_H4
+  stylish: true
   type: TYPE_NORMAL
-- en: '[async function* (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*)'
+- en: '[`async function* (MDN article)`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*)'
+  id: totrans-129
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
