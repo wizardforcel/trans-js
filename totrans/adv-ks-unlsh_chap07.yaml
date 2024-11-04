@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Symbol`'
 - en: '`symbol` is a primitive value that can be created using a function named `Symbol`.
     What makes this primitive value interesting is that it is guaranteed to be unique.
     This guarantee of being unique is the selling point of `symbols`.'
@@ -11,17 +12,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`symbol`是一种可以使用名为`Symbol`的函数创建的原始值。这种原始值有趣之处在于，它保证是唯一的。这种唯一性的保证是`symbols`的卖点。'
 - en: 'With the introduction of `symbols` in `ES2015`, two things changed in JavaScript:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 随着`ES2015`中引入`symbols`，JavaScript发生了两个变化：
 - en: A new type of value was introduced in the language.
   id: totrans-3
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 语言中引入了一种新类型的值。
 - en: Only strings were allowed to be added to objects as property keys. Now, `symbols`
     can be keys as well.
   id: totrans-4
@@ -29,12 +33,14 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 只有字符串可以作为属性键添加到对象中。现在，`symbols`也可以作为键。
 - en: Before we discuss how to use symbols in our code, let us first understand the
     motivation behind adding symbols to the JavaScript language.
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们讨论如何在代码中使用symbols之前，让我们先理解将symbols添加到JavaScript语言的动机。
 - en: '`Symbols` were originally meant to be used as a mechanism to add private properties
     to objects and were supposed to be called “private name objects”. But later, their
     name was changed to `symbols`, and they were made a primitive value.'
@@ -42,6 +48,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Symbols`最初是作为一种机制，用于向对象添加私有属性，原本被称为“私有名称对象”。但后来，它们的名称被改为`symbols`，并成为了一种原始值。'
 - en: It turned out that each `symbol` being a unique value is pretty useful because
     it allows the JavaScript language to be extended and remain backwards compatible.
     `Symbols` allow JavaScript to add new properties to objects that cannot conflict
@@ -50,6 +57,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实证明，每个`symbol`都是唯一值，这一点非常有用，因为它允许JavaScript语言进行扩展，并保持向后兼容性。`Symbols`允许JavaScript向对象添加新的属性，这些属性不会与其他人代码中可能使用的现有属性冲突。
 - en: One of the main goals of `TC39` is to keep JavaScript backwards compatible.
     With this goal in mind, any new feature added to the language must not break existing
     code. `Symbols` help keep the promise of backward compatibility.
@@ -57,6 +65,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`TC39`的主要目标之一是保持JavaScript的向后兼容性。考虑到这一目标，任何添加到语言的新特性都不能破坏现有代码。`Symbols`帮助保持向后兼容性的承诺。'
 - en: Some features in the JavaScript language require looking up a property on an
     object. What property keys could have been chosen for such features? Choosing
     any string property name wasn’t possible because someone might have used that
@@ -66,6 +75,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript语言中的某些特性需要在对象上查找属性。这样的特性可以选择什么属性键？选择任何字符串属性名称是不可能的，因为可能有人在其代码中使用了该属性，使用该属性作为新特性可能会破坏他们的代码。
 - en: For example, for converting an object into a primitive value, a special property
     named`[Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)`
     is looked up on the object by the type conversion algorithm. If such a property
@@ -77,6 +87,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，在将对象转换为原始值时，类型转换算法会在对象上查找一个名为`[Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)`的特殊属性。如果存在这样的属性，并且它的值是一个函数，则其返回值将作为对象的原始表示。否则，将使用调用`toString`和`valueOf`方法的默认机制，以不同的顺序，如在先前关于强制转换的模块中所解释的。
 - en: Think about how such a feature could have been added to the language with a
     string property. What name could possibly have been chosen that was guaranteed
     to not break existing code?
@@ -84,6 +95,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 想想如何能通过字符串属性将这样的特性添加到语言中。可能会选择什么名称以保证不会破坏现有代码？
 - en: 'This is where symbols shine. Using symbols as properties enables such features
     by adding unique properties to objects that cannot possibly break existing code
     because:'
@@ -91,18 +103,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这正是symbols的优势所在。将symbols用作属性可以通过向对象添加独特的属性来实现这样的特性，这些属性不可能破坏现有代码，因为：
 - en: '`symbols` didn’t exist before `ES2015`, and'
   id: totrans-13
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`symbols`在`ES2015`之前是不存在的，且'
 - en: each `symbol` is a unique value
   id: totrans-14
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个`symbol`都是唯一值
 - en: Symbol values can be created using the `Symbol` function. It’s important to
     note that the `Symbol` function must be invoked without the `new` keyword. Attempting
     to use the `new` keyword to invoke the `Symbol` function will result in an error.
@@ -586,12 +601,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在这个 Replit 中查看上述代码示例的输出：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/well-known-symbols-example6"
     />`'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/well-known-symbols-example6"
+    />`'
 - en: There are other well-known symbols that allow us to hook into different built-in
     operations in JavaScript. The complete list can be seen in the [`ECMAScript specification`](https://tc39.es/ecma262/#sec-well-known-symbols)
     or [`MDN - Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
@@ -599,3 +617,6 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 还有其他一些众所周知的符号，它们使我们能够连接到 JavaScript 中不同的内置操作。完整列表可以在 [`ECMAScript 规范`](https://tc39.es/ecma262/#sec-well-known-symbols)
+    或 [`MDN - Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)
+    中查看。
