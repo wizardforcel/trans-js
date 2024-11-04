@@ -1,52 +1,74 @@
-- en: ‘this’ keyword
+- en: '`‘this’` keyword'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: The `this` keyword is among the most confusing concepts in the JavaScript language.
     The cause of confusion is the different ways in which the value of the `this`
     keyword is set in different contexts.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In this module, we will try to demystify the `this` keyword. We will understand
     different ways in which the value of `this` is set. The `this` keyword can be
     used in different contexts: inside functions, global scope, inside modules, etc.
     We will explore different contexts and how `this` is set in those contexts.'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Function context
+  id: totrans-3
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: The `this` keyword is mostly used inside functions to refer to the object using
     which the function was invoked. In other words, when a function is invoked as
     a “method” (invoked using an object), the `this` keyword becomes applicable for
     referencing the object used to invoke the function.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `this` keyword is like an implicit parameter passed to a function. Just
     like explicit function parameters, the value of implicit parameter `this` is set
-    when the function is *invoked*. This is an important point. The value of `this`
-    inside a function depends on *how* that function is *called*.
+    when the function is `invoked`. This is an important point. The value of `this`
+    inside a function depends on `how` that function is `called`.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Consider the following code example:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE0]'
+- en: 'Here’s a `Replit` of the code above:'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example1”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example1”>`'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The `printInfo` function in the code example above uses the `this` keyword,
     and looking at the code, we can tell that the `printInfo` function assumes that
     the value of `this` inside the `printInfo` function will be an object with three
     properties: `id`, `name`, and `email`. But as mentioned earlier, the value of
-    `this` inside a function depends on *how* the function is called.'
+    `this` inside a function depends on `how` the function is called.'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the code example above, the `printInfo` function is invoked using the `student`
     object, and when a function is invoked using an object, the `this` inside that
@@ -54,177 +76,232 @@
     code example, `this` inside the `printInfo` refers to the `student` object. As
     the `student` object has the three properties that are accessed using the `this`
     keyword inside the `printInfo` function, their values are logged to the console.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'What will `this` refer to if the function is not invoked as a “method”? Consider
     the following code example:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE1]'
+- en: 'Here’s a `Replit` of the code above:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example2”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example2”>`'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: What does `this` refer to inside the `orderFood` function?
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The answer to the question above depends on whether our code is executed in
-    [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
+    [`strict mode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
     If non-strict mode, `this` inside a function, when not invoked as a method, refers
     to the global object, which in the case of browsers is the `window` object. However,
     the value of `this` inside a function is `undefined` in strict mode when not invoked
     as a method.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Can you guess in which mode the code was executed from the output of the code
-    above? As `this.fullName` evaluated to `undefined`, the code was executed in non-strict
-    mode.
+- en: 你能从上面代码的输出中猜出代码是以哪种模式执行的吗？因为`this.fullName`的值为`undefined`，所以代码是在非严格模式下执行的。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we execute the code above in strict mode:'
+- en: 如果我们在严格模式下执行上面的代码：
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE2]'
+- en: 这里是上面代码的`Replit`：
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example3”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example3”>`'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: An error? Why?
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recall what the value of `this` is inside a “function” in strict mode. It is
-    `undefined`. So `this.fullName` throws an error because we cannot access any properties
-    on the `undefined` value.
+- en: 回想一下在严格模式下“函数”内`this`的值是什么。它是`undefined`。因此，`this.fullName`抛出一个错误，因为我们无法访问`undefined`值上的任何属性。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Global context
+- en: 全局上下文
+  id: totrans-25
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: In the global scope, the value of `this` depends on the environment in which
-    our JavaScript code is executed.
+- en: 在全局作用域中，`this`的值取决于我们JavaScript代码执行的环境。
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: JavaScript code can be executed in different environments, for example, browsers,
-    NodeJS, etc. The value of `this` in global scope is different in different environments.
-    In the case of browsers, the value of `this` in the global scope is the `window`
-    object.
+- en: JavaScript代码可以在不同的环境中执行，例如浏览器、`NodeJS`等。在全局作用域中，`this`的值在不同的环境中是不同的。在浏览器的情况下，全局作用域中的`this`值是`window`对象。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In NodeJS, the value of `this` depends on whether we are using the ECMAScript
-    modules or the CommonJS modules. In ECMAScript modules, the value of `this` is
-    `undefined` at the top level of a module. This is because the code in ECMAScript
-    modules is executed in strict mode. In CommonJS modules, at the top level of a
-    module, `this` refers to the `module.exports` object.
+- en: 在`NodeJS`中，`this`的值取决于我们使用的是`ECMAScript`模块还是`CommonJS`模块。在`ECMAScript`模块中，模块顶层的`this`值为`undefined`。这是因为`ECMAScript`模块中的代码在严格模式下执行。在`CommonJS`模块中，在模块的顶层，`this`引用的是`module.exports`对象。
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: :::info
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In Node.js, the JavaScript code is technically not executed in a global scope.
-    Instead, it is executed in a module scope, where commonly used modules are CommonJS
-    and ECMAScript modules.
+- en: 在`Node.js`中，JavaScript代码在技术上并不是在全局作用域中执行的。相反，它是在模块作用域中执行的，常用的模块有`CommonJS`和`ECMAScript`模块。
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: ':::'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Inside [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
-    the value of `this` at the top level refers to the global scope of the web worker,
-    which is different from the global scope containing the window object in the browser.
-    Code inside a web worker is executed in its own separate context with its own
-    global scope.
+- en: Inside`[web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)`，`this`的值在顶层引用的是web
+    worker的全局作用域，这与浏览器中包含`window`对象的全局作用域不同。代码在web worker内部在其自己的独立上下文中执行，并具有自己的全局作用域。
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Constructor function context
+- en: 构造函数上下文
+  id: totrans-33
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: When a function is invoked as a constructor function using the `new` keyword,
-    the `this` keyword inside the constructor function refers to the newly created
-    object. The `new` keyword creates a new object and sets the newly created object
-    as the value of `this`. As a result, we can use `this` inside a constructor function
-    to add properties to the newly created object.
+- en: 当一个函数被用`new`关键字作为构造函数调用时，构造函数内部的`this`关键字引用的是新创建的对象。`new`关键字创建一个新对象并将新创建的对象作为`this`的值。因此，我们可以在构造函数内部使用`this`来向新创建的对象添加属性。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
-- en: 'The function above, when invoked as a constructor function, will add two properties:
-    `name` and `ingredients` to the newly created object.'
+  zh: '[PRE3]'
+- en: 上面的函数在作为构造函数调用时，将向新创建的对象添加两个属性：`name`和`ingredients`。
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Class context
+- en: 类上下文
+  id: totrans-37
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Code inside a class in JavaScript is executed in strict mode. As a result, the
-    value of `this` inside methods is either `undefined` if not invoked on an object
-    or the class instance itself, which is used to invoke the method.
+- en: JavaScript中类内部的代码在严格模式下执行。因此，方法内部的`this`值如果没有在对象上调用则为`undefined`，否则为用于调用方法的类实例本身。
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit of the code above:'
+  zh: '[PRE4]'
+- en: 这里是上面代码的`Replit`：
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example5”>
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example5”>`'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The code example above throws an error because we have invoked the `printColor`
-    method as a “function”. As mentioned earlier, code inside a class executes in
-    strict mode, so, as within functions in strict mode, `this` inside methods is
-    `undefined`.
+- en: 上面的代码示例抛出一个错误，因为我们将`printColor`方法作为“函数”调用。如前所述，类内部的代码在严格模式下执行，因此，在严格模式下的函数中，`this`在方法内部是`undefined`。
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: DOM event handler context
+  id: totrans-43
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: We already know that `this` inside a function depends on how the function is
     called. But what about the callback functions that we do not call? I mean the
     callbacks like the DOM event handlers that we do not call but instead are called
     for us by JavaScript whenever the click event is triggered. In such cases, what
     is the value of `this`?
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The event listener callback is invoked with `this` set to the HTML element
     that triggered the event. Consider the following code example:'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'Here’s a Replit of the code above:'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/what-is-this-example6”>
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/what-is-this-example6">`'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Run the above code in a browser and check the console in the browser developer
     tools. Specifically, note the value of `this` logged by the `submitForm` method.
     The value of `this` inside this method, when it is invoked as an event listener
     callback, is the button element and not the instance of the class like we would
     normally expect.
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This can cause a problem if we are not careful when using `this` inside an
     event listener callback function. Imagine a scenario where we had to call another
     method within the `FormHandler` class:'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Calling the `sendRequest` method from within the `submitForm` method throws
     an error because, as discussed, `this` inside an event handler function, `submitForm`
     in our case, is an HTML element that triggered the event. So, unlike what we expected,
@@ -232,28 +309,40 @@
     `submitForm` method was an instance of the `FormHandler` class. So, how can we
     call the `sendRequest` method from the `submitForm` method? There are multiple
     ways to achieve this, but we will discuss them in the later lessons in this module.
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Before diving into how `this` works inside arrow functions, let us first explore
     the problem with using the `this` keyword inside regular functions. Consider the
     following code example:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'You can run the above code in the Replit below:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/arrow-functions-and-this-example1”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/arrow-functions-and-this-example1"
+    />`'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Why did we get `NaN` as an output? The reason for unintended output is the incorrect
     value of `this` inside the function returned from the `incrementFactory` function.
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recall how the value of `this` gets set inside a function. It depends on *how*
+- en: Recall how the value of `this` gets set inside a function. It depends on `how`
     the function is called. In the code example above, how is `increment5` function
     called? Is it called as a “method” or as a standalone function? It is called a
     “function”, so the value of `this` depends on whether our code is in strict mode
@@ -263,237 +352,283 @@
     because the `window` object, by default, doesn’t have a `value` property. As a
     result, we get the `NaN` value when `undefined` is added to a number, i.e., the
     value of the `incrementStep` parameter.
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'How can we fix this problem? How can we ensure that the value of `this` inside
-    the `increment5` function is what we want it to be? There are multiple ways to
-    handle this problem. One way is to save the value of `this` inside the `incrementFactory`
-    function before returning a function, and inside the returned function, use the
-    variable containing the value of `this` instead of directly using `this`. The
-    following code example shows this approach in action:'
+- en: 我们如何解决这个问题？如何确保`increment5`函数内部的`this`值是我们想要的？处理这个问题有多种方法。一种方法是在返回函数之前在`incrementFactory`函数内部保存`this`的值，然后在返回的函数中，使用包含`this`值的变量，而不是直接使用`this`。以下代码示例展示了这种方法的实际应用：
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE8]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/arrow-functions-and-this-example2”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/arrow-functions-and-this-example2"
     />
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The approach shown above was commonly used to fix similar problems where the
-    value of `this` from the surrounding context was needed instead of the one from
-    the current function where `this` was actually used. In the code example above,
-    we needed the value of `this` from the surrounding context of the `incrementFactory`
-    function and not the one inside the `increment5` function.
+- en: 上述方法常用于修复类似的问题，其中需要来自周围上下文的`this`值，而不是当前函数内部实际使用的`this`值。在上面的代码示例中，我们需要来自`incrementFactory`函数的周围上下文的`this`值，而不是`increment5`函数内部的`this`值。
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Arrow functions to the rescue
+- en: 箭头函数来拯救我们
+  id: totrans-64
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Another way to solve the problem shown above is to use an arrow function. Let’s
-    change the code example above to use an arrow function:'
+- en: 另一种解决上述问题的方法是使用箭头函数。让我们将上面的代码示例更改为使用箭头函数：
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE9]'
+- en: 你可以在下面的Replit中运行上述代码：
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/arrow-functions-and-this-example3”
+- en: <ReplitEmbed src="https://replit.com/@newlineauthors/arrow-functions-and-this-example3"
     />
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Using an arrow function solves the problem because, unlike regular functions,
-    which get their own value of `this` when they are invoked, arrow functions don’t
-    get their own `this` value; instead, the value of `this` inside an arrow function
-    is taken from the surrounding context.
+- en: 使用箭头函数解决了这个问题，因为与常规函数不同，常规函数在被调用时会获得自己的`this`值，而箭头函数不会获得自己的`this`值；相反，箭头函数内部的`this`值是从周围上下文中获取的。
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The surrounding context is the environment in which the arrow function is defined.
-    In our code example, the arrow function is created when the `incrementFactory`
-    function is invoked using the `counter` object. So, `this` inside the `incrementFactory`
-    function refers to the `counter` object, and this is the surrounding context of
-    the arrow function returned from the `incrementFactory` function. As a result,
-    the value of `this` inside the arrow function, when it is invoked, is also the
-    `counter` object, and this is what we wanted `this` inside the `increment5` function
-    to be to make our code example work.
+- en: 周围上下文是定义箭头函数的环境。在我们的代码示例中，箭头函数是在使用`counter`对象调用`incrementFactory`函数时创建的。因此，`incrementFactory`函数内部的`this`指向`counter`对象，这就是返回自`incrementFactory`函数的箭头函数的周围上下文。结果，箭头函数内部的`this`值在调用时也是`counter`对象，这正是我们想要`increment5`函数内部的`this`值，使我们的代码示例能够正常工作。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let us revisit the example we discussed in the previous lesson:'
+- en: 让我们回顾一下我们在上节课讨论的例子：
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
-- en: Clicking the `submit` button in the code example above throws an error because
-    the value of `this` inside the `submitForm` method is the button element instead
-    of the instance of the `FormHandler` class. As a result, the `this.sendRequest()`
-    call throws an error because `this` needs to refer to an instance of the `FormHandler`
-    class to allow us to call other methods in this class from within the `submitForm`
-    method. So the problem is, how can we call the `sendRequest` method from the `submitForm`
-    method? We said in the previous lesson that there is more than one way to solve
-    this problem. One of them is to use an arrow function.
+  zh: '[PRE10]'
+- en: 在上面的代码示例中点击`submit`按钮会抛出一个错误，因为`submitForm`方法内部的`this`值是按钮元素，而不是`FormHandler`类的实例。因此，`this.sendRequest()`调用会抛出错误，因为`this`需要指向`FormHandler`类的实例，以便允许我们从`submitForm`方法中调用该类的其他方法。那么问题是，我们如何从`submitForm`方法调用`sendRequest`方法？我们在上节课中说过，解决这个问题的方法不止一种。其中一种是使用箭头函数。
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To fix the issue, inside the constructor of the `FormHandler` class, we can
-    pass an arrow function instead of `this.submitForm` as a callback function to
-    the click event listener. Inside the arrow function, we can invoke the `submitForm`
+    pass an `arrow function` instead of ``this.submitForm`` as a callback function
+    to the click event listener. Inside the `arrow function`, we can invoke the `submitForm`
     method to handle the click event.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
-- en: Why did passing an arrow function as a callback fix the issue? We are still
-    invoking the `submitForm` method inside the arrow function, so how is this different
-    from directly passing `this.submitForm` as a callback function?
+  zh: '[PRE11]'
+- en: Why did passing an `arrow function` as a callback fix the issue? We are still
+    invoking the `submitForm` method inside the `arrow function`, so how is this different
+    from directly passing ``this.submitForm`` as a callback function?
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The reason an arrow function fixed the issue is that, as discussed earlier,
-    arrow functions do not have their own value of `this`; they get it from the surrounding
-    environment. The surrounding environment is the constructor in this case. What’s
-    the value of `this` inside the constructor? Its value is an instance of the `FormHandler`
-    class when the constructor is invoked using the `new` keyword. So, instead of
-    `this` referring to an HTML element inside the event handler callback function
-    like it did in the previous example, the value of `this` inside the arrow function
-    is the same as in the constructor, i.e., an instance of the `FormHandler` class.
-    So when we invoke the `submitForm` method inside the arrow function, the value
-    of `this` inside the `submitForm` method is also an instance of the `FormHandler`
-    class. As a result, we can call any other method from inside the `submitForm`
-    method.
+- en: The reason an `arrow function` fixed the issue is that, as discussed earlier,
+    `arrow functions` do not have their own value of ``this``; they get it from the
+    surrounding environment. The surrounding environment is the constructor in this
+    case. What’s the value of ``this`` inside the constructor? Its value is an instance
+    of the `FormHandler` class when the constructor is invoked using the `new` keyword.
+    So, instead of ``this`` referring to an `HTML` element inside the event handler
+    callback function like it did in the previous example, the value of ``this`` inside
+    the `arrow function` is the same as in the constructor, i.e., an instance of the
+    `FormHandler` class. So when we invoke the `submitForm` method inside the `arrow
+    function`, the value of ``this`` inside the `submitForm` method is also an instance
+    of the `FormHandler` class. As a result, we can call any other method from inside
+    the `submitForm` method.
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the older version of this code that throws an error, the event handler was
-    `this.submitForm` method. It was not invoked by our code explicitly. Instead,
-    it is invoked by JavaScript whenever the submit button is clicked. We know that
-    the value of `this` inside functions depends on how a function is called. In this
-    case, as we weren’t invoking the function explicitly, we couldn’t control the
-    value of `this` inside the `submitForm` method. Using an arrow function allowed
-    us to invoke the `submitForm` method explicitly and, consequently, allowed us
-    to control the value of `this` inside it.
+    ``this.submitForm`` method. It was not invoked by our code explicitly. Instead,
+    it is invoked by `JavaScript` whenever the submit button is clicked. We know that
+    the value of ``this`` inside functions depends on how a function is called. In
+    this case, as we weren’t invoking the function explicitly, we couldn’t control
+    the value of ``this`` inside the `submitForm` method. Using an `arrow function`
+    allowed us to invoke the `submitForm` method explicitly and, consequently, allowed
+    us to control the value of ``this`` inside it.
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Arrow functions are really useful and a welcome addition to the JavaScript language.
-    The problems they solve can also be solved in other ways, but other solutions
-    are more verbose than arrow functions.
+- en: '`Arrow functions` are really useful and a welcome addition to the `JavaScript`
+    language. The problems they solve can also be solved in other ways, but other
+    solutions are more verbose than `arrow functions`.'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So far, we have discussed that the value of `this` depends either on the environment
-    in which our JavaScript code is executed or, in the case of functions, on how
-    a function is called. We have also discussed that arrow functions don’t have their
-    own value of `this`; instead, they get their value from the surrounding context.
+- en: So far, we have discussed that the value of ``this`` depends either on the environment
+    in which our `JavaScript` code is executed or, in the case of functions, on how
+    a function is called. We have also discussed that `arrow functions` don’t have
+    their own value of ``this``; instead, they get their value from the surrounding
+    context.
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: All the ways we have seen so far for setting the value of `this` automatically
-    set its value. Javascript also provides us with ways to explicitly set `this`
+- en: All the ways we have seen so far for setting the value of ``this`` automatically
+    set its value. `Javascript` also provides us with ways to explicitly set ``this``
     to whatever value we want.
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We can use any of the following three built-in methods to explicitly set the
-    value of `this`:'
+    value of ``this``:'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Function.prototype.call()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call)'
+- en: '[`Function.prototype.call()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call)'
+  id: totrans-83
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Function.prototype.apply()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)'
+- en: '[`Function.prototype.apply()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)'
+  id: totrans-84
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '[Function.prototype.bind()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)'
+- en: '[`Function.prototype.bind()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)'
+  id: totrans-85
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: We won’t go into details of how these methods work; you can learn how each of
-    these methods works using the links given above. We will, however, see how explicitly
-    setting `this` can be useful.
+- en: 我们不会详细介绍这些方法如何工作；你可以通过上面提供的链接学习每个方法是如何工作的。然而，我们将看到显式设置`this`如何是有用的。
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let us revisit the code example from the previous lesson about arrow functions:'
+- en: 让我们重温上一个课程中关于箭头函数的代码示例：
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE12]'
+- en: 你可以在下面的`Replit`中运行上述代码：
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/binding-this-example1”
     />
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the previous lesson, we saw how using an arrow function fixed the code example
-    above. We could also fix this code by explicitly setting the value of `this` to
-    the desired value, i.e., the `counter` object, which is used to invoke the `incrementFactory`
-    function. Instead of using an arrow function, we could use the `bind` method to
-    set the value of `this`.
+- en: 在上一个课程中，我们看到使用箭头函数修复了上述代码示例。我们也可以通过显式地将`this`的值设置为所需的值，即`counter`对象来修复这段代码，它用于调用`incrementFactory`函数。我们可以使用`bind`方法来设置`this`的值，而不是使用箭头函数。
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE13]'
+- en: 你可以在下面的`Replit`中运行上述代码：
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/binding-this-example2”
     />
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Borrowing methods
+- en: 借用方法
+  id: totrans-95
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Imagine having an object that contains methods that can be useful for other
-    objects as well. How can we use those methods with other objects? One option is
-    to duplicate the definition of methods for each object that needs them. But we
-    don’t want duplication. Is there a way to avoid duplication and reuse the existing
-    methods?
+- en: 想象一下有一个对象，它包含对其他对象也有用的方法。我们如何能将这些方法与其他对象一起使用呢？一种选择是为每个需要这些方法的对象复制方法的定义。但我们不想要重复。有办法避免重复并重用现有的方法吗？
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE14]'
+- en: 你可以在下面的`Replit`中运行上述代码：
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/binding-this-example3”
     />
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We can explicitly set the value of `this` inside a function and use it with
-    other objects using any of the three methods mentioned above. This allows us to
-    avoid duplication and reuse code.
+- en: 我们可以在函数内部显式设置`this`的值，并使用上述提到的三种方法中的任何一种与其他对象一起使用。这使我们能够避免重复并重用代码。
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'At this point, you might ask: *can we not create a constructor that allows
-    us to create objects and add common methods in the constructor prototype property?*
-    You are right. Creating a constructor is the right way to handle a situation where
-    we want to create similar objects. However, explicitly setting the value of `this`
-    allows us to reuse code between unrelated objects. It is a nice option to have
-    and can be used where appropriate.'
+- en: 在这一点上，你可能会问：*我们是否可以创建一个构造函数，使我们能够创建对象并在构造函数的原型属性中添加公共方法？*你说得对。创建一个构造函数是处理我们想要创建相似对象的正确方法。然而，显式地设置`this`的值使我们能够在无关对象之间重用代码。这是一个很好的选择，可以在合适的地方使用。
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Chain constructor calls
+- en: '`Chain`构造函数调用'
+  id: totrans-102
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Before classes were introduced in JavaScript, the traditional way of inheriting
-    from another constructor function was to explicitly set the prototype chain and
-    reuse the constructor that was being inherited from to add the common properties
-    to the newly created object. The following code example shows how we can delegate
-    the responsibility to an existing constructor to add some properties to the newly
-    created object:'
+- en: 在JavaScript引入类之前，继承另一个构造函数的传统方法是显式地设置原型链，并重用被继承的构造函数，将公共属性添加到新创建的对象。以下代码示例展示了我们如何将责任委托给现有构造函数，以将一些属性添加到新创建的对象：
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: 'In the code example above, the `call` method has been used to call the `Employee`
     constructor, passing in the three properties that the `Employee` constructor can
     set on the newly created object. But how can we tell the `Employee` constructor
@@ -505,174 +640,229 @@
     result, `this` inside the `BankEmployee` function will be the newly created object.
     This newly created object is explicitly set as the value of `this` inside the
     `Employee` constructor.'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In other words, the `Employee` constructor is invoked from inside of the `BankEmployee`
     constructor, with `this` explicitly set to the newly created `BankEmployee` object.
     As a result, properties added to `this` inside the `Employee` constructor will
     actually add the properties to the newly created `BankEmployee` object. This is
     how we can use the existing constructor function and reduce code duplication.
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Revisit “this” problem
+- en: Revisit `“this”` problem
+  id: totrans-107
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Let us revisit the example we discussed in the first lesson.
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: The problem we are trying to fix is that we want to call other methods of the
     same class from inside the event handler callback, but trying to do so throws
     an error because `this` inside an event handler is the HTML element that triggered
     the DOM event. In the previous lesson, we saw how an arrow function could solve
     this problem. There’s another way to fix the issue, and that’s to explicitly set
     the value of `this` inside the `submitForm` method.
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-111
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Explicitly setting the value of `this` inside the `submitForm` method using
     the `bind` method fixes the problem because it overrides the default value of
     `this` inside an event callback function. We have explicitly set it to the value
     of `this` inside the `FormHandler` class constructor, i.e., an instance of the
     `FormHandler` class.
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The difference between passing `this.submitForm` vs. passing `this.submitForm.bind(this)`
     to the `addEventListener` method is that with `this.submitForm`, the value of
-    `this` inside the `submitForm` method depends on *how* the `submitForm` method
-    is invoked. In this case, we know that the value of `this` inside it will be the
+    `this` inside the `submitForm` method depends on how the `submitForm` method is
+    invoked. In this case, we know that the value of `this` inside it will be the
     html button element, which is not what we want. On the other hand, passing `this.submitForm.bind(this)`
     solves the problem because, unlike before, the value of `this` inside the `submitForm`
     method is explicitly bound to be an instance of the `FormHandler` class.
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`globalThis` is a globally available property in JavaScript that allows us
     to access the global object regardless of which environment our JavaScript code
     is executed in. It provides us with a standard way to access the global object
     across different JavaScript environments.'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As we know, JavaScript can be executed in different environments, for example,
-    the browser, the Node.js runtime, etc. Each of these environments has a different
+    the browser, the ``Node.js`` runtime, etc. Each of these environments has a different
     global object available to the JavaScript code executing in the environment. Before
-    `globalThis`, there was no standard way to access the global object in a cross-environment
+    ``globalThis``, there was no standard way to access the global object in a cross-environment
     way. This made our code less portable.
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The `globalThis` property made it possible to access the global object without
+- en: The ``globalThis`` property made it possible to access the global object without
     worrying about the environment. If we know that our code can be executed in different
-    environments, using `globalThis` to access the global object is the way to go
+    environments, using ``globalThis`` to access the global object is the way to go
     in modern JavaScript code.
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Imagine a scenario where you want to check if the global object contains a
     certain property regardless of whether your code is executed in a browser or a
-    NodeJS environment. Without a standard way to access the global object, you might
-    write the following code:'
+    ``NodeJS`` environment. Without a standard way to access the global object, you
+    might write the following code:'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE18]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
-- en: 'With `globalThis`, we can simplify the above code as shown below:'
+  zh: '[PRE18]'
+- en: 'With ``globalThis``, we can simplify the above code as shown below:'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE19]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Although this property is [well supported](https://caniuse.com/?search=globalThis)
     in modern browsers, older versions of browsers don’t support it. So, browser support
     might be taken into consideration when using this property.
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: “this” vs globalThis
+- en: '``this`` vs ``globalThis``'
+  id: totrans-122
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The `globalThis` should not be confused with the `this` keyword. We have discussed
-    in this module how the value of `this` can vary depending on different execution
-    contexts, but `globalThis` is just a standard way to access the global object
-    in different JavaScript environments. Its value only varies depending on the environment
-    in which our code is executed. It isn’t affected by how the function is called
-    or whether our code is in strict mode or not.
+- en: The ``globalThis`` should not be confused with the ``this`` keyword. We have
+    discussed in this module how the value of ``this`` can vary depending on different
+    execution contexts, but ``globalThis`` is just a standard way to access the global
+    object in different JavaScript environments. Its value only varies depending on
+    the environment in which our code is executed. It isn’t affected by how the function
+    is called or whether our code is in strict mode or not.
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In ECMAScript modules, code is executed in strict mode. As a result, the value
-    of `this` in module scope is `undefined`, but the value of `globalThis` is the
-    global object of the execution environment; in NodeJS, it is the `global` object,
-    and in the browsers, it is the `window` object.
+- en: In ``ECMAScript`` modules, code is executed in strict mode. As a result, the
+    value of ``this`` in module scope is ``undefined``, but the value of ``globalThis``
+    is the global object of the execution environment; in ``NodeJS``, it is the ``global``
+    object, and in the browsers, it is the ``window`` object.
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This module was all about the `this` keyword; we discussed different ways its
-    value is set in different contexts; we also discussed a problem that can arise
-    due to an unexpected value of `this` and explored different options we have to
-    fix such problems.
+- en: This module was all about the ``this`` keyword; we discussed different ways
+    its value is set in different contexts; we also discussed a problem that can arise
+    due to an unexpected value of ``this`` and explored different options we have
+    to fix such problems.
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As `this` can have different values in different contexts, let us summarize
-    what value `this` has in different contexts:'
+- en: 'As ``this`` can have different values in different contexts, let us summarize
+    what value ``this`` has in different contexts:'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the case of an arrow function, the value of `this` is taken from the surrounding
+- en: In the case of an arrow function, the value of ``this`` is taken from the surrounding
     context.
+  id: totrans-127
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: In the case of a regular function, the value of `this` depends on *how* a function
-    is called and whether the code is executed in strict mode or not.
+- en: In the case of a regular function, the value of ``this`` depends on *how* a
+    function is called and whether the code is executed in strict mode or not.
+  id: totrans-128
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If a function is invoked as a constructor using the `new` keyword, the value
-    of `this` is the newly created object.
-  prefs:
-  - PREF_IND
-  - PREF_UL
-  type: TYPE_NORMAL
-- en: If the value of `this` is explicitly set using `bind`, `call`, or `apply` functions,
-    then the value of `this` is whatever value is passed as the first argument to
-    these functions.
+- en: If a function is invoked as a constructor using the ``new`` keyword, the value
+    of ``this`` is the newly created object.
+  id: totrans-129
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If a function is invoked as a “method”, the value of `this` is the object used
-    to call the method.
+- en: If the value of ``this`` is explicitly set using ``bind``, ``call``, or ``apply``
+    functions, then the value of ``this`` is whatever value is passed as the first
+    argument to these functions.
+  id: totrans-130
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the function is invoked without any object, i.e., as a “function”, the value
-    of `this` is the global object in non-strict mode and `undefined` in strict mode.
+- en: If a function is invoked as a “method”, the value of ``this`` is the object
+    used to call the method.
+  id: totrans-131
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: In DOM event handler callbacks, the value of `this` is the HTML element that
-    triggered the event.
+- en: 如果函数在没有任何对象的情况下被调用，即作为一个“函数”，则在非严格模式下，`this`的值是全局对象，而在严格模式下是`undefined`。
+  id: totrans-132
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  stylish: true
+  type: TYPE_NORMAL
+- en: 在DOM事件处理回调中，`this`的值是触发事件的HTML元素。
+  id: totrans-133
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: In the global scope in browsers, `this` refers to the global `window` object.
+- en: 在浏览器的全局作用域中，`this`指的是全局`window`对象。
+  id: totrans-134
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: In NodeJS, code at the top level is executed in a module scope. In ECMAScript
-    modules, `this` is `undefined` at the top level of a module because the code in
-    the ECMAScript module is implicitly executed in strict mode. In CommonJS modules,
-    `this` refers to the `module.exports` object at the top level of a module.
+- en: 在NodeJS中，顶层代码在模块作用域中执行。在ECMAScript模块中，模块顶层的`this`是`undefined`，因为ECMAScript模块中的代码隐式在严格模式下执行。在CommonJS模块中，模块顶层的`this`指的是`module.exports`对象。
+  id: totrans-135
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Hopefully, this module gave you a better understanding of `this` keyword and
-    helped you understand how its value is set in different contexts. This module
-    also aims to help you understand the kinds of problems an unexpected value of
-    `this` can cause in our code and what different options are available to us to
-    fix such problems.
+- en: 希望这个模块能让你更好地理解`this`关键字，并帮助你理解在不同上下文中`this`的值是如何设置的。这个模块还旨在帮助你理解意外的`this`值可能在我们的代码中造成的各种问题，以及我们有哪些不同的选项可以解决这些问题。
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
