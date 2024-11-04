@@ -4,48 +4,57 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`异步 JavaScript`'
 - en: 在本模块中，我们将涵盖`JavaScript`中的异步编程。我们将学习异步编程意味着什么，以及在`JavaScript`中传统上是如何做到的。我们还将讨论传统处理异步代码的方法存在的问题，以及`ES2015`中引入的承诺如何改变我们处理异步代码的方式。我们将详细讨论承诺，并学习简化使用承诺的`async-await`语法。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本模块中，我们将涵盖`JavaScript`中的异步编程。我们将学习异步编程意味着什么，以及在`JavaScript`中传统上是如何做到的。我们还将讨论传统处理异步代码的方法存在的问题，以及`ES2015`中引入的承诺如何改变我们处理异步代码的方式。我们将详细讨论承诺，并学习简化使用承诺的`async-await`语法。
 - en: 异步是什么意思？
   id: totrans-2
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 异步是什么意思？
 - en: 在编程的上下文中，“异步”意味着程序启动一个潜在的长时间运行任务，并可以在该任务在后台执行时自由进行其他任务。关键点在于，程序不必等待长时间运行的任务完成；它可以自由执行其他任务。一旦任务完成，程序将收到通知并呈现任务的结果。
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在编程的上下文中，“异步”意味着程序启动一个潜在的长时间运行任务，并可以在该任务在后台执行时自由进行其他任务。关键点在于，程序不必等待长时间运行的任务完成；它可以自由执行其他任务。一旦任务完成，程序将收到通知并呈现任务的结果。
 - en: 由于传统同步编程存在的问题，因此需要异步编程。在同步程序中，每条指令都是按顺序一个接一个地执行的。指令按程序中出现的顺序执行。因此，同步程序更容易推理，但它们也存在异步编程所解决的问题。
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于传统同步编程存在的问题，因此需要异步编程。在同步程序中，每条指令都是按顺序一个接一个地执行的。指令按程序中出现的顺序执行。因此，同步程序更容易推理，但它们也存在异步编程所解决的问题。
 - en: 同步程序的问题在于，一个潜在的长时间运行任务会阻塞程序的执行，直到其完成。这会导致性能差、用户体验差以及资源利用效率低等问题。
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同步程序的问题在于，一个潜在的长时间运行任务会阻塞程序的执行，直到其完成。这会导致性能差、用户体验差以及资源利用效率低等问题。
 - en: 尽管异步程序解决了同步程序所呈现的问题，但异步程序也带来了自己的一系列挑战，如错误处理、管理共享状态和资源、协调程序不同部分之间的关系等。
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管异步程序解决了同步程序所呈现的问题，但异步程序也带来了自己的一系列挑战，如错误处理、管理共享状态和资源、协调程序不同部分之间的关系等。
 - en: '`Asynchronous JavaScript`'
   id: totrans-7
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`异步 JavaScript`'
 - en: 在我们深入探讨如何在`JavaScript`中编写异步代码以及它如何在幕后处理之前，让我们先退一步，看看如果我们执行一些长时间运行的代码（如以下示例中的循环），我们在`JavaScript`中面临的问题。
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们深入探讨如何在`JavaScript`中编写异步代码以及它如何在幕后处理之前，让我们先退一步，看看如果我们执行一些长时间运行的代码（如以下示例中的循环），我们在`JavaScript`中面临的问题。
 - en: '[PRE0]'
   id: totrans-9
   prefs: []
@@ -56,26 +65,31 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在这个`Replit`中查看上面的代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/overview-example1">`'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/overview-example1">`'
 - en: '`JavaScript`是一种单线程语言，这有其优缺点。`JavaScript`开发者通常不必担心多线程程序所带来的问题，比如[`race conditions`](https://stackoverflow.com/questions/34510/what-is-a-race-condition)和[`deadlocks`](https://stackoverflow.com/questions/34512/what-is-a-deadlock)。然而，单线程的限制在上面的代码示例中显而易见。'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`JavaScript`是一种单线程语言，这有其优缺点。`JavaScript`开发者通常不必担心多线程程序所带来的问题，比如[`竞争条件`](https://stackoverflow.com/questions/34510/what-is-a-race-condition)和[`死锁`](https://stackoverflow.com/questions/34512/what-is-a-deadlock)。然而，单线程的限制在上面的代码示例中显而易见。'
 - en: 上面的代码示例旨在模拟一些大约需要3秒钟才能完成的长时间运行的代码。在这3秒钟内，执行我们JavaScript代码的主线程被阻塞；在这3秒钟内没有其他代码执行。如果这段JavaScript代码附加到HTML文件并在浏览器中执行，UI将冻结，直到循环结束。
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上面的代码示例旨在模拟一些大约需要3秒钟才能完成的长时间运行的代码。在这3秒钟内，执行我们JavaScript代码的主线程被阻塞；在这3秒钟内没有其他代码执行。如果这段JavaScript代码附加到HTML文件并在浏览器中执行，UI将冻结，直到循环结束。
 - en: 要查看冻结的UI效果，可以尝试将上述JavaScript代码添加到一个名为`index.js`的文件中，并将其附加到包含以下HTML的HTML文件中：
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要查看冻结的UI效果，可以尝试将上述JavaScript代码添加到一个名为`index.js`的文件中，并将其附加到包含以下HTML的HTML文件中：
 - en: '[PRE1]'
   id: totrans-15
   prefs: []
@@ -86,66 +100,79 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在这个Replit中看到上面的代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example2”>`'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/overview-example2">`'
 - en: 在初始页面加载时，您会注意到按钮在几秒钟内不可点击。UI会保持冻结，直到JavaScript代码执行完成，特别是长时间运行的循环。
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在初始页面加载时，您会注意到按钮在几秒钟内不可点击。UI会保持冻结，直到JavaScript代码执行完成，特别是长时间运行的循环。
 - en: 这在Web应用程序中提供了糟糕的用户体验。单线程对我们在主线程中使用JavaScript所能做的施加了严格的限制。
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这在Web应用程序中提供了糟糕的用户体验。单线程对我们在主线程中使用JavaScript所能做的施加了严格的限制。
 - en: 现在，JavaScript引擎足够强大，能够以非常好的速度执行代码；引擎旨在高度优化JavaScript代码，以尽可能高效地执行它。不过，仍然需要注意，主线程不应被任何可能需要很长时间才能使延迟变得明显的代码阻塞。
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，JavaScript引擎足够强大，能够以非常好的速度执行代码；引擎旨在高度优化JavaScript代码，以尽可能高效地执行它。不过，仍然需要注意，主线程不应被任何可能需要很长时间才能使延迟变得明显的代码阻塞。
 - en: :::info
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info
 - en: JavaScript还允许我们在另一个线程中执行一些代码，与主线程独立，使用`[web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)`。
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript还允许我们在另一个线程中执行一些代码，与主线程独立，使用`[网络工作者](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)`。
 - en: '::::'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '::::'
 - en: 接下来，让我们讨论使用回调编写异步代码的传统方式。我们还将讨论使用回调时的问题。
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，让我们讨论使用回调编写异步代码的传统方式。我们还将讨论使用回调时的问题。
 - en: 使用回调函数处理异步代码一直是JavaScript中编写异步代码的传统方式。回调函数是作为参数传递给另一个函数的函数，旨在在某个异步操作完成后调用。接收回调函数作为参数的函数通常会使用异步操作的结果或在异步操作失败时的错误来调用回调函数。
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用回调函数处理异步代码一直是JavaScript中编写异步代码的传统方式。回调函数是作为参数传递给另一个函数的函数，旨在在某个异步操作完成后调用。接收回调函数作为参数的函数通常会使用异步操作的结果或在异步操作失败时的错误来调用回调函数。
 - en: 类似HTTP请求的操作是异步的，但它们并不是由JavaScript处理的。我们编写的代码启动异步操作；在客户端JavaScript的情况下，实际的异步操作由浏览器处理，而在NodeJS运行时的情况下，则由后台线程或操作系统本身处理。
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 类似HTTP请求的操作是异步的，但它们并不是由JavaScript处理的。我们编写的代码启动异步操作；在客户端JavaScript的情况下，实际的异步操作由浏览器处理，而在NodeJS运行时的情况下，则由后台线程或操作系统本身处理。
 - en: 简单来说，异步操作在后台（JavaScript领域之外）进行，而与此同时，其他事情可以在主线程（JavaScript领域）中执行。
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 简单来说，异步操作在后台（JavaScript领域之外）进行，而与此同时，其他事情可以在主线程（JavaScript领域）中执行。
 - en: 当异步操作完成时，我们的JavaScript代码会收到通知，导致执行我们在启动异步操作时提供的回调函数。
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当异步操作完成时，我们的JavaScript代码会收到通知，导致执行我们在启动异步操作时提供的回调函数。
 - en: This is how JavaScript gets around its limitation of a single thread. The asynchronous
     operations are actually handled by the runtime (`browser`, `NodeJS`, etc.). In
     the meantime, JavaScript can do other things.
@@ -153,12 +180,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这就是JavaScript如何绕过单线程限制的方式。异步操作实际上是由运行时（`浏览器`、`NodeJS`等）处理的。与此同时，JavaScript可以做其他事情。
 - en: 'The following code example shows the use of a callback function by sending
     an HTTP request to a fake REST API:'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下代码示例展示了通过发送HTTP请求到一个假REST API来使用回调函数：
 - en: '[PRE2]'
   id: totrans-31
   prefs: []
@@ -169,17 +198,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example1” />`'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/callbacks-example1" />`'
 - en: A callback function passed to the `addEventListener` method handles the result
     of the HTTP request.
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 传递给`addEventListener`方法的回调函数处理HTTP请求的结果。
 - en: Different DOM events, for example, the click event, are also handled asynchronously
     using the callback functions. A callback is registered as an event handler and
     is invoked later whenever the event is triggered.
@@ -187,6 +219,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不同的DOM事件，例如点击事件，也使用回调函数异步处理。回调作为事件处理程序注册，并在事件触发时稍后调用。
 - en: '[PRE3]'
   id: totrans-36
   prefs: []
@@ -349,12 +382,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码符合其名称：“`Callback Hell`”。没有人愿意处理这样的代码。很难推理。在本模块的后续课程中，我们将看到如何使用`promises`和`async-await`语法重写相同的代码，使其更易读和易维护。
 - en: Error handling
   id: totrans-58
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 错误处理
 - en: Writing error handling code using callbacks, as shown above, is not a pleasant
     experience. As shown in the code above, we need to handle errors in each callback,
     which can lead to duplication of error handling logic. There is no central place
@@ -363,6 +398,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用回调编写错误处理代码，如上所示，体验并不愉快。如上代码所示，我们需要在每个回调中处理错误，这可能导致错误处理逻辑的重复。没有一个中央地方可以捕获和处理所有异步操作的错误。
 - en: In this lesson, we discussed how callbacks are used to write asynchronous code
     in JavaScript. Though there are better alternatives like `promises` and `async-await`
     that solve the problems with callbacks discussed above, callbacks are still commonly
@@ -372,6 +408,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本课程中，我们讨论了如何使用回调在JavaScript中编写异步代码。尽管有更好的替代方法，如`promises`和`async-await`来解决上述回调的问题，但回调仍然普遍使用。尽管`promises`解决了回调的问题，但它们仍然使用回调，但以一种更可管理的方式，帮助我们避免“回调地狱”。
 - en: As we know already, the JavaScript language is single-threaded. Long-running
     code on the main thread can block the thread; in the case of browsers, blocking
     the main thread means that browsers cannot respond to user interactions and cannot
@@ -383,6 +420,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们已经知道，JavaScript语言是单线程的。在主线程上运行时间长的代码可以阻塞线程；在浏览器的情况下，阻塞主线程意味着浏览器无法响应用户交互，并且无法渲染UI的更改。这就是为什么当某些长时间运行的代码阻塞主线程时屏幕会冻结。在`NodeJs`的情况下，在应用服务器的上下文中，阻塞主线程意味着服务器无法处理进入的`HTTP`请求，直到主线程解除阻塞。
 - en: To get around the limitation of a single thread where JavaScript code executes,
     as discussed in the previous lesson, any asynchronous operation is handled in
     the background, and in the meantime, the main thread can do other things.
@@ -390,48 +428,58 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要解决JavaScript代码执行的单线程限制，在上一课程中已经讨论过，任何异步操作都在后台处理，与此同时，主线程可以做其他事情。
 - en: 像`HTTP`请求这样的异步操作由浏览器在后台处理，当`HTTP`请求完成时，我们的`JavaScript`代码会使用我们在开始`HTTP`请求时提供的回调执行。同样，其他异步操作（如`NodeJS`中的文件处理）也是如此。每个`NodeJS`中的异步操作都由`NodeJS`的内部线程池或操作系统本身处理。
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像`HTTP`请求这样的异步操作由浏览器在后台处理，当`HTTP`请求完成时，我们的`JavaScript`代码会使用我们在开始`HTTP`请求时提供的回调执行。同样，其他异步操作（如`NodeJS`中的文件处理）也是如此。每个`NodeJS`中的异步操作都由`NodeJS`的内部线程池或操作系统本身处理。
 - en: 如果我们将主线程视为“JavaScript世界”，那么异步操作实际上发生在JavaScript世界之外。一旦操作完成，要重新回到JavaScript世界，就需要使用回调，这些回调被调用以执行`JavaScript`代码，以响应操作成功完成或失败。
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们将主线程视为“JavaScript世界”，那么异步操作实际上发生在JavaScript世界之外。一旦操作完成，要重新回到JavaScript世界，就需要使用回调，这些回调被调用以执行`JavaScript`代码，以响应操作成功完成或失败。
 - en: 简而言之，我们编写的代码在主线程上执行，仅仅是启动异步操作。主线程不需要等待操作完成，而是可以自由地做其他事情。异步操作在执行我们`JavaScript`代码的环境的后台中处理。这个环境可以是浏览器或像`NodeJS`这样的运行时。但是，如何将执行从后台带回到执行我们代码的主线程呢？这就是`event
     loop`进入画面的地方。
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 简而言之，我们编写的代码在主线程上执行，仅仅是启动异步操作。主线程不需要等待操作完成，而是可以自由地做其他事情。异步操作在执行我们`JavaScript`代码的环境的后台中处理。这个环境可以是浏览器或像`NodeJS`这样的运行时。但是，如何将执行从后台带回到执行我们代码的主线程呢？这就是`event
+    loop`进入画面的地方。
 - en: 什么是事件循环？
   id: totrans-66
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 什么是事件循环？
 - en: '`JavaScript`中的事件循环是一个抽象概念，旨在使其他人更容易理解。本课将旨在创建对事件循环的扎实理解。'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`JavaScript`中的事件循环是一个抽象概念，旨在使其他人更容易理解。本课将旨在创建对事件循环的扎实理解。'
 - en: 事件循环帮助以非阻塞的方式执行异步操作。当后台中的异步操作完成以执行我们在启动异步操作时提供的`JavaScript`回调时，需要将其推入调用堆栈。
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事件循环帮助以非阻塞的方式执行异步操作。当后台中的异步操作完成以执行我们在启动异步操作时提供的`JavaScript`回调时，需要将其推入调用堆栈。
 - en: '`The call stack`是一个堆栈数据结构，用于跟踪当前正在执行的代码。每个函数调用都作为一个堆栈帧被添加到堆栈中。当函数执行结束时，该帧会从堆栈中弹出。'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`The call stack`是一个堆栈数据结构，用于跟踪当前正在执行的代码。每个函数调用都作为一个堆栈帧被添加到堆栈中。当函数执行结束时，该帧会从堆栈中弹出。'
 - en: 让我们通过以下代码示例理解事件循环：
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们通过以下代码示例理解事件循环：
 - en: '[PRE8]'
   id: totrans-71
   prefs: []
@@ -442,23 +490,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的`Replit`中运行上面的代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/event-loop-example1”
     />`'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/event-loop-example1”
+    />`'
 - en: 上面的代码在`setTimeout`的回调中记录“after setTimeout”在“hello world”之前。以下步骤解释了上面的代码是如何执行的：
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上面的代码在`setTimeout`的回调中记录“after setTimeout”在“hello world”之前。以下步骤解释了上面的代码是如何执行的：
 - en: 要执行代码，会创建一个任务并将其推入调用堆栈。这通常被称为“全局执行上下文”。
   id: totrans-75
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 要执行代码，会创建一个任务并将其推入调用堆栈。这通常被称为“全局执行上下文”。
 - en: 一旦代码执行开始，第一件事就是调用`setTimeout`函数，传入一个将在大约2秒后被调用的回调。调用`setTimeout`会在后台启动一个计时器，该计时器将在我们代码示例中的2秒后到期。在此期间，主线程继续执行代码，而不是等待计时器到期。这就是为什么“after
     setTimeout”在“hello world”之前被记录的原因。
   id: totrans-76
@@ -466,12 +519,15 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦代码执行开始，第一件事就是调用`setTimeout`函数，传入一个将在大约2秒后被调用的回调。调用`setTimeout`会在后台启动一个计时器，该计时器将在我们代码示例中的2秒后到期。在此期间，主线程继续执行代码，而不是等待计时器到期。这就是为什么“after
+    setTimeout”在“hello world”之前被记录的原因。
 - en: Next, the `console.log` is executed, logging “after setTimeout” on the console.
   id: totrans-77
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，执行`console.log`，在控制台上记录“after setTimeout”。
 - en: 'At this point, the synchronous execution of our code has ended. As a result,
     the task created (step 1) to execute the code is popped off the call stack. Now,
     JavaScript is ready to execute any scheduled callbacks. This point is important:
@@ -572,6 +628,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事件循环在每个单独的轮次中处理一个任务，通常称为“事件循环滴答”或简称“滴答”。下一个任务在事件循环的下一个轮次或滴答中处理。浏览器可以选择在任务之间渲染UI更新。
 - en: The event loop can have multiple sources of tasks, and the browser decides which
     source to process tasks from during each tick of the event loop. Another queue
     is known as the `microtask queue`, which we will discuss later in this module.
@@ -582,54 +639,63 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事件循环可以有多个任务源，浏览器在事件循环的每个滴答中决定从哪个源处理任务。另一个队列被称为`微任务队列`，我们将在本模块稍后讨论。事件循环也处理微任务，但事件循环处理任务和微任务的方式有所不同。差异将在我们讨论微任务队列时变得清晰。
 - en: 'In this lesson, we discussed what an event loop is and how tasks are processed:
     a single task per tick of the event loop.'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本课中，我们讨论了事件循环是什么以及任务是如何处理的：每个事件循环的每个“滴答”处理一个任务。
 - en: Tool to visualize the event loop
   id: totrans-91
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 可视化事件循环的工具
 - en: 'The following is a great tool to visualize the workings of an event loop using
     our code:'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是一个很好的工具，可以使用我们的代码可视化事件循环的工作原理：
 - en: '[`loupe`](http://latentflip.com/loupe)'
   id: totrans-93
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`放大镜`](http://latentflip.com/loupe)'
 - en: Further reading
   id: totrans-94
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 深入阅读
 - en: 'The following resources are recommended to further our understanding of the
     event loop:'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下资源被推荐以进一步加深我们对事件循环的理解：
 - en: '[`The event loop (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)'
   id: totrans-96
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`事件循环 (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)`'
 - en: '[`What the heck is the event loop anyway? | Philip Roberts (youtube video)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)'
   id: totrans-97
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`事件循环到底是什么？| Philip Roberts（youtube视频）](https://www.youtube.com/watch?v=8aGhZQkoFbQ)`'
 - en: '[`Jake Archibald on the web browser event loop, setTimeout, micro tasks, requestAnimationFrame
     (youtube video)](https://www.youtube.com/watch?v=cCOL7MC4Pl0)'
   id: totrans-98
@@ -637,6 +703,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[`Jake Archibald 关于网页浏览器事件循环、setTimeout、微任务、requestAnimationFrame（youtube视频）](https://www.youtube.com/watch?v=cCOL7MC4Pl0)`'
 - en: Promises introduced in `ES2015` have transformed the way we handle asynchronous
     code in JavaScript. Promises are meant to address the problems we discussed with
     callbacks.
@@ -644,6 +711,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在`ES2015`中引入的承诺改变了我们处理JavaScript中异步代码的方式。承诺旨在解决我们在回调中讨论的问题。
 - en: A promise represents an object that acts as a `placeholder` for a value that
     is typically produced as a result of an asynchronous operation. In other words,
     a promise object represents the successful completion or failure of an asynchronous
@@ -658,6 +726,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 承诺代表一个对象，它充当一个通常由异步操作产生的值的`占位符`。换句话说，承诺对象代表异步操作的成功完成或失败。在初学者中普遍存在一个误解，认为承诺使我们的代码异步；实际上并非如此。将承诺视为一种通知机制，它通知我们某个`已经`是异步操作的成功或失败。承诺封装异步操作，并允许我们在异步操作成功完成或失败时执行代码。这就是承诺所做的一切。没有更多，没有更少。它的唯一目的是观察异步操作，并在该操作完成时通知我们。
 - en: Before we learn how we can create promise objects, let us first learn how we
     can deal with promises using the built-in `fetch` function that allows us to make
     HTTP requests from the JavaScript code running in the browser.
@@ -665,11 +734,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在学习如何创建承诺对象之前，让我们首先了解如何使用内置的`fetch`函数处理承诺，该函数允许我们从浏览器中运行的JavaScript代码发出HTTP请求。
 - en: 当调用`fetch`函数时，函数不会使调用代码等待HTTP请求完成，而是返回一个承诺对象。我们可以将回调函数与返回的承诺对象关联，以便在HTTP请求完成时执行代码。我们仍然使用回调与承诺，但我们在本模块之前的课程中讨论的与回调相关的问题在使用承诺时不存在。与回调相比，承诺提供了一种干净且结构化的方式来处理JavaScript中的异步操作。
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当调用`fetch`函数时，函数不会使调用代码等待HTTP请求完成，而是返回一个承诺对象。我们可以将回调函数与返回的承诺对象关联，以便在HTTP请求完成时执行代码。我们仍然使用回调与承诺，但在本模块之前的课程中讨论的与回调相关的问题在使用承诺时不存在。与回调相比，承诺提供了一种干净且结构化的方式来处理JavaScript中的异步操作。
 - en: '[PRE9]'
   id: totrans-103
   prefs: []
@@ -680,90 +751,106 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fetch`函数返回的承诺可以看作是`fetch`函数`承诺`我们在HTTP请求未来某个时间完成时提供一个值。在此期间，主线程可以自由执行其他操作。'
 - en: 我们可以对返回的承诺做什么？我们可以在网络请求完成时注册与承诺对象的回调。我们可以注册不同的回调以处理网络请求的成功或失败。
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以对返回的承诺做什么？我们可以在网络请求完成时注册与承诺对象的回调。我们可以注册不同的回调以处理网络请求的成功或失败。
 - en: 承诺状态
   id: totrans-106
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 承诺状态
 - en: 承诺在其生命周期中可以处于以下三种状态之一：
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 承诺在其生命周期中可以处于以下三种状态之一：
 - en: '`pending`：承诺通常在创建时的初始状态。这表示与承诺关联的异步操作正在进行中。'
   id: totrans-108
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`pending`：承诺通常在创建时的初始状态。这表示与承诺关联的异步操作正在进行中。'
 - en: '`fulfilled`：意味着与承诺关联的异步操作已成功完成。'
   id: totrans-109
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fulfilled`：意味着与承诺关联的异步操作已成功完成。'
 - en: '`rejected`：意味着与承诺关联的异步操作失败了。'
   id: totrans-110
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`rejected`：意味着与承诺关联的异步操作失败了。'
 - en: 在承诺的生命周期中，它的状态从`pending`变为`fulfilled`或`rejected`。承诺的状态保存在名为`[[[PromiseState]]]`的隐藏内部插槽中（[链接](https://262.ecma-international.org/14.0/#table-internal-slots-of-promise-instances)）。
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在承诺的生命周期中，它的状态从`pending`变为`fulfilled`或`rejected`。承诺的状态保存在名为`[[[PromiseState]]]`的隐藏内部插槽中（[链接](https://262.ecma-international.org/14.0/#table-internal-slots-of-promise-instances)）。
 - en: 处于`pending`状态的承诺被视为`unsettled`。一旦承诺从`pending`状态转换为`fulfilled`或`rejected`状态，就被认为是`settled`。
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 处于`pending`状态的承诺被视为`unsettled`。一旦承诺从`pending`状态转换为`fulfilled`或`rejected`状态，就被认为是`settled`。
 - en: 承诺实例方法
   id: totrans-113
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 承诺实例方法
 - en: 我们可以在承诺实例上调用的三种实例方法：
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以在承诺实例上调用的三种实例方法：
 - en: '`Promise.prototype.then()`'
   id: totrans-115
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.then()`'
 - en: '`Promise.prototype.catch()`'
   id: totrans-116
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.catch()`'
 - en: '`Promise.prototype.finally()`'
   id: totrans-117
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.finally()`'
 - en: '`then`方法'
   id: totrans-118
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then` 方法'
 - en: '`then`方法用于注册一个回调函数，该函数在承诺被满足时异步调用，即被承诺包装的异步操作成功完成时。此方法允许我们在异步操作成功完成时执行代码。考虑以下代码示例：'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then`方法用于注册一个回调函数，该函数在承诺被满足时异步调用，即被承诺包装的异步操作成功完成时。此方法允许我们在异步操作成功完成时执行代码。考虑以下代码示例：'
 - en: '[PRE10]'
   id: totrans-120
   prefs: []
@@ -775,6 +862,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then` 方法接受两个回调函数作为参数：`fulfillment handler`和`rejection handler`。`fulfillment
+    handler`是第一个参数，如上面的代码示例所示。`rejection handler`是可选的第二个参数，如果调用`then`方法的承诺被拒绝，则会调用它。'
 - en: '[PRE11]'
   id: totrans-122
   prefs: []
@@ -790,12 +879,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 满足处理程序将异步操作的结果作为参数传递。换句话说，满足处理程序接收的是承诺被满足时的值。在HTTP请求的情况下，承诺以服务器响应作为满足，因此满足处理程序接收服务器响应作为参数。另一方面，如果承诺被拒绝，拒绝处理程序将接收拒绝原因作为参数。
 - en: '`catch` method'
   id: totrans-124
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch` 方法'
 - en: We learned in the previous section that we can pass the rejection handler as
     the second argument to the `then` method to handle the promise rejection. There
     is another option to register the rejection handler, and that is through the `catch`
@@ -805,6 +896,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们在上一节中了解到，可以将拒绝处理程序作为第二个参数传递给`then`方法来处理承诺拒绝。还有另一种注册拒绝处理程序的选项，那就是通过`catch`方法。我们可以在承诺上调用`catch`方法来注册拒绝处理程序，而不是将拒绝处理程序传递给`then`方法。
 - en: '[PRE12]'
   id: totrans-126
   prefs: []
@@ -816,6 +908,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch`方法类似于只使用拒绝处理程序调用的`then`方法，如下所示：'
 - en: '[PRE13]'
   id: totrans-128
   prefs: []
@@ -827,12 +920,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，使用`catch`方法注册拒绝处理程序比使用`then`方法的第二个参数更为常见。
 - en: '`finally` method'
   id: totrans-130
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally` 方法'
 - en: 'Imagine a scenario where we want to send an HTTP request to a server, and while
     the request is in progress, we show a loading spinner to the user to indicate
     that data is being loaded. When the request completes, either successfully or
@@ -843,6 +938,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 想象一个场景，我们希望向服务器发送HTTP请求，而在请求进行时，我们向用户显示一个加载指示器以表明数据正在加载。当请求完成时，无论是成功还是失败，我们都希望隐藏加载指示器。为了实现这一点，我们必须在满足和拒绝处理程序中重复隐藏加载指示器的代码，如下所示的代码示例所示：
 - en: '[PRE14]'
   id: totrans-132
   prefs: []
@@ -860,6 +956,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们希望避免代码重复，而`finally`方法可以帮助我们消除代码重复。`finally`方法允许我们在承诺满足或拒绝时执行代码。与`then`和`catch`方法一样，`finally`方法也接受一个回调函数，该函数在承诺满足和拒绝后异步调用。传递给`finally`方法的回调是执行代码的理想之地，无论异步操作是否失败或成功完成。我们可以将上述代码重构如下：
 - en: '[PRE15]'
   id: totrans-134
   prefs: []
@@ -994,6 +1091,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与我们上面做的类似，我们可以将任何基于回调的 API 转换为基于 Promise 的 API。我们需要做的就是将基于回调的代码放入执行函数中，并在适当的位置调用
+    `resolve` 和 `reject` 函数来完成或拒绝该 Promise。以下是一个将 Promise 包裹在 `setTimeout` 周围以在代码中添加人为延迟的示例：
 - en: '[PRE18]'
   id: totrans-150
   prefs: []
@@ -1004,11 +1103,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promises-example10" />`'
   id: totrans-152
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promises-example10" />`'
 - en: In the code example above, we wrapped `setTimeout` in a promise to add an artificial
     delay in the code. To resolve the promise after the specified delay (2 seconds
     in our code above), we call the `resolve` function inside the callback function
@@ -1019,12 +1120,16 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上面的代码示例中，我们将 `setTimeout` 包裹在一个 Promise 中，以在代码中添加人为延迟。要在指定延迟（我们上面的代码中为 2 秒）后解析
+    Promise，我们在 `setTimeout` 的回调函数内调用 `resolve` 函数。请注意，我们没有调用或使用 `reject` 函数，因为我们不需要它来拒绝
+    Promise。我们只是希望在指定延迟后完成 Promise。
 - en: Promise specification
   id: totrans-154
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 承诺规范
 - en: '[Promises/A+](https://promisesaplus.com/) is a standard that defines the behavior
     of promises in JavaScript. It ensures that different implementations of promises
     in different environments conform to the standard behavior defined in the specification
@@ -1033,12 +1138,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '[Promises/A+](https://promisesaplus.com/) 是一个标准，定义了 JavaScript 中 Promise 的行为。它确保不同环境中
+    Promise 的不同实现符合规范中定义的标准行为，以确保不同环境中 Promise 行为的一致性。'
 - en: Promise vs `thenable`
   id: totrans-156
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: Promise 与 `thenable`
 - en: 'If you read the promise specification, you will find the word "`thenable`"
     mentioned multiple times. A `thenable` is any object that has defined a method
     named `then` but is not a promise. It is a generic term for objects with a method
@@ -1048,6 +1156,9 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果你阅读了承诺规范，你会发现多次提到“`thenable`”这个词。`thenable` 是任何定义了名为 `then` 方法的对象，但不是 Promise。它是一个通用术语，指具有名为
+    `then` 方法的对象。由于 Promise 具有名为 `then` 的方法，我们可以说所有的 Promise 都是 `thenables`，但反之不成立：并非每个
+    `thenable` 都是 Promise。
 - en: To summarize the difference, `thenable` is an object with a `then` method, and
     `promise` is an object with a `then` method that conforms to the [Promises/A+](https://promisesaplus.com/)
     specification.
@@ -1055,29 +1166,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总结区别，`thenable` 是一个具有 `then` 方法的对象，而 `promise` 是一个具有符合 [Promises/A+](https://promisesaplus.com/)
+    规范的 `then` 方法的对象。
 - en: 'In the previous lesson, we discussed the following instance methods of promises:'
   id: totrans-159
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上一课中，我们讨论了以下 Promise 的实例方法：
 - en: '`Promise.prototype.then()`'
   id: totrans-160
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.then()`'
 - en: '`Promise.prototype.catch()`'
   id: totrans-161
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.catch()`'
 - en: '`Promise.prototype.finally()`'
   id: totrans-162
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.prototype.finally()`'
 - en: We discussed what each of these methods allows us to do, but what we didn’t
     discuss is what each of these methods returns. Their return value is important
     because it allows for promise chaining, which is the topic of this lesson.
@@ -1085,6 +1202,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们讨论了这些方法各自可以让我们做什么，但我们没有讨论的是这些方法返回的内容。它们的返回值很重要，因为它允许进行承诺链式调用，这也是本课的主题。
 - en: 'Each of the instance methods of promises returns a new promise, which enables
     us to create a chain of method calls, effectively creating a chain of asynchronous
     operations. Promise chaining helps resolve the two main problems we face when
@@ -1093,12 +1211,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个 Promise 的实例方法返回一个新的 Promise，这使我们能够创建方法调用链，有效地创建异步操作链。承诺链式调用帮助解决我们在使用回调时面临的两个主要问题：“回调地狱”和错误处理。
 - en: 'The following code example shows how we have registered fulfillment and rejection
     handlers with the promise returned by the `fetch` function:'
   id: totrans-165
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下代码示例展示了我们如何在 `fetch` 函数返回的 Promise 上注册完成和拒绝处理程序：
 - en: '[PRE19]'
   id: totrans-166
   prefs: []
@@ -1110,6 +1230,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于每个 Promise 实例方法返回一个新的 Promise，我们可以将上述代码重写如下：
 - en: '[PRE20]'
   id: totrans-168
   prefs: []
@@ -1120,6 +1241,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重构后的代码实现了与第一个代码示例相同的结果，但从技术上讲，第一个代码示例与重构后的代码是不同的。在第一个代码示例中，拒绝处理程序是在`fetch`函数返回的`promise`上注册的，而在重构后的代码中，拒绝处理程序是在`then`方法返回的`promise`上注册的。重构后的代码中的`promise`链可以分成不同的部分，如下所示，以便更容易理解：
 - en: '[PRE21]'
   id: totrans-170
   prefs: []
@@ -1130,11 +1252,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意已经注册了满足和拒绝处理程序的`promise`。满足处理程序是在`fetch`函数返回的`promise`上注册的，但与第一个代码示例不同，拒绝处理程序是在`then`方法返回的`promise`上注册的。那么，这是否意味着如果`fetch`函数返回的`promise`被拒绝，就没有注册处理拒绝的处理程序？不，注册在`pThen`的`promise`上的拒绝处理程序将处理拒绝。要理解它是如何工作的，我们必须理解`promise`链是如何工作的。
 - en: 本节的进一步代码示例将使用以下函数，该函数模拟一个大约需要两秒钟才能完成的HTTP请求：
   id: totrans-172
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 本节的进一步代码示例将使用以下函数，该函数模拟一个大约需要两秒钟才能完成的HTTP请求：
 - en: '[PRE22]'
   id: totrans-173
   prefs: []
@@ -1145,22 +1269,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个函数将使我们更容易理解`promise`链。该函数接受一个布尔参数，指定我们是否希望我们的假请求被满足或拒绝。该参数的默认值为`true`，因此如果我们希望请求失败，只需传递参数即可。在函数内部，返回一个包装在`setTimeout`中的`promise`，以模拟一个大约需要两秒钟才能完成的请求。在定时器到期后，`promise`会被满足或拒绝，具体取决于`isSuccessRequest`参数的值。
 - en: 定义了`fakeRequest`函数后，让我们深入`promise`链的世界。
   id: totrans-175
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 定义了`fakeRequest`函数后，让我们深入`promise`链的世界。
 - en: '`then` `promise`'
   id: totrans-176
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then` `promise`'
 - en: 在一个`promise`上调用`then`方法会在该`promise`上注册一个满足处理程序。`then`方法本身返回一个新的`promise`，该`promise`与调用`then`方法的原始`promise`不同。
   id: totrans-177
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在一个`promise`上调用`then`方法会在该`promise`上注册一个满足处理程序。`then`方法本身返回一个新的`promise`，该`promise`与调用`then`方法的原始`promise`不同。
 - en: '[PRE23]'
   id: totrans-178
   prefs: []
@@ -1171,51 +1299,61 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example5"
     />`'
   id: totrans-180
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example5"
+    />`'
 - en: '`then`方法返回的`promise`根据以下两个问题来满足或拒绝：'
   id: totrans-181
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then`方法返回的`promise`根据以下两个问题来满足或拒绝：'
 - en: 调用`then`方法的`promise`会发生什么？在我们的案例中，`then`方法是在`pRequest``promise`上调用的。
   id: totrans-182
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用`then`方法的`promise`会发生什么？在我们的案例中，`then`方法是在`pRequest`的`promise`上调用的。
 - en: 从传递给`then`方法的满足或拒绝处理程序返回的是什么？哪个处理程序会影响`then`方法返回的`promise`取决于在调用`then`方法的原始`promise`解决时哪个处理程序被调用。
   id: totrans-183
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从传递给`then`方法的满足或拒绝处理程序返回的是什么？哪个处理程序会影响`then`方法返回的`promise`取决于在调用`then`方法的原始`promise`解决时哪个处理程序被调用。
 - en: 记住上述两个问题，让我们讨论可能影响`then`方法返回的`promise`的不同场景：
   id: totrans-184
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 记住上述两个问题，让我们讨论可能影响`then`方法返回的`promise`的不同场景：
 - en: 场景1：原始`promise`被满足
   id: totrans-185
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景1：原始`promise`被满足
 - en: 如果调用`then`方法的原始承诺被实现，则`then`方法返回的承诺取决于实现处理程序内部发生的事情。以下是实现处理程序可以执行的不同操作，这些操作会影响`then`方法返回的承诺：
   id: totrans-186
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果调用`then`方法的原始承诺被实现，则`then`方法返回的承诺取决于实现处理程序内部发生的事情。以下是实现处理程序可以执行的不同操作，这些操作会影响`then`方法返回的承诺：
 - en: 如果注册了实现处理程序，并且它返回的值不是一个承诺或可then的对象，则`then`方法返回的承诺将以该返回值完成。
   id: totrans-187
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果注册了实现处理程序，并且它返回的值不是一个承诺或可then的对象，则`then`方法返回的承诺将以该返回值完成。
 - en: '[PRE24]'
   id: totrans-188
   prefs:
@@ -1227,18 +1365,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example6"
     />`'
   id: totrans-190
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example6"
+    />`'
 - en: 如果实现处理程序没有显式返回任何值，则`then`方法返回的承诺以`undefined`作为实现值完成。
   id: totrans-191
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果实现处理程序没有显式返回任何值，则`then`方法返回的承诺以`undefined`作为实现值完成。
 - en: '[PRE25]'
   id: totrans-192
   prefs:
@@ -1250,18 +1392,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example7"
     />`'
   id: totrans-194
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example7"
+    />`'
 - en: 如果在一个承诺上调用`then`方法但没有提供实现处理程序，则`then`方法返回的承诺将以与原始承诺相同的实现值完成。
   id: totrans-195
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果在一个承诺上调用`then`方法但没有提供实现处理程序，则`then`方法返回的承诺将以与原始承诺相同的实现值完成。
 - en: '[PRE26]'
   id: totrans-196
   prefs:
@@ -1273,18 +1419,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example8"
     />`'
   id: totrans-198
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example8"
+    />`'
 - en: 如果实现处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
   id: totrans-199
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果实现处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
 - en: '[PRE27]'
   id: totrans-200
   prefs:
@@ -1296,18 +1446,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example9"
     />`'
   id: totrans-202
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example9"
+    />`'
 - en: 如果实现处理程序返回一个承诺，则`then`方法返回的承诺将被*解析*为实现处理程序返回的承诺。一个承诺被*解析为另一个承诺*意味着一个承诺（我们称之为`p1`）的命运取决于另一个承诺（我们称之为`p2`）。如果`p2`被实现，`p1`也将以相同的实现值被实现。如果`p2`被拒绝，`p1`也将以相同的拒绝值被拒绝。承诺`p1`将等待`p2`解决后再解决，最终与`p2`达到相同的命运。
   id: totrans-203
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果实现处理程序返回一个承诺，则`then`方法返回的承诺将被*解析*为实现处理程序返回的承诺。一个承诺被*解析为另一个承诺*意味着一个承诺（我们称之为`p1`）的命运取决于另一个承诺（我们称之为`p2`）。如果`p2`被实现，`p1`也将以相同的实现值被实现。如果`p2`被拒绝，`p1`也将以相同的拒绝值被拒绝。承诺`p1`将等待`p2`解决后再解决，最终与`p2`达到相同的命运。
 - en: '[PRE28]'
   id: totrans-204
   prefs:
@@ -1319,34 +1473,41 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example10"
     />`'
   id: totrans-206
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example10"
+    />`'
 - en: 在上面的代码示例中，`then`方法返回的承诺`pThen`通过`pRequest`承诺的实现处理程序返回的承诺被*解析*。
   id: totrans-207
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上面的代码示例中，`then`方法返回的承诺`pThen`通过`pRequest`承诺的实现处理程序返回的承诺被*解析*。
 - en: 场景 2：原始承诺被拒绝
   id: totrans-208
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 2：原始承诺被拒绝
 - en: 如果调用`then`方法的原始承诺被拒绝，则`then`方法返回的承诺取决于以下场景：
   id: totrans-209
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果调用`then`方法的原始承诺被拒绝，则`then`方法返回的承诺取决于以下场景：
 - en: 如果只将实现处理程序传递给`then`方法，则`then`方法返回的承诺也将以与原始承诺被拒绝时相同的拒绝原因或值被拒绝。
   id: totrans-210
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果只将实现处理程序传递给`then`方法，则`then`方法返回的承诺也将以与原始承诺被拒绝时相同的拒绝原因或值被拒绝。
 - en: '[PRE29]'
   id: totrans-211
   prefs:
@@ -1358,18 +1519,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example11"
     />`'
   id: totrans-213
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example11"
+    />`'
 - en: 如果将拒绝处理程序传递给`then`方法，那么`then`方法返回的承诺将取决于拒绝处理程序内部发生的事情。这在履行处理程序的情况下工作类似：
   id: totrans-214
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果将拒绝处理程序传递给`then`方法，那么`then`方法返回的承诺将取决于拒绝处理程序内部发生的事情。这在履行处理程序的情况下工作类似：
 - en: 如果拒绝处理程序返回一个非承诺值，则`then`方法返回的承诺将以拒绝处理程序返回的值被兑现。
   id: totrans-215
   prefs:
@@ -1377,6 +1542,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序返回一个非承诺值，则`then`方法返回的承诺将以拒绝处理程序返回的值被兑现。
 - en: 如果拒绝处理程序没有明确返回任何值，那么`then`方法返回的承诺将以`undefined`作为满足值被兑现。
   id: totrans-216
   prefs:
@@ -1384,6 +1550,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序没有明确返回任何值，那么`then`方法返回的承诺将以`undefined`作为满足值被兑现。
 - en: 如果在原始承诺上调用`then`方法，但没有提供拒绝处理程序，则`then`方法返回的承诺将以与原始承诺相同的拒绝值被拒绝。
   id: totrans-217
   prefs:
@@ -1391,6 +1558,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果在原始承诺上调用`then`方法，但没有提供拒绝处理程序，则`then`方法返回的承诺将以与原始承诺相同的拒绝值被拒绝。
 - en: 如果拒绝处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
   id: totrans-218
   prefs:
@@ -1398,6 +1566,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序抛出任何值或错误，则`then`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
 - en: 如果拒绝处理程序返回一个承诺，则`then`方法返回的承诺将被解析为拒绝处理程序返回的承诺，就像之前讨论的履行处理程序的情况一样。
   id: totrans-219
   prefs:
@@ -1405,45 +1574,53 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序返回一个承诺，则`then`方法返回的承诺将被解析为拒绝处理程序返回的承诺，就像之前讨论的履行处理程序的情况一样。
 - en: 现在我们已经讨论了`then`方法返回的承诺在不同场景下是如何解决的，接下来我们将讨论`catch`方法返回的承诺。
   id: totrans-220
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们已经讨论了`then`方法返回的承诺在不同场景下是如何解决的，接下来我们将讨论`catch`方法返回的承诺。
 - en: 捕获承诺
   id: totrans-221
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 捕获承诺
 - en: '`catch`方法用于为调用它的承诺注册拒绝处理程序。与`then`方法一样，`catch`方法也返回一个新的承诺，并且与`then`方法的承诺一样，`catch`方法返回的承诺的解决情况取决于以下两个问题：'
   id: totrans-222
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch`方法用于为调用它的承诺注册拒绝处理程序。与`then`方法一样，`catch`方法也返回一个新的承诺，并且与`then`方法的承诺一样，`catch`方法返回的承诺的解决情况取决于以下两个问题：'
 - en: 在调用`catch`方法的承诺上发生了什么？
   id: totrans-223
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在调用`catch`方法的承诺上发生了什么？
 - en: 传递给`catch`方法的拒绝处理程序返回了什么？
   id: totrans-224
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 传递给`catch`方法的拒绝处理程序返回了什么？
 - en: 场景1：原始承诺被兑现
   id: totrans-225
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 1：原始承诺被兑现
 - en: 假设调用`catch`方法的原始承诺已经兑现。在这种情况下，使用`catch`方法注册的拒绝处理程序不会被调用，`catch`方法返回的承诺将以与原始承诺相同的满足值被兑现。
   id: totrans-226
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设调用`catch`方法的原始承诺已经兑现。在这种情况下，使用`catch`方法注册的拒绝处理程序不会被调用，`catch`方法返回的承诺将以与原始承诺相同的满足值被兑现。
 - en: '[PRE30]'
   id: totrans-227
   prefs: []
@@ -1454,29 +1631,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example12”
     />
   id: totrans-229
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example12"
+    />
 - en: 场景2：原始承诺被拒绝
   id: totrans-230
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 2：原始承诺被拒绝
 - en: 使用`catch`处理程序注册的拒绝处理程序在调用`catch`方法的原始承诺被拒绝时被调用。如果原始承诺被拒绝，那么`catch`方法返回的承诺，就像`then`方法返回的承诺一样，取决于拒绝处理程序内部发生的事情：
   id: totrans-231
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用`catch`处理程序注册的拒绝处理程序在调用`catch`方法的原始承诺被拒绝时被调用。如果原始承诺被拒绝，那么`catch`方法返回的承诺，就像`then`方法返回的承诺一样，取决于拒绝处理程序内部发生的事情：
 - en: 如果拒绝处理程序返回一个非承诺值，则`catch`方法返回的承诺将以拒绝处理程序返回的值被兑现。
   id: totrans-232
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序返回一个非承诺值，则`catch`方法返回的承诺将以拒绝处理程序返回的值被兑现。
 - en: '[PRE31]'
   id: totrans-233
   prefs:
@@ -1488,12 +1671,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example13”
     />
   id: totrans-235
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example13"
+    />
 - en: If the rejection handler doesn’t explicitly return any value, the promise returned
     by the `catch` method is fulfilled with `undefined` as the fulfillment value.
   id: totrans-236
@@ -1501,6 +1687,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序没有显式返回任何值，则`catch`方法返回的承诺将以`undefined`作为满足值被兑现。
 - en: '[PRE32]'
   id: totrans-237
   prefs:
@@ -1512,12 +1699,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example14”
     />`'
   id: totrans-239
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example14"
+    />
 - en: If the `catch` method is called on the original promise but the rejection handler
     isn’t provided, the promise returned by the `catch` method gets rejected with
     the same rejection value as the original promise.
@@ -1526,6 +1716,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果在原始承诺上调用`catch`方法，但未提供拒绝处理程序，则`catch`方法返回的承诺将以与原始承诺相同的拒绝值被拒绝。
 - en: '[PRE33]'
   id: totrans-241
   prefs:
@@ -1538,12 +1729,15 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example15”
     />`'
   id: totrans-243
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example15"
+    />
 - en: If the rejection handler throws any value or an error, the promise returned
     by the `catch` method gets rejected with the thrown value as the rejection reason
     or value.
@@ -1552,6 +1746,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序抛出任何值或错误，则`catch`方法返回的承诺将以抛出的值作为拒绝原因或值被拒绝。
 - en: '[PRE34]'
   id: totrans-245
   prefs:
@@ -1563,12 +1758,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example16”
     />`'
   id: totrans-247
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example16"
+    />
 - en: If the rejection handler returns a promise, the promise returned by the `catch`
     method gets resolved to the promise returned by the rejection handler, the same
     as in the case of the fulfillment handler discussed earlier.
@@ -1577,6 +1775,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果拒绝处理程序返回一个承诺，则`catch`方法返回的承诺将解析为拒绝处理程序返回的承诺，这与之前讨论的满足处理程序的情况相同。
 - en: '[PRE35]'
   id: totrans-249
   prefs:
@@ -1588,18 +1787,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example17”
     />`'
   id: totrans-251
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example17"
+    />
 - en: '`finally` promise'
   id: totrans-252
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`承诺'
 - en: 'The `finally` method is used to register a callback function that is invoked
     asynchronously after the promise settles. The callback passed to the `finally`
     method is invoked regardless of whether the promise on which it is called is fulfilled
@@ -1610,24 +1813,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`方法用于注册一个回调函数，该函数在承诺解决后异步调用。无论调用`finally`方法的承诺是被满足还是被拒绝，传递给`finally`方法的回调都会被调用。与`then`和`catch`方法一样，`finally`方法也返回一个新的承诺，而`finally`方法返回的承诺的解决情况取决于以下两个问题：'
 - en: What happens to the promise on which the `finally` method is called?
   id: totrans-254
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用`finally`方法的承诺会发生什么？
 - en: What is returned from the callback function passed to the `finally` method?
   id: totrans-255
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 传递给`finally`方法的回调函数返回了什么？
 - en: 'Scenario 1: Original promise gets fulfilled'
   id: totrans-256
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 1：原始承诺被兑现
 - en: 'Suppose the original promise on which the `finally` method is called is fulfilled.
     In that case, the promise returned by the `finally` method also gets fulfilled
     with the same fulfillment value as the original promise, provided that the following
@@ -1636,12 +1843,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设调用`finally`方法的原始承诺已被兑现。在这种情况下，`finally`方法返回的承诺也将以与原始承诺相同的满足值被兑现，前提是满足以下条件：
 - en: The `finally` callback doesn’t throw an error or a value.
   id: totrans-258
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`回调不会抛出错误或值。'
 - en: The `finally` callback doesn’t return a rejected promise or a promise that eventually
     gets rejected.
   id: totrans-259
@@ -1649,6 +1858,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`回调不会返回一个被拒绝的 promise 或一个最终被拒绝的 promise。'
 - en: '[PRE36]'
   id: totrans-260
   prefs: []
@@ -1659,12 +1869,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是 Replit 中的代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example18”
     />`'
   id: totrans-262
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example18”
+    />`'
 - en: Note that the `finally` callback didn’t explicitly return any value, but the
     `finally` promise fulfilled with the fulfillment value of the original `pRequest`
     promise. This behavior is different than that of the `then` and `catch` methods;
@@ -1674,30 +1887,37 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意，`finally`回调没有明确返回任何值，但`finally` promise 以原始`pRequest` promise 的履行值得到履行。这种行为与`then`和`catch`方法的行为不同；如果它们的回调隐式返回`undefined`，那么它们的
+    promise 将以值`undefined`得到履行。
 - en: 'Scenario 2: Original promise gets rejected'
   id: totrans-264
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 2：原始 promise 被拒绝
 - en: 假设调用`finally`方法的原始 promise 被拒绝。在这种情况下，`finally`方法返回的 promise 也会以与原始 promise
     相同的拒绝值被拒绝，前提是满足之前提到的相同两个条件：
   id: totrans-265
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设调用`finally`方法的原始 promise 被拒绝。在这种情况下，`finally`方法返回的 promise 也会以与原始 promise
+    相同的拒绝值被拒绝，前提是满足之前提到的相同两个条件：
 - en: '`finally`回调不会抛出错误或值。'
   id: totrans-266
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`回调不会抛出错误或值。'
 - en: '`finally`回调不会返回被拒绝的 promise 或最终被拒绝的 promise。'
   id: totrans-267
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`回调不会返回被拒绝的 promise 或最终被拒绝的 promise。'
 - en: '[PRE37]'
   id: totrans-268
   prefs: []
@@ -1708,18 +1928,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是 Replit 中的代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example19”
     />`'
   id: totrans-270
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example19”
+    />`'
 - en: 场景 3：遮蔽原始 promise 的结算
   id: totrans-271
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 场景 3：遮蔽原始 promise 的结算
 - en: 与`then`和`catch`方法不同，`finally`回调的返回值被忽略，`finally`方法返回的 promise 简单地与调用它的原始 promise
     同样的命运；如果原始 promise 被满足，`finally` promise 也会被满足；如果原始 promise 被拒绝，`finally` promise
     也会被拒绝。
@@ -1727,11 +1951,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与`then`和`catch`方法不同，`finally`回调的返回值被忽略，`finally`方法返回的 promise 简单地与调用它的原始 promise
+    同样的命运；如果原始 promise 被满足，`finally` promise 也会被满足；如果原始 promise 被拒绝，`finally` promise
+    也会被拒绝。
 - en: 然而，`finally`方法的前两个场景中提到的两个条件是这个规则的例外。如果`finally`回调抛出错误，`finally` promise 将以抛出的值被拒绝。
   id: totrans-273
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，`finally`方法的前两个场景中提到的两个条件是这个规则的例外。如果`finally`回调抛出错误，`finally` promise 将以抛出的值被拒绝。
 - en: '[PRE38]'
   id: totrans-274
   prefs: []
@@ -1742,23 +1970,29 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example20”
     />`'
   id: totrans-276
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example20”
+    />`'
 - en: '`finally`方法的拒绝遮蔽了原始`pRequest` promise 的拒绝。如果`pRequest` promise 被满足，也会发生同样的情况。从`finally`回调中抛出错误会简单地拒绝`finally`
     promise，而不管原始 promise 发生了什么。'
   id: totrans-277
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`finally`方法的拒绝遮蔽了原始`pRequest` promise 的拒绝。如果`pRequest` promise 被满足，也会发生同样的情况。从`finally`回调中抛出错误会简单地拒绝`finally`
+    promise，而不管原始 promise 发生了什么。'
 - en: 同样，从`finally`回调返回一个被拒绝的 promise 也会拒绝`finally` promise，而不管原始 promise 发生了什么。
   id: totrans-278
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，从`finally`回调返回一个被拒绝的 promise 也会拒绝`finally` promise，而不管原始 promise 发生了什么。
 - en: '[PRE39]'
   id: totrans-279
   prefs: []
@@ -1769,29 +2003,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example21”
     />`'
   id: totrans-281
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example21”
+    />`'
 - en: 理解 promise 链接
   id: totrans-282
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 理解 promise 链接
 - en: 我们已经讨论了每个 promise 实例方法返回的 promise 可以拒绝或满足的每种场景。最后，我们可以理解 promise 链是如何工作的。我们将通过一系列示例来巩固我们的理解。
   id: totrans-283
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们已经讨论了每个 promise 实例方法返回的 promise 可以拒绝或满足的每种场景。最后，我们可以理解 promise 链是如何工作的。我们将通过一系列示例来巩固我们的理解。
 - en: 示例 1
   id: totrans-284
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 示例 1
 - en: '[PRE40]'
   id: totrans-285
   prefs: []
@@ -1802,40 +2042,48 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example22”
     />`'
   id: totrans-287
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example22”
+    />`'
 - en: 你在上述代码示例中预期的输出是什么？请记住，每个实例方法返回一个新的 promise，它的满足或拒绝取决于两个因素：
   id: totrans-288
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你在上述代码示例中预期的输出是什么？请记住，每个实例方法返回一个新的 promise，它的满足或拒绝取决于两个因素：
 - en: 调用该方法的原始 promise 会发生什么？
   id: totrans-289
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用该方法的原始 promise 会发生什么？
 - en: 什么会发生在该方法的回调函数内部？
   id: totrans-290
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 什么会发生在该方法的回调函数内部？
 - en: 考虑到上述不同场景，这些场景可以使每个 promise 实例方法返回的 promise 被满足或拒绝，尝试通过猜测上述代码的输出测试你的理解。下面是对上述代码输出的解释：
   id: totrans-291
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑到上述不同场景，这些场景可以使每个 promise 实例方法返回的 promise 被满足或拒绝，尝试通过猜测上述代码的输出测试你的理解。下面是对上述代码输出的解释：
 - en: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
   id: totrans-292
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
 - en: '[PRE41]'
   id: totrans-293
   prefs:
@@ -1849,6 +2097,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fakeRequest`函数返回的承诺已解决。链中的下一个承诺是由第一个`then`方法调用返回的承诺。当原始承诺得到履行时，第一个`then`承诺现在依赖于其回调函数内部发生的事情。由于它返回字符串“hello
+    world”，第一个`then`承诺将以“hello world”作为履行值来履行。'
 - en: 结果是，它的履行处理程序被调用，该处理程序是使用第二个`then`方法调用注册的。第一个`then`承诺的履行处理程序将其履行值，即“hello world”，作为参数接收。这导致“hello
     world”被记录到控制台。目前的控制台输出如下所示：
   id: totrans-295
@@ -1856,6 +2106,8 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 结果是，它的履行处理程序被调用，该处理程序是使用第二个`then`方法调用注册的。第一个`then`承诺的履行处理程序将其履行值，即“hello world”，作为参数接收。这导致“hello
+    world”被记录到控制台。目前的控制台输出如下所示：
 - en: '[PRE42]'
   id: totrans-296
   prefs:
@@ -1868,18 +2120,21 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的两个承诺已解决。链中的下一个承诺是由第二个`then`方法返回的。与第一个`then`方法一样，第二个`then`方法返回的承诺依赖于其被调用的原始承诺，即第一个`then`方法返回的承诺。当原始承诺得到履行时，第二个`then`承诺现在依赖于其回调函数内部发生的事情。它的回调返回字符串“123”。因此，第二个`then`承诺以“123”作为其履行值来履行。
 - en: 但是没有为第二个`then`承诺注册履行处理程序；只有使用`catch`方法注册了拒绝处理程序。因此，没有履行处理程序会在响应第二个`then`方法的履行时被调用。承诺链移动到链中的最后一个承诺，即`catch`方法返回的承诺。
   id: totrans-298
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 但是没有为第二个`then`承诺注册履行处理程序；只有使用`catch`方法注册了拒绝处理程序。因此，没有履行处理程序会在响应第二个`then`方法的履行时被调用。承诺链移动到链中的最后一个承诺，即`catch`方法返回的承诺。
 - en: '`catch`方法返回的承诺是在第二个`then`方法返回的承诺上调用的。当第二个`then`承诺得到履行时，`catch`承诺也会以与第二个`then`承诺相同的履行值得到履行。但是，没有为`catch`承诺注册履行或拒绝处理程序，因此其履行被简单忽略。代码的最终输出如下所示：'
   id: totrans-299
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch`方法返回的承诺是在第二个`then`方法返回的承诺上调用的。当第二个`then`承诺得到履行时，`catch`承诺也会以与第二个`then`承诺相同的履行值得到履行。但是，没有为`catch`承诺注册履行或拒绝处理程序，因此其履行被简单忽略。代码的最终输出如下所示：'
 - en: '[PRE43]'
   id: totrans-300
   prefs:
@@ -1892,6 +2147,7 @@
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 示例 2
 - en: '[PRE44]'
   id: totrans-302
   prefs: []
@@ -1902,23 +2158,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example23”
     />`'
   id: totrans-304
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example23”
+    />`'
 - en: 以下是对上述代码生成的输出的解释：
   id: totrans-305
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是对上述代码生成的输出的解释：
 - en: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
   id: totrans-306
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被履行，从而调用其使用第一个`then`方法的首次调用注册的履行处理程序。因此，以下内容将在控制台上记录：
 - en: '[PRE45]'
   id: totrans-307
   prefs:
@@ -1931,12 +2192,14 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 由`fakeRequest`函数返回的承诺已经完成。链中的下一个承诺是由第一个`then`方法调用返回的承诺。由于原始承诺已完成，第一个`then`承诺现在依赖于其回调函数内部发生的事情。由于它通过调用`fakeRequest`函数返回一个新承诺，第一个`then`承诺将被`resolved`为其回调函数返回的承诺。`then`承诺将在其回调函数返回的承诺完成之前等待其自身完成。
 - en: 返回自第一个`then`方法的回调函数的承诺将在大约两秒后完成。它完成后，`then`方法返回的承诺将以与其回调返回的承诺相同的完成值完成。因此，它的完成处理程序被调用，这是通过第二个`then`方法调用注册的。第一个`then`承诺的完成处理程序将其完成值作为参数接收，并在完成处理程序内部记录。到目前为止，控制台输出如下所示：
   id: totrans-309
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 返回自第一个`then`方法的回调函数的承诺将在大约两秒后完成。它完成后，`then`方法返回的承诺将以与其回调返回的承诺相同的完成值完成。因此，它的完成处理程序被调用，这是通过第二个`then`方法调用注册的。第一个`then`承诺的完成处理程序将其完成值作为参数接收，并在完成处理程序内部记录。到目前为止，控制台输出如下所示：
 - en: '[PRE46]'
   id: totrans-310
   prefs:
@@ -1949,18 +2212,21 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的两个承诺已完成。链中的下一个承诺是由第二个`then`方法返回的。与第一个`then`方法一样，第二个`then`方法返回的承诺依赖于其调用的原始承诺，即由第一个`then`方法返回的承诺。由于原始承诺已完成，第二个`then`承诺现在依赖于其回调函数内部发生的事情。它的回调隐式返回`undefined`。因此，第二个`then`承诺以`undefined`作为其完成值完成。
 - en: 但是没有为第二个`then`承诺注册完成处理程序；只有通过`catch`方法注册了拒绝处理程序。因此，没有完成处理程序在响应第二个`then`方法的完成时被调用。承诺链移动到链中的最后一个承诺，即由`catch`方法返回的承诺。
   id: totrans-312
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 但是没有为第二个`then`承诺注册完成处理程序；只有通过`catch`方法注册了拒绝处理程序。因此，没有完成处理程序在响应第二个`then`方法的完成时被调用。承诺链移动到链中的最后一个承诺，即由`catch`方法返回的承诺。
 - en: '`catch`方法返回的承诺是在由第二个`then`方法返回的承诺上调用的。由于第二个`then`承诺已完成，`catch`承诺也将以与第二个`then`承诺相同的完成值完成。但是没有为`catch`承诺注册完成或拒绝处理程序，因此其完成被简单忽略。代码的最终输出如下所示：'
   id: totrans-313
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch`方法返回的承诺是在由第二个`then`方法返回的承诺上调用的。由于第二个`then`承诺已完成，`catch`承诺也将以与第二个`then`承诺相同的完成值完成。但是没有为`catch`承诺注册完成或拒绝处理程序，因此其完成被简单忽略。代码的最终输出如下所示：'
 - en: '[PRE47]'
   id: totrans-314
   prefs:
@@ -1973,6 +2239,7 @@
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 示例3
 - en: '[PRE48]'
   id: totrans-316
   prefs: []
@@ -1983,17 +2250,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 您可以在下面的Replit中运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example24”
     />`'
   id: totrans-318
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example24”
+    />`'
 - en: 下面是对上述代码生成的输出的解释：
   id: totrans-319
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是对上述代码生成的输出的解释：
 - en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
     function will get rejected, but there is no rejection handler registered for this
     promise; only a fulfillment handler is registered. As a result, no rejection handler
@@ -2003,6 +2274,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被拒绝，但对此承诺没有注册拒绝处理程序；只注册了履行处理程序。因此，对于这个承诺不会调用拒绝处理程序。我们继续处理链中的下一个承诺。
 - en: 'The promise returned by the `fakeRequest` function has been settled. The next
     promise in the chain is the one returned by the first `then` method call. As the
     original promise is rejected and no rejection handler was passed to the `then`
@@ -2015,6 +2287,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fakeRequest`函数返回的承诺已经解决。链中的下一个承诺是由第一个`then`方法调用返回的承诺。由于原始承诺被拒绝，并且没有拒绝处理程序传递给`then`方法，`then`方法返回的承诺也将以与原始承诺相同的拒绝值被拒绝。因此，它的拒绝处理程序通过`catch`方法注册并被调用，在控制台上记录以下内容：'
 - en: '[PRE49]'
   id: totrans-322
   prefs:
@@ -2030,6 +2303,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一个承诺被拒绝时的错误对象是与`then`方法返回的承诺被拒绝时的值相同。承诺链移动到链中的最后一个承诺，即由`catch`方法返回的承诺。
 - en: 'At this point, two promises in the promise chain have settled. The next promise
     in the chain is the one returned by the `catch` method. As the `then` promise
     is rejected, the promise returned by the `catch` method depends on what happens
@@ -2042,6 +2316,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的两个承诺已解决。链中的下一个承诺是由`catch`方法返回的承诺。由于`then`承诺被拒绝，`catch`方法返回的承诺依赖于其回调内部发生的事情。它的回调隐式返回`undefined`，导致`catch`承诺以`undefined`作为履行值完成。但是，`catch`承诺没有注册履行处理程序，因此其履行被简单忽略。代码的最终输出如下所示：
 - en: '[PRE50]'
   id: totrans-325
   prefs:
@@ -2062,12 +2337,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述代码示例中需要注意的一点是，`fakeRequest`函数返回的承诺的拒绝最终是由为`then`方法返回的承诺注册的拒绝处理程序处理的。这就是承诺链的一种优势。与回调不同，我们需要在每个回调中检查错误，使用承诺链，我们可以注册一个拒绝处理程序，它可以处理所有在它之前的承诺链中的拒绝。我们可以在承诺链中有多个`then`方法调用，而在承诺链的末尾仅有一个拒绝处理程序，通过`catch`方法注册。这使得在承诺链中管理错误处理变得简单。
 - en: Example 4
   id: totrans-327
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 示例 4
 - en: '[PRE51]'
   id: totrans-328
   prefs: []
@@ -2078,17 +2355,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的`Replit`中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example25"
     />`'
   id: totrans-330
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/promise-chaining-example25"
+    />`'
 - en: 'Below is an explanation of the output produced by the above code:'
   id: totrans-331
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是上述代码产生的输出的解释：
 - en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
     function will be fulfilled, resulting in the invocation of its fulfillment handler
     that is registered using the first invocation of the `then` method, passing the
@@ -2098,36 +2379,42 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从承诺链的顶部开始，`fakeRequest`函数返回的承诺将被实现，导致调用通过第一次调用`then`方法注册的实现处理程序，将实现值作为参数传递给其实现处理程序。
 - en: 由`fakeRequest`函数返回的承诺已经解决。链中的下一个承诺是由第一个`then`方法调用返回的。由于原始承诺已被实现，第一个`then`承诺现在依赖于其回调函数内部发生的情况。由于它通过调用`fakeRequest`函数返回一个新承诺，第一个`then`承诺将被*解析*为其回调函数返回的承诺。`then`承诺将等待其回调函数返回的承诺解决后再解决自身。
   id: totrans-333
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 由`fakeRequest`函数返回的承诺已经解决。链中的下一个承诺是由第一个`then`方法调用返回的。由于原始承诺已被实现，第一个`then`承诺现在依赖于其回调函数内部发生的情况。由于它通过调用`fakeRequest`函数返回一个新承诺，第一个`then`承诺将被*解析*为其回调函数返回的承诺。`then`承诺将等待其回调函数返回的承诺解决后再解决自身。
 - en: 从第一个`then`方法的回调函数返回的承诺将在大约两秒后被拒绝。它一旦被拒绝，`then`方法返回的承诺也会以与其回调返回的承诺相同的拒绝值被拒绝。因此，其拒绝处理程序将被调用，该处理程序是通过第一次`catch`方法调用注册的。第一个`then`承诺的拒绝处理程序将其拒绝值作为参数接收。
   id: totrans-334
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 从第一个`then`方法的回调函数返回的承诺将在大约两秒后被拒绝。它一旦被拒绝，`then`方法返回的承诺也会以与其回调返回的承诺相同的拒绝值被拒绝。因此，其拒绝处理程序将被调用，该处理程序是通过第一次`catch`方法调用注册的。第一个`then`承诺的拒绝处理程序将其拒绝值作为参数接收。
 - en: 此时，承诺链中的前两个承诺已经解决。链中的下一个承诺是由第一个`catch`方法返回的。由于调用`catch`方法的承诺被拒绝，第一个`catch`承诺现在依赖于其回调函数内部发生的情况。它返回一个对象字面量。因此，第一个`catch`承诺以返回的对象作为其实现值。
   id: totrans-335
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的前两个承诺已经解决。链中的下一个承诺是由第一个`catch`方法返回的。由于调用`catch`方法的承诺被拒绝，第一个`catch`承诺现在依赖于其回调函数内部发生的情况。它返回一个对象字面量。因此，第一个`catch`承诺以返回的对象作为其实现值。
 - en: 请注意，`catch`方法不一定必须位于承诺链的末尾；然而，`catch`方法通常放在承诺链的末尾。根据需求，`catch`方法可以放在链中的任何位置。在我们的代码示例中，它在第一个`then`方法之后被调用，以处理第一个`then`承诺的可能拒绝，通过返回默认数据并让链继续。如果第一个`then`承诺的拒绝没有被处理，所有在第一个`then`方法之后的`then`承诺也将以与第一个`then`承诺相同的拒绝值被拒绝，而拒绝最终将在最后一次`catch`方法调用中处理。
   id: totrans-336
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，`catch`方法不一定必须位于承诺链的末尾；然而，`catch`方法通常放在承诺链的末尾。根据需求，`catch`方法可以放在链中的任何位置。在我们的代码示例中，它在第一个`then`方法之后被调用，以处理第一个`then`承诺的可能拒绝，通过返回默认数据并让链继续。如果第一个`then`承诺的拒绝没有被处理，所有在第一个`then`方法之后的`then`承诺也将以与第一个`then`承诺相同的拒绝值被拒绝，而拒绝最终将在最后一次`catch`方法调用中处理。
 - en: 此时，承诺链中的前三个承诺已经解决。链中的下一个承诺是由第二个`then`方法调用返回的。由于在其上调用第二个`then`方法的承诺（第一个`catch`承诺）已被实现，第二个`then`方法返回的承诺现在依赖于其回调函数内部发生的情况。其回调记录了第一个`catch`承诺的实现值并隐式返回`undefined`，导致第二个`then`承诺以`undefined`作为实现值被实现。以下是此时的控制台输出：
   id: totrans-337
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的前三个承诺已经解决。链中的下一个承诺是由第二个`then`方法调用返回的。由于在其上调用第二个`then`方法的承诺（第一个`catch`承诺）已被实现，第二个`then`方法返回的承诺现在依赖于其回调函数内部发生的情况。其回调记录了第一个`catch`承诺的实现值并隐式返回`undefined`，导致第二个`then`承诺以`undefined`作为实现值被实现。以下是此时的控制台输出：
 - en: '[PRE52]'
   id: totrans-338
   prefs:
@@ -2147,6 +2434,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，承诺链中的前四个承诺已经解决。链中的下一个承诺是由第三个`then`方法调用返回的。由于在其上调用第三个`then`方法的承诺（第二个`then`承诺）已被实现，第三个`then`方法返回的承诺现在依赖于其回调函数内部发生的情况。它的回调抛出了一个错误，导致第三个`then`承诺以抛出的错误作为拒绝原因或值被拒绝。因此，最后一次`catch`方法注册的拒绝处理程序被调用，拒绝值作为参数传递。
 - en: 'As the promise (the third `then` promise) on which the last `catch` method
     is called gets rejected, the last `catch` promise depends on what happens inside
     its callback function. Its callback logs the rejection value of the third `then`
@@ -2159,6 +2447,9 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于最后一个`catch`方法调用的promise（第三个`then` promise）被拒绝，最后一个`catch` promise依赖于其回调函数内部发生的事情。其回调记录了第三个`then`
+    promise的拒绝值，并隐式返回`undefined`，导致最后一个`catch` promise以`undefined`作为完成值得到满足。但最后一个`catch`
+    promise没有注册完成处理程序，因此其满足被简单忽略。代码的最终控制台输出如下所示：
 - en: '[PRE53]'
   id: totrans-341
   prefs:
@@ -2173,18 +2464,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 希望上面的示例，以及本节中对可以拒绝或满足每个promise实例方法返回的promise的不同场景的讨论，为理解promise链并在自己的代码中使用它们奠定了坚实的基础。
 - en: Rejection handler in `then` vs `catch`
   id: totrans-343
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`then`中的拒绝处理程序与`catch`'
 - en: 'In the previous lesson, it was mentioned that a rejection handler can be registered
     by passing a second argument to the `then` method, as shown below:'
   id: totrans-344
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上一节中提到，可以通过将第二个参数传递给`then`方法来注册拒绝处理程序，如下所示：
 - en: '[PRE54]'
   id: totrans-345
   prefs: []
@@ -2199,6 +2493,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在使用`then`方法注册拒绝处理程序时，有一点需要注意：如果`then`方法返回的promise被拒绝，那么传递给`then`方法的拒绝处理程序将不会被调用。以下代码示例展示了这一点：
 - en: '[PRE55]'
   id: totrans-347
   prefs: []
@@ -2213,6 +2508,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 只有当调用`then`方法的原始promise被拒绝时，使用`then`方法注册的拒绝处理程序才会被调用。因此，在上面的代码示例中，我们遇到了`unhandled
+    promise rejection`，这在最坏的情况下可能导致程序终止。因此，在处理promise时，请始终记得处理代码中所有可能的promise拒绝。
 - en: 'In this lesson, we will discuss a couple of common use cases of the two [static
     methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_properties)
     of promises and learn how they can be useful. Other promise static methods are
@@ -2222,29 +2519,34 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本节中，我们将讨论两个promise的[静态方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_properties)的常见用例，并学习它们的实用性。其他promise静态方法也很有用，但在我看来，以下两个用例是最常见的：
 - en: Making concurrent requests
   id: totrans-350
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 发起并发请求
 - en: Implementing request timeout
   id: totrans-351
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 实现请求超时
 - en: Concurrent requests
   id: totrans-352
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 并发请求
 - en: 想象一个场景，我们希望同时发起多个HTTP请求，并等待它们的集体结果。我们不能使用如下的promise链，因为这样会按顺序执行每个请求。
   id: totrans-353
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 想象一个场景，我们希望同时发起多个HTTP请求，并等待它们的集体结果。我们不能使用如下的promise链，因为这样会按顺序执行每个请求。
 - en: '[PRE56]'
   id: totrans-354
   prefs: []
@@ -2255,22 +2557,27 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example1"
     />
   id: totrans-356
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example1"
+    />
 - en: 由于上述代码中的每个请求都是独立的，因此我们希望发起[并发](https://en.wikipedia.org/wiki/Concurrent_computing)请求，而不是按顺序发起请求。这可以通过使用`Promise.all`方法实现。它允许我们一个接一个地开始每个请求，而无需等待一个请求完成后再开始另一个请求。因此，所有三个请求都是并发发起的，我们可以等待它们的集体结果。
   id: totrans-357
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于上述代码中的每个请求都是独立的，因此我们希望发起[并发](https://en.wikipedia.org/wiki/Concurrent_computing)请求，而不是按顺序发起请求。这可以通过使用`Promise.all`方法实现。它允许我们一个接一个地开始每个请求，而无需等待一个请求完成后再开始另一个请求。因此，所有三个请求都是并发发起的，我们可以等待它们的集体结果。
 - en: '`Promise.all`方法接收一个[可迭代对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)作为输入，并返回一个promise，只有在所有传递给它的promise都完成后才会完成。该方法返回的promise的完成值是一个数组，包含了所有传递给该方法作为输入的promise的完成值。如果任何输入的promise被拒绝，该方法返回的promise也会被拒绝。我们可以按照如下方式重写上述代码示例，使用`Promise.all`方法：'
   id: totrans-358
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promise.all`方法接收一个[可迭代对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)作为输入，并返回一个promise，只有在所有传递给它的promise都完成后才会完成。该方法返回的promise的完成值是一个数组，包含了所有传递给该方法作为输入的promise的完成值。如果任何输入的promise被拒绝，该方法返回的promise也会被拒绝。我们可以按照如下方式重写上述代码示例，使用`Promise.all`方法：'
 - en: '[PRE57]'
   id: totrans-359
   prefs: []
@@ -2281,33 +2588,40 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example2"
     />
   id: totrans-361
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example2"
+    />
 - en: 请求超时
   id: totrans-362
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 请求超时
 - en: 有时，HTTP请求可能由于服务器上的某些问题而挂起。我们不希望请求在待处理状态下停留超过几秒钟。为了避免请求待处理时间过长，我们可以实现请求超时功能，以便让我们的代码知道请求正在花费超过预期的时间。这使我们能够采取适当的措施。
   id: totrans-363
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有时，HTTP请求可能由于服务器上的某些问题而挂起。我们不希望请求在待处理状态下停留超过几秒钟。为了避免请求待处理时间过长，我们可以实现请求超时功能，以便让我们的代码知道请求正在花费超过预期的时间。这使我们能够采取适当的措施。
 - en: 使用`Promise.race`方法，我们可以发起一个带有超时的HTTP请求。该方法与`Promise.all`方法类似，接收一个可迭代的promise集合，并返回一个promise，当输入的一个或多个promise中的任何一个完成时，它就会完成。同样，当任何一个输入promise被拒绝时，该方法返回的promise也会被拒绝。
   id: totrans-364
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用`Promise.race`方法，我们可以发起一个带有超时的HTTP请求。该方法与`Promise.all`方法类似，接收一个可迭代的promise集合，并返回一个promise，当输入的一个或多个promise中的任何一个完成时，它就会完成。同样，当任何一个输入promise被拒绝时，该方法返回的promise也会被拒绝。
 - en: 以下代码示例展示了如何使用`Promise.race`方法实现请求超时：
   id: totrans-365
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下代码示例展示了如何使用`Promise.race`方法实现请求超时：
 - en: '[PRE58]'
   id: totrans-366
   prefs: []
@@ -2318,17 +2632,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的Replit中运行上述代码：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example3"
     />
   id: totrans-368
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/static-promise-methods-example3"
+    />
 - en: 在本课中，我们只讨论了两个静态方法，但值得学习`Promise`构造函数上其他可用的[静态方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods)。每个静态方法都有其自己的使用场景；我们只讨论了我认为最常用的两个使用场景。
   id: totrans-369
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本课中，我们只讨论了两个静态方法，但值得学习`Promise`构造函数上其他可用的[静态方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods)。每个静态方法都有其自己的使用场景；我们只讨论了我认为最常用的两个使用场景。
 - en: While promises have changed the way we write asynchronous code in JavaScript,
     we still use callbacks to register fulfillment and rejection handlers with promises.
     Some people might view using callbacks with promises as verbose, even though promises
@@ -2340,6 +2658,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然promise改变了我们在JavaScript中编写异步代码的方式，但我们仍然使用回调来注册promise的成功和拒绝处理程序。尽管promise解决了“回调地狱”和传统回调方式中的错误处理问题，但一些人可能会将使用回调与promise结合看作是冗长的。那么有没有更简单、更简洁、更直观的方式来处理promise呢？如果我们在使用promise时能摆脱回调，那该多好！这就是`async
+    await`的优势！
 - en: The `async await` can be considered a syntax sugar over the traditional way
     of using promises. It allows us to deal with promises using code that executes
     asynchronously but looks synchronous. It also allows us to write more concise
@@ -2349,11 +2669,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async await`可以被视为传统使用promise方式的语法糖。它允许我们使用异步执行的代码处理promise，但看起来是同步的。这也使我们能够编写更简洁的代码，更容易理解，因为代码不包含回调，代码流看起来像是同步代码的流。 '
 - en: 'Let’s take a look at the following code example that uses promise chaining:'
   id: totrans-372
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看看下面这个使用promise链的代码示例：
 - en: '[PRE59]'
   id: totrans-373
   prefs: []
@@ -2364,12 +2686,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个`Replit`，你可以在这里运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example1”
     />`'
   id: totrans-375
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example1"
+    />`'
 - en: 'The code above is certainly an improvement over the traditional way of using
     callbacks for writing asynchronous code, but it still has room for improvement,
     at least in terms of readability. The `async await` syntax can be used to rewrite
@@ -2378,6 +2703,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码确实比传统的使用回调编写异步代码的方式有所改善，但在可读性方面仍然有提升空间。`async await`语法可以用来重写上述代码示例，如下所示：
 - en: '[PRE60]'
   id: totrans-377
   prefs: []
@@ -2388,12 +2714,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个`Replit`，你可以在这里运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example2”
     />`'
   id: totrans-379
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example2"
+    />`'
 - en: The revised code achieves the same result but is more readable, doesn’t use
     any callbacks, and is easier to reason about as compared to the earlier example
     that uses promise chaining. Although the code looks like synchronous code, it
@@ -2402,6 +2731,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 修改后的代码实现了相同的结果，但更具可读性，不使用任何回调，并且相比于早期使用promise链的示例，更容易理解。尽管代码看起来像是同步代码，但它实际上是异步的。让我们来理解一下`async
+    await`是如何工作的。
 - en: 'Two things should be noted in the code example above that uses the `async await`
     syntax: the `async` keyword in the function signature and the `await` keyword
     inside the function. Following are the two main steps to using the `async await`
@@ -2410,6 +2741,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述使用`async await`语法的代码示例中，有两点需要注意：函数签名中的`async`关键字和函数内部的`await`关键字。使用`async
+    await`语法的主要步骤如下：
 - en: Mark any function as “async” using the `async` keyword. This is needed because
     the `await` keyword can only be used inside an “async” function.
   id: totrans-382
@@ -2417,6 +2750,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用`async`关键字将任何函数标记为“async”。这是必要的，因为`await`关键字只能在“async”函数内部使用。
 - en: Use the `await` keyword inside the `async` function to wait for any promises
     to settle.
   id: totrans-383
@@ -2424,6 +2758,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在`async`函数内部使用`await`关键字来等待任何promise的解决。
 - en: :::info While the `await` keyword is mostly used inside an `async` function
     because the `await` keyword was only allowed inside `async` functions until a
     recent change in the language that allows using the [await keyword at the top-level
@@ -2432,17 +2767,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info 虽然 `await` 关键字大多在 `async` 函数内部使用，因为在最近语言的变更之前，`await` 关键字仅被允许在 `async`
+    函数内部使用，现在可以在模块的顶部使用 [await 关键字](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#top_level_await)。
 - en: '::::'
   id: totrans-385
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '::::'
 - en: '`async` functions'
   id: totrans-386
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async` 函数'
 - en: 'An `async` function allows the use of the `await` keyword inside its body.
     An `async` function is different from a non-async function because an `async`
     function always returns a promise. An `async` function implicitly creates and
@@ -2452,6 +2791,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async` 函数允许在其体内使用 `await` 关键字。`async` 函数与非 `async` 函数不同，因为 `async` 函数始终返回一个承诺。`async`
+    函数隐式创建并返回一个承诺，类似于每个承诺实例方法创建并返回一个新的承诺。以下代码验证了这一说法：'
 - en: '[PRE61]'
   id: totrans-388
   prefs: []
@@ -2462,12 +2803,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个 Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example3”
     />`'
   id: totrans-390
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example3"
+    />`'
 - en: 'The fulfillment or rejection of the promise returned by an `async` function
     depends on what happens inside its body, similar to how the promise returned by
     each of the promise instance methods depends on the events occurring within its
@@ -2477,6 +2821,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async` 函数返回的承诺的兑现或拒绝取决于其体内发生的事情，类似于每个承诺实例方法返回的承诺依赖于其回调函数内发生的事件。以下几点总结了 `async`
+    函数承诺的结算：'
 - en: Returning any non-promise value from an `async` function leads to the fulfillment
     of the `async` function promise, using the returned value as the fulfillment value.
   id: totrans-392
@@ -2484,6 +2830,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从 `async` 函数返回任何非承诺值会导致 `async` 函数的承诺被兑现，使用返回的值作为兑现值。
 - en: '[PRE62]'
   id: totrans-393
   prefs:
@@ -2495,12 +2842,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个 Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example4”
     />`'
   id: totrans-395
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example4"
+    />`'
 - en: Not returning any value from the function implicitly returns `undefined`. This
     leads to the function promise getting fulfilled with `undefined` as the fulfillment
     value.
@@ -2509,6 +2859,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 不从函数返回任何值会隐式返回 `undefined`。这会导致函数的承诺以 `undefined` 作为兑现值。
 - en: '[PRE63]'
   id: totrans-397
   prefs:
@@ -2520,12 +2871,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个 Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example5”
     />`'
   id: totrans-399
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example5"
+    />`'
 - en: Throwing an error inside the `async` function rejects the `async` function promise,
     using the thrown value as the rejection reason.
   id: totrans-400
@@ -2533,6 +2887,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在 `async` 函数内部抛出错误会拒绝该 `async` 函数的承诺，并使用抛出的值作为拒绝原因。
 - en: '[PRE64]'
   id: totrans-401
   prefs:
@@ -2544,12 +2899,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个 Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example6”
     />`'
   id: totrans-403
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example6"
+    />`'
 - en: Returning a promise from the `async` function results in the `async` function
     promise getting `resolved` to the promise returned inside the function body. As
     we learned about one promise `resolving` to another promise in one of the earlier
@@ -2562,6 +2920,8 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从 `async` 函数返回一个承诺会使该 `async` 函数的承诺被 `resolved` 为函数体内返回的承诺。正如我们在本模块之前的某个课程中学习到的，一个承诺可能会“解析”到另一个承诺，`async`
+    函数创建的承诺将等待函数体内返回的承诺完成。最终，`async` 函数的承诺将根据其内部返回的承诺的结果被兑现或拒绝。
 - en: '[PRE65]'
   id: totrans-405
   prefs:
@@ -2573,18 +2933,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个 Replit，你可以运行上述代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example7”
     />`'
   id: totrans-407
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example7"
+    />`'
 - en: '`await` keyword'
   id: totrans-408
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await` 关键字'
 - en: 'The `await` keyword, also referred to as the `await` operator, is used to wait
     for a promise to settle. The following is an example of using the `await` keyword
     to wait for a promise to settle:'
@@ -2592,6 +2956,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await` 关键字，也称为 `await` 操作符，用于等待承诺完成。以下是使用 `await` 关键字等待承诺完成的示例：'
 - en: '[PRE66]'
   id: totrans-410
   prefs: []
@@ -2909,23 +3274,30 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`getPromise` 函数返回一个可能被拒绝的 promise，但 `foo` 函数返回的 promise 始终是被解决的。为什么？`foo` 函数有一个问题：它没有
+    `return` 或 `await` `getPromise` 函数返回的 promise。因此，`foo` 函数不会等待 `getPromise` 函数返回的
+    promise 完成；而只是调用 `getPromise` 函数，函数执行结束，隐式返回 `undefined`，导致 `foo` 函数的 promise
+    以 `undefined` 作为解决值。'
 - en: Further code examples will use the `getPromise` function defined above.
   id: totrans-452
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 进一步的代码示例将使用上面定义的 `getPromise` 函数。
 - en: 'To catch the rejection of the promise returned by the `getPromise` function,
     we have the following options:'
   id: totrans-453
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要捕获 `getPromise` 函数返回的 promise 的拒绝，我们有以下选项：
 - en: '`return` the promise returned by the `getPromise` function.'
   id: totrans-454
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return` `getPromise` 函数返回的 promise。'
 - en: '[PRE77]'
   id: totrans-455
   prefs:
@@ -2937,12 +3309,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个可以运行上述代码的 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example19”
     />`'
   id: totrans-457
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example19”
+    />`'
 - en: Returning the promise `resolves` the `foo` function of the promise returned
     inside its body. As a result, whatever happens to the promise returned by `getPromise`,
     the `foo` function promise meets the same fate.
@@ -2950,12 +3325,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 返回的 promise `resolves` 了其内部返回的 promise 的 `foo` 函数。因此，无论`getPromise` 返回的 promise
+    发生了什么，`foo` 函数的 promise 都会有相同的结果。
 - en: '`await` the promise returned by the `getPromise` function.'
   id: totrans-459
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await` `getPromise` 函数返回的 promise。'
 - en: '[PRE78]'
   id: totrans-460
   prefs:
@@ -2967,12 +3345,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个可以运行上述代码的 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example20”
     />`'
   id: totrans-462
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example20”
+    />`'
 - en: As mentioned earlier, if the awaited promise is rejected, its rejection value
     is thrown inside the `async` function. As there is no `try-catch` block inside
     the `foo` function, the promise rejection causes the `foo` function promise to
@@ -2981,6 +3362,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如前所述，如果被等待的 promise 被拒绝，其拒绝值会在 `async` 函数内部抛出。由于 `foo` 函数内部没有 `try-catch` 块，promise
+    的拒绝导致 `foo` 函数的 promise 也会以相同的拒绝原因被拒绝。
 - en: 'However, one thing to note in this code example is that if the promise returned
     by `getPromise` is fulfilled, the `foo` function promise doesn’t fulfill with
     its fulfillment value; instead, it fulfills with `undefined` as the fulfillment
@@ -2992,6 +3375,9 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，这段代码示例中需要注意的一点是，如果 `getPromise` 返回的 promise 被解决，`foo` 函数的 promise 不会以其解决值被解决；相反，它以
+    `undefined` 作为解决值被解决，因为我们没有明确从 `foo` 函数返回任何内容，我们知道当我们在 `async` 函数内部没有明确返回任何值时，`async`
+    函数的 promise 会以 `undefined` 作为解决值被解决。
 - en: '`await` the promise returned by the `getPromise` function and surround it with
     the `try-catch` block.'
   id: totrans-465
@@ -2999,6 +3385,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await` `getPromise` 函数返回的 promise，并用 `try-catch` 块包围它。'
 - en: '[PRE79]'
   id: totrans-466
   prefs:
@@ -3010,22 +3397,31 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个可以运行上述代码的 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example21”
     />`'
   id: totrans-468
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example21”
+    />`'
 - en: 等待`getPromise`调用将捕获promise拒绝，导致`catch`块执行。然而，`foo`函数返回的promise将始终被解决。为什么？因为`catch`块没有抛出错误或返回被拒绝的promise。结果，`foo`函数的promise总是以`catch`块的返回值解决。我们可以从`catch`中抛出错误来解决这个问题。话虽如此，如果我们在`catch`块中所做的只是抛出错误，那么最好省略`try-catch`块，让promise拒绝自动拒绝`foo`函数的promise。
   id: totrans-469
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 等待 `getPromise` 调用将捕获 promise 的拒绝，导致 `catch` 块执行。然而，`foo` 函数返回的 promise 将始终被解决。为什么？因为
+    `catch` 块没有抛出错误或返回被拒绝的 promise。结果，`foo` 函数的 promise 总是以 `catch` 块的返回值解决。我们可以从
+    `catch` 中抛出错误来解决这个问题。话虽如此，如果我们在 `catch` 块中所做的只是抛出错误，那么最好省略 `try-catch` 块，让 promise
+    拒绝自动拒绝 `foo` 函数的 promise。
 - en: 此代码示例中的另一个问题是，如果promise被解决而`catch`块从未执行，我们没有显式返回任何值。因此，`foo`函数的promise将以`undefined`解决。在`await`表达式前添加`return`关键字可以解决这个问题。
   id: totrans-470
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此代码示例中的另一个问题是，如果 promise 被解决而 `catch` 块从未执行，我们没有显式返回任何值。因此，`foo` 函数的 promise
+    将以 `undefined` 解决。在 `await` 表达式前添加 `return` 关键字可以解决这个问题。
 - en: ':::caution 我们能不能只做`return getPromise();`而不是`return await getPromise();`？如果`await`表达式没有被包装在`try-catch`块中，我们是可以的。`try-catch`块有什么区别呢？有了`try-catch`块，`return
     getPromise();`将导致`foo`函数内的`catch`块永远不会执行。为了使`foo`函数中的`catch`块执行，我们需要在`try`块中`await`这个promise，而不仅仅是返回它。更多细节，请阅读：[await
     vs return vs return await](https://jakearchibald.com/2017/await-vs-return-vs-return-await/)
@@ -3034,17 +3430,23 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::caution 我们能不能只做`return getPromise();`而不是`return await getPromise();`？如果`await`表达式没有被包装在`try-catch`块中，我们是可以的。`try-catch`块有什么区别呢？有了`try-catch`块，`return
+    getPromise();`将导致`foo`函数内的`catch`块永远不会执行。为了使`foo`函数中的`catch`块执行，我们需要在`try`块中`await`这个promise，而不仅仅是返回它。更多细节，请阅读：[await
+    vs return vs return await](https://jakearchibald.com/2017/await-vs-return-vs-return-await/)
+    :::'
 - en: 等待非promise值
   id: totrans-472
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 等待非promise值
 - en: '`await`关键字通常用于等待一个promise解决，但它也可以与非promise值一起使用。以下代码示例展示了这一行为：'
   id: totrans-473
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await`关键字通常用于等待一个promise解决，但它也可以与非promise值一起使用。以下代码示例展示了这一行为：'
 - en: '[PRE80]'
   id: totrans-474
   prefs: []
@@ -3055,64 +3457,77 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个Replit，你可以运行上述代码：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example22"
     />
   id: totrans-476
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/async-await-example22"
+    />
 - en: 如果你执行上述代码示例，你会注意到代码示例最后的`console.log`语句在随机数打印之前被记录，尽管函数在最后的`console.log`语句之前被调用。这是为什么呢？因为我们没有等待任何promise，所以这里发生了什么？
   id: totrans-477
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果你执行上述代码示例，你会注意到代码示例最后的`console.log`语句在随机数打印之前被记录，尽管函数在最后的`console.log`语句之前被调用。这是为什么呢？因为我们没有等待任何promise，所以这里发生了什么？
 - en: 当`await`关键字与非承诺值一起使用时，会创建一个新的承诺，该承诺会用我们在`await`关键字中使用的值来满足。在我们的代码示例中，我们等待了一个随机数；它不是一个承诺，因此会创建一个新的承诺，并用生成的随机数来满足。在`await`表达式之后的代码将被执行，就好像它在一个满足处理程序中一样。因此，当承诺被满足时，`await`表达式之后的代码并不会立即执行。它是异步执行的，正如我们在关于事件循环的课程中学到的，任何异步代码只有在我们代码的同步执行结束后才会被执行。最后的`console.log`语句作为我们代码的同步执行的一部分被执行。因此，它在随机数之前被记录。
   id: totrans-478
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当`await`关键字与非承诺值一起使用时，会创建一个新的承诺，该承诺会用我们在`await`关键字中使用的值来满足。在我们的代码示例中，我们等待了一个随机数；它不是一个承诺，因此会创建一个新的承诺，并用生成的随机数来满足。在`await`表达式之后的代码将被执行，就好像它在一个满足处理程序中一样。因此，当承诺被满足时，`await`表达式之后的代码并不会立即执行。它是异步执行的，正如我们在关于事件循环的课程中学到的，任何异步代码只有在我们代码的同步执行结束后才会被执行。最后的`console.log`语句作为我们代码的同步执行的一部分被执行。因此，它在随机数之前被记录。
 - en: 使用`await`与非承诺值几乎没有用，但要注意的是，这种情况是可能的，该值会被隐式封装在一个承诺中。
   id: totrans-479
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用`await`与非承诺值几乎没有用，但要注意的是，这种情况是可能的，该值会被隐式封装在一个承诺中。
 - en: 我们在本模块的早期课程中了解到，执行DOM事件监听器和`setTimeout`或`setInterval`回调需要调度一个“任务”。任务在任务队列中排队，直到事件循环处理它们。那么承诺的履行或拒绝处理程序呢？它们的执行是否也需要调度一个任务？并不是严格意义上的任务，而是一个“微任务”。
   id: totrans-480
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们在本模块的早期课程中了解到，执行DOM事件监听器和`setTimeout`或`setInterval`回调需要调度一个“任务”。任务在任务队列中排队，直到事件循环处理它们。那么承诺的履行或拒绝处理程序呢？它们的执行是否也需要调度一个任务？并不是严格意义上的任务，而是一个“微任务”。
 - en: 微任务，ECMAScript规范称之为[jobs](https://tc39.es/ecma262/#sec-promise-jobs)，被调度用于比“任务”更高优先级的事情。微任务在以下情况下被处理：
   id: totrans-481
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 微任务，ECMAScript规范称之为[jobs](https://tc39.es/ecma262/#sec-promise-jobs)，被调度用于比“任务”更高优先级的事情。微任务在以下情况下被处理：
 - en: 每个回调，只要调用栈是空的。
   id: totrans-482
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个回调，只要调用栈是空的。
 - en: 每个任务
   id: totrans-483
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个任务
 - en: “任务”按照它们在任务队列中排队的顺序执行，每个事件循环的一个轮次中只执行一个任务。
   id: totrans-484
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: “任务”按照它们在任务队列中排队的顺序执行，每个事件循环的一个轮次中只执行一个任务。
 - en: 另一个关于微任务的重要注意事项是，虽然每个事件循环的滴答中仅处理一个任务，但微任务会一直处理，直到微任务队列为空。如果一个任务调度了另一个任务，它不会在下一个事件循环的轮次中被处理，但在微任务的情况下，如果一个微任务由另一个微任务排队，排队的微任务也将被处理。这意味着如果每个微任务不断排队另一个微任务，事件循环可能会陷入无限循环。
   id: totrans-485
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一个关于微任务的重要注意事项是，虽然每个事件循环的滴答中仅处理一个任务，但微任务会一直处理，直到微任务队列为空。如果一个任务调度了另一个任务，它不会在下一个事件循环的轮次中被处理，但在微任务的情况下，如果一个微任务由另一个微任务排队，排队的微任务也将被处理。这意味着如果每个微任务不断排队另一个微任务，事件循环可能会陷入无限循环。
 - en: 考虑以下代码示例：
   id: totrans-486
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑以下代码示例：
 - en: '[PRE81]'
   id: totrans-487
   prefs: []
@@ -3123,29 +3538,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上面代码在行动中的一个Replit：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/microtasks-example1"
     />`'
   id: totrans-489
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/microtasks-example1"
+    />`'
 - en: 执行上述代码需要调度任务和微任务。以下步骤解释了如何调度不同的任务和微任务以执行上述代码：
   id: totrans-490
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 执行上述代码需要调度任务和微任务。以下步骤解释了如何调度不同的任务和微任务以执行上述代码：
 - en: 创建一个任务来执行脚本，开始代码的同步执行。
   id: totrans-491
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建一个任务来执行脚本，开始代码的同步执行。
 - en: 第一个`console.log`语句被执行，在控制台上记录“start”。
   id: totrans-492
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一个`console.log`语句被执行，在控制台上记录“start”。
 - en: '[PRE82]'
   id: totrans-493
   prefs:
@@ -3158,6 +3579,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们有一个`setTimeout`调用，延迟500毫秒。这在后台启动一个定时器，其到期将导致一个任务被排队到任务队列中以执行`setTimeout`回调。
 - en: '[PRE83]'
   id: totrans-495
   prefs:
@@ -3170,6 +3592,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 继续进行代码的同步执行，调用`Promise.resolve`，它创建了一个已解决的承诺。为了执行其履行处理程序，一个微任务或工作被排队到微任务队列中。
 - en: '[PRE84]'
   id: totrans-497
   prefs:
@@ -3182,6 +3605,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们有一个`setTimeout`调用，延迟为0毫秒。这也安排了一个任务来执行其回调。
 - en: '[PRE85]'
   id: totrans-499
   prefs:
@@ -3194,6 +3618,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，同步执行以最终的`console.log`语句结束，在控制台上记录“end”。此时，调用栈为空，事件循环可以开始处理已安排的任务和微任务。
 - en: '[PRE86]'
   id: totrans-501
   prefs:
@@ -3207,6 +3632,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如前所述，微任务在每个任务以及每个回调之后处理，前提是调用栈为空。代码的同步执行是一个任务，当它结束时，调用栈为空，因此微任务队列中的任何微任务都准备好由事件循环处理。我们在微任务队列中只有一个微任务。它将通过在控制台上记录“first
+    ‘then’ callback”来处理。
 - en: '[PRE87]'
   id: totrans-503
   prefs:
@@ -3219,6 +3646,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一个`then`方法的回调函数隐式返回`undefined`，因此`then`方法返回的承诺以`undefined`作为履行值被履行。这在微任务队列中排队了另一个微任务，以执行第一个`then`方法返回的承诺的履行处理程序。
 - en: '[PRE88]'
   id: totrans-505
   prefs:
@@ -3231,6 +3659,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如前所述，微任务会被处理直到微任务队列为空，因此新排队的微任务也会被处理，在控制台上记录“second ‘then’ callback”。
 - en: '[PRE89]'
   id: totrans-507
   prefs:
@@ -3243,6 +3672,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 类似于第8步，第二个`then`方法的回调函数隐式返回`undefined`，因此`then`方法返回的承诺以`undefined`作为履行值被履行。这在微任务队列中排队了另一个微任务，以执行第二个`then`方法返回的承诺的履行处理程序。
 - en: '[PRE90]'
   id: totrans-509
   prefs:
@@ -3255,6 +3685,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 这导致“third ‘then’ callback”在控制台上被记录。
 - en: '[PRE91]'
   id: totrans-511
   prefs:
@@ -3267,6 +3698,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们没有对第三个`then`方法返回的承诺做任何操作，因此其履行被忽略。此时，所有微任务都已被处理，微任务队列为空。事件循环现在可以处理任务队列中的第一个任务。
 - en: 任务队列中的第一个任务是第二个`setTimeout`调用，因为它的延迟小于第一个，因此它在另一个`setTimeout`回调的任务之前排队，后者的延迟为500毫秒。处理它导致在控制台上记录“setTimeout
     callback with 0ms delay”。
   id: totrans-513
@@ -3274,6 +3706,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 任务队列中的第一个任务是第二个`setTimeout`调用，因为它的延迟小于第一个，因此它在另一个`setTimeout`回调的任务之前排队，后者的延迟为500毫秒。处理它导致在控制台上记录“setTimeout
+    callback with 0ms delay”。
 - en: '[PRE92]'
   id: totrans-514
   prefs:
@@ -3287,6 +3721,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，任务队列中的最后一个任务是第一个`setTimeout`调用，其延迟为500毫秒，导致“setTimeout callback with 500ms
+    delay”在控制台上被记录。
 - en: '[PRE93]'
   id: totrans-516
   prefs:
@@ -3298,6 +3734,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::note 在本模块中，我们使用“resolved”一词来指代一个正在等待另一个承诺解决的承诺。换句话说，我们使用“resolved”一词来指代一个待处理状态的承诺。
 - en: 'Having said that, the term “resolved” can also be used to refer to a promise
     that has either been fulfilled or rejected. For more details, read: [promises-unwrapping
     - States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md) '
@@ -3305,17 +3742,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 话虽如此，“已解决”一词也可以用来指代已被履行或拒绝的承诺。有关更多细节，请阅读：[promises-unwrapping - 状态与命运](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md)
 - en: '::: '
   id: totrans-519
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '::: '
 - en: 'Further reading '
   id: totrans-520
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 深入阅读
 - en: 'The following are links to some of the Stackoverflow questions that I answered
     that are related to microtasks and explain the execution of code examples similar
     to the one discussed above: '
@@ -3323,12 +3763,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是一些与微任务相关的 Stackoverflow 问题的链接，这些问题是我回答的，解释了类似于上面讨论的代码示例的执行：
 - en: '[How to explain the output order of this code snippet?](https://stackoverflow.com/questions/63052649/how-to-explain-the-output-order-of-this-code-snippet) '
   id: totrans-522
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[如何解释这段代码片段的输出顺序？](https://stackoverflow.com/questions/63052649/how-to-explain-the-output-order-of-this-code-snippet)'
 - en: '[JavaScript quiz of printing sequence with a combination of `promise.then`
     and `async` function](https://stackoverflow.com/questions/72306157/javascript-quiz-of-printing-sequence-with-combination-of-promise-then-and-async) '
   id: totrans-523
@@ -3336,66 +3778,77 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[结合 `promise.then` 和 `async` 函数的 JavaScript 打印顺序测验](https://stackoverflow.com/questions/72306157/javascript-quiz-of-printing-sequence-with-combination-of-promise-then-and-async)'
 - en: '[Promise chain `.then` `.catch`](https://stackoverflow.com/questions/68784426/promise-chain-then-catch) '
   id: totrans-524
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[承诺链 `.then` `.catch`](https://stackoverflow.com/questions/68784426/promise-chain-then-catch)'
 - en: '[Asynchronous Execution Order in JavaScript](https://stackoverflow.com/questions/68882535/asynchronous-execution-order-in-javascript) '
   id: totrans-525
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[JavaScript 中的异步执行顺序](https://stackoverflow.com/questions/68882535/asynchronous-execution-order-in-javascript)'
 - en: 'The following is an article that explains the execution of tasks and microtasks
     with the help of interactive examples: '
   id: totrans-526
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是一篇通过交互式示例解释任务和微任务执行的文章：
 - en: '[Tasks, microtasks, queues, and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/) '
   id: totrans-527
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[任务、微任务、队列和调度](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)'
 - en: 'In this lesson, we will discuss common promise-related anti-patterns that should
     be avoided. Following is a list of anti-patterns we will discuss: '
   id: totrans-528
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本课中，我们将讨论应该避免的常见承诺相关反模式。以下是我们将讨论的反模式列表：
 - en: Unnecessary use of the `Promise` constructor
   id: totrans-529
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 不必要使用 `Promise` 构造函数
 - en: 'Incorrect error handling '
   id: totrans-530
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 错误处理不当
 - en: 'Converting promise rejection into fulfillment '
   id: totrans-531
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 将承诺拒绝转换为履行
 - en: 'Async executor function '
   id: totrans-532
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 异步执行器函数
 - en: 'Unnecessary use of the `Promise` constructor '
   id: totrans-533
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 不必要使用 `Promise` 构造函数
 - en: 'One of the most common mistakes made by JavaScript developers, especially those
     who don’t have much experience with promises, is creating promises unnecessarily
     using the `Promise` constructor function. Let’s take a look at an example: '
@@ -3403,6 +3856,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript 开发者，尤其是那些对承诺没有太多经验的人，常犯的一个错误是使用 `Promise` 构造函数不必要地创建承诺。让我们来看一个例子：
 - en: '[PRE94]'
   id: totrans-535
   prefs: []
@@ -3417,6 +3871,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果你向 `fetchData` 函数传递一个 URL 然后等待承诺解决，上述代码将正常工作，但在上述代码示例中使用 `Promise` 构造函数是多余的。`fetch`
+    函数已经返回一个承诺，因此我们可以将上述函数重新写为如下所示，而无需用 `Promise` 构造函数包装 `fetch` 函数调用：
 - en: '[PRE95]'
   id: totrans-537
   prefs: []
@@ -3431,6 +3887,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 修订后的 `fetchData` 函数简洁易读，没有创建任何不必要的承诺，并允许调用 `fetchData` 函数的代码捕获和处理任何错误。旧版本的 `fetchData`
+    函数也允许调用代码处理错误，但修订版本在不使用 `catch` 方法调用的情况下完成了这一点。
 - en: 'Unnecessary use of the promise constructor can lead to another problem: if
     we forget to add the ``catch`` method call to the promise chain inside the ``Promise``
     constructor, then any error thrown during the HTTP request won’t be caught. Forgetting
@@ -3666,59 +4124,70 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`catch`方法返回的承诺以其回调函数的返回值被履行，即`undefined`。'
 - en: 这个被履行的承诺通过`getData`函数返回给其调用代码。
   id: totrans-572
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个被履行的承诺通过`getData`函数返回给其调用代码。
 - en: 由于`getData`函数返回的承诺以值`undefined`被履行，`then`方法的回调在调用代码中被调用，记录“then块”。
   id: totrans-573
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于`getData`函数返回的承诺以值`undefined`被履行，`then`方法的回调在调用代码中被调用，记录“then块”。
 - en: 请查看这个[stackoverflow帖子](https://stackoverflow.com/questions/62859190/handle-promise-catches-in-typescript)，它更详细地解释了这种行为。
   id: totrans-574
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请查看这个[stackoverflow帖子](https://stackoverflow.com/questions/62859190/handle-promise-catches-in-typescript)，它更详细地解释了这种行为。
 - en: 虽然上面的代码是一个人为的示例，但想象一下，如果`getData`函数中调用的是`fetch`函数而不是`Promise.reject`；如果HTTP请求成功，我们的代码将毫无问题地运行，但如果HTTP请求失败，`getData`函数中的`catch`方法将把承诺拒绝转换为承诺履行。因此，`getData`函数将返回一个被履行的承诺，而不是返回一个被拒绝的承诺。
   id: totrans-575
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然上面的代码是一个人为的示例，但想象一下，如果`getData`函数中调用的是`fetch`函数而不是`Promise.reject`；如果HTTP请求成功，我们的代码将毫无问题地运行，但如果HTTP请求失败，`getData`函数中的`catch`方法将把承诺拒绝转换为承诺履行。因此，`getData`函数将返回一个被履行的承诺，而不是返回一个被拒绝的承诺。
 - en: :::info
   id: totrans-576
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::info
 - en: 有时，您确实希望将承诺拒绝转换为承诺履行，以处理拒绝并让承诺链继续。这是可以的，但要有意识地进行。请注意，如果您不小心，承诺拒绝可能会变成承诺履行。这样做肯定会导致代码中的错误。
   id: totrans-577
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有时，您确实希望将承诺拒绝转换为承诺履行，以处理拒绝并让承诺链继续。这是可以的，但要有意识地进行。请注意，如果您不小心，承诺拒绝可能会变成承诺履行。这样做肯定会导致代码中的错误。
 - en: ':::'
   id: totrans-578
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: 假设您在想为什么`catch`方法返回的承诺被履行而不是被拒绝。在这种情况下，答案是，如前面所述，`then`或`catch`方法返回的承诺如果它们的回调函数显式或隐式返回一个值而不是抛出错误或返回一个被拒绝的承诺或最终被拒绝的承诺，就会被履行。
   id: totrans-579
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设您在想为什么`catch`方法返回的承诺被履行而不是被拒绝。在这种情况下，答案是，如前面所述，`then`或`catch`方法返回的承诺如果它们的回调函数显式或隐式返回一个值而不是抛出错误或返回一个被拒绝的承诺或最终被拒绝的承诺，就会被履行。
 - en: 那么，我们如何修复上述代码示例以避免这个问题呢？有两种方法可以解决这个问题：
   id: totrans-580
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 那么，我们如何修复上述代码示例以避免这个问题呢？有两种方法可以解决这个问题：
 - en: 从`catch`方法的回调函数中抛出错误。
   id: totrans-581
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 从`catch`方法的回调函数中抛出错误。
 - en: '[PRE103]'
   id: totrans-582
   prefs:
@@ -3731,6 +4200,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上面代码在操作中的一个Replit示例：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-anti-patterns-example9"
     />
   id: totrans-584
@@ -3738,17 +4208,21 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-anti-patterns-example9"
+    />
 - en: 这将拒绝`catch`方法返回的承诺，并且`getData`函数将返回这个被拒绝的承诺。结果，正如预期的那样，调用代码中的`catch`方法回调将被调用。
   id: totrans-585
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这将拒绝`catch`方法返回的承诺，并且`getData`函数将返回这个被拒绝的承诺。结果，正如预期的那样，调用代码中的`catch`方法回调将被调用。
 - en: 删除`catch`方法调用。
   id: totrans-586
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 删除`catch`方法调用。
 - en: '[PRE104]'
   id: totrans-587
   prefs:
@@ -3761,6 +4235,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上面代码在操作中的一个Replit示例：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-anti-patterns-example10"
     />
   id: totrans-589
@@ -3768,6 +4243,8 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/promise-anti-patterns-example10"
+    />
 - en: '这也将调用调用代码中的`catch`块，因为现在`getData`函数返回的是调用`Promise.reject`的结果，并且如前所述，`Promise.reject`创建了一个被拒绝的承诺。:::tip
     个人而言，我建议使用这种方法而不是从`catch`方法回调中抛出错误。让调用代码捕获并处理错误就可以了。`catch`方法回调仅重新抛出错误是多余的。:::'
   id: totrans-590
@@ -3775,12 +4252,15 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '这也将调用调用代码中的`catch`块，因为现在`getData`函数返回的是调用`Promise.reject`的结果，并且如前所述，`Promise.reject`创建了一个被拒绝的承诺。:::tip
+    个人而言，我建议使用这种方法而不是从`catch`方法回调中抛出错误。让调用代码捕获并处理错误就可以了。`catch`方法回调仅重新抛出错误是多余的。:::'
 - en: 异步执行器函数
   id: totrans-591
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 异步执行器函数
 - en: When creating a new promise using the `Promise` constructor, we pass a function
     to the promise constructor. This function is known as the `executor` function.
     The `executor` function should never be an `async` function. Why is that?
@@ -3788,6 +4268,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在使用`Promise`构造函数创建新承诺时，我们将一个函数传递给承诺构造函数。这个函数被称为`executor`函数。`executor`函数绝不应该是一个`async`函数。为什么呢？
 - en: Suppose the `executor` function is an `async` function. In that case, any errors
     thrown by the `async` `executor` function will not be caught, and the thrown error
     won’t cause the newly-constructed promise to reject.
@@ -3795,6 +4276,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设`executor`函数是一个`async`函数。在这种情况下，`async` `executor`函数抛出的任何错误都不会被捕获，抛出的错误不会导致新构造的承诺被拒绝。
 - en: '[PRE105]'
   id: totrans-594
   prefs: []
@@ -3808,6 +4290,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上面的代码示例中，由于`executor`函数是一个`async`函数，因此其中抛出的错误不会拒绝新创建的承诺`p`。结果，针对承诺`p`调用的`catch`方法的回调函数从未被调用。
 - en: If the `executor` function is a synchronous function, then any error thrown
     inside the `executor` function will automatically reject the newly created promise.
     Try removing the `async` keyword in the above code example and observe the output.
@@ -3815,6 +4298,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果`executor`函数是一个同步函数，则在`executor`函数内部抛出的任何错误将自动拒绝新创建的承诺。尝试删除上面代码示例中的`async`关键字，并观察输出。
 - en: Another thing to note is that if you find yourself using `await` inside the
     `executor` function, this should be a signal to you that you don’t need the `promise`
     constructor at all (remember the first anti-pattern discussed above).
@@ -3822,3 +4306,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一个需要注意的事项是，如果您发现自己在`executor`函数中使用`await`，这应该提醒您根本不需要`promise`构造函数（记住上面讨论的第一个反模式）。
