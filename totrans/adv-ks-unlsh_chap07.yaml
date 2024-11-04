@@ -1,221 +1,322 @@
-- en: Symbol
+- en: '`Symbol`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: '`symbol` is a primitive value that can be created using a function named `Symbol`.
     What makes this primitive value interesting is that it is guaranteed to be unique.
-    This guarantee of being unique is the selling point of symbols.'
+    This guarantee of being unique is the selling point of `symbols`.'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'With the introduction of symbols in ES2015, two things changed in JavaScript:'
+- en: 'With the introduction of `symbols` in `ES2015`, two things changed in JavaScript:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A new type of value was introduced in the language.
+  id: totrans-3
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Only strings were allowed to be added to objects as property keys. Now, symbols
+- en: Only strings were allowed to be added to objects as property keys. Now, `symbols`
     can be keys as well.
+  id: totrans-4
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Before we discuss how to use symbols in our code, let us first understand the
     motivation behind adding symbols to the JavaScript language.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Symbols were originally meant to be used as a mechanism to add private properties
-    to objects and were supposed to be called “**private name objects**”. But later,
-    their name was changed to symbols, and they were made a primitive value.
+- en: '`Symbols` were originally meant to be used as a mechanism to add private properties
+    to objects and were supposed to be called “private name objects”. But later, their
+    name was changed to `symbols`, and they were made a primitive value.'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: It turned out that each symbol being a unique value is pretty useful because
+- en: It turned out that each `symbol` being a unique value is pretty useful because
     it allows the JavaScript language to be extended and remain backwards compatible.
-    Symbols allow JavaScript to add new properties to objects that cannot conflict
+    `Symbols` allow JavaScript to add new properties to objects that cannot conflict
     with the existing properties on objects that others might have used in their code.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: One of the main goals of TC39 is to keep JavaScript backwards compatible. With
-    this goal in mind, any new feature added to the language must not break existing
-    code. Symbols help keep the promise of backward compatibility.
+- en: One of the main goals of `TC39` is to keep JavaScript backwards compatible.
+    With this goal in mind, any new feature added to the language must not break existing
+    code. `Symbols` help keep the promise of backward compatibility.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Some features in the JavaScript language require looking up a property on an
     object. What property keys could have been chosen for such features? Choosing
     any string property name wasn’t possible because someone might have used that
     property in their code, and using that property for a new feature might have broken
     their code.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For example, for converting an object into a primitive value, a special property
-    named [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
+    named`[Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)`
     is looked up on the object by the type conversion algorithm. If such a property
     exists and its value is a function, its return value is used as the primitive
-    representation of the object. Otherwise, the default mechanism of calling the
-    `toString` and `valueOf` methods in different order is used, as explained in an
-    earlier module on coercion.
+    representation of the object. Otherwise, the default mechanism of calling the`toString`
+    and `valueOf`methods in different order is used, as explained in an earlier module
+    on coercion.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Think about how such a feature could have been added to the language with a
     string property. What name could possibly have been chosen that was guaranteed
     to not break existing code?
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This is where symbols shine. Using symbols as properties enables such features
     by adding unique properties to objects that cannot possibly break existing code
     because:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: symbols didn’t exist before ES2015, and
+- en: '`symbols` didn’t exist before `ES2015`, and'
+  id: totrans-13
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: each symbol is a unique value
+- en: each `symbol` is a unique value
+  id: totrans-14
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Symbol values can be created using the `Symbol` function. It’s important to
     note that the `Symbol` function must be invoked without the `new` keyword. Attempting
     to use the `new` keyword to invoke the `Symbol` function will result in an error.
     This is because it prevents the creation of an object wrapper around the symbol.
     Every call to the `Symbol` function must create a new unique symbol value.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Once a symbol has been created, it can be added to an existing object as a
     property using the square bracket notation:'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE1]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example2”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example2"
+    />`'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Alternatively, the computed property notation can also be used to add a symbol
     as a property to the object:'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE2]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example3”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example3"
+    />`'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Symbols and privacy
+  id: totrans-25
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Regular `string` properties on objects can be accessed in a variety of ways.
     For instance, consider the following code example:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE3]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example4”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example4"
+    />`'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this example, a property key “name” was added to the `person` object using
     the computed property name. This property can be accessed in multiple ways, as
     demonstrated in the code example above. But what happens if the value of the `name`
     variable is changed from a `string` to a symbol?
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE4]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example5”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example5"
+    />`'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: It will be noticed that `person.name` and `person["name"]` output `undefined`,
-    but the last `console.log` statement logs the name as expected. So, what’s the
-    difference between the first two statements and the last one? The first two statements
-    log `undefined` because symbol properties cannot be accessed until access to the
-    original symbol is obtained. Only the last `console.log` statement in the code
-    example above used the original symbol, which is why it logged the name instead
-    of `undefined`.
+- en: It will be noticed that `person.name` and `person["name"]` output `undefined`，but
+    the last `console.log` statement logs the name as expected. So, what’s the difference
+    between the first two statements and the last one? The first two statements log
+    `undefined` because symbol properties cannot be accessed until access to the original
+    symbol is obtained. Only the last `console.log` statement in the code example
+    above used the original symbol, which is why it logged the name instead of `undefined`.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So, if the original symbol is not accessible, does that make the symbol property
     a private property? What happens if the properties of an object are iterated over?
     Let’s find out if the symbol properties of an object can be obtained.
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE5]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example6”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example6"
+    />`'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Looking at the output of the above code example, it might be assumed that symbol
     properties are indeed private. However, this assumption would be incorrect. Symbol
     properties are not private, as the next code example demonstrates.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE6]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example7”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/creating-symbols-example7"
+    />`'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The above code example shows that symbol properties can be discovered using
     methods like `Object.getOwnPropertyDescriptors` or `Object.getOwnPropertySymbols`.
     While symbol properties may be a bit more inconvenient to access compared to `string`
-    properties, they are not private. JavaScript has true [private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields),
+    properties, they are not private. JavaScript has true `[private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)`,
     and symbols are not intended to be used as private properties.
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Adding a description to symbols
+  id: totrans-44
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'When creating symbols, there is the option to provide a description for each
     symbol. This description can be useful for debugging purposes. The following code
     example creates a symbol with a description:'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The description is passed as an argument to the `Symbol` function. The provided
     description can then be accessed using the property named `description` on symbols.
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE8]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example9”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example9”
+    />`'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The `description` property can only be used to get the property of a symbol;
     it cannot be used to set the description. The following code example shows that
@@ -223,186 +324,278 @@
     value. The `description` property is actually a getter, and a setter isn’t defined
     for this property. As a result, the description can only be obtained but not set
     using this property.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE9]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example10”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example10”
+    />`'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Each call to the `Symbol` function creates a new unique symbol. However, JavaScript
-    also allows us to create symbols that can be shared across files or [realms](https://weizmangal.com/2022/10/28/what-is-a-realm-in-js/#:~:text=You%20can%20informally%20think%20of,order%20to%20exist%20within%20it.).
-    This is where the concept of a **global symbol** repository comes in.
+    also allows us to create symbols that can be shared across files or `[realms](https://weizmangal.com/2022/10/28/what-is-a-realm-in-js/#:~:text=You%20can%20informally%20think%20of,order%20to%20exist%20within%20it.)`.
+    This is where the concept of a `global symbol` repository comes in.
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can use the `Symbol.for` method to create a global symbol in the global symbol
     repository.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
-- en: 'You can run the above code in the Replit below:'
+  zh: '[PRE10]'
+- en: 'You can run the above code in the `Replit` below:'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example”
+    />`'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We pass a key to `Symbol.for` method, and using this key, we can retrieve the
-    symbol associated with it in the global symbol repository. If the key exists in
-    the repository, the `Symbol.for` method returns the symbol associated with it;
-    otherwise, it creates a new symbol in the repository and associates it with the
-    given key.
+- en: We pass a key to the `Symbol.for` method, and using this key, we can retrieve
+    the symbol associated with it in the global symbol repository. If the key exists
+    in the repository, the `Symbol.for` method returns the symbol associated with
+    it; otherwise, it creates a new symbol in the repository and associates it with
+    the given key.
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If we have a global symbol, we can get the key it is associated with using the
     `Symbol.keyFor` method.
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
-- en: 'Here’s a Replit where you can run the above code:'
+  zh: '[PRE11]'
+- en: 'Here’s a `Replit` where you can run the above code:'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example2”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example2”
+    />`'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The JavaScript language uses several built-in symbols to make different features
     work, for example, the `Symbol.toPrimitive` described in an earlier lesson in
     this module. Such symbols are referred to as “well-known symbols” by the ECMAScript
     specification.
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While the complete list of well-known symbols in the JavaScript language can
     be found in the [ECMAScript specification](https://tc39.es/ecma262/#sec-well-known-symbols),
     this lesson describes some of the well-known symbols.
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Symbol.toPrimitive
+- en: '`Symbol.toPrimitive`'
+  id: totrans-67
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: As explained in an earlier lesson in this module, `Symbol.toPrimitive` represents
     a symbol property that is used by the object to primitive conversion process in
-    JavaScript. Its value is a function that is passed a *hint* or the *preferred
-    type* of the primitive value to represent the object being converted into a primitive
+    JavaScript. Its value is a function that is passed a `hint` or the `preferred
+    type` of the primitive value to represent the object being converted into a primitive
     value. The return value is used as the primitive value of the object.
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The following code example hooks into the object to the primitive conversion
     process of the `movie` object and returns a different representation of the object
     based on the value of the `hint` argument.
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: 'You can see the output of the above code example in this Replit:'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example1”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example1”
+    />`'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Symbol.toStringTag
+- en: '`Symbol.toStringTag`'
+  id: totrans-73
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: The default implementation of the `Object.prototype.toString` method isn’t very
     useful for user-defined objects.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: For some built-in objects, the default implementation of the `toString` method
     is also not useful. As a result, many objects override the default `toString`
     implementation.
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: 'You can see the output of the above code example in this Replit:'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example3”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example3”
+    />`'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Notice the “Array” part in the output of the default `toString` implementation.
     It is known as the tag. For some built-in objects, the tag is the type of the
     value, for example, “Array” in the case of arrays and “String” in the case of
     strings.
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the case of user-defined objects, the default `toString` output, as shown
     above, is `[object Object]` where the tag is “Object” - not very useful.
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The well-known symbol `Symbol.toStringTag` allows us to change the value of
     the tag.
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: 'You can see the output of the above code example in this Replit:'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example4”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example4”
+    />`'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Symbol.isConcatSpreadable
+- en: '`Symbol.isConcatSpreadable`'
+  id: totrans-86
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The `[Symbole.isConcatSpreadable]` property is looked up by the `concat` method
+- en: The `[Symbol.isConcatSpreadable]` property is looked up by the `concat` method
     of arrays to determine if the elements of the array or array-like object passed
-    to the `concat` method should be *spread* or flattened.
+    to the `concat` method should be `spread` or flattened.
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: 'You can see the output of the above code example in this Replit:'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example5”
-    />
+- en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example5”
+    />`'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As the output of the above code example shows, the default behavior for arrays
     is to spread their elements. This default behavior can be overridden by setting
     `Symbol.isConcatSpreadable` to `false`.
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For [array-like objects](https://stackoverflow.com/questions/29707568/javascript-difference-between-array-and-array-like-object),
     the default behavior is to not spread their properties. This can be overridden
     by setting `Symbol.isConcatSpreadable` to `true`.
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: 'You can see the output of the above code example in this Replit:'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example6”
-    />
+- en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/well-known-symbols-example6"
+    />`'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: There are other well-known symbols that allow us to hook into different built-in
-    operations in JavaScript. The complete list can be seen in the [ECMAScript specification](https://tc39.es/ecma262/#sec-well-known-symbols)
-    or [MDN - Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+    operations in JavaScript. The complete list can be seen in the [`ECMAScript specification`](https://tc39.es/ecma262/#sec-well-known-symbols)
+    or [`MDN - Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
