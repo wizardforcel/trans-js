@@ -1,0 +1,1516 @@
+- en: Chapter 6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Coding the Document Object Model
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Understanding objects**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Messing with object properties and methods**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Taking a deep dive into the Document Object Model**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Figuring out events**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'I’ve talked a lot of JavaScript over the past few chapters, but in a very real
+    sense all that has been just the programming equivalent of noshing on a few appetizers.
+    Now it’s time to sit down for the main course: programming the Document Object
+    Model.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter, you explore the fascinating world of the Document Object Model.
+    You learn lots of powerful coding techniques that enable you to make your web
+    pages do almost anything you want them to do. You learn, too, that this is where
+    web coding becomes fun and maybe just a little addictive (in a good way, I promise).  ##
+    Getting Familiar with Objects'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To write truly useful scripts, you have to do what JavaScript was designed
+    to do from the start: Manipulate the web page that it’s displaying. That’s what
+    JavaScript is all about, and that manipulation can come in many different forms:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add text and HTML attributes to an **element**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modify a CSS **property** of a class or other selector.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Store some data in the browser’s internal **storage**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Validate a **form’s** data before submitting it.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The bold items in this list are examples of the “things” that you can work with,
+    and they’re special for no other reason than they’re programmable. In JavaScript
+    parlance, these “programmable things” are called *objects.*
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can work with objects in JavaScript in any of the following three ways:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can read and make changes to the object’s *properties.*
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can make the object perform a task by activating a *method* associated with
+    the object*.*
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can define a procedure that runs whenever a particular *event* happens to
+    the object*.*
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Working with object properties'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You refer to a property by using the syntax in the following generic expression:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*object*.*property*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`object`*: The object that has the property'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`property`*: The name of the property you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For example, consider the following expression:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.location`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This expression refers to the `document` object’s `location` property, which
+    holds the address of the document currently displayed in the browser window. (In
+    conversation, you’d pronounce this expression as “document dot location.”) The
+    following code shows a simple one-line script that displays this property in the
+    console, as shown in [Figure 6-1](#c06-fig-0001).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`console.log(document.location);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the script displays the document.location property in a console
+    message.](images/9781394263219-fg0601.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-1:](#rc06-fig-0001) This script displays the `document.location`
+    property in a console message.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Because the property always contains a value, you’re free to use property expressions
+    in just about any type of JavaScript statement and as an operand in a JavaScript
+    expression. For example, the following statement assigns the current value of
+    the `document.location` property to a variable named `currentUrl`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const currentUrl = document.location;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similarly, the following statement includes `document.location` as part of
+    a string expression:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const message = "The current address is " + document.location + ".";`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Some properties are “read only,” which means your code can only read the current
+    value and can’t change it. However, many properties are “read/write,” which means
+    you can also change their values. To change the value of a property, use the following
+    generic syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*object*.*property* = *value*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`object`*: The object that has the property'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`property`*: The name of the property you want to change'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`value`*: A literal value (such as a string or number) or an expression that
+    returns the value to which you want to set the property'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const newAddress = prompt("Enter the address you want to surf to:"); document.location
+    = newAddress;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This script prompts the user for a web page address and stores the result in
+    the `newAddress` variable. This value is then used to change the `document.location`
+    property, which in this case tells the browser to open the specified address.  ###
+    Working with object methods'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To run a method, begin with the simplest case, which is a method that takes
+    no arguments:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*object*.*method*()`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`object`*: The object that has the method you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`method`*: The name of the method you want to execute'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For example, consider the following statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`history.back();`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This runs the `history` object’s `back()` method, which tells the browser to
+    go back to the previously visited page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If a method requires arguments, you use the following generic syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*object*.*method* (*argument1*, *argument2*, …)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, consider the `confirm()` method, used in the following statement,
+    which takes a single argument — a string that specifies the text to display to
+    the user:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`confirm("Do you want to go back?")`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Finally, as with properties, if the method returns a value, you can assign
+    that value to a variable (as I do with the `confirm()` method in the earlier example)
+    or you can incorporate the method into an expression.  ## Introducing the Document
+    Object Model'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s some source code for a simple web page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<html lang="en"> <head> <title>So Many Kale Recipes</title> </head> <body>
+    <header> <h1>Above and Beyond the Kale of Duty</h1> </header> <main> <p> Do you
+    love to cook with <a href="kale.html">kale</a>? </p> </main> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way to examine this code is hierarchically. That is, the `html` element
+    is, in a sense, the topmost element because every other element is contained within
+    it. The next level down in the hierarchy contains the `head` and `body` elements.
+    The `head` element contains a `title` element, which contains the text `So Many
+    Kale Recipes`. Similarly, the `body` element contains a `header` element and a
+    `main` element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hierarchies are almost always more readily grasped in visual form, so [Figure
+    6-2](#c06-fig-0002) graphs the page elements hierarchically.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A flow diagram of the web page code. It includes document, elements, text,
+    and attribute.](images/9781394263219-fg0602.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-2:](#rc06-fig-0002) The web page code as a hierarchy.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) When speaking of object hierarchies, if object
+    P contains object C, object P is said to be the *parent* of object C, and object
+    C is said to be the *child* of object P. In [Figure 6-2](#c06-fig-0002), the arrows
+    represent parent-to-child relationships. Also, elements on the same level — such
+    as the `header` and `main` elements — are known as *siblings*.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You have several key points to consider here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every box in [Figure 6-2](#c06-fig-0002) represents an object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Every object in [Figure 6-2](#c06-fig-0002) is one of three types: element,
+    text, or attribute.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Every object in [Figure 6-2](#c06-fig-0002), regardless of its type, is called
+    a *node.*
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The page as a whole is represented by the `document` object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Therefore, this hierarchical object representation is known as the Document
+    Object Model, or the DOM as it’s usually called. The DOM enables your JavaScript
+    code to access the complete structure of an HTML document.  ## Specifying Elements
+    in Your Code'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Elements represent the tags in a document, so you’ll be using them constantly
+    in your code. This section shows you several methods for referencing one or more
+    elements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Specifying an element by id'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If it’s a specific element you want to work with in your script, you can reference
+    the element directly by first assigning it an identifier using the `id` attribute:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div id="kale-quotations">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With that done, you can then refer to the element in your code by using the
+    `document` object’s `getElementById()` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(*id*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`id`* is a string representing the `id` attribute of the element
+    you want to work with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement returns a reference to the previous `<div>`
+    tag (the one that has `id="kale-quotations"`):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById("kale-quotations")`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Warning](images/warning.png) When you’re coding the `document` object, don’t
+    put your `<script>` tag in the web page’s head section (that is, between the `<head>`
+    and `</head>` tags). If you place your code there, the web browser will run the
+    code before it has had a chance to create the `document` object, which means your
+    code will fail, big time. Instead, place your `<script>` tag at the bottom of
+    the web page, just before the `</body>` tag.  ### Specifying elements by tag name'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Besides working with individual elements, you can also work with collections
+    of elements. One such collection is the set of all elements in a page that use
+    the same tag name. For example, you could reference all the `<a>` tags or all
+    the `<div>` tags.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The mechanism for returning a collection of elements that have the same tag
+    is the `getElementsByTagName()` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementsByTagName(*tag*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`tag`* is a string representing the HTML name used by the tags
+    you want to work with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This method returns an array-like collection that contains all the elements
+    in the document that use the specified tag. (Refer to [Chapter 7](c07.xhtml) to
+    find out how arrays work. Also check out “[Working with collections of elements](#c06-sec-0011),”
+    later in this chapter.) For example, to return a collection that includes all
+    the `div` elements in the current page, you’d use the following statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const divs = document.getElementsByTagName("div");`  ### Specifying elements
+    by class name'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another collection you can work with is the set of all elements in a page that
+    use the same class. The JavaScript tool for returning all the elements that share
+    a specific class name is the `getElementsByClassName()` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementsByClassName(*class*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`class`* is a string representing the class name used by the elements
+    you want to work with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This method returns an array-like collection that contains all the elements
+    in the document that use the specified class name. The collection order is the
+    same as the order in which the elements appear in the document. Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const keywords = document.getElementsByClassName("keyword");`  ### Specifying
+    elements by selector'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The same selectors and combinators that you use with CSS are also available
+    in your JavaScript code to reference page elements by using the `document` object’s
+    `querySelector()` and `querySelectorAll()` methods:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(*selector*) document.querySelectorAll(*selector*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`selector`* is a string representing the selector or combinator
+    for the element or elements you want to work with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The difference between these methods is that `querySelectorAll()` returns a
+    collection of all the elements that match your selector, whereas `querySelector()`
+    returns only the first element that matches your selector.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement returns the collection of all `section`
+    elements that are direct children of an `article` element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const articles = document.querySelectorAll("article > section");`  ### Working
+    with collections of elements'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `getElementsByTagName()`, `getElementsByClassName()`, and `querySelectorAll()`
+    methods each return an array-like collection that contains all the elements in
+    the document that use the specified tag, class, or selector, respectively. The
+    collection order is the same as the order in which the elements appear in the
+    document. For example, consider the following HTML code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div id="div1"> This, of course, is div 1. </div> <div id="div2"> Yeah, well
+    <em>this</em> is div 2! </div> <div id="div3"> Ignore those dudes. Welcome to
+    div 3! </div>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now consider the following statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`divs = document.getElementsByTagName("div");`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the resulting collection, the first item (`divs[0]`) will be the `<div>`
+    element with `id` equal to `div1`; the second item (`divs[1]`) will be the `<div>`
+    element with `id` equal to `div2`; and the third item (`divs[2]`) will be the
+    `<div>` element with `id` equal to `div3`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can also refer to elements directly using their `id` values. For example,
+    the following statements are equivalent:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const firstDiv = divs[0]; const firstDiv = divs.div1;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To learn how many items are in a collection, use the `length` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const totalDivs = divs.length;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To perform one or more operations on each item in the collection, you can use
+    a `for…of` loop to run through the collection one item at a time. In the JavaScript
+    trade, this is known as *iterating* over the collection. Here’s the syntax to
+    use:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (const *item* of *collection*) { *statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`item`*: A variable that holds an item in the collection. The first time through
+    the loop, *`item`* is set to the first element in the collection; the second time
+    through the loop, *item* is set to the second element; and so on.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`collection`*: The collection of elements you want to iterate over.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`statements`*: The JavaScript code you want to use to manipulate (or view,
+    or whatever) *`item`*.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For example, here’s some code that iterates over the preceding `div` elements
+    and displays each item’s `id` value in the console (refer to [Chapter 9](c09.xhtml)
+    for details on the console), as shown in [Figure 6-3](#c06-fig-0003):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`divs = document.getElementsByTagName("div"); for (const d of divs) { console.log(d.id);
+    }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the output of the script that iterates over the div elements.](images/9781394263219-fg0603.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-3:](#rc06-fig-0003) The output of the script that iterates over the
+    `div` elements.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Warning](images/warning.png) The `for…of` loop is an ECMAScript 2015 (ES6)
+    addition. If you need to support ancient browsers such as Internet Explorer 11,
+    you can use a regular `for` loop, instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (var i = 0; i < *collection*.length; i += 1) { *statements* // Use *collection*[i]
+    to refer to each item }`  ## Touring the DOM with Code'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One common task in JavaScript code is working with the children, parent, or
+    siblings of some element in the page. This is known as *traversing the DOM,* because
+    you’re using these techniques to move up, down, and along the DOM hierarchy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the sections that follow, I use the following HTML code for each example
+    technique:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<html lang="en"> <head> <title>So Many Kale Recipes</title> </head> <body>
+    <header id="page-banner"> <h1>Above and Beyond the Kale of Duty</h1> </header>
+    <main id="page-content"> <p> Do you love to cook with <a href="kale.html">kale</a>?
+    </p> </main> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Getting the children of a parent element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When you’re working with a particular element, it’s common to want to perform
+    one or more operations on that element’s children. Every parent element offers
+    several properties that enable you to work with all or just some of its child
+    nodes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the child nodes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The first child node
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The last child node
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '#### Getting all the child nodes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To return a collection of all the child elements of a parent, you use the `children`
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*parent*.children`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`parent`* is the parent element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement stores the all the child element nodes
+    of the `body` element in a variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const bodyChildElements = document.body.children;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The result is an HTMLCollection object, which is an array-like collection of
+    element nodes. If you were to use the console (refer to [Chapter 9](c09.xhtml))
+    to display the value of `bodyChildElements`, you’d get the output shown in [Figure
+    6-4](#c06-fig-0004).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the value of the bodyChildElements variable displayed in the
+    console.](images/9781394263219-fg0604.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-4:](#rc06-fig-0004) The value of the `bodyChildElements` variable
+    displayed in the console.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`HTMLCollection { 0: header, 1: main, length: 2 }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The numbers `0` and `1` are the index numbers of each child. For example, you
+    could use `bodyChildElements[0]` to refer to the first element in the collection,
+    which in this example is the `header` element.  #### Getting the first child node'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you use a parent element’s `childNodes` or `children` property to return
+    the parent’s child nodes, as I describe in the previous section, you can refer
+    to the first item in the resulting collection by tacking [0] on to the collection’s
+    variable name. For example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`bodyChildren[0] bodyChildElements[0]`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, the DOM offers a more direct route to the first child node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*parent*.firstChild`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`parent`* is the parent element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, suppose you want to work with the first child node of the `main`
+    element from the HTML example at the beginning of this section. Here’s some code
+    that’ll do the job:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const content = document.getElementById("page-content"); const firstContentChildNode
+    = content.firstChild;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, the resulting node is a text node (the white space between
+    the `<main>` and `<p>` tags). If you want the first child element node, use the
+    `firstElementChild` property, instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*parent*.firstElementChild`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`parent`* is the parent element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To get the first child element node of the `main` element from the code at
+    the beginning of this section, you’d do something like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const content = document.getElementById("page-content"); const firstContentChildElement
+    = content.firstElementChild;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, this code returns the `p` element.  #### Getting the last
+    child node'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to work with the last child node, use the `lastChild` property
+    of the parent element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*parent*.lastChild`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`parent`* is the parent element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, suppose you want to work with the last child node of the `p` element
+    from the HTML example at the beginning of this section. Here’s some code that’ll
+    do the job:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const para = document.querySelector("main > p"); const lastParaChildNode =
+    para.lastChild;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, the resulting node is a text node representing the question
+    mark (`?`) and the white space to the `</p>` tag. If you want the last child element
+    node, use the `lastElementChild` property, instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*parent*.lastElementChild`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`parent`* is the parent element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To get the last child element node of the `p` element from the code at the
+    beginning of this section, you could do this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const para = document.querySelector("main > p"); const lastParaChildElement
+    = para.lastElementChild;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the example, this code returns the `a` element.  ### Getting the parent
+    of a child element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to work with the parent of a child element, use the child
+    element’s `parentNode` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*child*.parentNode`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`child`* is the child element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, suppose you want to work with the parent element of the `h1` element
+    from the HTML example at the beginning of this section. Here’s some code that’ll
+    do the job:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const childElement = document.querySelector("h1"); const parentElement = childElement.parentNode;`  ###
+    Getting the siblings of an element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A parent’s child nodes appear in the DOM in the same order in which they appear
+    in the HTML code, which means the siblings also appear in the order they appear
+    in the HTML. Therefore, for a given child element, there are two sibling possibilities:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous sibling:** This is the sibling that appears in the DOM immediately
+    before the child element you’re working with. If the child element is the first
+    sibling, it will have no previous sibling.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Next sibling:** This is the sibling that appears in the DOM immediately after
+    the child element you’re working with. If the child element is the last sibling,
+    it will have no next sibling.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '#### Getting the previous sibling'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To return the previous sibling of a particular element, use the `previousElementSibling`
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.previousElementSibling`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`element`* is the element you’re working with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement stores the previous sibling of the `main`
+    element in a variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const currElement = document.querySelector("main"); const prevSib = currElement.previousElementSibling;`  ####
+    Getting the next sibling'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To return the next sibling of a particular element, use the `nextElementSibling`
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.nextElementSibling`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`element`* is the element you’re working with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement stores the next sibling of the `header`
+    element in a variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const currElement = document.querySelector("header"); const nextSib = currElement.nextElementSibling;`  ##
+    Adding, Modifying, and Removing Elements'
+  prefs: []
+  type: TYPE_NORMAL
+- en: After you’ve got a reference to one or more elements, you can then use code
+    to manipulate those elements in various ways, as shown in the next few sections.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Adding an element to the page'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the most common web development chores is to add elements to a web page
+    on the fly. When you add an element, you always specify the parent element to
+    which it will be added, and then you decide whether you want the new element added
+    to the end or to the beginning of the parent’s collection of children.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To add an element to the page, you follow three steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create an object for the type of element you want to add.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Add the new object from Step 1 as a child element of an existing element.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Insert some text and tags into the new object from Step 1.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '#### Step 1: Creating the element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For Step 1, you use the `document` object’s `createElement`() method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.createElement(*elementName*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`elementName`* is a string containing the HTML element name for
+    the type of the element you want to create.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This method creates the element and then returns it, which means you can store
+    the new element in a variable. Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const newArticle = createElement("article");`  #### Step 2: Adding the new
+    element as a child'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With your element created, Step 2 is to add it to an existing parent element.
+    You have four choices:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Append the new element to the end of the parent’s collection of child elements:**
+    Use the `append()` method: `*parent*.append(*child*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here are the parts of the `append()` method:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`parent`*: A reference to the parent element to which the new element will
+    be appended.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`child`*: A reference to the child element you’re appending. Note that you
+    can append multiple elements at the same time by separating each element with
+    a comma. The *`child`* parameter can also be a text string.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Prepend the new element to the beginning of the parent’s collection of child
+    elements:** Use the `prepend()` method: `*parent*.prepend(*child*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here are the parts of the `prepend()` method:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`parent`*: A reference to the parent element to which the new element will
+    be prepended.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`child`*: A reference to the child element you’re prepending. Note that you
+    can prepend multiple elements at the same time by separating each element with
+    a comma. The *`child`* parameter can also be a text string.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Insert the new element just after an existing child element of the parent:**
+    Use the `after()` method: `*child*.after(*sibling*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here are the parts of the `after()` method:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`child`*: A reference to the child element after which the new element will
+    be inserted.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`sibling`*: A reference to the new element you’re inserting. Note that you
+    can insert multiple elements at the same time by separating each element with
+    a comma. The *`sibling`* parameter can also be a text string.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Insert the new element just before an existing child element of the parent:**
+    Use the `before()` method: `*child*.before(*sibling*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here are the parts of the `before()` method:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`child`*: A reference to the child element before which the new element will
+    be inserted.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`sibling`*: A reference to the new element you’re inserting. Note that you
+    can insert multiple elements at the same time by separating each element with
+    a comma. The *`sibling`* parameter can also be a text string.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example that creates a new `article` element and then appends it
+    to the `main` element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const newArticle = document.createElement("article"); document.querySelector("main").append(newArticle);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example that creates a new `nav` element and then prepends it to
+    the `main` element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const newNav = document.createElement("nav"); document.querySelector("main").prepend(newNav);`  ####
+    Step 3: Adding text and tags to the new element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With your element created and appended to a parent, the final step is to add
+    some text and tags using the `innerHTML` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.innerHTML = *text*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: A reference to the new element within which you want to add the
+    text and tags'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`text`*: A string containing the text and HTML tags you want to insert'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![Warning](images/warning.png) Whatever value you assign to the `innerHTML`
+    property completely overwrites an element’s existing text and tags, so use caution
+    when wielding `innerHTML`. Check out the next section to learn how to insert text
+    and tags rather than overwrite them.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, the code creates a new `nav` element, prepends it to the `main`
+    element, and then adds a heading:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const newNav = document.createElement("nav"); document.querySelector("main").prepend(newNav);
+    newNav.innerHTML = "<h2>Navigation</h2>";`  ### Inserting text or HTML into an
+    element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It’s often the case that you want to keep the element’s existing tags and text
+    and insert new tags and text. Each element offers a couple of methods that enable
+    you do to do this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**To insert just text into an element:** Use the `insertAdjacentText`() method:
+    `*element*.insertAdjacentText(*location*, *text*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`element`*: A reference to the element into which the new text will be inserted.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`location`*: A string specifying where you want the text inserted. I outline
+    your choices here shortly.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`text`*: A string containing the text you want to insert.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**To insert tags and text into an element:** Use the `insertAdjacentHTML`()
+    method: `*element*.insertAdjacentHTML(*location*, *data*)`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '*`element`*: A reference to the element into which the new tags and text will
+    be inserted.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`location`*: A string specifying where you want the tags and text inserted.
+    I outline your choices here shortly.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`data`*: A string containing the tags and text you want to insert.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For both methods, you can use one of the following strings for the *`location`*
+    argument:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`"beforebegin"`: Inserts the data outside of and just before the element'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`"afterbegin"`: Inserts the data inside the element, before the element’s first
+    child'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`"beforeend"`: Inserts the data inside the element, after the element’s last
+    child'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`"afterend"`: Inserts the data outside of and just after the element'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For example, suppose your document has the following element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<h2 id="nav-heading">Navigation</h2>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to change the heading to `Main Navigation`, the following code
+    will do the job:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const navHeading = document.getElementById("nav-heading"); navHeading.insertAdjacentText("afterbegin",
+    "Main ");`  ### Removing an element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you no longer require an element on your page, you can use the element’s
+    `remove`() method to delete it from the DOM:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.remove()`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, the following statement removes the element with an `id` value
+    of `temp-div` from the page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById("temp-div").remove();`  ## Using Code to Mess Around
+    with CSS'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although you specify your CSS rules in a static stylesheet (`.css`) file, that
+    doesn’t mean that the rules themselves have to be static. With JavaScript on the
+    job, you can modify an element’s CSS in a number of ways.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Changing an element’s styles'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Most elements have a `style` property that enables you to get and modify a
+    tag’s styles. It works like this: The `style` property actually returns a `style`
+    object that has properties for every CSS property. When referencing these style
+    properties, you need to keep two things in mind:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For single-word CSS properties (such as `color` and `visibility`), use all-lowercase
+    letters.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For multiple-word CSS properties, drop the hyphen and use uppercase for the
+    first letter of the second word and for each subsequent word if the property has
+    more than two. For example, the `font-size` and `border-left-width` CSS properties
+    become the `fontSize` and `borderLeftWidth style` object properties.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const pageTitle = document.querySelector("h1"); pageTitle.style.fontSize =
+    "64px"; pageTitle.style.color = "maroon"; pageTitle.style.textAlign = "center";
+    pageTitle.style.border = "1px solid black";`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This code gets a reference to the page’s first <`h1>` element. With that reference
+    in hand, the code then uses the `style` object to style four properties of the
+    heading: `fontSize`, `color`, `text-align`, and `border`.  ### Adding a class
+    to an element'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you have a class rule defined in your CSS, you can apply that rule to an
+    element by adding the `class` attribute to the element’s tag and setting the value
+    of the `class` attribute equal to the name of your class rule.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, you can get a list of an element’s assigned classes by using the `classList`
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.classList`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`element`* is the element you’re working with.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The returned list of classes is an array-like object that includes an `add`()
+    method that you can use to add a new class to the element’s existing classes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.classList.add(*class*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you’re working with.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`class`*: A string representing the name of the class you want to add to *`element`*.
+    You can add multiple classes by separating each class name with a comma.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Here’s an example, and [Figure 6-5](#c06-fig-0005) shows the result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the code uses the add() method to add the class named my-class
+    to the ltltltdivgtgtgt tag.](images/9781394263219-fg0605.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-5:](#rc06-fig-0005) This code uses the `add`() method to add the
+    class named `my-class` to the `<div>` tag.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'CSS:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`.my-class { display: flex; justify-content: center; align-items: center; border:
+    6px dotted black; font-family: Verdana, serif; font-size: 2rem; background-color:
+    lightgray; }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div id="my-div"> Hello World! </div>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(''my-div'').classList.add(''my-class'');`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) If the `class` attribute doesn’t exist in
+    the element, the `addClass()` method inserts it into the tag. So in the previous
+    example, after the code executes, the `<div>` tag now appears like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div id="my-div" class="my-class">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '#### Removing a class'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To remove a class from an element’s `class` attribute, the `classList` object
+    offers the `remove`() method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.classList.remove(*class*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you’re working with.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`class`*: A string representing the name of the class you want to remove from
+    *`element`*. You can remove multiple classes by separating each class name with
+    a comma.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(''my-div'').classList.remove(''my-class'');`  ####
+    Toggling a class'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `classList` object offers the `toggle`() method, which toggles a class
+    on and off an element. That is, it checks the element for the specified class;
+    if the class is there, JavaScript removes it; if the class isn’t there, JavaScript
+    adds it. Sweet! Here’s the syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.classList.toggle(*class*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you’re working with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`class`*: A string representing the name of the class you want to toggle for
+    *`element`*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(''my-div'').classList.toggle(''my-class'');`  ## Using
+    Code to Tweak HTML Attributes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the key features of the DOM is that each tag on the page becomes an element
+    object. You may be wondering, do these element objects have any properties? Yep,
+    they have tons. In particular, if the tag included one or more attributes, those
+    attributes become properties of the element object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, consider the following `<img>` tag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<img id="header-image" src="mangosteen.png" alt="Drawing of a mangosteen">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This tag has three attributes: `id`, `src`, and `alt`. In the DOM’s representation
+    of the `<img>` tag, these attributes become properties of the `img` element object.
+    Here’s some JavaScript code that references the `img` element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const headerImage = document.getElementById("header-image");`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `headerImage` variable holds the `img` element object, so your code could
+    now reference the `img` element’s attribute values with any of the following property
+    references:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`headerImage.id headerImage.src headerImage.alt`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, the DOM doesn’t create properties either for custom attributes or for
+    attributes added programmatically. Fortunately, each element object also offers
+    methods that enable you to read any attribute, as well as add, modify, or remove
+    the element’s attributes. The next few sections tell all.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Reading an attribute value'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to read the current value of an attribute for an element, use the
+    element object’s `getAttribute`() method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.getAttribute(*attribute*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`attribute`*: The name of the attribute you want to read'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example that gets the `src` attribute of the element with an `id`
+    value of `header-image`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const headerImage = document.getElementById("header-image"); const srcHeaderImage
+    = headerImage.getAttribute("src");`  ### Setting an attribute value'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set an attribute value on an element, use the element object’s `setAttribute`()
+    method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.setAttribute(*attribute*, *value*);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`attribute`*: The name of the attribute you want to set'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`value`*: The string value you want to assign to *`attribute`*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the attribute already exists, `setAttribute` overwrites the attribute’s current
+    value; if the attribute doesn’t exist, `setAttribute` adds it to the element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example that sets the `alt` attribute for the element with an `id`
+    value of `header-image`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const headerImage = document.getElementById("header-image"); headerImage.setAttribute("alt",
+    "Lithograph of a mangosteen");`  ### Removing an attribute'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To remove an attribute from an element, use the element object’s `removeAttribute`()
+    method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.removeAttribute(*attribute*);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The element you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`attribute`*: A string specifying the name of the attribute you want to remove
+    from the element'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const headerImage = document.getElementById("header-image"); headerImage.removeAttribute("id");`  ##
+    Listening for Page Events'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In web development, an *event* is an action that occurs in response to some
+    external stimulus. A common type of external stimulus is when a user interacts
+    with a web page. Here are some examples:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Surfing to or reloading the page
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Clicking a button
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Pressing a key
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Scrolling the page
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Why don’t web pages respond to events automatically? Why do they just sit there?
+    Because web pages are *static* by default, meaning that they ignore the events
+    that are firing all around them. Your job as a web developer is to change that
+    behavior by making your web pages “listen” for particular events to occur. You
+    do that by setting up special chunks of code called *event handlers*. An event
+    handler consists of two parts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Event listener:** An instruction to the web browser to watch out (“listen”)
+    for a particular event occurring on a particular element.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Callback function:** The code that the web browser executes when it detects
+    that the event has occurred.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'You configure your code to listen for and react to an event by setting up an
+    event handler using the element object’s `addEventListener()` method. Here’s the
+    syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.addEventListener(*event*, *callback*);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`element`*: The web page element to be monitored for the event. The event
+    is said to be *bound* to the element.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`event`*: A string specifying the name of the event you want the browser to
+    listen for. For the main events I mention in the previous section, use one of
+    the following, enclosed in quotation marks: `DOMContentLoaded`, `click`, `dblclick`,
+    `mouseover`, `keypress`, `focus`, `blur`, `change`, `submit`, `scroll`, or `resize`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`callback`*: The callback function that JavaScript executes when the event
+    occurs. The callback can be an anonymous function or a reference to a named function.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div id="my-div"></div> <button id="my-button">Click to add some text, above</button>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const myButton = document.getElementById(''my-button''); myButton.addEventListener(''click'',
+    function() { const myDiv = document.getElementById(''my-div''); myDiv.innerHTML
+    = ''<h1>Hello Click World!</h1>''; });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The HTML sets up an empty `div` element and a `button` element. The JavaScript
+    code attaches a `click` event listener to the button, and the callback function
+    adds the HTML string <`h1>Hello Click World!</h1>` to the `div`. [Figure 6-6](#c06-fig-0006)
+    shows the resulting page after the button has been clicked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the click event callback function adds some HTML and text to
+    the div element. The message reads, Hello Click World.](images/9781394263219-fg0606.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-6:](#rc06-fig-0006) The `click` event callback function adds some
+    HTML and text to the `div` element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) If you want to run some code after the web page document
+    has loaded, add an event handler to the `document` object that listens for the
+    `DOMContentLoaded` event:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.addEventListener(''DOMContentLoaded'', function() { console.log(''We
+    are loaded!''); });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When an event fires, the DOM creates an `Event` object, the properties of which
+    contain info about the event, including the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`target`: The web page element to which the event occurred. For example, if
+    you set up a `click` handler for a `div` element, that `div` is the target of
+    the click.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`which`: A numeric code that specifies the key that was pressed during a `keypress`
+    event.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`pageX`: The distance (in pixels) that the mouse pointer was from the left
+    edge of the browser’s content area when the event fired.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`pageY`: The distance (in pixels) that the mouse pointer was from the top edge
+    of the browser’s content area when the event fired.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`metaKey`: A Boolean value that equals `true` if the user had the Windows key
+    (![Windows](images/windows.png)) or the Mac Command key (⌘  ) held down when the
+    event fired.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`shiftKey`: A Boolean value that equals `true` if the user had the Shift key
+    held down when the event fired.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To access these properties, you insert a name for the `Event` object as an
+    argument in your event handler’s callback function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*element*.addEventListener(*event*, function(e) { *This code runs when the
+    event fires* });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:***`e` is a name for the `Event` object that the DOM generates when
+    the event fires. You can use whatever name you want, but most coders use `e` (although
+    `evt` and `event` are also common).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, when handling the `keypress` event, you need access to the `which`
+    property to find out the code for the key the user pressed. Here’s an example
+    page that can help you determine which code value to use:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<div> Type a key: </div> <input id="key-input" type="text"> <div> Here''s
+    the code of the key you pressed: </div> <div id="key-output"> </div>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const keyInput = document.getElementById(''key-input''); keyInput.addEventListener(''keypress'',
+    function(e) { const keyOutput = document.getElementById(''key-output''); keyOutput.innerHTML
+    = e.which; });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The HTML sets up an `<input>` tag to accept a keystroke, and a `<div>` tag with
+    `id="key-output"` to use for the output. The JavaScript code adds a `keypress`
+    event listener to the `input` element, and when the event fires, the callback
+    function writes `e.which` to the output `div`. [Figure 6-7](#c06-fig-0007) shows
+    the page in action.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the paulmcfederies webpage. The fields include, type a key,
+    a. Here''s the code of the key you pressed: 97.](images/9781394263219-fg0607.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 6-7:](#rc06-fig-0007) The `keypress` event callback function uses `e.which`
+    to write the numeric code of the pressed key to the `div` element.'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,1855 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_32](https://doi.org/10.1007/978-3-658-42912-6_32)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '32. User Interfaces: How Do I Input and Output Data?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript is the primary language used on the web, which explains why data
+    input and output largely involve interactions with the webpage that hosts the
+    JavaScript code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript offers many possibilities to receive information from the user of
+    the web page and to modify the web page to output information. The interaction
+    with the surrounding web page is made possible by the fact that JavaScript allows
+    access to its individual elements via the *Document Object Model* (*DOM*) of the
+    web page. But before we turn to using the DOM, let’s take a quick look at output
+    with the JavaScript console, which we’ve already used a lot, and at working with
+    dialog boxes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how to output objects in the console
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to conveniently build output strings using variables with template literals
+    and string substitutions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to display information via dialog boxes and request decisions from the user
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what the *Document Object Model* (*DOM*) is, and how it is structured
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to select and modify individual elements of a web page on the basis of the
+    DOM
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use forms to accept input from the user
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 32.1 Overview of Input and Output in JavaScript
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The simplest way to output data with JavaScript is to output to the console.
+    We made extensive use of this option in the last chapter, mainly because the console
+    provides interactivity that is useful when trying out new language concepts. One
+    enters an instruction and is immediately shown the result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When writing real JavaScript applications, however, you typically won’t want
+    to work with the console, which is a developer tool and therefore usually invisible
+    to your website viewer. Instead, you want your JavaScript application to interact
+    with the website and output information there for the user to see.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this chapter, after taking a quick look at the console output we’re already
+    familiar with, we’ll look at how you can output (and input) data via *dialog boxes.*
+    After that, however, we’ll turn to the core area of input and output, working
+    with the web page that the script is embedded in. In doing so, we’ll see how individual
+    elements of the website can be modified from within your JavaScript program via
+    what’s called the *Document Object Model* (*DOM*). In particular, we’ll look at
+    *forms*, which are particularly useful for website interactivity because they
+    allow users to enter text and other information directly. Working with forms is
+    an important application area of JavaScript for a reason.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike other programming languages, we won’t get into working with files in
+    JavaScript because, for security reasons, JavaScript usually doesn’t have access
+    to the local computer’s file system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will conclude the chapter with two small sample applications, a simple calculator
+    and a color picker, that can be used to conveniently generate the hexadecimal
+    color codes commonly used in HTML.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.2 Output Via the Console
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the last chapter, we already worked frequently with the **log()** method
+    of the **console** object to output data to the console quickly and easily. In
+    this section, we’ll take a closer look at it, and in particular at how **console.log()**
+    can be used to produce output that is composed of several different parts. The
+    approaches presented here for **console.log()** are transferable and can be used
+    in many places where strings are used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Printing a List of Multiple Objects
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to output multiple values/objects in a row, simply pass them to
+    **console.log()** as a comma-separated list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''Today is: '', Date(), ''. A random number between 0 and
+    10 is: '',Math.round(Math.random()*10,0))Today is: Mon Oct 03 2022 13:24:53 GMT+0200
+    (Central European Summer Time). A random number between 0 and 10 is: 4'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**console.log()** simply outputs the objects passed as arguments stubbornly
+    one after the other. The outputs of the different objects are separated by a space.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Printing Multiple Objects as a Concatenated String
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to avoid this whitespace, you must first assemble the objects into
+    a string, controlling the occurrence of whitespace as desired, and then output
+    the complete string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** output = ''Today is: '' + Date().toString() + ''. A random number between
+    0 and 10 is: '' +Math.round(Math.random()*10,0).toString()**>** console.log(output)Today
+    is: Mon Oct 03 2022 13:30:19 GMT+0200 (Central European Summer Time). A random
+    number between 0 and 10 is: 9Working with Template Literals'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another method to achieve the same is to work with a *template literal.* Template
+    literals are strings that contain placeholders. Unlike conventional strings, they
+    are enclosed in *back ticks* (**`**). Within a template literal, placeholders
+    can be inserted to represent the value of variables or other expressions. Wildcards
+    are characterized by starting with a dollar sign (**$**) and enclosing the expression
+    they represent in curly braces, as in the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** randomNumber = Math.round(Math.random()*10,0)**>** output = `A random
+    number between 0 and 10 is:${ randomNumber}.`**>** console.log(output)A random
+    number between 0 and 10 is: 6.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This way, you don’t have to painstakingly assemble your string, making sure
+    that the quotes are set correctly for each substring and that the substrings themselves
+    are all connected with plus operators. It is sufficient to simply write a long
+    string in which you write everything you want to represent in variables or other
+    expressions as placeholders.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Important: The values of the variables are fixed at the time when the template
+    literal is created. Subsequent changes to the values of the variables are then
+    no longer reflected in the template literal. The following example illustrates
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** value = 2**>** output = `Current value: ${value}`**>** value = 3**>**
+    console.log(output)Current value: 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, a very practical feature of template literals is that, unlike conventional
+    strings, they can extend over several lines, as this example shows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** twoLines = `First lineSecond line`**>** console.log(twoLines)First lineSecond
+    line'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In a normal string, we would have had to work with the escape sequence **\n**
+    to do this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''First line\nSecond line'')First lineSecond lineWorking
+    with String SubstitutionsAnother way to generate a composite output is to use
+    string substitutions, which are supported by **console.log()** and other JavaScript
+    functions. This also works with wildcards. A simple example illustrates how this
+    works:**>** pi = 3.14159**>** console.log(''The value of the number pi is: %f'',
+    pi)3.14159'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The placeholder here is composed of the percent sign and a formatting instruction;
+    **f** instructs the output to display the number as a floating-point number. What
+    the placeholder is finally filled with depends on the further argument of the
+    **console.log()** function. In our example, the first argument after the string
+    is our variable **pi**, so this is used for the first placeholder found in the
+    string. If the string contained further placeholders, their substitutions would
+    be added as further arguments after **pi**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similarly, a value can be output as a string with **%s**, or as an integer
+    with **%d** and **%i**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''The value of the number pi is: %'', pi)3Producing Warnings
+    and Errors'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So far, we have always output to the console using **console.log()**. However,
+    you can also output warning and error messages, which are then highlighted and
+    provided with appropriate icons:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.warn(''Nothing bad, just a warning'')**>** console.error(''Now
+    a real error'')You can see the result of these outputs in ◘ Fig. [32.1](#Fig1).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig1_HTML.jpg)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of a warning and an error message. The warning message is an undefined
+    console error. The error message is undefined.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Self-generated warning and error messages
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.3 Inputs and Outputs Via Dialog Boxes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'JavaScript provides the ability to cause the browser to display messages as
+    small dialog boxes. With the help of the **alert(*****message*****)** function,
+    you display your message prominently to the user:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** alert(''An important Message'')A dialog box opens as shown in ◘ Fig.
+    [32.2](#Fig2).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig2_HTML.jpg)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the alert box. The message is, that this page says an important
+    message. The ok button is at the bottom.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**alert()** box in Google Chrome'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you want to have the user confirm an action, you use the **confirm(*****message*****)**
+    function, which displays a message and offers the user the “Okay” and “Cancel”
+    buttons in a dialog like the one shown for the example in ◘ Fig. [32.3](#Fig3)**.
+    confirm()** returns **true** if the user selected **Okay** and **false** if the
+    user selected **Cancel**.![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig3_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the confirmation dialog box. The message is, that do you really
+    want to continue learning javascript? The ok and cancel buttons are at the bottom.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: Confirmation dialog with **confirm()** in Google Chrome
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** action = confirm(''Do you really want to continue learning JavaScript?'')**>**
+    console.log(action)True'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another way to accept input from the user is to use the **prompt(*****message*****)**
+    function. It creates a dialog box in which the user can make any input, which
+    **prompt()** returns as a string (even if the user enters a number!)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following example, in which we also use the template literals introduced
+    in the previous section, should look familiar. It is the conversion of a temperature
+    value from degrees Celsius to Kelvin, which has already been used several times:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'celsius = prompt(''Please enter a temperature in degrees Celsius: '');console.log(`${celsius}
+    degrees Celsius are ${Number(celsius) + 273.15} Kelvin.`);The input dialog that
+    **prompt()** generates is shown in ◘ Fig. [32.4](#Fig4).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig4_HTML.jpg)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the prompt input dialog box. It has a text bar to enter a temperature
+    in degrees Celsius. The ok and cancel buttons are at the bottom.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**prompt()** input dialog in Microsoft Edge'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also try this example without calling the **Number()** constructor.
+    What happens? Can you explain the result? If not, go back a few pages to ► Sect.
+    [31.​3.​1](474412_1_En_31_Chapter.xhtml#Sec8).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4 Output to an HTML Document/Web Page
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 32.4.1 Writing HTML Code into the Web Page
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s now turn to the most important form of output, modifying the web page
+    in which the JavaScript program is embedded.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The simplest way to modify a web page from JavaScript is to use the **document.write(*****html*****)**
+    method. It simply writes the string passed as argument ***html*** into the web
+    page at the point where the script is embedded in the web page. The string, which
+    may contain text as well as HTML instructions (tags), is inserted into the source
+    code of the HTML page as if it had originally been written there by the designer
+    of the page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To illustrate this, let’s assume a (very minimalist) web page whose source
+    code looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<head>****<title>**Test Page**</title>****<noscript>**Please
+    enable JavaScript!**</noscript>****</head>****<body>****<h1>**Our test page**</h1>****<p**
+    id="output"**></p>****<script** src="script.js"**></script>****</body>****<html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The body of this web page contains nothing but a header (**<h1>…</h1>**), an
+    empty paragraph (**<p>…</p>**), and the reference to the script.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The JavaScript program **script.js** embedded in the web page looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>A random
+    number between 0 and 100:${random}.</p>`);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you can see, we use the template literals familiar from ► Sect. [32.2](#Sec2)
+    here to achieve a simple representation of the HTML string to be written to the
+    web page. Instead, of course, we could have written **document.write(''<p>A random
+    number between 0 and 100: '', random, ''.</p>'');** which is a little more cluttered.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, each time you refresh the display of the web page in the browser, the
+    JavaScript code is executed, drawing a new random number each time. The web page
+    that is shown in the browser after our script has been written into it using **document.write()**
+    then looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Test Page**</title>****<noscript>**Please
+    enable JavaScript!**</noscript>****</head>****<body>****<h1>**Our test page**</h1>**<**p**
+    id="output"**></p>****<p>**A random number between 0 and 100: 62.**</p>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our script modifies the web page by adding an HTML element. This practically
+    results in a “new” web page, which is then displayed in the browser. You can view
+    the source code of the page in the browser.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, of course, you won’t always want to output something new at the current
+    point in the script, but you may want to change existing elements of the web page.
+    For example, we might want to change the headline of the page. But our script
+    is “too far down” in the web page, so we can’t get to the headline. So, there
+    should be a way to change *any* element of the web page from anywhere. This way
+    does exist. It is via the *Document Object Model* (*DOM*) of the web page, which
+    we deal with in the next section.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4.2 The Document Object Model (DOM)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the HTML repetition in ► Sect. [29.​1.​1](474412_1_En_29_Chapter.xhtml#Sec2),
+    we saw that the web browser reads the HTML file, and internally converts it into
+    a representation called the *Document Object Model* or *DOM*. This is a hierarchical
+    representation of the document structure. The nodes in the structure are either:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: the document itself (highest node),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: the individual HTML elements such as **title**, **body**, **h1** or **p**,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: any text associated with the elements (the **title** and **h1** elements of
+    our example website from the previous section have directly associated text),
+    or
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: the attributes of the HTML elements like the **src** attribute of the **script**
+    element.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Graphing the hierarchical structure of these elements results in a representation
+    of the Document Object Model of the Web page as shown in ◘ Fig. [32.5](#Fig5).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig5_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A flowchart of the document object model. The document is followed by h t m
+    l which is classified into head and body. The head is followed by the title and
+    javascript test. The body is classified into h 1, p, and script.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.5
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Document Object Model (DOM) of our sample website
+  prefs: []
+  type: TYPE_NORMAL
+- en: The individual nodes of the document object model are represented in JavaScript
+    by corresponding objects. With the help of these objects, we can edit the nodes
+    and in this way change, for example, the text that is displayed in the **h1**
+    heading of the web page. To do this, we just must get hold of the right element.
+    This is not easy, because there could be several occurrences of each element type
+    (for example **h1**) in the document. So, the trick is to “target” the one element
+    we want to edit. This is exactly what we will deal with in the following sections.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, the highest node in the Document Object Model, which represents
+    the entire document, is represented in JavaScript by an object we already worked
+    with in the previous section: **document**. As you recall, we had used its **write()**
+    method to write HTML code to the web page at the point where the JavaScript program
+    is embedded.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4.3 Selecting DOM Nodes by Their Properties
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Selecting an HTML Element by Its ID
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The simplest way to capture an HTML element (i.e., a node of the Web page’s
+    Document Object Model) is to address it by its **id** attribute. In our example
+    HTML document from ► Sect. [32.4.1](#Sec5), you can see a paragraph element (**p**)
+    with the following code, which we had not used before:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<p** id="output"**></p>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The element does not carry any text or other HTML elements (there isn't anything
+    between **>** and **<**), but it has an **id** attribute that we can use to access
+    it. The **getElementById(*****id*****)** function of the **document** object is
+    used for this purpose. The statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** outputField = document.getElementById(''output'');creates an object
+    **outputField** that corresponds to the **p** element of our web page and through
+    which we can edit the element on the web page. You can quickly see that **outputField**
+    is a real object with properties and methods if you enter **outputField** (i.e.,
+    object identifier followed by the dot operator) and the popup window with the
+    properties and methods of the object opens.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The properties and methods offered depend, of course, on the type of object.
+    In our example, we are dealing with an **HTMLParagraph** object. Analogously,
+    there is a whole range of other object types for the various HTML element types.
+    Each of these object types may bring their own specific properties and methods
+    relevant to the particular type of HTML element. What they all have in common,
+    however, is that they are derived from the object type **HTMLElement** and therefore
+    share certain properties and methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: All HTML elements can have an **id** attribute, the value of which (as is usual
+    with HTML attributes) is written in quotation marks. When working with **id**
+    attributes, it is only necessary to ensure that each ID only occurs once in the
+    document, so that it can be used to uniquely identify the respective element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Selecting an HTML Element by Its Type
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTML elements can be grabbed not only by their unique ID, but also by their
+    type. The method **document.getElementsByTagName(*****type*****)** is used for
+    this purpose. Note, however, that an HTML document can have more than one element
+    of each type. Accordingly, **document.getElementsByTagName()** also returns an
+    *array* with all elements found. If you take a closer look, you will see that
+    the method, unlike **getElementById()**, is a plural—it has an s in its name—not
+    without reason!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To illustrate this, let’s rebuild our script from ► Sect. [32.4.1](#Sec5) so
+    that *all* **p** elements are grabbed:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>A random
+    number between 0 and 100:${random}.</p>`);**var** pElements = document.getElementsByTagName(''p'');console.log(pElements.length);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you open the JavaScript console, you will see that the length of the **pElements**
+    array is 2\. But why two elements? Doesn’t our HTML document contain only a single
+    **p** element? Where does the second element come from? This second element is
+    the one we create by using the **document.write()** statement in our own script.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can now work with these elements. For example, we can use the **innerText**
+    property to display the contents of the text element attached directly to the
+    HTML element created by our script in the Document Object Model. This element
+    is the second in the array, that is, the one with index 1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** pElements[1].innerText"A random number between 0 and 100: 62."Selecting
+    an HTML Element by Its CSS Class'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In a similar way to the element type, HTML elements can also be grabbed by the
+    value of their **class** attribute. As you will recall from the HTML repetition
+    in ► Sect. [29.​1.​1](474412_1_En_29_Chapter.xhtml#Sec2), HTML elements can be
+    grouped together using their **class** attribute, for which specific formatting
+    and presentation settings can then be made in a Cascading Style Sheets (CSS) file.
+    In this way, formatting and presentation instructions can be defined that are
+    not applied to all elements of a type (for example, to all **p** elements), but
+    only to some of them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **document.getElementsByClassName(*****class*****)** method, you can
+    get an array of all HTML elements whose class attribute corresponds to **class**.
+    Our simple example from above does not work with CSS, so none of the HTML elements
+    have the **class** attribute.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4.4 Selecting DOM Nodes via the Hierarchical Structure of the Document
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The hierarchical structure of the Document Object Model can be used to capture
+    other related nodes starting from one node. For this purpose, all node objects
+    offer a number of predefined properties.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Child Elements of a Node
+  prefs: []
+  type: TYPE_NORMAL
+- en: The following example shows how, starting from the **body** element of the HTML
+    document, we can grab all DOM nodes that are directly at the level *below:*
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** bodyElements = document.getElementsByTagName(''body'');**var** bodyChildren
+    = bodyElements[0].childNodes;**for**(**var** i = 0; i < bodyChildren.length -
+    1; i++) {console.log(''Node no.'', i)console.log(''Node name:'', bodyChildren[i].nodeName);console.log(''Node
+    type:'', bodyChildren[i].nodeType, ''\n'');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To do this, we first select the body element; more precisely, we grab *all*
+    body elements using the **document** method **getElementsByTagName()**. Of course,
+    there is only one of them in our web page. Nevertheless, **getElementsByTagName()**
+    always returns an array. We access its first element in the next line. We make
+    use of its **childNodes** property. **childNodes** is one of the read-only arrays
+    that every DOM node automatically has, and contains the “child nodes”, those nodes
+    that are hierarchically directly below it, i.e., in our case, whose *parent* element
+    is **body**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In a **for** loop (which we discuss in detail in ► Sect. [35.​1](474412_1_En_35_Chapter.xhtml#Sec1)),
+    we go through all the child elements and output two of their properties to the
+    JavaScript console, their name and their type. The output to the console would
+    then look like this for our example page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Node no. 0Node name: #textNode type: 3Node no. 1Node name: H1Node type: 1Node
+    no. 2Node name: #textNode type: 3Node no. 3Node name: PNode type: 1Node no. 4Node
+    name: #textNode type: 3Node no. 5Node name: SCRIPTNode type: 1'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The name of the node corresponds to the identifier of the HTML element; for
+    text nodes we find **#text** as name. As you can see, there are several text nodes
+    attached to **body**. In our sample web page, there are only other HTML elements
+    in the body, but there could be text before and after each of them. These texts
+    only are empty in our sample web page. In fact, they contain tab indentations
+    to better emphasize the hierarchical structure of the HTML source code. These
+    tab characters are represented by the text nodes seen in the output above. For
+    the sake of clarity, we have omitted their representation in our Document Object
+    Model in ◘ Fig. [32.5](#Fig5).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Text is also contained in the **h1** heading of the document (“Our test page”),
+    but it is in a text node that is hierarchically *one level lower*: It is not attached
+    to the **body** element of the web page, but to the **h1** element and is therefore
+    not captured by our traversal of the child nodes of the **body** element.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Querying Attributes
+  prefs: []
+  type: TYPE_NORMAL
+- en: The same applies to the *attributes* of the **p** element and the **script**
+    element. They are hierarchically attached to the **p** and **script** elements
+    and are therefore not direct children of the **body** element (rather its grandchildren,
+    so to speak).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, there is a peculiarity with the attributes: they are not contained
+    in the array **childNodes** as own nodes. You can easily check this by typing
+    **bodyChildren[5].childNodes** into the console (the 5th child node of **body**
+    is the **script** element). **childNodes** is empty! First of all, this is understandable
+    insofar as there are no other HTML elements or text nodes hanging hierarchically
+    below the **script element**. But the attribute **src** (the name of the script
+    file) is attached to the **script** element, and this attribute is also a node
+    in the Document Object Model of our web page. Nevertheless, this node is not included
+    in **childNodes**. Attributes are mapped differently in the form of the array
+    object **attributes**. **bodyChildren[5].attributes[0]** represents the first
+    attribute of our **script** element, **src**. The name of the attribute and its
+    value can be accessed with the properties **nodeName** and **nodeValue**, in our
+    example with **bodyChildren[5].attributes[0].nodeName** (which would then return
+    **"src"**).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is a second way to access the attributes of an HTML element. The attributes
+    are also properties of the element object. Because **bodyChildren[5]** is our
+    **script** element, we can access the *value* of its **src** attribute directly
+    with **bodyChildren[5].src** (the name is already in the attribute identifier).
+    As in many cases, the value of the **src** property of the **bodyChildren[5]**
+    object is a simple string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Identifying the Type of the Node
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s turn again to the output above. Two more things stand out: First, that
+    the nodes are mapped into the array in the order in which they appear in the document;
+    this is handy if you want to blueprint the child nodes of **body** from top to
+    bottom. Second, that there appear to be two node types, 1 and 3\. Nodes of type
+    1 are the HTML elements, nodes of type 3 are the text nodes. Attributes have node
+    type 2; thus, the **src** attribute of our **script** element also has a **nodeType**
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: bodyChildren[5].attributes[0].nodeTypeFinding the Parent Element of a Node
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Besides **childNodes**, there is another important object for navigating within
+    the DOM structure, and that is a property of each DOM node: **parentNode**. **parentNode**
+    is the counterpart of **childNodes**, it specifies the node to which the current
+    node (the one whose **parentNode** property we are querying) is hierarchically
+    immediately subordinate. Unlike **childNodes**, **parentNode** is not an array,
+    but a single node, because each child node has exactly one parent node under which
+    it hangs.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.1 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Suppose you have an object **elem** in JavaScript that represents an HTML element
+    of a web page. How can you access the sibling elements of **elem** (including
+    **elem** itself), that is, all HTML elements that are at the same hierarchical
+    level as **elem** in the HTML document?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4.5 Changing HTML Elements
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Injecting HTML Code Directly into an Object
+  prefs: []
+  type: TYPE_NORMAL
+- en: All HTML element objects have the **innerHTML** object property in JavaScript.
+    It is a string that contains all the HTML code that hangs hierarchically below
+    the respective HTML element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at the example of our web page from ► Sect. [32.4.1](#Sec5). Its
+    body element has, as we can easily check in the console, the following **innerHTML**
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** document.body.innerHTML"<h1>Our Test Page</h1><p id="output"></p><script
+    src="script.js"></script><p>A random number between 0 and 100: 31.</p>"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Of course, we can also edit this property and thus “inject” HTML code into
+    an object, so to speak. Suppose we didn’t want to output our random number in
+    a new paragraph element (**p**) that the script would simply insert at the point
+    on the website where it runs, but instead we wanted to write the number into the
+    existing paragraph element with the ID **output**. To do this, our script **script.js**
+    would simply need to grab the paragraph element by its ID and then “inject” it
+    with the output containing the random number into that element. With this, our
+    script **script.js** could then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'rndNum = Math.round(Math.random()*100, 0);pOutput = document.getElementById("output");pOutput.innerHTML
+    = ''A random number between 0 und 100: ''+ rndNum + ''.'';'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, we might want to highlight our output in boldface and embed it in
+    a **strong** element for that purpose. To do this, we would simply need to modify
+    the last line of our script as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'pOutput.innerHTML =''<strong>A random number between 0 und 100: ''+ rndNum
+    + ''.</strong>'';'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you now look at the source code of the page displayed in the browser, or
+    simply use **document.body.innerHTML** to view the HTML content of the **body**
+    element in the console, you will find the following in it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**"**<h1>Our Test Page</h1><p id="output"><strong>A random number between 0
+    und 100:33.</strong></p><script src="script.js"></script>**"**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, as you can see, we successfully “injected” a snippet of HTML code inside
+    the **p** element output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Changing Attributes of Elements
+  prefs: []
+  type: TYPE_NORMAL
+- en: Besides using the **b** element, there is another way to display text in bold,
+    and that is with the help of the CSS property **font-weight**. If you set this
+    to **bold**, the text is also displayed in boldface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The CSS properties of an HTML element can either be described via a separate
+    CSS file (a path we will take in one of the two examples with which we conclude
+    this chapter) or set directly using the **style** attribute of an HTML element.
+    Thus, if we wanted to display the entire contents of our paragraph element **output**
+    in boldface type, we would have to modify the opening HTML tag as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<p** id="output" style="font-face: bold;"**>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The name of a property and its value are always separated by a colon in CSS.
+    Strictly speaking, we would not have needed the final semicolon. However, it is
+    possible to place several CSS property assignments in the **style** attribute,
+    which must then be separated from each other with semicolons. So, it doesn’t hurt
+    to have a semicolon at the end of the **style** attribute.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But how can we now set the **style** attribute with the help of our JavaScript
+    code? The approach should not come as a surprise to you after the previous section.
+    After all, we already know that the HTML element object (which we bound to the
+    **pOutput** variable in the script above using **getElementById**) has a matching
+    property for each standard attribute. And, of course, we can assign those. It’s
+    important to note that **style** is an object with numerous properties that reflect
+    CSS properties. The names of the properties are the same as the CSS properties,
+    but the CSS-typical hyphen is omitted and replaced by capitalization. Thus, **font-weight**
+    becomes **fontWeight**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: pOutput.style.fontWeight = 'bold';
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you now—so that we can also observe the effect—reset the “injection” of the
+    HTML code to
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'pOutput.innerHTML = ''A random number between 0 und 100: ''+ rndNum + ''.'';and
+    reload the web page in the browser, you will notice that the operation was successful
+    and the output is displayed in boldface. Now, the **style** attribute is a special
+    case in that the **style** property of the HTML element object cannot simply be
+    assigned a value like **"font-face: bold;"** in JavaScript, but instead must be
+    worked with the individual properties of the **style** object.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, many attributes have a corresponding property in the HTML element object
+    in JavaScript that can be assigned directly. The **align** attribute, for example,
+    that determines the text direction, could be assigned with the statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: pOutput.align = 'right';so that the text within the paragraph is right-aligned
+    (try it out!). Unlike **style**, the corresponding property of the HTML element
+    object (in our case the **align** property of **pOutput**) is not an object, but
+    a simple string that can easily be assigned. The statement therefore results in
+    the code of the **p** element now looking like this:**<p** id=**"**output" align="right"**>**32.2
+    [10 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Create a simple web page with a **p** element (paragraph) containing a text.
+    From within a JavaScript program, change the font background color (CSS property
+    **background-color**) so that the text is highlighted in light yellow (color components
+    red: 255, green: 255, blue: 204).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4.6 Adding and Deleting HTML Elements
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Adding HTML Elements
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the last section, we used the **innerHTML property** of HTML element objects
+    to “inject” HTML code directly into the elements, and in this way we were also
+    able to create new HTML objects as child elements of the edited parent elements
+    by simply writing their full HTML code inside the parent element. In this section,
+    we’ll look at another method of creating HTML elements by generating corresponding
+    HTML element objects in JavaScript and then “hooking” them into the document at
+    the desired location.
+  prefs: []
+  type: TYPE_NORMAL
+- en: New HTML element objects can be easily created in JavaScript using the **createElement()**
+    function of the **document** object. As argument, this function expects the identifier
+    of the HTML element type of which an instance is to be created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To create a new subheading (HTML element type **h2**), for example, the following
+    statement is sufficient:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** heading2 = document.createElement(''h2'');'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now we can edit the properties of the new element as desired, for example,
+    using the **align** attribute to make the heading text right-aligned:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Headline2.align = 'right';
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Of course, the heading also needs a text. We could set it with the already
+    known **innerHTML** property of our element object, or we could use the innerText
+    property. **innerText** usually represents all the text that is attached to the
+    element itself or its children in text nodes; this becomes clear if you take a
+    look at the **innerText** property of the **body** element of our web page. However,
+    we can also use **innerText** to add text to our newly created element (which
+    has no child elements):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: heading2.innerText = 'Another exciting section';
+  prefs: []
+  type: TYPE_NORMAL
+- en: After we have sufficiently configured our new HTML element object, we still
+    need to add it to the web page where we want it. The easiest way to do this is
+    to grab the intended parent element and then add the new child element to it using
+    the element object method **appendChild(*****newChild*****):**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** bodyElem = document.getElementsByTagName(''body'')[0];bodyElem.appendChild(heading2);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternatively, if you don’t want to simply append the new element to the existing
+    child element at the back, you can control its position more precisely by placing
+    the child element with the element object method **insertBefore(*****newChildElement*****,**
+    ***successorChildElement*****)**. This way, we could insert our new heading before
+    the paragraph element **output**, which we represent in our program by the object
+    **pOutput**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: bodyElem.insertBefore(heading2, pOutput);32.3 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Develop a piece of JavaScript code that you can run in the JavaScript console
+    that adds the bold-formatted text “This is the end.” to the HTML body of a web
+    page (at the bottom of the web page).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Try it out: Take a web page like ► [*wikipedia.com*](http://wikipedia.com),
+    open the developer tools in your browser and run your code. You will see that
+    your HTML element has been added to the web page!'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Deleting HTML Elements
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Deleting HTML elements from the web page can be conveniently accomplished with
+    the **remove()** method that all HTML node objects in JavaScript inherently provide.
+    So, for example, to delete the paragraph element **output**, all we have to do
+    is call **remove()** on the **pOutput** object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: pOutput.remove()
+  prefs: []
+  type: TYPE_NORMAL
+- en: The element immediately disappears from the web page. Just like when adding
+    and changing objects, the browser regenerates the display without the user or
+    us as developers having to do anything.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.5 Input with Forms
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the following, we will look at how JavaScript can be used to validate or
+    otherwise process input from HTML forms. The next section first provides a brief
+    overview of how forms work in HTML. If you are already familiar with this, you
+    can—without missing anything—go directly to ► Sect. [32.5.2](#Sec13).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.5.1 Forms in HTML
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'With the exception of dialog boxes, we have so far focused on how to output
+    data in web pages, but not on how the user can enter data. This is exactly the
+    purpose of HTML forms: They are used to accept data from the user. The data received
+    is often sent to the web server that provides the page and processed there. This
+    often involves the use of the PHP programming language, which was developed precisely
+    for this purpose, but sometimes also involves server-side JavaScript programs.
+    In such client-server situations, JavaScript usually has the task of validating
+    the user’s input on the client side before it is sent to the web server, for example,
+    to check for any incorrect entries, stop the sending of the data (if necessary)
+    and inform the user of the incorrect entries.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, the data does not necessarily have to be sent to a web server. In fact,
+    the form input can also be used as input for a JavaScript application; this application
+    would then not be a validation mechanism, but in a sense the final recipient of
+    the data. The data would be entered for the sole purpose of being processed by
+    the JavaScript program. The two examples with which this chapter concludes, a
+    calculator and a color picker, fall squarely into the category of interaction
+    between forms and JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, before we get into these applications, let’s first look at how forms
+    are constructed in HTML. Forms are always created by the HTML element **form**.
+    This creates an initially empty form. Within the **form**, there can be any number
+    of different **input** elements that represent different input options. The type
+    of input represented by each element is controlled by the **input** attribute
+    **type**. Consider the following simple (login) form as an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<form** action="http://www.mysupernicewebsite.com/login.php" method="POST"**>**Username:
+    **<br>****<input** type="entry" value="" name="username"**><br>**Password: **<br>****<input**
+    type="password" value="" name="password"**><br>****<input** type="submit" value="Login"**>****</form>**In
+    this example, we create a form with a total of three input elements:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: an element of type **entry** for the username; this is a simple text input field
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: an element of the type **password**, which is ultimately a special variant of
+    the type **entry**, where the entered characters are masked by asterisks
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: an element of type **submit**, a special button that sends the form content
+    to the server
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Besides these, there are a number of other types of input elements, for example
+    **button** (“normal” buttons, the **submit** type has a very special function
+    as a button), **radio** (radio buttons), **checkbox** which can then in turn be
+    queried in the(checkboxes), **range** (sliders) and **textarea** (for multi-line
+    text input). There are also input elements that allow the selection of dates (**date**),
+    colors (**color**) or files to be uploaded (**file**), plus a range of other elements
+    that support other input modes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: All elements have a **value** attribute that contains their current value; in
+    the case of the text input fields, this is the text currently in the input field,
+    and in the case of the **submit** button, it is the button label. This attribute
+    is important because it can be used to determine the user’s input, which is to
+    be processed. Besides **value**, the input elements can also have a **name** attribute
+    (as do all HTML elements). This is helpful if you want to access the input values
+    on the server side. If, on the other hand, we are only working with JavaScript
+    on the client side, we can also access the elements as usual via an **id** attribute,
+    which has been omitted in the above example for the sake of simplicity. The **name**
+    is also used to group those elements that logically need to be evaluated together;
+    this is especially true for the individual selection options in a group of radio
+    buttons, where only one option can be selected at a time (we will take a closer
+    look at this in an example below).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The behavior of the input elements can be fine-tuned with a number of other
+    attributes; for example, the **required** attribute prevents the form from being
+    submitted if the field in question is not filled in, and the **readonly** attribute
+    prevents the user from making changes to the current value of the input element.
+    Both attributes are of type **boolean**, so their possible values are **true**
+    and **false**. Instead of, say, **required="true"**, however, you often see simply
+    **required** in practice. The mere existence of the attribute is already evaluated
+    as **true** and would be sufficient in this case to make the input element in
+    question a mandatory specification.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In addition to these standard attributes, the various input elements can have
+    other type-specific attributes. For example, the **range** input element, which
+    represents a slider, has the attributes **min** and **max**, which describe the
+    limits of the range within which a value can be selected with the help of the
+    slider (which can then in turn be queried in the **value** attribute); checkboxes
+    have a **boolean** attribute with **checked**, which specifies whether the checkbox
+    should currently be checked or not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So far, we have not discussed the attributes of the **form** element itself.
+    The attribute **action** determines which address should be called (usually a
+    PHP script) to pass the data to the server when the user triggers the submission
+    of the form via the **submit** button. The **method** determines which mode should
+    be used to transfer the data via the *Hypertext Transfer Protocol* (HTTP). The
+    default value of this attribute is **GET**, but **POST** is usually used when
+    sensitive data such as passwords is to be transferred.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The attributes **action** and **method** of the **form** element, as well as
+    the submit **button**, with which the data can be sent, are however only needed
+    if the entered data is to be transferred to a web server. The color picker example
+    at the end of the chapter does not need any buttons at all, the calculator example
+    uses buttons but no **submit** button. Both applications process the data directly
+    in a client-side JavaScript program and can therefore do without any precautions
+    for sending the data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.5.2 Accessing Forms from JavaScript
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: From within our JavaScript programs, we regularly want to work with the data
+    that the user has entered into a form. To do this, we need to access the form
+    elements from JavaScript to get to the data they contain, but we also need to
+    find a way to link this access (and the subsequent processing of the data) to
+    an action by the user. After all, in the area of web interfaces, we are also operating
+    in an *event-driven* environment in which the user triggers events (for example,
+    by clicking on a button) and our JavaScript application reacts to them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To learn about the event control procedure and how to access the form data,
+    let’s look at our well-used example, the temperature conversion between degrees
+    Celsius and Kelvin.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This application could have an interface where the user enters a temperature
+    and decides whether to convert that temperature to degrees Celsius (they had entered
+    a Kelvin temperature) or to Kelvin (they had entered a Celsius temperature). A
+    click on a button starts the conversion and outputs the result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The HTML code of such an interface looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<head>****<title>**Temperature Conversion</title>**<noscript>**Please
+    activate JavaScript!**</noscript>****</head>****<body>****<script** src="kelvincelsius.js"**></script>****<h1>**Temperature
+    conversion Kelvin <=> degrees Celsius **</h1>****<form>****<p>**Temperature for
+    conversion: **<input** id="temp"type="text" value="" size="5"**>****<span** id="unitLabel">
+    Kelvin**</span></p>**Convert to:**<br>****<p><input** type="radio" name="direction"
+    checkedonchange="change(''Kelvin'')"**>**degrees Celsius**</p>****<p><input**
+    type="radio" name="direction"onchange="change(''Celsius'')"**>**Kelvin**</p>****<p></p>****<input**
+    type="button" value="Convert"onclick="convert()"**>****</form>****</body>****</html>**This
+    is also shown in ◘ Fig. [32.6](#Fig6)![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig6_HTML.jpg)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of a H T M L form of Kelvin-celsius conversion. It has a text box
+    to give input and 2 radio buttons to select degrees Celsius or Kelvin. A convert
+    button is at the bottom.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Kelvin-Celsius conversion with HTML form
+  prefs: []
+  type: TYPE_NORMAL
+- en: The form includes a text input with the ID **temp** for *temperature*, two radio
+    buttons (**direction**) to define the conversion direction and a button that triggers
+    the conversion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You will also see an HTML element that we haven’t encountered before, namely
+    **span**. **span** doesn’t have any special function, but it helps us to give
+    a text display its own ID so that we can address it from within our JavaScript
+    program. On our **span** element **unitLabel**, we represent the unit in which
+    the user enters the temperature. Every time he changes the selection regarding
+    the conversion direction, this unit display must also change.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We have combined the two radio buttons via their **name** attribute: This means
+    that they belong to one group, so only one of them can be selected at a time.
+    Please note that the grouping of the radio buttons is realized via the **name**
+    attribute and not via the **id** attribute. The difference is that the ID is a
+    *unique* identifier. So there must not be two elements with the same ID. Our two
+    radio buttons do not have an ID at all, because we can also address them by name
+    from within our JavaScript program. The button that starts the conversion even
+    has neither an ID nor a name. Neither is necessary, since the button triggers
+    an action and thus triggers our JavaScript program, but we do not need to access
+    it from within the program.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **p** and **br** elements have a purely design function (**br** creates
+    a simple line break), they help us to make the form a bit more visually appealing.
+    So, as you can see, not only **input** elements can be placed in a **form** element,
+    but you can use the whole HTML element variety (including tables and images) to
+    build an attractive form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, we have not yet considered a very important part of the form: The
+    **onchange** and **onclick** attributes of the **direction** radio button and
+    the **Convert** button. The value of each of these attributes is a JavaScript
+    function (an *event handler*), the name of the attribute is related to an event,
+    namely to the event on whose occurrence the respective JavaScript function is
+    to be called. For example, if the user clicks on our button, the **click** event
+    is triggered. When the **click** event occurs, the browser automatically checks
+    whether the **onclick** attribute is set and, if so, executes the JavaScript function
+    specified there. In this way, we link our interface to the JavaScript program.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our example, this looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {document.write(`<p>${temp} Kelvin are${temp - 273.15} degrees Celsius.<p>`);}**else**
+    {document.write(`<p>${temp} degrees Celsius are${temp + 273.15} Kelvin.<p>`);}}**function**
+    change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
+    = unit;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The whole program consists of only two functions, namely the two event handlers
+    that are linked to the radio buttons and the main button of our application. The
+    function **change()** is stored as an event handler with the **onchange** attributes
+    of our radio buttons and is therefore always called when the **change** event
+    occurs. This happens whenever the user clicks on one of the radio buttons (by
+    the way, we could just as well have attached our event handler to the **click**
+    event). When the event occurs, the function is called with one argument, which
+    is the unit to be displayed on our **span** element **unitLabel** as the unit
+    for the user input. In the HTML code you can see very clearly that the event handler
+    is immediately given the desired unit as a parameter when it is called: **onchange="change(''Kelvin'')"**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the event handler **change()** we first select the **span** element with
+    **document.getElementById()** and then replace the HTML code inside it; in our
+    example this is just plain text without any further HTML coding anyway.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But now to our other event handler, **convert()**, which is called whenever
+    the user clicks the “Convert” button. It has a very simple structure. First, we
+    get the temperature by querying the **value** attribute of the **temp** input
+    field, which we select by its ID. Note that we have to convert the value to a
+    **number** variable, because we want to calculate with the temperature value.
+    The form itself always saves the entered value as a **string**; there are ways
+    to configure form input fields so that they only allow numeric input from the
+    start, which we have not done here for simplicity’s sake. Next, we select the
+    radio buttons by name. To do this, we use the **getElementsByName()** function.
+    Pay attention to the plural s in **Elements**! Since the name—unlike the ID—is
+    not necessarily unique, it can happen that you get several elements when selecting
+    by name. And this is exactly the case in our example. The return value of the
+    call to **getElementsByName()** is an *array* of elements, in our example the
+    two radio buttons. In the next step, we use the **checked** attribute of the radio
+    buttons to check whether our first radio button (index 0!) is checked. Don’t worry
+    too much about the If-Else construct at this point, we will deal with this kind
+    of program branching in detail in ► Sect. [34.​1](474412_1_En_34_Chapter.xhtml#Sec1).
+    If our first radio button is checked, it means that the user of our program wants
+    a conversion from Kelvin to degrees Celsius. We then output this to the web page
+    with **document.write()** using a template literal (if you are no longer familiar
+    with template literals, scroll back a few pages to ► Sect. [32.2](#Sec2)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, our JavaScript program consists entirely of event handlers that
+    lie dormant until they are triggered by the browser because an event has occurred
+    to which they are linked. We will deal with events in more detail in ► Sect. [34.​3](474412_1_En_34_Chapter.xhtml#Sec5),
+    when we talk about program flow control. At this point, it is sufficient to understand
+    the basic mechanism by which we can “wire” our JavaScript code to the interface
+    controls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.4 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Modify the Kelvin-Celsius conversion example so that the output is not done
+    with **document.write()**, but to an HTML element of type **span** that must be
+    built into the web page interface for this purpose.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.5 [30 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Develop a simple application in which one can use a slider to change the font
+    size of some sample text displayed on the application’s web page. The font size
+    can be set in HTML/CSS via the **fontsize** CSS style option and is specified
+    in pixels (**px**); a valid font size setting would, for example, be **'18px'**.
+    If you think you need some more “inspiration” before tackling this task, first
+    deal with the examples in the following two sections.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '32.6 Example: Simple Calculator'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this and the next section, we will develop two little example applications.
+    First, we turn to a simple calculator. The calculator should be able to handle
+    the four basic arithmetic operations and allow copying the result of the calculation
+    to the clipboard. The input of numbers and operators shall be done either by buttons
+    or by direct input via the keyboard.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our application consists of three files:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: the HTML file **calculator.html**, which builds the web interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: the Cacading-Style-Sheet-(CSS-)file **calculator.css**, which helps us to define
+    the design of the buttons and the display, as well as
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: the JavaScript program **calculator.js**, which provides the functionality for
+    the interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 32.6.1 The Web Interface
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s start with the HTML file **calculator.html**:1 **<!DOCTYPE html>**2 **<html>**34
+    **<head>**5 **<title>**Calculator**</title>**6 **<link** rel="stylesheet" type="text/css"
+    href="calculator.css"**>**7 **<noscript>**Please activate JavaScript!**</noscript>**8
+    **</head>**910 **<body** bgcolor="#282923"**>**11 **<script** src="calculator.js"**></script>**1213
+    **<form>**14 **<input** id="display" type="text" value="0"class="inputOutput"**>**15
+    **<p></p>**16 **<input** type="button" value="C" class="normalButtonfunctionButton"
+    onclick="clearDisplay()"**>**17 **<input** type="button" value="Copy" style="width:104px"class="normalButton
+    functionButton" onclick="copy()"**>**18 **<input** type="button" value="/" class="normalButtonfunctionButton"
+    onclick="key('/')"**>**19 **<p></p>**20 **<input** type="button" value="7" class="normalButton"onclick="key('7')"**>**21
+    **<input** type="button" value="8" class="normalButton"onclick="key('8')"**>**22
+    **<input** type="button" value="9" class="normalButton"onclick="key('9')"**>**23
+    **<input** type="button" value="*" class="normalButtonfunctionButton" onclick="key('*')"**>**24
+    **<p></p>**25 **<**input type="button" value="4" class="normalButton"onclick="key('4')"**>**26
+    **<input** type="button" value="5" class="normalButton"onclick="key('5')"**>**27
+    **<input** type="button" value="6" class="normalButton"onclick="key('6')">28 **<input**
+    type="button" value="-" class="normalButtonfunctionButton" onclick="key('-')">29
+    **<p></p>**30 **<input** type="button" value="1" class="normalButton"onclick="key('1')"**>**31
+    **<input** type="button" value="2" class="normalButton"onclick="key('2')"**>**32
+    **<input** type="button" value="3" class="normalButton"onclick="key('3')"**>**33
+    **<input** type="button" value="+" class="normalButtonfunctionButton" onclick="key('+')"**>**34
+    **<p></p>**35 **<input** type="button" value="0" class="normalButton"style="width:104px"
+    onclick="key('0')"**>**36 **<input** type="button" value="." class="normalButton"onclick="key('.')"**>**37
+    **<input** type="button" value="=" class="normalButtonfunctionButton" onclick="calculate()"**>**38
+    **</form>**39 **</body>**4041 **</html>**Lines 1–8
+  prefs: []
+  type: TYPE_NORMAL
+- en: The usual HTML header, in which we first include the CSS file **calculator.css**
+    and use the **noscript** element to make a provision for the case where the user
+    has JavaScript disabled in his browser. The CSS file is integrated with the **link**
+    element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 10
+  prefs: []
+  type: TYPE_NORMAL
+- en: We set the background of the web page by the **bgcolor** attribute to a dark
+    shade, so that our calculator also looks stylish. After all, the eye does the
+    math!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 11
+  prefs: []
+  type: TYPE_NORMAL
+- en: We include the script **calculator.js**, which contains the actual functionality
+    of the page. It is technically executed at this early point when the web page
+    is loaded, but as we will see below, it only consists of functions that are called
+    as event handlers, in other words, it is event-driven by the individual buttons.
+    As long as these functions are not explicitly called, nothing at all happens on
+    the application side when the script is executed. We could just as well have included
+    the script in the **body** segment of our website. This would not affect the functionality
+    of the application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 13 and 38
+  prefs: []
+  type: TYPE_NORMAL
+- en: The rest of the **body** segment of our page is an HTML form that contains all
+    the controls of the calculator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 14
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we define the display of our calculator. We give it the id **"display"**
+    so that we can address it later from our JavaScript program. Its type is **text**,
+    so it is an input field, after all, the user should also be able to enter numbers
+    and operators via the keyboard; in our calculator, he can type directly into the
+    display. The initial value should be 0 as long as the user has not entered anything
+    else. In addition, we give our display a class information with the help of the
+    attribute **class**. For this class we defined **inputOutput**, there are special
+    design instructions in the CSS file. So, we don’t have to define the design at
+    this point via attributes directly in the HTML code, (especially the CSS attribute
+    **style**) but we outsource these settings to the separate CSS file, making our
+    code clearer and easier to maintain. This way, if we wanted to change the design
+    of the calculator display, we could simply include another CSS file via the **link**
+    element in the header of the page, which also contains design statements for the
+    class **inputOutput**, and the display of the display would change without us
+    having to adjust the actual web page (the HTML document).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 16–37
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is where the actual buttons come in. Through the **onclick** attribute,
+    we assign a JavaScript function to each of the buttons, which is triggered whenever
+    the user clicks on the button. This event handler function is either the function
+    **key(character)**, which is passed as an argument to the character (digit or
+    operator) that is on the key button, or the special functions **calculate()**
+    to trigger the calculation when the user clicks on the equals sign, or **clear()**
+    to clear the display, or **copy()** to copy the current display content to the
+    clipboard. Initially, all buttons have **normalButton** as their **class** attribute,
+    except for the special function buttons, such as, the operators and the copy,
+    clear, and equal sign buttons. The function buttons belong not only to the **normalButton**
+    class, but also to the **functionButton** class. The **functionButton** class
+    ensures that these buttons get an orange coloring, while the buttons of the **normalButton**
+    class get the default coloring (usually a shade of gray). We’ll take a closer
+    look at this later in connection with the CSS instructions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you may have noticed, the buttons themselves have not been given an **id**.
+    Strictly speaking, this is a bit messy, but it’s not necessary for us, since we
+    don’t need to address the buttons from our JavaScript code. It’s the other way
+    around: the buttons address our code by calling the corresponding event handler
+    function when they are clicked by the user.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can see the entire interface in ◘ Fig. [32.7](#Fig7).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig7_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the calculator interface. It has a display screen at the top,
+    numbers from 0 to 9, signs for division, multiplication, minus, addition, equal
+    to, C, and copy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.7
+  prefs: []
+  type: TYPE_NORMAL
+- en: The interface of the calculator application
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.6.2 The CSS Design Instructions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In order to separate the basic structure of the interface described in the HTML
+    file from the detailed design of the individual elements, we move the latter in
+    our example to a separate CSS file **calculator.css**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The CSS file defines design statements for three classes of objects, **normalButton**
+    (basically all buttons), **functionButton** (the function buttons) and **inputOutput**
+    (the display of our calculator). The design statements are presented per class
+    in a CSS block enclosed by curly braces. The block is preceded by the *selector*,
+    which specifies the HTML elements of the web page to which the design statements
+    are to be applied. The preceding dot means “All objects whose **class** attribute
+    *contains* the specified class”. In ► Sect. [32.6.1](#Sec15), we saw that function
+    buttons belong to two classes, **normalButton**, which is the class for all buttons,
+    and the special class **functionButton**. The CSS selector **.functionButton**
+    therefore causes the appropriate design statements to be applied to these buttons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1 .normalButton {2 width:50px;3 height:50px;4 }56 .functionButton {7 background-color:
+    #ED5036;8 color: #FFFFFF;9 border: 1px solid #ED5036;10 }1112 .inputOutput {13
+    width:208px;14 height:60px;15 background-color: #282923;16 color: #66FF33;17 border:
+    1px solid #ED5036;18 padding-right: 5px;19 font-family: "Lucida Console";20 font-size:32px;21
+    font-weight: bold;22 text-align: right;23 }Lines 2–3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For the class **normalButton**, and thus initially for all buttons, we define
+    height and width in pixels (delete these design statements once from the CSS file
+    and reload the page in the browser. What happens?)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 7–9For the class **functionButton**, we additionally define special background
+    and foreground colors and the design of the button border (here, a one-pixel-wide
+    solid line in the same color as the button background). Those buttons that belong
+    only to the **normalButton** class (i.e., primarily the number buttons) naturally
+    have a color scheme as well, but we haven’t explicitly defined it; therefore,
+    default values are used, which normally result in these buttons being gray. For
+    the **functionButton** class, we override these default values with our own color
+    specifications. Once you have loaded the page in the browser, open the Developer
+    Tools and click on “Elements” (in browsers other than Google *Chrome,* the corresponding
+    tab may be called something else). There you’ll find a function button (in Google
+    *Chrome,* at the very top left) that allows you to switch to a special Elements
+    Inspection mode. In this mode, you can select an element on the web page by clicking
+    on it and get more information about it in the Developer Tools. In the Element
+    Inspector (◘ Fig. [32.8](#Fig8)), you see the selected element in the HTML source
+    code of the page on the left and the CSS design specifications for the element
+    on the right. The design defaults read from the bottom to the top. In our example
+    (the function button with the division operator was selected), you see a whole
+    series of CSS design properties that are preset with default values, first for
+    the class **input** (CSS block at the very bottom), then, above, a block with
+    additional properties specifically for **input** elements of type **button**.
+    Then, above that, the two CSS blocks for the buttons of the classes we defined,
+    **normalButton** and **functionButton**. Some properties are crossed out. This
+    means that these properties are overridden by a more specific CSS block. For example,
+    the **color** and **background** properties in the CSS block for input elements
+    of type **button** are crossed out because they are defined differently in the
+    special CSS block for buttons of class **functionButton** (and the selected button
+    is such a button). This way you can quickly see which (values for the) CSS design
+    properties your element has and where they come from.![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig8_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the calculator interface and element inspector. The element
+    inspector displays a set of program codes. The header style is displayed on the
+    right.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.8
+  prefs: []
+  type: TYPE_NORMAL
+- en: Element inspector in Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: We assign a width directly to the buttons for copying the display content and
+    the number 0 in the HTML code of the web interface using your **style** attribute.
+    The **style attribute** contains CSS code that applies only to the element in
+    question. This takes precedence over all other statements in the CSS stylesheet
+    file, as you can see by examining the CSS statement hierarchy of one of the elements
+    in the Element inspector.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 13–22
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is where the design for the calculator display is set; including the background,
+    font, color and size, and the text indentation from the edge of the element (*padding*).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.6.3 The JavaScript Code
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The JavaScript code of our application consists of the four event handler functions
+    that we trigger from the HTML interface when the different buttons are clicked:1
+    **function** key(character) {2 **var** display = document.getElementById('display');3
+    display.value = display.value + character;4 }56 **function** clearDisplay() {7
+    **var** display = document.getElementById('display');8 display.value = '0';9 }1011
+    **function** copy() {12 **var** display = document.getElementById('display');13
+    display.select();14 document.execCommand('copy');15 }1617 **function** calculate()
+    {18 var display = document.getElementById('display');19 display.value = Number(eval(display.value)).toFixed(6);20
+    }Lines 1–9
+  prefs: []
+  type: TYPE_NORMAL
+- en: The functions **key(character)** and **clearDisplay()** are event handler functions
+    that are called when the user clicks one of the corresponding buttons. As you
+    remember, we always call the function **key(character)** from the HTML code of
+    the web page with the character as argument (no matter if it is a number or an
+    operator) that is assigned to the pressed key. By using this “trick” we only need
+    one function for all buttons, instead of a special event handler for each button.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both functions change the display on the screen. To do this, we first always
+    “grab” the display element of our web page form using the **getElementById()**
+    method of the **document** object. Then we change the property **value** of the
+    display element, i.e. the text displayed on the input element; with **key()**
+    we simply add the label of the pressed button to the current value (line 3).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 11–15
+  prefs: []
+  type: TYPE_NORMAL
+- en: To copy the current display content to the clipboard, we first select the existing
+    text using the **select()** method of the **display input** element and then call
+    the browser’s copy command.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 17–20
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When the user wants to perform the entered calculation and clicks the button
+    with the equal sign, the value of the display is updated. Here we use the function
+    **eval(*****expression*****)**, which evaluates the expression passed as a string,
+    that is in our case: calculates it. We then convert the result into a number using
+    **Number()**, which we then format into a string representation with six decimal
+    places using its **toFixed()** method.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '32.7 Example: Color Picker'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this example we develop a small application that allows you to design colors
+    according to the red-green-blue (RGB) scheme in a user-friendly way and to convert
+    them into the HTML-typical hexadecimal encoding. Such applications, even much
+    more sophisticated ones, can be found *en masse* on the Internet.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.7.1 The Web Interface
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The interface of our application is very simple. It consists of three sliders
+    that allow you to change the color components of red, green, and blue, and a field
+    that displays the resulting color as a hexadecimal code of the form **#RRGGBB**.
+    The color currently selected via the sliders is used as the background color of
+    the web page, so that the user can get a good impression of the color he has created.1
+    **<!DOCTYPE html>**2 **<html>**34 **<head>**5 **<title>**Color Picker**</title>**6
+    **<noscript>**Please activate JavaScript!**</noscript>**7 **</head>**89 **<body**
+    id="bodyElem"**>**1011 **<div** style="background:#FFFFFF; margin: 0 auto;padding:10px;
+    width:400px;"**>**1213 **<form>**14 **<input** id="hexColor" type="input" value="#000000"
+    readonly**>**15 **<p>**Red:**</p>**16 **<input** id="colorRedRange" type="range"
+    value="255"min="0" max="255" oninput="adjustColor()"**>**17 **<input** id="colorRedOutput"
+    type="input" value="255"readonly**>**18 **<p></p>**19 **<p>**Green<**/p>**20 **<input**
+    id="colorGreenRange" type="range" value="255"min="0" max="255" oninput=" adjustColor
+    ()"**>**21 **<input** id="colorGreenOutput" type="input" value="255"readonly>22
+    **<p></p>**23 **<p>**Blue**</p>**24 **<input** id="colorBlueRange" type="range"
+    value="255"min="0" max="255" oninput=" adjustColor ()"**>**25 **<input** id="colorBlueOutput"
+    type="input" value="255"readonly**>**26 **</form>**2728 **</div>**2930 **<script**
+    src="colorpicker.js"></script**>**3132 **</body>**3334 **</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at the interface in detail:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 9
+  prefs: []
+  type: TYPE_NORMAL
+- en: This time we give the **body** element of the page an **id** because we want
+    to color the background of the page in the selected hue. To do this, we need to
+    adjust the **bgcolor** attribute of the **body** element from within our JavaScript
+    code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 11
+  prefs: []
+  type: TYPE_NORMAL
+- en: A **div** element in HTML simply marks a contiguous area on the page, ultimately
+    a box that is initially invisible. We put all our controls in such a box. We can
+    then color the **div** element white using its CSS attribute **style** (**#FFFFFF**
+    corresponds to color portions for red, green, and blue of 255 each) and center
+    it on the page (this is done with the value **0 auto** for the **margin** property).
+    In addition, we equip the box with a margin of 10 pixels wide using the **padding**
+    property, so that the controls have some free space to the edge of the box and
+    fix the width of the box to 400 pixels.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 13–26
+  prefs: []
+  type: TYPE_NORMAL
+- en: The form inside the **div** box consists of a text input field in which we display
+    the color code converted to hexadecimal notation (line 14). By default, the color
+    should be white as long as the user has not selected a different color via the
+    sliders. We also want the input field to be read-only, so we add the attribute
+    **readonly**, which is a **boolean** attribute and therefore does not require
+    an explicit value assignment for a true value (but we could have written **readonly="true"**).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we add three sliders (**color*****Colorname*****Range**), one for each
+    color part ***Colorname*** of our RGB value. The sliders are of type **range**
+    and are adjustable between 0 (**min**) and 255 (**max**). Each time the user moves
+    them (event **oninput**), the event handler **adjustColor()** is fired, which,
+    as we will see below, adjusts the hexadecimal color code in the **hexColor input**
+    field, resets the background color of the page, and finally displays the new color
+    portion in a (readonly) input field (**color*****Colorname*****Output**) next
+    to the slider. By using the empty paragraph elements **<p></p>** we provide line
+    breaks and thus better readability.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can see the entire interface in ◘ Fig. [32.9](#Fig9).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig9_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the color picker application interface. It has 3 colors, and
+    each has a slider and a textbox. Numerical data are given in the text boxes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 32.9
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Color Picker application interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.7.2 The JavaScript Code
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The JavaScript file **colorpicker.js**, which we include in our web page in
+    line 30, consists only of the event handler **colorAdjust()**, the function that
+    is called every time the user moves one of the sliders.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code in detail:1 **function** adjustColor() {23 **var** bodyElem = document.getElementById('bodyElem');4
+    **var** hexColor = document.getElementById('hexColor');56 **var** colorRedRange
+    = document.getElementById('colorRedRange');7 **var** colorGreenRange =document.getElementById('colorGreenRange');8
+    **var** colorBlueRange =document.getElementById('colorBlueRange');910 **var**
+    colorRedOutput =document.getElementById('colorRedOutput');11 **var** colorGreenOutput
+    =document.getElementById('colorGreenOutput');12 **var** colorBlueOutput =document.getElementById('colorBlueOutput');1314
+    **var** hexRed = Number(colorRedRange.value).toString(16);15 **var** hexGreen
+    = Number(colorGreenRange.value).toString(16);16 **var** hexBlue = Number(colorBlueRange.value).toString(16);1718
+    **if**(hexRed.length == 1) hexRed = '0' + hexRed;19 **if**(hexGreen.length ==
+    1) hexGreen = '0' + hexGreen;20 **if**(hexBlue.length == 1) hexBlue = '0' + hexBlue;2122
+    **var** hex = '#' + hexRed + hexGreen + hexBlue;23 hexColor.value = hex.toUpperCase();2425
+    bodyElem.bgColor = hex;2627 colorRedOutput.value = colorRedRange.value;28 colorGreenOutput.value
+    = colorGreenRange.value;29 colorBlueOutput.value = colorBlueRange.value;30 }Lines
+    3–12
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we first create variables for the different elements of the interface that
+    we need to address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 14–16
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we take the current values that the sliders are set to (using their **value**
+    attribute) and convert the value to a hexadecimal string. As you recall from ►
+    Sect. 31.3.2, the **toString()** method has an argument that specifies the base
+    of the number system into which the number is to be converted for representation
+    as a string, which in our case is 16, since we want to achieve hexadecimal representation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 18–20
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With the variables **hexRed**, **hexGreen** and **hexBlue** we already have
+    everything together that we need to display the hexadecimal color value in the
+    format **#RRGGBB**. But there is a small complication: The value of the color
+    component variable could be a single digit (if the decimal value of the respective
+    color component is smaller than 16). In this case we must prepend a leading 0,
+    because hexadecimal color codes of the form **#RRGGBB** expect *exactly two* value
+    digits per color component. Therefore, we check the length of the previously generated
+    color part strings and add a 0 if necessary.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 22–23
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now we can compose the hexadecimal value and display it in our (readonly) input
+    element **hexColor**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Line 25
+  prefs: []
+  type: TYPE_NORMAL
+- en: We also assign the hexadecimal RGB value we just determined to the **bgcolor**
+    attribute of the **body** element. So, as soon as the user activates one of the
+    color proportion sliders, not only the display of the hexadecimal color value,
+    **hexColor**, changes, but also the background color of the web page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lines 27–29
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we display the color percentage values as decimal numbers in the (readonly)
+    input fields provided next to the respective color percentage sliders.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 32.8 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we looked at how to input and output data using JavaScript.
+    In particular, we have looked at the JavaScript console and how JavaScript applications
+    can interact with a web page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **console.log()** method can be used to output objects in the JavaScript
+    console.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Template literals allow you to include variables in strings in the form of placeholders
+    that are replaced with the current value of the variable at the time the literal
+    is created; the variable is written as **${variable}**, and the entire literal
+    itself is enclosed in backticks (**`**).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Alternatives to the template literal are string substitution and concatenating
+    strings and objects that can be output as strings using the plus operator.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With **console.warn()** and **console.error()** you can output warning or error
+    messages in the console.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Interaction with the user can also be done via dialog boxes; in particular with
+    **alert()** (display of a message), **confirm()** (dialog with “Okay” and “Cancel”
+    as options) and **prompt()** (text input in a popup dialog).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript is great for editing the HTML elements of web pages, making the web
+    page dynamic through the JavaScript application.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The easiest way to do this is to use **document.write()** to write HTML code
+    to the current location where the script is running in the web page.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The components of HTML pages, especially the HTML elements themselves, their
+    attributes, and the text inside them, can be represented hierarchically as nodes
+    of the *Document Object Model* (DOM).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript allows elements of the DOM to be selected and edited in JavaScript
+    as HTML element objects, and changes to these objects are immediately reflected
+    in the rendering of the web page.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: DOM nodes can be identified mainly by their **id** attribute (with **document.getElementByID()**),
+    by their type (with **document.getElementsByTagName()**; note plural, an array
+    is returned here because there may be multiple elements that match the criterion!),
+    or their CSS class (with **document.getElementsByClassName()**; again, the return
+    is an array).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Element objects/arrays of element objects are returned that represent the HTML
+    elements of the web page and whose properties are the attributes of those HTML
+    elements.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, starting from an element object, the DOM structure can be exploited to
+    select hierarchically connected objects with properties like **childNodes** and
+    **parentNode**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **innerHTML** and **innerText** properties of an element object represent
+    the HTML code contained in an HTML element (that is, the code of the hierarchically
+    subordinate elements in the DOM) and the text contained in it, respectively.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: HTML elements can be created on the web page with **document.createElement(*****type*****)**
+    and added below an element by calling its **appendChild(*****new_element*****)**
+    method; the **insertbefore(*****new_element*****,** ***before_child*****)** method
+    of an HTML element adds ***new_element*** as a child element before another child
+    element (***before_child*****)**; **remove(*****element*****)** removes the HTML
+    element object ***element*** from the Web page.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In practice, the most important form of interaction with the user on web pages
+    is the use of *forms*; they are created in HTML with the **form** element, so
+    their components, namely the controls such as text input or buttons, are located
+    between **<form>** and **</form>.**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The elements of the forms are mainly of the HTML type **input** and are further
+    differentiated by their **type** attribute; for example, **"text"** is the type
+    for a text input field, **"button"** is the type for a button, and **"slider"**
+    is the type for a slider.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: User actions with these controls (for example, clicking a button) can be linked
+    via events to event handler functions in the JavaScript code, which are automatically
+    called whenever the event associated with the action is triggered. The calls to
+    the event handlers are given to the HTML elements as attribute values, where the
+    attribute name is composed of **on** and the event, for example, **onclick** for
+    the **click** event.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 32.9 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 32.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: The sibling elements of **elem** (including **elem** itself) are nothing but
+    the children of the parent element of **elem**. Thus, **elem.parentElement.children**
+    returns an **HTMLCollection**, a collection of objects that correspond to the
+    HTML elements. You can work with this object of type **HTMLCollection** practically
+    like with an array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 32.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your **p** element could look like this in the HTML source code of the web
+    page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<p** id="paragraph1">Here''s a note.**</p>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can now change the background color in your JavaScript program:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** pElem = document.getElementById(''paragraph1'');pElem.style.backgroundColor
+    = ''#FFFFCC'';'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **background-color** property is convenient to change because our element
+    object **pElem** mirrors the **style** attribute in an object property of the
+    same name. When doing so, please note that the CSS **background-color** property
+    becomes the **backgroundColor** property of our element object’s **style** property
+    in JavaScript (that is, the hyphen is dropped, and any additional initial letters
+    after the initial letter of the first component of the property name become uppercase).
+    Also, of course, you need to convert the decimal RGB color components to hexadecimal
+    numbers to get a valid color code of the form **'#RRGGBB'**. In doing so, 255
+    (red and green components) becomes **FF** and 204 (blue component) becomes **CC**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 32.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The code might look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** bodyElem = document.getElementsByTagName(''body'')[0];**var** pElem
+    = document.createElement(''p'');pElem.style.fontWeight = ''bold''pElem.innerText
+    = ''This is the end'';bodyElem.appendChild(pElem);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we grab the **body** element of the web page via its element tag (note:
+    **getElementsByTagName()** returns an array of HTML nodes, since there may well
+    be several copies of an element type in the web page—at least for elements other
+    than **body**). Then we create a new **p** element, format it using its CSS properties,
+    give it the **"This is the end"** text and add it to the **body** element of the
+    web page as a new child element, i.e. append it to the existing children at the
+    end.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: If you include this script in a web page, as we usually do, i.e.,
+    via the **script** attribute of the body of the web page, then **"This is the
+    end"** appears at the *beginning* of the web page! The reason is simple: the script
+    is loaded and executed at the beginning of the body, at a time when there are
+    no other elements in the body of the web page. The element that we add with the
+    above code is thus the first and is logically displayed at the top of the page.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 32.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, the (still “empty”) **span** element must be inserted into the HTML
+    code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<span** id="output">**</span>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You only have to change the code of the function **convert()** slightly by
+    first selecting the **span** element and then assigning the output to the **innerHTML**
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**var** outputSpan = document.getElementsById(''output'');**if**(direction[0].checked
+    == **true**) {outputSpan.innerHTML = `<p>${temp} Kelvin are${temp - 273.15} degrees
+    Celsius.<p>`;}**else** {outputSpan.innerHTML = `<p>${temp} degrees Celsius are${temp
+    + 273.15} Kelvin.<p>`;}}**function** change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
+    = unit;}Exercise 32.5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The website could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<head>****<title>**Font Sizes**</title>****<noscript>**Please
+    activate JavaScript!**</noscript>****</head>****<body>****<script** src="fontsizecontroller.js"**></script>****<form>**<p>Font
+    size:<input id="controller" type="range" min="1" max= "150"value="20" onchange="
+    changeFontSize()">**</p>****</form>****<span** id="sampletext" style="font-size:
+    20px;"**>**Some text in size 20**</span>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The corresponding JavaScript program in **fontsizecontroller.js** would then
+    look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** changeFontSize() {**var** size =Number(document.getElementById(‘controller’).value);**var**
+    text = document.getElementById(''sampletext'');text.style.fontSize = size + ''px'';text.innerHTML
+    = ''Some text in size '' + String(size);}'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,162 @@
+- en: The Efficiency of Insertion Sort
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Four types of steps occur in Insertion Sort: removals, comparisons, shifts,
+    and insertions. To analyze the efficiency of Insertion Sort, we need to tally
+    up each of these steps.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, let’s dig into comparisons. A comparison takes place each time we compare
+    a value to the left of the gap with the tempValue. In a worst-case scenario, where
+    the array is sorted in reverse order, we have to compare every number to the left
+    of tempValue with tempValue in each pass-through. This is because each value to
+    the left of tempValue will always be greater than tempValue, so the pass-through
+    will only end when the gap reaches the left end of the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: During the first pass-through, in which tempValue is the value at index 1, a
+    maximum of one comparison is made since there’s only one value to the left of
+    the tempValue. On the second pass-through, the maximum number of comparisons made
+    is two, and so on. On the final pass-through, we need to compare the tempValue
+    with every single value in the array besides tempValue itself. In other words,
+    if there are N elements in the array, the maximum number of comparisons made in
+    the final pass-through is N - 1\.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can, therefore, formulate the total number of comparisons as:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 + 2 + 3 + … + (N - 1) comparisons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our example array that contains five elements, that’s a maximum of:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 + 2 + 3 + 4 = 10 comparisons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For an array containing 10 elements, there would be:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45 comparisons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For an array containing 20 elements, there would be a total of 190 comparisons,
+    and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When examining this pattern, it emerges that for an array containing N elements,
+    there are approximately N² / 2 comparisons. (10² / 2 is 50, and 20² / 2 is 200\.
+    We’ll look at this pattern more closely in the next chapter.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s continue analyzing the other types of steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Shifts occur each time we move a value one cell to the right. When an array
+    is sorted in reverse order, there will be as many shifts as there are comparisons
+    since every comparison will force us to shift a value to the right.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s add up comparisons and shifts for a worst-case scenario:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: N² / 2 comparisons
+  prefs: []
+  type: TYPE_NORMAL
+- en: + N² / 2 shifts
+  prefs: []
+  type: TYPE_NORMAL
+- en: _____________________________
+  prefs: []
+  type: TYPE_NORMAL
+- en: N² steps
+  prefs: []
+  type: TYPE_NORMAL
+- en: Removing and inserting the tempValue from the array happens once per pass-through.
+    Since there are always N - 1 pass-throughs, we can conclude that there are N -
+    1 removals and N - 1 insertions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So now we’ve got:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: N² comparisons and shifts combined
+  prefs: []
+  type: TYPE_NORMAL
+- en: N - 1 removals
+  prefs: []
+  type: TYPE_NORMAL
+- en: + N - 1 insertions
+  prefs: []
+  type: TYPE_NORMAL
+- en: _____________________________
+  prefs: []
+  type: TYPE_NORMAL
+- en: N² + 2N - 2 steps
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You’ve already learned one major rule of Big O: that Big O ignores constants.
+    With this rule in mind, we’d—at first glance—simplify this to O(N² + N).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, I’ll now reveal another major rule of Big O:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Big O notation only takes into account the highest order of N when we have multiple
+    orders added together.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In other words, if we have an algorithm that takes N⁴ + N³ + N² + N steps, we
+    only consider N⁴ to be significant—and just call it O(N⁴). Why is this?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Look at the following table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| N | N² | N³ | N⁴ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2 | 4 | 8 | 16 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5 | 25 | 125 | 625 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10 | 100 | 1,000 | 10,000 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 100 | 10,000 | 1,000,000 | 100,000,000 |'
+  prefs: []
+  type: TYPE_TB
+- en: As N increases, N⁴ becomes so much more significant than any other order of
+    N that the smaller orders are considered trivial. For example, when looking at
+    the bottom row of the table, when we add N⁴ + N³ + N² + N, we get a total of 101,010,100\.
+    But we may as well round that down to 100,000,000, which is accomplished by ignoring
+    those lower orders of N.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can apply this same concept to Insertion Sort. Even though we’ve already
+    simplified Insertion Sort down to N² + N steps, we simplify the expression further
+    by throwing out the lower order, reducing it to O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: It emerges that in a worst-case scenario, Insertion Sort has the same time complexity
+    as Bubble Sort and Selection Sort. They’re all O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: I noted in the previous chapter that although Bubble Sort and Selection Sort
+    are both O(N²), Selection Sort is faster because Selection Sort has N² / 2 steps
+    compared with Bubble Sort’s N² steps. At first glance, then, we’d say that Insertion
+    Sort is as slow as Bubble Sort since it too takes about N² steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If I were to stop the book here, you’d walk away thinking that Selection Sort
+    is the best choice out of the three since it’s twice as fast as either Bubble
+    Sort or Insertion Sort. But it’s actually not that simple.
+  prefs: []
+  type: TYPE_NORMAL

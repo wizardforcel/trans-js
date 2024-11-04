@@ -1,0 +1,135 @@
+- en: '| Recipe 17 | Determining Letter Case with charAt() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Consider a scenario where you have a form that requests the user to enter their
+    nickname. Some users may prefer to enter their nickname in lowercase letters,
+    so your app shouldn’t automatically capitalize the nickname. But perhaps some
+    users are casual about typing and intend for their name to be capitalized.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In such cases, you want to notify the user that their nickname will be stored
+    and displayed exactly as entered. So, your app needs to be capable of identifying
+    the letter case of the first character of the nickname.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the strict inequality operator (!==) to compare the first character (index
+    0) of the string to its lowercase version. If they are not equal, that means the
+    string starts with a capital letter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/determining_letter_case/charAt_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/determining_letter_case/charAt_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** isCapital(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.charAt(0) !== str.charAt(0).toLowerCase(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isCapital(*"Dave"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isCapital(*"dave"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success! You are now able to determine the letter case of the first character
+    of a word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The function in this recipe returns true if the first character of the input
+    string is in uppercase and false otherwise. To get the first letter of the input
+    string, we use the charAt() method. This method takes an index number as an argument
+    and returns the character at the given position in a string. For instance, "Hello".charAt(1)
+    returns the second character of “Hello” which is “e.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: You may be wondering why not use the strict equality operator (===) to compare
+    the character with its uppercase version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To understand why, let’s rewrite the example with ===:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/determining_letter_case/charAt_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/determining_letter_case/charAt_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Don’t use this code* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/charAt_ex2.png](images/charAt_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This version of the function will return true even if the input string starts
+    with a number, such as “1990Dave”. toUpperCase() has no effect on the characters
+    in the input string that do not have an uppercase version. So, in this example,
+    we’re comparing the equality of “1” with the same string “1” after converting
+    it to uppercase. As a result, the comparison returns true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The function will also return true for languages like Hebrew and Arabic, which
+    don’t have uppercase and lowercase letters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There’s a caveat when using charAt() with specific languages that have supplementary
+    characters, such as Chinese. To be able to represent these characters, JavaScript
+    has to allocate more “spaces” in a string, which causes charAt() to fail:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/determining_letter_case/charAt_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/determining_letter_case/charAt_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Notice how the return value of charAt() isn’t* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// recognizable at index 0 and index 1* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/charAt_ex3.png](images/charAt_ex3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: JavaScript uses UTF-16 code points to represent characters, and most characters
+    require one code point. For example, the character “F” is assigned a code point
+    of U+0046.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, sometimes a character is made of more than one code point. In this
+    case, the Chinese character consists of two Unicode code points. The first one
+    has a value of U+d846, while the second one has a value of U+df10\. You can confirm
+    that by preceding each code with a \u and putting both pairs in a string like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/charAt_ex4.png](images/charAt_ex4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Neither pair corresponds to a printable character on its own, so the charAt()
+    method cannot return a valid character at index 0 or index 1\. The fourth console.log()
+    method attempts to get the character at index 2, but since there’s no character
+    at that position, it returns an empty string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use the charAt() method whenever you need to get a character at a specific index,
+    but be wary of languages with supplementary characters as they can break your
+    code. Fortunately, JavaScript has another method to help you handle supplementary
+    characters, which you’ll learn about in the next recipe. To learn more about Unicode,
+    see Appendix 1, [*What Is Unicode?*](f_0088.xhtml#apx1).
+  prefs: []
+  type: TYPE_NORMAL

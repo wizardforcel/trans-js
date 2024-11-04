@@ -1,0 +1,200 @@
+- en: Doubly Linked Lists
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Linked lists come in a number of different flavors. The linked list we’ve discussed
+    until this point is the classic linked list, but with some slight modifications
+    we can grant linked lists additional superpowers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One variant form of the linked list is the doubly linked list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A doubly linked list is like a linked list except that each node has two links—one
+    that points to the next node and another that points to the previous node. In
+    addition, the doubly linked list always keeps track of both the head and tail
+    nodes, instead of just the head.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what a doubly linked list looks like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/doubly_linked_list.png](images/pitting_linked_lists_against_arrays/doubly_linked_list.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We can implement the core of a doubly linked list in JavaScript like this.
+    First, we must create a new kind of “double-ended” node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ Node { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(data) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data = data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.nextNode = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.previousNode = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ Node; |'
+  prefs: []
+  type: TYPE_TB
+- en: You’ll notice how each node now contains not just a nextNode attribute but a
+    previousNode attribute as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Once we have that in place, we can now implement our doubly linked list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Node ​**from**​ ​*''./double_ended_node.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ DoublyLinkedList { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(firstNode=​**null**​, lastNode=​**null**​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.lastNode = lastNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Since a doubly linked list always knows where both its head and tail are, we
+    can access each of them in a single step, or O(1). So just as we can read, insert,
+    or delete from the beginning of the list in O(1), we can do the same from the
+    end of the list in O(1) as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a depiction of inserting at the end of a doubly linked list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png](images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As you can see, we create a new node ("Sue") and have its previousNode point
+    to what used to be the lastNode ("Greg") of the linked list. Then we change the
+    nextNode of the lastNode ("Greg") to point to this new node ("Sue"). Finally,
+    we declare the new node ("Sue") to be the lastNode of the linked list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Doubly Linked List Insertion'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We’ll look next at the implementation of a new append method that we can add
+    to our DoublyLinkedList class. Instead of inserting a value anywhere in the list,
+    the append method simply adds a new value at the end of the list. We’re focusing
+    on appending, rather than classical inserting, simply to highlight how easy and
+    fast it is to append to a doubly linked list. Here’s the append method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | append(value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ newNode = ​**new**​ Node(value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!​**this**​.firstNode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.lastNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | newNode.previousNode = ​**this**​.lastNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.lastNode.nextNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.lastNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s highlight the most important parts of this method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we create the new node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ newNode = ​**new**​ Node(value); |'
+  prefs: []
+  type: TYPE_TB
+- en: At first, our code handles the case where the list doesn’t contain any nodes
+    yet. But let’s jump to the case where we append to an existing list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We set the previousNode link of the newNode to point to what until this point
+    was the last node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | newNode.previousNode = ​**this**​.lastNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Then we change the last node’s link (which was null until this point) and have
+    it point to our newNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**this**​.lastNode.nextNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Last, we tell our instance of the DoublyLinkedList that its last node is our
+    newNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**this**​.lastNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: Moving Forward and Backward
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: With a classic linked list, we can only move forward through the list; that
+    is, we can access the first node and follow the links to find all the other nodes
+    of the list. But we’re not able to move backward, as no node is aware of what
+    the previous node is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A doubly linked list allows for a lot more flexibility, as we can move both
+    forward and backward through the list. In fact, we can even start with the tail
+    and work our way backward to the head.
+  prefs: []
+  type: TYPE_NORMAL

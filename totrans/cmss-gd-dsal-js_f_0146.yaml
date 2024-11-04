@@ -1,0 +1,290 @@
+- en: Searching
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Here, again, is a binary search tree:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_4.png](images/binary_trees/bst_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The algorithm for searching within a binary search tree is as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Designate a node to be the current node. (At the beginning of the algorithm,
+    the root node is the first current node.)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Inspect the value at the current node.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If we’ve found the value we’re looking for, great!
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the value we’re looking for is less than the current node, search for it
+    in its left subtree.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the value we’re looking for is greater than the current node, search for
+    it in its right subtree.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Repeat Steps 1 through 5 until we find the value we’re searching for, or until
+    we hit the bottom of the tree, in which case our value must not be in the tree.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Say we want to search for the 61\. Let’s see how many steps it would take, by
+    walking through this visually.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When searching through a tree, we must always begin at the root:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_6.png](images/binary_trees/bst_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, the computer asks itself: is the number we’re searching for (61) greater
+    or less than the value of this node? If the number we’re looking for is less than
+    the current node, look for it in the left child. If it’s greater than the current
+    node, look for it in the right child.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, because 61 is greater than 50, we know it must be somewhere
+    to the right, so we search the right child. In the following picture, we’ve shaded
+    out all the nodes we’ve eliminated from our search, since we know that the 61
+    cannot possibly be there:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_7.png](images/binary_trees/bst_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '“Are you my mother?” asks the algorithm. Since the 75 is not the 61 we’re looking
+    for, we need to move down to the next level. And because 61 is less than 75, we’ll
+    check the left child, since the 61 could only be in that subtree, as shown in
+    the following diagram:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_8.png](images/binary_trees/bst_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The 56 is not the 61 we’re looking for, so we continue our search. Since 61
+    is greater than 56, we search for the 61 in the right child of the 56:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_9.png](images/binary_trees/bst_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We found it! In this example, it took us four steps to find our desired value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Efficiency of Searching a Binary Search Tree
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If you take another look at the steps we just walked through, you’ll notice
+    that each step eliminates half of the remaining nodes from our search. For example,
+    when we begin our search, we start at the root node, and our desired value may
+    be found among any of the root’s descendants. However, when we then decide to
+    continue the search with, say, the root’s right child, we eliminate the left child
+    and all of its descendants from the search.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’d say, then, that searching in a binary search tree is O(log N), which is
+    the apt description for any algorithm that eliminates half of the remaining values
+    with each step. (We’ll see soon, though, that this is only for a perfectly balanced
+    binary search tree, which is a best-case scenario.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Log(N) Levels
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s yet another way of describing why search in a binary search tree is
+    O(log N), which will reveal another property about binary trees in general: if
+    there’re N nodes in a balanced binary tree, there’ll be about log N levels (that
+    is, rows).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To understand this, let’s assume each row in the tree is completely filled with
+    nodes, and there aren’t any empty positions. If you think about it, each time
+    we add a new full level to the tree, we end up roughly doubling the number of
+    nodes the tree has. (Really, we’re doubling the nodes and adding one.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, a binary tree with four complete levels has fifteen nodes. (Go
+    ahead, count them.) If we add a fifth complete level, that means we add two children
+    to each of the eight nodes in the fourth level. This means we add sixteen new
+    nodes, roughly doubling the size of the tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It emerges that each new level doubles the size of the tree. Accordingly, a
+    tree containing N nodes will require log(N) levels to hold all the nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the context of binary search, we noted that the pattern of log(N) is that
+    with each step of the search, we can eliminate half of the remaining data. The
+    number of levels needed in a binary tree follows this pattern as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s take a binary tree that needs to hold thirty-one nodes. With our fifth
+    level, we can hold sixteen of those nodes. This took care of roughly half of the
+    data, leaving us with just fifteen nodes we still need to find room for. With
+    the fourth level, we take care of eight of those nodes, leaving us with seven
+    unaccounted for. With the third level, we take care of four of those nodes, and
+    so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Indeed, log 31 is (approximately) 5\. So we’ve now concluded that a balanced
+    tree with N nodes will have log(N) levels.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since this is the case, it makes a lot of sense as to why searching a binary
+    search tree takes up to log(N) steps: because each step of the search causes us
+    to move down a level, we take up to as many steps as there are levels in the tree.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However you prefer to think about it, searching a binary search tree takes O(log
+    N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, while search in a binary search tree is O(log N), so is binary search within
+    an ordered array, in which each number we select also eliminates half of the remaining
+    possible values. In this regard, then, searching a binary search tree has the
+    same efficiency as binary search within an ordered array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Where binary search trees really shine over ordered arrays, though, is with
+    insertion. We’ll get to that soon.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Searching a Binary Search Tree'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To implement the search operation, as well as the other binary search tree operations,
+    we’re going to make heavy use of recursion. You learned back in Chapter 10, [​*Recursively
+    Recurse with Recursion*​](f_0096.xhtml#chp.recursion), that recursion is key when
+    dealing with data structures that have an arbitrary number of levels of depth.
+    A tree is such a data structure, as it can have an infinite number of levels.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how we can use recursion to implement search with JavaScript. While
+    we could have alternatively used a loop instead, the recursive code for search
+    is more concise and elegant:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ search(searchValue, node) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!node &#124;&#124; node.value === searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ node; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (searchValue < node.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ search(searchValue, node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ search(searchValue, node.rightChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This search function accepts the searchValue we’re searching for and a node
+    that we’ll use as the base for our search. The first time we call search, the
+    node will be the root node. However, in the subsequent recursive calls, the node
+    may be another node within the tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our function deals with four possible cases, two of which are the base cases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!node &#124;&#124; node.value === searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ node; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: One base case is when the node contains the searchValue we’re looking for, in
+    which case we can return the node and not make any recursive calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The other base case is when there is no node. This will make more sense after
+    we’ve examined the other cases, so let’s come back to this shortly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next case is when the searchValue is less than the value of the current
+    node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (searchValue < node.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ search(searchValue, node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this case, we know that if it exists in the tree, the searchValue will have
+    to be found somewhere among this node’s left descendants. So we recursively call
+    the search function on this node’s left child.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next case is the inverse; it’s when the searchValue is greater than the
+    current node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ search(searchValue, node.rightChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this case, we recursively call search on the current node’s right child.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, when we make these recursive calls on the current node’s children, note
+    that we didn’t check whether the current node even has any children. That’s where
+    the first base case comes in:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!node ... |'
+  prefs: []
+  type: TYPE_TB
+- en: That is to say, if it turns out that we called search on a child node that doesn’t
+    actually exist, we end up returning null (since the node variable will actually
+    contain null). This case will happen if the searchValue doesn’t exist within our
+    tree, as we’ll try to access the node where the searchValue should be found, but
+    our search hits a dead end. In this case, it’s appropriate that we return null,
+    indicating that the searchValue is not within the tree.
+  prefs: []
+  type: TYPE_NORMAL

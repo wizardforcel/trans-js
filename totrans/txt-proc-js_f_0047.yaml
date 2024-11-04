@@ -1,0 +1,286 @@
+- en: '| Recipe 36 | Using a Function as the Replacement Pattern |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose your task is to improve an online real-estate marketplace that lists
+    property specifications in square feet. You need to write a code that finds square
+    feet values and provides a square meter version in parentheses so that international
+    buyers can easily understand them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Start with creating a function that converts a square feet value to a square
+    meter (m2):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | function convertToM2(sqft) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // remove non-digit characters |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | sqft = sqft.replace(/\D/g, ""); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // convert sqft to m2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | const m2 = sqft * 0.0929; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // round to two decimal places and return it |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | return m2.toFixed(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, you need a function that receives a string as input and scans it for digits
+    followed by units such as “sqft,” “sq. ft,” or “sq ft.” Once a match is found,
+    you want to call the convertToM2() function to convert the value into square meters,
+    and then append the converted result to the original matched value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'That’s where using a function as the replacement argument comes in:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | function appendM2ToSqft(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | return str.replace(/\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig, (match) => {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | return `${match} (${convertToM2(match)} m2)`; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Here’s how the final code looks like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_fn/replacement_fn_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"3 Beds, 2.5 baths, 1,850 Sq. Ft"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Convert sqft to m2* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** convertToM2(sqft) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove non-digit characters* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | sqft = sqft.replace(*/**\D**/g*, *""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Convert sqft to m2* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** m2 = sqft * 0.0929; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Round to two decimal places and return it* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** m2.toFixed(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Match sqft in the string, have it converted to m2,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// wrap parentheses around the result, and append it to sqft* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** appendM2ToSqft(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(*/**\d**+,**?\d**+**\s(**sqft&#124;sq**\.?\s**ft**)**/ig*,
+    (match) => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** *`*${match} *(*${convertToM2(match)} *m2)`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | appendM2ToSqft(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "3 Beds, 2.5 baths, 1,850 Sq. Ft (171.86 m2)"* |'
+  prefs: []
+  type: TYPE_TB
+- en: Using this code, you can list the size of a property in both square feet and
+    square meters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s start with examining the regex pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token between one and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● , matches the character "," literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ? matches the previous token zero or one time |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token between one and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (sqft&#124;sq.? ft) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ sqft 1st alternative |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ sqft matches the characters "sqft" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ sq\.?\sft 2nd alternative |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ sq matches the characters "sq" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \. matches a period literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ? matches the previous token zero or one time |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ft matches the characters "ft" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ i enables case-insensitive matching |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g enables global matching, which indicates we want to look for all
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | matches, rather than stopping after the first match |'
+  prefs: []
+  type: TYPE_TB
+- en: The replace() method accepts either a string or a function as the replacement
+    argument. If you use a function, it gets executed for every match, and its output
+    becomes the replacement text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The replacement function has the following syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_fn/replacement_fn_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** replacer(match, p1, p2, */* …, */* pN, offset, string, groups)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** replacement; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The first parameter contains the matched string (similar to $&). If there are
+    capturing groups, they will be available next to the first parameter (p1, p2,
+    /* …, */ pN).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The next parameter provides the offset of the matched string. So, if you had
+    “Hello” as a string and “ll” as a search pattern, the offset would be 3\. There’s
+    also a string parameter containing the entire supplied string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, the groups parameter will be available if you have at least one named
+    capturing group in the pattern. In this recipe, we’re only using the first parameter,
+    so we leave out other parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the replacer function, we use a template literal to get the value of
+    match and pass it to the convertToM2() function. convertToM2() first strips the
+    string of non-digit characters by replacing them with an empty string. Then it
+    performs the conversion and returns the result. The outcome is a string containing
+    a square meter value in parentheses that’s appended to the original matched string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Take advantage of a replacement function when you need to perform calculations
+    or process the matched value in the replacement string.
+  prefs: []
+  type: TYPE_NORMAL

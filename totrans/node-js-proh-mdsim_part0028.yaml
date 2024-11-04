@@ -1,0 +1,184 @@
+- en: 'Chapter 8: JavaScript AJAX and Fetch API'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In Chapter 7, we delved into JavaScript events and event handling, which enabled
+    us to create dynamic and interactive web applications. Now, let's explore AJAX
+    (Asynchronous JavaScript and XML) and the Fetch API, powerful tools that allow
+    us to communicate with servers and retrieve data without reloading the entire
+    web page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.1 Introduction to AJAX
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: AJAX is a technique that enables web applications to send and receive data asynchronously
+    in the background. With AJAX, we can update parts of a web page without requiring
+    a full page reload, resulting in a smoother and more responsive user experience.
+    AJAX allows us to interact with servers and retrieve data using JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.2 XMLHttpRequest Object
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'The XMLHttpRequest object is the core component of AJAX. It provides methods
+    and properties to send HTTP requests to a server and handle the server''s response.
+    Let''s look at an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, we create an XMLHttpRequest object using the `new XMLHttpRequest()`
+    constructor. We then use the `open()` method to specify the HTTP method ("GET"
+    in this case) and the URL of the server endpoint we want to retrieve data from.
+    The third parameter (`true`) indicates that the request should be asynchronous.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We assign an anonymous function to the `onreadystatechange` event handler. This
+    function is executed when the state of the request changes. Inside the function,
+    we check if the `readyState` property is equal to 4 (indicating that the request
+    is complete) and the `status` property is equal to 200 (indicating a successful
+    response). If the conditions are met, we parse the response text as JSON and log
+    it to the console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we call the `send()` method to send the request to the server.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.3 Fetch API
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'The Fetch API is a modern alternative to the XMLHttpRequest object for making
+    HTTP requests. It provides a more streamlined and intuitive interface for sending
+    and handling requests. Here''s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, we use the `fetch()` function to send a GET request to the
+    specified URL. The `fetch()` function returns a Promise that resolves to the response
+    from the server.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We chain the Promise using the `then()` method. In the first `then()` callback,
+    we check if the response is successful (`response.ok`). If it is, we call the
+    `json()` method on the response object to parse the response data as JSON. If
+    there is an error, we throw a new Error object with the corresponding status.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the second `then()` callback, we receive the parsed data and log it to the
+    console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `catch()` method is used to handle any errors that may occur during the
+    Promise chain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.4 Working with Response Data
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Once we have retrieved data from the server, we can work with it in our JavaScript
+    code. This may involve manipulating the data, updating the web page, or performing
+    other operations based on the retrieved information.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.5 Cross-Origin Resource Sharing (CORS)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When making AJAX requests to a different domain, we may encounter CORS restrictions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Cross-Origin Resource Sharing (CORS) is a security mechanism implemented in
+    web browsers to restrict AJAX requests made from one domain to another. By default,
+    web browsers enforce the same-origin policy, which prevents JavaScript code from
+    making requests to a different domain. CORS allows servers to specify which domains
+    are allowed to access their resources.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To enable CORS, the server needs to respond with the appropriate CORS headers
+    in the server's HTTP response. The headers include information such as the allowed
+    origin, allowed methods, and allowed headers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you encounter CORS restrictions while making AJAX requests, there are a
+    few possible solutions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1\. CORS Configuration on the Server: If you have control over the server,
+    you can configure it to include the necessary CORS headers in the responses. This
+    allows specific domains to access the server''s resources.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2\. Proxy Server: You can set up a proxy server on your domain that acts as
+    an intermediary between your JavaScript code and the remote server. The proxy
+    server can make the request on behalf of your code, bypassing the CORS restrictions.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '3\. JSONP (JSON with Padding): JSONP is a technique that allows cross-domain
+    requests by exploiting the ability to include scripts from different domains.
+    It involves wrapping the response data in a function call and loading it as a
+    script in the browser.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It's important to note that CORS restrictions are enforced by the web browser,
+    and they are in place to protect users' security and privacy. It's generally recommended
+    to configure the server to allow the necessary CORS requests rather than relying
+    on workarounds like proxies or JSONP.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.6 Handling AJAX Errors
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When making AJAX requests, it's crucial to handle errors appropriately to provide
+    a smooth user experience. Errors can occur due to various reasons, such as network
+    issues, server errors, or invalid requests.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To handle AJAX errors, you can utilize the error handling capabilities of the
+    XMLHttpRequest object or the Fetch API. For example, with the XMLHttpRequest object,
+    you can listen for the `onerror` event and handle the error in the corresponding
+    event handler.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here''s an example using the Fetch API:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, the `catch()` method is used to catch any errors that occur
+    during the Promise chain. The error object is then logged to the console for debugging
+    purposes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By properly handling AJAX errors, you can provide feedback to the user and gracefully
+    handle any issues that may arise during data retrieval.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.7 Conclusion
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this chapter, we explored AJAX (Asynchronous JavaScript and XML) and the
+    Fetch API, which are powerful tools for communicating with servers and retrieving
+    data asynchronously. We learned about the XMLHttpRequest object, its methods,
+    and properties for making HTTP requests. We also explored the Fetch API, which
+    provides a more modern and streamlined approach to handling AJAX requests. Additionally,
+    we discussed CORS (Cross-Origin Resource Sharing) and the various techniques for
+    handling AJAX errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With AJAX and the Fetch API, you can create dynamic and interactive web applications
+    that retrieve data from servers in the background, providing a seamless user experience.
+    In the next chapter, we will delve into JavaScript's advanced concepts, including
+    Promises, async/await, and error handling techniques. Get ready to take your JavaScript
+    skills to the next level!
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,682 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_15](https://doi.org/10.1007/978-3-658-42912-6_15)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '15. Loops: How Do I Repeat Program Instructions Efficiently?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Practically all programming languages use loops to execute similar parts of
+    the code several times in succession. This not only saves a lot of manual and
+    error-prone work, but also allows you to write code that you don't know in advance
+    how often it will be executed. With the help of loops you can elegantly implement
+    the repetition of program statements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What loops are, and how they differ from functions, which can also be used to
+    execute program code repeatedly
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What the difference is between counting and conditional loop constructs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to develop a counting loop, and what role the “run variable” plays in it
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to program a conditional loop and what the difference is between the condition
+    check at the beginning (head control) and at the end of the loop (foot control)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to end loops prematurely or continue with the next loop pass.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 15.1 Loops and Their Variants
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Loops versus Functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Essentially, there are two ways to repeat program code that you have written
+    once: You can swap it out into functions/procedures that can be called again.
+    We have already looked at how this works in ► Chap. [12](474412_1_En_12_Chapter.xhtml).
+    Or you can wrap the code to be repeated in so-called *loops.* This is exactly
+    what this chapter is about.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The difference between the two approaches is that with loops, the same program
+    code is run through and executed *directly several times in succession.* For example,
+    you could go through a product price list line by line, product by product, and
+    increase the price of all products that belong to a certain category by 10%. The
+    use case for functions, though, is different; here, it is not a matter of repeating
+    a certain part of the program *several times in immediate succession,* but of
+    making the program code independent to such an extent that it can be called from
+    *different places in the program at* any time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What both approaches to the repetition have in common, is that in this way you
+    avoid writing the same program code several times in the program. This increases
+    the maintainability of the program because a change to the part to be repeated
+    only must be made once. The alternative would be to duplicate the program code
+    wherever you want to use it (instead of calling a function) or duplicate it several
+    times in succession (instead of using a loop), and as a result you would have
+    to make changes to this code in every place it occurs in the program as well.
+    This is tedious and error prone. Another problem in the case of loops is that
+    at the time you write the program, you usually don’t even know how many times
+    exactly you want the code to repeat. Think of the product list you want to go
+    through to increase the price of all products in a particular category by 10%.
+    While you are writing the program, you may not know how many products the list
+    will contain! What happens if a 79th product is suddenly added to the existing
+    78 because the assortment is expanded? The loops provide a remedy here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Types of Loops
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Loops basically come in two variants: either as *counting loops* or as *conditional*
+    *loops*. With counting loops, it is clear from the outset – at least in principle
+    – how often they are run through. Such loops lend themselves to our problem with
+    the product list. We should be able to easily determine how many products are
+    on this list. But then we also know the number of loop passes that are necessary
+    to run through the product list once completely.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For conditional loops, imagine the following scenario: We have a program that
+    converts temperature values entered by the user in Kelvin to degrees Celsius.
+    Temperatures in Kelvin are always greater than or equal to 0\. Zero Kelvin is
+    absolute zero, with no heat at all, it can never get colder; this absolute zero
+    corresponds to -273.15 °C on the Celsius scale. The user is to enter temperatures
+    in Kelvin one after the other. Each Kelvin temperature is converted to degrees
+    Celsius. If the user enters a negative Kelvin temperature at any time, the program
+    should abort. A loop is a good idea here as the conversion process from Kelvin
+    to Celsius is always the same. In this case, however, we do not know in advance
+    how many loop passes there will be. That depends on the user input. The loop of
+    choice here is a *conditional* loop, a loop that runs as long as a certain condition
+    is met; in our example here, the condition would be that the temperature entered
+    by the user is greater than or equal to 0\. As soon as the user enters a negative
+    temperature, the condition would no longer be satisfied, and the loop would stop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 15.2 Counting Loops
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Loops with a Numeric Run Variable
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Counting loops are successive repetitions of program code, used where the number
+    of repetitions can be determined in advance. But are the repetitions of the program
+    code really absolutely identical? Let’s think back to the example of the product
+    price list that we want to go through to make all products of a certain category
+    10% more expensive. Now, if we found a product in the category and one of the
+    previous products already belonged to the same category, is the code that is executed
+    in both cases exactly the same? No, apparently not; for the price increase must
+    be made once for one product and once for the other. So, the program code, similar
+    as it is in both cases, must “refer” to a different product each time. Put another
+    way: We need to know where exactly in our loop we currently are, i.e., which product
+    is currently being processed.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is exactly what the *run variable* allows us to do. It is incremented by
+    a certain value (usually one) with each loop pass. So, you always know which loop
+    pass you are currently in. And we can use this variable in the program code that
+    is repeated through our loop, for example to address the individual elements of
+    a field that represents our product price list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a closer look at the whole thing as pseudo-code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**For** p **From** 1 **To** length(products)**Begin****If** products[p].category
+    = "Garden Furniture" **Then**products[p].price = products[p].price * 1.1**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, we assume that **products** is a field of instances (i.e.,
+    objects) of the **Product** class that has the attributes **category** and **price**
+    (scroll back to ► Sect. [11.​7](474412_1_En_11_Chapter.xhtml#Sec10) if you have
+    forgotten or are vague about the concepts of “fields”, “classes” and “instances/objects”
+    from object-oriented programming). The run variable in this example is the (integer)
+    variable **p**. It runs, as the line **For p From 1 To length(products)** indicates,
+    from the value 1 to the function value **length(products)**, which we want to
+    assume represents the length of the field **products**, i.e. the number of products
+    contained. With each loop pass, **p** is automatically increased by one. The program
+    code to be repeated is located between the **Begin** and **End** keywords in a
+    code block. We have already seen code blocks in connection with functions (► Sect.
+    [13.​1](474412_1_En_13_Chapter.xhtml#Sec1)) and If-Then constructs (► Sect. [14.​3](474412_1_En_14_Chapter.xhtml#Sec3)).
+    The code, which is between **Begin** and **End,** is executed as long as the run
+    variable **p** is less than or equal to the specified maximum value, in our case
+    **length(products)**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We now use the run variable inside the loop at **products[p]** as an index to
+    pick the respective field element that is to be processed in the current loop
+    pass from the field **products**. Here you can see that although we always repeat
+    the same code, the code does something different each time, because each loop
+    pass works with a different product object, namely the respective element **products[p],**
+    so the first loop pass works with **products[1]**, the second with **products[2]**
+    and the last with **products[length(products)]**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The passage through a counting loop is shown schematically in ◘ Fig. [15.1](#Fig1).![](../images/474412_1_En_15_Chapter/474412_1_En_15_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A flowchart of the counting loop. An input is given to the condition with an
+    incremented run variable. It is classified into non-fulfilled and fulfilled. The
+    fulfilled is followed by an increment in the run variable, loop block of expression,
+    and ends.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 15.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Flow chart of a counting loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: Loops with Object Run Variable
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some programming languages offer a special variant of the counting loop, which
+    makes tasks such as our example above even easier. Here, instead of counting up
+    a run variable, which we then use as an index for an array of objects, the loop
+    directly traverses the array of objects and works with each individual object
+    in the array in turn.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It might look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**For Each** p **In** products**Begin****If** p.category= "Garden Furniture"
+    **Then**p.price = p.price * 1.1**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This loop, which is introduced in our pseudo-code with the keywords **For Each**,
+    simply runs through all elements of the field **products** in order. The current
+    element of the field in each case is stored in the run variable **p**. Note the
+    difference to the counting loop in the example above: Here, the run variable **p**
+    is not a number that indicates how many times the loop has been running so far,
+    but the current element of the field **products** that is currently in the focus
+    of the loop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Therefore, in the body of the loop, i.e., in the code block repeated by the
+    loop, this current object **p** can be worked with in the same way as a product
+    object, for example, its attributes can be adjusted. It is important to understand
+    at this point that in most programming languages our variable **p** is not simply
+    *a copy of* the respective element of the field **products**, but ultimately *the
+    element itself*. Sounds abstract, but it makes a crucial difference: After all,
+    if **p** were simply a copy of the particular element of **products** that is
+    currently up, then any changes we make to **p** would of course have no effect
+    on the real element in **products**; after all, we are only working with a copy,
+    and the original would remain unaffected by our changes. But this is not the case.
+    In fact, **p** *is* the respective element of **products**. Changes made to **p**
+    therefore directly change the respective product in our field **products**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you can see, this loop is a bit more elegant than the loop above. The only
+    disadvantage here is: Without counting with the help of an extra variable, which
+    we manually increase with each loop run, we now do not know how many runs of the
+    loop have taken place so far. Our run variable is simply no longer a counter.
+    However, if it is simply a matter of passing through the products in our **products**
+    field in sequence, this need not be a disadvantage.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Examples in Different Programming Languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s look at it in two concrete programming languages, PHP, which is specifically
+    made for server-side programs and is used on most websites, and the Microsoft
+    Office macro language VBA.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, here are the two loop variants in PHP:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for** ($p=0; $p <= count($produts)-1; $p++) {**if** ($products[$p]->category
+    == "Garden Furniture")$products[$p]->price = $producte[$p]->price * 1.1}**foreach**
+    ($products **as** &$p) {**if** ($p->category == "Garden Furniture")$p->price =
+    $p->price * 1.1}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The counting loop with numeric run variable is introduced here by the keyword
+    **for**, the loop iterating through the field with **foreach**. These are the
+    keywords used in most programming languages for these loop types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The **for** loop contains three specifications in parentheses:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What the run variable is called (variable names are always prefixed with a dollar
+    sign in PHP) and at what value it should start (fields start at index 0 by default
+    in PHP, so the first element would be as **products[0]**).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '2.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: How long it should run; in our case as long as its value is less than or equal
+    to the number of field elements (**count($products)**) minus 1; “minus 1” because
+    indexing starts at 0\. If the first field element has the index 0, then the last
+    field element has the index **count($products)-1** (i.e., with 10 field elements,
+    the index of the last one is 9).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '3.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: How it should be incremented; so far, we have assumed that the run variable
+    is incremented by 1 with each loop pass. However, this does not necessarily have
+    to be the case. For example, we could also just look at every second product;
+    then the last part of the **for** statement would be **$p = $p + 2** (**$p++**
+    is a shorthand for **$p = $p + 1**).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: In PHP, the attributes of an object are accessed with the help of the arrow
+    operator (**->**). We had always used the dot for this in our pseudo-code so far.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another specific feature is found in the second loop variant, the **foreach**
+    loop: Here, the element **$p** currently processed by the loop is named. However,
+    this is preceded by an ampersand. This ensures that the variable **$p**, as we
+    discussed above, actually represents the corresponding product object and not
+    just a copy of the currently processed product object in the **products** field.
+    If we were to forgo the ampersand, the assignment **$p->price = $p->price * 1.1**
+    would merely process a copy of the object and not the object itself, which is
+    part of our **products** field.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now the same in VBA:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**For** p = 1 **To** length(products) **Step** 1**If** products(p).category
+    = "Garden Furniture" **Then**products(p).price = products(p).price * 1.1**Next***Rem
+    ATTENTION: This loop does not lead to the same result!***For Each** p **In** products**If**
+    p.category = " Garden Furniture" **Then**p.price = p.price * 1.1**Next**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you can see, the syntax of the **For** loop (and also the field and object
+    accesses as well as the if-then conditions) is structured a little differently
+    in VBA than in PHP, but the basic concepts are completely identical. However,
+    there is one important difference in the **For Each** loop: Unlike in PHP, the
+    run variable **p** in VBA is always a *copy of* the respective element from our
+    **products** field. There is no way to create the run variable so that changes
+    to it are reflected in the original element of our **products** field**.** If
+    we want to change the **products** field itself, we have to use the first variant
+    of the counting loop with a numeric run variable.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Nested Loops
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Loops can also be nested within each other. Imagine you have a two-dimensional
+    array whose rows represent the different variants of one and the same product
+    and whose columns represent the different warehouses of a company. The values
+    in the array represent the number of pieces in each case. For example, if **stock[7,3]
+    = 65**, this means that 65 items of the 7th product variant are currently available
+    in the 3rd warehouse. If you now want to count how many copies of the product
+    (regardless of which variant) are available in total, i.e., across all warehouses,
+    a nested, counting loop is suitable for this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: total = 0**For** p **From** 1 **To** number_variants**Begin****For** w **From**
+    1 **To** number_of_warehouses**Begin**total = total + stock[p,w]**End****End**
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The outer loop goes through the rows of the two-dimensional field, that is,
+    the product variants, while the inner loop goes through the warehouses. This means
+    that the loop works its way forward by starting a new row, then going through
+    all the columns for this row (inner loop) and then switching to the next row (outer
+    loop). In this way, the entire field is traversed once. Its individual elements,
+    **stock[p,w]**, i.e., the number of product variants in the respective warehouse,
+    are added up with the help of the variable **total** by adding the field **total[p,w]**
+    just processed by the loops to the current state of this variable; the assignment
+    **total = total + total[p,w]** does nothing else: It adds the respective field
+    contents to the current value of **total** and again assigns the result to the
+    variable **total**. After the nested loops have run through, the variable **total**
+    contains the total number of all product variants across all warehouses.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exit Loops Prematurely
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Most programming languages provide a way to exit a counting loop early. This
+    can be useful if, for example, you are writing a piece of code to check if there
+    is a product of a special category, say “garden furniture”, among the products.
+    One way to check this is to go through the entire field and check if the current
+    field element is a product of that category. Once such a product is found, the
+    question of whether there are *any* products in the “Garden Furniture” category
+    is answered. The rest of the field doesn’t really need to be run through, it only
+    costs unnecessary computing time and of course doesn’t change anything in the
+    result. So, it would be appropriate to stop the loop at this point. In our pseudo
+    code it could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: found = **FALSE****For Each** p **In** products**Begin****If** p.category =
+    "Garden Furniture" **Then****Begin**found = True**Break****End****End**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the variable **found,** we can determine after the loop whether a product
+    of the category “garden furniture” has been found. If such a product is found
+    during a loop pass, the variable **found,** which we initially initialized with
+    the value **FALSE**, is set to **TRUE** and the loop is exited immediately.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Most programming languages have a statement that causes the current loop pass
+    to end and the loop to simply continue with the next pass.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 15.3 Conditional Loops
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Functionality and Types of Conditional Loops
+  prefs: []
+  type: TYPE_NORMAL
+- en: Conditional loops differ from counting loops in that it is not known in advance
+    how many times the loop will be run. Instead, the execution depends on whether
+    a certain condition, the *run condition*, is met. As long as this is the case,
+    the loop runs. If the run condition is no longer fulfilled at some point, the
+    loop terminates, and program execution continues behind the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take the example from the introduction to this chapter: Here, the user
+    is prompted for a temperature in Kelvin and then this temperature is converted
+    to degrees Celsius until he enters a negative Kelvin temperature. Then the program
+    knows to abort, because negative temperatures in Kelvin are physically impossible
+    according to the definition of the Kelvin scale. So, the running condition for
+    our conditional loop is that the user enters a positive Kelvin temperature. When
+    he does, the program converts the temperature to degrees Celsius and asks him
+    for the next Kelvin temperature.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our pseudo-code, this loop could then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'kelvin = input("Please enter temperature in Kelvin: ")**While** kelvin >=0**Begin**show(kelvin,
+    " Kelvin are: ", kelvin – 273.15,“ degrees Celsius”)kelvin = input("Please enter
+    temperature in Kelvin: ")**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, we start by reading in a temperature in Kelvin before the actual loop. This
+    is necessary so that the run condition of the loop can be checked in a meaningful
+    way. The run condition is defined behind the keyword **While**. This is followed
+    by the code block that is executed when the run condition, **kelvin >= 0**, is
+    met. Specifically, the entered temperature is converted to Kelvin and the result
+    is displayed. Then the user enters a new Kelvin temperature. Since the loop then
+    encounters the keyword **End**, it jumps back to the beginning, which causes it
+    to check whether the run condition is still fulfilled when the user enters a new
+    Kelvin temperature.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our example, the condition is checked at the beginning of the loop. However,
+    the check can also be made at the end. Then we would have a so-called *foot-controlled*
+    loop, in contrast to the above *head-controlled* loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It would look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'kelvin = input("Please enter temperature in Kelvin: ")**Do****Begin****If**
+    kelvin >= 0 **Then**show(kelvin, " Kelvin are: ", kelvin – 273.15, " degrees Celsius")kelvin
+    = input("Please enter temperature in Kelvin: ")**End****End****While** kelvin
+    >=0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since the condition is only checked at the end here, the loop is run through
+    once in any case until it reaches the condition check. This construction is somewhat
+    complex in our example, because we still have to check within the loop whether
+    the user’s input is a valid Kelvin temperature (i.e. greater than or equal to
+    0), or indicates that the user wants to abort the loop. The conversion to degrees
+    Celsius only happens in our foot-controlled loop if the Kelvin temperature is
+    greater than or equal to 0\. Otherwise, nothing at all happens inside the loop
+    after the input. The loop then checks the run condition, determines that it is
+    no longer satisfied, and does not go into another loop pass, but continues the
+    program after the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ◘ Figures [15.2](#Fig2) and [15.3](#Fig3) each show a schematic representation
+    of the sequence of a head-controlled loop and a foot-controlled loop.![](../images/474412_1_En_15_Chapter/474412_1_En_15_Fig2_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A flowchart of the head-controlled conditional loop. Input is given to the run
+    condition, which is classified into non-fulfilled and fulfilled. The fulfilled
+    is followed by a loop block of expressions and ends.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 15.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: Flow chart of a head-controlled conditional loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](../images/474412_1_En_15_Chapter/474412_1_En_15_Fig3_HTML.jpg)'
+  prefs: []
+  type: TYPE_IMG
+- en: A flowchart of the foot-controlled conditional loop. Input is given to the loop
+    block of expressions. It is followed by a run condition, which is classified into
+    non-fulfilled and fulfilled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 15.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: Flow chart of a foot-controlled conditional loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: The loop in our example looks altogether a little bit naïve and contrived. Normally
+    you would work with a head-controlled loop in a case like this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Examples in Different Programming Languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here are two implementations of our Kelvin-Celsius conversion program in real
+    programming languages, one in Pascal, one in VBA.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First the Pascal version:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**program** temperatureconversion;**var**kelvin: real;**begin**kelvin = readln(''Please
+    enter temperature in Kelvin: '');**while** kelvin >= 0 **do****begin**writeln(kelvin,
+    '' Kelvin are: '', kelvin - 273.15,'' degrees Celsius'');kelvin = readln(''Please
+    enter temperature in Kelvin: '');**end****end.**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now the whole thing in VBA:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Dim** kelvin **As** Double;kelvin = InputBox("Please enter temperature in
+    Kelvin: ")**While** kelvin >=0MsgBox (Str(kelvin) & " Kelvin are: " &Str(kelvin
+    - 273.15) & " degrees Celsius")kelvin = InputBox("Please enter temperature in
+    Kelvin: ")**Wend**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, the keywords for conditional loops in Pascal and VBA are **while...do**
+    and **While**, as in most other programming languages. The block of code to be
+    repeated is enclosed in Pascal with **begin** and **end,** in VBA it starts directly
+    after the run condition and ends with the keyword **Wend**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Just as in the case of counting loops, most programming languages also have
+    special statements to exit a conditional loop completely (often **break**), or
+    to abort the current run and continue with the next run (often **continue**).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Relationship of Counting and Conditional Loops
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Counting loops can also be written as conditional loops, but not vice versa.
+    All we need to do for this is to formulate a condition that is satisfied for as
+    long as the counting loop would run. In the example of the previous section, where
+    we want to increase the price of all products in the category “garden furniture”
+    by 10%, it would look like this in pseudo-code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: p = 1**While** p <= length(products)**Begin****If** products[p].category = "Garden
+    Furniture" **Then**products[p].price = products[p].price * 1.1p = p + 1**End**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Again, similar to the counting loop, we work with a run variable. Only this
+    time, we ourselves have to take care of incrementing this variable with each loop
+    pass. We do this with the statement **p = p + 1**. The running condition of the
+    loop is now that the value of this run variable is at most as large as the length
+    of the field **products**. We also have to initialize the run variable ourselves
+    before the first loop pass, which the counting loop also did for us. You can see,
+    however, that it is quite possible to “convert” counting loops into conditional
+    loops, because in the end the counting repetition is also based on a condition.
+    The other way round, of course, is not possible, because in the case of a conditional
+    loop we do not know how often it will be repeated, which is precisely the prerequisite
+    for a counting loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 15.1 [3 min]What is the problem with the following loop?x = 1**While** x <>
+    100**Begin**show("Loop pass no. ", (x+1)/2)x = x + 2**End**15.2 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: What types of loops are there and how do they differ?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 15.3 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why can you use a conditional loop to replicate a counting loop, but not the
+    other way around?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '! 15.4 [5 min]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Consider how a loop could be used to process user input on a graphical user
+    interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 15.4 Your Roadmap to Learning a New Programming Language
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When you learn a new programming language …
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'you’ll discover:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: which forms of counting loops there are and what role the run variable has in
+    them (“count variable” or current element of a set of objects that is being run
+    through)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what forms of conditional loops there are, in particular whether there are only
+    head-controlled loops or also foot-controlled loops,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what possibilities there are to exit loops prematurely or at least to abort
+    the current loop pass and continue the loop with the next pass.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 15.5 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 15.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: The problem with this loop is that it will never end, so it is an infinite loop.
+    The variable **x**, whose value is checked before each loop pass, is first initialized
+    with the value 1 before the loop and then increased by 2 with each loop pass.
+    Its value is therefore always odd. Therefore, the variable will never take the
+    value 100, which would cause the loops to terminate. The loop continues to run
+    indefinitely (or until the memory is no longer sufficient to hold the high values
+    of the variable **x**).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 15.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are counting and conditional loops. In the case of counting loops, the
+    number of times the loop will be run is, in principle, known before the first
+    loop run. These loops work with a run variable. This run variable is a numerical
+    value which, starting from a start value, is changed according to a fixed rule
+    (for example, increased by one) until it reaches a fixed end value. Alternatively,
+    the loop passes through a set of objects and the run variable represents a different
+    object from this set for each pass. In this way, certain definable sets of objects
+    (such as customers, products, sales transactions) can be run through in a simple
+    manner. Within the loop, you can then work with the respective object that is
+    currently in focus and that is represented by the run variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike counting loops, the traversal of a conditional loop depends on whether
+    a condition, which is checked before (head-controlled loops) or after each pass
+    (foot-controlled loops), is satisfied. This condition can also depend on values
+    that arise during the loop passes, such as calculated values or user input. Therefore,
+    with conditional loops, it is not necessarily possible to say before the first
+    loop pass how many times the loop will be run in total.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 15.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: A counting loop is ultimately a special case of the conditional loop. The condition
+    is that the value of the run variable moves within a certain value range (between
+    the start value and the end value) or – if the set of objects is run through and
+    the run variable represents the “current” object – that there are still objects
+    left in the set of objects being run through that have not yet “had their turn”.
+    Because a run condition also comes into play here, a counting loop with its run
+    condition can also be formulated as a conditional loop. However, this does not
+    work the other way round, because in the case of conditional loops it does not
+    have to be clear in advance how often the loop is run, which is a prerequisite
+    for a counting loop. Think of a conditional loop whose execution depends on user
+    input. Since it is not foreseeable in which loop pass the user will make the crucial
+    input that will cause the loop to terminate, we cannot tell how many times the
+    loops will be run.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, there are cases in which the number of runs can be known in advance,
+    even for conditional loops, namely when nothing can change during the loop runs
+    on those variables that decide in the run condition whether the loop will be run
+    a second time or not. Then, even with a conditional loop, it is clear from the
+    beginning how often it will run, and it could also be written as a counting loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 15.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A graphical user interface is normally characterized by the fact that the user
+    can choose from different actions. Each of these actions triggers an event to
+    which the program can react with a corresponding event handling routine. However,
+    this process can also be represented as a loop. To do this, we would read in an
+    action from the user again and again in an infinite loop and then process this
+    action within the loop. This could look stylized like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'abort = FALSE**While** abort = FALSE**Begin**action = read()**Switch** action**Begin****Case**
+    …: …**Case** …: …// Treatment of all possible cases**Case** "Exit": abort = **TRUE****End****End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you are not completely familiar with the Switch-Case construct, simply go
+    back a few pages to ► Sect. [14.​6](474412_1_En_14_Chapter.xhtml#Sec6).
+  prefs: []
+  type: TYPE_NORMAL

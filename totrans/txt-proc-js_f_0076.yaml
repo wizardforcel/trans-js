@@ -1,0 +1,137 @@
+- en: '| Recipe 64 | Extracting Text Enclosed in Double Quotes |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have a movie review website, and you want to incorporate a mini-game
+    widget into your page. The game prompts readers to guess the name of a celebrity
+    based on a given nickname.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your data source consists of a string that contains a list of celebrity names
+    along with their corresponding nicknames, all enclosed in double quotation marks,
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | 1\. Dwayne Johnson, also known as "The Rock" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 2\. Scarlett Johansson, also known as "Scarjo" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 3\. Bradley Cooper, also known as "Coop" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 4\. Jennifer Lawrence, also known as "Nitro" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 5\. Hugh Jackman, also known as "Sticks" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 6\. Tom Hardy, also known as "Weasel" |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Your initial task is to extract the quoted texts from the string, so you can
+    build an array of nicknames:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | ["The Rock", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"] |'
+  prefs: []
+  type: TYPE_TB
+- en: What you need is a way to detect a pair of quotation marks and extract the text
+    within them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Add double quotes to the beginning and end of a regex pattern, and use a negated
+    character class to match characters that are not double quotes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`1\. Dwayne Johnson, also known as "The Rock"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *2\. Scarlett Johansson, also known as "Scarjo"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *3\. Bradley Cooper, also known as "Coop"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *4\. Jennifer Lawrence, also known as "Nitro"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *5\. Hugh Jackman, also known as "Sticks"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *6\. Tom Hardy, also known as "Weasel"`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** extractQuotes(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */"**([^**"**]*****)**"/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** quotes; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractQuotes(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["The Rock", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
+  prefs: []
+  type: TYPE_TB
+- en: This function returns an array of quoted text without including the quotes in
+    the result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Double quotes don’t have a special meaning in regular expressions, so we just
+    add them to the pattern. Next, we use [^"] to match any character that’s not double
+    quotes, and append a * to repeat the class zero or more times. The pattern ends
+    in a " to match the closing double quotes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To retrieve the capturing groups of all matches, we use the matchAll() method.
+    Because matchAll() returns an iterator, we can use the spread syntax (…) to unpack
+    the object and generate an array from the outcome. This way we can use array methods
+    on it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since we have a capturing group in the regex pattern, each match result contains
+    an array with two elements: the entire matched substring and the content inside
+    the quotes. By using value[1], we access the second element of the array, which
+    corresponds to the content inside the quotes. Then we store them in the quotes
+    array.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Matching a string enclosed in single quotes can be slightly more challenging
+    as the text within the quotes may contain an apostrophe, such as in ‘I can’t.’
+    The next recipe provides a solution for extracting text enclosed in single quotes.
+  prefs: []
+  type: TYPE_NORMAL

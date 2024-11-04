@@ -1,0 +1,277 @@
+- en: Chapter 18
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0188.xhtml#graphs.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a user is browsing “nails”, the website will recommend “nail polish”, “needles”,
+    “pins”, and “hammer”.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The order of depth-first search would be A-B-E-J-F-O-C-G-K-D-H-L-M-I-N-P, as
+    seen in the following image:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '![images/graphs/solution_2_graph.png](images/graphs/solution_2_graph.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'The order of breadth-first search would be A-B-C-D-E-F-G-H-I-J-K-L-M-N-O-P,
+    as seen in the following image:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '![images/graphs/solution_3_graph.png](images/graphs/solution_3_graph.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'Following is an implementation of breadth-first search:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Queue ​**from**​ ​*''./queue_implementation.js''*​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ bfs(startingVertex, searchValue) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ queue = ​**new**​ Queue(); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ visitedVertices = {}; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | visitedVertices[startingVertex.value] = ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | queue.enqueue(startingVertex); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (queue.read()) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ currentVertex = queue.dequeue(); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentVertex.value === searchValue) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentVertex; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ adjacentVertex ​**of**​ currentVertex.adjacentVertices)
+    { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!visitedVertices[adjacentVertex.value]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | visitedVertices[adjacentVertex.value] = ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | queue.enqueue(adjacentVertex); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: To find the shortest path in an unweighted graph, we’re going to use breadth-first
+    search. The main feature of breadth-first search is that it stays close to the
+    starting vertex as long as possible. This feature will serve as the key to finding
+    the shortest path.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s apply this to our social-networking example. Because breadth-first search
+    stays close to Idris as long as possible, we’ll end up finding Lina first through
+    the shortest possible path. Only later on in the search would we end up finding
+    Lina through longer paths. In fact, we can even stop the search as soon we as
+    find Lina. (Our implementation that follows doesn’t end early, but you can modify
+    it to do so.)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: As we visit each vertex for the first time, then, we know that the current vertex
+    is always part of the shortest path from the starting vertex to the vertex we’re
+    visiting. (Remember, with BFS, the current vertex and the vertex we’re visiting
+    aren’t necessarily the same.)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: For example, when we visit Lina for the first time, Kamil will be the current
+    vertex. This is because in BFS, we’ll get to Lisa first through Kamil before we
+    get to her through Sasha. When we do visit Lina (through Kamil), we can store
+    in a table that the shortest path from Idris to Lina will be through Kamil. This
+    table is similar to the cheapestPreviousStopoverCityTable from Dijkstra’s algorithm.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: In fact, whenever we visit any vertex, the shortest path from Idris to that
+    vertex will be through the current vertex. We’ll store all of this data in a table
+    called previousVertexTable.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Finally, we can then use this data to work backward from Lina to Idris to build
+    the precise shortest path between the two of them.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s our implementation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Queue ​**from**​ ​*''./queue_implementation.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ findShortestPath(firstVertex, secondVertex, visitedVertices)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ queue = ​**new**​ Queue(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ previousVertexTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | visitedVertices[firstVertex.value] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | queue.enqueue(firstVertex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (queue.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ currentVertex = queue.dequeue(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ adjacentVertex ​**of**​ currentVertex.adjacentVertices)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!visitedVertices[adjacentVertex.value]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | visitedVertices[adjacentVertex.value] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | queue.enqueue(adjacentVertex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | previousVertexTable[adjacentVertex.value] = currentVertex.value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ shortestPath = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentVertexValue = secondVertex.value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentVertexValue !== firstVertex.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | shortestPath.unshift(currentVertexValue); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentVertexValue = previousVertexTable[currentVertexValue]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | shortestPath.unshift(firstVertex.value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ shortestPath; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB

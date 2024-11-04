@@ -1,0 +1,357 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_16](https://doi.org/10.1007/978-3-658-42912-6_16)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 16. How Do I Search For and Fix Errors in a Structured Way?
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Errors are the programmer’s worst enemy. No matter how carefully you work, errors
+    always creep in. Testing the program, to detect and eliminate errors, is therefore
+    an essential part of programming. Errors manifest themselves either by the program
+    not being able to run at all, by it crashing during execution, or by the fact
+    that even if it runs to the end, it still doesn’t do what it’s supposed to.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A distinction can be made between errors that occur *at development time*, i.e.,
+    while the program is being written, and those that occur *at runtime*, i.e. when
+    the program is being executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What types of errors there are and what causes them
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to catch runtime errors by handling exceptions and make them harmless
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to proceed skilfully when testing programs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What a debugger is
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What the debugger features, such as “breakpoints”, “single step mode” and “variable
+    observation/watches” are, and how to use them to understand the location and cause
+    of errors
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to use temporary, additional output to diagnose errors in the program even
+    without a debugger.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 16.1 Errors at Development Time
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Errors that already happen at development time are either errors in syntax,
+    where the “grammar” of the program is not correct, and one or more statements
+    do not comply with the “sentence structure rules”, or they are algorithmic errors;
+    errors that are due to the fact that the program code. while formally correct,
+    is simply not an accurate implementation of what the programmer wants to do or
+    achieve.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of *syntax errors,* the compiler or interpreter regularly helps
+    by aborting the compilation or execution of the program with an error message.
+    This error message usually gives information about what kind of error has occurred
+    and where in the code (often via the line number or the name of the program part)
+    the cause probably lies. Such an error could be that a variable has not been declared,
+    and if you then use the variable in the program, the compiler or interpreter will
+    fail at this point. Sometimes, the error messages are somewhat cryptic, and only
+    programmers who are familiar with the internal structure of the programming language
+    will understand what the compiler/interpreter is trying to say. In such cases,
+    a search on the Internet usually helps, because other programmers will also have
+    wondered about this error message. You will find solutions for errors in many
+    different languages on *StackOverflow.*
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*Algorithmic* errors are often more difficult to detect and understand. To
+    do this, use the debugging methods described in ► Sect. [16.4](#Sec4).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 16.2 Errors at Runtime
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Unforeseen Circumstances During Program Execution
+  prefs: []
+  type: TYPE_NORMAL
+- en: The difference between errors that occur during the development of the program
+    and errors that occur at runtime is that in the latter case the program works
+    in principle, but during execution circumstances occur that the developer did
+    not foresee and for which he did not take any precautions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This could, for example, be that the program tries to access a file that does
+    not exist. This problem never occurred during development, or during testing,
+    because the files that the program wanted to access already existed. So, it never
+    occurred to the developer to make a provision for this eventuality. A similar
+    example, very common in practice, is a situation where the user makes an input
+    that the program can’t handle. For example, the user enters a text where a number
+    is expected. The program, which otherwise works perfectly, now tries to calculate
+    with the text, and crashes. During testing, the programmer always entered a number
+    when the program asked him to. Accordingly, he never got into the situation where
+    the program crashed because of non-numeric input, so never took the precaution
+    of testing the user’s input and rejecting it if it is not numeric.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Errors that only occur at runtime are regularly caused by a situation that can
+    occur but was not foreseen during development. Under ideal conditions, the program
+    runs without any problems.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The trick is to catch as many sources of errors as possible during development.
+    For example, the program should test whether a user input that is for a calculation
+    is a number, and otherwise reject it. Likewise, it should check that numeric variables
+    to be used as divisors will never be 0, which of course immediately causes an
+    error. The existence of files that the program wants to access can also be checked
+    and the program flow adjusted if the file does not exist.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This anticipation of possible bugs is time-consuming but important, especially
+    when writing programs for others to use. They may not be able to look at the program
+    code, or may lack technical understanding, and may have a low tolerance of bugs,
+    especially if they paid for the program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Catching Errors with Try-Catch Constructs
+  prefs: []
+  type: TYPE_NORMAL
+- en: Many programming languages support error handling in the program by special
+    language constructs. The basic idea is that errors are reflected in *exceptions*.
+    Exceptions are nothing more than events that are triggered when an error of a
+    certain type occurs. In this context, programmers also speak of the exceptions
+    being “thrown”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Following the analogy of “throwing”, these exceptions can then be “caught” and
+    handled. For example, an exception could occur when opening a file, if the file
+    to be read from does not exist. In this case, the program does not terminate,
+    but continues in a controlled manner with a part of the program that is intended
+    for precisely this situation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our pseudo-code, such a construct would look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Try***// Open file and read data***Catch***// Display error message***End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, you “try” to execute a certain part of the program; if that works, it continues
+    after **End**. But if an exception occurs, the code after the **Catch** keyword
+    is executed first. Some programming languages allow you to catch different exceptions
+    within such a construction and react differently to each of them. Often, this
+    involves providing a special exception object whose properties can be used to
+    provide more details about the exception that occurred, so that you can tailor
+    your response to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, what is the difference between such a Try-Catch construct and an approach
+    that gets along without this construct by simply checking whether the file exists
+    before trying to open it? In the latter approach, the possible source of the error
+    is checked beforehand, and the action that could lead to an error is not performed
+    at all. With the Try-Catch construct no check takes place before the action, instead
+    you run straight into the error. The only difference is that the error does not
+    cause the program to crash or behave in an uncontrolled manner. Instead, the error
+    is processed in a completely controlled way *after* it has occurred (after the
+    exception has been thrown). The advantage of this approach is that you don’t have
+    to know in advance exactly what could go wrong. Perhaps the file to be read will
+    still not be readable, even though it exists, for example because the user has
+    insufficient access rights. This error would also be caught with our Try-Catch
+    construct, without us having to explicitly provide for it. The danger of this
+    seemingly practical approach is, of course, that one thinks less about the possible
+    sources of errors and the optimal response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**A** better approach is therefore to catch as many potential problems and
+    exceptions as possible separately beforehand, to react to them individually, and
+    then finally to include a general Try-Catch constructs in the program for all
+    exceptions that are not handled separately.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 16.3 Testing
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Given the many possible sources of error, *testing* is of course the key to
+    success. Testing, testing and testing again. Testing is almost a science in itself,
+    there are numerous different approaches and types of tests. In fact, tester is
+    even a job description in software development. In some companies, developers
+    and testers work in pairs. In line with the importance of testing, there are special
+    tools to develop tests, sometimes even to perform them automatically, to document
+    the results and to provide project management support for the elimination of errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, you don’t have to go to that much trouble. Nevertheless, testing
+    is important. In the box you will find some tips for better testing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tips
+  prefs: []
+  type: TYPE_NORMAL
+- en: Think about how a user would use your program and try out these “use cases”.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Think about everything that could go wrong, that is, how the user could possibly
+    use the program improperly.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Expose the program to “extreme” conditions. During development, you tend to
+    always use the same simple examples with which the program works flawlessly, because
+    that’s naturally what you want: few problems during development. Work against
+    this and be your own *devil''s advocate*.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Test section by section *and* in context. Testing code passages (for example,
+    a function) individually makes debugging easier, because in the case of an error
+    you already know approximately where the cause must lie. Nevertheless, sometimes
+    unforeseen interactions occur when you run the program completely and let the
+    different code passages intertwine. Therefore, you should always follow both approaches,
+    testing in sections and testing in the full program context.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 16.4 Debugging Methods
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If you notice that something about your program is not working, you start looking
+    for the error. The activities around finding and fixing bugs is called *debugging*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are basically two approaches here; either you work with “on-board tools”,
+    in particular with suitable auxiliary outputs in the program flow, or you use
+    special tools, called *debuggers*. The latter are often part of the Integrated
+    Development Environment of the programming language and convenient to use. However,
+    there are also command line debuggers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Basically, debugging is about two problems:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To determine *where* the error occurs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Determine *why* the error occurs.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is not always the case that you can first find where the error occurs and
+    then answer the question of why. Sometimes you first realize why the error occurs
+    and then must search for the code that causes it. To answer both questions, you
+    essentially have the following tools at your disposal:Outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can temporarily *add extra output* to your program that will be removed
+    later, when the debugging is complete. These outputs can help you understand what
+    parts of the program have already been run. For example, if you are faced with
+    the problem of a program crash, and you don’t know exactly where your program
+    is stopping, you might want to temporarily insert code that creates some extra
+    output. Each time such an output appears, you know that the program has at least
+    run through to this point without crashing. Sometimes it is also not quite clear
+    whether, for example, certain conditions (such as if-then constructs) or loops
+    are run through at all. Here, too, it helps to include a corresponding output
+    to determine the position, which is only run through if the program code in the
+    If-Then construct or the loop is executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, you can use temporary, additional output not only to determine what
+    part of your program code is currently executing, but also to check what value
+    certain variables have in the program flow. Understanding the contents of variables
+    often helps diagnose the problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Breakpoints
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you are working with a debugger, you can set *breakpoints*. With breakpoints,
+    when you start the program, it will only run up to this breakpoint. After that,
+    you can decide whether you want to let it continue running or terminate it at
+    this point. Again, if you follow up a program crash and the program gets to the
+    breakpoint without breaking, then the problem is after the breakpoint.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Single Step Mode
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another option that is regularly available to you when working with a debugger
+    is to execute programs in single-step mode*.* This means that only one program
+    instruction is executed at a time. Only when you press a certain key or key combination,
+    the next program statement is executed. The IDE shows you graphically in the program
+    code which statement is the last executed. This also makes it easy to determine
+    at which point a program terminates. However, if you have loops in your program
+    that are repeated often, it is quite tedious to run through them in single-step
+    mode. In this case, you should set a breakpoint after the loop, let the program
+    run through to there, and then continue in single-step mode from there on. At
+    least, if the error is not in the loop itself, this will save you a lot of keystrokes.
+    However, if the problem is in the loop, you will have to single-step through the
+    loop and check the values of any variables the loop might use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Variable WatchesIn conjunction with breakpoints or running your program in single-step
+    mode, there is another feature that many debuggers support, *variable watches*.
+    This feature allows you to view, sometimes even change, the current contents of
+    a variable. So, if your program has reached a breakpoint, you can look at what
+    value certain variables currently have. In single-step mode, this allows you to
+    follow how the values of variables change from one program statement to the next.
+    ◘ Figure [16.1](#Fig1) shows such a variable observation for our simple Celsius-Kelvin
+    conversion example. A breakpoint was established at line 60 of the program. The
+    program would be executed up to this line. The next instruction that would be
+    executed is the one in line 60, where you set the breakpoint (marked by a red
+    dot in front of the line).![](../images/474412_1_En_16_Chapter/474412_1_En_16_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the test project window in Delphi. It has a set of program codes
+    with variables Celsius, Kelvin, and real, which undergo a process and end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 16.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example of breakpoint with variable observation in Delphi
+  prefs: []
+  type: TYPE_NORMAL
+- en: 16.5 Your Roadmap to Learning a New Programming Language
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When you learn a new programming language …
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'you’ll discover:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: what debugging tools are available to you and how you can access them (command
+    line tools, integration in IDE),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Whether, and if so how, you can set and remove breakpoints,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether, and if so how, you can execute your program in single-step mode,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether, and if so how, you can monitor the contents of variables.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,277 @@
+- en: '| Recipe 46 | Referencing a Matched String with the Backreference |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose your task is to inspect documents for duplicate words, such as “the
+    the book,” which is a common typographical mistake with texts subject to heavy
+    editing. The task involves looking for repeated words despite capitalization differences
+    like “This this.” It also requires finding instances with varying amounts of whitespace
+    between the words, including tabs and newlines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You need to come up with a solution that will find all duplicate words and automatically
+    fix them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Capture the word with a capturing group, and use a backreference to match the
+    same text matched by the capturing group:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/backreference/backreference_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/backreference/backreference_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** dupWordRemover(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\b([**-''**\w]**+**)\s**+**\1\b**/ig*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *"$1"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"No no man has a a good enough memory to be a successful
+    liar."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | dupWordRemover(str) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "No man has a good enough memory to be a successful liar."* |'
+  prefs: []
+  type: TYPE_TB
+- en: Problem solved! Your text is now free of most duplicate words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| The Importance of Evaluating Repeated Words Before Elimination |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | Keep
+    in mind that the usage of repeated words is not always a mistake and eliminating
+    them without evaluation can be risky. For instance, “had had” is the past perfect
+    form of “have,” and sometimes words like “ha ha” and other structures can produce
+    intentionally repeated words. So, it makes sense to check out each match before
+    getting rid of them.Also note that this recipe only detects duplicated words consisting
+    of ASCII word characters. If you want to include accented letters and letters
+    from different writing systems, you should use the Unicode Letter category (see
+    Recipe 53, [*Matching Unicode Word Boundaries with the Unicode Property Escape*](f_0064.xhtml#rcp.unicode_property_escapes_p3)).
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: When there’s a capturing group in a pattern, the content inside the parentheses
+    is bookmarked. A backreference provides a convenient way to reuse this content
+    in the form of \1, \2, and so forth, where \1 refers to the first captured group,
+    \2 refers to the second captured group, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This approach is not the same as just repeating a token or group with a quantifier.
+    To illustrate this, let’s compare two simple regular expressions: \d{2} and (\d)\1.
+    The first one uses a quantifier to match any two digits, while the second one
+    uses a capturing group and backreference to match the same digit twice.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, let’s take a look at the regex step by step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\b([-''\w]+)\s+\1\b/ig |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ([-''\w]+) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ [-''\w] matches a single character present in the list below |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ - matches a - character literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ '' matches a '' character literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \w matches any word character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token one or more times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token one or more times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \1 matches the same text matched by the 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ i: enables case-insensitive matching |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g: enables global, which returns all matches |'
+  prefs: []
+  type: TYPE_TB
+- en: The regex in this recipe starts by matching a word boundary (\b). This ensures
+    that we are only matching whole words. Then, we use a capturing group ([-’\w]+)
+    to match one or more occurrences of any combination of letters, digits, underscores,
+    hyphens, and apostrophes. It’s important to match hyphens and apostrophes because
+    we want to be able to detect repeated words such as “check-in check-in” and “can’t
+    can’t.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: After capturing the first word, we use \s+ to match one or more whitespace characters
+    (such as spaces and tabs) between the first and second occurrence of the captured
+    group. Next, we use the backreference \1 to ensure that the second occurrence
+    is the same as the first. The regex ends with another word boundary (\b).
+  prefs: []
+  type: TYPE_NORMAL
+- en: To execute the regex, we use the replace() method. replace() takes the regex
+    as its first argument, attempts to find a match in the given string, and replaces
+    it with its second argument. In this case, the replacement value is $1, which
+    is a special replacement pattern for referring to the first capturing group. The
+    result is that the matched substring, which is “No no,” gets replaced with “No.”
+    For more on special replacement patterns, see Recipe 34, [*Using Special Replacement
+    Patterns*](f_0045.xhtml#rcp.replacement_patterns).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can use a backreference with a named capturing group, too—either with a
+    regular numbered backreference or the \k<name> syntax. Let’s look at an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/backreference/backreference_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/backreference/backreference_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** dupWordRemover(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\b(?<**dup>**[**-''**\w]**+**)\s**+**\k**<dup>**\b**/ig*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *"$1"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"No no man has a a good enough memory to be a successful
+    liar."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | dupWordRemover(str) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "No man has a good enough memory to be a successful liar."* |'
+  prefs: []
+  type: TYPE_TB
+- en: This code achieves the same result as the solution in this recipe, except that
+    it uses a named capturing group (?<dup>[-’\w]+) and references the group with
+    \k<dup>. For more on named capturing groups, see Recipe 33, [*Reading Groups with
+    Ease Using Named Capturing Groups*](f_0044.xhtml#rcp.named_capturing_group).
+  prefs: []
+  type: TYPE_NORMAL
+- en: One difference between JavaScript’s regular expression flavor and other flavors
+    is the way it handles backreference. Unlike most flavors, JavaScript doesn’t distinguish
+    between a backreference to a capturing group that matched nothing, and a backreference
+    to a capturing group that didn’t participate in the match.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let me clarify with a simple example: the regex /(-?)cat\1/ matches the string
+    “cat,” “-cat,” or “-cat-.” In JavaScript, this pattern is equivalent to /(-)?cat\1/.
+    But that’s different from most other regex flavors.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s how the regex engine in JavaScript processes /(-?)cat\1/ when applied
+    to the string “cat.” First, the regex engine attempts to match a hyphen (-) literally,
+    and it successfully matches nothing (recall that ? is a metacharacter that matches
+    zero or one occurrence of the preceding character).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next character in the string is the letter c, and the engine successfully
+    matches it. The engine also matches the next two characters: a and t. Finally,
+    \1 successfully matches the same zero occurrences of - in the capturing group.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now let’s look at the second pattern: /(-)?cat\1/. Here, the engine cannot
+    match -, but since there is a question mark after the capturing group, it becomes
+    optional, and the engine proceeds to match the literal characters. The regex \1
+    refers to the capturing group that failed to match anything, resulting in a backreference
+    that also fails to match.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There’s no question mark after the backreference to make it optional, so the
+    overall match fails in most flavors. But JavaScript is different. In JavaScript,
+    a backreference to a capturing group that did not participate in the match successfully
+    matches nothing, causing the overall match to succeed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: On one hand, it can be advantageous because you don’t need to worry about whether
+    a particular capturing group participated in the match or not. On the other hand,
+    this lack of distinction can cause your pattern to fail in other regex flavors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Reusing a Backreference |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | A backreference
+    can be reused more than once. For example, (ha)\1\1 matches hahaha. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Forward References |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | JavaScript
+    doesn’t support forward references. A forward reference lets you reference a group
+    that appears later in the regex. |'
+  prefs: []
+  type: TYPE_TB
+- en: Take advantage of a backreference to refer to the exact text matched by a capturing
+    group. You can reuse the content in the form of \1, \2, and so on, when using
+    a normal capturing group. If you are using a named capturing group, you can also
+    use the \k<name> syntax.
+  prefs: []
+  type: TYPE_NORMAL

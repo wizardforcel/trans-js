@@ -1,0 +1,308 @@
+- en: '| Recipe 21 | Equalizing Incompatible Characters with normalize() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine having a cooking application, and you want to add a feature to sort
+    recipes based on the cooking method. The code you developed performs well in sorting
+    recipes for methods like steaming and grilling. However, when it comes to sautéing,
+    the code fails to recognize certain recipes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'After investigating the problem, you realize that the code sometimes fails
+    to match the word “sautéing” even though the characters appear to be the same:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Notice the length of the strings* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/normalize_ex1.png](images/normalize_ex1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '“é” in method has a code point of U+00E9, while “é” in keyword consists of
+    two code points: U+0065 and U+0301\. As a result, the strict equality operator
+    (===) considers them unequal.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The difference in the number of code points isn’t the only reason why your code
+    may fail. Certain characters have the same length but are encoded using two different
+    code points, which can also cause issues with your code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For instance, the character “Å” can be encoded either as U+212B ANGSTROM SIGN
+    or as U+00C5 LATIN CAPITAL LETTER A WITH RING ABOVE. These two characters aren’t
+    equal in JavaScript unless you normalize them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the normalize() method to convert the strings to a normalized form before
+    comparing them:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Solution* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/normalize_ex2.png](images/normalize_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This function enables us to determine if two strings are equal, taking into
+    account any differences in their Unicode representation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Characters that can be represented more than one way make text processing more
+    difficult. Fortunately, the Unicode standard provides a text normalization procedure
+    that converts strings into forms that can be compared directly for identity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the areEqual() function, we use the normalize() method to convert both
+    strings to a normalized form using the Normalization Form Canonical Composition
+    (NFC) algorithm. This algorithm ensures that any Unicode characters with multiple
+    code points are represented in their composed form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can pass three other arguments to normalize() which we’ll look at shortly.
+    The form to use depends on your program requirements, but NFC is usually a better
+    choice for general text because it’s more compatible with characters converted
+    from legacy encodings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unless you’re one of those poor souls who have to support IE11, you don’t need
+    a polyfill here. Happily, all modern browsers support normalize().^([[21]](f_0032.xhtml#FOOTNOTE-21))
+    After the normalization, we use the === operator to compare the two strings and
+    return true if they are equal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can normalize a string either based on canonical equivalence or based on
+    compatibility. The argument we pass to normalize() determines the form of Unicode
+    normalization:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Normalization Form D (NFD): Canonical Decomposition'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Normalization Form C (NFC): Canonical Decomposition, followed by Canonical
+    Composition'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Normalization Form KD (NFKD): Compatibility Decomposition'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Normalization Form KC (NFKC): Compatibility Decomposition, followed by Canonical
+    Composition'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two characters are canonically equivalent when they have different code points
+    but are rendered in the same way, just like “é” in our example. When we say NFC
+    performs canonical composition, that means it merges the code points of the character
+    into a single code point, so “é” consisting of U+0065 and U+0301 becomes “é” made
+    of U+00E9\. Canonical decomposition is the opposite process.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, if two characters have different appearances and code points but have
+    the same meaning, they are classified as compatibly equivalent. Take a look at
+    the following table for the two forms of equivalent sequences:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/Compatibly_table.png](images/Compatibly_table.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'When we normalize a string, we’re telling the program to select one of these
+    equivalent encodings so that the characters are either all composed or all decomposed.
+    Notice how the arrow on some cells points only to the right. That means we can
+    convert a character to its compatibility decomposition form but not the reverse.
+    So, we should be careful when using this type of conversion: if we lose access
+    to the source text, the original form of characters is lost forever because there’s
+    no function to revert your text back to its composed form.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"***\***u00E9"*; *// é* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"***\***u0065***\***u0301"*; *// é* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1 === str2); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// normalize str1* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str1norm = str1.normalize(*"NFD"*); *// \u0065\u0301* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1norm === str2); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In this code, we’re replacing any canonical composition in str1 with its decomposed
+    forms. If we pass NFC to normalize(), the method does the opposite:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"***\***u00E9"*; *// é* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"***\***u0065***\***u0301"*; *// é* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// normalize str2* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2norm = str2.normalize(*"NFC"*); *// \u00E9* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str2norm === str1); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| The Default Parameter |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | If you pass no
+    argument to normalize(), it will use NFC. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'There are two forms of compatibility normalization: NFKD and NFKC. Conversion
+    to NFKD works just like NFD. It replaces canonical composites in the string with
+    their decomposed forms. Additionally, it replaces any compatibility composites
+    with their decomposition form.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If the glyph is just a compatible composition of another glyph, then normalizing
+    it with NFD or NFC won’t change it. On the other hand, both NFKD and NFKC will
+    replace the glyph with its compatible decomposition form:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"⑥"*; *// \u2465* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1.normalize(*"NFD"*)); *// → ⑥ (\u2465)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1.normalize(*"NFC"*)); *// → ⑥ (\u2465)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1.normalize(*"NFKD"*)); *// → 6 (\u0036)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str1.normalize(*"NFKC"*)); *// → 6 (\u0036)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"⁶"*; *// \u2076* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str2.normalize(*"NFD"*)); *// → ⁶ (\u2076)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str2.normalize(*"NFC"*)); *// → ⁶ (\u2076)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str2.normalize(*"NFKD"*)); *// → 6 (\u0036)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str2.normalize(*"NFKC"*)); *// → 6 (\u0036)* |'
+  prefs: []
+  type: TYPE_TB
+- en: In this code, conversion to NFD or NFC does not affect str1 and str2 because
+    the strings are compatible compositions, not canonical compositions. Interestingly,
+    conversion to both NFKD and NFKC produces the same result because NFKC uses compatibility
+    decomposition as the basis for canonical composition. In this case, the character
+    has no canonical composition form, so it’s just converted to compatibility decomposition.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The difference between NFKC and NFKD becomes more apparent when a glyph is
+    a canonical composition of glyphs that are compatible with another glyph. Consider
+    the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/equalizing_characters/normalize_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/equalizing_characters/normalize_ex7.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"ẛ"*; *// \u1E9B* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.normalize(*"NFD"*)); *// → ẛ (\u017F\u0307)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.normalize(*"NFC"*)); *// → ẛ (\u1E9B)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.normalize(*"NFKD"*)); *// → ṡ (\u0073\u0307)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.normalize(*"NFKC"*)); *// → ṡ (\u1E61)* |'
+  prefs: []
+  type: TYPE_TB
+- en: As we said, NFKC uses compatibility decomposition as the basis for canonical
+    composition. The compatibility decomposition of \u1E9B is \u0073\u0307, and the
+    canonical composition of \u0073\u0307 is \u1E61.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember, perform text normalization before storing or processing texts to avoid
+    possible pitfalls. But be careful when using normalization forms KD and KC as
+    they discard formatting distinctions that may be essential to the semantics of
+    the text. Therefore, you shouldn’t blindly apply them to arbitrary text. NFC is
+    usually a better choice for general text.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,190 @@
+- en: Filesystem Traversal
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Now that you’ve seen how recursion works, we can use it to solve certain problems
+    that would otherwise be uncrackable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One type of problem in which recursion is a natural fit is when we need to delve
+    into multiple layers of a problem without knowing how many layers there are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Take the example of traversing through a filesystem. Let’s say you have a script
+    that does something with all the contents inside a directory, such as printing
+    all the subdirectory names. However, you don’t want the script to only handle
+    the immediate subdirectories—you want it to act on all the subdirectories within
+    the subdirectories of the directory and all of their subdirectories, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s create a simple script that prints the names of all subdirectories within
+    a given directory:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ { readdirSync, lstatSync } ​**from**​ ​*''fs''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**import**​ { join } ​**from**​ ​*''path''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ printSubdirectories(directoryName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fileName ​**of**​ readdirSync(directoryName))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (lstatSync(fileName).isDirectory()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pathName = join(directoryName, fileName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can call this function by passing in a directory name. If we want to call
+    it on the current directory, we could write the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | printSubdirectories(​*''.''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: In this script, we look through each file within the given directory. If the
+    file is itself a subdirectory, we print the subdirectory name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While this works well, it only prints the names of the subdirectories immediately
+    within the current directory. It doesn’t print the names of the subdirectories
+    within those subdirectories.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s update our script so that it can search one level deeper:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ { readdirSync, lstatSync } ​**from**​ ​*''fs''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**import**​ { join } ​**from**​ ​*''path''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ printSubdirectories(directoryName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fileName ​**of**​ readdirSync(directoryName))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (lstatSync(fileName).isDirectory()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pathName = join(directoryName, fileName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fileName2 ​**of**​ readdirSync(pathName)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pathName2 = join(pathName, fileName2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(pathName2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, every time our script discovers a directory, it then conducts an identical
+    loop through the subdirectories of that directory and prints the names of the
+    subdirectories. But this script also has its limitations because it’s only searching
+    two levels deep. What if we want to search three, four, or five levels deep? We
+    would need five levels of nested loops.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And what if we want to search as deep as our subdirectories go? That would seem
+    to be impossible, as we don’t even know how many levels there are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And this is where recursion really shines. With recursion, we can write a script
+    that goes arbitrarily deep—and with a lot less code!
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ { readdirSync, lstatSync } ​**from**​ ​*''fs''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**import**​ { join } ​**from**​ ​*''path''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ printSubdirectories(directoryName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fileName ​**of**​ readdirSync(directoryName))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pathName = join(directoryName, fileName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (lstatSync(pathName).isDirectory()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printSubdirectories(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: As this script encounters files that are themselves subdirectories, it calls
+    the printSubdirectories method upon that very subdirectory. The script can therefore
+    dig as deep as it needs to, leaving no subdirectory unturned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To visualize how this algorithm acts on an example filesystem, examine the
+    following diagram, which specifies the order in which the script traverses the
+    subdirectories:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/filesystem.png](images/recursively_recurse_with_recursion/filesystem.png)'
+  prefs: []
+  type: TYPE_IMG

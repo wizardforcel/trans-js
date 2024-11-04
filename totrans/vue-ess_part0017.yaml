@@ -1,0 +1,796 @@
+- en: 'Module 12:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vue.js and Server-Side Rendering (SSR)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the dynamic landscape of web development, Server-Side Rendering (SSR) has
+    emerged as a powerful technique to enhance performance, search engine optimization
+    (SEO), and user experience. The module "Vue.js and Server-Side Rendering (SSR)"
+    takes center stage in the book "Vue.js Essentials: For Responsive Web Development,"
+    guiding readers through the intricacies of integrating Vue.js with SSR. Within
+    these pages, developers will gain comprehensive insights into the principles,
+    benefits, and practical implementation of SSR with Vue.js to create highly performant
+    and SEO-friendly web applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unveiling the Significance of Server-Side Rendering (SSR) in Web Development
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before delving into the specifics of SSR with Vue.js, it is essential to recognize
+    the significance of this technique in modern web development. This module initiates
+    by highlighting the challenges associated with traditional client-side rendering,
+    emphasizing the need for solutions that improve initial page load times, search
+    engine discoverability, and overall user experience. Readers gain an understanding
+    of how SSR addresses these challenges, providing a balanced approach to web application
+    development.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Key Principles and Benefits of Vue.js Server-Side Rendering
+  prefs: []
+  type: TYPE_NORMAL
+- en: Central to the success of Vue.js SSR is a grasp of the key principles that define
+    this technique. This segment explores the benefits of SSR, including improved
+    performance, enhanced SEO, and superior user experience. Readers will delve into
+    the principles of rendering Vue.js components on the server side, pre-rendering
+    content, and achieving faster initial page loads. By understanding these principles,
+    developers can harness the advantages of SSR to create web applications that deliver
+    content rapidly and efficiently.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Implementing Server-Side Rendering with Vue.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: The core of this module lies in the practical implementation of SSR with Vue.js.
+    Readers will explore strategies for setting up a Vue.js application for server-side
+    rendering, configuring the build process, and handling routing on the server side.
+    The module provides step-by-step guidance on incorporating SSR into Vue.js projects,
+    ensuring that developers can seamlessly transition from client-side rendering
+    to server-side rendering based on project requirements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hydration and Transitioning from Server to Client-Side Rendering
+  prefs: []
+  type: TYPE_NORMAL
+- en: While SSR offers significant benefits, transitioning from server to client-side
+    rendering is a key consideration. This segment delves into the concept of hydration,
+    where the server-sent HTML is converted into a fully interactive client-side application.
+    Developers will gain practical insights into strategies for managing the transition,
+    ensuring that the client-side application seamlessly takes over while preserving
+    the benefits gained from server-side rendering.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Vue.js and Server-Side Rendering (SSR)" stands as a pivotal module within
+    "Vue.js Essentials: For Responsive Web Development," providing readers with a
+    comprehensive guide to incorporating SSR principles into Vue.js applications.
+    By unraveling the significance, benefits, and practical implementation of SSR,
+    developers gain the knowledge and skills needed to optimize performance, enhance
+    SEO, and deliver superior user experiences in their Vue.js projects. This module
+    equips developers with the tools to leverage Vue.js SSR effectively, ensuring
+    their web applications are not only responsive but also rank well in search engine
+    results.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Introduction to SSR
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the module "Vue.js and Server-Side Rendering (SSR)" within the book "Vue.js
+    Essentials: For Responsive Web Development," the section titled "Introduction
+    to SSR" takes developers on a journey into the powerful realm of Server-Side Rendering.
+    This section serves as a foundational exploration, shedding light on the benefits,
+    implementation, and transformative potential of SSR in Vue.js applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Terminal
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: vue create vue-ssr-demo
+  prefs: []
+  type: TYPE_NORMAL
+- en: cd vue-ssr-demo
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-vuex
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-router
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-ssr
+  prefs: []
+  type: TYPE_NORMAL
+- en: Embarking on the SSR adventure begins with setting up a new Vue.js project.
+    The Vue CLI proves instrumental in this process, offering specialized plugins
+    like @vue/cli-plugin-vuex, @vue/cli-plugin-router, and @vue/cli-plugin-ssr to
+    seamlessly integrate Vuex, Vue Router, and SSR capabilities into the project structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Understanding the SSR Lifecycle Hooks: Bridging the Gap Between Server and
+    Client'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/entry-server.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createApp } from './main';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default (context) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return new Promise((resolve, reject) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: const { app, router, store } = createApp();
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.push(context.url);
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.onReady(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: const matchedComponents = router.getMatchedComponents();
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (!matchedComponents.length) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'return reject({ code: 404 });'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise.all(matchedComponents.map((component) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (component.asyncData) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'return component.asyncData({ store, route: router.currentRoute });'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '})).then(() => {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: context.state = store.state;
+  prefs: []
+  type: TYPE_NORMAL
+- en: resolve(app);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}).catch(reject);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, reject);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The heart of SSR lies in the lifecycle hooks specific to server-side rendering.
+    The entry-server.js file demonstrates how to create a server-rendering function
+    that initializes the Vue app, router, and store. Leveraging Vue Router's onReady
+    hook, the function ensures that the router is ready before rendering components,
+    facilitating a smooth transition between server and client.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Enhancing SEO with SSR: Leveraging Server-Side Rendering for Search Visibility'
+  prefs: []
+  type: TYPE_NORMAL
+- en: SSR proves to be a game-changer for Search Engine Optimization (SEO). By rendering
+    content on the server and sending fully-formed HTML to the client, search engines
+    can easily index the content. This enhances the visibility of Vue.js applications
+    in search results, a critical advantage for projects aiming to maximize their
+    online presence.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Client Hydration: Merging Server-Side and Client-Side Rendering'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/entry-client.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createApp } from './main';
+  prefs: []
+  type: TYPE_NORMAL
+- en: const { app, router, store } = createApp();
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (window.__INITIAL_STATE__) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: store.replaceState(window.__INITIAL_STATE__);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.onReady(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.mount('#app', true);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The client-side entry file (entry-client.js) complements the server-side rendering
+    by hydrating the client with the initial state sent from the server. This seamless
+    merging of server-side and client-side rendering ensures that users experience
+    rapid page loads and consistent application states.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unveiling the Power of Server-Side Rendering in Vue.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Introduction to SSR" in the "Vue.js and Server-Side Rendering (SSR)" module
+    serves as a gateway to the transformative world of Server-Side Rendering with
+    Vue.js. As developers embrace the benefits of enhanced SEO, faster initial page
+    loads, and a unified rendering approach, SSR becomes a pivotal technique in the
+    Vue.js ecosystem. With the foundation laid in this section, developers are poised
+    to explore advanced SSR strategies, optimizing their Vue.js applications for both
+    search engines and user experiences. Server-Side Rendering emerges as a key ingredient
+    in the recipe for responsive and SEO-friendly Vue.js applications, opening doors
+    to enhanced performance and broader online visibility.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Setting Up Vue.js SSR
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the module "Vue.js and Server-Side Rendering (SSR)" of the book "Vue.js
+    Essentials: For Responsive Web Development," the section titled "Setting Up Vue.js
+    SSR" marks the initial steps on the journey into the realm of Server-Side Rendering.
+    This section is a crucial starting point, providing developers with a comprehensive
+    guide on preparing a Vue.js project for SSR and setting the stage for enhanced
+    performance and SEO benefits.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Terminal
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: vue create vue-ssr-demo
+  prefs: []
+  type: TYPE_NORMAL
+- en: cd vue-ssr-demo
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-vuex
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-router
+  prefs: []
+  type: TYPE_NORMAL
+- en: vue add @vue/cli-plugin-ssr
+  prefs: []
+  type: TYPE_NORMAL
+- en: Creating a Vue.js project tailored for SSR begins with utilizing the Vue CLI
+    and its specialized plugins. In the provided code snippet, the essential plugins
+    @vue/cli-plugin-vuex, @vue/cli-plugin-router, and @vue/cli-plugin-ssr are added
+    to the project. These plugins seamlessly integrate Vuex for state management,
+    Vue Router for navigation, and SSR capabilities into the project structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Project Structure for SSR: Architecting Vue.js Applications for Server-Side
+    Rendering'
+  prefs: []
+  type: TYPE_NORMAL
+- en: src/
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- assets/'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- components/'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- views/'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- App.vue'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- entry-client.js'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- entry-server.js'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- main.js'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- router.js'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|-- store.js'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The project structure for SSR involves the creation of entry files specific
+    to the client (entry-client.js) and server (entry-server.js). These entry files
+    serve as the gateways for initiating the Vue app, router, and store. Additionally,
+    a router.js file and a store.js file are employed to configure Vue Router and
+    Vuex, respectively. This structured organization sets the foundation for a maintainable
+    and SSR-ready Vue.js application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Vue Router Configuration for SSR: Navigating the Server and Client Realms'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/router.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createRouter } from 'vue-router';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Home from './views/Home.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export function createAppRouter() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return createRouter({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'history: createWebHistory(),'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'routes: ['
+  prefs: []
+  type: TYPE_NORMAL
+- en: '{ path: ''/'', component: Home },'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '],'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Configuring Vue Router for SSR involves creating a router instance using createRouter
+    from Vue Router. The use of createWebHistory provides a clean URL structure and
+    enables navigation within both server and client environments. The routes are
+    defined, specifying the components associated with each route.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Vuex Store Configuration for SSR: Managing State Across Server and Client'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/store.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createStore } from 'vuex';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export function createAppStore() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return createStore({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Initial state
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Mutations
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Actions
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'modules: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Modules
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Configuring the Vuex store for SSR involves creating a store instance using
+    createStore from Vuex. The store is structured with state, mutations, actions,
+    and modules as needed. This centralized state management ensures consistency across
+    server and client environments, enabling seamless transitions and synchronization.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The SSR Prelude — A Blueprint for Enhanced Vue.js Applications
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Setting Up Vue.js SSR" serves as the prelude to an SSR journey, offering developers
+    a blueprint for architecting Vue.js applications that seamlessly transition between
+    server and client realms. By configuring project structures, Vue Router, and Vuex
+    stores for SSR, developers establish a foundation that optimizes performance and
+    unlocks the potential for improved search engine visibility. With this groundwork
+    in place, developers are ready to delve deeper into the intricacies of SSR, leveraging
+    its capabilities to create highly responsive, SEO-friendly Vue.js applications.
+    The section sets the stage for the SSR exploration to follow, providing developers
+    with the tools and insights needed to embark on a transformative SSR journey.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Optimizing SEO with SSR
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the module "Vue.js and Server-Side Rendering (SSR)" within "Vue.js Essentials:
+    For Responsive Web Development," the section titled "Optimizing SEO with SSR"
+    delves into the pivotal role Server-Side Rendering plays in enhancing Search Engine
+    Optimization (SEO). This section provides developers with insights and strategies
+    to harness the power of SSR, ultimately improving the discoverability and visibility
+    of Vue.js applications on search engines.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <!-- public/index.html -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: <!DOCTYPE html>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <html lang="en">
+  prefs: []
+  type: TYPE_NORMAL
+- en: <head>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <meta charset="utf-8">
+  prefs: []
+  type: TYPE_NORMAL
+- en: <meta name="viewport" content="width=device-width, initial-scale=1">
+  prefs: []
+  type: TYPE_NORMAL
+- en: <title>{{ title }}</title>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <!-- Additional meta tags, styles, and scripts -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: </head>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <body>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <div id="app"></div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </body>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </html>
+  prefs: []
+  type: TYPE_NORMAL
+- en: The HTML structure of an SSR-enabled Vue.js application plays a crucial role
+    in SEO optimization. By dynamically injecting content, such as the page title
+    ({{ title }}), during server-side rendering, search engines receive fully-formed
+    HTML documents. This results in improved indexing and ranking as search engines
+    can easily comprehend the content structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'SEO-Friendly Route Configurations: Navigating Search Engines Through Vue Router'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/router.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createRouter } from 'vue-router';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Home from './views/Home.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export function createAppRouter() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return createRouter({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'history: createWebHistory(),'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'routes: ['
+  prefs: []
+  type: TYPE_NORMAL
+- en: '{ path: ''/'', component: Home, meta: { title: ''Home'' } },'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Additional routes with meta tags
+  prefs: []
+  type: TYPE_NORMAL
+- en: '],'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Optimizing SEO with SSR involves creating SEO-friendly route configurations.
+    Vue Router allows developers to associate meta information, such as titles and
+    descriptions, with each route. Search engines utilize this metadata to understand
+    the context and relevance of each page, contributing to higher search rankings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Dynamic SEO Metadata with Vue Meta: Tailoring SEO Information per Page'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Terminal
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: npm install vue-meta
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createApp } from 'vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createMetaManager } from 'vue-meta';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import App from './App.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createAppRouter } from './router';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createAppStore } from './store';
+  prefs: []
+  type: TYPE_NORMAL
+- en: const app = createApp(App);
+  prefs: []
+  type: TYPE_NORMAL
+- en: const router = createAppRouter();
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = createAppStore();
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.use(router);
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.use(store);
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.use(createMetaManager());
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.isReady().then(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.mount('#app');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To dynamically manage SEO metadata, developers can use the vue-meta library.
+    This library integrates seamlessly with Vue.js and allows for the definition of
+    meta tags within components. By adding the createMetaManager plugin, developers
+    enable SSR-friendly management of meta information, providing search engines with
+    accurate and context-specific details for each page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: SSR as the SEO Powerhouse for Vue.js Applications
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Optimizing SEO with SSR" illuminates the transformative impact of Server-Side
+    Rendering on the discoverability and ranking of Vue.js applications. By crafting
+    SEO-friendly HTML structures, leveraging Vue Router for route metadata, and dynamically
+    managing SEO information with vue-meta, developers can harness the full SEO potential
+    of SSR. This section serves as a guide for developers seeking to elevate their
+    Vue.js applications in search rankings, ensuring that their content is not only
+    visually appealing but also easily accessible to search engines, leading to enhanced
+    online visibility and user engagement. With these SEO optimization strategies
+    in place, Vue.js applications are positioned to thrive in the competitive landscape
+    of the web.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Handling Data in SSR Applications
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The module "Vue.js and Server-Side Rendering (SSR)" in the book "Vue.js Essentials:
+    For Responsive Web Development" introduces the section "Handling Data in SSR Applications,"
+    shedding light on essential strategies to effectively manage data in the context
+    of Server-Side Rendering (SSR). This section provides developers with insights
+    into optimizing the data handling process for improved performance and a seamless
+    user experience.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/entry-server.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createApp } from './main';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default (context) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return new Promise((resolve, reject) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: const { app, router, store } = createApp();
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.push(context.url);
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.onReady(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: const matchedComponents = router.getMatchedComponents();
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (!matchedComponents.length) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'return reject({ code: 404 });'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise.all(matchedComponents.map((component) => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (component.asyncData) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'return component.asyncData({ store, route: router.currentRoute });'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '})).then(() => {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: context.state = store.state;
+  prefs: []
+  type: TYPE_NORMAL
+- en: resolve(app);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}).catch(reject);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, reject);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In SSR applications, handling data involves leveraging lifecycle hooks, such
+    as asyncData, to fetch necessary data before rendering components on the server.
+    The provided code snippet from the entry-server.js file demonstrates how to use
+    the asyncData hook to pre-fetch data for matched components during the server-side
+    rendering process. This ensures that the server-rendered HTML includes the data
+    required for the initial view, enhancing the application's performance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Data Synchronization Between Server and Client: A Crucial Aspect of SSR'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/entry-client.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import { createApp } from './main';
+  prefs: []
+  type: TYPE_NORMAL
+- en: const { app, router, store } = createApp();
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (window.__INITIAL_STATE__) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: store.replaceState(window.__INITIAL_STATE__);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: router.onReady(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: app.mount('#app', true);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To ensure seamless data synchronization between the server-rendered HTML and
+    the client-side application, the entry-client.js file plays a pivotal role. The
+    code above demonstrates how to replace the client-side Vuex store's state with
+    the initial state received from the server. This process guarantees that the client-side
+    application starts with the same data as the server-rendered HTML, resulting in
+    a consistent user experience.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Efficient Data Fetching with Async Components: Enhancing SSR Performance'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // src/components/AsyncComponent.vue
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default {
+  prefs: []
+  type: TYPE_NORMAL
+- en: async asyncData({ store }) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: await store.dispatch('fetchData');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For components that are loaded asynchronously, the asyncData hook can be utilized
+    to fetch data efficiently. In the example above, the AsyncComponent utilizes asyncData
+    to dispatch a Vuex action (fetchData). This ensures that data is fetched before
+    the component is rendered, contributing to improved SSR performance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mastering Data Handling in SSR Applications
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Handling Data in SSR Applications" is a critical section within the Vue.js
+    and SSR module, guiding developers through effective strategies for managing data
+    in the context of Server-Side Rendering. By utilizing lifecycle hooks like asyncData
+    and ensuring seamless data synchronization between the server and client, developers
+    can optimize performance and deliver a consistent user experience. This section
+    empowers developers to master the intricacies of data handling in SSR applications,
+    a key skill for building high-performance, SEO-friendly Vue.js applications. With
+    these strategies in place, developers are well-equipped to navigate the complexities
+    of data management in the SSR landscape.'
+  prefs: []
+  type: TYPE_NORMAL

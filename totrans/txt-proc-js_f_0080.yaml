@@ -1,0 +1,95 @@
+- en: '| Recipe 68 | Matching Floating-Point Numbers |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you aim to write a regex to match floating-point values because you
+    want to extract stock prices from a string. Or perhaps you want to retrieve other
+    values that have a floating-point representation, such as interest rates, sensor
+    readings, temperatures, or coordinates (latitude and longitude).
+  prefs: []
+  type: TYPE_NORMAL
+- en: You want to be able to specify whether the presence of the sign, integer, and
+    fraction components is mandatory or optional. The regex to use depends on the
+    optional components of the floating-point number. Therefore, this recipe offers
+    different patterns as potential solutions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Matching a floating-point value that has a sign, integer, and fraction components:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | [+-]\d+\.\d+ |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Matching a floating-point value that may have an optional sign, but must have
+    integer and fraction components:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | [+-]?\d+\.\d+ |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Matching a floating-point value with optional sign and integer but mandatory
+    fraction:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | [+-]?\d*\.\d+ |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Example:'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Let’s extract the first floating-point number that appears in a string. The
+    value may have an optional sign, but must have integer and fraction components:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/matching_floating_points/fp_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/matching_floating_points/fp_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** extractFloatingPoint(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**[**+-**]?\d**+**\.\d**+/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.match(re)[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractFloatingPoint(*"It''s -4.19 today."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "-4.19"* |'
+  prefs: []
+  type: TYPE_TB
+- en: Mission accomplished!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the first pattern, we use square brackets to create a character class that
+    matches either a plus sign (+) or a minus sign (-), followed by one or more digits
+    (\d+), followed by a literal period (.), followed by one or more digits again
+    (\d+). This matches a floating point numbering a question mark after the character
+    class. Similarly, replacing the plus sign with an asterisk in the integer digits
+    repetition allows for zero or more digits instead of one or more.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the example, we’re verifying if a floating-point number exists within a larger
+    body of text. But, if you want to verify whether the entire input is a floating-point
+    number, you should use the ^ and $ boundaries.
+  prefs: []
+  type: TYPE_NORMAL

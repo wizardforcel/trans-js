@@ -1,0 +1,416 @@
+- en: '| Recipe 4 | Extracting Lists from Text with slice() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you run an online shop selling thousands of different clothes. You’re
+    tasked with making the products searchable by color. The problem is the available
+    colors for each product are listed as a sentence in the product description. You
+    need a way to find and extract those colors programmatically to build a searchable
+    database.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So if you have a product description like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Feel confident in even the most unforeseen weather conditions with these
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | waterproof trail-running shoes helping you stay dry. Available in four
+    new |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | colors: Velvet Brown, Black, Golden Moss, Medium Blue. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'You want to extract the colors and store them in an array like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | [*"Velvet Brown"*, *"Black"*, *"Golden Moss"*, *"Medium Blue"*] |'
+  prefs: []
+  type: TYPE_TB
+- en: The list you want to extract may also come in different variations. It could
+    have a forward slash (/) between items rather than a comma. Or it could have extra
+    words such as “and,” “or,” “etc.” that you don’t want to end up in your array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this recipe, we first build a function that extracts simple lists and then
+    enhance the function to handle more complex lists.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'This recipe involves two steps: first, finding the sentence containing the
+    list of colors, and second, extracting each color and storing it in an array.
+    You can perform the first step using the indexOf() method. The list of colors
+    comes after a colon (:). Locate it with indexOf() and store the resulting index
+    in a constant. Next, locate the first period that follows the colon and store
+    the index in another constant:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`Feel confident in even the most unforeseen weather
+    conditions* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *with these waterproof trail-running shoes helping you stay dry. Available*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *in four new colors: Velvet Brown, Black, Golden Moss, Medium Blue.`*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** start = str.indexOf(*":"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now, you have two indexes that mark the beginning and end of the list in the
+    string. Pass them to the slice() method to extract the list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** list = str.slice(start + 2, end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// "Velvet Brown, Black, Golden Moss, Medium Blue"* |'
+  prefs: []
+  type: TYPE_TB
+- en: The arguments you pass to slice() specify the string’s start and end index to
+    be returned. To offset the colon and the space at the beginning of the string,
+    increase the start index by 2\. The end index tells slice() to extract up to but
+    not including the character at that index, so there’s no need to subtract from
+    it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now comes the second step, where you need to convert the comma-separated list
+    into an array. There are a couple of ways to do this in JavaScript. The long approach
+    is to look for commas in a loop and add each item to an array. The more straightforward
+    approach is to use the split() method. With split(), you can define where each
+    split in a string should occur and quickly get an array of items:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** colors = list.split(*", "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(colors); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Velvet Brown", "Black", "Golden Moss", "Medium Blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: In this code, you’re telling split() to use a comma followed by a space as a
+    separator. The result is an array of colors with no extra space or commas to worry
+    about.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the final code put together in a function so you can reuse it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/extracting_lists/slice_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`Feel confident in even the most unforeseen weather
+    conditions* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *with these waterproof trail-running shoes helping you stay dry. Available*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *in four new colors: Velvet Brown, Black, Golden Moss, Medium Blue.`*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** extractList(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** start = str.indexOf(*":"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** list = str.slice(start + 2, end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** list.split(*", "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Velvet Brown", "Black", "Golden Moss", "Medium Blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If the list you want to extract has extra words, such as “and,” “or,” “etc.,”
+    or uses a forward slash (/) rather than a comma, then you need a more advanced
+    function. You probably won’t find “etc.” in a list of available color options
+    for a product, but we have included it here so that you can remove it from other
+    types of lists, if needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/extracting_lists/slice_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** extractList(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** start = str.indexOf(*":"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** list = str.slice(start + 2, end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** list.split(*", "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available in three colors: red, black, and blue."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "red", "black", "and blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available colors: Red/Black/Blue."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "Red/Black/Blue"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available colors: Red, Black, Blue, etc."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Red", "Black", "Blue", "etc" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This function isn’t equipped to handle such lists properly. Let’s revise it!
+    You first need to check whether the list has a comma or a forward slash:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | list.includes(*","*) ? list.split(*", "*) : list.split(*''/''*); |'
+  prefs: []
+  type: TYPE_TB
+- en: The includes() method checks if the list contains a comma. If so, it returns
+    true, and the ternary operator executes list.split(", "). If not, the operator
+    executes list.split("/").
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, remove “etc” from the resulting array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | arr.at(-1) === *"etc"* ? arr.pop() : **null**; |'
+  prefs: []
+  type: TYPE_TB
+- en: at(-1) gets the last item in the array. If it has a value of “etc,” pop() removes
+    it. You could use a filter() here, but since “etc” is usually the last item in
+    the array, it’s more efficient to check only the last item’s value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | Older
+    browsers do not support the at() method. To ensure your app can be accessed by
+    users with older browsers, you should use a polyfill.^([[5]](f_0032.xhtml#FOOTNOTE-5))
+    In the Node environment, you’ll need a minimum Node version of 16.6.0.^([[6]](f_0032.xhtml#FOOTNOTE-6))
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To remove “and”/”or,” you can use map(), like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **return** arr.map(word => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (word.startsWith(*"and "*)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word.slice(4); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word.slice(3); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: When you call map(), it executes a function on every element in the array. Use
+    the startsWith() method to check if there’s an extra “and” or “or” at the beginning
+    of an item and remove it with slice().
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your revised function should look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/extracting_lists/slice_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** extractList(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** start = str.indexOf(*":"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** list = str.slice(start + 2, end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Split the string by comma or forward slash* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** arr = list.includes(*","*) ? list.split(*", "*) : list.split(*"/"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove "etc"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | arr.at(-1) === *"etc"* ? arr.pop() : **null**; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove and/or* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** arr.map(word => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (word.startsWith(*"and "*)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word.slice(4); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word.slice(3); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** word; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available in three colors: red, black, and blue."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available colors: Red/Black/Blue."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractList(*"Available colors: Red, Black, Blue, etc."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: You might be wondering why not use replaceAll() to remove any “and,” “or,” “etc.”
+    from the text before splitting it into an array. It’s because there could be a
+    color name containing these letters, such as “Macaroni and Cheese” (yes, that’s
+    a color name).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Take advantage of the slice() method to extract a section of a string or an
+    array. The second argument is optional: omit it to get the rest of the string.
+    Use split() when you need to divide a string into an array of substrings, and
+    finally, use map() to weed out any unwanted part of the resulting array.'
+  prefs: []
+  type: TYPE_NORMAL

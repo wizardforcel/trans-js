@@ -1,0 +1,165 @@
+- en: '| Recipe 58 | Validating Canadian Postal Codes |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s suppose you have a specialized shop catering to your Canadian customers,
+    and you want to ensure that the postal code entered by users is a valid Canadian
+    postal code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Canada, a postal code is a combination of six characters that includes both
+    letters and digits. The format of the code follows A1A 1A1, where the letter A
+    represents any letter of the alphabet and the number 1 represents any digit. The
+    third and fourth characters are separated by a single space.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, the postal code for the CN Tower in Toronto is M5V 1J2\. You want
+    to create a regex matching the format of that postal code, but not invalid patterns
+    like A1A 1A1A, 111 111, A1A1A1, A1A-A1A, or 12A 1B1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_ca_postal/ca_postal_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_ca_postal/ca_postal_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** isValidPostalCode(postalCode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**(?!**.***[**DFIOQU**])[**A-VXY**][**0-9**][**A-Z**]\s[**0-9**][**A-Z**][**0-9**]**$/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(postalCode); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"A1A 1A1A"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"111 111"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"A1A1A1"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"A1A-A1A"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"12A 1B1"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidPostalCode(*"M5V 1J2"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: This code enables you to confirm whether a provided input conforms to the Canadian
+    postal code format.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The regex in this recipe begins with a negative lookahead that prohibits the
+    occurrence of D, F, I, O, Q, or U at any position within the string. Because of
+    their resemblance to other characters, the letters D, F, I, O, Q, and U are excluded
+    from Canadian postal codes. This is because D, I, and O can be confused with 0,
+    1, and 0 respectively, while F, Q, and U can be mistaken for E, 0, and V.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The pattern .* at the beginning of the negative lookahead tells the regex engine
+    that the character type being sought can appear anywhere in the string, not just
+    at the beginning.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Canadian postal codes cannot start with the letters W or Z. To ensure that the
+    first character of the string is not W or Z, we use the character class [A-VXY].
+    This tells the regex engine that the character must be any letter from A to V
+    or X or Y, but not W or Z.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the exception of the two aforementioned cases, Canadian postal codes follow
+    a straightforward pattern of six alternating alphanumeric characters, with the
+    option of a single space in the middle.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s dig a bit deeper into the pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s[0-9][A-Z][0-9]$/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ^ asserts the position at start of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?!.*[DFIOQU]) negative lookahead: asserts the regex below doesn''t
+    match |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ . matches any character (except for line terminators) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches the previous token between zero and unlimited times, as many
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | times as possible |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ [DFIOQU] matches a single character in the list DFIOQU |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [A-VXY] matches a single character present in the list below |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ A-V matches a single character in the range between A and V |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ XY matches a single character in the list XY |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [0-9] matches a single character in the range between 0 and 9 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [A-Z] matches a single character in the range between A and Z |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [0-9] matches a single character in the range between 0 and 9 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [A-Z] matches a single character in the range between A and Z |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [0-9] matches a single character in the range between 0 and 9 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● $ asserts the position at the end of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To locate a Canadian postal code in a string, substitute ^ and $ with word
+    boundaries (\b): /\b(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s[0-9][A-Z][0-9]\b/.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By validating postal codes, you can avoid errors in address data, resulting
+    in more efficient and reliable delivery of goods or services to the intended recipient.
+  prefs: []
+  type: TYPE_NORMAL

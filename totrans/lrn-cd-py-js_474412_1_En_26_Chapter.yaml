@@ -1,0 +1,534 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_26](https://doi.org/10.1007/978-3-658-42912-6_26)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '26. Debugging & Error-Handling: How to Find and Fix Errors in a Structured
+    Way'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Errors are part of everyday programming, an unpleasant but unfortunately irrefutable
+    truth. Therefore, to conclude our tour through the basics of Python, we will deal
+    with how errors can be found, analyzed and handled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to make the program more robust by appropriate checks in your program code,
+    for example against user input errors
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to catch errors at runtime with the help of exceptions and how to process
+    them in an orderly manner
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use *PyCharm*’s debugging tools to find and analyze bugs during development
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 26.1 Error Handling at Runtime
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 26.1.1 Catching Errors Through Targeted Checks
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In ► Chap. [16](474412_1_En_16_Chapter.xhtml), we defined errors *at runtime*
+    as errors that arise only from circumstances of the concrete program execution.
+    It is true that there are application scenarios in which the code achieves exactly
+    the intended goal without errors; and it was precisely these scenarios that were
+    the focus of development. In other words, the program was tested based on such
+    scenarios. However, situations can occur during execution in which the program
+    does *not* do what it is supposed to do. This is especially the case when program
+    execution gets out of control and the program “crashes”, i.e., terminates with
+    an error and (without restarting the program) cannot be used any further.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A common cause of such errors is problems with type conversions of variables.
+    Consider the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**from** math **import** sqrtx_str = input(''Enter an integer number: '')x_int
+    = int(x_str)print(sqrt(x_int))'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The program reads a number from the user and calculates the square root from
+    it. The **sqrt()** function from the **math** module is used for this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since the **input()** function always returns a string, the user input must
+    first be converted to a float variable, i.e., a floating-point number, using a
+    normal type conversion (if you are no longer familiar with this, scroll back to
+    ► Sect. [21.​5](474412_1_En_21_Chapter.xhtml#Sec12)). If you now start the program
+    and enter, for example, 25, you will get the square root as output, i.e., 5\.
+    The program apparently works without errors, at least in the application scenario
+    we tested. But what happens if the user enters not a number but a string (for
+    example, **''hello''**)? We immediately get a nasty error message from Python:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'x_float = int(x_str)**ValueError: could not convert string to float: ''hello''.**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Of course, the error can be easily caught by first checking in an **if** statement
+    whether the user’s input is actually a number. Our program could then look like
+    this, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**from** math **import** sqrtx_str = input(''Enter a positive integer number:
+    '')**if** x_str.isnumeric():x_int = int(x_str)print(sqrt(x_int))**else**:print(''Your
+    input "'', x_str,''" is not a positive integer!'', sep='''')'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this way, we “immunize” the program against user input errors. This makes
+    the program more “robust”, it can now handle more scenarios that might occur in
+    the real world without crashing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Perhaps you have identified another possible source of error: the input of
+    negative numbers. We don’t seem to catch this kind of “incorrect input” here.
+    In fact, however, we do, because **isnumeric()** checks whether the string contains
+    only digits. Decimal separators or minus signs contained in the string automatically
+    cause the string not to be considered a number. This would throw our home-made
+    error message, so the **sqrt()** function will never be called with a negative
+    number. Irritatingly, Python does not inherently have a function to determine
+    if a string contains a number of any kind, i.e., a number that may include signs,
+    decimal separators, and exponents. Therefore, we have made it simple here and
+    only allowed the input of a positive integer.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.1.2 Try-Except Constructs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Not all problems that can occur at runtime can be described so explicitly that
+    we can catch them with a condition such as the example above. For example, when
+    opening files for writing, there can be numerous causes for the opening to fail.
+    For example, the file may be read-only if it already exists, or the disk may be
+    read-only, or there may not be enough space left on the disk to write the file
+    as desired.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, of course, it is good to catch as many of these potential error sources
+    as possible in order to be able to tell the user precisely what causes the error
+    and thus enable him to fix the problem, e.g., to remove write protection or to
+    free up sufficient space on the disk. In fact, even if one eliminates some possible
+    causes of errors by targeted checks, there will still be other potential sources
+    of errors that one overlooks or cannot foresee, especially in operations as complicated
+    as working with the file system. Therefore, there is another way to deal with
+    errors in Python, namely with a *Try-Except construct*, which we learned about
+    in ► Sect. [16.​2](474412_1_En_16_Chapter.xhtml#Sec2). This construct in Python
+    consists of the keywords **try**, **except**, **else**, and **finally**, the latter
+    two being optional.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With that, our program from the top could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'x_str = input(''Enter a number: '')**try**:x_float = float(x_str)print(sqrt(x_float))**except**:print(''Your
+    input "'', x_str,''" is not a number!'', sep='''')'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The keyword **try** is followed by a code block with statements whose execution
+    is “tried”. If this execution does not succeed without errors, the code block
+    after the keyword **except** is executed. However, if everything runs as planned,
+    the **except** code block is skipped and the execution of the program is continued
+    after it. Here we can now enter fractional numbers with decimal separators, as
+    well as negative numbers. Enter a negative number! What happens? You get the error
+    message **'Your input is not a number!'** This is not true, of course; the problem
+    is elsewhere, namely in taking the square root. The program terminates with an
+    error because you are trying to take the square root of a negative number. The
+    Try-Except construct catches *all* errors that could occur, including the one
+    caused by the negative argument of **sqrt()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We now have two options: Either, we formulate the error message in a more general
+    way (“An error has occurred”), which is of course not very helpful for the user,
+    or we try to differentiate the error causes more sharply. This is possible via
+    *exception classes*. In Python, as in many other programming languages, errors
+    are referred to as “exceptions”, that is, situations in which the program does
+    not behave as it should. Now, an exception class covers errors (i.e., exceptions)
+    of *a certain kind*. The exception class **ZeroDivisionError**, for example, covers
+    the exception that the divisor is 0 in a division.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, the exception class of an error is also displayed in the Python
+    error messages. Thus you can determine which exception class you have to work
+    with. The **except** keyword allows us to explicitly catch certain classes of
+    exceptions. In our example, however, this helps us only to a limited extent, because
+    both the attempt to convert a string that does not contain a number into a **float**
+    variable and the calculation of the square root of a negative number lead to an
+    exception of the same exception class, namely **ValueError**. But now suppose
+    we extend our program to include a line that determines the reciprocal of the
+    input number. Then we can certainly differentiate the two possible exception classes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'x_str = input(''Enter a number: '')**try**:x_float = float(x_str)root = sqrt(x_float)reciprocal
+    = 1/x_float**except** ValueError:print(''Your input "'', x_str, ''" is not a number
+    or is a negative number!'', sep='''')**except** ZeroDivisionError:print(''The
+    reciprocal of 0 cannot be calculated!'')**except**:print(''Other error!'')**else**:print(''Root:'',
+    root)print(''Reciprocal:'', reciprocal)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this variation of our example, we catch exceptions of the types **ValueError**
+    and **ZeroDivisionError** separately and can therefore issue more specific error
+    messages. In addition, you will notice two further differences to the structure
+    of the Try-Except construct used so far. First, in addition to the two **except**
+    keywords, each of which addresses specific exception classes, you will find another
+    **except** that is specified without an exception class. This construction ensures
+    that any *other* errors that do not fall into either of the two explicitly specified
+    exception classes are also handled. Second, you see an **else** block; the statements
+    it contains are always executed if no exception has been raised (“thrown”, as
+    it is called in programmer jargon).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, the **print** statements could just as well have been included in
+    the **try** code block. There, too, they would only be executed if no exception
+    occurs. However, one generally tries to keep the **try** block as small as possible
+    to make it clear what the “risky” action is here that you fear could throw an
+    exception.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The keywords **try**, **except** and **else** must always be used in this order.
+    **else** is optional, however, and can therefore be omitted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have not considered the keyword **finally**, which can optionally follow
+    the **else** code block and whose code block contains statements that are executed
+    *in any case*, regardless of whether an exception was thrown or not. The use of
+    **finally** is especially interesting if, for example, within an **except** block
+    the current function is exited with **return**, or the current loop is exited
+    with **break**. The statements behind the entire Try-Except construct are then
+    no longer executed, but those statements contained in the **finally** code block
+    are. Only after their execution is the function or loop exited.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.1 [15 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Write a program that accepts from the user a number, an operator (addition,
+    subtraction, multiplication, division) and another number, then executes the arithmetic
+    operation described by it and displays the result. The program should be as robust
+    as possible against all possible errors that can occur during its execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '! 26.2 [15 min]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What might be an alternative formulation of the program from Task 26.1 that
+    exhibits similar robustness but forgoes the use of the **try**…**except** construct?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.2 Troubleshooting During Development
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Several handy tools are available for debugging during development when working
+    with an integrated development environment like *PyCharm*. The most important
+    of these are *breakpoints*, *variable and expression watches*, and *step-by-step
+    execution* of the program code. One slightlsy more advanced topic that we will
+    skip here are automated tests. Such tests allow for a piece of code, for example,
+    a function, to have an expected result defined and then automatically check whether
+    the current code of the function actually produces this result. Thus, the testing
+    occurs entirely automatically; one does not need to perform the test manually.
+    Python libraries that allow for such tests include, for example, *unittest* and
+    *pytest*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.2.1 Breakpoints
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Stop Sign of the Program Execution
+  prefs: []
+  type: TYPE_NORMAL
+- en: A breakpoint is a special marking of a program line which causes the program
+    to be executed only up to this line, and the execution is then stopped. It can
+    be resumed later, with all variables restarting with the value they had at the
+    time of the breakpoint stop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Breakpoints can be useful, for example, to test at which point an error is triggered
+    in the program that causes the program to crash. If the program runs through to
+    the breakpoint without errors, the cause of the error is definitely not in the
+    code part above the breakpoint. If you set a breakpoint in the code block of an
+    If-Else construct, you can easily determine whether this branch of the construct
+    is actually executed, i.e. whether the respective condition is fulfilled. If the
+    program stops, this is the case, but if it does not stop and runs to the end,
+    the condition was obviously not met. You can also use breakpoints to pause program
+    execution to look at the contents of variables used in the program; this is done
+    with *watches*, which we’ll look at in more detail next.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set and Remove BreakpointsBefore you can start debugging properly, you must
+    first set a breakpoint. To do this, click in the margin strip next to the input
+    area in the code editor, where you can also see the line numbers. A red marker
+    will appear to indicate the breakpoint. You can see this in ◘ Fig. [26.1](#Fig1).
+    Clicking again in the same place removes the breakpoint again. Of course, you
+    can also set several breakpoints at different positions in the program, if required.![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A snippet of code comprises the input to read the directory, start the file,
+    and quit. It has 21 lines and highlights the thirteenth line, which reads d i
+    r underscore exists = true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Code with breakpoint set in *PyCharm*
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now you can execute the program in debug mode. This is done by clicking on the
+    beetle icon in the toolbar (◘ Fig. [26.2](#Fig2)), the same icon on the toolbar
+    attached to the left of the debug console, or choosing “Debug” from the context
+    menu (right click into the code editor), or by pressing the key combination <SHIFT>+<F9>.
+    Note that if you run the program using the normal Run function (for example, using
+    the green arrow button from the toolbar), it will *not* run in debug mode! This
+    means that your program will then not stop at the breakpoint. If you want to debug
+    your program, you must start it in debug mode.![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig2_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of a P y charm toolbar denotes a set of icons. A dropdown list
+    at the beginning reads file starter 1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*PyCharm toolbar* with debug icon (beetle to the right of arrow icon)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: After the program reaches the breakpoint, further execution is first suspended.
+    In the lower part of the PyCharm application window appears the *Debug* console.
+    The *Debug* console, which you also see in ◘ Fig. [26.3](#Fig3), is ultimately
+    nothing more than a *Run* console with some special functions. Execution always
+    stops *before* the line where the breakpoint is set. You can resume the program
+    by clicking on the *Resume Program* icon in the horizontal toolbar of the *Debug*
+    area, or by pressing the <F9> on your keyboard. The program will then continue
+    to run until the next breakpoint, or until the end of the program if no other
+    breakpoint stands in the way of program execution.![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig3_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the debug console represents 4 lines of text. It denotes the
+    location of the Python program and Python code at the top.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: Debug console in *PyCharm*
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can stop the program at any time with the red “Stop” symbol, the one in
+    the toolbar of the *Debug* area or the one in the title bar of the *PyCharm* application.
+    Then the program is completely reset, i.e., at the next start in debug mode the
+    program runs again from the beginning and stops again at the first breakpoint
+    reached during execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By right-clicking on the red, round breakpoint icon in the margin next to the
+    line of code where you installed the breakpoint, you can add a condition to the
+    breakpoint. For example, in our example from ◘ Fig. [26.1](#Fig1), we could enter
+    the condition **isdir(directory)==True**. This way, program execution in debug
+    mode would stop at the breakpoint only if the variable **directory** is indeed
+    a directory. Otherwise, the program would continue to run as if the breakpoint
+    did not exist at all.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.2.2 Display of Variable Content and Use of Watches
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: You will have noticed that when a breakpoint is reached, the *Debug* area switches
+    from the *Console* tab to the tab called *Threads & Variables*. On the right side
+    of this area, you can see the variables used in the program up to this point and
+    their values. The values of variables are also displayed directly in little pop-up
+    windows if you click a variable name in the code editor (◘ Fig. [26.4](#Fig4)).![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig4_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot denotes a set of variables under the threads and variables tab.
+    It exhibits the values for choice, d i r exists, directory, list d i, and start
+    file. The left panel indicates the main thread.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: Display of the variable content behind the code lines and in mouseover popup
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, the debugger does not only allow you to display the contents of variables.
+    You can also formulate entire expressions based on variables and then display
+    their value at the breakpoint. Because you monitor the values of these expressions,
+    they are also referred to as *watches*. Enter the expression whose value you want
+    to observe into the edit box on the top of the right side of the *Threads & Variables*
+    tab in the *Debug* area and press <ENTER>. For example, you may want to check
+    if the variable **directory** contains the directory **c:\mydir**. On the right
+    side a new entry for the expression **directory == "c:\\mydir\\"** appears. As
+    soon as you run the program and it reaches the breakpoint in debug mode, the value
+    of the expression will be shown, as you can see in ◘ Fig. [26.5](#Fig5). Of course,
+    you can also make use of the Python functions when formulating your watched expressions.![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig5_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the debug console window. It includes 4 lines of python code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.5
+  prefs: []
+  type: TYPE_NORMAL
+- en: Watches in the *Threads & Variables* tab
+  prefs: []
+  type: TYPE_NORMAL
+- en: Display the Variable Contents Manually
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The debugger offers very practical functionalities for monitoring the values
+    of variables or expressions based on them. However, often a much simpler procedure
+    is already sufficient to support debugging by displaying the values of variables
+    and expressions: Outputting the values in the program code using the **print()**
+    function! So just insert **print()** statements at the relevant places in the
+    program for the time being and you will see the corresponding output in the *Run*
+    console. It couldn’t be simpler! As with the breakpoints, you can of course use
+    such output to check whether certain parts of your program are being run at all.
+    Just don’t forget to remove these output statements after debugging. The user
+    of your program will thank you for it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.2.3 Step-by-Step Execution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Especially when working with watches, but also to determine the exact line where
+    an error occurs, a debugger functionality called *step-by-step execution* is helpful.
+    This executes the program line by line, as if a breakpoint were set in each individual
+    line.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can start this as soon as your program has reached a breakpoint. To continue
+    step by step from there, click the “Step Over” button (◘ Fig. [26.6](#Fig6)) in
+    the toolbar of the *Debug* area or press the <F8> key. This will execute the next
+    line of your program. Clicking the button again or pressing <F8> will execute
+    one more line for each click. In this way, you can step through your program and
+    observe its execution. If you want to exit step-by-step execution, click the red
+    “Stop” icon, or press <CTRL>+<F2>, as you did when using breakpoints.![](../images/474412_1_En_26_Chapter/474412_1_En_26_Fig6_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot denotes a set of variables under the Threads and Variables tab.
+    It exhibits the values of directory, choice, d i r underscore exists, list d i
+    r, and start file. The left panel indicates the main thread.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 26.6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execution of the program step by step with Step Over
+  prefs: []
+  type: TYPE_NORMAL
+- en: 26.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we looked at how Python handles errors *at runtime* by checking
+    critical states in the program and handling exceptions (runtime errors) appropriately,
+    and how to analyze them beforehand *at development time* using debugging tools.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By cleverly checking critical conditions, you can make your program more robust
+    against incorrect input or other situations in which regular program execution
+    is no longer guaranteed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Runtime errors are represented in Python by exceptions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Statements that are in danger of producing an exception can be wrapped in a
+    Try-Except construct; it “tries” to execute the statement and offers the possibility
+    of error handling with its own program code, should the exception be raised (“thrown”).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The simplest form of the Try-Except construct is: **try:** ***code_block***
+    **except:** ***code_block***; also, the exception to be caught can be explicitly
+    specified, so that different error-handling routines can be defined for the same
+    segment of code, depending on which exception is thrown.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Integrated development environments such as *PyCharm* provide some means of
+    error analysis during development; these include breakpoints (where execution
+    of the program code is temporarily halted), watches (displaying the contents of
+    variables while the program is running), and step-by-step execution (where execution
+    of the next statement is explicitly triggered by the developer).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 26.4 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Exercise 26.1A simple formulation of the program might be this:number1 = input("Number
+    1: ")op = input("Operator (+,-,*,/): ")number2= input("Number 2: ")**try**:**if**
+    op == "+":result = float(number1) + float(number2)**else**:**if** op == "-":result
+    = float(number1) - float(number2)**else**:**if** op == "*":result = float(number1)
+    * float(number2)**else**:result = float(number1) / float(number2)print("Result
+    of ", number1, " ", op, " ", number2, ": ",result, sep="")**except**:print("There
+    was an error during the calculation of ",number1," ", op, " ", number2, ".", sep
+    = "")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The program section that is to be protected from running into an uncontrolled
+    error is simply wrapped in a large Try-Except construct here. If an error occurs
+    during program execution, the user receives a general error message. A more precise
+    description of the error would be possible if the critical program sections, for
+    example the conversion of the number input of type **str** into type **float**,
+    were executed in separate Try-Except constructs. The rest of the program would
+    then be executed in the **except** block of the preceding Try-Except construct,
+    so that in the end you would have a multiple nesting of these constructs, which
+    is not easy to read, but at least offers the user a more precise analysis of the
+    cause of the error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 26.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: An alternative to using the Try-Except construct—at least in these cases here—is
+    to catch errors explicitly using appropriate conditions. In the following formulation
+    of the program, a number of such conditions are checked. If an error condition
+    hits, a **bool** variable **error** is set to **True**; in addition, a **str**
+    variable **message** is filled with an appropriate error message. Towards the
+    end of the program, it is then checked whether the program has run through without
+    errors (**error == False**); if so, the variable **message** is supplied with
+    the result of the calculation. Finally, only the content of **message** must be
+    output to the user, which then contains either the result of the calculation or
+    an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note here the trick we use to check whether the variables **number1** and **number2**
+    really contain a number after reading them with **input()**. The **str** method
+    **isdigit()** checks whether an **str** variable contains only digits. Now, of
+    course, the user may have entered a decimal separator (i.e., a period). Therefore
+    we first eliminate it with **replace()**. We also check whether the decimal separator
+    also appears at most once in the string, because we would also have an invalid
+    “number” if the decimal separator appeared more than once in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, as you can see, you can catch many errors, even with conditions. However,
+    this is not successful with all errors. When working with files, for example,
+    it is difficult to check all conceivable causes of errors with conditions (perhaps
+    also the existence of a file if you want to read from it). In these cases, the
+    use of **try**…**except** constructs is a good idea.
+  prefs: []
+  type: TYPE_NORMAL

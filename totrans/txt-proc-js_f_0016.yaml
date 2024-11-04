@@ -1,0 +1,161 @@
+- en: '| Recipe 6 | Adding Transparency to Hex Colors |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to add a semi-transparent overlay to some elements of your
+    app. For example, you may have a prompt that asks the reader to log in before
+    proceeding, and you may want to include a semi-transparent white color around
+    the prompt to blur the remainder of the page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you use a normal hexadecimal color, the overlay will completely obscure the
+    content underneath it. If you use the CSS opacity, it will set the opacity of
+    the element as a whole, including its contents.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You need a solution that lets you add transparency to a hex color.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Write a function that accepts a hex value and a percentage as input parameters.
+    The function should convert the percentage into a hex value and then add it to
+    the original hex value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** addAlphaToHex(hex, percent) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** decimal = percent / 100; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** rgb = Math.round(decimal * 255); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** alpha = rgb.toString(16).toUpperCase(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (alpha.length === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | alpha = *"0"* + alpha; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** hex + alpha; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
+  prefs: []
+  type: TYPE_TB
+- en: This function returns an eight-character hex value that includes the alpha level.
+    In this case, the return value is a white hex color (#FFFFFF) with 70 percent
+    opacity (#FFFFFFB3).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Previously, developers had to convert a hex color to either an RGBA or HSLA
+    color value to set opacity. This conversion was necessary because the alpha channel
+    in the RGBA or HSLA value could be used to determine the level of opacity. However,
+    with the introduction of CSS Color Module Level 4, the problem has been solved
+    by adding new four (#rgba) and eight (#rrggbbaa) character hex notations that
+    include the alpha level. So, developers no longer need to convert the hex color
+    to another format in order to set opacity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The rr, gg, bb, and aa in the notation represent the hexadecimal values for
+    the red, green, blue, and alpha components respectively, ranging from 00 to FF.
+    The alpha value determines the opacity of the color, with 00 representing a fully
+    transparent color and FF representing a fully opaque color. For example, the color
+    #FF0000FF is a fully opaque red color, while the color #FF000000 is a fully transparent
+    red color.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our function addAlphaToHex() takes two parameters: hex and percent. The function’s
+    purpose is to convert the percentage value to its corresponding hex representation
+    and append it as an alpha value to the given hex. Within the function, we first
+    calculate the decimal value of the percentage by dividing it by 100. Then we multiply
+    the resulting decimal by 255 and round the result using Math.round() to obtain
+    an RGB value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we convert the RGB value to a hexadecimal string using the toString()
+    method with a radix of 16 (that is, base 16). We then convert the string to uppercase
+    using the toUpperCase() method. After that, we check if the hex is only one character
+    long. If it is, we add a leading zero using the string concatenation operator
+    (+), so that it’s two characters long. Finally, we return the original value parameter
+    concatenated with the alpha hex value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to write your JavaScript code as compact as possible, you can use
+    the following version:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** addAlphaToHex(hex, percent) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** alpha = Math.round(percent / 100 * 255).toString(16) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .toUpperCase().padStart(2, *"0"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** hex + alpha; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
+  prefs: []
+  type: TYPE_TB
+- en: This version combines the rgb and alpha constants into one line and uses padStart()
+    to add a leading zero if necessary. The first parameter of padStart() defines
+    the length of the resulting string once the given string has been padded, so padStart(2,
+    "0") ensures the hex string is always two characters long.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to view your colors in different formats, you can use the Chrome/Edge
+    DevTools. Open the DevTools panel and navigate to the styles section to find the
+    color you want to check. Then, click the box located to the left of the color
+    to directly adjust its values:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/src/adding_transparency_to_hex/hex.png](images/src/adding_transparency_to_hex/hex.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: You can also hold the Shift key and click on the box to switch between different
+    format options, with the values automatically converted.
+  prefs: []
+  type: TYPE_NORMAL

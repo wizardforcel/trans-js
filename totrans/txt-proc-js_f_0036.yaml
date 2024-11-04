@@ -1,0 +1,371 @@
+- en: '| Recipe 25 | Looking For Whole Words Only with the Word Boundary (\b) |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Say you want to look for the word “green” in a document. You try using the
+    includes() method, but it matches other words containing “green” too, such as
+    “greenhouse” and “evergreen”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"We must reduce the emissions of greenhouse gases."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"An evergreen plant has leaves for the whole year."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str1.includes(*"green"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str2.includes(*"green"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Adding a space around “green” doesn’t quite cut it because the word might be
+    followed by a comma, appear before/after a newline character, or come at the beginning/end
+    of a sentence, and so on:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"Blend together yellow and blue paint to make green."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.includes(*" green "*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a solution that matches “green” only if it’s a separate word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Place a \b before and after “green” in the regex pattern to exclude other words:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**green**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str1 = *"We must reduce the emissions of greenhouse gases."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"An evergreen plant has leaves for the whole year."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str3 = *"Blend together yellow and blue paint to make green."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(str1); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(str2); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(str3); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success! You matched “green” only when it was a separate word and not part of
+    another word. You also were able to find “green” in spite of having punctuation
+    around the word. Let’s see how \b works to find whole words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The metacharacter \b matches at a position known as the word boundary. Simply
+    put, this metacharacter allows you to look for “whole words” only. A position
+    qualifies as a word boundary only if a word character is not followed or preceded
+    by another word character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Therefore, \b matches before the first character or after the last character
+    of a word. Word characters include a-z, A-Z, 0-9, and underscore. So things like
+    spaces (green beans), quotation marks ("green"), commas (green,), and periods
+    (green.) are seen as word boundaries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| What Is a Metacharacter? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | When certain
+    characters are used in regular expressions, they give special meaning to the search
+    syntax. These characters are known as metacharacters (or special characters) and
+    allow you to perform a more advanced matching than just searching for a piece
+    of text. Metacharacters can represent ideas such as locations, quantity, or types
+    of characters. |'
+  prefs: []
+  type: TYPE_TB
+- en: It’s pretty common to need to match only whole words (like black, but not blacksmith)
+    and \b is well-suited to that use, but there’s more to word boundaries than you
+    might imagine. Let’s dig a bit deeper into using \b.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '\bgreen\b would not match “green” in “_green” or “green4,” because both underscores
+    and digits are word characters, and there is no boundary between a word character
+    and another word character:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**green**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"_green"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"green4"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Hyphens, however, do qualify as word breaks. So, green-eyed would be a match
+    in our example. We humans may see green-eyed as a single word, but regex doesn’t:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**green**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"green-eyed"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Same thing with the apostrophe: /\bcan\b/ matches “I can’t do it” even though
+    “can’t” is a contraction and a word in the English sense:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**can**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"I can''t do it"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Accented characters are also considered word breaks (for a workaround, see
+    Recipe 53, [*Matching Unicode Word Boundaries with the Unicode Property Escape*](f_0064.xhtml#rcp.unicode_property_escapes_p3)):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex7.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**Fianc**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Fiancée"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Fiancee"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'You don’t have to put a pair of \b around words. You can use a single \b to
+    match only one boundary:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex8.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re1 = */**\b**green/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */green**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re1.test(*"evergreen"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re1.test(*"greenhouse"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re2.test(*"evergreen"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re2.test(*"greenhouse"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: Notice that when you place \b at the start of the search string (/\bgreen/)
+    it finds only words that start with “green” and when placed at the end (/green\b/)
+    only words that end with “green.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using \B for Non-word Boundaries
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '\B matches any position that \b does not (any non-word boundary) and so we
+    say that \B is the negated form of \b. In regex, it’s a normal convention: lowercase
+    and uppercase versions of the same letter being the opposite/negated forms of
+    each other.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '\B matches a position where a character is followed or preceded by the same
+    type of character, such as between two space characters or two letters. Here is
+    an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex9.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */green**\B**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"greenhouse"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"green bay"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In “greenhouse,” “green” is followed by the same type of character: a word
+    character. So, the test returns true. In “green bay,” however, “green” is followed
+    by a space (a different type), and so the result is false.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| \b with the RegExp Constructor |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | When
+    using the RegExp constructor, you must escape the \b metacharacter with a backslash
+    because you’re writing the pattern in a normal string, not a slash-enclosed literal.The
+    code tag should not be here. |'
+  prefs: []
+  type: TYPE_TB
+- en: Using Intl.Segmenter() Instead
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Remember Intl.Segmenter() from Recipe 19, [*Counting Words in a String with
+    Intl.Segmenter()*](f_0029.xhtml#rcp.wordSegmenter)? If you’re looking for a pure
+    JavaScript solution, you can achieve the same result with Intl.Segmenter():'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/word_boundary/word_boundary_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/word_boundary/word_boundary_ex10.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** includesWord(str, word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** s = [...**new** Intl.Segmenter(*"en"*, {granularity: *"word"*}).segment(str)];
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** s.some(value => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** value.segment === word; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | includesWord(*"Her flashing green eyes."*, *"green"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | includesWord(*"We must reduce the emissions of greenhouse gases."*, *"green"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | includesWord(*"The green-eyed monster"*, *"green"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | includesWord(*"I can''t do it"*, *"can"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'When you set the granularity to word, Intl.Segmenter() splits the string at
+    word boundaries. You can then check the items of the resulting array for the word
+    you are looking for with some(), which returns true if at least one element in
+    the array matches the word. One difference between this approach and our regex
+    solution is how it handles the apostrophe: \b treats an apostrophe as a word break
+    while Intl.Segmenter() does not.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another difference is that the Intl.Segmenter() approach is slower than regex,
+    especially if you’re testing a large block of text. So, unless you want to avoid
+    matching words that have an apostrophe, you should stick with regex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use the word boundary (\b) when looking for “whole words” in a string, but be
+    wary of accented characters, hyphens, and apostrophes since they qualify as word
+    breaks. And use the negated version of the word boundary (non-word boundary \B)
+    to match a position that \b does not.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,234 @@
+- en: '| Recipe 59 | Removing Duplicate Lines |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you need to display team rankings on a website, but your data was imported
+    from another source and there were errors during the import process. So now, your
+    new document has consecutive duplicate lines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For instance, let’s say your imported data consists of the lines below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Team Power Rankings |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #3 Memphis Grizzlies 43-27 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Before you display the rankings, you need to remove the duplicates so that
+    it gets displayed like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Team Power Rankings |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #3 Memphis Grizzlies 43-27 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a regex that can detect two identical lines and remove one of them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** removeDuplicateLines(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**(**.***)(?:\r?\n\1)**+$/mg*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *"$1"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`Team Power Rankings* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#1 Cleveland Cavaliers 45-28* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#3 Memphis Grizzlies 43-27* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#4 Boston Celtics 49-23* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#4 Boston Celtics 49-23* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#4 Boston Celtics 49-23`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** result = removeDuplicateLines(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(result); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Team Power Rankings* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #1 Cleveland Cavaliers 45-28* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #3 Memphis Grizzlies 43-27* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #4 Boston Celtics 49-23* |'
+  prefs: []
+  type: TYPE_TB
+- en: This will output the string with any duplicate lines removed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To match the beginning of a line using regex, we use the symbol ^ at the start.
+    Typically, ^ only matches the start of the string, so it’s important to enable
+    the multiline flag (m) to ensure that ^ and $ match at line breaks. Also make
+    sure you don’t use the dotAll flag (s) that allows the dot to match line breaks
+    because that would lead to the regex matching the whole string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We use a pair of parentheses containing .* to match the complete content of
+    a line, including empty lines. Since the parentheses are a capturing group, we
+    can later refer to the matched value with a backreference.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Within a non-capturing group (?: ... ), we have used the pattern \r?\n\1 to
+    identify line separators found in Unix and Unix-like systems (\n) or Windows/DOS
+    (\r\n) text files. Next, we attempt to match the line that was previously matched
+    with the backreference \1.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the line at that position does not match, the matching process fails and
+    the regex engine proceeds to the next match attempt. Conversely, if a match is
+    found, we use the + quantifier to repeat the group, which consists of a line break
+    and backreference, to match any subsequent identical lines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Below is the breakdown of the regex pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^(.*)(?:\r?\n\1)+$/mg; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ^ asserts the start of a line |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (.*) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ . matches any character except for line terminators |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches the previous token zero or more times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?:\r?\n\1) non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \r matches a carriage return |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ? matches the previous token zero or one time |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \n matches a line-feed (newline) character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \1 matches the same text matched by the 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● + matches the previous token one or more times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● $ asserts the end of a line |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ m: enables multiline, allowing ^ and $ to match line start and end
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g: enables global matching, which returns all matches |'
+  prefs: []
+  type: TYPE_TB
+- en: Because we are performing a search and replace operation, the complete match,
+    which includes the original line and any line breaks, is eliminated from the string.
+    To restore the initial line, we use the special replacement pattern $1 in the
+    second argument of replace().
+  prefs: []
+  type: TYPE_NORMAL
+- en: Removing duplicate lines with this technique is fast, but it won’t remove duplicate
+    lines that are separated by other lines. The next recipe shows you how to do that
+    with JavaScript’s built-in methods.
+  prefs: []
+  type: TYPE_NORMAL

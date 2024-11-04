@@ -1,0 +1,152 @@
+- en: A Quadratic Problem
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here’s a practical example of where we can replace a slow O(N²) algorithm with
+    a speedy O(N) one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say you’re working on a JavaScript application that analyzes the ratings
+    people give to products, where users leave ratings from 0 to 10\. Specifically,
+    you’re writing a function that checks whether an array of ratings contains any
+    duplicate numbers. This will be used in more complex calculations in other parts
+    of the software.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, the array [1, 5, 3, 9, 1, 4] has two instances of the number 1,
+    so we’d return true to indicate that the array has a case of duplicate numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One of the first approaches that may come to mind is the use of nested loops,
+    as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i !== j && array[i] === array[j]) { ​**return**​ ​**true**​;
+    } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this function, we iterate through each value of the array using the variable
+    i. As we focus on each value in i, we then run a second loop that looks through
+    all the values in the array—using j—and checks if the values at positions i and
+    j are the same. If they are, it means we’ve encountered duplicate values and we
+    return true. If we get through all of the looping and we haven’t encountered any
+    duplicates, we return false since we know that there are no duplicates in the
+    array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While this certainly works, is it efficient? Now that we know a bit about Big
+    O notation, let’s take a step back and see what Big O would say about this function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Remember that Big O expresses how many steps the algorithm takes relative to
+    N data values. To apply this to our situation, we’d ask ourselves: for N values
+    in the array provided to our hasDuplicateValue function, how many steps would
+    our algorithm take in a worst-case scenario?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To answer the preceding question, we need to analyze what steps our function
+    takes as well as what the worst-case scenario would be.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The preceding function has one type of step, namely comparisons. It repeatedly
+    compares array[i] and array[j] to see if they are equal and therefore represent
+    a duplicate pair. In a worst-case scenario, the array contains no duplicates,
+    which would force our code to complete all of the loops and exhaust every possible
+    comparison before returning false.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Based on this, we can conclude that for N values in the array, our function
+    would perform N² comparisons. This is because we perform an outer loop that must
+    iterate N times to get through the entire array, and for each iteration, we must
+    iterate another N times with our inner loop. That’s N steps * N steps, which is
+    N² steps, leaving us with an algorithm of O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can actually prove that our function takes N² steps by adding some code
+    to our function that tracks the algorithm’s number of steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ steps = 0; ​*// count of steps*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | steps += 1; ​*// increment number of steps*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i !== j && array[i] === array[j]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(steps); ​*// print number of steps if no duplicates*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This added code will print the number of steps taken when there are no duplicates.
+    If we run hasDuplicateValue([1, 4, 5, 2, 9]), for example, we’ll see an output
+    of 25 in the JavaScript console, indicating that there were twenty-five comparisons
+    for the five elements in the array. If we test this for other values, we’ll see
+    that the output is always the size of the array squared. This is classic O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Very often (but not always), when an algorithm nests one loop inside another,
+    the algorithm is O(N²). So whenever you see a nested loop, O(N²) alarm bells should
+    go off in your head.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, the fact that our function is O(N²) should give us pause. This is because
+    O(N²) is considered a relatively slow algorithm. Whenever you encounter a slow
+    algorithm, it’s worth spending some time to consider whether there are any faster
+    alternatives. There may not be any better alternatives, but let’s first make sure.
+  prefs: []
+  type: TYPE_NORMAL

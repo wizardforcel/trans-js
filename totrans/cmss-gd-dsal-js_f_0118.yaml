@@ -1,0 +1,131 @@
+- en: Dynamic Programming Through Going Bottom-Up
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: I mentioned earlier that dynamic programming can be achieved through one of
+    two techniques. We looked at one technique, memoization, which is quite nifty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second technique, known as going bottom-up, is a lot less fancy and may
+    not even seem like a technique at all. All going bottom-up means is to ditch recursion
+    and use some other approach (like a loop) to solve the same problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason that going bottom-up is considered part of dynamic programming is
+    because dynamic programming means taking a problem that could be solved recursively
+    and ensuring that it doesn’t make duplicate calls for overlapping subproblems.
+    Using iteration (that is, loops) instead of recursion is, technically, a way to
+    achieve this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Going bottom-up becomes more of a “technique” when the problem is more naturally
+    solved with recursion. Generating Fibonacci numbers is one example where recursion
+    is a neat, elegant solution. Having to solve the same problem with iteration may
+    take more brainpower, as an iterative approach may be less intuitive. (Imagine
+    solving the staircase problem from the previous chapter with a loop. Ugh.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see how we might implement a bottom-up approach for our Fibonacci function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Bottom-Up Fibonacci
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the following bottom-up approach, we start with the first two Fibonacci
+    numbers: 0 and 1\. We then use good ol’ iteration to build up the sequence:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ fib(n) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (n === 0) { ​**return**​ 0; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ a = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ b = 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 1; i < n; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [a, b] = [b, a + b]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ b; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The very first thing we do is return 0 if the input n is 0\. Officially, fib(0)
+    should return 0, so we easily dispense with that with a simple conditional statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, we get to the meat of the code. We initialize variables a and b as 0 and
+    1 respectively, as those are the first two numbers of the Fibonacci sequence.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We then start a loop so we can calculate each number of the sequence until
+    we reach n:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**let**​ i = 1; i < n; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To calculate the next number in the sequence, we need to add the two previous
+    numbers together, namely a + b. We’ll update b to be this new number, since b
+    always is supposed to point to the last number in the sequence. We also update
+    a to what b was, so that a continues to point to the second-to-last number. We
+    do this all with one convenient swap:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [a, b] = [b, a + b]; |'
+  prefs: []
+  type: TYPE_TB
+- en: Because our code is a simple loop from 1 to N, our code takes N steps. Like
+    the memoization approach, it’s O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Memoization vs. Bottom-Up
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'You’ve now seen the two primary techniques of dynamic programming: memoization
+    and going bottom-up. Is one technique better than the other?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Usually, it depends on the problem and why you’re using recursion in the first
+    place. If recursion presents an elegant and intuitive solution to a given problem,
+    you may want to stick with it and use memoization to deal with any overlapping
+    subproblems. However, if the iterative approach is equally intuitive, you may
+    want to go with that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s important to point out that even with memoization, recursion does carry
+    some extra overhead versus iteration. Specifically, with any recursion, the computer
+    needs to keep track of all the calls in a call stack, which consumes memory. The
+    memoization itself also requires the use of a hash table, which will take up additional
+    space on your computer as well. (More on this in Chapter 19, [​*Dealing with Space
+    Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generally speaking, going bottom-up is often the better choice, unless the recursive
+    solution is more intuitive. Where recursion is more intuitive, you can keep the
+    recursion and keep it fast by using memoization.
+  prefs: []
+  type: TYPE_NORMAL

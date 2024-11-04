@@ -1,0 +1,128 @@
+- en: '| Recipe 57 | Validating ZIP Codes |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you run an online shop that is dedicated to delivering packages to customers
+    as quickly as possible. So, you want to ensure the ZIP codes (postal codes used
+    in the United States) entered by users conform to a standard format to prevent
+    errors in mail delivery. The basic format of a ZIP code consists of five digits.
+    But, there’s an extended ZIP+4 code which features the five digits of the ZIP
+    code, followed by a hyphen and four digits that define a more precise location.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You aim to create a regular expression capable of matching input formats such
+    as 12345, 12345-6789, and 12345 6789, while excluding 1234, 123456, 123456789,
+    or 1234-56789.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_zipcode/zipcode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_zipcode/zipcode_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** isValidZipCode(zipcode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**\d{5}(?:[**-**\s]\d{4})?**$/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(zipcode); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"12345-6789"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"12345 6789"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"12345"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"123456789"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"1234-56789"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"123456"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidZipCode(*"1234"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: With this code, you can verify that a given ZIP code conforms to the standard
+    format used by the United States Postal Service (USPS).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The function in this recipe takes a ZIP code as input and returns true if it’s
+    a valid US ZIP code (5 digits or 5 digits followed by a space/hyphen and 4 digits)
+    and false otherwise. A detailed explanation of the regex is as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^\d{5}(?:[-\s]\d{4})?$/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ^ asserts the position at start of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {5} matches the previous token exactly 5 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?:[-\s]\d{4}) non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ [-\s] matches a single character in the list |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ - matches the character - literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {4} matches the previous token exactly 4 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ? matches the previous token 0 or 1 time |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● $ asserts the position at the end of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This regex assumes that the provided string consists solely of a ZIP code.
+    But, if you intend to locate ZIP codes within a larger document or input string,
+    you should substitute ^ and $ with the word boundary like this: /\b\d{5}(?:[-\s]\d{4})?\b/.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Checking the validity of ZIP codes in forms is crucial because it helps to avoid
+    errors in address data, ensuring that goods or services are delivered to the correct
+    recipient and preventing unnecessary delays or expenses.
+  prefs: []
+  type: TYPE_NORMAL

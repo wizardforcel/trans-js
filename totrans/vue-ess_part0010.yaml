@@ -1,0 +1,1134 @@
+- en: 'Module 5:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|'
+  prefs: []
+  type: TYPE_NORMAL
+- en: State Management with Vuex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the realm of modern web development, managing application state efficiently
+    is paramount to creating robust and responsive user interfaces. Vue.js, a progressive
+    JavaScript framework, addresses this challenge seamlessly through Vuex—an official
+    state management library designed specifically for Vue.js applications. The module
+    "State Management with Vuex" takes center stage in the book "Vue.js Essentials:
+    For Responsive Web Development," offering readers an in-depth exploration of how
+    Vuex empowers developers to handle complex state management scenarios with clarity
+    and precision.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unveiling the Crucial Role of State Management in Vue.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before delving into Vuex, it is crucial to recognize the pivotal role state
+    management plays in Vue.js applications. This module commences with an exploration
+    of the challenges associated with managing state in large-scale applications,
+    emphasizing the need for a centralized and predictable approach. Readers gain
+    insights into the evolution of state management within Vue.js and how Vuex emerges
+    as a potent solution, providing a centralized store to efficiently manage and
+    synchronize the state of the application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Fundamentals of Vuex: State, Getters, Mutations, and Actions'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The core concepts of Vuex—state, getters, mutations, and actions—form the backbone
+    of this module. Readers embark on a comprehensive journey to understand how Vuex
+    introduces a unidirectional data flow, ensuring a predictable and traceable state
+    mutation process. The module dissects the role of the state as the single source
+    of truth, explores getters for computed properties, delves into mutations for
+    synchronous state changes, and elucidates the role of actions for asynchronous
+    operations. By grasping these fundamentals, developers gain a robust foundation
+    for implementing Vuex in their Vue.js projects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Structured State Management: Modules in Vuex'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As Vue.js applications grow in complexity, organizing state management becomes
+    paramount. This module introduces the concept of modules in Vuex, empowering developers
+    to structure their state, getters, mutations, and actions in a modular fashion.
+    With modules, readers learn to compartmentalize state concerns, facilitating maintainability
+    and scalability. By exploring practical examples, developers gain the expertise
+    needed to architect Vuex stores that seamlessly adapt to the evolving requirements
+    of their applications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Vue.js and Vuex Integration: Building Responsive and Synchronized Applications'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The synergy between Vue.js and Vuex is a key focus of this module. Readers delve
+    into the seamless integration of Vuex within Vue.js applications, understanding
+    how to connect components to the Vuex store and leverage reactive data-binding
+    to create dynamic and responsive user interfaces. The module explores strategies
+    for efficiently updating the UI based on changes in the Vuex store, ensuring a
+    synchronized and coherent user experience across the application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"State Management with Vuex" stands as a cornerstone within "Vue.js Essentials:
+    For Responsive Web Development," providing readers with the essential knowledge
+    and skills to elevate their Vue.js applications through efficient state management.
+    By unraveling the intricacies of Vuex, developers gain the tools needed to build
+    scalable, maintainable, and responsive web applications that seamlessly adapt
+    to the dynamic requirements of the modern web development landscape.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Introduction to Vuex
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The "State Management with Vuex" module in the book "Vue.js Essentials: For
+    Responsive Web Development" initiates a comprehensive exploration with the section
+    titled "Introduction to Vuex." This segment introduces Vuex as a state management
+    library specifically designed for Vue.js applications. Vuex plays a pivotal role
+    in maintaining a centralized state, facilitating efficient data management and
+    synchronization across components.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vue from 'vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import App from './App.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vuex from 'vuex';
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vue.use(Vuex);
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Initial state properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'counter: 0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Mutations for state modifications
+  prefs: []
+  type: TYPE_NORMAL
+- en: increment(state) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.counter++;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Actions for asynchronous operations
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync({ commit }) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: setTimeout(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, 1000);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getters: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Getters for computed properties based on state
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'doubleCounter: state => state.counter * 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: new Vue({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'render: h => h(App),'
+  prefs: []
+  type: TYPE_NORMAL
+- en: store
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}).$mount(''#app'');'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code snippet showcases the foundational setup of Vuex within a Vue.js application.
+    The Vuex store is instantiated with initial state properties, mutations for state
+    modifications, actions for asynchronous operations, and getters for computed properties.
+    This structured architecture forms the backbone of Vuex, ensuring organized and
+    scalable state management.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Centralized State Management: Vuex in Action'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vuex employs a centralized store to manage the state of an entire Vue.js application.
+    This centralized approach facilitates the sharing of state across components,
+    eliminating the need for complex prop-passing between nested components.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Counter.vue
+  prefs: []
+  type: TYPE_NORMAL
+- en: <template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '<p>Counter: {{ counter }}</p>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <button @click="increment">Increment</button>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <button @click="incrementAsync">Increment Async</button>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '<p>Double Counter: {{ doubleCounter }}</p>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'computed: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: counter() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return this.$store.state.counter;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: doubleCounter() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return this.$store.getters.doubleCounter;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'methods: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: increment() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: this.$store.commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: this.$store.dispatch('incrementAsync');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the Counter component, the state is accessed through the computed properties
+    counter and doubleCounter. Mutations are triggered using this.$store.commit in
+    response to user interactions, ensuring a straightforward approach to state modifications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Actions for Asynchronous Operations: Vuex Flexibility'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vuex introduces the concept of actions, providing a flexible mechanism for handling
+    asynchronous operations. In the example, the incrementAsync action introduces
+    a one-second delay before committing the increment mutation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync({ commit }) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: setTimeout(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, 1000);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This asynchronous capability allows developers to manage complex state modifications,
+    such as API calls or asynchronous computations, within the Vuex store.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Introduction to Vuex" in the "State Management with Vuex" module initiates
+    developers into the realm of centralized state management in Vue.js applications.
+    Vuex serves as a robust solution for handling state complexities, providing an
+    organized structure for mutations, actions, and getters. The code examples illustrate
+    the seamless integration of Vuex within Vue.js components, demonstrating its ability
+    to streamline state management and enhance overall application structure.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Setting Up and Configuring Vuex
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The "State Management with Vuex" module in the book "Vue.js Essentials: For
+    Responsive Web Development" takes a foundational step forward with the section
+    titled "Setting Up and Configuring Vuex." This segment guides developers through
+    the essential process of incorporating and configuring Vuex, Vue.js'' state management
+    library, providing a centralized store for maintaining application-wide state.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vue from 'vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import App from './App.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vuex from 'vuex';
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vue.use(Vuex);
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Vuex store configuration
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: new Vue({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'render: h => h(App),'
+  prefs: []
+  type: TYPE_NORMAL
+- en: store
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}).$mount(''#app'');'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code snippet, Vuex is integrated into the Vue.js application through
+    Vue.use(Vuex). A Vuex store instance is created, serving as the centralized hub
+    for managing the application's state. This foundational setup establishes the
+    framework for structured state management in Vue.js.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Defining State in Vuex: Vue.js Centralized State Repository'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Vuex store holds the application state, providing a single source of truth
+    accessible to all components. State properties are defined within the state object,
+    offering a clear and organized representation of the application's data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Initial state properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'user: null,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'isLoggedIn: false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, the state object includes properties such as user and isLoggedIn.
+    These properties form the core of the application's state and can be accessed
+    or modified by components throughout the Vue.js application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Modifying State with Mutations: Vuex Predictable State Changes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mutations are the primary means of modifying the state in Vuex. They ensure
+    a predictable and traceable pattern for state changes, allowing developers to
+    understand how and when the state is altered.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'user: null,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'isLoggedIn: false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Mutation for setting user and login status
+  prefs: []
+  type: TYPE_NORMAL
+- en: setUser(state, user) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.user = user;
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.isLoggedIn = !!user;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The setUser mutation illustrates how the state is modified in response to a
+    specific action. By calling this mutation, the user and login status properties
+    are updated within the Vuex store.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Integrating Vuex with Vue.js Components: Accessing State in Components'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once Vuex is set up and configured, Vue.js components can seamlessly integrate
+    with the centralized state. Components gain access to the state through computed
+    properties, enabling dynamic rendering based on the application's data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // UserProfile.vue
+  prefs: []
+  type: TYPE_NORMAL
+- en: <template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <h2>User Profile</h2>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '<p>User: {{ user }}</p>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '<p>Logged In: {{ isLoggedIn }}</p>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'computed: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: user() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return this.$store.state.user;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: isLoggedIn() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return this.$store.state.isLoggedIn;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the UserProfile component, computed properties user and isLoggedIn access
+    the state properties from the Vuex store, facilitating dynamic content based on
+    the centralized state.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Setting Up and Configuring Vuex" in the "State Management with Vuex" module
+    lays the groundwork for robust state management in Vue.js applications. Developers
+    are guided through the process of integrating and configuring Vuex, defining the
+    application state, and utilizing mutations to modify the state predictably. The
+    seamless integration of Vuex with Vue.js components demonstrates its effectiveness
+    in providing a centralized state repository, simplifying state management and
+    enhancing the overall structure of Vue.js applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: State, Mutations, and Actions
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The "State Management with Vuex" module in the book "Vue.js Essentials: For
+    Responsive Web Development" delves into the core concepts of state management
+    with the section titled "State, Mutations, and Actions." This segment introduces
+    the foundational triad of Vuex, comprising state, mutations, and actions, to maintain
+    a centralized and controlled state in Vue.js applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vue from 'vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import App from './App.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vuex from 'vuex';
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vue.use(Vuex);
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Initial state properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'counter: 0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Mutations for state modifications
+  prefs: []
+  type: TYPE_NORMAL
+- en: increment(state) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.counter++;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Actions for asynchronous operations
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync({ commit }) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: setTimeout(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, 1000);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code snippet, the Vuex store is configured with an initial state property
+    counter, a mutation increment for state modification, and an action incrementAsync
+    for handling asynchronous operations. This structured setup embodies the triad
+    of state, mutations, and actions in Vuex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'State: Vue.js Single Source of Truth'
+  prefs: []
+  type: TYPE_NORMAL
+- en: State in Vuex represents the application's data, and it is maintained as a single
+    source of truth. The state is defined within the state object and is accessed
+    by Vue.js components through computed properties or methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Counter.vue
+  prefs: []
+  type: TYPE_NORMAL
+- en: <template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '<p>Counter: {{ counter }}</p>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <button @click="increment">Increment</button>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <button @click="incrementAsync">Increment Async</button>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'computed: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: counter() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return this.$store.state.counter;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'methods: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: increment() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: this.$store.commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: this.$store.dispatch('incrementAsync');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the Counter component, the state property counter is accessed through a computed
+    property, enabling dynamic rendering based on the state. Mutations are triggered
+    through the commit method, ensuring controlled state modifications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Mutations: Vue.js Controlled State Modifications'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mutations in Vuex are responsible for modifying the state. They provide a controlled
+    and predictable way to change the state, ensuring that state modifications follow
+    a clear and traceable pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: increment(state) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.counter++;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The increment mutation in the example increments the counter state property
+    by one. Mutations are invoked by components through the commit method, maintaining
+    a structured and controlled flow of state modifications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Actions: Asynchronous Operations in Vue.js State Management'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Actions in Vuex handle asynchronous operations and serve as a bridge between
+    components and mutations. They allow developers to perform asynchronous tasks,
+    such as API calls, before committing mutations to modify the state.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // main.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: incrementAsync({ commit }) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: setTimeout(() => {
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('increment');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}, 1000);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the example, the incrementAsync action introduces a one-second delay before
+    committing the increment mutation. This asynchronous capability enhances Vue.js
+    state management, accommodating complex operations seamlessly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"State, Mutations, and Actions" in the "State Management with Vuex" module
+    unveils the core triad of Vuex that forms the backbone of controlled state management
+    in Vue.js applications. The structured setup of state, mutations, and actions
+    ensures a clear and organized approach to managing application data. Through detailed
+    code examples, developers gain a comprehensive understanding of how to leverage
+    this triad effectively, achieving controlled and efficient state management in
+    Vue.js applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Modules in Vuex
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The "State Management with Vuex" module in the book "Vue.js Essentials: For
+    Responsive Web Development" advances into a more sophisticated realm with the
+    section titled "Modules in Vuex." This segment introduces the concept of modules,
+    empowering developers to scale and organize state management in Vue.js applications
+    with a modular and separation of concerns approach.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // store/index.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vue from 'vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import Vuex from 'vuex';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import userModule from './modules/userModule';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import cartModule from './modules/cartModule';
+  prefs: []
+  type: TYPE_NORMAL
+- en: Vue.use(Vuex);
+  prefs: []
+  type: TYPE_NORMAL
+- en: const store = new Vuex.Store({
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'modules: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'user: userModule,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'cart: cartModule'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '});'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default store;
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code snippet, the main Vuex store is configured to include modules for
+    managing user-related state (userModule) and cart-related state (cartModule).
+    This modular structure enhances maintainability and organization within the Vue.js
+    application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Creating a User Module: Vue.js Modularity in Action'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A user module in Vuex encapsulates state, mutations, actions, and getters related
+    to user-specific data. This modularization ensures a clear separation of concerns,
+    making the codebase more maintainable and scalable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // store/modules/userModule.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const userModule = {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'user: null,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'isLoggedIn: false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: setUser(state, user) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.user = user;
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.isLoggedIn = !!user;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: loginUser({ commit }, user) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Logic for user login
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('setUser', user);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getters: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getUsername: state => state.user ? state.user.username : ''Guest'''
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default userModule;
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the userModule, state properties, mutations, actions, and getters specific
+    to user-related functionality are defined. The encapsulation of these concerns
+    within a module promotes a cleaner and more organized Vue.js codebase.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Cart Module for Shopping Cart State: Vue.js Separation of Concerns'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A shopping cart module illustrates the versatility of Vuex modules. The cart
+    module manages state, mutations, actions, and getters related to shopping cart
+    functionality, ensuring a focused and modular approach to state management.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // store/modules/cartModule.js
+  prefs: []
+  type: TYPE_NORMAL
+- en: const cartModule = {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'state: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'items: [],'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'total: 0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'mutations: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: addItem(state, item) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.items.push(item);
+  prefs: []
+  type: TYPE_NORMAL
+- en: state.total += item.price;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'actions: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: addToCart({ commit }, item) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Logic for adding item to cart
+  prefs: []
+  type: TYPE_NORMAL
+- en: commit('addItem', item);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '},'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getters: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getCartItems: state => state.items,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'getCartTotal: state => state.total'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default cartModule;
+  prefs: []
+  type: TYPE_NORMAL
+- en: The cart module encapsulates the logic for managing items in the shopping cart,
+    providing a dedicated space for cart-related state and functionality in the Vue.js
+    application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Organizing State with Module Structure: Vue.js Application Architecture'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With modules, the structure of the Vuex store becomes more organized and scalable.
+    Modules facilitate the separation of concerns, allowing developers to focus on
+    specific features or functionalities within the Vue.js application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: // App.vue
+  prefs: []
+  type: TYPE_NORMAL
+- en: <template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <h1>Vue.js Shopping App</h1>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <user-profile></user-profile>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <shopping-cart></shopping-cart>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </div>
+  prefs: []
+  type: TYPE_NORMAL
+- en: </template>
+  prefs: []
+  type: TYPE_NORMAL
+- en: <script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: import userProfile from './components/UserProfile.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: import shoppingCart from './components/ShoppingCart.vue';
+  prefs: []
+  type: TYPE_NORMAL
+- en: export default {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'components: {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '''user-profile'': userProfile,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '''shopping-cart'': shoppingCart'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '};'
+  prefs: []
+  type: TYPE_NORMAL
+- en: </script>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the App component, individual Vue.js components like user-profile and shopping-cart
+    can be incorporated seamlessly. Each component can interact with the relevant
+    module, promoting a modular and organized application architecture.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"Modules in Vuex" within the "State Management with Vuex" module introduces
+    the powerful concept of modularization in Vue.js state management. By encapsulating
+    state, mutations, actions, and getters within modules, developers can enhance
+    organization, scalability, and separation of concerns in their Vue.js applications.
+    The detailed code examples showcase the practical implementation of modules, empowering
+    developers to create well-structured and maintainable Vue.js codebases.'
+  prefs: []
+  type: TYPE_NORMAL

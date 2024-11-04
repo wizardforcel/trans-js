@@ -1,0 +1,147 @@
+- en: '| Recipe 62 | Removing Duplicate Whitespaces |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you discover that the guest posts on your blog site contain not just
+    extra space characters, but also other whitespace characters, like tabs. So, this
+    time, you want to replace all whitespace characters, including space, tab (\t),
+    line feed (\n), carriage return (\r), vertical tab (\v), form feed (\f), and others.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For instance, consider the following string, where the space between “My” and
+    “life” is made up of two tab characters. You can confirm the presence of a tab
+    character by searching for \t in the string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *" My life needs editing."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | */My**\t\t**/*.test(str); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a solution that allows you to find repeated tabs or other whitespace
+    characters and replace them with a single space.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a \s character class to match a whitespace character, then use a \s again
+    to match any extra whitespaces that come after the first one:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *" My life needs editing."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** removeExtraWhitespaces(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\s\s**+/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | removeExtraWhitespaces(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → " My life needs editing."* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This function’s purpose is to replace all instances of repeated whitespace
+    characters (two or more) with a single space character. Notice the single whitespace
+    at the beginning of the output. To ensure that the function also removes any additional
+    leading/trailing whitespaces, you should apply trim() before returning the output
+    string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *" My life needs editing."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** removeExtraWhitespaces(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\s\s**+/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str = str.replace(re, *" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str = str.trim(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | removeExtraWhitespaces(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "My life needs editing."* |'
+  prefs: []
+  type: TYPE_TB
+- en: Mission accomplished!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In JavaScript, “space” and “whitespace” are not the same thing. A space character
+    is what you get when you press the spacebar on your keyboard. But a whitespace
+    character is a broader term that includes any character that represents a blank
+    area in text. It’s important to understand the difference between these two types
+    of characters because they can have different effects on your code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The solution in this recipe replaces any type of whitespace character, so if
+    a line feed (\n) comes after a tab (\t), they both get replaced by a space. If
+    your intention is to replace only a specific type of whitespace character, then
+    the following alternate recipe may be more suitable for your needs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| The Negated Form of \s |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Remember, when
+    using \S with a capital letter, it functions as the negation or opposite of \s
+    with a small letter. \S enables you to match any character that is not a whitespace.
+    |'
+  prefs: []
+  type: TYPE_TB

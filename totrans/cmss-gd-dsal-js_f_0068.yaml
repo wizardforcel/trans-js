@@ -1,0 +1,100 @@
+- en: Average Celsius Reading
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here’s another example that involves mean averages. Let’s say we’re building
+    weather-forecasting software. To determine the temperature of a city, we take
+    temperature readings from many thermometers across the city, and we calculate
+    the mean average of those temperatures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’d also like to display the temperatures in both Fahrenheit and Celsius, but
+    our readings are initially only provided to us in Fahrenheit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To get the average Celsius temperature, our algorithm does two things: first,
+    it converts all the readings from Fahrenheit to Celsius. Then it calculates the
+    mean average of all the Celsius numbers.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is some code that accomplishes this. What is its Big O?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ averageCelsius(fahrenheitReadings) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (fahrenheitReadings.length === 0) { ​**return**​ ​**null**​;
+    } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ celsiusNumbers = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Convert each reading to Celsius and append to array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fahrenheitReading ​**of**​ fahrenheitReadings)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ celsiusConversion = (fahrenheitReading - 32) / 1.8; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | celsiusNumbers.push(celsiusConversion); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Calculate average:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ sum = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ celsiusNumber ​**of**​ celsiusNumbers) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | sum += celsiusNumber; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ Math.floor(sum / celsiusNumbers.length); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: First, we can say that N is the number of fahrenheitReadings passed into our
+    method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the method, we run two loops. The first converts the readings to Celsius,
+    and the second sums all the Celsius numbers. Since we have two loops that each
+    iterate over all N elements, we have N + N, which is 2N (plus a few constant steps).
+    Because Big O notation drops the constants, this gets reduced to O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Don’t get thrown off by the fact that in the earlier word builder example, two
+    loops led to an efficiency of O(N²). There, the loops were nested, which led to
+    N steps multiplied by N steps. In our case, however, we simply have two loops,
+    one after the other. This is N steps plus N steps (2N), which is a mere O(N).
+  prefs: []
+  type: TYPE_NORMAL

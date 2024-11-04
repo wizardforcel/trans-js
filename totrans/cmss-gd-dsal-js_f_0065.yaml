@@ -1,0 +1,100 @@
+- en: Mean Average of Even Numbers
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The following method accepts an array of numbers and returns the mean average
+    of all its even numbers. How would we express its efficiency in terms of Big O?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ averageOfEvenNumbers(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ sum = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ countOfEvenNumbers = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number % 2 === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | sum += number; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | countOfEvenNumbers += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | }; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (countOfEvenNumbers === 0) { ​**return**​ ​**null**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ Math.floor(sum / countOfEvenNumbers); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Here’s how to break the code down to determine its efficiency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Remember that Big O is all about answering the key question: if there are N
+    data elements, how many steps will the algorithm take? Therefore, the first thing
+    we want to do is determine what the N data elements are.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, the algorithm is processing the array of numbers passed into this
+    method. These, then, would be the N data elements, with N being the size of the
+    array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we have to determine how many steps the algorithm takes to process these
+    N values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can see the guts of the algorithm is the loop that iterates over each number
+    inside the array, so we’ll want to analyze that first. Since the loop iterates
+    over each of the N elements, we know the algorithm takes at least N steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Looking inside the loop, though, we can see that a varying number of steps
+    occur within each round of the loop. For each and every number, we check whether
+    the number is even. Then, if the number is even, we perform two more steps: we
+    modify the sum variable, and we modify the countOfEvenNumbers variable. So we
+    execute two more steps for even numbers than we do for odd numbers.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you’ve learned, Big O focuses primarily on worst-case scenarios. In our case,
+    the worst case is when all the numbers are even, in which case we perform three
+    steps during each round of the loop. Because of this, we can say that for N data
+    elements, our algorithm takes 3N steps. That is, for each of the N numbers, our
+    algorithm executes three steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, our method performs a few other steps outside of the loop as well. Before
+    the loop, we initialize the two variables and set them to 0\. Technically, these
+    are two steps. After the loop, we perform another step: the division of sum /
+    countOfEvenNumbers. Technically, then, our algorithm takes three extra steps in
+    addition to the 3N steps, so the total number of steps is 3N + 3.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, you also learned that Big O notation ignores constant numbers, so instead
+    of calling our algorithm O(3N + 3), we simply call it O(N).
+  prefs: []
+  type: TYPE_NORMAL

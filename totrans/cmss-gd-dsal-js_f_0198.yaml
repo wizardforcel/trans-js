@@ -1,0 +1,569 @@
+- en: Magical Lookups
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: One of my favorite go-to optimization techniques is to ask myself, “If I could
+    magically find a desired piece of information in O(1) time, can I make my algorithm
+    faster?” If the answer to this is yes, I then use a data structure (often a hash
+    table) to make that magic happen. I call this technique “magical lookups.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let me clarify this technique with an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Magically Looking Up Authors
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say we’re writing library software and we have data about books and their
+    authors contained in two separate arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Specifically, the array of authors looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ authors = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 1, name: ​*''Virginia Woolf''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 2, name: ​*''Leo Tolstoy''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 3, name: ​*''Dr. Seuss''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 4, name: ​*''J. K. Rowling''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 5, name: ​*''Mark Twain''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, it’s an array of hash tables, with each hash table containing
+    an author’s name and ID.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We also have a separate array containing data about books:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ books = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 3, title: ​*''Hop on Pop''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 1, title: ​*''Mrs. Dalloway''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 4, title: ​*''Harry Potter and the Sorcerers Stone''*​ },
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 1, title: ​*''To the Lighthouse''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 2, title: ​*''Anna Karenina''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 5, title: ​*''The Adventures of Tom Sawyer''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 3, title: ​*''The Cat in the Hat''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 2, title: ​*''War and Peace''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 3, title: ​*''Green Eggs and Ham''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { authorId: 5, title: ​*''The Adventures of Huckleberry Finn''*​ },
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: Like the authors array, the books array contains a number of hash tables. Each
+    hash table contains a book’s title and the authorId, which can allow us to determine
+    the book’s author using the data from the authors array. “Hop on Pop”, for example,
+    has the authorId of 3\. This means the author of “Hop on Pop” is Dr. Seuss since
+    he’s the author whose ID is 3, as indicated in the authors array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, let’s say we want to write code that combined this information together
+    to create an array in the following format:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ booksWithAuthors = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''Hop on Pop''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Virginia Woolf''*​, title: ​*''Mrs. Dalloway''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''J. K. Rowling''*​, title: ​*''Harry Potter and the Sorcerers
+    Stone''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Virginia Woolf''*​, title: ​*''To the Lighthouse''*​ },
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Leo Tolstoy''*​, title: ​*''Anna Karenina''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Mark Twain''*​, title: ​*''The Adventures of Tom Sawyer''*​
+    }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''The Cat in the Hat''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Leo Tolstoy''*​, title: ​*''War and Peace''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''Green Eggs and Ham''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | { author: ​*''Mark Twain''*​, title: ​*''The Adventures of Huckleberry
+    Finn''*​ }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: To do this, we’d probably need to iterate through the array of books and connect
+    each book to its respective author. How would we go about this specifically?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One solution may be to use nested loops. The outer loop would iterate over
+    each book, and for each book, we’d run an inner loop that would check each author
+    until it found the one with the connecting ID. Here’s an implementation of this
+    approach:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ connectBooksWithAuthors(books, authors) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ booksWithAuthors = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ book ​**of**​ books) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ author ​**of**​ authors) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (book.authorId === author.authorId) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | booksWithAuthors.push({ title: book.title, author: author.name }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ booksWithAuthors; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Before we can optimize our code, we need to fulfill our prereq and determine
+    our current algorithm’s Big O.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This algorithm has a time complexity of O(N * M) since for each of the N books
+    we need to loop through M authors to find the book’s author.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, let’s see if we can do better.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Again, the first thing we need to do is come up with the best-imaginable Big
+    O. In this case, we definitely need to iterate over all N books, so it would seem
+    impossible to beat O(N). Since O(N) is the fastest speed I can think of that isn’t
+    downright impossible, we’ll say that O(N) is our best-imaginable Big O.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We’re now ready to use the new magical lookups technique. To do this, I’ll
+    ask myself the question mentioned at the start of this section: “If I could magically
+    find a desired piece of information in O(1) time, can I make my algorithm faster?”'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s apply this to our scenario. We currently run an outer loop that iterates
+    over all the books. Currently, for each book, we run an inner loop that tries
+    to find the book’s authorId in the authors array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But what if we had the magical ability to find an author in just O(1) time?
+    What if we didn’t have to loop through all the authors each time we wanted to
+    look one up and we could instead find the author immediately? That would bring
+    a huge speed boost to our algorithm, as we could potentially eliminate our inner
+    loop and bring our code’s speed up to the vaunted O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we’ve determined that this magical finding ability could help us, the
+    next step is to try to make this magic come alive.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Bringing in the Extra Data Structure
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: One of the easiest ways we can achieve this magical lookup ability is to bring
+    an additional data structure into our code. We’ll use this data structure to specifically
+    store data in such a way that allows us to look that data up quickly. In many
+    cases, the hash table is the perfect data structure for this since it has O(1)
+    lookups, as you learned in Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Right now, because the author hash tables are stored in an array, it will always
+    take us O(M) steps (M being the number of authors) to find any given authorId
+    within that array. But if we store that same information in a hash table, we now
+    gain our magical ability to find each author in just O(1) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s one possibility of what this hash table could look like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | authorHashTable = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | {1: ​*''Virginia Woolf''*​, 2: ​*''Leo Tolstoy''*​, 3: ​*''Dr. Seuss''*​,
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 4: ​*''J. K. Rowling''*​, 5: ​*''Mark Twain''*​} |'
+  prefs: []
+  type: TYPE_TB
+- en: In this hash table, each key is the author’s ID, and the value of each key is
+    the author’s name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So let’s optimize our algorithm by first moving the authors data into this
+    hash table and only then run our loop through the books:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ connectBooksWithAuthors(books, authors) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ booksWithAuthors = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ authorHashTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ author ​**of**​ authors) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | authorHashTable[author.authorId] = author.name; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ book ​**of**​ books) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | booksWithAuthors.push({ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | title: book.title, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | author: authorHashTable[book.authorId] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ booksWithAuthors; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this version, we first iterate through the authors array and use that data
+    to create the authorHashTable. This takes M steps, with M being the number of
+    authors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We then iterate through the list of books and use the authorHashTable to “magically”
+    find each author in a single step. This loop takes N steps, with N being the number
+    of books.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This optimized algorithm takes a grand total of O(N + M) steps, since we run
+    a single loop through the N books and a single loop through the M authors. This
+    is drastically faster than our original algorithm, which took O(N * M).
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s worth noting that by creating the extra hash table, we’re using up an additional
+    O(M) space, whereas our initial algorithm didn’t take up any extra space at all.
+    However, this is great optimization if we’re willing to sacrifice the memory for
+    the sake of speed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We made this magic happen by first dreaming what magical O(1) lookups could
+    do for us, and we then granted ourselves our own wish by using a hash table to
+    store our data in an easy-to-find way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The fact that we can look up hash table data in O(1) time isn’t new, as we looked
+    at this back in Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes).
+    The specific tip I’m sharing here, though, is to constantly imagine that you can
+    perform O(1) lookups on any kind of data and notice whether that would speed up
+    your code. Once you have the vision of how O(1) lookups would help you, you can
+    then try to use a hash table or other data structure to turn that dream into reality.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Two Sum Problem
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s look at another scenario in which we can benefit from magical lookups.
+    This is one my favorite optimization examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The two sum problem is a well-known coding exercise. The task is to write a
+    function that accepts an array of numbers and returns true or false depending
+    on whether there are any two numbers in the array that add up to 10 (or another
+    given number). For simplicity, let’s assume there will never be duplicate numbers
+    in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s say this is our array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [2, 0, 4, 1, 7, 9] |'
+  prefs: []
+  type: TYPE_TB
+- en: Our function would return true, since the 1 and 9 add up to 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But let’s look at the following array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [2, 0, 4, 5, 3, 9] |'
+  prefs: []
+  type: TYPE_TB
+- en: In this case, we return false. Even though the three numbers 2, 5, and 3 add
+    up to 10, we specifically need two numbers to add up to 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The first solution that comes to mind is to use nested loops to compare each
+    number to every other number and see if they add up to 10\. Here’s a JavaScript
+    implementation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ twoSum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i !== j && array[i] + array[j] === 10) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: As always, before attempting an optimization, we need to satisfy our prereq
+    and figure out the current Big O of our code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As is typical in a nested-loop algorithm, this function has a runtime of O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, to see if our algorithm is worth optimizing, we need to see if the best-imaginable
+    Big O would be any better.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, it would seem that we absolutely have to visit each number in
+    the array at least once. So, we couldn’t beat O(N). And if someone told me that
+    there’s an O(N) solution to this problem, I suppose I’d believe them. So let’s
+    make O(N) our best-imaginable Big O.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, let’s ask ourselves the magical lookup question: “If I could magically
+    find a desired piece of information in O(1) time, can I make my algorithm faster?”'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sometimes it helps to begin walking through our current implementation while
+    asking this question along the way, so let’s do that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s mentally walk through our outer loop with the example array of [2, 0,
+    4, 1, 7, 9]. This loop begins with the first number, which is the number 2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, what piece of information might we desire to look up while we’re looking
+    at the 2? Again, we want to know if this 2 could be added to another number in
+    the array to provide a sum of 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Thinking about it further, while looking at the 2, I’d want to know whether
+    there’s an 8 somewhere in this array. If we could, magically, do an O(1) lookup
+    and know that there’s an 8 in the array, we could immediately return true. Let’s
+    call the 8 the 2’s counterpart, since the two numbers add up to 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, when we move on to the 0, we’d want to do an O(1) lookup to find
+    its counterpart—a 10—in the array, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this approach, we can iterate through the array just once and do magical
+    O(1) lookups along the way to see whether each number’s counterpart exists in
+    the array. As soon as we find any number’s counterpart, we return true, but if
+    we get to the end of the array without finding any numerical counterparts, we
+    return false.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we’ve determined we’d benefit from these magical O(1) lookups, let’s
+    try to pull off our magic trick by bringing in an extra data structure. Again,
+    the hash table is usually the default option for magical lookups because of its
+    O(1) reads. (It’s uncanny how often hash tables can be used to speed up algorithms.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since we want to be able to look up any number from the array in O(1) time,
+    we’ll store those numbers as keys in a hash table. The hash table may look like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {2: true, 0: true, 4: true, 1: true, 7: true, 9: true} |'
+  prefs: []
+  type: TYPE_TB
+- en: We can use any arbitrary item to serve as the values; let’s decide to use true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we can look up any number in O(1) time, how do we look up a number’s
+    counterpart? Well, we noticed that when we iterated over the 2, we knew that the
+    counterpart should be 8\. We knew this because we know intuitively that 2 + 8
+    = 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Essentially, then, we can calculate any number’s counterpart by subtracting
+    it from 10\. Because 10 - 2 = 8, that means 8 is the 2’s counterpart.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We now have all the ingredients to create a really fast algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ twoSum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (hashTable[10 - value]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | hashTable[value] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This algorithm iterates once through each number in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As we visit each number, we check whether the hash table contains a key that
+    is the counterpart of the current number. We calculate this as 10 - value. (For
+    example, if value is 3, the counterpart would be 7 since 10 - 3 = 7.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we find any number’s counterpart, we immediately return true, as that means
+    we’ve found two numbers that add up to 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Additionally, as we iterate over each number, we insert the number as a key
+    into the hash table. This is how we populate the hash table with the numbers as
+    we proceed through the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this approach, we drastically increased the algorithm’s speed to O(N).
+    We pulled this off by storing all of the data elements in a hash table for the
+    express purpose of being able to perform O(1) lookups throughout the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Consider the hash table your magical wand, and become the programming wizard
+    you were destined to be. (Okay, enough of that.)
+  prefs: []
+  type: TYPE_NORMAL

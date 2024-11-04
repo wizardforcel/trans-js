@@ -1,0 +1,162 @@
+- en: A Practical Example
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Suppose you’re writing a JavaScript application, and somewhere in your code
+    you find that you need to get the intersection between two arrays. The intersection
+    is a list of all the values that occur in both of the arrays. For example, if
+    you have the arrays [3, 1, 4, 2] and [4, 5, 3, 6], the intersection would be a
+    third array [3, 4] since both of those values are common to the two arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s one possible implementation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ intersection(firstArray, secondArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ result = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ firstArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ secondArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i === j) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | result.push(i); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ result; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Here, we’re running nested loops. In the outer loop, we iterate over each value
+    in the first array. As we point to each value in the first array, we then run
+    an inner loop that checks each value of the second array to see if it can find
+    a match with the value being pointed to in the first array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two types of steps are taking place in this algorithm: comparisons and insertions.
+    We compare every value of the two arrays against each other, and we insert matching
+    values into the array result. Let’s start by seeing how many comparisons there
+    are.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the two arrays are of equal size, and say that N is the size of either array,
+    the number of comparisons performed is N². This is because we compare each element
+    of the first array to each element of the second array. Thus, if we have two arrays
+    that each contain five elements, we’d end up making twenty-five comparisons. So
+    this intersection algorithm has an efficiency of O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The insertions, at most, would take N steps (if the two arrays happened to be
+    identical). This is a lower order compared to N², so we’d still consider the algorithm
+    to be O(N²). If the arrays are different sizes—say N and M—we’d say that the efficiency
+    of this function is O(N * M). (More on this can be found in Chapter 7, [​*Big
+    O in Everyday Code*​](f_0064.xhtml#chp.everyday_big_o).)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Is there any way we can improve this algorithm?
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is where it’s important to consider scenarios beyond the worst case. In
+    the current implementation of the intersection function, we make N² comparisons
+    in all scenarios, no matter whether the arrays are identical or the arrays don’t
+    share a single common value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, where the two arrays share common values, we really shouldn’t have
+    to check every value of the second array against a value of the first array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see why:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/optimizing_for_optimistic_scenarios/unnecessary_step.png](images/optimizing_for_optimistic_scenarios/unnecessary_step.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this example, as soon as we find a common value (the 8), there’s really no
+    reason to complete the second loop. What are we checking for at this point? We’ve
+    already determined that the second array contains the same 8 that the first array
+    does and can add it to result. We’re performing an unnecessary step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To fix this, we can add a single word to our implementation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ intersection(firstArray, secondArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ result = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ firstArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ secondArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i === j) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | result.push(i); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ result; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: With the addition of the break, we can cut the inner loop short and save steps
+    (and therefore time).
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s still true that in a worst-case scenario, where the two arrays do not contain
+    a single shared value, we have no choice but to perform N² comparisons. But now,
+    in cases where the arrays share values, we can cut down the number of steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is a significant optimization to our intersection function since our first
+    implementation would make N² comparisons in all scenarios.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,191 @@
+- en: '| Recipe 72 | Highlighting Text in Real Time |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to add a search functionality to your application that behaves
+    similarly to Google Chrome’s “find in page” tool. With this feature, as the user
+    types their search query into the search field, Chrome highlights the corresponding
+    text on the page in real time. This enables users to quickly locate the information
+    they are searching for without having to manually scan the entire page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Define an HTML page with an input element and a div element containing some
+    text. The input element should have an ID of “search-input,” and the div element
+    should have an ID of “search-results”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *<!DOCTYPE html>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <html> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <script src=*"highlighting_in_realtime_ex1.js"* defer></script> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input type=*"text"* id=*"search-input"* placeholder=*"Search..."*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <div id=*"search-results"*>Snakes are quite the characters. Have you
+    seen |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | their fashion sense? It''s all stripes and scales, like they''re trying
+    to |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | be both a zebra and a dragon at the same time. But don''t let their smooth
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | moves fool you—snakes can be quite hiss-terical when they want to be.
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </div> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </html> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now, create the JavaScript code that takes the input and highlights the text:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** searchInput = document.querySelector(*"#search-input"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchResults = document.querySelector(*"#search-results"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** content = searchResults.innerHTML; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** highlightText() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchText = searchInput.value.trim().toLowerCase(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (searchText.length > 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchRegex = **new** RegExp(searchText, *"gi"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** highlightedText = content.replace(searchRegex, *"<mark>$&</mark>"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | searchResults.innerHTML = highlightedText; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | searchResults.innerHTML = content; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | searchInput.addEventListener(*"input"*, highlightText); |'
+  prefs: []
+  type: TYPE_TB
+- en: This code creates a live search functionality that highlights all occurrences
+    of the search term in the “search-results” div element as the user types in the
+    input field.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The JavaScript code starts by creating references to the input, div, and the
+    content of the div element. We add an event listener to the input element using
+    the addEventListener() method. The event listener listens for changes to the input
+    value and triggers the highlightText() function when the input changes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside highlightText(), we retrieve the value entered into the searchInput element,
+    remove any leading or trailing whitespace characters, convert the remaining string
+    value to lowercase, and store the result in the searchText variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we check if the length of searchText is greater than zero. If so, we create
+    a regex object using the given input. We also pass the g and i flags as the second
+    parameter to indicate that the regex should match all occurrences globally and
+    be case-insensitive.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the replace() method on the content variable, we replace all occurrences
+    of the search text with the same text wrapped in an HTML <mark> tag. Finally,
+    we update the innerHTML property of the searchResults element to display the highlighted
+    text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the length of searchText is zero, we set the innerHTML property to the original
+    content variable, which displays the text as it was initially. This step is essential
+    because if the user deletes the entire search term, the text shouldn’t have highlights
+    anymore.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Users are increasingly expecting interactive and dynamic interfaces that respond
+    to their actions in real time. One such feature that has become popular is real-time
+    text highlighting. Take advantage of it to make it easier for your users to find
+    the information they need.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Protecting Your App from ReDoS Attacks |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Be careful
+    when reusing the text provided by the user in your regex pattern. If you fail
+    to sanitize the text properly, your app may become vulnerable to ReDoS attacks.
+    To learn more, see Recipe 66, [*Escaping a String for Use in a Regex*](f_0078.xhtml#rcp.escaping_metacharacters).
+    |'
+  prefs: []
+  type: TYPE_TB

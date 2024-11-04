@@ -1,0 +1,125 @@
+- en: Ordered Arrays
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The ordered array is almost identical to the classic array we saw in the previous
+    chapter. The only difference is that ordered arrays require that the values are
+    always kept—you guessed it—in order; that is, every time a value is added, it
+    gets placed in the proper cell so that the values in the array remain sorted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, let’s take the array [3, 17, 80, 202]:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_1.png](images/binary_search/binary_search_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Assume we want to insert the value 75 into the array. If this array were a
+    classic array, we could insert the 75 at the end, as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_2.png](images/binary_search/binary_search_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As we saw in the previous chapter, the computer can accomplish this in a single
+    step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'On the other hand, if this were an ordered array, we’d have no choice but to
+    insert the 75 in the proper spot so that the values remain in ascending order:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_3.png](images/binary_search/binary_search_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Now, this is easier said than done. The computer cannot simply drop the 75 into
+    the right slot in a single step, because it first has to find the right place
+    to insert the 75 and then shift the other values to make room for it. Let’s break
+    down this process step by step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s start again with our original ordered array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_1.png](images/binary_search/binary_search_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 1: We check the value at index 0 to determine whether the value we want
+    to insert—the 75—should go to its left or to its right:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_4.png](images/binary_search/binary_search_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Because 75 is greater than 3, we know that the 75 will be inserted somewhere
+    to its right. However, we don’t know yet exactly which cell it should be inserted
+    into, so we need to check the next cell.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll call this type of step a comparison, where we compare the value we’re
+    inserting to a number already present in the ordered array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 2: We inspect the value at the next cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_5.png](images/binary_search/binary_search_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Since 75 is greater than 17, we need to move on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 3: We check the value at the next cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_6.png](images/binary_search/binary_search_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We’ve encountered the value 80, which is greater than the 75 we wish to insert.
+    Since we’ve reached the first value that is greater than 75, we can conclude that
+    the 75 must be placed immediately to the left of this 80 to maintain the order
+    of this ordered array. To do this, we need to shift data to make room for the
+    75.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 4: Move the final value to the right:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_7.png](images/binary_search/binary_search_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 5: Move the next-to-last value to the right:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_8.png](images/binary_search/binary_search_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 6: We can finally insert the 75 into its correct spot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_9.png](images/binary_search/binary_search_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: It emerges that when inserting into an ordered array, we need to always conduct
+    a search before the actual insertion to determine the correct spot for the insertion.
+    This is one difference in performance between a classic array and an ordered array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can see in this example that there were initially four elements and that
+    insertion took six steps. In terms of N, we’d say that for N elements in an ordered
+    array, the insertion took N + 2 steps in total.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interestingly, the number of steps for insertion remains similar no matter where
+    in the ordered array our new value ends up. If our value ends up toward the beginning
+    of the ordered array, we have fewer comparisons and more shifts. If our value
+    ends up toward the end, we get more comparisons but fewer shifts. The fewest steps
+    occur when the new value winds up at the very end, since no shifts are necessary.
+    In this case, we take N steps to compare the new value with all N existing values,
+    plus one step for the insertion itself, yielding a total of N + 1 steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While insertion is less efficient for an ordered array than for a classic array,
+    the ordered array has a secret superpower when it comes to searching.
+  prefs: []
+  type: TYPE_NORMAL

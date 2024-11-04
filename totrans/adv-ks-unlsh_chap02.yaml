@@ -1,0 +1,588 @@
+- en: Scope
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The scope is a general concept in the field of computer science that refers
+    to the parts of the program where a particular variable, function, etc., can be
+    accessed. In other words, the scope of an identifier (variable, function, etc.)
+    is the part of a program where it is visible or can be referenced.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Modern JavaScript has four main types of scopes that are mentioned below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Global scope
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function scope
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Block scope
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Module scope
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Before discussing the above-mentioned types of scopes in JavaScript, we need
+    to understand what “lexical” scope is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lexical scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In JavaScript, the scope of different identifiers (variables, functions, etc.)
+    is determined at **compile time**. During compilation, the JavaScript engines
+    determine the scope of different identifiers declared in the code by analyzing
+    the code structure. This means that before the step-by-step execution of the JavaScript
+    code starts, JavaScript engines determine the scopes of different declarations
+    in the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Scopes can be nested within other scopes, with each nested scope having access
+    to the outer or parent scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In the above code example, there are three different declarations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`myName` variable declaration'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`hello` function declaration'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`greeting` variable declaration'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The scope of the above declarations depends on where they are written in the
+    code structure above. The `myName` variable and `hello` function are both in global
+    scope, so they are available globally in the above code. The `greeting` variable
+    declaration is inside the `hello` function, so its scope is local to the `hello`
+    function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This type of scope, which is determined at compile time by analyzing the code
+    structure, is known as lexical scope. JavaScript is not the only language that
+    has a lexical scope. Other languages, like Java, also have a lexical scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::info
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lexical scope is also known as “static” scope. An alternative type of scope
+    is [Dynamic scope](https://en.wikipedia.org/wiki/Scope_(computer_science)#Lexical_scope_vs._dynamic_scope).
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The global scope is generally the outermost scope that contains all other scopes
+    nested inside it. Each nested scope has access to the global scope. In JavaScript,
+    the global scope is the browser window or, more accurately, a browser window tab.
+    The global scope is exposed to the JavaScript code using the `window` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Variables created using the `var` keyword or function declarations declared
+    in the global scope are added as properties on the `window` object. The following
+    code example verifies this claim:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the `todoList` was declared with `let` or `const`, it wouldn’t have been
+    added as a property on the `window` object, but it would still be a global variable.
+    Similarly, if the `emptyTodoList` was a function expression instead of a function
+    declaration, and if the identifier referring to this function expression was declared
+    using `let` or `const`, it also wouldn’t be part of the `window` object as its
+    property. Instead, it would just be a global function expression.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Avoid polluting the global scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '*“Avoid polluting the global scope”* - As a JavaScript developer, either you
+    have already heard this advice, or sooner or later, you will hear it from someone.
+    But what does “polluting” the global scope even mean? Why should it be avoided?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declaring everything (unnecessarily) in the global scope is what’s considered
+    as “polluting” the global scope. Too many declarations in the global scope can
+    lead to unwanted problems.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The global scope is the parent scope of all other scopes; as a result, the declarations
+    inside the global scope are visible to all other scopes. This can cause problems
+    like variable name clashes, shadowing, etc. Another thing about the global scope
+    is that it isn’t destroyed until the application is closed, so if we are not careful,
+    declarations in the global scope can remain in memory regardless of whether they
+    are needed or not until the application is closed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Having said all that, declarations in the global scope are typically unavoidable.
+    So, the best we can do is avoid the global scope as much as possible. Keep the
+    global declarations to a minimum. If a variable is only used inside a function,
+    there is no point in declaring it in the global scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, if you hadn’t heard it before, you are hearing it now: *“Avoid polluting
+    the global scope.”*'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Implicit globals
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: JavaScript as a language has many quirks. One of those is the implicit creation
+    of global variables. Whenever there is an assignment to an *undeclared* variable,
+    JavaScript will declare that undeclared variable as a **global** variable. This
+    is most likely a mistake by the programmer, and instead of throwing an error,
+    javaScript hides this by automatically declaring a global variable by the same
+    name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s the above code in action in Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/global-scope-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice that the `result` variable is not declared. It is assigned the result
+    of multiplication as though it has already been declared. One would normally expect
+    an error in this case, but JavaScript will declare the `result` as a global variable
+    for you.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is important to mention that this weird behavior only happens in non-strict
+    mode. In strict mode, as expected, JavaScript throws an error, informing the programmer
+    about the assignment to an undeclared variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is also one of the reasons always to write JavaScript code in strict mode.
+    Using the strict mode keeps such confusing behaviors of JavaScript away from our
+    code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTML attributes
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Apart from the assignment to undeclared variables, there is another way we get
+    *implicit* global variables. The value of the `id` attribute or the `name` attribute
+    of HTML elements also gets added as a variable in the global scope of JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `id` of the `h1` element above gets added to the global scope as a variable.
+    We can access the `h1` element using the `mainHeading` as a variable in JavaScript
+    code. This feature is referred to as [Named access on the Window object](https://html.spec.whatwg.org/multipage/nav-history-apis.html#named-access-on-the-window-object).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This was first added by the Internet Explorer browser and was gradually implemented
+    in other browsers as well, simply for compatibility reasons. There are sites out
+    there that rely on this behavior, so for the sake of backward compatibility, browsers
+    have no choice but to implement this behavior.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although this is supported by most browsers, this feature shouldn’t be relied
+    upon, and we should always use standard mechanisms to target HTML elements. Functions
+    like `getElementById` or `querySelector` should be used instead of relying on
+    this behavior.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Writing code that relies on this feature is a bad idea because it can result
+    in code that is hard to read and maintain. Imagine seeing an identifier in the
+    code and not being able to identify where it is declared. Such code is vulnerable
+    to name clashes with other variables in our code. Also, keep in mind that writing
+    code that depends on the HTML markup can break easily if the HTML markup is changed.
+    In short, avoid relying on this feature and use better alternatives for targeting
+    HTML elements in your JavaScript code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H5
+  type: TYPE_NORMAL
+- en: '[Global Variables are Bad - (article)](http://wiki.c2.com/?GlobalVariablesAreBad)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Do DOM tree elements with IDs become global properties? - (stackoverflow post)](https://stackoverflow.com/questions/3434278/do-dom-tree-elements-with-ids-become-global-properties)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The function scope refers to the area of the code within the function body.
+    The function scope starts from the opening curly parenthesis of the function body
+    and ends before the closing curly parenthesis. Declarations inside the function
+    scope are limited to that function’s scope and cannot be directly accessed by
+    the code outside that function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Shadowing declarations
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Declarations inside a nested scope can “shadow” the declarations with the *same*
+    name in the outer scope. This is referred to as “shadowing declaration” or simply
+    “shadowing.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/function-scope-example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: The variable `hobby` inside the function is shadowing the `hobby` variable declared
+    in the global scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It is generally not ideal to shadow other declarations because that can reduce
+    the readability of the code. It could also make it impossible for code inside
+    the nested scope to access the shadowed declarations. Consider the following code
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/function-scope-example2”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code example above, we have shadowed the `prefix` variable declared in
+    the global scope, and the code inside the `log` function is unable to access the
+    global `prefix` variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::note
+  prefs: []
+  type: TYPE_NORMAL
+- en: Recall that the `var` declarations in the global scope are added as properties
+    on the `window` object. So, if the global `prefix` variable was declared using
+    the `var` keyword, we could have used `window.prefix` to access the shadowed variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function parameter scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: It is a common misconception that the function parameters are defined in the
+    function’s local scope or that the parameters behave as if they are defined in
+    the function’s local scope, but that is not always true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we need to differentiate between “simple” and “non-simple” parameter
+    lists. If the function parameters are defined in such a way that they use ES2015+
+    features like [Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters),
+    [Destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment),
+    or [Rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters),
+    such parameters are considered to be **non-simple** parameters; if the parameters
+    don’t use any of these features, they are considered to be **simple** parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the parameters are simple, they behave like they are declared in the function’s
+    local scope, but if the parameters are non-simple, they are declared in their
+    own scope. Non-simple parameter scope can be thought of as between the function
+    scope and the scope containing the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If the function with non-simple parameters is defined in the global scope,
+    its parameter scope can be conceptually visualized as shown in the image below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![function parameter scope](images/module_03----lesson_03.03----public----assets----parameter-scope.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: function parameter scope
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following code example proves that the non-simple parameters indeed exist
+    in a different scope than the function’s local scope:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/function-scope-example4”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `paramScope` function in the code example above has a non-simple parameter
+    list; the first parameter, `arr` has an array as a default value, whereas the
+    second parameter, `buff` has a function as its default value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the function, there is a `var` declaration with the same name as the
+    first parameter of the `paramScope` function. The two `console.log` calls inside
+    the function log two different values to the console; why is that? Why does the
+    `buff` parameter return the default value of the `arr` parameter and not the value
+    of the `arr` inside the local scope of the function?
+  prefs: []
+  type: TYPE_NORMAL
+- en: The answer is that the `arr` parameter and the `arr` variable inside the function
+    are two *different* variables that exist in two *different* scopes. The `arr`
+    inside the function shadows the `arr` parameter, but calling the `buff` function
+    returns the parameter `arr`. If the parameter and the local `arr` were the same
+    variable, the `buff` function would return `[1, 2, 3]` instead of the default
+    value of the `arr` parameter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Remove the `var` keyword inside the function to show the different output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/function-scope-example5”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `arr` inside the function now refers to the `arr` parameter, so any assignment
+    to `arr` inside the function is reflected when the `buff` function is called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function expression name scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The function expressions are mostly written as an anonymous function expression,
+    as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is an anonymous function expression that is assigned to the `fn` variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can also write a *named* function expression as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In the code example above, the name of the function expression `namedFn` is
+    only accessible inside the function body. As a result, some might incorrectly
+    believe that the name of a named function expression is declared inside the function
+    body, but that is not correct; the name is declared in a *different* scope. The
+    following code proves this claim:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/function-scope-example8”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `let` doesn’t allow the re-declaration of a variable. So if the `nameFn`
+    was declared inside the function scope, then the code example above should have
+    thrown an error; instead, there is no error, and this is valid code. The `nameFn`
+    inside the function body is actually shadowing the name of the function expression.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Named function expression’s name scope is nested between the scope containing
+    the function expression and the function expression’s local scope, similar to
+    the scope of the non-simple parameter list discussed above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H5
+  type: TYPE_NORMAL
+- en: '[Where are arguments positioned in the lexical environment? - (stackoverflow
+    post)](https://stackoverflow.com/questions/61208843/where-are-arguments-positioned-in-the-lexical-environment/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implied scopes](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/apA.md#implied-scopes)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Named function expression - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function#named_function_expression)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Block Scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A block scope in JavaScript refers to the scope that exists between blocks of
+    code, such as `if` blocks or loops.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Prior to the addition of block-scoped `let` and `const` in the JavaScript language,
+    variables defined with the `var` keyword in a block were accessible outside that
+    block. This is because the variables declared with the `var` keyword have function
+    scope. However, the variables declared using `let`, or the constants declared
+    using `const` are scoped to the block in which they are defined unless they are
+    declared in the global scope, which makes them global variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The block-scoped `let` and `const` solve problems like unnecessary exposure
+    of variables outside blocks, closure inside loops, etc. We will discuss the closure
+    inside loops problem in a module related to the topic of closure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another thing to know about the block scope is how function declarations inside
+    blocks are handled. This was discussed in a module related to hoisting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Module Scope
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Modules are also among the features that were added in recent years to JavaScript.
+    Modules solve many problems related to code management that existed in code bases
+    that involved multiple JavaScript files. Modules allow us to split our code into
+    manageable chunks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code inside an ES module exists in the module scope. In other words, the
+    declarations inside a module are scoped to the module and aren’t exposed outside
+    of the module, except the code that is *explicitly* exported from the module.
+    Declarations at the top level of a module are limited to the module and aren’t
+    part of the global scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H5
+  type: TYPE_NORMAL
+- en: '[JavaScript Modules - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#other_differences_between_modules_and_standard_scripts)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[ES modules: A cartoon deep-dive - (MDN)](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Scope Chain
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Different scopes can be nested inside other scopes, creating a chain of scopes.
+    This is known as a **scope chain**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every time a new scope is created, it is linked to its enclosing scope. This
+    linkage between different scopes creates a chain of scopes that can then be used
+    for lookups for identifiers that cannot be found in the current scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When an identifier is encountered in a particular scope, the JavaScript engine
+    will look for the declaration of that variable in the parent scope of the current
+    scope. If the declaration is not found in the parent scope, then the JavaScript
+    engine will look for that variable declaration in the outer (parent) scope of
+    the parent scope. This process of traversing the scope chain will continue until
+    the global scope is reached and there are no other scopes to look into for the
+    declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can preview the code above in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/scope-chain-example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The scope chain created as a result of the `hello` function call can be conceptually
+    visualized as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![scope chain](images/module_03----lesson_03.06----public----assets----scope-chain.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: scope chain
+  prefs: []
+  type: TYPE_NORMAL
+- en: The scope chain enables the lookup of identifiers that are not declared in the
+    current scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Optimizing scope chain lookup
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Modern JavaScript apps contain many lines of JavaScript code that must be compiled
+    and executed in the shortest amount of time possible to ensure that app users
+    do not experience poor app performance. As a result, modern JavaScript engines
+    heavily optimize the JavaScript code we write to allow it to execute as efficiently
+    as possible. Different optimizations are performed on the code while it is being
+    transformed before it is executed. Optimizations are not only limited to the steps
+    *before* the code execution but code is also optimized during its execution (recall
+    the JIT compilation).
+  prefs: []
+  type: TYPE_NORMAL
+- en: As the scope in JavaScript is determined at compile time, in most cases, this
+    information allows the JavaScript engine to avoid having to traverse the scope
+    chain during the code execution. If the JavaScript already knows what scope a
+    particular variable is defined in, it is highly inefficient to traverse the scope
+    chain every time a particular variable declaration cannot be found in the current
+    scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So unless the scope of a variable cannot be determined at compile time, JavaScript
+    engines don’t need to traverse the scope chain during runtime. However, there
+    might be cases where the scope of a particular identifier cannot be determined
+    at compile time; in these cases, the JavaScript engine has no choice but to traverse
+    the scope chain at runtime to determine what scope that identifier is declared
+    in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H5
+  type: TYPE_NORMAL
+- en: '[The Scope Chain](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch3.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

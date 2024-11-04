@@ -1,0 +1,319 @@
+- en: The Staircase Problem
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: You’ve now learned to use a new mental strategy for solving certain computational
+    problems using top-down recursion. However, you may still be skeptical and ask,
+    “Why do we need this new mental strategy anyway? I’ve been able to solve these
+    problems with loops just fine until now.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Indeed, you may not need a new mental strategy for simpler computations. But
+    when it comes to more complex functions, you may find that the recursive mindset
+    makes the writing of code much easier. It certainly does for me!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s one of my favorite examples. A famous question—known as the staircase
+    problem—goes like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we have a staircase of N steps, and a person has the ability to climb
+    one, two, or three steps at a time. How many different possible “paths” can someone
+    take to reach the top? Write a function that will calculate this for N steps.
+    The following image displays three possible paths of jumping up a five-step staircase.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/learning_to_write_in_recursive/staircase.png](images/learning_to_write_in_recursive/staircase.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: These are just three of many possible paths.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first explore this problem with a bottom-up approach. That is, we’ll work
+    our way up from the simplest cases to the more complex ones.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Obviously, if there’s only one step, there’s only one possible path.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With two steps, there are two paths. The person can climb one step twice, or
+    the person can jump up two steps at once. I’ll write this like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | 1, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 2 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'With a staircase of three steps, someone could take one of four possible paths:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | 1, 1, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 1, 2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 2, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 3 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'With four steps, there are seven options:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | 1, 1, 1, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 1, 1, 2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 1, 2, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 1, 3 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 2, 1, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 2, 2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 3, 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: Go ahead and try to draw up all the combinations for a five-step staircase.
+    It’s not that easy! And this is just five steps. Imagine how many combinations
+    there are for, say, eleven steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, let’s get to the question at hand: how would we write the code to count
+    all the paths?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Without the recursive mindset, it can be difficult to wrap one’s mind around
+    the algorithm for making this calculation. However, with the top-down way of thinking,
+    the problem can become surprisingly easy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For an eleven-step staircase, the first subproblem that comes to mind is a ten-step
+    staircase. Let’s go with that for now. If we knew how many possible paths there
+    are to climb a ten-step staircase, can we use that as a base for calculating the
+    paths for an eleven-step staircase?
+  prefs: []
+  type: TYPE_NORMAL
+- en: For starters, we do know that climbing an eleven-step staircase will take at
+    least as many steps as climbing a ten-step staircase. That is, we have all the
+    paths to get to stair number 10, and from there, one can climb one more step to
+    get to the top.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, this can’t be the complete solution, since we know that someone can
+    also jump to the top from stair numbers 9 and 8 as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we think about it further, we’ll realize that if you’re taking any path that
+    includes going from stair 10 to stair 11, you’re not taking any of the paths that
+    include jumping from stair 9 to stair 11\. Conversely, if you jump from stair
+    9 to stair 11, you’re not taking any of the paths that include stepping on stair
+    10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So we know that the number of paths to the top will include at least the number
+    of paths to stair 10 plus the number of paths to stair 9.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And since it’s possible to also jump from stair 8 to stair 11, as one can jump
+    three steps at a time, we need to include the count of those paths as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ve determined, then, that the number of steps to the top is at least the
+    sum of all the paths to stairs 10, 9, and 8.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, in thinking about it even further, it’s evident there aren’t any other
+    possible paths to the top beyond these. After all, one can’t jump from stair 7
+    to stair 11\. So we can conclude that for N steps, the number of paths is the
+    following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | numberOfPaths(n - 1) + numberOfPaths(n - 2) + numberOfPaths(n - 3) |'
+  prefs: []
+  type: TYPE_TB
+- en: Other than the base case, this will be the code for our function!
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 2) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 3)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: It seems too good to be true that this is almost all the code we need. But it
+    is true. All that’s left to deal with is the base case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Staircase Problem Base Case
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Determining the base case for this problem is slightly tricky. That’s because
+    when this function gets to an n of 3, 2, or 1, the function will call itself on
+    n of 0 or below. For example, numberOfPaths(2) calls itself for numberOfPaths(1),
+    numberOfPaths(0), and numberOfPaths(-1).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One way we can deal with this is by hardcoding all the bottom cases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (n <= 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (n === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (n === 2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (n === 3) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 4; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 2) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 3)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Another way to devise the base cases here is to cleverly rig the system by using
+    strange but effective base cases that just happen to compute the right numbers.
+    Let me show you what I mean.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We know that we definitely want the result of numberOfPaths(1) to be 1, so
+    we’ll start with the following base case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (n === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, we that know we want numberOfPaths(2) to return 2, but we do not have to
+    create that base case explicitly. Instead, we can take advantage of the fact that
+    numberOfPaths(2) will compute as numberOfPaths(1) + numberOfPaths(0) + numberOfPaths(-1).
+    Since numberOfPaths(1) returns 1, if we made numberOfPaths(0) also return 1, and
+    numberOfPaths(-1) return 0, we’d end up with a sum of 2, which is what we want.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So we can add the following base cases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (n < 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s move on to numberOfPaths(3), which will return the sum of numberOfPaths(2)
+    + numberOfPaths(1) + numberOfPaths(0). We know we want the result to be 4, so
+    let’s see if the math works out. We already rigged numberOfPaths(2) to return
+    2\. numberOfPaths(1) will return 1, and numberOfPaths(0) will also return 1, so
+    we end up getting the sum of 4, which is just what we need.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our complete function can also be written like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (n < 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 2) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + numberOfPaths(n - 3)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: While this is less intuitive than our previous version, we cover all the base
+    cases with just two lines of code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, the top-down recursive approach made solving this problem much
+    easier than it might have been otherwise.
+  prefs: []
+  type: TYPE_NORMAL

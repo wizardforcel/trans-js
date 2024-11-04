@@ -1,0 +1,170 @@
+- en: Trie Insertion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Inserting a new word into a trie is similar to searching for an existing word.
+    We first search to see if the word already exists in the trie. If it doesn’t,
+    we insert the new word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how the algorithm goes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We establish a variable called currentNode. At the beginning of our algorithm,
+    this points to the root node.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We iterate over each character of our search string. Here, our search string
+    represents the new word we’re inserting. We call it a search string since we’re
+    also searching whether the string already exists in the trie.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As we point to each character of our search string, we look to see if the currentNode
+    has a child with that character as a key.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If it does, we update the currentNode to become that child node, and we go back
+    to Step 2, moving on to the next character of our search string.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the currentNode does not have a child node that matches the current character,
+    we create such a child node and update the currentNode to be this new node. We
+    then go back to Step 2, moving on to the next character of our search string.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: After we insert the final character of our new word, we add an "*" child to
+    the last node to indicate the word is complete.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s see this in action by inserting the word “can” into our earlier example trie.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Setup: We set the currentNode to be the root node. We also point to the first
+    character of our string, which is the "c", as shown in the top [diagram](#fig.ch17.insert_point_to_c).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/insert_point_to_c.png](images/tries/insert_point_to_c.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 1: The root node has a "c" child key, so we turn that key’s value into
+    the currentNode. We also point to the next character of our new word, the "a",
+    as shown in the bottom [diagram](#fig.ch17.insert_point_to_a).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/insert_point_to_a.png](images/tries/insert_point_to_a.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 2: We inspect the currentNode for a child with the key of "a". There is
+    one, so we make that the currentNode and point to the next character of our string,
+    which is the "n", as shown in the top [diagram](#fig.ch17.insert_point_to_n).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/insert_point_to_n.png](images/tries/insert_point_to_n.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 3: The currentNode does not have an "n", so we need to create that child,
+    as shown in the bottom [diagram](#fig.ch17.insert_n).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/insert_n.png](images/tries/insert_n.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 4: We’re done inserting "can" into our trie, so we cap it off with a child
+    of "*":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/cap_off.png](images/tries/cap_off.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: And we’re done!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Trie Insertion'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s the insert method for our Trie class. You’ll note that most of it looks
+    the same as the earlier search method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | insert(word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ newNode = ​**new**​ TrieNode(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode.children[​**char**​] = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode.children[​*''*''*​] = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The first part of this method is the same as search. It diverges when the currentNode
+    doesn’t have the child that matches the current character. When this is the case,
+    we add a new key-value pair to the currentNode’s hash table, with the key being
+    the current character and the value being a new TrieNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ newNode = ​**new**​ TrieNode(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode.children[​**char**​] = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then update the currentNode to be this new node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentNode = newNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then repeat the loop until we’re done inserting our new word. Once we’re
+    done, we add an "*" key to the final node’s hash table, with the value as null:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentNode.children[​*''*''*​] = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: Like search, trie insertion takes about O(K) steps. If we count the adding of
+    the "*" at the end, it’s technically K + 1 steps, but because we drop the constants,
+    we express the speed as O(K).
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,155 @@
+- en: '| Recipe 26 | Matching One of Several Alternatives with the Vertical Bar (&#124;)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine you want to match specific variations of the word “week,” including
+    “weekend” and “weekly,” but not “weekday.” You want the match to be at word boundaries,
+    so other words like “Newsweek” wouldn’t count as a match. What you need is a way
+    to define alternative patterns in the regex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a vertical bar (|) to form an alternation. The vertical bar character will
+    tell the regex engine to match any one of a series of patterns:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/vertical_bar/vertical_bar_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**week**\b**&#124;**\b**weekend**\b**&#124;**\b**weekly**\b**/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: The regex engine matches everything left of the vertical bar or everything right.
+    The pattern in this example has three alternatives, each enclosed in a pair of
+    word boundaries. So, it will only match “week,” “weekend,” or “weekly.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If you want to add other symbols to the pattern but don’t want them to be a
+    part of the alternation, you can use parentheses. Using parentheses will limit
+    the scope of the alternation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Remember, a vertical bar matches either everything to the left or everything
+    to the right. So, if you wanted to match “this week” or “this weekend,” you could
+    write /\bthis (week|weekend)\b/:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/vertical_bar/vertical_bar_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**this* *(**week&#124;weekend**)\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Are you free this weekend?"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Are you free this week?"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"weekend"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: This pattern tells the regex engine to find a word boundary, then “this” followed
+    by a space, then either “week” or “weekend,” and then another word boundary.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You could also use parentheses to rewrite the solution in this recipe in a
+    more compact form:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/vertical_bar/vertical_bar_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b(**week&#124;weekend&#124;weekly**)\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The outcome is identical, but the pattern is more readable. Since all three
+    alternatives in this example begin with the same word, we can further fine-tune
+    the regular expression engine by rephrasing the regex as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/vertical_bar/vertical_bar_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**week**(**end&#124;ly&#124;**)\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The options in parentheses tell the regex engine to match “end,” “ly,” or nothing.
+    The empty option at the end of the parentheses is necessary to be able to match
+    “week.” Alternatively, you could use a quantifier to make the pattern in the parentheses
+    optional, like this: /\bweek(end|ly)?\b/, which is more conventional (see Recipe
+    29, [*Repeating Part of a Regex with Quantifiers*](f_0040.xhtml#rcp.quantifiers)).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Regex engines typically match words in a list from left to right. Therefore,
+    arranging words with the highest probability of appearing in the text at the beginning
+    of the list might slightly enhance the engine’s performance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember, take advantage of alternation when you want to match one of a choice
+    of regular expressions, and add parentheses to limit the scope of the alternation.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,603 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_35](https://doi.org/10.1007/978-3-658-42912-6_35)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '35. Loops: How Do I Repeat Program Instructions Efficiently?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Like most other programming languages, JavaScript provides looping constructs
+    that allow similar statements to be repeated. In practice, such loops are popular
+    and frequently used, as they allow for a clear and elegant formulation of repetitions.
+    In this chapter, we will take a closer look at the main types of loops in JavaScript
+    and see them in action in a larger example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how to use a counting **for** loop with a numeric run variable to execute a
+    statement or block of statements for a specified number of repetitions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to easily loop through a set of objects (such as the contents of an array)
+    with a **for-of** loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to develop head-controlled (**while**) and foot-controlled (**do-while**)
+    conditional loops whose execution depends on a freely definable run condition
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 35.1 Counting Loops (for and for-of)
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 35.1.1 for-Loops with Numerical Run Variables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Structure and Function of the **for** Loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The normal **for** loop to repeat a block of code comes in the following form
+    in JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for**(initialization; check; increment) {*// Code block that is repeated*}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Suppose we have an array of names that we want to loop through with a **for**
+    loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** friends = [''Peter'', ''Sophie'', ''Helen'', ''Mike'', ''Ben'']'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As usual with counting loops, we need a (numerical) run variable, let’s call
+    it **i**, which is first initialized with a start value. Since, as we know by
+    now, indexing of arrays in JavaScript starts at 0, it is recommended to set the
+    run variable **i** to this value at the beginning: **i = 0**. Next, we need to
+    set a check condition in the loop header that must be met for the loop to continue.
+    In our example, where we want to loop through the array from 0 to the last element,
+    this condition must be: **i <= friends.length-1** (note that the last element
+    has index **length-1**, because we are already starting the count at 0!). Finally,
+    we have to tell the loop how much the run variable should be incremented in each
+    step. In our example, the run variable is incremented by one. Thus, a loop that
+    runs through the elements of the array and outputs them to the console would look
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for**(i = 0; i <= friends.length-1; i = i+1) {console.log(''Friend no. '',
+    i+1, '': '', friends[i])}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The loop now starts with a value of 0 for the run variable and first checks
+    whether the run condition is met. Because 0 is smaller than the length of the
+    array reduced by one (namely four), the loop begins to execute the code in the
+    loop body. It runs through this code in the first pass with 0 as the value of
+    the run variable. The actual code executed is thus:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(''Friend no. '', 1, '': '', friends[0])'
+  prefs: []
+  type: TYPE_NORMAL
+- en: After the end of the loop body is reached, the execution jumps back to the loop
+    header and increments the run variable according to the increment statement, in
+    our example by one. Then the run condition is checked again and, if it is fulfilled,
+    the code in the loop body is executed one more time. The loop continues these
+    rounds until the run condition is no longer met after the next increment of the
+    run variable. In our example if **i** were to be equal to 5 the run variable is
+    now larger than the length of the array reduced by one, and the code block in
+    the loop body is not executed again. Instead, the execution of the program continues
+    after the **for** loop. The run variable retains its old value and is not incremented
+    again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead of using the increment instruction **i = i+1**, we can use the increment
+    operator **++** (which is unary because it only works with one operand) and simply
+    write **i++**. The values of the run variables can also be decremented (so we
+    could have run through the array from back to front). Then, of course, the start
+    value to which the run variable is initialized must also be adjusted, otherwise
+    the loop would not run at all. The best way to decrease the run variable by 1,
+    is to use the decrement operator **--**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: All loops in JavaScript can be exited with the **break** statement
+    and sent to the next run with the **continue** statement. This is true not only
+    for the **for** loop, but also **for-of**, **while, a**nd **do-while loops**,
+    which we will look at in the following sections.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A Practical Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: The following example shows a **for** loop, more precisely two nested loops,
+    in practical use. The goal this time is to develop a simple spreadsheet that can
+    be used to enter numbers in the cells of a spreadsheet and then calculate the
+    row and column totals. In the first step, the user enters the size of the spreadsheet.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The spreadsheet that is to be generated according to the user specifications
+    can be seen in ◘ Fig. [35.1](#Fig1).![](../images/474412_1_En_35_Chapter/474412_1_En_35_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of a spreadsheet document with 5 columns and 6 rows. A few of the
+    cells have numerical data. Column 5 and row 6 have the sum of each column and
+    rows, respectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 35.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Spreadsheet with 5 rows and 4 columns
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To enter the sheet size, we provide the user with the following simple web
+    interface:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<head>****<title>**Spreadsheet**</title>****<noscript>**Please
+    activate JavaScript!**</noscript>****</head>****<body>****<script** src="spreadsheet.js"**></script>****<h1>**Set
+    Table Size**</h1>****<form>**Rows:**<br>****<input** id="rows" type="text" value="0"**><p></p>**Columns:**<br>****<input**
+    id="columns" type="text" value="0"**><p></p>****<input** type="button" value="Create
+    table"onclick="createTable()"**>****</form>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When you click the “Create Table” button, the JavaScript function **createTable()**
+    from the **spreadsheet.js** file is called. This function looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1 **function** createTable() {2 **var** num_rows = Number(document.getElementById(''rows'').value);3
+    **var** num_columns =Number(document.getElementById(''columns'').value);4 **var**
+    i,f;56 document.write(''<H1>Spreadsheet document</H1>'');7 document.write(''<form><table>'');89
+    *// Write cells*10 **for**(i = 1; i <= num_rows; i++) {11 document.write(''<tr>'');12
+    **for**(f = 1; f <= num_columns; f++) {13 document.write(''<td><input id="R'',
+    i, ''C'', f, ''" \type="text" value=""></td>'');14 }15 *// Add cell for sum column*16
+    document.write(''<td><input id="SUM_R'', i, ''" type="text" \value="" readonly="true"
+    style="background-color: \#d1d1d1; "></td>'')17 document.write(''</tr>'');18 }1920
+    *// Add sum row*21 document.write(''<tr>'');22 **for**(f = 1; f <= num_columns;
+    f++) {23 document.write(''<td><input id="SUM_C'', f, ''" type="text" \value=""
+    readonly="true" style="background-color: \#d1d1d1;"></td>'');24 }25 document.write(''</tr>'');2627
+    document.write(''</table>'');2829 document.write(''<input type="hidden" id="nrows"
+    \value="'', num_rows,''">'');30 document.write(''<input type="hidden" id="ncolumns"
+    \value="'', num_columns,''">'');3132 document.write("<p></p>")33 document.write(''<input
+    type="button" value="Calculate" \onclick="calculate()">'');34 document.write("</form>");35
+    }'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This JavaScript code creates the table for our spreadsheet. Simple tables have
+    the following form in HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<table>****<tr><td>**Row 1, column 1**</td><td>**Row 1, column 2**</td></tr>****<tr><td>**Row
+    2, column 1**</td><td>**Row 2, column 2**</td></tr>****</table>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The individual table rows are represented by **tr** elements (*table row*),
+    the cells they contain by **td** elements (*table data*).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The outer **for** loop with run variable **i**, whose loop head can be found
+    in line 10, creates the rows of the table. In the body of this loop is another
+    **for** loop, this one with the loop header in line 12\. This “inner loop” with
+    run variable **f**, writes data for the current row, (i.e., the row indicated
+    by run variable **i** in the “outer” **for loop**), one cell *for each column*.
+    In this way, the two nested **for** loops completely “run through” the rectangular
+    table schema.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In lines 16/17 (this code is *not* in the inner loop!) another cell is written
+    for the current line as part of a “Totals” column. Similarly, outside the two
+    loops (lines 24–28), another loop is used to write a “Totals” row.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that we give our value cells IDs of the form **R*****x*****C*****y***,
+    where **x** is the row and **y** is the column in which the cell is located. The
+    summary rows or columns have IDs of the form **SUM_R*****x*** or **SUM_C*****y***.
+    This type of systematic ID composition will allow us to easily access the individual
+    cells.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The form elements in lines 29/30 also help us here: They are of type **hidden**
+    and are ultimately nothing more than a hidden repository for information. We store
+    the number of rows and columns here to be able to access them later when summing.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The summation is handled by the **calculate()** function, which the user can
+    trigger via the button we create in line 33\. Alternatively, you can attach the
+    function as an event handler to the **change** or **input** events of the individual
+    cell input fields; to do this, you only need to supply the **onchange** or **oninput**
+    property of the respective input element with a reference to the **calculate()**
+    functions in line 13 (try it out!)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The code of the **calculate()** function looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 **function** calculate() {2 **var** num_rows =Number(document.getElementById('nrows').value);3
+    **var** num_columns =Number(document.getElementById('ncolumns').value);4 **var**
+    i, f, sum, sum_column;56 *// Calculate row sums*7 **for**(i = 1; i <= num_rows;
+    i++) {8 sum_cell = document.getElementById('SUM_R' + i);9 sum = 0;10 **for**(f
+    = 1; f <= num_columns; f++) {11 sum = sum +Number(document.getElementById('R'
+    + i + 'C'+ f).value);12 }13 sum_cell.value = sum;14 }1516 // Calculate column
+    sums17 **for**(f = 1; f <= num_columns; f++) {18 sum_cell = document.getElementById('SUM_C'
+    + f);19 sum = 0;20 **for**(i = 1; i <= num_rows; i++) {21 sum = sum +Number(document.getElementById('R'
+    + i + 'C'+ f).value);22 }23 sum_cell.value = sum;24 }25 }
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**calculate()** first queries the row and column counts from our two **hidden**
+    form elements (lines 2 and 3). Then we calculate the row totals (lines 7–14) and
+    column totals (lines 17–24). We take advantage of the fact that the IDs of the
+    value cells have the form **R*****x*****C*****y*** and the cells of the sum rows
+    and columns have IDs of the form **SUM_R*****x*** and **SUM_C*****y***, respectively.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of row totals, for example, we go through all rows with the help
+    of a **for** loop (line 7) and first select the respective cell of the “Totals”
+    column (line 8). Afterwards, we only have to go through the individual value columns
+    (row 10), add the contained numbers (line 11) and write the sum into the corresponding
+    sum cell of this table row (row 13).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 35.1 [10 min]What do two **for** loops look like that output our array **friends**
+    to the console, where
+  prefs: []
+  type: TYPE_NORMAL
+- en: a loop displays only every second entry
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: the other loop displays each entry, but proceeds from back to front?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 35.2 [60 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Develop an application in which the user can first specify a color based on
+    its red, green and blue components using sliders. Based on this color, a shading
+    table is then to be expanded in such a way that each of the table cells shows
+    a different color. In the horizontal the red and in the vertical the blue parts
+    are to be increased in a total of 10 steps up to 255 (the maximum according to
+    the RGB scheme). The green portion remains fixed at the value set by the user.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The shading table should update automatically when the user moves one of the
+    sliders.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Your finished application might then look like ◘ Fig. [35.2](#Fig2).![](../images/474412_1_En_35_Chapter/474412_1_En_35_Fig2_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the shading table in 10 columns and 10 rows of cells with multiple
+    shades of colors. 3 sliders for red, green, and blue are above the table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 35.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: Shading table in the exercise application
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Some tips:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use the **toString()** method of the **Number** object to convert a decimal
+    number to a hexadecimal number, which you need to display as an RGB color value
+    in HTML-standard format **#RRGGBB**. As argument, **toString()** takes the base
+    of the number system to convert to, which is **16** for hexadecimal numbers.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Remember that with the format **#RRGGBB** there must always be two digits per
+    color part! Numbers smaller than 16 lead to *one-digit* hexadecimal numbers. These
+    must then be preceded by a 0.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The color components you calculate must be integers. To be on the safe side,
+    round them with the **Math.floor(number)** function. This function returns the
+    next smaller integer to the number passed as argument.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 35.1.2 for-Loop with Object Run Variable (for…of)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The second form of **for-loops** known to JavaScript does not count up or down
+    a numeric run variable but runs through a set of objects; the content of the run
+    variable is then the object to which the respective loop pass applies.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With this, the example from the previous section can then be written like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** friends = [**''**Peter**''**, **''**Sophie**''**, **''**Helen**''**,
+    ''Mike**''**, **''**Mohamed**''**]**>** i = 0;for(myfriend of friends) {i++;console.log(**''**Friend
+    no. **''**, i, **''**:**''**, myfriend)}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We need to increment the variable **i** ourselves here. It is not the run variable
+    of the loop (that is **myFriend**) but serves us here only to generate a consecutive
+    number for our console output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This will give you the following output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Friend no. 1 : PeterFriend no. 2 : SophieFriend no. 3 : HellenFriend no. 4
+    : MikeFriend no. 5 : Fatih'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Thus, the general form of the **for-of** loop is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***for***(runVariable of iterableObject) {*// Code block that is repeated*}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The *iterable object* we are iterating through here is an array. Other objects
+    can also be iterable; for example, an object representing an address could be
+    made so that its properties (such as the street name, house number, and zip code)
+    are iterable and could therefore be traversed using a **for-of** loop. What this
+    requires, however, is beyond entry-level JavaScript and thus beyond our scope
+    here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, strings, which can also be accessed in array notation (► Sect.
+    [31.​4](474412_1_En_31_Chapter.xhtml#Sec10)), are also iterable objects and can
+    be traversed with **for-of** loops:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for**(character of **''**Hello World!**''**) {console.log(character);}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that when passing through the **for-of** loop, the run variable is not
+    simply a *copy* of the element of our iterable object to which the current loop
+    pass applies. It is, in effect, *the element itself*. Changes you make to the
+    run variable in its **for-of** loop therefore affect the object being iterated
+    through!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 35.2 Conditional Loops (while and do-while)
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: With the **while** as well as the **do-while** loop, JavaScript has two conditional
+    loops. The **while** loop is *head-controlled*, i.e., the condition is checked
+    at the beginning of the loop and the loop is therefore not run at all if the condition
+    is not fulfilled right from the start. **d****o-while** is a *foot-controlled*
+    loop. It runs at least once in any case; at the end of the first run. The condition
+    is checked to determine whether the loop should run a second time, and for each
+    subsequent loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The two loops generally have the following structure:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**while**(*condition*) {*// Code block that is repeated*}and**do** {*// Code
+    block that is repeated*}**while**(*condition*)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The output of our **friends** array from the previous section would be achieved
+    with a **while** loop, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** friends = [**''**Peter**''**, **''**Sophie**''**, **''**Helen**''**,
+    ''Mike**''**, **''**Mohamed**''**]**>** i = 0;while(i <= friends.length - 1) {console.log(**''F**riend
+    no. **''**, i+1, **''**: **''**, friends[i]);i = i + 1;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A formulation with **do-while** might look like this instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: i = 0;**do** {console.log('Friend no. **'**, i+1, **'**:**'**, friends[i]);i
+    = i + 1;}**while**(i <= friends.length - 1)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**do-while** loops should only be used if you can safely assume that the loop’s
+    run condition will be satisfied on the first pass; here, that’s not a problem
+    because we know we don’t have an empty array in front of us.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our example, we have used **while** and **do-while** loops to solve a task
+    for which one would normally use a **for** loop, since the number of runs can
+    easily be determined with the help of the **length** property of the array. Conditional
+    loops are normally used when the execution depends on a general condition and
+    the number of passes cannot necessarily be determined in advance. However, our
+    example nicely illustrates a principle that we encountered earlier: Any problem
+    that can be solved with a counting loop can also be solved with a conditional
+    loop, because when in doubt, you can also check as a condition the value of a
+    numeric run variable that you manually increment, just as we did in our example.
+    In this sense, the *counting* loop is a special form of the *conditional loop*,
+    namely one whose condition checks a run variable, which the counting loop kindly
+    also takes care of initializing and incrementing.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 35.3 [10 min]Write two more versions of the **while** loop from this section
+    that outputs our array **friends** to the console, where
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Once the “run variable” **i** is initialized with 1 (instead of 0)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The less-than operator is used in the condition (instead of the less-than-equal
+    operator).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 35.4 [30 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Develop a function **countCells()** that optionally counts the rows or the columns
+    of the table that our spreadsheet application creates from ► Sect. [35.1.1](#Sec2).
+    Use a **while** loop to step through the IDs of the cells. Take advantage of the
+    fact that the **document.getElementById()** function returns **null** if an element
+    with the specified ID could not be found.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The function you develop here could be used by our **calculate()** function
+    to get the number of rows and columns, if we didn’t “cache” it as information
+    using **hidden** elements directly in the page source of the HTML document.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 35.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we saw how to repeat code in JavaScript using counting (**for**,
+    **for-of**) and conditional (**while**, **do-while**) loops.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In JavaScript, counting for **loops** have the form **for(*****initialization*****;**
+    ***check*****;** ***increment*****) {** ***statements*** **}**. Here, a numeric
+    run variable initialized to a value at the beginning is changed before each loop
+    pass according to an increment statement and checked whether the new value satisfies
+    a check condition. If this is the case, the following block of statements is run
+    through, but if this is not the case, program execution continues after the loop
+    and the run variable retains its value from before the last increment.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The run variable can also be decreased, i.e., the run variable becomes smaller
+    with each loop pass.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Increases and decreases by one can be implemented with the increment operator
+    **++** and the decrement operator **--** in the form **variable++** or **variable--**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A **for-of** loop of the form **for(*****runVariable*** **of** ***iterableObject*****)
+    {** ***statements*** **}** can be used to iterate through objects whose elements
+    are iterable, i.e. they can be put into any kind of order by JavaScript, such
+    as arrays. In this case, the run variable is not a numeric value, but the element
+    of the iterable object to which the current loop pass applies. Changes to the
+    run variable affect the iterable object whose elements are being iterated through.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Conditional loops can be either head-driven in the form **while(*****condition*****)
+    {** ***statements*** **}** or footer-driven with **do {** ***statements*** **}
+    while(*****condition*****)**. Loops of the latter type are run at least once because
+    the condition is not checked until the end.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 35.4 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 35.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A loop that displays only every second entry from the array might look like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for**(i = 0;i <= friends.length-1; i=i+2) {console.log(**''**Friend no. **''**,
+    i+1, **''**:**''**, friends[i]);}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A loop that proceeds from back to front when displaying the array entries might
+    look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for**(i = friends.length-1; i >= 0; i--) {console.log(**''F**riend no. **''**,
+    i+1, **''**:**''**, friends[i]);}Exercise 35.2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The interface of our shading table application could be designed in HTML code
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<head>****<title>**Color Table**</title>****<noscript>**Please
+    activate JavaScript!**</noscript>****</head>****<body>****<script** src="colortable.js"**></script>****<form>**<**p>**Red:
+    **<input** id="red" type="range" min=0max=255 value="0" onchange="colorsNew()"**><p>****<p>**Green:
+    **<input** id="green" type="range" min=0max=255 value="0" onchange="colorsNew()"**><p>****<p>**Blue:
+    **<input** id="blue" type="range" min=0max=255 value="0" onchange="colorsNew()"**><p>****</form>****<table**
+    id="colortable"**>****</table>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For this purpose, the JavaScript file **colortable.js**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** colorsNew() {**var** colorRed = Number(document.getElementById(''red'').value);**var**
+    colorGreen = Number(document.getElementById(''green'').value);**var** colorBlue
+    = Number(document.getElementById(''blue'').value);**var** tab = document.getElementById(''colortable'');**var**
+    i,f, colorValue, stepRed, stepBlue;stepRed = Math.floor((255-colorRed)/10);stepBlue
+    = Math.floor((255-colorBlue)/10);tableHTML = "";**for**(i = 1; i <= 10; i**++**){tableHTML
+    = tableHTML + ''<tr>'';**for**(f = 1; f <= 10; f**++**) {colorRedNew = (colorRed
+    + i*stepRed).toString(16);colorGreenNew = colorGreen.toString(16);colorBlueNew
+    = (colorBlue + f*stepBlue).toString(16);if(colorRedNew.length == 1)colorRedNew
+    = ''0'' + colorRedNew;if(colorGreenNew.length == 1)colorGreenNew = ''0'' + colorGreenNew;if(colorBlueNew.length
+    == 1)colorBlueNew = ''0'' + colorBlueNew;colorVal = "#" + colorRedNew + colorGreenNew
+    + colorBlueNew;tableHTML = tableHTML + ''<td style="background-color: '' +colorValue
+    + ''; color: '' + colorValue + ''">xxxx</td>'';}tableHTML = tableHTML + ''</tr>'';}tab.innerHTML
+    = tableHTML;}Exercise 35.3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'A **while** loop that goes through the array and starts at 1:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: i = 1;**while**(i <= friends.length) {console.log(**'**Friend no. **'**, i,
+    **'**:**'**, friends[i-1]);i = i + 1;}
+  prefs: []
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'A **while** loop that traverses the array and uses the less operator in the
+    run condition:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: i = 0;**while**(i < friends.length) {console.log(**'F**riend no. **'**, i+1,
+    **'**:**'**, friends[i]);i = i + 1;}Exercise 35.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The function **countCells()** could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** countCells(columnRow = ''column'') {**var** num = 0;**var** id;**do**
+    {num = num + 1;**if**(columnRow == ''column'') {id = ''R1C'' + num;}**else** {id
+    = ''R'' + num + ''C1'';}}**while**(document.getElementById(id) != **null**)**return**
+    num - 1;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We work here with an argument **columnRow**, which has the default value "**column"**
+    and specifies whether the number of columns or rows is to be returned. The number
+    is then determined by composing cell IDs in a **do-while** loop (we assume here
+    that at least one column or row exists, so that we can also test the run condition
+    of the loop at the end) and attempting to select these cells with **getElementById()**.
+    If this fails because the cell does not exist, **getElementById()** returns **null**
+    and the loop ends. The number of rows/columns **num** incremented in the loop
+    is then the return value of the function.
+  prefs: []
+  type: TYPE_NORMAL

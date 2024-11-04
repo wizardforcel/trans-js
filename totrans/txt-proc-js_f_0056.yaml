@@ -1,0 +1,151 @@
+- en: '| Recipe 45 | Modifying an Existing Regex Literal |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to take your teammate’s regular expression literal and modify
+    it for use in another part of the code. You don’t want to alter the original regex
+    because it has passed all tests for the job it was intended for.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You need a solution that enables you to modify a copy of an existing regex literal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the source and flags properties to retrieve the original regex parts. And
+    construct a new RegExp object with those parts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/modifying_regex/modifying_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Pattern to match a filename with .png extension* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** origRegex = */**\b(\w**+**)\.**png**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Pattern to match a filename with .png or .PNG extension* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** newRegex = **new** RegExp(origRegex.source, origRegex.flags
+    + *"i"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: Hooray! You have successfully added the i flag to the regex pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'JavaScript provides the flags property for reading all flags used in a regex:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/modifying_regex/modifying_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*u; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.flags); *// → giu* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re2.flags); *// → ""* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Notice how the order of flags changes when reading them. The flags property
+    always ignores the order of the original pattern and lists them in a fixed order:
+    “gimuy.” If the pattern has no flags, the return value will be an empty string.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similarly, the source property gets us the pattern enclosed between the forward
+    slashes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/modifying_regex/modifying_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b(\w**+**)\.**png**\b**/ig*u; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.source); *// → \b(\w+)\.png\b* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can also check if a specific flag is applied to a regex. For example, to
+    see if the global flag g is set, we can read the global property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/modifying_regex/modifying_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*u; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.global); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re2.global); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The following table lists all supported flags along with their corresponding
+    properties. Note that all these properties are read-only:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Flag | Corresponding Property |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| d | hasIndices |'
+  prefs: []
+  type: TYPE_TB
+- en: '| g | global |'
+  prefs: []
+  type: TYPE_TB
+- en: '| i | ignoreCase |'
+  prefs: []
+  type: TYPE_TB
+- en: '| m | multiline |'
+  prefs: []
+  type: TYPE_TB
+- en: '| s | dotAll |'
+  prefs: []
+  type: TYPE_TB
+- en: '| u | unicode |'
+  prefs: []
+  type: TYPE_TB
+- en: '| y | sticky |'
+  prefs: []
+  type: TYPE_TB
+- en: Use the flags property to retrieve the flags of a regex object. And use the
+    source property to retrieve the source text of a regex object. Remember, the returned
+    value by source is without the two forward slashes on the sides or flags. These
+    properties are mainly helpful when you want to construct a new pattern from an
+    existing one.
+  prefs: []
+  type: TYPE_NORMAL

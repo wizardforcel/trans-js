@@ -1,0 +1,582 @@
+- en: Iterators and Generators
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Built-in objects like arrays can be iterated over using the [for…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+    loop. Instead of iterating over an array with a simple `for` loop where we have
+    to access the value using an index, increment the index after each iteration,
+    and also know when to end the iteration so that we don’t access indexes that are
+    out of bounds, with `for...of` loop, everything is handled for us. We don’t have
+    to worry about the indexes or the loop termination condition.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: How does `for...of` loop help us iterate over an array? How does it know when
+    to end the iteration?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To understand this, we need to understand the following two concepts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iterables
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Iterators
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Iterables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Iterable is an object that implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol).
+    According to the iterable protocol, an object is iterable if it defines the iteration
+    behavior that can be used by the `for...of` loop to iterate over the values in
+    the object. The object can implement a method that is referred to by the property
+    represented by [Symbol.iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator);
+    it is one of the well-known symbols to define the iteration behavior. The well-known
+    symbols were discussed in the module related to symbols.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of arrays, this method is defined in the `Array.prototype` object.
+    This method defines the iteration behavior that is appropriate for arrays. Other
+    objects can also implement this method to define an iteration behavior that is
+    appropriate for them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What does the `Symbol.iterator` return that can be used by constructs like `for...of`
+    loop to iterate over an object? It returns an iterator object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iterators
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Iterators are objects that implement the [iterator protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol).
+    According to the iterator protocol, an object is an iterator if it implements
+    a method named `next` that takes zero or one argument and returns an object with
+    the following properties:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`done`: indicates whether the iterator can produce or return another. If it
+    can, its value is `false`, otherwise, `true`. The `true` value is the same as
+    omitting this property in the object returned by the `next` method.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`value`: the value returned by the iterator object. This property can be omitted
+    or its value can be `undefined` if the value of the `done` property is `true`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The following are examples of iterator objects with the above mentioned properties:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'When we iterate over an array using the `for...of` loop, it internally gets
+    the iterator from the array and keeps calling its `next` method until the iterator
+    has returned all values. With the `for...of` loop, we use the iterator indirectly.
+    We can also use the iterator directly. Arrays are iterables, and we know that
+    iterables implement the `Symbol.iterator` method that returns the iterator object
+    that contains the `next` method. The following code example shows how we can get
+    the array iterator and use it directly to get the values in the array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example2” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Each [built-in iterator object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator#description)
+    provides iterators that define a specific iteration behavior for the iterable
+    object. The following is an example of using the `Map` object’s iterator directly:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example3” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The value of the `value` property on the iterator result object for the `Map`
+    object is a key-value pair contained in an array. You can use [Map.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
+    to get an iterator that just returns values in the `Map`, or [Map.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)
+    to get an iterator that returns all the keys in the `Map`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iterator prototype
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Each iterator object inherits from the respective iterator prototype object.
+    For example, the array iterator inherits from the Array Iterator prototype object.
+    Similarly, the string iterator inherits from the String Iterator prototype object.
+    All iterator prototype objects inherit from the `Iterator.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example4” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code example above shows one way to get the array iterator prototype object,
+    and it also shows that the `next` method is inherited from the array iterator
+    prototype object. If we get the prototype of the array iterator prototype object,
+    we will get the `Iterator.prototype` object, which is shared by all iterator prototype
+    objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: :::info We cannot access the `Iterator.prototype` object directly because it
+    is a hidden global object that all built-in iterators inherit from.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `Iterator.prototype` object itself is an iterable object, which means that
+    it implements the iterable protocol. But the `Symbol.iterator` method that it
+    implements simply returns the iterator on which this method is called. This means
+    that any iterator object itself is iterable, meaning that we can use it with constructors
+    like the `for...of` loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example6” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Making custom iterable objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: At this point, we have learned enough about iterables and iterators to make
+    custom iterable objects. To make a custom iterable object, we need to implement
+    `Symbol.iterator` method that returns the iterator object containing the `next`
+    method. Let’s consider an example of student objects that we want to make iterable
+    so that we can easily print their properties with the `for...of` loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This is the `Student` constructor that will be used to make student objects.
+    To make all the student objects iterable, we need to implement the `Symbol.iterator`
+    method in the `Student.prototype` object, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Now, if we try to iterate over any student instance, we will get the formatted
+    values as we defined in the student iterator’s `next` method, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example9” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can define the iteration behavior according to whatever logic we want and
+    format the value returned in the iterator result object in whatever way we want.
+    This gives us the flexibility to define the iteration behavior for any object(s)
+    that is appropriate for a particular object or for a group of related objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember that each iterator prototype object, for example, the array iterator
+    prototype object, inherits from the `Iterator.prototype` object, but the `studentIterator`
+    object doesn’t. As a result, the student iterator object is not iterable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/iterators-example10” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can fix this either by explicitly setting up the prototype chain link between
+    the `Iterator.prototype` object and our `studentIterator` object, or an easier
+    way is to just implement the `Symbol.iterator` method in the `studentIterator`
+    object to make it iterable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now the `studentIterator` object is iterable, so we can use it with the `for...of`
+    loop if we want to.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There’s one more improvement we can make to the above code example. We have
+    defined `Symbol.iterator` method in the `Student.prototype` object, but it is
+    [enumerable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties),
+    which is not ideal. We can make it non-enumerable by defining it using the [Object.defineProperty](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+    method, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Generators are special functions in JavaScript that can suspend their execution
+    at different points in their execution and then resume from the point at which
+    they were paused. Just like iterators, generator functions can be used to produce
+    a sequence of values that can be consumed by constructs like the `for...of` loop.
+    In fact, a generator function returns a generator object, which is an iterator.
+    So, we can use the return value of a generator function just like any other iterator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Following is an example of a generator function that produces odd numbers from
+    0 to 10:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note the following two things in the generator function above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `function*` syntax marks a function as a generator function. Space between
+    `*` and `function` is also valid syntax: `function *`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The `yield` keyword produces a value. The value on the right of the `yield`
+    keyword is what we get when we call the `next` method on the iterator object returned
+    from the generator function. The `yield` keyword also marks a place where a generator
+    function is paused.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Infinite sequence
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Generator functions can also be used to create an infinite sequence. as shown
+    below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example2” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code example above logs only 10 random numbers, but it is possible to use
+    the generator to generate an infinite number of random numbers. This is possible
+    because generator functions are evaluated lazily; their execution is paused until
+    a new value is requested.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above code example, we are consuming the generator using the `next` method.
+    Note that calling the generator function doesn’t execute it; instead, it returns
+    a generator object. The generator object is an iterator as well as an iterable.
+    So we can use it like an iterator by calling the next method on it. Calling the
+    `next` method on a generator object returns the values that the generator yields.
+    Multiple calls to the `next` method keep returning the value that the generator
+    yields until the generator object stops yielding the values. At this point, we
+    get an object with the `done` property set to `true`. However, the generator function
+    above can yield values infinitely.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Implementing iterators
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'As a generator function returns an iterator object, generator functions make
+    it convenient to write iterators. We can rewrite the student iterator example
+    in the previous lesson using a generator function, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example3” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Compare the implementation of the `Symbol.iterator` method in the previous lesson
+    and the new one that uses a generator function to implement the student iterator.
+    Code is simpler, concise, and easy to read. Generator functions really make it
+    easy to implement iterators.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As an added bonus, the iterator object returned by the generator function is
+    automatically iterable; as a result, the student iterator is iterable without
+    us needing to manually set up the prototype chain link or implement the `Symbol.iterator`
+    method in the iterator object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Consuming values
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'While simple iterators only produce values, generators can also consume values.
+    We can pass a value to the generator using the `next` method. The value passed
+    to the generator becomes the value of the `yield` expression. Consider the following
+    code example of a generator consuming a value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example4” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first `next` method call yields the first value, i.e.,”What is your name?”.
+    At this point, the generator function pauses. The value of the `yield` expression
+    will be calculated depending on how we call the `next` method again. If we pass
+    an argument to the second call to the `next` method, that argument will become
+    the value of the `yield` expression. In the above code example, the argument provided
+    is the string “John”, so the value of the first `yield` expression is “John”,
+    and that is saved in the `name` constant inside the generator function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second `next` method call provides a value for the first `yield` expression
+    and results in the generator function yielding the next value, which is also a
+    string in the code example above. The second `yield` value is calculated using
+    the value of the `name` constant. As a result, we get “Hello John!” as the second
+    value from the generator function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::note We didn’t pass any argument to the first `next` method call; this is
+    because any value provided to the first `next` method call is ignored. The first
+    `next` method call cannot provide a value for the first `yield` expression. The
+    value of the first `yield` expression will be provided by the second `next` method
+    call; similarly, the value of the second `yield` expression can be provided by
+    the third `next` method call, and so on. :::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The following is an example of a generator that produces random numbers infinitely
+    and allows us to pass the upper limit of the range in which the random number
+    should be produced. The number we pass is not included in the range.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example5” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Delegating to other iterators
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Another cool thing about generators is that they allow us to delegate the responsibility
+    of producing values to other iterators, such as generators. To delegate the responsibility,
+    we need to use the `yield*` operator. This operator takes any iterator and yields
+    values from it until the iterator is done. The following is an example of using
+    the `yield*` operator to delegate the responsibility of producing even or odd
+    numbers to respective generator functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/generators-example6” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `printNums` generator delegates the responsibility of producing values to
+    one of the other two generator functions depending on the value of the `isEven`
+    parameter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Generator (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[yield* (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We learned about iterables and iterators in the first lesson of this module.
+    An iterable is an object that implements the iterable protocol, and an iterator
+    is an object that implements the iterator protocol. The iterators we learned about
+    were synchronous.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript also has asynchronous iterators that work similarly to synchronous
+    iterators. The synchronous iterators contain a method named `next` that, when
+    called, returns an object with two properties: `done` and `value`. The asynchronous
+    iterators also contain a method named `next`, but instead of returning an object
+    with the previously mentioned properties, it returns a promise.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Objects implement the `Symbol.iterator` method to implement the iterable protocol.
+    Objects can implement the [async iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_async_iterator_and_async_iterable_protocols)
+    by implementing the [Symbol.asyncIterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/asyncIterator)
+    method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following is an example of using an async iterator to fetch users from
+    an API:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-iterators-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above code example, we are using the async iterator directly instead
+    of using a construct like the `for...of` loop. Later in this module, we will see
+    how we can consume an async iterator using a loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note in the above code example that the `userAsyncIterator` object inside the
+    `fetchUsers` function implements the `Symbol.asyncIterator` method to implement
+    the async iterable protocol. We discussed in the lesson about iterators that each
+    built-in iterator inherits from the `Iterator.prototype` object and is an iterable
+    itself. To make our custom iterators also iterables, we can make our iterators
+    inherit from the `iterator.prototype` object, or we could implement the `Symbol.iterator`
+    method in our iterator object to make it an iterable. Similarly, async iterators
+    inherit from the `AsyncIterator.prototype` object, which is also a hidden global
+    object, just like the `Iterator.prototype` object. We could make our `userAsyncIterator`
+    object inherit from the `AsyncIterator.prototype` to make it an iterable, or we
+    could implement the `Symbol.asyncIterator` method, as shown in the above code
+    example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In short, the main difference between a synchronous iterator and an async iterator
+    is that the `next` method of an async iterator returns a promise. Next, we will
+    discuss the asynchronous generators that, just like regular generators, can make
+    it easy for us to implement the async iterators.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[AsyncIterator (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncIterator)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Similar to the difference between synchronous iterators and async iterators,
+    the main difference between a regular generator and an async generator is that
+    an async generator yields a promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Async generators are a combination of `async` functions and generators. As a
+    result, we can use both the `await` and the `yield` keywords inside an async generator.
+    Calling an async generator returns an [AsyncGenerator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator)
+    object that implements both async iterator as well as async iterable protocols.
+    The next method of the `AsyncGenerator` object returns a promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let us rewrite the async iterator example in the previous lesson to use an
+    async generator:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-generators-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::info Inside the `fetchUsers` function, instead of awaiting the result of
+    `response.json()` and then yielding the `userData` object, we could simply yield
+    `response.json()`. This will also work because returning a promise from an `async`
+    function resolves the `async` function promise to the promise returned inside
+    its body. The same principle applies here: if we `yield` a promise, the `async`
+    generator promise will be resolved to the promise that is `yield` inside it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The async generators make it really easy to implement async iterators, and this
+    is how you would normally implement async iterators.
+  prefs: []
+  type: TYPE_NORMAL
+- en: for await…of loop
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'So far, we have consumed the async iterators directly by calling the `next`
+    method. The `for...of` loop, which helps us iterate over the iterable objects,
+    has a counterpart known as the [for await…of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+    loop that helps us iterate over the async iterable. The following code example
+    shows how we can rewrite the `getData` function to use the `for await...of` loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `for await...of` loop can only be used in a context where we can use the
+    `await` keyword, i.e., inside an `async` function and a module.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[async function* (MDN article)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function*)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

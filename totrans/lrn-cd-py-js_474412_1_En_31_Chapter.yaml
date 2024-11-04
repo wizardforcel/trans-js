@@ -1,0 +1,1595 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_31](https://doi.org/10.1007/978-3-658-42912-6_31)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '31. Variables & Objects: How Do I Store Data to Work With?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now it’s time to look at how we work with variables and objects in JavaScript
+    to be able to temporarily store data for processing. That’s what this chapter
+    is about.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: the elementary data types of JavaScript (called primitives)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to work with variables of elementary data types (create them, assign them,
+    convert them, ...)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to create fields (arrays) from any data type and how to work with them
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what distinguishes elementary data types from real JavaScript objects
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how object orientation works differently in JavaScript than in other object-oriented
+    languages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to create and edit objects in JavaScript
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what JSON is, why it’s so important, and how you can turn JavaScript objects
+    into JSON, and vice versa
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 31.1 Declaration of Variables
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Variables *should be declared* in JavaScript, that is, registered before they
+    are used for the first time. It is good practice to declare variables, although
+    a simple value assignment is regularly sufficient to create a variable and a formal
+    declaration is strictly speaking not required. However, you will get an error
+    message if you try to access a variable that has neither been declared nor assigned
+    a value beforehand.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A common problem, if variable declarations are not mandatory, is that you accidentally
+    create a new variable in the program by mistyping. For example, if you want to
+    assign a value to an existing variable **amountInvoice**, but unintentionally
+    write **amountIvoice** in the assignment, you will have a problem at the latest
+    when you continue working with the originally intended variable identifier **amountInvoice**,
+    which, however, never received the value supposedly assigned to it. Instead, the
+    newly created variable **amountIvoice** holds the value. You can avoid such difficulties
+    by running JavaScript in *strict mode*, in which case undeclared variables lead
+    to an error message. Strict mode can be switched on for an entire script (or a
+    single function) by introducing a special statement as the first statement in
+    the script (or function):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '''use strict'';'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Try it and assign a value to a variable that you have not declared before in
+    your script; you will immediately get an error message. Now remove the **'use
+    strict'** statement and run the script again—no problem, the variable is simply
+    created on the first assignment.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The formal declaration of variables in JavaScript is done with the help of the
+    keyword **var**, which is followed by one or several variable identifiers, separated
+    by commas. The variables can, but do not have to be initialized with a value during
+    the declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** x = 0.5, y, z = ''A message'';'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is noticeable that the variables are created without type specification during
+    the declaration. JavaScript automatically recognizes which type it must be based
+    on the value assigned during the declaration (if you initialize the variable)
+    or later. Programmers say JavaScript is weakly typed). Of course, we can, and
+    sometimes even must, explicitly specify the types of variables by conversion.
+    We will deal with this in ► Sect. [31.3](#Sec7). The type of a variable can also
+    be changed by simply assigning a value of a different type to the variable. JavaScript
+    then automatically adjusts the type of the variable to accommodate the new value
+    (dynamic typing). The keyword **var** can occur several times in the program and
+    does not necessarily have to be at the beginning of the entire program source
+    code. However, it is good practice to merge variable declarations at the beginning
+    to keep track of the registered variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.2 Elementary Data Types
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: JavaScript has several elementary data types, including numbers (**number**),
+    strings (**string**), and logical values (**boolean**). These (and some special
+    other) types are *elementary* in the sense that they are *not objects* themselves,
+    but *primitives*. Variables of all other types are objects in JavaScript and therefore
+    have attributes and methods to manipulate them. The elementary data types do not,
+    but nevertheless sometimes—as we will see—behave almost miraculously as if they
+    were “real” objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.2.1 Numbers (number)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Integers and Floating-Point Numbers
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**number** is the data type that holds numbers, regardless of whether they
+    are integers or fractional, i.e., floating-point numbers. JavaScript always reserves
+    64 bits, i.e., 8 bytes, for storing a number. The range of numbers that a **number**
+    variable can hold therefore depends on how high the precision is to be, i.e.,
+    how much memory is required for storing the decimal places. Conversely, the possible
+    precision depends on the size of the integer part before the decimal point: If
+    this is very large, less memory remains for the decimal places.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Infinity
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A special value that a **number** variable can assume is **Infinity**. If you
+    divide a number by the value 0 in JavaScript, you will not receive an error message—unlike
+    in many other languages—but the value **Infinity** or **-Infinity**. Open the
+    JavaScript console and enter the following code (the greater-than sign here represents
+    the console prompt and must therefore not be entered):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** 1/0InfinityOperators'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, you can perform the usual arithmetic operations with numbers, including
+    the four basic arithmetic operations. In addition, **%** is a *modulo operator*
+    that returns the integer remainder of a division. All these operators are *binary*
+    operators that process two values into a new value. However, there are also several
+    *unary* operators that are applied to a single value. Of particular interest in
+    this context are the *increment* (**++**) and *decrement* (**--**) operators often
+    found in JavaScript programs, which increment or decrement a **number** variable
+    by the value 1 regardless of whether the variable has a decimal part other than
+    0 or not. So, **variable++** is a more compact notation for the assignment **variable
+    = variable + 1**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Methods of Number Objects
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**number** variables have (apparently) callable methods, albeit in a manageable
+    number. “Apparently” because a **number** variable is actually a *primitive*,
+    i.e., a variable of an elementary data type, and thus *not* an object, i.e., an
+    instance of a class, for which we would expect the existence of properties and
+    methods. In ► Sect. 31.3.2 we will see how this apparently contradictory behavior
+    comes about.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Among the methods available for **number** variables, one example is **toExponential()**,
+    a method that converts the number to an exponential notation and returns it as
+    a string. The variable itself is not changed in the process.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** myNumber = 50000**>** scientific = myNumber.toExponential()**>** scientific"5e+4"**>**
+    typeof myNumber"number"**>** typeof scientific"string"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here you first see that we can access the methods (and properties) of objects
+    using the dot operator (just like in Python), and that calling a method always
+    requires the parentheses to be specified, even if no arguments are passed to the
+    method at all.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With **typeof** ***objectinstance***, you’re about to learn another useful operator
+    that returns the type of a variable as a string. It’s not a mathematical operator
+    but still a (unary) operator. As you can see, **toExponential()** returns a string
+    containing the formatted number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another handy method besides **toExponential()** that can be applied to **number**
+    is **toFixed(*****places*****)**, which rounds the number to the specified number
+    of decimal places, and again returns the result as a string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** myNumber = 3.14159**>** myNumber.toFixed(3)"3.142"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Constant values (*literals*) also behave like objects in JavaScript. However,
+    to access the methods of these objects, you need to write the value in round brackets,
+    as in the following example, which you can easily try out in the console:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** (3.14159).toFixed(3)"3.142"31.1 [3 min]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Show that in JavaScript infinity plus one is still infinity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.2.2 Text (string)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Assign Strings
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Strings are delimited by single or double quotes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** message = "Hello world", message2 = ''Hello world again'';console.log(message,
+    message2);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Due to the fact that in JavaScript, similar to Python, two different string
+    delimiters are available, one of them can be used to delimit the string, the other
+    one within the string can be used for “quotes”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** message = "The nerd shouted loudly: ''Hello world''";Escaping'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Sometimes, however, within a string, you want the character you use to mark
+    the beginning and end of the string to be part of the string. In this case, *escaping*
+    must be used. As we have already seen earlier, the character that is to have a
+    different function within the string than it would normally have is preceded by
+    a backslash (**\**). In our example, we could escape the double quote as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** message = "The nerd called out loudly: \"Hello world\"";'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By prepending the backslash, the quote character is no longer interpreted as
+    the character it is in JavaScript programs, namely a delimiter for strings. Instead,
+    it is considered part of the string. The last quotation mark is not escaped and
+    therefore actually marks the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, escaping can not only be used to disable the normal control function
+    of certain characters in order to include them as a constituent part of the string;
+    escaping can also be used to give characters that would normally be inconspicuous
+    letters in the string a different function, thereby turning them into a control
+    statement. Consider the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''Some things need to be looked '',''at \nwith a bit of \t
+    distance.'');Some things you need to be looked atwith a bit of distance.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Again, we see two backslashes used for escaping: Once the letter **n** is escaped;
+    **\n** causes a new line to be inserted into the string at this point. **\t**
+    causes a tab jump to be inserted. In both cases, a letter that would otherwise
+    have no special function and would be a normal part of the string is converted
+    into a control statement.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But what if you use a backslash to escape a character that has no special control
+    function at all, for example, the **i**. The good news is that nothing happens:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''Escape the \i but don''t know why.'');Escape the i but
+    don''t know why.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, the backslash is not displayed, it is a special control instruction
+    that causes the next character get a special meaning (if it has one). This logically
+    brings us to the next question, namely how a backslash can be represented in a
+    string. After all, programmers working under Windows use the backslash as a separator
+    for path specifications. The solution is simple: The backslash itself is simply
+    escaped:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** console.log(''The file is located in C:\\Windows\\System.'');The file
+    is located in C:\Windows\System.Work with Individual Characters'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The individual characters of a string can be accessed in JavaScript like the
+    elements of a (read-only) field/array. The indexing of arrays in JavaScript starts
+    with the index 0 for the first character. The index is enclosed in square brackets
+    when accessed:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var message = ''Hello world''**>** message[1]"e"**>** typeof message[1]"string"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As can be easily verified, a character from a string is in turn a string. There
+    is no special data type for single characters in JavaScript. The array containing
+    the characters of the string is read-only, so it cannot be written to. Therefore,
+    you *cannot* replace a character in the string with a statement like **message[2]
+    = 'z'**. To do this, you must work with the methods available for variables of
+    type **string**, which we will learn about below. We will look at the details
+    of working with arrays in more detail in ► Sect. [31.4](#Sec10).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concatenate Strings
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Although strings cannot be computed like numbers, **string** variables also
+    support the plus operator (**+**). In the context of strings, it is used to concatenate
+    several strings:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** message = "Hello" + " " + ''World'';console.log(message);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, it doesn’t matter whether single or double quotes are used to
+    delimit the strings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike the plus, the other arithmetic operators cannot be applied to strings.
+    If you do so, you will not get an error message, but you will get the return value
+    **NaN** (*not a number*), which we will look at in more detail in ► Sect. [31.2.4](#Sec6).
+    It signals that we have applied an operator designed to work with numbers to something
+    that is not a number (try it out!).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Methods and Properties of Strings
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you create a **string** variable in the JavaScript console and then enter
+    its name followed by a dot operator, the popup menu opens with the list of methods
+    and properties available for strings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A particularly important property is **length**, the length of the string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var message = ''Hello World''**>** message.length10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if you want to access the individual characters of the string, you can use
+    **message[message.length-1]** to grab the last character of the string (because
+    indexing starts at 0!).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Instead of accessing a single character via the array of characters, you could
+    also use the **charAt(*****index*****)** method of the string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var message = ''Hello world ''**>** message.charAt(message.length-1);"t"Besides
+    **charAt()**, **string** offers a number of other handy methods:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**indexOf(*****searchString*****,** ***fromPosition*****)**: Searches for **searchString**
+    in the string for which the method is called, starting at index **fromPosition**
+    at the earliest; here, **fromPosition** is an optional argument, so it can be
+    omitted, resulting in a search starting at the beginning of the string. The return
+    value **indexOf** is the index of the beginning of the **searchString** within
+    the searched string, or -1 if **searchString** was not found in the searched string:**>**
+    message.indexOf("el")2**>** message.indexof("tel")-1'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**replace(*****search*****,** ***replaceBy*****)**: Searches the string for
+    **search** and replaces each occurrence with the string **replaceBy**:**>** message.replace("Hello",
+    "Hi")"Hi word"'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**toUpperCase()**, **toLowerCase()**: Converts the string to upper and lower
+    case respectively:**>** message.toUpperCase("HELLO WORLD"**>** message.toLowerCase();"hello
+    world"'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**trim()**, **trimLeft**, **trimRight()**: Removes leading and trailing, leading-only,
+    and trailing-only whitespace from a string, respectively:**>** message = " " +
+    message + " "" Hello World "**>** message.trim();"Hello World"**>** message.trimLeft()"Hello
+    World "**>** message.trimRight()" Hello World"'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When using these methods, please note that the variable for which they are called
+    does not undergo any change, but a new, changed string is created and returned
+    by the methods. So, you have to take care yourself to catch this return value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.2.3 Logical Values (boolean)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The third important elementary data type in JavaScript are logical/truth values.
+    They can only take the value constants **true** and **false** (note lower case!)
+    and are internally coded with the values 1 for **true** and 0 for **false**. This
+    becomes clear when you calculate with the constants:**>** true * 55**>** false
+    - 1-1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.2.4 Special Types and Values (null, undefined, NaN)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'null'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript knows two special values that can signal that a variable has no
+    value: **undefined** and **null**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If a variable deliberately has no real value—for example, the answer to a choice
+    question in a questionnaire that the respondent deliberately omitted when answering—the
+    (quasi-) “value” **null** is used:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: questionAge = **null**;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**null** is thus a special value constant that indicates that a variable is
+    deliberately “empty”, that is, it does not currently hold a “real” value. If you
+    assign **null** to a variable that previously held a “real” value, it changes
+    its object type to the general **object**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var mynumber = 5**>** typeof mynumber"number"**>** mynumber = null**>**
+    typeof mynumber"object"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Don’t let this confuse you: **null** is a variable of an elementary data type
+    with the same name. The fact that **typeof** still returns **“object”** is strictly
+    speaking wrong and stems from the historical implementation of the **typeof()**
+    function.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: undefined
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**undefined** is similar to **null** in that it also indicates that a variable
+    has no real value. However, **undefined** does not mean “deliberately empty”,
+    but rather “untouched” or “not yet assigned another value”. Variables carry the
+    value **undefined** after initialization, as can be easily checked:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var value**>** console.log(value)undefined'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**undefined** is not only used in JavaScript as the “content” of currently
+    uninitialized variables, but also in other contexts where something is “missing”
+    without someone having consciously decided to use an “empty” content. This is
+    particularly the case for return values of functions that do not return a real
+    value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Technically, **undefined**, like **null**, is a real variable of the elementary
+    type of the same name, but of which there is only this one variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** typeof undefined"undefined"NaN'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**NaN** is the abbreviation for *Not a Number* and expresses as a special value
+    that a numeric variable does not contain a valid numeric value, although it should.
+    Often **NaN** is returned as the result of improper arithmetic operations, such
+    as taking the square root of a negative number:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** Math.sqrt(-1)NaN'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Interestingly, **NaN** is not a real variable of an independent type like **undefined**
+    is, but simply a special value of numeric variables, as you can see in the following
+    code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var x = Math.sqrt(-10)**>** typeof x"number"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can’t calculate with the value **NaN**, as every calculation operation
+    applied to it returns **NaN** again:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** NaN + 3NaN'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With **isNaN(*****expression*****)** a special function is available to check
+    whether an expression (variable, calculation rule, function call or similar) has
+    the value **NaN**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** isNaN(Math.sqrt(-100))true**>** isNaN(Math.sqrt(100))false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.3 Converting Variables
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 31.3.1 Implicit Conversion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We have already seen an example of implicit type conversion, i.e., type conversion
+    not explicitly instructed by the developer, in ► Sect. [31.2.3](#Sec5), namely
+    the fact that **boolean** variables behave like the values 1 (for **true**) and
+    0 (for **false**) in calculations. So, in this case, JavaScript automatically
+    converted the type when it seemed appropriate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Implicit type conversions play an important role in practice in connection with
+    strings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** x=3; y="4"; z="5"**>** x * y12**>** y * z20'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, JavaScript performs the calculations without any problems, even
+    though the variables **y** and **z** are actually strings. For the calculation,
+    the values are implicitly converted into numbers (type **number**).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'That this works so well here is mainly because the applied (arithmetic) operator
+    has no meaning at all when working with strings. The situation is quite different,
+    however, when we perform an addition:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** x + y"34"**>** y + z"45"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, JavaScript assumes that the “target type” of the operation should
+    be **string**. Therefore, the **+** operator is interpreted as a string concatenation
+    operator and the value of the **number** variable **x** is converted to a string
+    for the purpose of concatenation; **y** and **z** are already strings by default,
+    they do not require any further conversion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, when working with strings that contain numbers, be careful.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '31.2 [5 min]What is the result of the following operations? If you are unsure,
+    try it and explain the result: 1.  (a)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**''ab'' + "def"**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + "5"**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + 5**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (d)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + "5.3"**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (e)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * 5**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (f)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * false**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (g)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * ''false''**'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'If you want to consider the two numbers contained in the string variables **y**
+    and **z** of the last section as **number** values and add them, it is not sufficient
+    to link the two variables with the plus operator, because this leads to a string
+    concatenation. Therefore, an *explicit* conversion is required, which converts
+    values into numbers before linking them with the plus operator. The function **Number(notNumberValue)**
+    is available in JavaScript for this purpose:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** y=''4''; z=''5''**>** Number(y) + Number(z)9'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Number()** is a function that returns an elementary **number** value. At
+    the same time, **Number()** is also the constructor function of the **Number**
+    class. With an assignment of the form **variable = new Number()** (a notation
+    we will look at in more detail in ► Sects. [31.5.4](#Sec15) and [31.5.5](#Sec16)),
+    you can create an object of the class **Number**. These objects house all the
+    properties and methods we’ve already worked with in the context of **number**
+    variables. And this is exactly how elementary data types like **number** get their
+    properties and methods: If we access a property or method of the elementary **number**
+    data type, a data type that is *primitive and* thus does not actually represent
+    an object and should therefore have neither methods nor properties, JavaScript
+    converts the variable into an object of type **Number** in the background. The
+    relevant properties and methods are then available for this object. After the
+    work is done, JavaScript’s automatic garbage collection disposes of the now unused
+    object, leaving behind the original elementary variable. This “trick” allows JavaScript
+    to make even elementary data types look like real objects with properties and
+    methods. So much for a brief look “under the hood” of JavaScript.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Corresponding functions exist with **String(notStringvalue)** and **Boolean(notBooleanvalue)**
+    also for the other two elementary data types. In the following example, we convert
+    the string **‘true’** into a real **boolean variable**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** trueval = ''true''**>** typeof trueval"string"**>** trueval = Boolean(trueval)**>**
+    typeof trueval"boolean"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, as you can easily try out, the **Boolean()** function remains completely
+    unimpressed if you ignore the usual rules of case sensitivity and write **"True"**
+    or **"TRUE"** in your string, for example; the conversion still works perfectly.
+    This is because **Boolean()** evaluates to **true** anything that is not **0**,
+    **null**, **undefined**, or **NaN**. Thus, **Boolean("hello")** also returns the
+    value **true**! While the glutton **Boolean()** evaluates everything you give
+    it, **Number()** is much more picky: If you call **Number()** with an argument
+    that is not convertible to a number, the function refuses to work and will return
+    **NaN**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For the conversion between strings and numbers there are some special functions
+    besides **Number()** and **String()**. **parseInt(string)** and **parseFloat(string)**
+    both process a string to a number and thus at first sight do the same as **Number()**.
+    The special feature of **parseInt()** and **parseFloat()**, however, is that they
+    also process strings which are not exclusively numeric as long as the numeric
+    part is at the beginning:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** parseInt(''3 twins are one too many'')3**>** parseInt(''3.1415926535
+    is the number Pi'')3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second example also shows that **parseInt()**—as the name already suggests—only
+    processes the integer part of the number found at the beginning of the string.
+    If nothing is found at the beginning of the string that can be interpreted as
+    a number, **NaN** is returned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the opposite direction of conversion—from number to string—there are also
+    some special functions available to help control the representation of the number
+    as a string. The **toString(*****numbersystem*****)** method of **number** (actually
+    of the **Number** object, as we know by now), allows you to specify the base of
+    the number system you want to convert to; **numbersystem = 2** would thus lead
+    to a binary representation, **numbersystem = 16** to a hexadecimal representation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** someNumber = 156**>** someNumber.toString(2)"10011100"**>** someNumber.toString(16)"9c"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can use the **toFixed(*****decimals*****)** and **toExponential(*****decimals*****)**
+    methods of the **Number** object to affect the number of decimals in a traditional
+    representation as well as a scientific representation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** number = 156.27813**>** number.toFixed(2)"156.27"**>** number.toExponential(3)"1.562e+2"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The exponent is chosen in the exponential representation in such a way that
+    exactly one digit before the decimal point is always shown.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.4 Arrays
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Creating Arrays and Accessing Individual Array Elements
+  prefs: []
+  type: TYPE_NORMAL
+- en: Arrays in JavaScript are similar to what is known as lists in some other languages
+    (including Python, see ► Sect. [21.​6.​1](474412_1_En_21_Chapter.xhtml#Sec14)).
+    Not only can they hold elements of any type, but the elements can also be of *different*
+    types. Even arrays themselves can be elements of other arrays. In this way, multidimensional
+    arrays can be created, which JavaScript does not know out-of-the-box.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The easiest way to create an array is to specify its elements directly in the
+    form of an *array literal*. The elements are enclosed in square brackets:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the same way, however, the objects can also have different types:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes = [false, ''Caroline'', 28.3]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The individual elements are accessed via a numerical index, which—as in many
+    other languages—also starts at 0 and is specified in square brackets. So, if we
+    wanted to access the second element of the array we just created (“Caroline”),
+    we would do so as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes[1]"Caroline"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Accordingly, **multipleTypes[0]** would return the first element of the array,
+    **false**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The elements of arrays can also be empty; more precisely, they can be *left
+    blank* and thus take the value **undefined**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes = [false, , ''Caroline'', 28.3]**>** multipleTypes[false,
+    *empty*, ''Caroline'', 28.3]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you view the contents of the array, ***empty*** is displayed—at least in
+    Google *Chrome*’s JavaScript console—for the array element that has been left
+    empty. However, by displaying this directly, it is easy to convince yourself that
+    the content is indeed **undefined**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes[1]undefined'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Arrays are not elementary data types, not *primitives*, but *objects*. Therefore,
+    arrays can be created not only by assigning an array literal as we did above,
+    but also by calling the constructor function of the array type, **Array()**. The
+    array used above could therefore also be constructed in this way:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes = new Array(false, undefined, ''Caroline'', 28.3)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The array elements that is left empty must be explicitly assigned the value
+    **undefined** as leaving it truly empty leads to an error message. We have already
+    seen the keyword **new** in ► Sect. 31.3.2; in ► Sects. [31.5.4](#Sec15) and [31.5.5](#Sec16)
+    we will look at its meaning in more detail.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: If you specify only one positive integer as the argument of the
+    constructor **Array()**, then you do not get an array with only one element, but
+    a completely empty array with the specified number of elements will be created.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Selecting Multiple Elements from Arrays
+  prefs: []
+  type: TYPE_NORMAL
+- en: Arrays provide a whole range of useful properties and methods as objects. In
+    the following, we will use some of these properties and methods to work more intensively
+    with arrays. Let’s start with the selection of elements from arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We have already seen how to access an array element by specifying the element
+    index. But what if several elements are to be selected at once? Unlike Python,
+    JavaScript does not have an operator to “grab” an entire range of index values
+    at once. However, the **Array** class has the method **slice(*****from*****,**
+    ***to*****)**, which can use to achieve the same effect. In this case, all index
+    values from index value ***from*** are returned *before* index value **to**, but
+    without this element itself. Consider the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** prime = [1,3,5,7,11,13]**>** prime.slice(2,4)[5, 7]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, the elements with the index values 2 and 3 are selected (because the indexing
+    starts at 0, this means the third and fourth element in the array are selected).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The ***to*** argument can also be omitted. In this case, the entire remainder
+    of the array is returned starting at the index position **from**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** prime.slice(3)[7, 11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Negative values are also possible for the **from** and **to** arguments of
+    **slice()**. In this case, the selection is made from the back, with the last
+    element of the array carrying the index value -1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** prime.slice(-3,-1)[7, 11]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Please note that also here the elements are selected before the element with
+    the second index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Determining and Changing the Length of an Array
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The **length** property can be used to determine the length of arrays:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes = new Array(false, undefined, ''Caroline'',28.3, undefined)**>**
+    multipleTypes.length5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This property can also be changed, so we can shorten an array by assigning
+    a new, smaller value to its length:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes.length = 3[false, empty, ''Caroline'']'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we “extend” it again afterwards, the previously “cut away” elements do not
+    reappear, but the new elements are filled with **undefined** (in Google Chrome’s
+    representation: **empty**):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** multipleTypes.length = 5[false, empty, ''Caroline'', empty x 2]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'An array literal is also an **Array** object, and so we can also access the
+    object properties and methods of arrays for an array literal. Unlike **number**
+    or **string**, for example, the literal does *not* have to be enclosed in round
+    brackets:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** [1,3,5,7,11,13].length6Changing Elements in Arrays, Adding Elements to
+    Arrays or Deleting Elements from Arrays'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So far, with the exception of changing the array length, we have worked with
+    arrays in a *read-only manner*. Of course, you can also *change* the value of
+    an array element using the selection technique we have already learned about:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** primes[2] = ''Gap in prime series''**>**
+    primes[1, 3, ''Gap in prime series'', 7, 11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can *delete* elements from an array using the **splice(*****from*****,**
+    ***count*****)** method of the **Array** object. ***count*** elements from (and
+    including) the element at index position ***from*** are deleted. The **splice()**
+    method returns an array of the deleted elements:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes.splice(2,3)[''Gap in prime number series'', 7, 11]**>** primes[1,
+    3, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike the methods provided for the primitives **number** and **string**, **splice()**
+    modifies the original array for which it is called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, the argument **count** is optional: If **count** remains unused,
+    **splice** deletes the rest of the array including the index position **from**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**splice()** can be used not only to delete elements, but also to insert them.
+    The second argument (**count**) can be followed by any number of further values,
+    which are inserted *after* the element with the index position **from**; the **count**
+    elements specified by the argument **count** are nevertheless deleted beforehand:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** primes.splice(1, 2, ''Gap 1'', ''Gap 2'')[3,
+    5]**>** primes[1, "Gap 1", "Gap 2", 7, 11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you only want to insert, but not delete, set the argument **count** to 0:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes.splice(3, 0, ''Gap 3'')[]**>** primes[1, ''Gap 1'', ''Gap 2'',
+    ''Gap 3'', 7, 11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**splice()**, since no elements were deleted from the array, returns an empty
+    array as the function value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In addition to **splice()**, the **Array** object has other methods that can
+    be used to add elements to or remove elements from the array. The **push()** method
+    appends an element to the back of the array and returns the new length of the
+    array as a function value. **pop()** deletes the last element from the array and
+    returns the value of the deleted element:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes.push(57)8**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7, 11,
+    13, 57]**>** primes.pop()57**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7,
+    11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **shift()** and **unshift()** methods work very similarly to **push()**
+    and **pop()**, but work with the beginning of the array instead of its end (try
+    it out!).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Merge Arrays
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two arrays can be conveniently concatenated using the **concat(*****otherArray*****)**
+    method. This places the elements of the array ***otherArray*** after the last
+    element of the array whose **concat()** method is called. However, the array is
+    not changed by calling its **concat()** method; instead, the new, merged array
+    is simply returned as a function value and can be caught in a variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** myNumbers
+    = primes.concat(evenNumbers)**>** myNumbers[1, 3, 5, 7, 11, 13, 2, 4, 6, 8, 10]Sort
+    Arrays'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can use the **sort()** method of the **Array** object to sort the elements
+    of an array *alphabetically* in ascending order according to their values:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** primes.sort()**>** primes[1, 11, 13, 3,
+    5, 7]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You may have noticed that **sort()** treats the elements of the array as strings
+    and therefore places, for example, 3 *after* 13, an order that would not result
+    from numerical sorting. If this behavior is not desired, it can be changed. In
+    fact, the **sort()** method has an optional argument that allows you to specify
+    a function that is passed two values (let’s call them **x** and **y**) as arguments
+    and returns a positive value whenever **x** is to come before **y** in the sort
+    order and a negative value in the opposite case. So, by specifying a comparison
+    rule that decides, for any two values, which of the two should appear first in
+    the order and which second, you can fine-tune the behavior of the **sort()** function.
+    To achieve numerical sorting, we could write ourselves a helper function **greater(x,y)**
+    that returns a positive value if **x > y**, and a negative value otherwise. The
+    expression **(x-y)>0** is a logical expression, i.e., an expression that takes
+    the value **true** or **false,** depending on how the comparison of **x** and
+    **y** turns out. With this, our numerical sorting would then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** greater = function(x, y) {return (x - y) > 0;}**>** primes.sort(greater)**>**
+    primes[1, 3, 5, 7, 11, 13]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will deal with the definition of functions in more detail in a later chapter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To sort the values in descending order, we can use the **reverse()** method
+    of the **Array** object. It simply flips the elements of an array around. If we
+    apply this method to the array previously sorted with **sort()**, we get a descending
+    sort:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes.sort(greater).reverse()'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The notation with the two dot operators may seem strange, but it is actually
+    very logical: The expression **primes.sort(greater)** returns an **Array** object,
+    which in turn has a **reverse()** function. This is called with the usual dot
+    notation. Of course, you can also break the whole operation into two steps.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both **sort()** and **reverse()** not only return the result of the respective
+    operation as a function value, but also change the array for which they are called.
+    In this last respect, they resemble **splice()** and differ from **concat()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Display Arrays as Strings
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With **join()** and **toString()**, the **Array** object provides two methods
+    to combine its elements into a string. The original array is not touched by either
+    method. **join()** and the **toString()** method offered by any JavaScript object
+    have basically the same effect, but **join()** is more flexible in that an optional
+    argument can be used to specify the separator character that will be between each
+    array element in the generated string, while **toString()** stubbornly uses the
+    comma as the separator character:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** primes.toString()"1,3,5,7,11,13"**>** primes.join()"1,3,5,7,11,13"**>**
+    primes.join(''-'')"1-3-5-7-11-13"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There is a danger of confusion between the **join()** method and the **concat()**
+    method: Contrary to what the name **join()** might suggest, here it is not *two
+    different arrays* that are joined, but the *different elements* of an array.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: If you “add” two arrays, you will also get a string that includes
+    all elements of both arrays; but be careful, because no separator is inserted
+    between the two arrays, i.e., between the last element of the first array and
+    the first element of the second array (hence the “number” **132** in the example):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** primes
+    + evenNumbers"1,3,5,7,11,132,4,6,8,10"Decompose Strings to Arrays'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Just as you can use **join()** and **toString() to** convert arrays into strings,
+    it is possible to split a string and make the individual parts elements of an
+    array. In the following example, consider the string **friends**, which contains
+    a comma-separated list of names:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** friends = ''Thomas,Marc,Sharon,Hazel'''
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With the help of the method split**()**, the string can now be split into the
+    individual names and an array can be “fed” with these. The argument of **split()**
+    is the separator character that separates the individual parts of the string,
+    in our example the comma:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** friendsArray = friends.split('','')**>** friendsArray[''Thomas'', ''Marc'',
+    ''Sharon'', ''Hazel'']Repetition: Accessing String Characters in Array Notation'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In JavaScript, as we saw in ► Sect. [31.2.2](#Sec4), strings are an elementary
+    data type, a *primitive*, and thus not an object. As you recall, their individual
+    characters can nevertheless be accessed like the elements of an array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var message = ''Hello World!''**>** message[1]"2"**>** message[message.length-1]"!"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the last command, we access the last character in the string (remember
+    that indexing starts at 0!). However, you cannot change the individual characters
+    of a string with the array notation. While such an attempt will not result in
+    an error message, the attempted change will not take effect in the string. Strings
+    are, in a sense, “read-only arrays”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.3 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a string with the value **"Hello World"**. Select the sixth and the eight
+    character from this string. Then remove these characters from the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5 Objects
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 31.5.1 Object Orientation in JavaScript
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Object orientation in JavaScript works somewhat differently than in most other
+    object-oriented languages. JavaScript does not inherently recognize the central
+    basic concept of object-oriented programming, *classes*. Instead, JavaScript takes
+    an approach that creates objects based on *prototypes*. “Prototypes” and “classes”
+    may not sound very different at first, since classes in object-oriented programming
+    also have a prototype function for the objects derived from them (these are, in
+    a sense, built according to the “prototype” of the class). In fact, however, the
+    two approaches are quite different.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two examples: Unlike in typical object-oriented languages with their classes,
+    in JavaScript properties and methods can be *added directly* to individual objects
+    (in normal object-oriented terminology you would say: to the instances of classes)
+    that are not included in the in the prototype definition. Thus, without deriving
+    additional classes from a base class, different object instances of a type (class)
+    can differ from each other in their methods and properties. In other object-oriented
+    languages, all objects of the same type (class) would have the same structure
+    in the form of available methods and properties (the latter, of course, quite
+    possibly assigned different values). Another difference between the prototypical
+    approach of JavaScript and the class-based approach of other object-oriented languages
+    is that in JavaScript the structure of classes is not explicitly described; there
+    is (or rather: was, until ECMAScript version 2015, which, however, does not change
+    anything about the prototypical approach) thus no syntax structure that describes
+    a type (class) abstractly as a collection of methods and properties, as we have
+    seen in Python, for example. Instead, the type definition in JavaScript is completely
+    wrapped up in the type’s constructor and its reference to the prototypes of other
+    objects from which it “inherits” methods (inheriting properties doesn’t really
+    make sense in a prototype approach, unless you want *static* properties in the
+    spirit of object-oriented programming, meaning they have the same value for all
+    object instances).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the last paragraph seems very technical and rather difficult to skim read,
+    don’t worry, we’ll skirt most of the shoals of JavaScript’s own prototype approach
+    in the following sections. Covering them would significantly exceed the book’s
+    idea of *quickly* learning the *most important* basic concepts of the language
+    to be able to apply them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike the Python part of the book, we refrain here from dealing with inheritance
+    and thus deriving objects from other objects or their prototypes. You will be
+    able to master most application scenarios well, even without having fully internalized
+    JavaScript’s unusual but very flexible approach to object orientation down to
+    the last detail (especially if you come from a “classical” object-oriented way
+    of thinking).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5.2 Creating Objects Directly
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The simplest way to create an object in JavaScript is a variable declaration,
+    in which not only a value, but also (one or more often) several properties are
+    assigned to an (object) variable. To demonstrate this, we will work with the example
+    of a product definition that has already been used several times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'An object with these same properties can easily be created in JavaScript with
+    an assignment like the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** product = {name: ''Garden shovel, stainless steel'',price: 10.99}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, a variable called **product** is declared here and something
+    is directly assigned to it as part of the declaration. What is assigned are the
+    properties of the product. The curly braces make it clear that **product** is
+    a self-defined object. The properties specified in the curly braces each consist
+    of an identifier, in our example **name** and **price**, and a value that is assigned
+    to the property after the colon. Multiple properties are separated by commas within
+    the object declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The properties of the product can also be assigned variables (whose current
+    value is thus assigned to the property); in particular, the values of properties
+    can in turn be other objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Rarely encountered in practice, but syntactically permissible, it is also possible
+    to enclose property identifiers in (single or double) quotes: This allows you
+    to even include spaces in the property identifiers, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** product = {''Name of the product'': ''Garden shovel, stainless steel'',price:
+    10.99}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This way you can add identifiers to properties that would otherwise be illegal
+    in JavaScript, such as **#hastag** (illegal because of first character). You could
+    also use otherwise reserved keywords like **var** as property identifiers. However,
+    this is also rather uncommon because of the expected poor readability and the
+    higher error-proneness of the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As with “free-standing” variables, JavaScript itself decides on the data type
+    that the properties must have; in our example, **name** will be of type **string**,
+    **price** of type **number**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5.3 Accessing Properties of Objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Objects are nothing more than *associative arrays*: Arrays of properties consisting
+    of key-value pairs.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: But what about methods? In the sense of object-oriented programming, we understand
+    objects as constructs that include properties (attributes) and methods, i.e.,
+    functions, with the help of which the properties can be worked with. The methods,
+    however, cannot be properties at the same time. So how can an object in JavaScript
+    be practically an associative array that *only* has properties? The trick is that
+    in JavaScript, functions are also objects, and they are objects of type **function**.
+    But we saw in the last section that the value of an object property can in turn
+    be an object and thus also a function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If objects are ultimately a kind of associative array, then their properties
+    (and thus also methods) can be accessed by specifying the key, i.e., the property
+    identifier. For this purpose, it must be specified in quotes and square brackets.
+    After you have executed the object declaration from the last section in the JavaScript
+    console, you can now easily access the **price** property of the **product** object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** product[''price'']10.99'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The key may of course be a variable itself:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** property = ''price''**>** product[property]10.99'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This notation makes clear the character of JavaScript objects as associative
+    arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In practice, however, the access method that is also known from many other
+    object-oriented languages is much more common, namely with the help of the dot
+    operator:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** product.price10.99'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This type of access only works if the identifiers of your object properties
+    are valid JavaScript identifiers, i.e., do not contain spaces or start with a
+    special character other than underscore and dollar sign. However, it is always
+    recommended to choose identifiers that comply with the usual rules.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5.4 Creating Objects Using the Object Constructor
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In ► Sect. [31.5.2](#Sec13), we created an object by assigning a set of key-value
+    pairs, namely the object’s properties, to a variable when we declared it. In this
+    section, we will learn a second way to create an object. To do this, we take advantage
+    of the property that all objects in the JavaScript object hierarchy are derived
+    from the basic type **object**. Therefore, we first create a variable of type
+    **object** by calling the constructor function (more about JavaScript constructors
+    in the following section). Please note the capitalization of the constructor function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var product = new Object()**>** typeof product"object"With this we have
+    created an empty object. If you type **product**. into the console, you can see
+    from the popup window that now opens that our supposedly empty object already
+    contains a whole set of properties and methods, namely those that the type **object**
+    has by default. But we want to give the object our standard **product** properties
+    **name** and **price**. This is now done by simple assignment:**>** product.name
+    = ''Garden shovel, stainless steel'';**>** product.price = 10.99;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can easily verify that our **product** object actually has the properties
+    **name** and **price** with the appropriate values:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** product.name"Garden shovel, stainless steel"**>** product.price10.99'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5.5 Creating Objects Using Constructor Functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The last—and probably most important—way to generate objects is to write a constructor
+    function that creates the object. In the previous section we also used a constructor
+    function, namely the constructor **Object()**. In this section, we will now build
+    ourselves a constructor to create our very own type of object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We want our **product** object to have two properties, **name** and **price**;
+    these should be directly specifiable when the object is created. We achieve this
+    with a constructor function like the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** product(price, name) {this.price = price;this.name = name;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The constructor is passed two values as arguments, which are then assigned
+    to properties of the newly created object, using the keyword **this**. It refers
+    to the current object in whose context it is used. In our example, this refers
+    to our newly created **product** object. This also completes the definition of
+    our very simple type. We can now create an instance of this type by calling the
+    constructor function we just developed:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** gardenShovel = new product(10.99,''Garden shovel, stainless steel'')'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note the keyword **new**. It ensures that a new object is created. If the constructor
+    function is called without this keyword, no new object is created, but simply
+    **undefined** is returned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5.6 JSON
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Even if you don’t work with JavaScript, chances are you’ll encounter the JSON
+    data format at some point. For example, it is often used in Internet APIs for
+    retrieving information from web services. Such interfaces often return their results
+    to the calling application in JSON format. Next to XML, it is the second most
+    important data exchange format on the Internet. JSON is the abbreviation for *JavaScript
+    Object Notation*, so it’s certainly not surprising that we’re focusing our attention
+    on this popular data exchange format at the end of our look at objects in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have already encountered the JSON format in ► Sect. [31.5.2](#Sec13), where
+    we created objects directly as literals. The notation used there with its key-value
+    pairs, which are placed in braces separated by commas, is nothing other than a
+    notation in JSON format.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following excerpt from a JSON dataset:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '{''customer01'': {''First name'': ''Phil'',''Last name'': ''Philipson'',''Address'':
+    {''Street'': ''1 Philly Drive'',''ZIP'': 19145,''City'': ''Philadelphia''''State'':
+    ''PA''}},''customer02'': {''First name'': ''Auric'',''Last name'': ''Goldfinger'',''Address'':
+    {''Street'': ''450 Gold Avenue'',''ZIP'': 40121,''City'': ''Fort Knox''''State'':
+    ''KY''}}}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This JSON object (delimited by the outer curly brackets) comprises two (sub)objects,
+    **customer01** and **customer02**, which are characterized by different fields.
+    One of the fields, the address, is itself an object composed of different fields.
+    The field names, i.e., the keys of the key-value pairs, are enclosed in quotes
+    in JSON, which—as already mentioned—is also syntactically permissible in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **JSON.stringify(*****object*****)** function, you can convert any
+    object into a JSON string, which is also called *serialization*; conversely, **JSON.parse(string)**
+    allows you to turn a JSON string (returned as the result of a web API call, for
+    example) into a real JavaScript object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although the origin of JSON is closely linked to JavaScript, today practically
+    all common programming languages offer functions for working with data in JSON
+    format, which underlines the popularity of JSON as a data exchange format. This
+    popularity certainly stems from the fact that JSON allows hierarchical object
+    structures to be represented with little effort in a syntactically straightforward
+    way that can be read well even without JSON knowledge.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.4 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create an array of objects, each containing the name and age (in years) of your
+    immediate family members. Then access and display the name of the second person
+    in this array. Finally, convert this array into a JSON string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.5 [10 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create two objects, each containing a customer address. Work once with the direct
+    creation of objects by assigning key-value pairs to a variable, once with the
+    general object constructor **Object()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 31.6 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter we have dealt with elementary variables and objects in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Variables are not mandatory to declare in JavaScript, however it is good practice
+    to do so.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The main elementary data types are **number** (numbers, both integers and floating-point
+    numbers), **string** (strings) and **boolean** (logical values).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Strings can be enclosed in single or double quotes; individual characters of
+    a string can be accessed in simple array notation (**string[*****characterIndex*****]**),
+    but only in read-only mode.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For the elementary data types, which are not objects themselves, there are object
+    prototypes with the same name (but with a capital letter, such as **Number**)
+    that provide useful properties and methods; if necessary, JavaScript automatically
+    converts the elementary data types temporarily into objects of the corresponding
+    type in the background, so that you can access the properties and methods as if
+    they were properties or methods of the elementary data types themselves.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The special value **undefined** is used when a variable does not yet have a
+    defined value (or a function does not return a real return value), whereas **null**
+    is used whenever a conscious decision is made that a variable should remain “empty”.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript already implicitly converts where necessary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Caution is advised when converting strings: The plus operator is used with
+    strings to link two strings, but undesirable effects can occur if numbers contained
+    in strings are to be added numerically, and are not explicitly converted to the
+    **number** **type** beforehand.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An explicit conversion of the elementary data types among each other can be
+    achieved with the help of the constructors of the object types belonging to the
+    elementary types, for example with **Number(*****string*****)**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Arrays are lists that can hold variables (also objects) of different data types;
+    the individual elements of the array are accessed in the notation **array[*****elementIndex*****]**,
+    with indexing starting at **0**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript does not recognize any classes in its core definition; object orientation
+    is realized with the help of prototypes, after whose likeness objects can then
+    be created; to the instances of objects further properties and methods can be
+    added, which the prototype, whose construction the object follows, did not possess.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Objects can be created directly by assigning a comma-separated list of elements/properties
+    in the form of key-value pairs (object notation) to a variable in curly braces,
+    for example: **object = {*****property1*****:** ***value1*****,** ***property2*****:**
+    ***value2*****}**. Similarly, an “empty” object can first be created with the
+    object constructor **Object()** by assigning the form **object = new Object()**
+    and then successively creating properties in it, by assigning the form ***object*****.*****property***
+    **=** ***value***.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can also create objects by calling the constructor of the respective object
+    type, for example ***object*** **= MyObject()**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can access the elements/properties of objects using the dot operator in
+    the notation ***object*****.*****property*** or, as with an (associative) field,
+    in an array notation of the form ***object*****["*****property"*****]**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*JavaScript Object Notation* (*JSON*) is a common exchange format for data
+    on the Internet. It corresponds exactly to the notation that is also used for
+    the direct creation of objects as a comma-separated list of key-value pairs specified
+    in curly braces. Any JSON document can therefore be transformed into a JavaScript
+    object with JSON**.parse(*****jsonDocument*****)** and, conversely, any JavaScript
+    object can be represented as a JSON document with **JSON.stringify(*****object*****)**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 31.7 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 31.1**>** Infinity + 1Infinity**>** Infinity + 1 == Infinitytrue
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we use the special value **Infinity**, with which we can also calculate.
+    By the way, you can see from the second input that infinity plus one equals infinity
+    again (the double equal sign is the comparison operator). So, the comparison results
+    in a true statement, accordingly the value **true** is returned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 31.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''abc'' + ''def'' = ''abcdef''**. Strings are concatenated by the plus operator.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + ''5'' = ''985''**. The plus operator also appends the two strings
+    together here. The fact that they happen to contain numbers does not matter.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + 5 = ''985''**. Here the second summand is a real number. However,
+    the plus as *string concatenation operator* has priority in the processing of
+    the expression. Therefore, JavaScript implicitly converts the number **5** into
+    a string in order to be able to concatenate it with the string **''98''**.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (d)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' + ''5.3'' = ''985.3''**. Also, if the strings contain fractional numbers,
+    the plus operator results in string concatenation.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (e)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * 5 = 490**. The multiplication operator has no meaning for strings.
+    Because an operation with strings is therefore out of the question here, JavaScript
+    implicitly converts the string **"98"** into a number in order to be able to perform
+    a meaningful operation after all.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (f)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * false = 0**. The constant **false** is internally evaluated with
+    as value **0**. Since multiplication makes no sense for strings, JavaScript tries
+    an operation with numbers and converts the string **"98"** into a number for this
+    purpose.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (g)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**''98'' * ''false'' = NaN**. Here even JavaScript capitulates. The multiplication
+    is obviously an operation with numbers as operands, but JavaScript gets served
+    two strings here. The result is *not a number*. In no way are both strings converted
+    into numerical values, although that would happen with **"98" * "5"** (try it
+    out!).'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: As you can see, it is not easy to predict JavaScript’s implicit conversions
+    without knowing the full set of rules in detail. It is therefore best not to rely
+    on implicit conversions, but to make sure that explicit conversions are performed
+    wherever they might be needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 31.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Strings behave like arrays in *read access*, accordingly we can select out
+    the characters in array notation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** message = ''Hello World''**>** message[5]" "**>** message[7]"o"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With regard to write access, however, strings do not behave like arrays. Using
+    the array method **splice()** to delete the elements is therefore out of the question.
+    One way to achieve the desired effect is to “slice” the string by using **slice()**
+    to cut the corresponding parts so that the characters at index positions **5**
+    and **7** fall out. Note that slice**()** always selects up to *before* the specified
+    second index:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: message = message.slice(0,5) + message.slice(6,7) +message.slice(8, message.length)Exercise
+    31.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We create an array whose elements are objects that we store as key-value pairs
+    in the usual object notation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** family = [{name: ''Mark'', age: 28}, {name: ''Cathy'',age: 54}, {name:
+    ''Ben'', age: 57}]'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We get the name of the second person by first selecting the person object from
+    the array using its index (**family[1]**) and then accessing its **name** property,
+    which we do in the usual dot notation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** family[1].name"Cathy"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **stringify()** method of the global JSON object helps with the conversion
+    to a JSON string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** JSON.stringify(family)"[{"name":"Mark","age":28},{"name":"Cathy","age":54},{"name":"Ben","age":57}]"Exercise
+    31.5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Direct generation in object notation as a comma-separated list of key-value
+    pairs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var customer1 = { customerNumber: 14527,name: ''Peterson'', firstName:
+    ''Carl'',street: ''54 Wellington Drive'', zip : ''02113'',city: ''Boston, MA''
+    }**>** var customer2 = { customerNumber: 19321,name: ''Hamilton'', firstName:
+    ''Beth'',street: ''21 Eagle''s Square'', zip : ''10012'',city: ''New York, NY''
+    }'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Generation by first letting the general **Object()** constructor create an
+    “empty” object and then equipping it with our properties:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var customer1 = new Object()**>** customer1.customerNumber = 14527**>**
+    customer1.name = ''Peterson''**>** customer1.firstName = ''Carl''**>** customer1.street
+    = ''54 Wellington Drive''**>** customer1.zip = ''02113''**>** customer1.city =
+    ''Boston, MA'''
+  prefs: []
+  type: TYPE_NORMAL
+- en: The procedure for **customer2** is analogous.
+  prefs: []
+  type: TYPE_NORMAL

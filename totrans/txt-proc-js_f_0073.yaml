@@ -1,0 +1,206 @@
+- en: '| Recipe 61 | Removing Duplicate Spaces |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you have a website with a blog section that allows guest posts. As
+    a reviewer, you have noticed a common mistake in the submitted posts: double spaces
+    between words. To address this issue, you want to create a function that automatically
+    identifies and corrects this error by replacing double spaces with a single space.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A quick and dirty way to convert double spaces to a single space is to use
+    the replaceAll() method like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replaceAll(*" "*, *" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The first argument you pass to replaceAll() is the pattern to be replaced by
+    the second argument. While replaceAll() is effective at converting double spaces
+    to single spaces, it fails in cases where there are more than two spaces between
+    words:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replaceAll(*" "*, *" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a solution that can replace repeated spaces, not just double spaces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Split the input string by space, store the resulting substrings in an array,
+    remove any empty array items, and then combine the remaining elements using a
+    single space:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** replaceRepeatedSpaces(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.split(*" "*).filter(i=>i).join(*" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | replaceRepeatedSpaces(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  prefs: []
+  type: TYPE_TB
+- en: This code takes a string and removes any instances of consecutive spaces, then
+    returns the modified string with a single space character between each word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In this function, we take a string and split it into an array of individual
+    words using the split(" ") method. We then use the filter(i => i) method to remove
+    any empty or falsy values from the resulting array. The filter() method creates
+    a new array containing all the elements of the original array that pass a certain
+    condition defined by a callback function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember that the callback function needs to return either true or false. In
+    this case, we’re using the arrow function to just return the value from the array
+    itself. Since an empty string is falsy, it is implicitly converted to false and
+    gets removed from the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| What Are Truthy and Falsy Values? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Truthy values
+    are those that are considered true when evaluated as a Boolean, while falsy values
+    are considered false. Here are the values considered falsy in JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 0 - The number zero
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 0n - The BigInt zero
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '"" - An empty string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: null - Represents the absence of any value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: undefined - Represents an undefined value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: NaN - Stands for "Not a Number" and represents an invalid or unrepresentable
+    value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All other values, including non-empty strings, non-zero numbers, arrays, objects,
+    and functions, are considered truthy. |
+  prefs: []
+  type: TYPE_NORMAL
+- en: After filtering, we are left with an array of words that we can join together
+    using a single space. If you need to process a large amount of text, using regex
+    can be slightly faster than using JavaScript’s methods. However, for most other
+    cases, the performance difference is minimal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example of how to implement the solution using regex:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** replaceRepeatedSpaces(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(*/ +/g*,*" "*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | replaceRepeatedSpaces(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  prefs: []
+  type: TYPE_TB
+- en: It’s important to keep in mind that this recipe replaces only space characters
+    and not all whitespace characters. A space character is what you get when you
+    press the spacebar on your keyboard, while a whitespace character can represent
+    a space, tab, new line, form feed, carriage return, or other similar characters.
+    So, although a space character is a type of whitespace character, there are various
+    other types of whitespace characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When it comes to replacing whitespace characters, using regex can be a better
+    option because it’s more concise. You’ll learn more about whitespace characters
+    in the next recipe.
+  prefs: []
+  type: TYPE_NORMAL

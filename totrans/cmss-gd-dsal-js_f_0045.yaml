@@ -1,0 +1,184 @@
+- en: A Linear Solution
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: What follows is another implementation of the hasDuplicateValue function that
+    doesn’t rely on nested loops. It’s a bit clever, so let’s first look at how it
+    works and then we’ll see if it’s any more efficient than our first implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ existingNumbers = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (existingNumbers[array[i]] === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | existingNumbers[array[i]] = 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Here’s what this function does. It creates an array called existingNumbers,
+    which starts out empty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we use a loop to check each number in the input array. As it encounters
+    each number, it places an arbitrary value (we’ve chosen to use a 1) into existingNumbers
+    at the index that is equal to the number we’re encountering.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, let’s say our input array is [3, 5, 8]. When we encounter the
+    3, we place a 1 at index 3 of existingNumbers. So the existingNumbers array will
+    now be the rough equivalent of this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0] |'
+  prefs: []
+  type: TYPE_TB
+- en: There’s now a 1 at index 3 of existingNumbers, to indicate and remember for
+    the future that we’ve already encountered a 3 in our given array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When our loop then encounters the 5 from the given array, it adds a 1 to index
+    5 of existingNumbers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Finally, when we reach the 8, existingNumbers will now look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0] |'
+  prefs: []
+  type: TYPE_TB
+- en: Essentially, we’re using the indexes of existingNumbers to remember which numbers
+    from the array we’ve seen so far.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, here’s the real trick. Before the code stores a 1 in the appropriate index,
+    it first checks to see whether that index already has a 1 as its value. If it
+    does, this means we’ve already encountered that number, meaning we found a duplicate.
+    If this is the case, we simply return true and cut the function short. If we get
+    to the end of the loop without having returned true, it means there are no duplicates
+    and we return false.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To determine the efficiency of this new algorithm in terms of Big O, we once
+    again need to determine the number of steps the algorithm takes in a worst-case
+    scenario.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here, the significant type of step is looking at each number and checking whether
+    the value of its index in existingNumbers is a 1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (existingNumbers[array[i]] === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: (In addition to the comparisons, we also make insertions into the existingNumbers
+    array, but we’re considering that kind of step trivial in this analysis. More
+    on this in the next chapter.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: In terms of the worst-case scenario, such a scenario would occur when the array
+    contains no duplicates, in which case our function must complete the entire loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This new algorithm appears to make N comparisons for N data elements. This
+    is because there’s only one loop, and it simply iterates for as many numbers as
+    there are in the array. We can test out this theory by tracking the steps in the
+    JavaScript console:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ steps = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ existingNumbers = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | steps += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (existingNumbers[array[i]] === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | existingNumbers[array[i]] = 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(steps); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: If we run hasDuplicateValue([1, 4, 5, 2, 9]) now, we’ll see that the output
+    in the JavaScript console is 5, which is the same as the size of our array. We’d
+    find this to be true across arrays of all sizes. This algorithm, then, is O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: We know that O(N) is much faster than O(N²), so by using this second approach,
+    we’ve optimized our hasDuplicateValue function significantly. This is a huge speed
+    boost.
+  prefs: []
+  type: TYPE_NORMAL
+- en: (One disadvantage with this new implementation is that this approach will consume
+    more memory than the first approach. Don’t worry about this for now; we’ll discuss
+    this at length in Chapter 19, [​*Dealing with Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).)
+  prefs: []
+  type: TYPE_NORMAL

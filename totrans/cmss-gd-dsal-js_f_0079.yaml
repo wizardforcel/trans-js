@@ -1,0 +1,107 @@
+- en: Building a Thesaurus for Fun and Profit, but Mainly Profit
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: On nights and weekends, you’re single-handedly working on a stealth startup
+    that will take over the world. It’s…a thesaurus app. But this isn’t any old thesaurus
+    app—this is Quickasaurus. And you know that it will totally disrupt the billion-dollar
+    thesaurus market. When a user looks up a word in Quickasaurus, it returns just
+    one synonym, instead of every possible synonym, as old-fashioned thesaurus apps
+    do.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since every word has an associated synonym, this is a great use case for a hash
+    table. After all, a hash table is a list of paired items. Let’s get started.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can represent our thesaurus using a hash table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Under the hood, a hash table stores its data in a bunch of cells in a row,
+    similar to an array. Each cell has a corresponding number, as shown in the following
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: (We left off index 0 since nothing would be stored there given our multiplication
+    hash function.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s add our first entry into the hash table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus[​*"bad"*​] = ​*"evil"*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In code, our hash table now looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"bad"*​: ​*"evil"*​} |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s explore how the hash table stores this data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, the computer applies the hash function to the key. Again, we’ll be using
+    the multiplication hash function described previously. So this would compute as
+    follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: BAD = 2 * 1 * 4 = 8
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since our key ("bad") hashes into 8, the computer places the value ("evil")
+    into cell 8:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_2.png](images/blazing_fast_lookup_with_hashes/hash_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Now, let’s add another key-value pair:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus[​*"cab"*​] = ​*"taxi"*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Again, the computer hashes the key:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: CAB = 3 * 1 * 2 = 6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since the resulting value is 6, the computer stores the value ("taxi") inside
+    cell 6.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_3.png](images/blazing_fast_lookup_with_hashes/hash_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Let’s add one more key-value pair:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus[​*"ace"*​] = ​*"star"*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To sum up what’s happening here: for every key-value pair, each value is stored
+    at the index of the key, after the key has been hashed.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'ACE hashes into 15, since ACE = 1 * 3 * 5 = 15, so "star" gets placed into
+    cell 15:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_4.png](images/blazing_fast_lookup_with_hashes/hash_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'In code, our hash table currently looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"bad"*​: ​*"evil"*​, ​*"cab"*​: ​*"taxi"*​, ​*"ace"*​: ​*"star"*​}
+    |'
+  prefs: []
+  type: TYPE_TB

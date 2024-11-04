@@ -1,0 +1,85 @@
+- en: The Problem of the Last Node…Again
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: While the heap deletion algorithm seems straightforward, it once again raises
+    the problem of the last node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: I explained that the first step of deletion requires us to move the last node
+    and turn it into the root node. But how do we find the last node in the first
+    place?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before we solve the problem of the last node, let’s first explore why insertion
+    and deletion are so dependent on the last node anyway. Why couldn’t we insert
+    new values elsewhere in the heap? And why, when deleting, can’t we replace the
+    root node with some other node other than the last node?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, if you think about it, you’ll realize that if we were to use other nodes,
+    the heap would become incomplete. But this begs the next question: why is completeness
+    important for the heap?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason why completeness is important is because we want to ensure our heap
+    remains well balanced.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To see this clearly, let’s take another look at insertion. Let’s say we have
+    the following heap:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/heaps/small_heap.png](images/heaps/small_heap.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'If we want to insert a 5 into this heap, the only way to keep the heap well
+    balanced is by making the 5 the last node—in this case, making it a child of the
+    10:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/heaps/make_5_last_node.png](images/heaps/make_5_last_node.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Any alternative to this algorithm would cause imbalance. Say, in an alternative
+    universe, the algorithm was to insert the new node into the bottom leftmost node,
+    which we could easily find by traversing the left children until we hit the bottom.
+    This would make the 5 a child of the 15:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/heaps/make_5_child_of_15.png](images/heaps/make_5_child_of_15.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Our heap is now somewhat imbalanced, and it’s easy to see how much more imbalanced
+    it would become if we kept inserting new nodes at the bottom leftmost spot.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similarly, when deleting from a heap, we always turn the last node into the
+    root because, otherwise, the heap can become imbalanced. Take again our example
+    heap:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/heaps/small_heap.png](images/heaps/small_heap.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: If, in our alternative universe, we always moved the bottom rightmost node into
+    the root position, the 10 would become the root node, and we’d end up with an
+    imbalanced heap with a bunch of left descendants and zero right descendants.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, the reason why this balance is so important is because it’s what allows
+    us to achieve O(log N) operations. In a severely imbalanced tree like the following
+    one, traversing it could take O(N) steps instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/heaps/imbalanced_heap.png](images/heaps/imbalanced_heap.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: But this brings us back to the problem of the last node. What algorithm would
+    allow us to consistently find the last node of any heap? (Again, without having
+    to traverse all N nodes.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: And this is where our plot takes a sudden twist.
+  prefs: []
+  type: TYPE_NORMAL

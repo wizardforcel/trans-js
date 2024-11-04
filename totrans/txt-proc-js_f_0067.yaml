@@ -1,0 +1,290 @@
+- en: '| Recipe 55 | Validating Password Strength |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose your task is to check whether the passwords entered by users when signing
+    up for a user account on your website are resistant to guessing or brute-force
+    attacks. Usually, companies establish a password policy that outlines the criteria
+    for creating and using passwords, which set requirements such as:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Having a minimum length of 8 characters or more
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Containing both uppercase and lowercase letters
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Containing one or more numerical digits
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Containing special characters like @, #, $, etc'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Forbidding words listed in the password blocklist
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Forbidding words related to the user’s personal information
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Forbidding the use of the company name or its abbreviation
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Forbidding passwords that match the date of birth, license plate number, phone
+    number, or other frequently used numbers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The specific guidelines for usage can vary significantly depending on the business
+    and system. So, this recipe provides a variety of regexes that you can use as
+    building blocks to create customized validation rules according to your needs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For matching non-English characters/digits, use the Unicode variants represented
+    by \p{…} along with the u flag.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Containing at least one ASCII uppercase letter (recall that (?= ...) is a positive
+    lookahead):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*[A-Z]) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one Unicode uppercase letter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*\p{Uppercase}) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| \p{...} Requires a Flag |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Don’t
+    forget to use the u flag when matching Unicode characters. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one ASCII lowercase letter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*[a-z]) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one Unicode lowercase letter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*\p{Lowercase}) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one Unicode alphabet:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*\p{Alphabetic}) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one digit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*\d) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing at least one Unicode digit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*\p{Number}) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing ASCII printable characters only:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*[ -~]) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| What Are ASCII Printable Characters? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | ASCII printable
+    characters consist of 95 characters that you can find on your QWERTY keyboard.^([[34]](f_0087.xhtml#FOOTNOTE-34))
+    (?=.*[ -~]) would match all ASCII printable characters from the space to the tilde,
+    excluding the Delete character. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing one or more ASCII punctuations or spaces:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*[ !"#$%&''()*+,\-./:;<=>?@[\\\]^_`{&#124;}~]) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing anything other than ASCII letters and numbers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.*[^A-Za-z0-9]) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Requiring a length of at least 8 characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.{8,}) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Requiring a length of at least 8 characters and a maximum of 32 characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=.{8,32}) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Containing two or more digits/letters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | (?=(.*[a-z]){2,}) // at least 2 lowercase ASCII letters |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | (?=(.*[A-Z]){2,}) // at least 2 uppercase ASCII letters |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | (?=(.*[0-9]){2,}) // at least 2 ASCII digits |'
+  prefs: []
+  type: TYPE_TB
+- en: You can also use this technique to require multiple punctuations, Unicode characters,
+    and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example: minimum eight characters, one ASCII letter, and one special character:'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[part_3/validating_passwords/pass_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** re = */^**(?=**.***[**A-Za-z**])(?=**.***[* *!"#$%&''()*+,**\-**.**/**:;<=>?@[**\\\]**^_`{&#124;}~**])**.**{8,}**$/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"abcdefgh"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A7#cdefgh"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Example: minimum eight characters, two Unicode digits, and two Unicode alphabets:'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[part_3/validating_passwords/pass_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** re = */^**(?=(**.***\p**{Alphabetic}**){2,})(?=(**.***\p**{Number}**){2,})**.**{8,}**$/*u;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"a7bcdefgh"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"a77bcdefg"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Example: forbidding words listed in a password blocklist:'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'While you can use regex to accomplish this task, JavaScript already offers
+    a built-in method that streamlines the process:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_passwords/pass_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** blocklist = [*"asdasd"*, *"qwerty"*, *"password"*, *"abc123"*,
+    *"qwerty123"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"iloveyou"*, *"football"*, *"princess"*, *"superman"*, *"computer"*];
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** pass = *"superman"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | blocklist.includes(pass); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Allowing Multiline Passwords |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | To ensure that
+    your regex works correctly for complicated passwords containing line breaks, use
+    the s flag (see Recipe 42, [*Forcing . to Match Newline Characters with the s
+    Flag*](f_0053.xhtml#rcp.flag_s)). |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Users tend to select uncomplicated or commonly used passwords that are easy
+    to recall. Surprisingly, some people are still using “123456” and “password” as
+    their password, which means they are easy to hack. As a result, it’s often necessary
+    to safeguard users from choosing easy-to-guess passwords by implementing minimum
+    password complexity requirements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We structured each validation rule of this recipe into its own lookahead group.
+    Without lookahead, you’d need to use multiple regex patterns or iterate over the
+    string multiple times to check for all the required conditions, which can be less
+    efficient and harder to maintain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lookaheads allow you to check for the conditions without actually advancing
+    the position of the regex engine in the string, so each test runs from the start
+    of the string. Once a lookahead succeeds, the regex engine then moves on to test
+    the next lookahead from the same position. If a lookahead fails to find a match,
+    the entire match fails as a result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To search for a pattern, each lookahead has a “.*”, which means that the character
+    type being sought can appear anywhere in the string, not just at the beginning.
+    With the technique illustrated here, you can include multiple password tests in
+    a single regex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember, it’s important to validate form input with both client-side and server-side
+    scripts. Client-side validation can provide immediate feedback to the user and
+    can prevent errors from being submitted to the server. But, this type of validation
+    can be bypassed or manipulated by users, either intentionally or unintentionally,
+    and so cannot be relied upon as the only form of validation.
+  prefs: []
+  type: TYPE_NORMAL

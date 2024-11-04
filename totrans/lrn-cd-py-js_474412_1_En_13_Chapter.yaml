@@ -1,0 +1,827 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_13](https://doi.org/10.1007/978-3-658-42912-6_13)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13. How Do I Work with Program Functions to Edit Data and Trigger Actions?
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: In most programming languages, small subroutines, so-called functions, do the
+    actual job. They help to read in data, change it, output it again and much more.
+    You can access the functions that your programming language offers as standard,
+    install additional libraries with functions from the Internet or write your own
+    functions. That’s what this chapter is about.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What functions are
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to define functions in the program code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to call functions and specify their behavior
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What role the scope of variables plays when you work with functions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to use functions in object-oriented programming and the advantages of functions
+    being objects themselves in many languages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How functions are grouped in libraries and how you can find suitable, freely
+    available libraries
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What frameworks are and how they differ from libraries
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What Application Programming Interfaces (APIs) are and how you can work with
+    them.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 13.1 Functions
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: What Are Functions?
+  prefs: []
+  type: TYPE_NORMAL
+- en: As in mathematics (don’t worry, we won’t overuse this comparison!), functions
+    are mapping rules that map values, called *arguments,* to another value, their
+    *function* or *return value.* For example, the function *f*(*x*) = *x*² maps a
+    value *x* to its square; thus, one passes a value *x* to the function as an argument
+    and receives a processed value (in this case, the square of the argument) back
+    from the function as a return value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions in programming languages work according to the same basic principle,
+    with the difference, however, that not all functions produce a return value. We
+    have already worked in the pseudo code ► Sect. [11.​7.​5](474412_1_En_11_Chapter.xhtml#Sec15)
+    with a function called **showProduct()**, which performs an output on the screen.
+    This function does not yield a return value. It simply performs a specific action,
+    namely displaying on the screen, but otherwise does not process the data passed
+    to it as an argument any further. Some programming languages make a strict distinction
+    between functions that have a return value and *procedures* that do not. However,
+    we will not make this distinction here and will always refer to “functions” instead.
+    In some programming languages, functions always return a value; if they do not
+    have a “real” return value, they return a special value that signals that there
+    is no “real” result (for example, **undefined** in JavaScript or **void** in C/C++).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Definition of a Function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions usually consist of a *function head* and a *function body*. The header
+    regularly contains the function identifier (name) and the list of arguments that
+    the function expects. The body is a block of code that is executed whenever the
+    function is called. It contains the “meat” of the function; the source code it
+    contains describes what the function does.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the pseudo-code example of a simple function that multiplies two numbers
+    together:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function** multiply(number1, number2)**Begin**result = number1 * number2return(result)**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To let the programming language know that the definition of a function begins,
+    it starts with the keyword **Function**. This is followed by the function identifier
+    and the two arguments of the function, **number1** and **number2**. The function
+    body consists of two statements, one that calculates the actual result of the
+    function, and a call to another, **return()**, that returns the function result.
+    The two instructions form a *code block*, which is introduced with the keyword
+    **Begin** and concluded with the keyword **End.** Code blocks exist in practically
+    all programming languages. They are usually delimited, as in our pseudo-code,
+    by special keywords (the English keywords **Begin** and **End** are particularly
+    common) or symbols, such as opening and closing curly braces (**{** and **}**).
+    Some languages, such as Python, mark a block of code without any special keywords
+    or symbols at all, solely by indenting all lines of code in the block evenly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But back to our function definition. Its program code does nothing per se.
+    The function only appears when it is called from within the program. In our example,
+    this could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: show(multiply(3, 57.8))
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With this call, we multiply the numbers 3 and 57.8 and immediately output the
+    result. What happens here is that the execution of the program branches to the
+    definition of the **multiply** function. The code contained in the body of the
+    function definition is executed, with the function arguments **number1** and **number2**
+    taking the value of the factors passed – in this case, 3 and 57.8\. The result
+    of the multiplication is returned with **return()**, which causes the program
+    execution to leave the function body and return to the main program. By executing
+    the function, the return value of the function now takes the place of the function
+    call. This can now be passed again as an argument to another function, in our
+    example **show()**. After passing through our **multiply()** function, the program
+    code effectively shortens to:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: show(173.4)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Because the function call is replaced by the return value after its execution,
+    function calls can also be assigned to variables:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: value = multiply(3, 57.8)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Many programming languages require that the function has been defined *before*
+    the first call, so the function definition must be “higher up” in the program
+    code than the first call.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note: Functions can also be defined without arguments. For example, a function
+    that simply clears the display on the screen does not need any further information
+    passed to it. In most programming languages, even such functions must be called
+    with the round brackets in which the values of the arguments are normally found.
+    In this case, the parentheses are empty, but the interpreter/compiler of the language
+    still recognizes that this is a function call and not an access to a variable
+    with the same name.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The sequence of a function call from the program is shown schematically in ◘
+    Fig. [13.1](#Fig1).![](../images/474412_1_En_13_Chapter/474412_1_En_13_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: An illustration of a calling a function. The main program consists of more expressions
+    and My Function. The My Function is called, which has expressions and a return
+    statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 13.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Calling a function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Optional Arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sometimes you want to give the user the possibility to control the behavior
+    of the function via a parameter but preset it with a default value. If the caller
+    of the function then does not specify a value for the argument in question, the
+    default value is used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Suppose we wanted to design our **multiply()** function from above so that
+    **number1** is always multiplied by the number pi (3.14159…) unless a value for
+    the argument **number2** is explicitly passed in the function call. Then we would
+    have to specify this default value in the function header: **Function multiply(number1,
+    number2 = 3.14159)**. Now a call to **multiply** could also look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: two_pi = multiply(2)
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this context, **number2** is called an *optional* argument, because it can
+    be omitted when calling the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Passing Function Arguments with Their Identifier
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In many programming languages, the arguments when calling functions can also
+    be addressed via their identifiers. This could then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: value = multiply(number1 = 3, number2 = 57.8)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The advantage of these *keyword arguments* is that it becomes clearer (especially
+    when calling functions with many arguments) which value belongs to which argument;
+    thus, one does not have to keep the order of the arguments in mind. Because now
+    the identifiers of the arguments are available, the interpreter/compiler is no
+    longer dependent on the order of the arguments. In this latter case, we speak
+    of *positional arguments* to distinguish them from keyword arguments. Accordingly,
+    you can also deviate from the actual order of the arguments; a valid function
+    call would thus also be the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: value = multiply(number2 = 57.8, number1 = 3)
+  prefs: []
+  type: TYPE_NORMAL
+- en: An additional advantage is that by using argument identifiers when calling functions
+    the program code becomes easier to understand and thus easier to maintain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Scope of Variables
+  prefs: []
+  type: TYPE_NORMAL
+- en: In most programming languages, functions lead a “life of their own”, so to speak.
+    They are a compartmentalized world all to themselves. Think back to the definition
+    of our **multiply()** function. Inside this function, a variable called **result**
+    is created to hold the calculated product of the two numbers. This variable exists
+    *only within* the function. At the end of the function call, i.e., when the function
+    has completely run, the variable **result** also ceases to exist. It cannot be
+    accessed from the main program. It is therefore also said that its *scope* is
+    limited to the function body.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Suppose our main program looked like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: value = multiply(3, 57.8)show(result)
+  prefs: []
+  type: TYPE_NORMAL
+- en: The statement **show(result)** would result in an error message (or, depending
+    on the language, return a default value like **0**), because there is no variable
+    named **result** in the scope of the main program. This variable is in the scope
+    of the **multiply()** function. Because its scope is limited, **result** is said
+    to be a *local variable*. The variable **value**, on the other hand, is created
+    in the main program and is valid everywhere. Such variables are called *global
+    variables* in distinction to local variables. They can be accessed from anywhere,
+    even from within our **multiply()** function. Best practice, however, is to avoid
+    such access to global variables from within a function (also called *side effects*),
+    because it makes the function more susceptible to changes in the rest of the program,
+    especially to changes in the identifiers of global variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But what if the **multiply()** function itself were to use a variable called
+    **value**, for example, if the central instruction of the function were **value
+    = number1 * number2**? Then we would have two variables called **value**, a local
+    one (inside the **multiply()** function) and the global one in the main program.
+    Now, which one is accessed when the identifier **value** is used somewhere in
+    the program code? As a rule, programming languages look first in the local environment
+    for a variable with this identifier and only then, if they do not find one there,
+    in the global environment. So if the variable **value** were used within the function
+    **multiply()**, the local variable would be used, the one that has been defined
+    in the current scope. An access to **value** from the main program, on the other
+    hand, leads to an access to the global variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function arguments usually behave like local variables, they can also only be
+    accessed from within the function’s code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Passing Arguments by Reference Instead of by Value
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following slightly modified variant of our **multiply()** function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function** multiply(number1, number2, **AsReference** result)**Begin**result
+    = number1 * number2**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This time, our function has no return value; instead, the result of the calculation
+    is assigned to a variable that was also passed as an argument, but, unlike **number1**
+    and **number2**, with the keyword **AsReference**. Normally, the arguments to
+    a function are passed as copies of the original values. Consider the following
+    example of a call to our function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: number1 = 3value = 0multiply(number1, 57.8, value)show(value)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here the first argument of the function itself is a variable. Its value is available
+    as argument **number1** inside the **multiply()** function, but only as a copy
+    of the original variable. If we would now adjust the value of **number1** within
+    the function body, this would have no effect on the variable **number1** in the
+    main program. Only the local variable **number1** in the function body of **multiply()**
+    would change in value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is different in the case of the variable **value**. This is not passed
+    to the function as a value, but as a so-called *reference*. This means that changes
+    made to this variable within the function affect the original variable; in the
+    example, we use this variable to “return” the result of the calculation. Some
+    programming languages allow variables to be passed *by value* or *by reference*,
+    some only allow them to be passed by value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Examples for the Definition of Functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: So far, we have only written our function definition in our pseudo-code. Therefore,
+    here are two implementations of the original **multiply()** function in real programming
+    languages, namely PHP and Pascal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First the PHP version:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** multiply($number1, $number2){$result = $number1 * $number2;return
+    $result;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The statement **return** is, as in some languages, not a function but a keyword
+    (hence no round brackets around the “argument”).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then the code same in Pascal:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** multiply(number1, number2: real): real;**var**result: real;**begin**result
+    = number1 * number2;multiply = result;**end;**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Pascal is a strongly typed programming language. Variables are always declared
+    with a fixed type here. Therefore, both the two arguments of the function, **number1**
+    and **number2**, as well as the function itself (at the end of the function header)
+    each have a type specification: In all cases, they are floating-point numbers
+    (**real**). This makes it clear not only what kind of arguments the function expects,
+    but also what type its return value will be.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The return statement does not work in Pascal as in many other programming languages
+    with a keyword **return** or a function **return()**, but is achieved by assigning
+    the function value to the identifier of the function (assignments are formulated
+    in Pascal with **=** as assignment operator).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions in Object-Oriented Programming
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In ► Sect. [11.​7.​4](474412_1_En_11_Chapter.xhtml#Sec14), we saw that, in
+    the context of object-oriented programming, functions can also be part of classes.
+    As you will remember, such functions are also called *methods*. These methods
+    are always called in connection with a concrete object instance of the class,
+    i.e., an object that has been created according to the “template” of the class.
+    Most programming languages use the period (but some use other symbols, such as
+    **->**) to separate object and method when calling them. The call of a method
+    could therefore look like this, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: object.method(arguments)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Depending on the programming language, the method definition may be part of
+    the class definition or outside of it. In any case, however, there is a reference
+    to the method in the class definition (often the method header), as we saw in
+    ► Sect. [11.​7.​4](474412_1_En_11_Chapter.xhtml#Sec14) (scroll back a few pages
+    if necessary).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Apart from the fact that functions as methods can be part of objects (or their
+    classes), functions and objects often have another relationship. In many programming
+    languages, functions *are* objects. There, a special class exists (often **function**)
+    and all functions are objects (i.e., instances) of this class. As such, they may
+    also have properties, such as their arguments or their function body, i.e., the
+    actual code. When functions are themselves objects, this has some remarkable implications.
+    For example, functions themselves can serve as arguments to other functions. Moreover,
+    class definitions are logically very stringent, strictly speaking, they consist
+    exclusively of attributes. The only difference is that some attributes, namely
+    the methods, are *callable* and others (the “normal” attributes in the sense of
+    value properties) are not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.1 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What is wrong with the following function definitions (written in pseudo-code):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: a.**Function** exponential(base)**Start**return(base^exponent)**End**b.**Function**
+    exponential(base, exponent)**Begin**result = base^exponent**End**13.2 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Suppose we had a function defined as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function** introduce(name, age)**Begin**show("My name is ", name, " , I am
+    ", age, " years old.")**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What is the difference between the following calls to the function, and why
+    do the first and third calls result in the desired behavior of the function, but
+    the second does not?
+  prefs: []
+  type: TYPE_NORMAL
+- en: introduce("Mary", 25)introduce(25, "Mary")introduce(age = 25, name = "Mary")13.3
+    [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following program excerpt:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'age_person = 25**Function** getolder(age_person)**Begin**age_person = age_person
+    + 1show("New age of the person: ", age_person)return(age_person)**End**age_new
+    = getolder(age_person)show("Current age: ", age_person)show("Result of the function
+    getolder(): ", age_new)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What output does this program generate and why?
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What two ways are there to modify the program so that the new age, which is
+    one year higher, is also reflected in the global variable age_person?
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 13.2 Libraries
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Libraries as a Toolbox for Programmers
+  prefs: []
+  type: TYPE_NORMAL
+- en: As a programmer, you can (as seen in the previous section) develop functions
+    yourself. This always makes sense if you want to *reuse* program code, because
+    the nice thing about functions is that they allow you to detach a certain functionality
+    from your actual program and call it from anywhere at any time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, programming languages regularly come with an extensive set of standard
+    functions that you can use to perform many common tasks. Often, however, these
+    standard functions will not be sufficient for what you have in mind. For example,
+    functions for sending e-mails, searching web pages (web scraping), or training
+    neural networks are usually not included in the standard language scope. In these
+    and other use cases, if you do not want to develop the functionality in question
+    yourself, you will have to extend the language scope by installing the required
+    functions from elsewhere.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Find Suitable Libraries
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some programming languages such as Python, R and JavaScript have a very extensive
+    and lively “ecosystem” with a large number of developers who make the functionalities
+    they have developed available to others free of charge. This is regularly done
+    in the form of a set of function focused on a certain topic. Such collections
+    are usually called *libraries*, *modules, packages*, or *distributions,* depending
+    on the programming language. For the sake of simplicity, we always refer here
+    to “libraries”. In some cases, these libraries are brought together on a platform
+    that is centrally managed by the organization that oversees the development of
+    the programming language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is the case, for example, for:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Python with the *Python Package Index* (*PyPI*, ► [https://​pypi.​org/​](https://pypi.org/)),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Perl with the *Comprehensive Perl Archive Network* (*CPAN*, ► [https://​www.​cpan.​org/​](https://www.cpan.org/)),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: PHP with the *PHP Extension Community Library* (*PECL*, ► [https://​pecl.​php.​net/​](https://pecl.php.net/)),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: R with the *Comprehensive R Archive Network* (*CRAN*, ► [https://​cran.​r-project.​org](https://cran.r-project.org)).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Depending on the design, inclusion in one of these central catalogues is also
+    accompanied by (mostly automated) quality control, which ensures, for example,
+    that the program code of the library is executable and has at least a minimum
+    of documentation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For many programming languages, however, such a centrally organized library
+    platform does not exist. Often, developers then deposit their works on *GitHub.
+    GitHub* is a cross-language platform that allows developers to share source code
+    with others by storing it in a *repository*. Underneath *GitHub* lies the version
+    management tool *Git,* developed by Linux inventor *Linus Torvalds*, which allows
+    changes to source code to be versioned in an elegant way. If necessary, it is
+    then easy to revert to an old state of a single code file or even the entire repository.
+    Developers can also use *GitHub* to create their own *branches of* the source
+    code, develop features in them, and eventually *merge* them back into the original
+    version, at least if the developer of the original version allows it. With these
+    and a whole series of other features, *GitHub* facilitates collaboration between
+    different developers on the basis of the underlying version management tool *Git.
+    GitHub* is completely language agnostic; for most programming languages in use
+    today, you will find repositories with code in that language. For developers who
+    offer their source code under an open-source license, using *GitHub* is free at
+    the time of writing this book. Companies and organizations that want to shield
+    their code from the outside world pay for a private environment. While a number
+    of comparable platforms exist alongside *GitHub*, *GitHub* is the most popular.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, *GitHub* is not only used by those developers who work in a language
+    without a central library platform. Many developers run GitHub repositories not
+    for libraries but simply for their normal work on any kind of development projects,
+    and to exchange information with other developers. If they do indeed develop libraries,
+    they make only the finished versions available on the central library platforms
+    such as *PyPI* or *CRAN.* Sometimes developers also don’t want to subject themselves
+    to the strict rules and automated quality checks of the central library platforms
+    and therefore offer their libraries exclusively on *GitHub.*
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s no surprise, then, that the central library platforms and *GitHub* are
+    both good places to start if you’re looking for a library to help you solve a
+    particular problem. That said, this search is sometimes not entirely easy, for
+    several reasons. The search functionalities of the platforms vary, as does the
+    information available about each library. So, it is sometimes not at all easy
+    to find a library, and once you have found one, to judge whether it is suitable
+    for solving your own problem. This assessment is further complicated by the fact
+    that there will often be more than one library that might be a hit. Even on the
+    centrally administered library platforms, there are several, to a certain extent,
+    competing libraries for many tasks. Two approaches are then recommended. One is
+    *trial and error*; download and work with the “candidates” to determine which
+    is the most appropriate library for your problem. Alternately, search on the internet,
+    where you can regularly find information on many libraries in relevant forums
+    (such as *Stack Overflow*). This is especially useful if you want to see how to
+    use the library by means of examples. The documentation of the libraries varies
+    in scope and quality, so that forums like *Stack Overflow* can also be a good
+    help in using a library that has already been found suitable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Apart from that, forums such as *Stack Overflow* are often a good first port
+    of call for identifying library candidates for the solution of your problem in
+    the first place – if you cannot or do not want to search directly via a central
+    library platform or on *GitHub*. This is because the questions in the forums are
+    usually structured along the lines of “How do I solve the problem that…” or “How
+    do I make it so that…” and then the answers often contain references to one or
+    more libraries that can help solve this kind of problem. Many developers prefer
+    this type of forum search to searching directly on central library platforms or
+    *GitHub*, because the forums with examples and comments from users often provide
+    valuable additional information.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Needless to say, you can also use AI assistants like ChatGPT to search for
+    suitable libraries. For example, ask: “I want to write a Python program that reads
+    data from a website (webscraping). Which libraries are available for this, how
+    do they differ and which are particularly suitable for beginners?”'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Installing and Importing/Loading Libraries
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once you have found a suitable library, all you have to do is install it (if
+    the programming language provides for this or requires it) and include it in the
+    program code. The inclusion is done by a statement which either imports the library
+    as a whole or individual elements from it (such as individual functions or classes)
+    into the program code. In some cases, a name can be specified under which the
+    imported element can be addressed, which is useful to avoid conflicts with the
+    identifiers of already existing variables, classes, objects, or functions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A (hypothetical) example from Python:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**from** somelibrary **import** aclass **as** my_class**import** somelibrary'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first statement imports only the class **aclass** into the program code
+    and then makes it accessible under the identifier **my_class**. The second, alternative
+    statement imports the entire library (in this case without assigning it a different
+    identifier).
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is easier in Pascal
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uses** somelibrary;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: or R
+  prefs: []
+  type: TYPE_NORMAL
+- en: library(somelibrary)
+  prefs: []
+  type: TYPE_NORMAL
+- en: where the entire library is made available in each case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.3 Frameworks
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'There is a lot of talk about *frameworks,* especially in the field of web development.
+    The terms “framework” and “library” are sometimes not used in a very clear-cut
+    way. Even though the functionality and use of frameworks goes beyond what we will
+    look at in this book, at least the distinction between the two concepts should
+    be examined in more detail. Libraries contain functionalities that the user, i.e.,
+    the programmer, can access when he needs them to perform a specific task. It is
+    therefore the programmer who takes the initiative. Frameworks, though, are different.
+    Frameworks control the flow of the entire application and call the programmer’s
+    code when necessary. Frameworks thus form, as the term already suggests, a framework
+    that the programmer “only” has to fill. This is very practical, especially in
+    the field of web development, because there are many recurring tasks, such as
+    authentication of user logins, the connection of databases, or the output of data
+    in template-like pages. All these tasks can be taken over from the developer by
+    the framework. They are already built in as functionalities in the framework the
+    developer is working with. Programmers only need to develop what is specific to
+    their applications. Through this division of labor between the framework and the
+    developer, the control of the application is practically reversed (this is why,
+    in connection with frameworks, some people also speak of *inversion of control*):
+    The framework controls the application, the developer supplies the application-specific
+    program code, which the framework then calls at the right place. This allows the
+    developer to concentrate on the important issues and leave all the rather boring
+    “trappings” to the framework.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Well-known frameworks include *AngularJS* and *React* (for JavaScript), *django*
+    (for Python), *CakePHP* and *Zen* (for PHP), and *Ruby on Rails* (for Ruby).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because the focus of this book is on learning the basics of programming, we
+    will not be working with frameworks here. However, a prerequisite for using frameworks
+    is, of course, knowledge of the underlying language, and that’s what we’re dealing
+    with here in the book.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.4 Application Programming Interfaces (APIs)
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Another term that is on everyone’s lips is that of the *Application Programming
+    Interface*, or API for short. First of all, APIs are – as the name suggests –
+    nothing more than *programming interfaces*. In this sense, a library that provides
+    a set of functions for specific purposes also provides a programming interface
+    that consists of the library’s functions that you can access from within your
+    program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When people talk about APIs today, they are often referring to specific programming
+    interfaces, such as *Web APIs* through which you can access the functionality
+    and data of web services. Many web services today offer programming interfaces
+    for developers. For example, a *GoogleMaps API* provided by Google returns the
+    geo-coordinates of a city if you pass the name of the city to the API. Here, an
+    API is used to retrieve information provided by the web service. In the same way,
+    however, APIs can also be used to get a web service to trigger a specific action.
+    Twitter’s API, for example, allows you to post tweets. All you need is an account
+    that allows you to use the API and a corresponding instruction in your program
+    that addresses the API and sends the tweet.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, APIs can be used to query data and trigger functions. There are literally
+    thousands of web services that offer APIs which can be accessed via the Internet.
+    The website *ProgrammableWeb* (► [https://​www.​programmableweb.​com/​apis/​directory](https://www.programmableweb.com/apis/directory))
+    provides an overview of API providers that is certainly not complete, but at least
+    very comprehensive. Whether you want to process payments with PayPal from your
+    program or check the latest football results, with the web APIs available today,
+    hardly any wish remains unfulfilled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Technically, Web APIs mostly work with the *Hypertext Transfer Protocol* (HTTP)
+    and can be called like web pages. For example, to access the *GoogleMaps API*
+    to get the geo-location of Chicago, a program would simply need to make an HTTP
+    request of the form ► [https://​maps.​googleapis.​com/​maps/​api/​geocode/​json?​address=​Chicago&​key=​XX](https://maps.googleapis.com/maps/api/geocode/json?address=Chicago&key=XX),
+    where **key** is a parameter that authenticates the caller of the API as a legitimate
+    user. Google would then return the coordinates, in JSON format, a data exchange
+    format that is extremely popular with Web APIs because it is easy to generate
+    and easy to read, and which we will learn about in more detail in ► Sect. [31.​5.​6](474412_1_En_31_Chapter.xhtml#Sec17).
+    If you were to enter the request as it is into your web browser, you would also
+    get a result in JSON format, but an error message, because **XX** is not a key
+    that identifies you as the legitimate API user:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '{"error_message" : "The provided API key is invalid.","results" : [],"status"
+    : "REQUEST_DENIED"}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, a program does not need a web browser to make such requests to a web
+    service via an API. The corresponding HTTP requests can be triggered from within
+    most programming languages (often using a library that provides the corresponding
+    functions), and their returns can be processed without the user of the program
+    having to know anything about it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We won’t continue discussing Web APIs in detail, because we’re focusing on the
+    basics of programming in this book. However, given these basics, it’s easy to
+    take the next step and learn exactly how to incorporate Web APIs into your programs.
+    The most important thing to understand at this point is that web APIs are a versatile
+    tool for extending the functionality of your programs. Ultimately, they work just
+    like library functions; they are called (albeit slightly differently), trigger
+    an action or retrieve information, and return a value (often a JSON object). The
+    basic concept, which is that of a programming interface, or API, is the same in
+    both cases.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.5 Your Roadmap to Learning a New Programming Language
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If you are learning a new programming language …
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'you’ll discover:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how functions are defined; in particular, how optional arguments are used, how
+    (and whether) arguments can be taken by reference instead of by value, and how
+    functions can return values,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how functions are called; in particular, how (and whether) arguments can be
+    passed by name when calling a function,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how the scopes of variables are designed and whether it is possible to access
+    a global variable from within a function (especially if it has the same name as
+    a local variable)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what good reference sources for libraries exist and how to search for suitable
+    libraries; in particular, whether a centrally administered platform exists, which
+    is de facto the main point of contact when searching for suitable libraries,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to include libraries (or element from them) in your program and how to access
+    their functionality.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 13.6 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 13.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: In the return statement **return()** an argument **exponent** is used, but this
+    argument does not appear in the argument list in the head of the function. The
+    header should therefore correctly read **function exponential(base, exponent)**.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: This time, the argument **exponent** is included in the argument list in the
+    function header. However, the function does not return a value. A variable **result**
+    is calculated, but it is not returned with the help of **return()**. The statement
+    **return(result)** would have to be added as the last statement of the function.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Exercise 13.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**introduce("Mary", 25)** calls the function as it is intended. The first argument
+    in the argument list in the function header is the name, the second is the age.
+    **introduce(25, "Mary")** flips the argument values around when the function is
+    called. Now the first argument (**name**) is assigned the value **25**, the second
+    argument (**age**) the value **"Mary"**. In the best case, the function then outputs
+    a somewhat strange-looking text, but in the worst case, it terminates with an
+    error because the expected types of the arguments and the passed values do not
+    match. Finally, the call **introduce(age = 25, name = "Mary")** also flips the
+    arguments around when the function is called, but by specifying the argument names
+    it is clear how the passed values should be assigned to the arguments of the function,
+    so the different order of the arguments when the function is called is not a problem.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 13.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: '(a)The program will produce the following output:New age of the person: 26Current
+    age: 25Result of the function getolder(): 26'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The function **getolder()** increments the value of the argument **age_person**
+    passed to it and returns this as the function value. The *global* variable of
+    the same name, **age_person**, remains unaffected. Priority in the scope of the
+    function is given to the argument, which is treated as a *local* variable.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)The first possibility is to catch the return value of the function **getolder()**
+    in the global variable **age_person**:age_person = getolder(age_person)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Alternatively, the argument **age** of the function can be defined as an argument
+    passed by *reference* (if the programming language used allows it). Then the function
+    header would look like this: **Function getolder(AsReference age_person)**. This
+    way, the **age_person** argument would still be considered a local variable (it
+    could not be accessed outside of the function’s code block), but changes to it
+    would immediately result in changes to the variable passed in (i.e., **age**).
+    Thus, the **getolder()** function would ultimately be able to change the global
+    variable **age**.'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL

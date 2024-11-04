@@ -1,0 +1,265 @@
+- en: Chapter 13
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0129.xhtml#divide.and.conquer.in.turbo.mode.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we sort the numbers, we know that the three greatest numbers will be at
+    the end of the array, and we can just multiply them together. The sorting will
+    take O(N log N):'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ greatestProductOf3(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array.sort((a, b) => a - b); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[array.length - 1] * |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array[array.length - 2] * |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array[array.length - 3]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: (This code takes for granted that there are at least three values in the array.
+    You can add code to handle arrays where this is not the case.)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'If we presort the array, we can then expect each number to be at its own index.
+    That is, the 0 should be at index 0, the 1 should be at index 1, and so on. We
+    can then iterate through the array looking for a number that doesn’t equal the
+    index. Once we find it, we know that we just skipped over the missing number:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ findMissingNumber(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array.sort((a, b) => a - b); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [index, num] ​**of**​ array.entries()) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (num !== index) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ index; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: The sorting takes N log N steps, and the loop afterward takes N steps. However,
+    we reduce the expression (N log N) + N to O(N log N) since the added N is a lower
+    order compared to N log N.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'This implementation uses nested loops and is O(N²):'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ max(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ iIsGreatestNumber = ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (j > i) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | iIsGreatestNumber = ​**false**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (iIsGreatestNumber) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ i; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'The next implementation simply sorts the array and returns the last number.
+    The sorting is O(N log N):'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ max(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array.sort((a, b) => a - b); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[array.length - 1]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Our next and final implementation is O(N) since we iterate just once over the
+    array:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ max(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestNumberSoFar = array[0]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number > greatestNumberSoFar) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | greatestNumberSoFar = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestNumberSoFar; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB

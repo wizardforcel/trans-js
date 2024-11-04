@@ -1,0 +1,148 @@
+- en: '| Recipe 65 | Extracting Text Enclosed in Single Quotes |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose the data source for your mini-game widget lists the nicknames in single
+    quotes rather than double quotes. Extracting the text within single quotes can
+    be more challenging compared to double quotes because the nickname itself could
+    contain an apostrophe.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Michael Eugene Archer, also known as ''D''Angelo'' |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a solution that can accurately identify a pair of single quotation
+    marks while distinguishing them from an apostrophe.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Take advantage of lookarounds:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`1\. Michael Eugene Archer, also known as ''D''Angelo''* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *2\. Scarlett Johansson, also known as ''Scarjo''* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *3\. Bradley Cooper, also known as ''Coop''* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *4\. Jennifer Lawrence, also known as ''Nitro''* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *5\. Hugh Jackman, also known as ''Sticks''* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *6\. Tom Hardy, also known as ''Weasel''`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** extractQuotes(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**(?<**!**\w)**''**(**.+**?)**''**(?!\w)**/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** quotes; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractQuotes(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["D''Angelo", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
+  prefs: []
+  type: TYPE_TB
+- en: This solution allows you to capture single quoted strings that are not part
+    of larger words or surrounded by other word characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s examine the regex step by step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /(?<!\w)''(.+?)''(?!\w)/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?<!\w) negative lookbehind: asserts that the regex inside does not
+    match |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \w matches any word character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● '' matches the character '' literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (.+?) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ . matches any character (except for line terminators) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ +? matches the previous token between one and unlimited times, as few
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | times as possible (lazy) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● '' matches the character '' literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?!\w) negative lookahead: asserts that the regex inside does not match
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \w matches any word character |'
+  prefs: []
+  type: TYPE_TB
+- en: The regex begins with a negative lookbehind to match an opening single quote
+    that isn’t preceded by a word character (a letter, a digit, or underscore). As
+    a result, it won’t match words like “What’s.” Next, (.+?) matches any character
+    one or more times. The question mark makes the match non-greedy, which means the
+    quantifier tries to match its preceding item as few times as possible (see Recipe
+    38, [*Creating Lazy Quantifiers with the Question Mark*](f_0049.xhtml#rcp.lazy)).
+    Without the question mark, the pattern would match the last closing quotation
+    mark in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, ’(?!\w) matches a single quote that’s not followed by a word character—thanks
+    to the negative lookahead.
+  prefs: []
+  type: TYPE_NORMAL

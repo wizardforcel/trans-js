@@ -1,0 +1,488 @@
+- en: Stacks in Action
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Although a stack isn’t typically used to store data on a long-term basis, it
+    can be a great tool to handle temporary data as part of various algorithms. Let’s
+    look at an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s create the beginnings of a JavaScript linter—that is, a program that inspects
+    a programmer’s JavaScript code and ensures that each line is syntactically correct.
+    JavaScript is notorious for having an abundance of parentheses in its code, so
+    that’s the aspect of syntax we’ll be focusing on. This includes parentheses, square
+    brackets, and curly braces—all common causes of frustrating syntax errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To solve this problem, let’s first analyze what type of syntax is incorrect
+    when it comes to braces. If we break it down, we’ll find three situations of erroneous
+    syntax.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The first is when there’s an opening brace that doesn’t have a corresponding
+    closing brace, such as this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | (​**let**​ x = 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We’ll call this Syntax Error Type #1.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The second is when there is a closing brace that was never preceded by a corresponding
+    opening brace:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ x = 2;) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We’ll call that Syntax Error Type #2.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The third, which we’ll refer to as Syntax Error Type #3, is when a closing
+    brace is not the same type of brace as the immediately preceding opening brace:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | (​**let**​ x = [1, 2, 3)]; |'
+  prefs: []
+  type: TYPE_TB
+- en: In the preceding example, there’s a matching set of parentheses and a matching
+    pair of square brackets, but the closing parenthesis is in the wrong place, as
+    it doesn’t match the immediately preceding opening brace, which is a square bracket.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How can we implement an algorithm that inspects a line of JavaScript code and
+    ensures that there are no brace-related syntax errors? This is where a stack allows
+    us to implement a beautiful linting algorithm, which works as follows.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We first prepare an empty stack, and then we read each character from left
+    to right following these rules:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we find any character that isn’t a type of brace (parenthesis, square bracket,
+    or curly brace), we ignore it and move on.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If we find an opening brace, we push it onto the stack. Having it on the stack
+    means we’re waiting to close that particular brace.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'If we find a closing brace, we pop the top element in the stack and inspect
+    it. We then analyze:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'If the item we popped (which is always an opening brace) does not match the
+    current closing brace, it means we’ve encountered Syntax Error Type #3.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'If we couldn’t pop an element because the stack was empty, that means the current
+    closing brace doesn’t have a corresponding opening brace beforehand. This is Syntax
+    Error Type #2.'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the item we popped is a corresponding match for the current closing brace,
+    it means we’ve successfully closed that opening brace, and we can continue parsing
+    the line of JavaScript code.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'If we make it to the end of the line and there’s still something left on the
+    stack, that means there’s an opening brace without a corresponding closing brace,
+    which is Syntax Error Type #1.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Let’s see this in action using the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_1_new.png](images/stacks_and_queues/parens_1_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: After we prepare an empty stack, we begin reading each character from left to
+    right.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: We begin with the first character, which happens to be an opening parenthesis:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_2_new.png](images/stacks_and_queues/parens_2_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 2: Since it’s a type of opening brace, we push it onto the stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/push_open_parens.png](images/stacks_and_queues/push_open_parens.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We then ignore all the characters let x = since they aren’t brace characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 3: We encounter our next opening brace:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_3_new.png](images/stacks_and_queues/parens_3_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 4: We push it onto the stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/push_open_curly_brace.png](images/stacks_and_queues/push_open_curly_brace.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We then ignore the y:.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 5: We encounter the opening square bracket:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_4_new.png](images/stacks_and_queues/parens_4_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 6: We add that to the stack as well:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/push_open_square_bracket.png](images/stacks_and_queues/push_open_square_bracket.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We then ignore the 1, 2, 3.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 7: We encounter our first closing brace—a closing square bracket:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/first_closing_brace_new.png](images/stacks_and_queues/first_closing_brace_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 8: We pop the element at the top of the stack, which happens to be an
+    opening square bracket:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/pop_square_bracket.png](images/stacks_and_queues/pop_square_bracket.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Since our closing square bracket is a corresponding match to this top element
+    of the stack, it means we can continue with our algorithm without throwing any
+    errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 9: We move on, encountering a closing curly brace:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_6_new.png](images/stacks_and_queues/parens_6_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 10: We pop the top item from stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/pop_curly_brace.png](images/stacks_and_queues/pop_curly_brace.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: It’s an opening curly brace, so we’ve found a match with the current closing
+    brace.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 11: We encounter a closing parenthesis:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/stacks_and_queues/parens_7_new.png](images/stacks_and_queues/parens_7_new.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 12: We pop the last element in the stack. It’s a corresponding match,
+    so there are no errors so far.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because we’ve made it through the entire line of code and our stack is empty,
+    our linter can conclude that there are no syntactical errors on this line (relating
+    to opening and closing braces).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Stack-Based Code Linter'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s an implementation of the preceding algorithm. Note that we’re using
+    our earlier implementation of the Stack class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Stack ​**from**​ ​*''./stack.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ Linter { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack = ​**new**​ Stack(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | lint(text) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack.pop(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ matchingBraces = { ​*''(''*​: ​*'')''*​, ​*''[''*​: ​*'']''*​,
+    ​*''{''*​: ​*''}''*​ }; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ text) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (matchingBraces[​**char**​]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack.push(​**char**​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (Object.values(matchingBraces).includes(​**char**​))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *does not have opening brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ poppedOpeningBrace = ​**this**​.stack.pop(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (​**char**​ !== matchingBraces[poppedOpeningBrace]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *has mismatched opening brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If we get to the end of line, and the stack isn''t empty:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**this**​.stack.read()}​ *does not have closing
+    brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Return true if line has no errors:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The import Stack from ’./stack.js’ allows our code to use our own stack implementation
+    from above, as we saved it in a file called stack.js.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As soon as we create an instance of the Linter class, we create a stack that
+    our algorithm can use. This is accomplished with the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack = ​**new**​ Stack(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The main linting algorithm takes place within the lint method, which accepts
+    a string of JavaScript code and assigns it to a variable called text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The very first thing we do is ensure that the stack is empty, as it still may
+    have data in it from a previous linting. We accomplish this by popping data from
+    the stack until there’s no data left:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack.pop(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then define what we consider to be sets of matching brackets:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ matchingBraces = { ​*''(''*​: ​*'')''*​, ​*''[''*​: ​*'']''*​,
+    ​*''{''*​: ​*''}''*​ }; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We’re now up to the main part of the algorithm, which runs using a loop that
+    analyzes each character of text, one at a time:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ text) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If the character we’re up to is an opening brace, we push it onto the stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (matchingBraces[​**char**​]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.stack.push(​**char**​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If the current character is not an opening brace, we then check to see if it’s
+    perhaps a closing brace:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ ​**if**​ (Object.values(matchingBraces).includes(​**char**​))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: The Object.values method gives us an array of all the values of the matchingBraces
+    object (that is, a hash table) without the keys. In our case, these values are
+    all the closing braces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If the current character is a closing brace, we then consider a couple of possibilities.
+    We first check to see if there’s anything on the stack. If there isn’t, we trigger
+    Syntax Error #2:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *does not have opening brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If there is something on the stack, we pop it off and check to see if it’s
+    a matching opening brace. If it isn’t, we trigger Syntax Error #3:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ poppedOpeningBrace = ​**this**​.stack.pop(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (​**char**​ !== matchingBraces[poppedOpeningBrace]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *has mismatched opening brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The loop continues this way until it processes the entire text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, we’re not quite done. We still have to check whether the stack contains
+    anything, because if it does, it means we have a stray opening brace that was
+    never closed. This, again, is Syntax Error #1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (​**this**​.stack.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*`*​${​**this**​.stack.read()}​ *does not have closing
+    brace`*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: At the end of our method we return true if we process the entire text and don’t
+    encounter any errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s some sample code to run our linter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ linter = ​**new**​ Linter(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | linter.lint(​*''(let x = 2;''*​) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This example will trigger Syntax Error #1 since the opening parenthesis has
+    no closing parenthesis.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, we used a stack to implement our linter with a neat algorithm.
+    But if a stack actually uses an array under the hood, why bother with a stack?
+    Couldn’t we have accomplished the same task using an array?
+  prefs: []
+  type: TYPE_NORMAL

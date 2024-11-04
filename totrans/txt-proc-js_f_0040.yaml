@@ -1,0 +1,336 @@
+- en: '| Recipe 29 | Repeating Part of a Regex with Quantifiers |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to add an option to your program that allows users to log in
+    with a PIN code. The main benefit of using a PIN instead of a password is faster
+    login. I tend to put my computer to sleep when I’m away, even for a short time.
+    Conveniently, my OS lets me log in quickly with only a PIN code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Say you want to implement a similar feature for your application. You need to
+    write a regex pattern that 1) validates the input is digits and 2) ensures the
+    number of digits is between 4 and 6 characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Place a pair of curly brackets after the \d character class to specify how
+    many times the digits should occur:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */^**\d{4,6}**$/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"107"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"1077"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"107781"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"1077815"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: The pattern {n,m} lets us match the preceding item at least n times and at most
+    m times (n and m must be positive integers).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The regex in this code begins with a caret (^) and ends with a dollar symbol
+    ($). We don’t want to match anything other than a 4-6 digit input, so we delimit
+    the pattern with ^ and $ (for further explanation of how caret and dollar work,
+    see Recipe 24, [*Asserting the Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Without $, this pattern would match a string like “107781pass”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /**\**d{4,6}*/.test**(**"107781pass"**)**; /*/ **→** **true** |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We can match a token or group repeatedly using a quantifier. {4} is a quantifier
+    that tells the regex engine to match its preceding item precisely four times.
+    So, the pattern [0-5]{4} is equivalent to [0-5][0-5][0-5][0-5], but is easier
+    to read and write.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we use a quantifier to repeat a character class, the entire character class
+    will be repeated, not just the character it matches. For example, the pattern
+    [car]{3} matches three consecutive characters made of “c,” “a,” and “r”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**[**car**]{3}**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"car"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"arc"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"carbon"*); *// → true (matches the first three characters)*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: To repeat the same character matched by a character class, we can use a backreference
+    (discussed later in Recipe 46, [*Referencing a Matched String with the Backreference*](f_0057.xhtml#rcp.backreference)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A character class is the only place in regex where quantifiers don’t have a
+    special meaning. For example, /[c{3}]/ matches a single character that’s a “c,”
+    “{“, “3”, or “}”. To take away the special meaning of a quantifier outside a character
+    class, we must escape it with a backslash. For instance:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\{**7**\}**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"{7}"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"7"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"abc"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: In this pattern, \{ matches the character { literally. Without a backslash,
+    { would indicate the beginning of a quantifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although curly brackets are a common type of quantifier used in regex, there
+    are other quantifiers available as well. The following section provides information
+    about these additional quantifiers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Types of Quantifiers
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Quantifiers specify the number of occurrences of a character, group, or character
+    class to match. There are six forms of quantifiers in regex: zero or more (*),
+    one or more (+), zero or one (?), exactly n times {n}, at least n times {n,},
+    and from n to m times {n,m}. Let’s look at each and how you might use them.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Zero or More (*)
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'An asterisk matches zero or more sequences of the preceding item. Let’s say
+    we want to match all verb forms of the word “play,” including “played,” “plays,”
+    and “playing.” By using a quantifier after the character class (\w), we can tell
+    regex to match “play” and any character that might come after it as long as it’s
+    a word character:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**play**\w*****\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"He plays for Cleveland"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"France is playing England tomorrow."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Evans played very well."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Let''s play a different game"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: Note that this pattern also matches words like “playful” and “playground.” To
+    limit the match to a set of specific words, we can use a vertical bar (see Recipe
+    26, [*Matching One of Several Alternatives with the Vertical Bar (|)*](f_0037.xhtml#rcp.vertical_bar)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: One or More (+)
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'A plus sign matches one or more sequences of the preceding item. For example,
+    the regular expression /Go+al/ attempts to match the letter G followed by one
+    or more instances of the letter o, followed by the letters a and l:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */Go+al!/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Gooooooooal!"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Goal!"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Gal!"*); *// → false (expects at least one instance of o)*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: Zero or One (?)
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'A question mark matches zero or one occurrence of the preceding item. For example,
+    if we wanted to match the word “apple” or its plural form, “apples,” we’d write
+    \apples?\. This pattern tells the regex engine to match the word “apple” followed
+    by zero or one instance of the letter “s”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex7.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */apples**?**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"An apple a day keeps the doctor away"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Peel and core the apples"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: Exactly n Times {n}
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Specifies how often the preceding item can be repeated. n must be a positive
+    integer. For example, we can use /\b\w{3}\b/ to match any three-letter word in
+    a string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex8.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b\w{3}\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A car accident."*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A driver''s license"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: From n to m Times {n,m}
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Matches the preceding item at least n times and at most m times. n and m must
+    be positive integers. We have already seen this pattern in action. But, let’s
+    take a look at another example to better understand how it works:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex10.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**im**{1,2}\w*****?**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"immaculate"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"impact"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"insane"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: Here, the pattern attempts to match a word boundary, followed by the letter
+    “i,” followed by one or two instances of the letter “m.” As a result, it matches
+    any word that begins with “im” or “imm.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: At Least n Times {n,}
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '{n,} is similar to {n,m} in that it matches the preceding item at least n times,
+    but it doesn’t have a second parameter. For example, the regular expression /\d{2,}/
+    matches two or more digits:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/quantifiers/quantifiers_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex9.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\d{2,}**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"1"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"12"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"123"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Similar Quantifiers |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | The pattern {1,}
+    is equivalent to the quantifier +, {0,} is equivalent to *, and {0,1} is equivalent
+    to ?. |'
+  prefs: []
+  type: TYPE_TB
+- en: Use quantifiers to specify the numbers of characters or expressions to match.
+    Different types of quantifiers let you precisely set how many times the preceding
+    item should be matched.
+  prefs: []
+  type: TYPE_NORMAL

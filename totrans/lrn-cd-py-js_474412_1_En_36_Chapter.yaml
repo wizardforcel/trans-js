@@ -1,0 +1,321 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_36](https://doi.org/10.1007/978-3-658-42912-6_36)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '36. Debugging & Error-Handling: How Do I Search for and Fix Errors in a Structured
+    Way?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: To wrap up our introduction to JavaScript, we turn to the unloved but important
+    topic of debugging and error handling. Overall, JavaScript is a bit more robust
+    than other programming languages when it comes to runtime errors. So, where your
+    program would abort with an error message in other languages, JavaScript just
+    keeps running. However, this only makes the handling of runtime errors *seem*
+    easier; special, unusual situations must still be anticipated and handled by you
+    as a programmer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For debugging purposes throughout the development process, the developer tools
+    available in modern browsers include several useful features that you should take
+    full advantage of.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how JavaScript handles runtime errors and what this means for you as a programmer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how you can catch exceptions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use browser debugging tools to find bugs in your programs, especially
+    how to set breakpoints, watch variables, and run your program in single step mode
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 36.1 Error Handling at Runtime
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Runtime errors where the program terminates are rarer in JavaScript than in
+    many other programming languages. The reason is that JavaScript handles some situations
+    that would have thrown an exception in the other languages differently and seeks
+    a less dramatic resolution. For example, if you take the square root of a negative
+    number with **Math.sqrt(-1)**, the return value is simply **NaN**—*n*o*t a number*.
+    If you divide a number by 0, you get **Infinity** (or **-Infinity** if the dividend
+    was negative). If you want to convert a string that is not a number into a number
+    (for example with **Number("abc")**), this conversion again results in **NaN**.
+    In all these cases, many other programming languages would have failed the service
+    and thrown an exception. Not so in JavaScript. JavaScript stubbornly continues
+    to run and only signals through the results of the performed operations that something
+    didn’t quite go as planned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: At first glance, this way of dealing with errors is a good thing for you as
+    a programmer, as it reduces the risk of your program going completely off the
+    rails with some strange exception. However, the fact that no exceptions are thrown
+    does not, of course, mean that your program will do what it is supposed to; after
+    all, whether your JavaScript code will still produce useful results after the
+    user converts a supposed numeric input that was not actually a number at all and
+    therefore produces a **NaN** value is questionable for now. As a developer, you
+    must therefore ensure, through suitable checks, that your program can really cope
+    with all conceivable constellations—even and especially if these constellations
+    do *not* lead to exceptions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, exceptions can of course also occur in JavaScript. For example, if
+    you call the **toLowerCase()** method (that converts a string to lowercase) for
+    a numeric variable, you will get an exception, just as you will if you try to
+    access an HTML element in a script (such as our spreadsheet example from the previous
+    chapter) with an ID that is not actually assigned to any element of the web page.
+    However, errors of this kind are often not caused by circumstances that only occur
+    at runtime but can be detected and corrected during development—at least with
+    sufficient testing. In the fight against such errors, the debugging features of
+    the developer tools in the browser are particularly important supporters. We will
+    deal with them in the next section.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Even though exceptions are less important in JavaScript than in many other
+    languages, JavaScript also supports a Try-Catch construct. It has the following
+    syntax and thus, if you remember our considerations from ► Sect. [16.​2](474412_1_En_16_Chapter.xhtml#Sec2),
+    has a very “classic” structure:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**try** {*// Code that is "tried*}**catch**(err) {*// Code for error handling*}**finally**
+    {*// Code that is always executed in any case*}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**catch** takes as its argument an error object from which you can extract
+    a variety of information, most notably the error name (in the **name** property)
+    and an error message (in the **message** property). If you are particularly interested
+    in which line of your code the exception was thrown, you can query the **line**
+    property of the **err** object (or whatever you want to call the argument of **catch()**
+    in your script).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, you can also create exceptions yourself with the help of the **throw**
+    statement. For example, you could use an exception to test whether the dividend
+    is 0 when dividing two numbers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** a = 10, b = 0;**try** {**if**(b == 0) **throw new**Error(''Division
+    by 0 is impossible!'');}**catch**(myError) {console.log(''An error occurred: '',
+    myError.message);}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, if you don’t catch your own exception, you’ll get a program abort
+    with a suitably dramatic error message in the browser’s JavaScript console, as
+    befits a proper exception!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 36.2 Troubleshooting During Development
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For debugging during development, modern browsers regularly provide some tools
+    that we already learned about in ► Sect. [29.​2.​1](474412_1_En_29_Chapter.xhtml#Sec5).
+    These include breakpoints, variable watching, and step-by-step execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even though we regularly refer to the situation in Google *Chrome* in this section
+    you will find the same or very similar tools in virtually all other modern browsers
+    as well. Even the functionality and way of working are often extremely similar.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To make the following considerations a little more vivid, consider the following
+    example of a web page in which the user can simply enter a number and click a
+    button:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Script with errors**</title>****<noscript>**Please
+    activate JavaScript!**</noscript>****</head>****<body>****<script** src="witherror.js"**></script>****<****form>****<****p>**Number:
+    **<input** type="text" id="number"**></p>****<****p><span** id="result"**></span>****<****p></p>**<**input**
+    type="button" value="Calculate"onclick="calculate()"**>****</form>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For the output of a calculation result we have created a **span** element with
+    the ID **result**. In the web page we included the script **witherror.js**, which
+    also contains the **calculate()** function triggered when the button is clicked.
+    It looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** calculate() {**var** num =\Number(document.getElementById(**''**number**''**).value);num
+    = Math.round(num);num = Math.sqrt(**''**num**''**);var result = document.getElementById(**''**result**''**);result.innerHTML
+    = **''**Root: **''** + num;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, we do nothing here but read in the number entered by the user,
+    round it to an integer, and take the square root from it. We output the result
+    on our **span** element. So far, so good.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you now open the web page in the browser, enter a number and click the button,
+    you get the output **NaN** displayed on the **span** element **result** of the
+    web page. So, the result of the calculation is apparently not a number. To get
+    to the bottom of the problem, you could of course either study the program code,
+    and perhaps you have already noticed the error (which is, of course, completely
+    intentional); or you could simply have the variable **num**, which we work with
+    throughout the script, displayed once after each operation by including appropriate
+    output statements like **console.log(num)** in the program code. Of course, either
+    way will get you there, even if you didn’t have debugging tools available in the
+    browser. Temporarily inserting output statements into program code is probably
+    the most popular debugging method of all because it is both simple and effective.
+    However, especially if the section of code where you suspect the error is very
+    long, you may need a lot of debugging output, or you may need to move an output
+    incrementally farther and farther through the section of code until you find the
+    interesting place where your problem actually is. This is tedious. It is in such
+    cases that it is worth using the debugging tools provided by the browser, and
+    that is what we will use now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you click on the “Sources” tab in the developer tools and then select your
+    JavaScript file, you will see its contents in the middle of the developer tools
+    area. You can see this in ◘ Fig. [36.1](#Fig1).![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the Javascript file under the sources tab. A content page at
+    the center has a set of program codes. The left part consists of a textbox for
+    numbers, the root is N a N, and a calculate button.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 36.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript debugging area in Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the right part of the developer tools area, you will see several expandable
+    and collapsible sub-areas, including the “Breakpoints” subarea. If you click on
+    the line number in front of the code display, a *breakpoint* is set at this point.
+    If you now execute the JavaScript code, in our example by clicking on the button
+    on the web page, the JavaScript code is processed until the breakpoint is reached.
+    Then a situation as shown in ◘ Fig. [36.2](#Fig2) appears. The execution of the
+    program has now stopped before line 3 is executed. In the “Scope” sub-area, you
+    can see variables present in the current scope and their values, in our case the
+    variable **num** with a value of 36\. So, obviously everything is still fine here.
+    We could move breakpoint further below in the code and let the program execute
+    down to this next breakpoint. ◘ Figure [36.3](#Fig3) shows the state of the program
+    at another breakpoint, namely in line 6\. Here we see from the “Scope” subarea
+    on the right that **num** has meanwhile assumed the value **NaN**.![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig2_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the Javascript file under the sources tab. A content page at
+    the center has a set of program codes. Line 3 is executed from it. The number
+    textbox on the left displays as paused in the debugger.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 36.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reached breakpoint in Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig3_HTML.jpg)'
+  prefs: []
+  type: TYPE_IMG
+- en: A screenshot of the Javascript file under the sources tab. A content page at
+    the center has a set of program codes. Line 6 is executed from it. It is paused
+    on a breakpoint.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 36.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reaching a breakpoint, after the error (in line 4)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, something must have happened in lines 3 and 4\. Of course, a closer look
+    immediately reveals the source of the error: In line 4, the function **Math.sqrt()**
+    is not passed the variable **num**, but a string **''num''** as argument (did
+    you see it before?). Obviously, a square root cannot be calculated from a string;
+    but because JavaScript is relatively fault-tolerant, as discussed earlier, **Math.sqrt()**
+    simply returns **NaN** instead of throwing an exception.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead of moving breakpoints, you also have executed the program stepwise from
+    the first breakpoint. Each time you <F9> (“Step”) the next program statement is
+    executed. This way, you would have easily found that the problem comes from line
+    5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: An interesting debugger feature is the possibility to add *event listeners.*
+    This is done in the corresponding sub-area that you can see in ◘ Fig. [36.4](#Fig4).
+    Here you have the option of setting an event breakpoint, i.e., a breakpoint that
+    is triggered whenever a certain event occurs, for example a mouse click. In an
+    event-driven program flow, this variant of the breakpoint is a useful alternative
+    to a breakpoint that attaches to a particular line, especially if you have many
+    event handlers that respond to events of a particular type.![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig4_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the Javascript file under the sources tab. A content page at
+    the center has a set of program codes. The event listener breakpoint is set up
+    on the right. Click is selected under the mouse header.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 36.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: Setting an event breakpoint in Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: Breakpoints can therefore be very useful for diagnosing errors. If you want
+    to continue the program from a breakpoint, click on the Play button in the toolbar
+    above the right part of the debugging area.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the first subsection on the right, the “Watch” subsection, you can set up
+    *variable watches*, that is, expressions entered whose value you want to monitor
+    and take a closer look at when program execution has come to a stop at a breakpoint.
+    The expressions you enter here do not have to be simple variables, as in our example
+    where we are only watching the value of the variable **num**, but you can also
+    enter more complex expressions such as **Math.sqrt(num)>2.8** (a Boolean expression).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 36.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: At the end of the JavaScript part, we looked at error diagnosis and handling.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript is relatively robust against runtime errors, so it rarely terminates
+    with an error message. However, this does not release the programmer from the
+    obligation to ensure that the program does what it is supposed to do, even in
+    exceptional situations.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The Try-Catch construct also provides a way to catch exceptions in JavaScript;
+    the **catch()** statement, when an exception occurs, is automatically passed an
+    error object that you can evaluate to learn more about the exception.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The developer tools of practically all modern browsers provide several useful
+    debugging features for diagnosing errors during development; these debugging features
+    include, in particular, functions for working with breakpoints, for observing
+    the contents of variables, and for executing the program in single-step mode.
+    In addition, event listeners provide the possibility of linking breakpoints to
+    the occurrence of an event as such.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Probably the most frequently used “debugging tool” in practice is the **console.log()**
+    function. Output generated in this way can help to track down the causes of errors
+    in many situations; compared to them, the debugging tools of the developer tools
+    show their strengths especially (but not only) when there are still few clues
+    as to where the source of the error might lie.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

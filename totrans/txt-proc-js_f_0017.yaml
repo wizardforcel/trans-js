@@ -1,0 +1,138 @@
+- en: '| Recipe 7 | Removing HTML Tags from Text with DOMParser() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine you’ve written a web scraper that collects news from the web. The text
+    you grab may contain unwanted HTML elements, like <span>, <img>, <a>, etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What’s worse, it may contain injected JavaScript code that automatically gets
+    executed once you put it on your website. What you need is a function that safely
+    removes all unwanted elements from the text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the parseFromString() method from the DOMParser() interface to parse the
+    string. Once you parse the string, you can use the textContent property to get
+    the text free from any extra HTML tags:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/removing_html_tags/DOMParser_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** stripHTML(html){ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** doc = **new** DOMParser().parseFromString(html, *"text/html"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** doc.body.textContent &#124;&#124; *""*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
+    Rises''*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | stripHTML(rawText); *// → "Fed Signals Smaller Rises"* |'
+  prefs: []
+  type: TYPE_TB
+- en: The DOMParser interface lets you parse XML or HTML code from a string into a
+    DOM Document. In this case, you want to parse HTML, so you pass text/html as the
+    second argument. The result is an HTMLDocument whose text you can extract with
+    textContent.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| DOMParser() in Node |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | The DOMParser()
+    interface is not available in the Node environment. |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The textContent property is available on all text and element nodes. So why
+    parse HTML when you can create a temporary element on the page and get its textContent?
+    Consider this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/removing_html_tags/DOMParser_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Don''t use this* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** stripHTML(html) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** tmp = document.createElement(*"DIV"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | tmp.innerHTML = html; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** tmp.textContent &#124;&#124; *""*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
+    Rises''*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | stripHTML(rawText); *// → "Fed Signals Smaller Rises"* |'
+  prefs: []
+  type: TYPE_TB
+- en: At first glance, this code seems like a more efficient solution because it doesn’t
+    involve parsing the string. But if the source contains malicious code, you’ll
+    leave your code wide open to attacks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Try to strip the following text from HTML, and you’ll see that the JavaScript
+    code hidden in the onerror attribute gets executed:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/removing_html_tags/DOMParser_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** rawText = *"<img onerror=''alert(**\"**execute JS here**\"**)''
+    src=untrusted>"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: Although you’re inserting the text into a temporary tag, the browser still loads
+    the image, and the embedded JavaScript code gets a chance to rear its head.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember to remove HTML tags from the text when scraping and using text from
+    external sources. A quick way to do that is to use the DOMParser interface to
+    parse the data and then extract text with textContent.
+  prefs: []
+  type: TYPE_NORMAL

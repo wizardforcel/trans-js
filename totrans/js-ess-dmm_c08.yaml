@@ -1,0 +1,492 @@
+- en: Chapter 8
+  prefs: []
+  type: TYPE_NORMAL
+- en: Coding Strings and Dates
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Stringing together strings**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Dealing with dates**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Tinkering with times**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Although your JavaScript code will spend much of its time dealing with web
+    page knickknacks such as HTML tags and CSS properties, it will also perform lots
+    of behind-the-scenes chores that require manipulating strings and dealing with
+    dates and times. To help you through these tasks, in this chapter you explore
+    two of JavaScript’s built-in objects: the `String` object and the `Date` object.
+    You investigate the most important properties of each object and master the most
+    used methods.  ## Manipulating Strings'
+  prefs: []
+  type: TYPE_NORMAL
+- en: I’ve used dozens of examples of strings so far in this book. These include not
+    only string literals (such as `"JavaScript Essentials For Dummies"`) but also
+    methods that return strings (such as the `prompt()` method). So, it should be
+    clear by now that strings play a major role in all JavaScript programming, and
+    it will be a rare script that doesn’t have to deal with strings in some fashion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For this reason, it pays to become proficient at manipulating strings, which
+    includes locating text within a string and extracting text from a string. You’ll
+    find out about all that and more in this section.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Any string you work with — whether it’s a string literal or the result of a
+    method or function that returns a string — is a `String` object. So, for example,
+    the following two statements are equivalent:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const bookName = new String("JavaScript Essentials For Dummies"); const bookName
+    = "JavaScript Essentials For Dummies";`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This means that you have quite a bit of flexibility when applying the properties
+    and methods of `String` objects. For example, the `String` object has a `length`
+    property that I describe in the next section. The following are all legal JavaScript
+    expressions that use this property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`bookName.length; "JavaScript Essentials For Dummies".length; prompt("Enter
+    the book name:").length; myFunction().length;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The last example assumes that `myFunction()` returns a string value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Working with string templates'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Before diving in to the properties and methods of the `String` object, take
+    a second to examine a special type of string that’s designed to solve three string-related
+    problems that will come up again and again in your coding career:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Handling internal quotation marks:** String literals are surrounded by quotation
+    marks, but what do you do when you need the same type of quotation mark inside
+    the string?'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'One solution is to use a different type of quotation mark to delimit the string.
+    For example, this is illegal:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '`''There''s got to be some better way to do this.''`'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'But this is fine:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '`"There''s got to be some better way to do this."`'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'A second solution is to escape the internal quotation mark with a slash, like
+    so:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '`''There\''s got to be some better way to do this.''`'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: These solutions work fine, but *remembering* to use them is harder than you
+    may think!
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '**Incorporating variable values:** When you need to use the value of a variable
+    inside a string, you usually end up with something ungainly, such as the following:
+    `const adjective = "better"; const lament = "There''s got to be some " + adjective
+    + " way to do this.";`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Multiline strings:** It’s occasionally useful to define a string using multiple
+    lines. However, if you try the following, you’ll get a `string literal contains
+    an unescaped line break` error: `const myHeader = '' <nav class="banner"> <h3
+    class="nav-heading">Navigation</h3> <ul class="nav-links"> <li>Home</li> <li>Away</li>
+    <li>In Between</li> </ul> </nav>''`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'You can solve all three problems by using a *string template* (also called
+    a *template literal*), which is a kind of string literal where the delimiting
+    quotation marks are replaced by back ticks (`` ` ``):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`` `*Your string goes here*` ``'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) String templates were introduced as part of
+    ECMAScript 2015 (ES6), so use them only if you don’t need to support ancient web
+    browsers such as Internet Explorer 11.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how you can use a string template to solve each of the three problems
+    just described:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Handling internal quotation marks:** You’re free to plop any number of single
+    or double quotation marks inside a string template: `` `Ah, here''s the better
+    way to do this!` ``'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Incorporating variable values:** String templates support something called
+    *variable interpolation,* which is a technique for referencing a variable value
+    directly within a string. Here’s an example: ``const adjective = "better"; const
+    paean = `Ah, here''s the ${adjective} way to do this!`;``'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Within any string template, using `${*variable*}` inserts the value of *`variable`*,
+    no questions asked. Actually, you don’t have to stick to just variables. String
+    templates can also interpolate any JavaScript expression, including function results.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '**Multiline strings:** String templates are happy to work error free with strings
+    that are spread over multiple lines: `` const myHeader = ` <nav class="banner">
+    <h3 class="nav-heading">Navigation</h3> <ul class="nav-links"> <li>Home</li> <li>Away</li>
+    <li>In Between</li> </ul> </nav>` ``  ### Determining the length of a string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The most basic property of a `String` object is its `length`, which tells you
+    how many characters are in the string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*string*.length`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: All characters within the string — including spaces and punctuation marks —
+    are counted toward the length. The only exceptions are escape sequences (such
+    as `\n`), which always count as one character. The following code grabs the length
+    property value for various `String` object types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function myFunction() { return "filename.htm"; } const bookName = "JavaScript
+    Essentials For Dummies";  length1 = myFunction().length; // Returns 12 length2
+    = bookName.length; // Returns 37 length3 = "123\n5678".length; // Returns 8`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What the `String` object lacks in properties, it more than makes up for in
+    methods. There are dozens, and they enable your code to perform many useful tasks,
+    from converting between uppercase and lowercase letters, to finding text within
+    a string, to extracting parts of a string.  ### Searching for substrings'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A *substring* is a portion of an existing string. For example, some substrings
+    of the string `"JavaScript"` would be `"Java"`, `"Script"`, `"vaSc"`, and `"v"`.
+    When working with strings in your scripts, you’ll often have to determine whether
+    a given string contains a given substring. For example, if you’re validating a
+    user’s email address, you should check that it contains an @ symbol.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Table 8-1](#c08-tbl-0001) lists the several `String` object methods that find
+    substrings within a larger string.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[TABLE 8-1](#rc08-tbl-0001) String Object Methods for Searching for Substrings'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Method** | **What It Does** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string*.endsWith(*substring*, *start*)` | Tests whether *`substring`* appears
+    at the end of *`string`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string*.includes(*substring, start*)` | Tests whether *`substring`* appears
+    in *`string`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string*.indexOf(*substring, start*)` | Searches *`string`* for the first
+    instance of *`substring`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string*.lastIndexOf(*substring*, *start*)` | Searches *`string`* for the
+    last instance of *`substring`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`string.startsWith(substring, start)`* | Tests whether *`substring`* appears
+    at the beginning of *`string`* |  ### Learning the methods that extract substrings'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finding a substring is one thing, but you’ll often have to extract a substring,
+    as well. For example, if the user enters an email address, you may need to extract
+    just the username (the part to the left of the @ sign) or the domain name (the
+    part to the right of @). For these kinds of operations, JavaScript offers six
+    methods, listed in [Table 8-2](#c08-tbl-0002).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[TABLE 8-2](#rc08-tbl-0002) String Object Methods for Extracting Substrings'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Method** | **What It Does** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string.*charAt(*index*)` | Returns the character in *`string`* that’s at
+    the index position specified by *`index`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `string.charCodeAt(*index*)` | Returns the code of the character in *`string`*
+    that’s at the index position specified by *`index`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `string.slice(*start*, *end*)` | Returns the substring in *`string`* that
+    starts at the index position specified by *`start`* and ends immediately before
+    the index position specified by *`end`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `string.split(*separator*, *limit*)` | Returns an array where each item is
+    a substring in *`string`,* where those substrings are separated by the *`separator`*
+    character |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `string.substr(*start*, *length*)` | Returns the substring in *`string`*
+    that starts at the index position specified by *`start`* and is *`length`* characters
+    long |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*string.*substring(start*,* end)` | Returns the substring in *`string`*
+    that starts at the index position specified by *`start`* and ends immediately
+    before the index position specified by *`end`* |  ## Dealing with Dates and Times'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dates and times seem like the kind of things that ought to be straightforward
+    programming propositions. After all, there are only 12 months in a year, 28 to
+    31 days in a month, seven days in a week, 24 hours in a day, 60 minutes in an
+    hour, and 60 seconds in a minute. Surely something so set in stone couldn’t get
+    even the least bit weird, could it?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You’d be surprised. Dates and times *can* get strange, but they get much easier
+    to deal with if you always keep three crucial points in mind:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript time is measured in milliseconds, or thousandths of a second. More
+    specifically, JavaScript measures time by counting the number of milliseconds
+    that elapsed between January 1, 1970 and the date and time in question. So, for
+    example, *you* might come across the date January 1, 2001, and think, “Ah, yes,
+    the start of the new millennium.” *JavaScript,* however, comes across that date
+    and thinks “978220800000.”
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the JavaScript world, time began on January 1, 1970, at midnight Greenwich
+    Mean Time. Dates before that have *negative* values in milliseconds.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Because your JavaScript programs run inside a user’s browser, dates and times
+    are almost always the user’s *local* dates and times. That is, the dates and times
+    your scripts will manipulate will *not* be those of the server on which your page
+    resides. This means that you can never know what time the user is viewing your
+    page.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Learning the arguments used with the Date object'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before getting to the nitty-gritty of the `Date` object and its associated methods,
+    I’ll take a second to run through the various arguments that JavaScript requires
+    for many date-related features. This will save me from repeating these arguments
+    tediously later on. [Table 8-3](#c08-tbl-0003) has the details.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[TABLE 8-3](#rc08-tbl-0003) Arguments Associated with the Date Object'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Argument** | **What It Represents** | **Possible Values** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`date`* | A variable name | A `Date` object |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`yyyy`* | The year | Four-digit integers |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`yy`* | The year | Two-digit integers |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`month`* | The month | The full month name from `"January"` to `"December"`
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`mth`* | The month | Integers from 0 (January) to 11 (December) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`dd`* | The day of the month | Integers from 1 to 31 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`hh`* | The hour of the day | Integers from 0 (midnight) to 23 (11:00 PM)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`mm`* | The minute of the hour | Integers from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`ss`* | The second of the minute | Integers from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *`ms`* | The milliseconds of the second | Integers from 0 to 999 |  ### Getting
+    to know the Date object'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Whenever you work with dates and times in JavaScript, you work with an instance
+    of the `Date` object. More to the point, when you deal with a `Date` object in
+    JavaScript, you deal with a specific moment in time, down to the millisecond.
+    A `Date` object can never be a block of time, and it’s not a kind of clock that
+    ticks along while your script runs. Instead, the `Date` object is a temporal snapshot
+    that you use to extract the specifics of the time it was taken: the year, month,
+    date, hour, and so on.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '#### Specifying the current date and time'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The most common use of the `Date` object is to store the current date and time.
+    You do that by invoking the `Date()` function, which is the constructor function
+    for creating a new `Date` object. Here’s the general format:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const dateToday = new Date();`  #### Specifying any date and time'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you need to work with a specific date or time, you need to use the `Date()`
+    function’s arguments. There are five versions of the `Date()` function syntax
+    (refer to the list of arguments near the beginning of this chapter):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const *date* = new Date("*month dd*, *yyyy hh*:*mm*:*ss*"); const *date* =
+    new Date("*month dd*, *yyyy*"); const *date* = new Date(*yyyy*, *mth*, *dd*, *hh*,
+    *mm*, *ss*); const *date* = new Date(*yyyy*, *mth*, *dd*); const *date* = new
+    Date(*ms*);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following statements give you an example for each syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const myDate = new Date("August 23, 2024 3:02:01"); const myDate = new Date("August
+    23, 2024"); const myDate = new Date(2024, 8, 23, 3, 2, 1); const myDate = new
+    Date(2024, 8, 23); const myDate = new Date(1692763200000);`  ### Getting info
+    about a date'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When your script just coughs up whatever `Date` object value you stored in the
+    variable, the results aren’t particularly appealing. If you want to display dates
+    in a more attractive format, or if you want to perform arithmetic operations on
+    a date, you need to dig a little deeper into the `Date` object to extract specific
+    information such as the month, year, hour, and so on. You do that by using the
+    `Date` object methods listed in [Table 8-4](#c08-tbl-0004).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[TABLE 8-4](#rc08-tbl-0004) Date Object Methods That Extract Date Values'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Method Syntax** | **What It Returns** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getFullYear()` | The year as a four-digit number (1999, 2000, and
+    so on) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getMonth()` | The month of the year; from 0 (January) to 11 (December)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getDate()` | The date in the month; from 1 to 31 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getDay()` | The day of the week; from 0 (Sunday) to 6 (Saturday)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getHours()` | The hour of the day; from 0 (midnight) to 23 (11:00
+    PM) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getMinutes()` | The minute of the hour; from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getSeconds()` | The second of the minute; from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getMilliseconds()` | The milliseconds of the second; from 0 to 999
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.getTime()` | The milliseconds since January 1, 1970 GMT |  ### Setting
+    the date'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you perform date arithmetic, you often have to change the value of an existing
+    `Date` object. For example, an e-commerce script may have to calculate a date
+    that is 90 days from the date that a sale occurs. It’s usually easiest to create
+    a `Date` object and then use an expression or literal value to change the year,
+    month, or some other component of the date. You do that by using the `Date` object
+    methods listed in [Table 8-5](#c08-tbl-0005).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[TABLE 8-5](#rc08-tbl-0005) Date Object Methods That Set Date Values'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Method Syntax** | **What It Sets** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setFullYear(*yyyy*)` | The year as a four-digit number (1999, 2000,
+    and so on) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setMonth(*mth*)` | The month of the year; from 0 (January) to 11
+    (December) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setDate(*dd*)` | The date in the month; from 1 to 31 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setHours(*hh*)` | The hour of the day; from 0 (midnight) to 23 (11:00
+    PM) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setMinutes(*mm*)` | The minute of the hour; from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setSeconds(*ss*)` | The second of the minute; from 0 to 59 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setMilliseconds(*ms*)` | The milliseconds of the second; from 0 to
+    999 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `*date*.setTime(*ms*)` | The milliseconds since January 1, 1970 GMT |'
+  prefs: []
+  type: TYPE_TB

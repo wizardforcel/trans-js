@@ -1,0 +1,131 @@
+- en: 'Chapter 9: Implementing User Authentication and Authorization'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we'll focus on implementing user authentication and authorization
+    to secure our blogging application. User authentication ensures that only registered
+    users can access certain features, while authorization controls the level of access
+    and permissions granted to each user. Let's dive in!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.1 User Model and Registration
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'First, let''s update our User model to include authentication-related fields.
+    In the `models/user.js` file, modify the code as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here, we add the `username`, `email`, and `password` fields to the user schema.
+    The `username` and `email` fields are marked as `required` and `unique`, ensuring
+    each user has a unique username and email address. The `password` field will store
+    the hashed password for security.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To enable user registration, we''ll create a registration route in the `routes/users.js`
+    file. Add the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we handle the `POST` request to the `/register` endpoint. First,
+    we check if the provided username or email already exists in the database. If
+    a user with the same username or email is found, we return a 409 status code with
+    an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the username and email are unique, we hash the password using bcrypt with
+    a cost factor of 10 for security. Then, we create a new user instance with the
+    hashed password and save it to the database.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.2 User Login and Authentication
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Next, let''s implement user login functionality. Update the `routes/users.js`
+    file with the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we handle the `POST` request to the `/login` endpoint. First,
+    we check if a user with the provided username exists in the database. If not,
+    we return a 401 status code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the user is found, we compare the provided password with the stored hashed
+    password using bcrypt. If the passwords match, we generate a JSON Web Token (JWT)
+    using the `jsonwebtoken` library. The JWT will be used for authentication and
+    authorization purposes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The token is then returned as a response to the client.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.3 Protecting Routes with Authentication Middleware
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To protect certain routes and allow only authenticated users to access them,
+    we''ll create an authentication middleware. In the `middleware/auth.js` file,
+    add the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we define an authentication middleware function called `authenticate`.
+    This middleware checks if a JWT token is present in the `Authorization` header
+    of the request. If no token is found, we return a 401 status code with an "Unauthorized"
+    error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a token is present, we verify it using the same secret key used for token
+    generation. If the token is valid, we extract the username from the decoded token
+    and set it in the `req.user` property for future use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.4 Protecting Routes and Implementing Authorization
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Now that we have the authentication middleware, we can protect our routes and
+    implement authorization. In the `routes/posts.js` file, update the code as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we apply the `authenticate` middleware to the `/create`, `/update`,
+    and `/delete` routes. This ensures that only authenticated users can access these
+    routes. The `req.user` property, which contains the username of the authenticated
+    user, can be used for authorization logic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, only authenticated users will be able to create, update, or delete blog
+    posts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.5 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Great job! In this chapter, we implemented user authentication and authorization
+    in our blogging application. We created a registration route for users to sign
+    up, a login route for users to authenticate, and protected certain
+  prefs: []
+  type: TYPE_NORMAL
+- en: routes to ensure only authenticated users can access them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We also implemented a simple authorization mechanism by using the username extracted
+    from the JWT token. This lays the foundation for building more granular access
+    control and permission systems in the future.
+  prefs: []
+  type: TYPE_NORMAL

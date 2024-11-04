@@ -1,0 +1,129 @@
+- en: Dealing with Collisions
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Hash tables are awesome but are not without complications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Continuing our thesaurus example: what happens if we want to add the following
+    entry into our thesaurus?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus[​*"dab"*​] = ​*"pat"*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'First, the computer would hash the key:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: DAB = 4 * 1 * 2 = 8
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then, it would try to add "pat" to our hash table’s cell 8:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_4.png](images/blazing_fast_lookup_with_hashes/hash_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Uh-oh. Cell 8 is already filled with "evil"—literally!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Trying to add data to a cell that is already filled is known as a collision.
+    Fortunately, there are ways around it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One classic approach for handling collisions is known as separate chaining.
+    When a collision occurs, instead of placing a single value in the cell, it places
+    in it a reference to an array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look more carefully at a subsection of our hash table’s underlying data
+    storage:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_5.png](images/blazing_fast_lookup_with_hashes/hash_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'In our example, the computer wants to add "pat" to cell 8, but it already contains
+    "evil". So it replaces the contents of cell 8 with an array, as shown here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_6.png](images/blazing_fast_lookup_with_hashes/hash_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This array contains subarrays, where the first value is the word and the second
+    value is its synonym.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s walk through how a hash table lookup works in this case. Say we look
+    up the following word:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | thesaurus[​*"dab"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The computer takes the following steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It hashes the key: DAB = 4 * 1 * 2 = 8.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: It looks up cell 8\. The computer takes note that cell 8 contains an array of
+    arrays rather than a single value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: It searches through the array linearly, looking at index 0 of each subarray
+    until it finds our key ("dab"). It then returns the value at index 1 of the correct
+    subarray.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s walk through these steps visually.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We hash DAB into 8, so the computer inspects that cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_7.png](images/blazing_fast_lookup_with_hashes/hash_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Because cell 8 contains an array of subarrays, we begin a linear search through
+    each subarray, starting at the first one. We inspect index 0 of the first subarray:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_8.png](images/blazing_fast_lookup_with_hashes/hash_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'It doesn’t contain the key we’re looking for ("dab"), so we move on to index
+    0 of the next subarray:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_9.png](images/blazing_fast_lookup_with_hashes/hash_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We found "dab", which would indicate that the value at index 1 of that subarray
+    ("pat") is the value we’re looking for.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In a scenario where the computer hits upon a cell that references an array,
+    its search can take some extra steps, as it needs to conduct a linear search within
+    an array of multiple values. If somehow all of our data ended up within a single
+    cell of our hash table, our hash table would be no better than an array. So, it
+    actually turns out that the worst-case performance for a hash table lookup is
+    O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because of this, it’s critical that a hash table is designed in such a way that
+    it will have few collisions and, therefore, typically perform lookups in O(1)
+    time rather than O(N) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Luckily, most programming languages implement hash tables and handle these details
+    for us. However, by understanding how it all works under the hood, we can appreciate
+    how hash tables eke out O(1) performance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see how hash tables can be set up to avoid frequent collisions.
+  prefs: []
+  type: TYPE_NORMAL

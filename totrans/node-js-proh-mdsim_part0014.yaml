@@ -1,0 +1,97 @@
+- en: 'Chapter 10: Enhancing User Experience'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we will focus on enhancing the user experience of our blogging
+    application by implementing features such as user profiles and post liking. These
+    features will allow users to personalize their accounts and interact with posts
+    in a more engaging way. Let's get started!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 10.1 User Profiles
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To provide users with personalized profiles, we''ll update the User model and
+    create a user profile route. Let''s begin by modifying the `models/user.js` file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this code, we added two new fields to the user schema: `bio` and `avatar`.
+    The `bio` field will store a short bio or description of the user, while the `avatar`
+    field will hold the URL of the user''s profile picture.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, let''s create a user profile route in the `routes/users.js` file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we created a `GET` route for fetching the user profile. We use
+    the `authenticate` middleware to ensure that only authenticated users can access
+    this route. The `req.user` property contains the authenticated user's username.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the route handler, we use `findOne` to find the user based on the username.
+    We exclude the `password` field from the retrieved user object for security. If
+    the user is found, we send the user object as the response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 10.2 Post Liking
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To allow users to like posts and interact with the content, we''ll update the
+    Post model and create a like route. Let''s start by modifying the `models/post.js`
+    file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we added a `likes` field to the post schema, which will store
+    the number of likes a post has received.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, let''s create a like route in the `routes/posts.js` file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we created a `PUT` route for liking a post. The `authenticate`
+    middleware ensures that only authenticated users can access this route. We extract
+    the `postId` from the request parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside the route handler, we first find the post based on the `postId`. If the
+    post is not found, we return a 404 status code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we check if the user has already liked the post by checking if their username
+    is present in the `likes` array of the post. If they have already liked the post,
+    we return a 400 status code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the user has not liked the post, we increment the `likesCount` field and
+    add the user's username to the `likes` array. We then save the updated post and
+    send a success message as the response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 10.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Congratulations! In this chapter, we implemented user profiles and post liking
+    features to enhance the user experience of our blogging application. Users can
+    now personalize their profiles with a bio and avatar, as well as interact with
+    posts by liking them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: These features add a layer of personalization and engagement, making the application
+    more enjoyable for users.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,151 @@
+- en: Implementing a Linked List
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Some programming languages, such as Java, come with linked lists built into
+    the language. Many languages don’t, but it’s fairly simple to implement them on
+    our own.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s create our own linked list using JavaScript. We’ll use two classes to
+    implement this: Node and LinkedList. Let’s create the Node class first:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ Node { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(data) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data = data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.nextNode = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ Node; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The Node class has two attributes: data contains the node’s primary value (for
+    example, the string "a"), while nextNode contains the link to the next node in
+    the list. We can use this class as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ node1 = ​**new**​ Node(​*''once''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ node2 = ​**new**​ Node(​*''upon''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ node3 = ​**new**​ Node(​*''a''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ node4 = ​**new**​ Node(​*''time''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node1.nextNode = node2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node2.nextNode = node3; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node3.nextNode = node4; |'
+  prefs: []
+  type: TYPE_TB
+- en: With this code, we’ve created a list of four nodes that serve as a list containing
+    the strings ’once’, ’upon’, ’a’, and ’time’.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that in our implementation, the nextNode refers to another Node instance
+    rather than an actual memory address number. The effect, however, is the same—the
+    nodes are likely dispersed throughout the computer’s memory, and yet we can use
+    the nodes’ links to string the list together.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Going forward, then, we’re simply going to discuss each link as pointing to
+    another node rather than to a specific memory address. Accordingly, we’re going
+    to use simplified diagrams to depict linked lists, such as this one:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/once_upon_a_time.png](images/pitting_linked_lists_against_arrays/once_upon_a_time.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Each node in this diagram consists of two cells. The first cell contains the
+    node’s data, and the second cell points to the next node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This reflects our implementation of the Node class. In it, the data method returns
+    the node’s data, while the nextNode method returns the next node in the list.
+    In this context, the nextNode method serves as the node’s link.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'While we’ve been able to create this linked list with the Node class alone,
+    we still need an easy way to tell our program where the linked list begins. To
+    do this, we’ll create a LinkedList class in addition to our previous Node class.
+    Here’s the LinkedList class in its basic form:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Node ​**from**​ ​*''./node.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ LinkedList { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(firstNode=​**null**​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Note that we import node at the beginning of our code, since we placed the Node
+    class in a separate file from this LinkedList class.
+  prefs: []
+  type: TYPE_NORMAL
+- en: At this point, all a LinkedList instance does is keep track of the first node
+    of the list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Previously we created a chain of nodes containing node1, node2, node3, and
+    node4. We can now use our LinkedList class to reference this list by writing the
+    following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ list = ​**new**​ LinkedList(node1); |'
+  prefs: []
+  type: TYPE_TB
+- en: This list variable now acts as a handle on the linked list, as it’s an instance
+    of LinkedList that has access to the list’s first node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'An important point emerges: when dealing with a linked list, we have immediate
+    access only to its head. This is going to have serious ramifications, as we’ll
+    see shortly.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'At first glance, though, linked lists and arrays are similar—they’re both just
+    lists of stuff. When we dig into the analysis, though, we’ll see some dramatic
+    differences in these two data structures’ performances! Let’s jump into the four
+    classic operations: reading, searching, insertion, and deletion.'
+  prefs: []
+  type: TYPE_NORMAL

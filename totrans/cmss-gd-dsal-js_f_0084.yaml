@@ -1,0 +1,441 @@
+- en: Hash Tables for Speed
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: While hash tables are a perfect fit for paired data, they can also be used to
+    make your code faster—even if your data doesn’t exist as pairs. And this is where
+    things get exciting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a simple array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | const array = [61, 30, 91, 11, 54, 38, 72]; |'
+  prefs: []
+  type: TYPE_TB
+- en: If you want to search for a number in this array, how many steps would it take?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because the array is unordered, you’d have to perform a linear search, which
+    would take N steps—you learned this back at the beginning of the book.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, what would happen if we ran some code that would convert these numbers
+    into a hash table that looked like this?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ hashTable = {61: ​**true**​, 30: ​**true**​, 91: ​**true**​,
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 11: ​**true**​, 54: ​**true**​, 38: ​**true**​, 72: ​**true**​} |'
+  prefs: []
+  type: TYPE_TB
+- en: Here, we’ve stored each number as a key and assigned the Boolean true as the
+    associated value for each number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, if I asked you to search this hash table for a certain number as a key,
+    how many steps would it take?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Well, I could use this simple code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | hashTable[72] |'
+  prefs: []
+  type: TYPE_TB
+- en: And I could look up the number 72 in a single step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In other words, by doing a hash table lookup using 72 as the key, I can determine
+    in one step whether the 72 is present in the hash table. The reasoning is straightforward:
+    if 72 is a key in the hash table, I’d get back true, since the 72 has true as
+    its value. On the other hand, if the 72 is not a key in the hash table, I’d get
+    back undefined.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since doing a hash table lookup takes just one step, I can therefore find any
+    number in the hash table (as a key) in one step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Can you see the magic?
+  prefs: []
+  type: TYPE_NORMAL
+- en: By converting an array into a hash table in this way, we can go from O(N) searches
+    to O(1) searches.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s what’s interesting about using a hash table in this way. Even though
+    hash tables are often used for naturally paired data, our data here is not paired.
+    We just care about a list of single numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While we did assign a value to each key, it doesn’t really matter what the value
+    is. We used true as the value for each key, but any arbitrary value (that is “truthy”)
+    would achieve the same results.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The trick here is that by placing each number in the hash table as a key, we
+    can later look up each of those keys in one step. If our lookup returns any value,
+    it means the key itself must be in the hash table. If we get back undefined, then
+    the key must not be in the hash table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: I refer to using a hash table in this way as “using it as an index.” (It’s my
+    own term.) An index at the back of a book tells you whether the topic can be found
+    in the book instead of you having to flip through all the pages to find it. Here
+    as well, we created the hash table to serve as a kind of index; in our case, it’s
+    an index that tells us whether a specific item is contained within the original
+    array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s use this technique to boost the speed of a very practical algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Array Subset
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s say we need to determine whether one array is a subset of another array.
+    Take these two arrays, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [​*"a"*​, ​*"b"*​, ​*"c"*​, ​*"d"*​, ​*"e"*​, ​*"f"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​*"b"*​, ​*"d"*​, ​*"f"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: The second array, ["b", "d", "f"], is a subset of the first array, ["a", "b",
+    "c", "d", "e", "f"], because every value of the second array is contained within
+    the first array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, say our arrays were these:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [​*"a"*​, ​*"b"*​, ​*"c"*​, ​*"d"*​, ​*"e"*​, ​*"f"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​*"b"*​, ​*"d"*​, ​*"f"*​, ​*"h"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: The second array is not a subset of the first array, because the second array
+    contains the value "h", which does not exist within the first array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How would we write a function that compares two arrays and lets us know if one
+    is a subset of the other?
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way we can do this is by using nested loops. Essentially, we’d iterate through
+    every element of the smaller array, and for each element in the smaller array,
+    we’d then begin a second loop that iterates through each element of the larger
+    array. If we ever find an element in the smaller array that isn’t contained within
+    the larger array, our function will return false. If the code gets past the loops,
+    it means it never encountered a value in the smaller array that wasn’t contained
+    within the larger array, so it returns true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a JavaScript implementation of this approach:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ isSubset(array1, array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ foundMatch; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ largerArray; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ smallerArray; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Determine which array is smaller:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array1.length > array2.length) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | largerArray = array1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | smallerArray = array2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | largerArray = array2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | smallerArray = array1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Iterate through smaller array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ smallerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Assume temporarily that the current value from*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// smaller array is not found in larger array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | foundMatch = ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// For each value in smaller array, iterate through*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// larger array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ largerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If the two values are equal, it means the current*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// value in smaller array is present in the larger array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i === j) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | foundMatch = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If the current value in smaller array doesn''t exist*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// in larger array, return false:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!foundMatch) { ​**return**​ ​**false**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If we get to the end of the loops, it means that all*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// values from smaller array are present in larger array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: When we analyze the efficiency of this algorithm, we find that it’s O(N * M)
+    since it runs for the number of items in the first array multiplied by the number
+    of items in the second array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, let’s harness the power of a hash table to dramatically improve the efficiency
+    of our algorithm. Let’s ditch our original approach and start again from scratch.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our new approach, after we’ve determined which array is larger and which
+    is smaller, we’re going to run a single loop through the larger array and store
+    each value inside of a hash table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ largerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | hashTable[value] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this code snippet, we create an empty hash table inside the hashTable variable.
+    Then we iterate through each value in the largerArray and add the item from the
+    array to the hash table. We add the item itself as a key, and true as the value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For the earlier example, ["a", "b", "c", "d", "e", "f"], once we’ve run it
+    through this loop, we end up with a hash table that looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"a"*​: ​**true**​, ​*"b"*​: ​**true**​, ​*"c"*​: ​**true**​, ​*"d"*​:
+    ​**true**​, ​*"e"*​: ​**true**​, ​*"f"*​: ​**true**​} |'
+  prefs: []
+  type: TYPE_TB
+- en: This becomes our “index” that will allow us to conduct O(1) lookups of these
+    items later on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, here’s the brilliant part. Once the first loop is complete and we have
+    this hash table to work with, we can then begin a second (non-nested) loop that
+    iterates through the smaller array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ smallerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!hashTable[value]) { ​**return**​ ​**false**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This loop looks at each item in the smallerArray and checks to see whether it
+    exists as a key inside the hashTable. Remember, the hashTable stores all the items
+    from largerArray as its keys. So if we find an item in hashTable, it means the
+    item is also in largerArray. And if we don’t find an item in hashTable, it means
+    it’s also not inside the largerArray.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So for each item in smaller_array, we check whether it’s a key in hashTable.
+    If it’s not, that means the item isn’t contained within the largerArray, and the
+    smallerArray is therefore not a subset of the larger array, and we return false.
+    (However, if we get past this loop, it means the smaller array is a subset of
+    the larger one.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s put this all together in one complete function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ isSubset(array1, array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ largerArray; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ smallerArray; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Determine which array is smaller:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array1.length > array2.length) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | largerArray = array1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | smallerArray = array2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | largerArray = array2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | smallerArray = array1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ largerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | hashTable[value] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ smallerArray) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!hashTable[value]) { ​**return**​ ​**false**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, how many steps did this algorithm take? We iterated through each item of
+    the larger array once to build the hash table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And we iterated through each item of the smaller array, taking just one step
+    per item to look up the item in the hash table. Remember, a hash table lookup
+    takes just one step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we say that N is the total number of items of both arrays combined, our algorithm
+    is O(N), since we touched each item just once. We spent one step on each item
+    from the larger array, followed by one step on each item from the smaller array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: That’s a huge win over our first algorithm, which was O(N * M).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This technique of using a hash table as an “index” comes up frequently in algorithms
+    that require multiple searches within an array; that is, if your algorithm will
+    need to keep searching for values inside an array, each search would itself take
+    up to N steps. By creating a hash table “index” of the array, we reduce each search
+    to only one step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As I pointed out, what makes this technique particularly interesting is that
+    when using a hash table as an “index,” we aren’t even dealing with naturally paired
+    data. Instead, we just want to know whether the key itself is in the hash table.
+    When we use the key to perform a lookup in the hash table and receive any value
+    (no matter how arbitrary it is), it means the key must be present in the hash
+    table.
+  prefs: []
+  type: TYPE_NORMAL

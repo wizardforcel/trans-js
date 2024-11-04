@@ -1,0 +1,963 @@
+- en: Chapter 20
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0204.xhtml#tips.for.code.optimization.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can optimize this algorithm if we ask ourselves, “If I could magically find
+    a desired piece of information in O(1) time, can I make my algorithm faster?”
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Specifically, as we iterate over one array, we’d want to “magically” look up
+    that athlete from the other array in O(1) time. To accomplish this, we can first
+    transform one of the arrays into a hash table. We’ll use the full name (that is,
+    the first and last name) as the key, and true (or any arbitrary item) as the value.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Once we’ve turned one array into this hash table, we then iterate over the other
+    array. As we encounter each athlete, we do an O(1) lookup in the hash table to
+    see if that athlete already plays the other sport. If they do, we add that athlete
+    to our multisportAthletes array, which we return at the end of the function.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code for this approach:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ findMultisportAthletes(array1, array2) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ multisportAthletes = []; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ athlete ​**of**​ array1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | hashTable[​*`*​${athlete.firstName}​​${athlete.lastName}​*`*​] = ​**true**​;
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ athlete ​**of**​ array2) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (hashTable[​*`*​${athlete.firstName}​​${athlete.lastName}​*`*​])
+    { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | multisportAthletes.push(​*`*​${athlete.firstName}​​${athlete.lastName}​*`*​);
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ multisportAthletes; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: This algorithm is O(N + M) since we iterate through each set of players just
+    once.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: For this algorithm, generating examples to find a pattern will be immensely
+    helpful.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Let’s take an array that has six integers and see what would happen if we removed
+    a different integer each time:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | [1, 2, 3, 4, 5, 6] : missing 0: sum = 21 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [0, 2, 3, 4, 5, 6] : missing 1: sum = 20 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [0, 1, 3, 4, 5, 6] : missing 2: sum = 19 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [0, 1, 2, 4, 5, 6] : missing 3: sum = 18 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [0, 1, 2, 3, 5, 6] : missing 4: sum = 17 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [0, 1, 2, 3, 4, 6] : missing 5: sum = 16 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Hmm. When we remove the 0, the sum is 21\. When we remove the 1, the sum is
+    20\. And when we remove the 2, the sum is 19, and so on. This definitely seems
+    like a pattern!
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Before we go further, let’s call the 21 in this case the “full sum.” This is
+    the sum of the array when it’s just missing the 0.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: If we analyze these cases carefully, we’ll see that the sum of any array is
+    less than the full sum by the amount of the missing number. For example, when
+    we’re missing the 4, the sum is 17, which is four less than 21\. And when we’re
+    missing the 1, the sum is 20, which is one less than 21.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: So we can begin our algorithm by calculating what the full sum is. We can then
+    subtract the actual sum from the full sum, and that will be our missing number.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code for this:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ findMissingNumber(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ fullSum = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ num = 1; num <= array.length; num += 1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | fullSum += num; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentSum = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ num ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentSum += num; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ fullSum - currentSum; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: This algorithm is O(N). It takes N steps to calculate the full sum and then
+    another N steps to calculate the actual sum. This is 2N steps, which reduces to
+    O(N).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: We can make this function much faster if we use a greedy algorithm. (Perhaps
+    this shouldn’t be a surprise given that our code is trying to make the greatest
+    possible profit on stocks.)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: To make the most profit, we want to buy as low as possible and sell as high
+    as possible. Our greedy algorithm begins by assigning the very first price to
+    be the buyPrice. We then iterate over all the prices, and as soon as we find a
+    lower price, we make it the new buyPrice.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Similarly, as we iterate over the prices, we check how much profit we’d make
+    if we sold at that price. This is calculated by subtracting the buyPrice from
+    the current price. In good greedy fashion, we save this profit in a variable called
+    greatestProfit. As we iterate through all the prices, whenever we find a greater
+    profit, we turn that into the greatestProfit.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: By the time we’re done looping through the prices, the greatestProfit will hold
+    the greatest possible profit we can make by buying and selling the stock one time.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code for our algorithm:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ findGreatestProfit(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ buyPrice = array[0]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestProfit = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ price ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ potentialProfit = price - buyPrice; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (price < buyPrice) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | buyPrice = price; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (potentialProfit > greatestProfit) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | greatestProfit = potentialProfit; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestProfit; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Because we iterate over the N prices just once, our function takes O(N) time.
+    We not only made a lot of money, but we made it fast.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: This is another algorithm where generating examples to find a pattern will be
+    the key to optimizing it.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'As stated in the exercise, it’s possible for the greatest product to be a result
+    of negative numbers. Let’s look at various examples of arrays and their greatest
+    products formed by two numbers:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | [-5, -4, -3, 0, 3, 4] -> Greatest product: 20 (-5 * -4) |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [-9, -2, -1, 2, 3, 7] -> Greatest product: 21 (3 * 7) |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [-7, -4, -3, 0, 4, 6] -> Greatest product: 28 (-7 * -4) |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [-6, -5, -1, 2, 3, 9] -> Greatest product: 30 (-6 * -5) |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | [-9, -4, -3, 0, 6, 7] -> Greatest product: 42 (6 * 7) |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Seeing all these cases may help us realize that the greatest product can only
+    be formed by either the greatest two numbers or the lowest two (negative) numbers.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'With this in mind, we should design our algorithm to keep track of these four
+    numbers:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: The greatest number
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second-to-greatest number
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The lowest number
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second-to-lowest number
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can then compare the product of the two greatest numbers versus the product
+    of the two lowest numbers. And whichever product is greater is the greatest product
+    in the array.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Now, how do we find the greatest two numbers and the lowest two numbers? If
+    we sorted the array, that would be easy. But that’s still O(N log N), and the
+    instructions say that we can achieve O(N).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: In fact, we can find all four numbers in a single pass through the array. It’s
+    time to get greedy again.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code, followed by its explanation:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ greatestProduct(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestNumber = -​**Infinity**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ secondToGreatestNumber = -​**Infinity**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ lowestNumber = ​**Infinity**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ secondToLowestNumber = ​**Infinity**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number >= greatestNumber) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | secondToGreatestNumber = greatestNumber; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | greatestNumber = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number > secondToGreatestNumber) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | secondToGreatestNumber = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number <= lowestNumber) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | secondToLowestNumber = lowestNumber; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | lowestNumber = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number < secondToLowestNumber) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | secondToLowestNumber = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ greatestProductFromTwoHighest = |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | (greatestNumber * secondToGreatestNumber); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ greatestProductFromTwoLowest = (lowestNumber * secondToLowestNumber);
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (greatestProductFromTwoHighest > greatestProductFromTwoLowest)
+    { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestProductFromTwoHighest; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestProductFromTwoLowest; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Before we begin our loop, we set the greatestNumber and secondToGreatestNumber
+    to be negative infinity. This ensures they start out lower than any number currently
+    in the array.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: We then iterate over each number. If the current number is greater than the
+    greatestNumber, we greedily turn the current number into the new greatestNumber.
+    If we’ve already found a secondToGreatestNumber, we reassign the secondToGreatestNumber
+    to be whatever the greatestNumber was before we reached the current number. This
+    ensures the secondToGreatestNumber will indeed be the second-to-greatest number.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: If the current number we’re iterating over is less than the greatestNumber but
+    greater than the secondToGreatestNumber, we update the secondToGreatestNumber
+    to be the current number.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: We follow this same process to find the lowestNumber and the secondToLowestNumber.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Once we’ve found all four numbers, we compute the products from the two highest
+    numbers and the products of the two lowest numbers and return whichever product
+    is greater.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'The key to optimizing this algorithm is the fact that we’re sorting a finite
+    number of values. Specifically, there are only eleven types of temperature readings
+    that we may find in this array, namely:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105 |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Let’s assume our input array is:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | [98, 99, 95, 105, 104, 99, 101, 99, 101, 97] |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'If we imagine our array of temperatures as a hash table, we can store each
+    temperature as a key and the number of occurrences as the value. This would look
+    something like this:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | {98: 1, 99: 3, 95: 1, 105: 1, 104: 1, 101: 2, 97:1} |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: With this in mind, we can run a loop that runs from 95 up through 105 and checks
+    the hash table for how many occurrences of that temperature there are. Each of
+    these lookups take just O(1) time.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Then we use that number of occurrences to populate a new array. Because our
+    loop is set to go up from 95 through 105, our array will end up in perfect ascending
+    order.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code for this:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sortTemperatures(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ temperature ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (hashTable[temperature]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | hashTable[temperature] += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | hashTable[temperature] = 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ sortedTemperatures = []; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ temperature = 95; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (temperature <= 105) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (hashTable[temperature]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < hashTable[temperature]; i += 1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | sortedTemperatures.push(temperature); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | temperature += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ sortedTemperatures; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Let’s now analyze the efficiency of this algorithm. We take N steps to create
+    the hash table. We then run a loop eleven times for all possible temperatures
+    from 95 up to 105.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: In each round of this loop, we run a nested loop to populate the sortedTemperatures
+    with the temperatures. However, this inner loop will never end up running more
+    times than the N temperatures from the input array. This is because the inner
+    loop only runs one time for each temperature in the original array.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Thus, we have N steps to create the hash table, eleven steps for the outer loop,
+    and N steps for the inner loop. This is 2N + 11, which is reduced to a beautiful
+    O(N).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: This algorithm is a classic sorting algorithm called counting sort. It’s useful
+    any time we’re dealing with a relatively small range of possible input values,
+    such as our case where there are only eleven possible values.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: This optimization employs the most brilliant use of magical lookups that I’ve
+    ever seen.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Imagine we’re iterating over the array of numbers and we encounter a 5\. Let’s
+    ask ourselves the magical lookup question: “If I could magically find a desired
+    piece of information in O(1) time, can I make my algorithm faster?”'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Well, to determine whether the 5 is part of the longest consecutive sequence,
+    we’d want to know whether there’s a 6 in the array. We’d also want to know if
+    there’s a 7, and an 8, and so on.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'We can achieve each of those lookups in O(1) time if we first store all the
+    numbers from our array in a hash table; that is, the array [10, 5, 12, 3, 55,
+    30, 4, 11, 2] could look like this if we moved the data to a hash table:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | {10: true, 5: true, 12: true, 3: true, 55: true, |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | 30: true, 4: true, 11: true, 2: true} |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: In this case, if we encounter the 2, we can then run a loop that keeps checking
+    for the next number in the hash table. If it finds it, we increase the length
+    of the current sequence by one. The loop repeats this process until it can’t find
+    the next number in the sequence. Each of these lookups takes just one step.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: But, you may ask, how does this help? Imagine our array is [6, 5, 4, 3, 2, 1].
+    When we iterate over the 6, we’ll find that there isn’t a sequence that builds
+    up from there. When we reach the 5, we’ll find the sequence 5-6\. When we reach
+    the 4, we’ll find the sequence 4-5-6\. When we reach the 3, we’ll find the sequence
+    3-4-5-6, and so on. We’ll still end up going through about N² / 2 steps finding
+    all those sequences.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: The answer is that we’ll only start building a sequence if the current number
+    is the bottom number of the sequence. So we won’t build 4-5-6 when there’s a 3
+    in the array.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: But how do we know if the current number is the bottom of a sequence? By doing
+    a magical lookup!
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: How? Before running a loop to find a sequence, we’ll do an O(1) lookup of the
+    hash table to check whether there’s a number that’s 1 less than current number.
+    So if the current number is 4, we’ll first check to see whether there’s a 3 in
+    the array. If there is, we won’t bother to build a sequence. We only want to build
+    a sequence starting from the bottom number of that sequence; otherwise we have
+    redundant steps.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the code for this:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ longestSequenceLength(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestSequenceLength = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | hashTable[number] = ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!hashTable[number - 1]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentSequenceLength = 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNumber = number; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (hashTable[currentNumber + 1]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNumber += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentSequenceLength += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentSequenceLength > greatestSequenceLength) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | greatestSequenceLength = currentSequenceLength; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestSequenceLength; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: In this algorithm, we take N steps to build the hash table. We take another
+    N steps to iterate through the array. And we take about another N steps looking
+    up numbers in the hash table to build the different sequences. All in all, this
+    is about 3N, which is reduced to O(N).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Copyright © 2024, The Pragmatic Bookshelf.Thank you!
+  prefs: []
+  type: TYPE_NORMAL
+- en: We hope you enjoyed this book and that you’re already thinking about what you
+    want to learn next. To help make that decision easier, we’re offering you this
+    gift.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Head on over to [https://pragprog.com](https://pragprog.com) right now, and
+    use the coupon code BUYANOTHER2024 to save 30% on your next ebook. Offer is void
+    where prohibited or restricted. This offer does not apply to any edition of The
+    Pragmatic Programmer ebook.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And if you’d like to share your own expertise with the world, why not propose
+    a writing idea to us? After all, many of our best authors started off as our readers,
+    just like you. With up to a 50% royalty, world-class editorial services, and a
+    name you trust, there’s nothing to lose. Visit [https://pragprog.com/become-an-author/](https://pragprog.com/become-an-author/)
+    today to learn more and to get started.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Thank you for your continued support. We hope to hear from you again soon!
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Pragmatic Bookshelf
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/Coupon.png](images/Coupon.png)'
+  prefs: []
+  type: TYPE_IMG

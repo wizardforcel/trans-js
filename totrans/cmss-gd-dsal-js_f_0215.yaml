@@ -1,0 +1,115 @@
+- en: Chapter 10
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0103.xhtml#recursively.recurse.with.recursion.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The base case is if (low > high)—that is, we want to stop the recursion once
+    low has exceeded high. Otherwise, we’d end up printing numbers even greater than
+    the high number, and onto infinity.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We’d have infinite recursion! factorial(10) calls factorial(8), which calls
+    factorial(6), which calls factorial(4), which calls factorial(2), which calls
+    factorial(0). Since our base case is if (number === 1), we never end up with number
+    ever being 1, so the recursion continues. factorial(0) calls factorial(-2), and
+    so on.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s say low is 1 and high is 10\. When we call sum(1, 10), that in turn returns
+    10 + sum(1, 9). That is, we return the sum of 10 plus whatever the sum of 1 through
+    9 is. sum(1, 9) ends up calling sum(1, 8), which in turn calls sum(1, 7), and
+    so on.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'We want the last call to be sum(1, 1), in which we simply want to return the
+    number 1. This becomes our base case:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sum(low, high) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (high === low) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ low; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ high + sum(low, high - 1); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'This approach is similar to the file directory example from the text:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ printAllItems(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// If the current value is an array:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (Array.isArray(value)) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | printAllItems(value); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | console.log(value); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: We iterate over each item within the outer array. If the value is itself another
+    array, we recursively call the function on that subarray. Otherwise, it’s the
+    base case where we simply print the value to the screen.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL

@@ -1,0 +1,345 @@
+- en: '| Recipe 71 | Highlighting Sentences Containing a Specific Word |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you aim to add a search feature to your program that highlights all
+    sentences in a text containing a specific word. For example, you are comparing
+    a translated book to the original text, which uses a word with multiple meanings.
+    You need to see not only the word, but the context in which it is used to help
+    check that the proper translation was used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While finding the word using regex is relatively straightforward, identifying
+    the sentence in which it appears is a bit more challenging. To highlight the sentence
+    containing the specified word found in a text, you should write a pattern capable
+    of differentiating between one sentence and another.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Start with writing the JavaScript component, which comprises two primary functions:
+    highlight() and unhighlight(). The highlight() function retrieves the search value
+    entered in an HTML input and applies a regex that identifies the sentence encompassing
+    the search term. By encasing the matched sentence with <mark></mark> tags, you
+    can accomplish your objective:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/highlighting_sentences/highlight_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **const** el = document.querySelector(*"#string"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **function** highlight() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  | *// Get the value of #input* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** keyword = document.querySelector(*"#input"*).value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// If the input is empty don''t execute the rest of the function* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **if**(keyword === *""*) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10:  | **return**; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Remove any existing highlights from the text* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | unhighlight(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 15:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Construct a regular expression* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** re = **new** RegExp(*`([^.!?]*\\b*${keyword}*\\b[^.!?]*.?)`*,
+    *"gi"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Wrap each sentence in a pair of <mark></mark> tags* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 20:  | el.innerHTML = el.innerHTML.replace(re,*"<mark>$1</mark>"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **function** unhighlight() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 25:  | *// Construct a regex that matches <mark> and </mark> tags* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** re = */<**\/?**mark>/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Remove tags by replacing each tag with an empty string* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | el.innerHTML = el.innerHTML.replace(re, *""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 30:  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | document.querySelector(*"#highlight"*).addEventListener(*"click"*, highlight);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | document.querySelector(*"#unhighlight"*).addEventListener(*"click"*,
+    unhighlight); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now, create two HTML buttons: one to initiate highlighting and another to reverse
+    the effect. You also need an input field to type in a search keyword:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <button id=*"highlight"*>Highlight All<*/button***>** |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <button id=*"unhighlight"*>Unhighlight<*/button***>** |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The input element has a default value of “crocodiles.” If you don’t want any
+    text to appear in the input when the page loads, you can remove the value property.
+    To keep things simple, let’s limit the text we want to search to a few sentences:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/highlighting_sentences/highlight_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *<!doctype html>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <html lang=*"en-us"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta charset=*"utf-8"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <script src=*"highlight_ex1.js"* defer></script> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p id=*"string"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Crocodiles are like giant lizards with a serious attitude problem. They''re
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | like the grumpy old men of the animal kingdom, constantly scowling and
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | grunting like they''ve got a bad case of indigestion. But despite their
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | intimidating demeanor, crocodiles do have a soft side. Just try playing
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | them some smooth jazz or offering them a plate of freshly baked cookies
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | —they''ll be putty in your hands. All in all, crocodiles are just |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | misunderstood creatures in need of a little love and a good chiropractor.
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <button id=*"highlight"*>Highlight All</button> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <button id=*"unhighlight"*>Unhighlight</button> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </html> |'
+  prefs: []
+  type: TYPE_TB
+- en: Fantastic! The code now highlights every sentence in the text that includes
+    a particular term.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the JavaScript code, we define two functions and two event listeners. The
+    first function, highlight(), is executed when the user clicks the “highlight”
+    button. Inside the function, we first retrieve the user’s input value and store
+    it in a variable called keyword. If the input is empty, we terminate the function
+    without doing anything. If the input is not empty, we call unhighlight() to remove
+    any existing highlights in the HTML element.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we create a regex pattern that matches any sentence containing the keyword.
+    We use the negated character class [^.!?] to match a single character that is
+    not a dot, exclamation point, or question mark. This allows us to differentiate
+    between one sentence and another. If you want the pattern to identify sentences
+    that end with other punctuation marks, such as a colon, you can include them in
+    the character class.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice Line 17, where we create an instance of the RegExp object instead of
+    a regular expression literal. This is essential because we want to dynamically
+    insert the text from the HTML input into the regex pattern. We also need to use
+    backticks to delimit the pattern instead of double or single quotes. Without backticks,
+    the ${keyword} placeholder wouldn’t function as intended.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pay attention to the presence of the backslash before the word boundary (\b).
+    Because we’re using the word boundary in a RegExp object, it’s necessary to escape
+    it with a backslash.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following is how the regex engine perceives the pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | ([^.!?]*\\b${keyword}\\b[^.!?]*.?) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ([^.!?]*\\b${keyword}\\b[^.!?]*.?) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ [^.!?] matches any character that isn''t ., !, or ? |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches zero or more sequences of the preceding item |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \\b asserts a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ${keyword} inserts the value of the keyword constant into the pattern
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \\b asserts a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ [^.!?] matches any character that isn''t ., !, or ? |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches zero or more sequences of the preceding item |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ . matches any character that''s not a line break character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ? matches zero or one occurrence of the preceding item |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g tells the regex engine to match all occurrences rather than stopping
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | after the first match |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ i makes the search case-insensitive |'
+  prefs: []
+  type: TYPE_TB
+- en: At the end of the function, we use the replace() method to replace all matches
+    of the pattern with the matched string surrounded by <mark></mark>. There are
+    various ways in HTML to denote text that holds significance. In this case, we
+    have opted for the <mark> element, which instructs the web browser to emphasize
+    the enclosed text by highlighting it in yellow.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second function, unhighlight(), is called when the user clicks the “unhighlight”
+    button. It simply creates a regex pattern that matches any <mark> or </mark> tags
+    in the HTML, and then removes those tags using the replace() method. The last
+    two lines of code add the respective event listeners to the “highlight” and “unhighlight”
+    buttons. When each button is clicked, the corresponding function is executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Being cautious while using the input submitted by the user in your regex is
+    crucial. If you don’t verify the input, your program could become vulnerable to
+    a potential attack known as ReDoS. To learn about safeguarding your application
+    from such attacks, see Recipe 66, [*Escaping a String for Use in a Regex*](f_0078.xhtml#rcp.escaping_metacharacters).
+  prefs: []
+  type: TYPE_NORMAL

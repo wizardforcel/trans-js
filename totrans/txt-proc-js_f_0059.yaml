@@ -1,0 +1,124 @@
+- en: '| Recipe 48 | Testing a Pattern with the Negative Lookahead |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to match any two-digit number except 41, 66, and 77 because
+    these are retired jersey numbers, so you want to make sure they don’t get reassigned
+    to a new player.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You could use several character classes matching a range between 00 to 40, 42
+    to 65, 67 to 76, and 78 to 99\. But you’d end up with a very long and complicated
+    pattern. Fortunately, there’s a more compact way to get the same result with lookahead
+    assertions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a negative lookahead assertion denoted by (?! ... ):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/negative_lookahead/negative_lookahead_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/negative_lookahead/negative_lookahead_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */#**(?!**41&#124;66&#124;77**)\d{2}**/* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#00"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#39"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#41"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#66"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#77"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"#98"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: A negative lookahead matches a pattern not followed by another pattern. In this
+    code, the negative lookahead ensures that the string following “#” isn’t “41,”
+    “66,” or “77.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Negative lookahead is a type of non-capturing group denoted by the syntax (?!
+    ... ), where the … represents the pattern that should not be present immediately
+    after the current position in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s examine how the engine interprets the regex /#(?!(41|66|77))\d{2}/ when
+    applied to the string “#39”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | #39 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | &#124; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | # matches a hash sign literally. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #39 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | &#124; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | (?!41&#124;66&#124;77) successfully matches a string that isn''t 41,
+    66, or 77. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | The pointer remains at #. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #39 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | &#124; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | \d matches a digit. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #39 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | &#124; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | \d matches a digit. |'
+  prefs: []
+  type: TYPE_TB
+- en: Lookaheads let you check whether you can match a specific string without actually
+    matching it. Use a negative lookahead when you want to ensure a pattern does not
+    follow another pattern.
+  prefs: []
+  type: TYPE_NORMAL

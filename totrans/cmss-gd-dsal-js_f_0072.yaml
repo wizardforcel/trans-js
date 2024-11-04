@@ -1,0 +1,223 @@
+- en: Get All the Products
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Our next example is an algorithm that accepts an array of numbers and returns
+    the product of every combination of two numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, if we passed in the array [1, 2, 3, 4, 5], the function returns:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [2, 3, 4, 5, 6, 8, 10, 12, 15, 20] |'
+  prefs: []
+  type: TYPE_TB
+- en: This is because we first multiply the 1 by the 2, 3, 4, and 5\. Then we multiply
+    the 2 by the 3, 4, and 5\. Next, we multiply the 3 by the 4 and the 5\. And finally,
+    we multiply the 4 by the 5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note something interesting: when we multiply, say, the 2 by the other numbers,
+    we only have to multiply it by the numbers that are to the right of it. We don’t
+    have to go back and multiply 2 by the 1, because that was already covered back
+    when we multiplied the 1 by the 2\. So each number only needs to be multiplied
+    by the remaining numbers to the right of it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an implementation of this algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ twoNumberProducts(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ products = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ j = i + 1; j < array.length; j += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | products.push(array[i] * array[j]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ products; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s break this down. N is the number of items in the array passed to this
+    function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We run the outer loop N times. (We actually run it N - 1 times, but we’ll drop
+    that constant.) The inner loop, though, is different. Since j always begins one
+    index to the right of i, the inner loop’s number of steps decreases each time
+    that it’s launched by the outer loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see how many times the inner loop runs for our example array, which contains
+    five elements:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When i is 0, the inner loop runs while j is 1, 2, 3, and 4. When i is 1, the
+    inner loop runs while j is 2, 3, and 4. When i is 2, the inner loop runs while
+    j is 3, and 4. When i is 3, the inner loop runs while j is 4. When all is said
+    and done, the inner loop runs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4 + 3 + 2 + 1 times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To put this in terms of N, we can say that the inner loop runs approximately:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: N + (N - 1) + (N - 2) + (N - 3) … + 1 times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This formula always turns out to compute to about N² / 2\. You can visualize
+    this in the [diagram](#fig.ch7.cascade). For the purposes of the diagram, we’ll
+    say that N is 8, so there are 8², or 64, squares.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/big_o_in_everyday_code/cascade.png](images/big_o_in_everyday_code/cascade.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: If you work your way from the top row to the bottom, you’ll see that the top
+    row has all N squares shaded gray. The next row has N - 1 squares shaded gray,
+    and the one after that has N - 2 gray squares. This pattern continues until the
+    bottom row, which has just one shaded square.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also see at a glance that approximately half of the squares are shaded.
+    This demonstrates that the pattern of N + (N - 1) + (N - 2) + (N - 3)... + 1 is
+    equivalent to N² / 2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ve figured out, then, that the inner loop runs for N² / 2 steps. But because
+    Big O ignores constants, we express this as O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dealing with Multiple Datasets
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Now, what happens if instead of computing the product of every two numbers from
+    a single array, we instead compute the product of every number from one array
+    by every number of a second array?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, if we had the array [1, 2, 3] and the array [10, 100, 1000], we’d
+    compute the products as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [10, 100, 1000, 20, 200, 2000, 30, 300, 3000] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Our code would be similar to the previous snippet, with some slight modifications:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ twoNumberProducts(array1, array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ products = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ array1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | products.push(i * j); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ products; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s analyze the time complexity of this function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, what is N? This is the first hurdle, as we now have two datasets, namely,
+    the two arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It’s tempting to lump everything together and say N is the total number of
+    items of both arrays combined. But this is problematic for the following reason:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s a tale of two scenarios. In Scenario 1, there are two arrays of size
+    5\. In Scenario 2, there’s one array of size 9 and another of size 1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In both scenarios, we’d end up saying that N is 10, since 5 + 5 = 10 and 9 +
+    1 = 10\. However, the efficiency of each scenario is very different.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Scenario 1, our code takes twenty-five (5 * 5) steps. Because N is 10, this
+    is equivalent to (N / 2)² steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Scenario 2, though, our code takes nine (9 * 1) steps, which is close to
+    about N steps. This is dramatically faster than Scenario 1!
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, we don’t want to consider N to be the total number of integers from both
+    arrays, since we’d never be able to pin down the efficiency in terms of Big O
+    notation, as it varies based on the different scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’re in a bit of a bind here. We have no choice but to express the time complexity
+    as O(N * M), where N is the size of one array and M is the size of the other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is a new concept: whenever we have two distinct datasets that have to
+    interact with each other through multiplication, we have to identify both sources
+    separately when we describe the efficiency in terms of Big O.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: While this is the correct way of expressing this algorithm in terms of Big O
+    notation, it’s a little less useful than other expressions of Big O. Comparing
+    an O(N * M) algorithm to algorithms that only have an N (and not an M) is a little
+    like comparing apples to oranges.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, we do know that there’s a specific range in which O(N * M) lies; that
+    is, if N and M are the same, it’s equivalent to O(N²). And if they’re not the
+    same, and we arbitrarily assign the smaller number to be M, even if M is as low
+    as 1, we end up with O(N). In a sense then, O(N * M) can be construed as a range
+    between O(N) and O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Is this great? No, but it’s the best we can do.
+  prefs: []
+  type: TYPE_NORMAL

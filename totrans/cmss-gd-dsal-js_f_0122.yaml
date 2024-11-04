@@ -1,0 +1,370 @@
+- en: Partitioning
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To partition an array is to take a random value from the array—which is then
+    called the pivot—and make sure every number that is less than the pivot ends up
+    to the left of the pivot and every number greater than the pivot ends up to the
+    right of the pivot. We accomplish partitioning through a simple algorithm that
+    will be described in the following example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s say we have the following array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'For consistency’s sake, we’ll always select the rightmost value to be our pivot
+    (although we can technically choose other values). In this case, the number 3
+    is our pivot. We indicate this by circling it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We then assign pointers—one to the leftmost value of the array, and one to
+    the rightmost value of the array, excluding the pivot itself:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We’re now ready to begin the actual partition, which follows these steps. Don’t
+    worry—the steps will become clearer shortly, when we walk through our example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The left pointer continuously moves one cell to the right until it reaches a
+    value that is greater than or equal to the pivot and then stops.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Then the right pointer continuously moves one cell to the left until it reaches
+    a value that is less than or equal to the pivot and then stops. The right pointer
+    will also stop if it reaches the beginning of the array.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Once the right pointer has stopped, we reach a crossroads. If the left pointer
+    has reached (or gone beyond) the right pointer, we move on to Step 4\. Otherwise,
+    we swap the values that the left and right pointers are pointing to, and then
+    we go back to repeat Steps 1, 2, and 3 again.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Finally, we swap the pivot with the value that the left pointer is currently
+    pointing to.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: When we’re done with a partition, we are now assured that all values to the
+    left of the pivot are less than the pivot, and all values to the right of the
+    pivot are greater than it. And that means the pivot itself is now in its correct
+    place within the array, although the other values are not yet necessarily completely
+    sorted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s apply this to our example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: Compare the left pointer (now pointing to 0) to our pivot (the value
+    3):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Since 0 is less than the pivot, the left pointer moves on in the next step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 2: The left pointer moves on:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We compare the left pointer (the 5) to our pivot. Is the 5 lower than the pivot?
+    It’s not, so the left pointer stops, and we activate the right pointer in our
+    next step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 3: Compare the right pointer (6) to our pivot. Is the value greater than
+    the pivot? It is, so our pointer will move on in the next step.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 4: The right pointer moves on:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We compare the right pointer (1) to our pivot. Is the value greater than the
+    pivot? It’s not, so our right pointer stops.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 5: Since both pointers have stopped, we swap the values of the two pointers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We then activate our left pointer again in the next step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 6: The left pointer moves on:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We compare the left pointer (2) to our pivot. Is the value less than the pivot?
+    It is, so the left pointer moves on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 7: The left pointer moves on to the next cell. Note that at this point,
+    both the left and right pointers are pointing to the same value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We compare the left pointer to our pivot. Because our left pointer is pointing
+    to a value that is greater than our pivot, it stops. At this point, since our
+    left pointer has reached our right pointer, we’re done with moving pointers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 8: For our final step of the partition, we swap the value that the left
+    pointer is pointing to with the pivot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Although our array isn’t completely sorted, we’ve successfully completed a partition;
+    that is, since our pivot was the number 3, all numbers that are less than 3 are
+    to its left, while all numbers greater than 3 are to its right. This also means,
+    by definition, that the 3 is now in its correct place within the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Partitioning'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Following is an implementation of a SortableArray class in JavaScript that
+    includes a partition method that partitions the array as we’ve described:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ SortableArray { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.array = array; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | partition(leftPointer, rightPointer) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pivotIndex = rightPointer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pivot = ​**this**​.array[pivotIndex]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | rightPointer -= 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**true**​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**this**​.array[leftPointer] < pivot) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | leftPointer += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**this**​.array[rightPointer] > pivot) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | rightPointer -= 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (leftPointer >= rightPointer) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[rightPointer]] = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[rightPointer], ​**this**​.array[leftPointer]]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | leftPointer += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[pivotIndex]] = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[pivotIndex], ​**this**​.array[leftPointer]]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ leftPointer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s break this code down a bit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The partition method accepts the starting points of the left and right pointers
+    as parameters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | partition(leftPointer, rightPointer) { |'
+  prefs: []
+  type: TYPE_TB
+- en: When this method is first called on an array, these pointers will point to the
+    left and right ends of the array, respectively. However, we’ll see that Quicksort
+    will call this method on subsections of the array as well. Because of this, we
+    can’t always assume the left and right pointers are always the two extremities
+    of the array, so they need to become method arguments. This point will be clearer
+    when I explain the complete Quicksort algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, we select our pivot, which is always the rightmost element in the range
+    we’re dealing with:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ pivotIndex = rightPointer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pivot = ​**this**​.array[pivotIndex]; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Once our pivot has been identified, we move the rightPointer to the item immediately
+    left of the pivot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | rightPointer -= 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then begin a loop (while (true)) that will seem to run indefinitely. However,
+    later within the loop is a break statement that will terminate the loop as soon
+    as the leftPointer and rightPointer cross paths. Within this loop, we use another
+    loop to keep moving the leftPointer to the right until it reaches an item that
+    is greater than or equal to the pivot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (​**this**​.array[leftPointer] < pivot) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | leftPointer += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Similarly, we move the rightPointer to the left until it hits an item that
+    is less than or equal to the pivot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (​**this**​.array[rightPointer] > pivot) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | rightPointer -= 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Once the leftPointer and rightPointer have stopped moving, we check whether
+    the two pointers have met:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (leftPointer >= rightPointer) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If they have, we exit the loop and get ready to swap out the pivot, which we’ll
+    get to momentarily. However, if the two pointers have stopped but not yet met
+    each other, we swap the values at the two pointers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[rightPointer]] = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[rightPointer], ​**this**​.array[leftPointer]]; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then move the leftPointer to get ready for the next round of left- and right-pointer
+    movements:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | leftPointer += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Finally, once the two pointers have met, we swap the pivot with the value at
+    the leftPointer:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[pivotIndex]] = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | [​**this**​.array[pivotIndex], ​**this**​.array[leftPointer]]; |'
+  prefs: []
+  type: TYPE_TB
+- en: The method concludes by returning the leftPointer, as this will be needed by
+    the Quicksort algorithm (which I’ll explain shortly).
+  prefs: []
+  type: TYPE_NORMAL

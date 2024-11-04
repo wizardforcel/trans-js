@@ -1,0 +1,205 @@
+- en: '| Recipe 54 | Validating Email Addresses |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have a form on your website or app that asks the user for an email
+    address. Whether it’s for sending newsletters, regular communication, password
+    recovery, or any other purpose, ensuring that you have the correct email address
+    is crucial before proceeding—to minimize the number of emails returned as undeliverable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What you need is a mechanism to check that the entered text conforms to a valid
+    email address format.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'If your form is on a website, you can start by setting up the built-in HTML5
+    form features. First, ensure that your input element has a type attribute with
+    a value of “email”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_email/email_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex1.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <form> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <label for=*"Email"*>Email:</label> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input type=*"email"* id=*"Email"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input type=*"submit"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </form> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Email inputs usually catch the most obvious errors that the user makes when
+    typing their email. To enforce mandatory input, the easiest validation tool is
+    the required attribute. To implement it, include the attribute right before the
+    closing input tag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_email/email_ex2.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <form> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <label for=*"Email"*>Email:</label> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input type=*"email"* id=*"Email"* required> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <input type=*"submit"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </form> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'On the server-side, verify that the input has an at sign (@) that’s preceded
+    and followed by non-whitespace characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_email/email_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** isValidEmail(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**\S**+@**\S**+$/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidEmail(*"faraz@"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidEmail(*"@abcd"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidEmail(*"faraz@somewhere.com"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: This pattern performs a check similar to the HTML mechanism for validating emails.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Designing web forms has always been challenging for programmers. Although coding
+    the form itself is straightforward, verifying that every input has a logical and
+    acceptable value poses a greater difficulty, and communicating any issues to the
+    user can be a headache. Client-side form validation helps users identify and correct
+    errors in their form submissions more quickly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But, it’s important to understand that relying solely on client-side validation
+    may not provide comprehensive security. To ensure maximum security, your applications
+    must perform security checks on form data on both the server-side and client-side.
+    And regex is often the preferred tool for programmers to perform that task.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In most cases, the regex patterns you come across on the internet are excessively
+    limiting for email address verification. Some developers recommend checking the
+    input to conform to the RFC 5322 standard. RFC 5322 defines the structure and
+    syntax of email messages, which includes the email addresses.^([[32]](f_0087.xhtml#FOOTNOTE-32))
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To do that, you’ll need a regex like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | const re = /(?:[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | )*&#124;"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]&#124;\\[\x01-\x09\x0b\x
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | -]*[a-z0-9])?&#124;\[(?:(?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9]))\.){3}(
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9])&#124;[a-z0-9-]*[a-z0-9]:(?:[\x01
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | -\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]&#124;\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ])/; |'
+  prefs: []
+  type: TYPE_TB
+- en: This regex is equally intimidating to developers who are unfamiliar with regular
+    expressions and those who are proficient in them! But even validating an email
+    address according to the RFC standard doesn’t provide any information about the
+    existence of the address at the given domain or the true ownership of the address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: According to RFC 5322, qwerty@qwerty.qwerty is a valid email address. However,
+    it’s not considered valid if the definition of a valid email address specifies
+    that it must accept email. This is because there is no top-level domain called
+    qwerty.^([[33]](f_0087.xhtml#FOOTNOTE-33))
+  prefs: []
+  type: TYPE_NORMAL
+- en: Previously, it was logical to restrict the top-level domain to two-letter pairings
+    for country codes and to perform a complete enumeration of generic top-level domains,
+    like com|net|org|mil|edu. But as new top-level domains are added frequently, such
+    patterns that were once valid quickly become outdated.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Basically, you can’t be sure if david@somewhere.com can actually get emails
+    unless you send one and see if it goes through. Even in this scenario, it’s uncertain
+    whether the absence of a reply indicates that the domain somewhere.com is discreetly
+    getting rid of emails sent to non-existent mail addresses, or if David himself
+    deleted them, or if his spam filter intercepted them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A reliable email validation tool will do more than just check the syntax of
+    the email address or ping a mail server. This process involves sending a message
+    to the email address entered, which includes a confirmation token. Confirmation
+    tokens are the only way to verify that the email address entered is correct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: That’s why the majority of mailing lists rely on this mechanism to authenticate
+    sign-ups. Because anyone can enter ceo@microsoft.com, which could be technically
+    valid, yet it’s improbable that the person at the receiving end is the actual
+    CEO.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because you need to send a confirmation email to verify whether an address exists
+    or not, you have the option to choose a less strict regular expression. It may
+    be better to let some invalid addresses pass through than to inconvenience people
+    by blocking valid ones. Even though the solution in this recipe allows characters
+    like %#$ that aren’t typically found in email addresses, it’s efficient and uncomplicated.
+    Additionally, it will not prevent a legitimate email address from being accepted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you want to add complexity to your regex, my suggestion would be to notify
+    the user that there could be an issue with the email address rather than making
+    it forbidden.
+  prefs: []
+  type: TYPE_NORMAL

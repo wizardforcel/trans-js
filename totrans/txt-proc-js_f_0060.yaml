@@ -1,0 +1,191 @@
+- en: '| Recipe 49 | Testing a Pattern with the Positive Lookbehind |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose your task is to extract questions from a standardized test and store
+    them in a database. The info you’re looking for always comes after a numbering
+    system like “Question #5:”, but you want to extract the question text without
+    its numbering.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The sticky flag wouldn’t be effective in this case because the length of characters
+    in the numbering system varies between questions. For instance, one question may
+    begin with “Question #9,” while another question may start with “Question #10”
+    (for more on the sticky flag, see Recipe 44, [*Searching from a Specific Index
+    with the y Flag*](f_0055.xhtml#rcp.flag_y)).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You need a solution that allows you to match questions preceded by a “Question
+    #n” without including the numbering in the result.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Enclose the pattern in a positive lookbehind assertion denoted by (?<= ...
+    ):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/positive_lookbehind/positive_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookbehind/positive_lookbehind_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(?<**=Question**\s**#**\d{1,3}**:**\s)**.+**?\.**/ig*s;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Question #9: The Peloponnesian Wars were fought between __________.*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Question #10: A ziggurat is __________.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** questions = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(questions); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → [* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// "The Peloponnesian Wars were fought between __________.",* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// "A ziggurat is __________."* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success! The matched items don’t include the numbering system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Although
+    lookbehind assertions are supported by the latest version of modern browsers,^([[29]](f_0064.xhtml#FOOTNOTE-29))
+    chances are not all of your users have updated their browsers. To ensure maximum
+    compatibility, you can use lookbehind assertions on the server side, where they’ve
+    been supported since Node 10.3. |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Before ES2018, JavaScript only supported lookahead assertions in regular expressions.
+    But, with the introduction of ES2018, lookbehinds were added to enhance JavaScript
+    capabilities. Similar to lookaheads, lookbehinds also come in two versions: positive
+    and negative.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this recipe, .+\. matches one or more characters until it reaches a full
+    stop. But before that, there’s a positive lookbehind that ensures the pattern
+    is preceded by the word “Question” followed by a whitespace, a #, 1 to 3 digits,
+    a :, and another whitespace.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s examine the regex pattern step by step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /(?<=Question\s#\d{1,3}:\s).+\./igs |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?<=Question\s#\d:\s) positive lookbehind |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ Question matches the characters "Question" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ # matches the character "#" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {1,3} matches the previous token between 1 and 3 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ : matches the character ":" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ +? matches the previous token between one and unlimited times (lazy)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \. matches the character "." literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ i performs a case-insensitive match |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g finds all matches |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ s dot matches newline characters |'
+  prefs: []
+  type: TYPE_TB
+- en: '| What’s a Lookaround? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | The lookahead
+    and lookbehind assertions are collectively called lookarounds. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Multiple Lookarounds |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Several lookarounds
+    of any sort (negative or positive) may appear in succession to create a more complex
+    pattern. |'
+  prefs: []
+  type: TYPE_TB
+- en: The important thing to remember about lookarounds is that although they check
+    if a match is possible, they don’t actually consume the characters in the string.
+    Lookbehinds are similar to lookaheads except that they work backward. They instruct
+    the regex to briefly move backward in the string to see if their subexpression
+    can match.
+  prefs: []
+  type: TYPE_NORMAL

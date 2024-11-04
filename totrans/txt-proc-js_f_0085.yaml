@@ -1,0 +1,206 @@
+- en: '| Recipe 73 | Converting Plain Text into HTML-Ready Markup |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Imagine you intend to display the text entered by users on a web page. A frustrating
+    aspect of web programming is the lack of compatibility between HTML and plain
+    text, despite their frequent interchangeable use. While people may enter information
+    in plain text format in the text areas of forms, it’s likely that you’d want to
+    display the same information in HTML format. To illustrate, consider this example,
+    where a user has entered a question on a forum page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Hey guys, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | I need your help with something urgent. My cat, Mr. Whiskers, has been
+    acting |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | super weird lately. He won''t stop meowing, he keeps knocking down my
+    plants, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | and to top it off, he''s been stealing my socks. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Do you know of any good cat therapists that you can recommend? |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Thanks |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If you don’t include <br> or <p> tags to indicate line breaks in the markup,
+    the resulting appearance when loaded into a web browser will be like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Hey guys, I need your help with something urgent. My cat, Mr. Whiskers,
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | has been acting super weird lately. He won''t stop meowing, he keeps
+    knocking |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | down my plants, and to top it off, he''s been stealing my socks. Do you
+    know |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | of any good cat therapists that you can recommend? Thanks |'
+  prefs: []
+  type: TYPE_TB
+- en: What you need is a solution that adds relevant HTML tags to paragraphs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Search for newline characters in the supplied text and replace them with HTML
+    tags:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/converting_text_to_html/text_to_html_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/converting_text_to_html/text_to_html_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **function** convertTextToHTML(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Replace newline characters with <br>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | str = str.replace(*/**\r\n**&#124;**\n**/g*, *"<br>"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Replace two consecutive <br> with </p><p>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | str = str.replace(*/<br>**\s***<br>/g*, *"</p><p>"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Enclose the entire string in <p></p>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10:  | str = *`<p>*${str}*</p>`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **return** str; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 15:  | *`Hey guys,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *I need your help with something urgent. My cat, Mr. Whiskers, has been
+    acting* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *super weird lately. He won''t stop meowing, he keeps knocking down
+    my plants,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *and to top it off, he''s been stealing my socks.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 20:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *Do you know of any good cat therapists that you can recommend?* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *Thanks* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 25:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | convertTextToHTML(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// → <p>Hey guys, </p><p>I need your help with something urgent. My
+    cat, Mr.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// Whiskers, has been acting <br>super weird lately. He won''t stop
+    meowing,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// he keeps knocking down my plants, <br>and to top it off, he''s been*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 30:  | *// stealing my socks. </p><p>Do you know of any good cat therapists
+    that you* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// can recommend?</p><p>Thanks<br></p>"* |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, with the HTML tags added, the text will be displayed properly in the browser.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Reusing the text provided by the user without sanitizing it is unwise because
+    it leaves the system vulnerable to XSS attacks. But, for this recipe, let’s overlook
+    this concern and assume that the input is safe to use (if you want to learn how
+    to protect against XSS attacks, check out the link in the footnote.^([[36]](f_0087.xhtml#FOOTNOTE-36)))
+  prefs: []
+  type: TYPE_NORMAL
+- en: We first use the regex /\r\n|\n/g to find newline characters that are used in
+    Microsoft Windows/DOS (\r\n) or Unix and Unix-like systems (\n). And we replace
+    them with <br>.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In order to format paragraphs in HTML, it’s necessary to enclose them within
+    <p></p> tags. One way to achieve this is to identify any instance of two consecutive
+    line breaks and replace them with </p><p> (Line 7).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we wrap the complete string with <p></p> tags and then return the resulting
+    string. Before using this function to convert text to HTML, you may want to replace
+    &, <, >, ", and ’ characters with HTML entities to prevent browsers from interpreting
+    HTML tags entered by users (see Recipe 8, [*Converting HTML Markup to HTML Entities
+    with replaceAll()*](f_0018.xhtml#rcp.entities)).
+  prefs: []
+  type: TYPE_NORMAL

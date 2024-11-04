@@ -1,0 +1,335 @@
+- en: '| Recipe 44 | Searching from a Specific Index with the y Flag |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s say your task is to take the transcript of a conference and organize
+    it in a way that can be read like an article. Suppose the transcript is like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <p>2:05 pm: We also improved durability, which is another essential aspect
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | of our products.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p>2:10 pm: It has our most crack resistant front crystal, thanks to
+    a |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | stronger and more robust geometry.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p>2:15 pm: It’s also our first product to have IP6X certification, so
+    you |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | don’t have to worry about wearing it in dusty environments.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'And you want to remove the timestamps and extra <p></p> tags, and join the
+    sentences like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <p>We also improved durability, which is another essential aspect of
+    our |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | products. It has our most crack resistant front crystal, thanks to a
+    stronger |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | and more robust geometry. It’s also our first product to have IP6X |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | certification, so you don’t have to worry about wearing it in dusty |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | environments.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The data you want to extract has a fixed structure: a string in a pair of HTML
+    tags and a timestamp that’s always eight characters long. So, you just need to
+    retrieve the characters from index 9 onwards.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the sticky flag (y) to match the target string only from the index you
+    specify with the lastIndex property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_sticky/sticky_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */.+/*ys; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.lastIndex = 9; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *`2:05 pm: We also improved durability, which is another
+    essential* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *aspect of our products.`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.match(re)[0]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → We also improved durability, which is another essential aspect
+    of our* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// products.* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now that you know your regex works, use it to extract text from an actual HTML
+    document:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_sticky/sticky.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *<!doctype html>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <html lang=*"en-us"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta charset=*"utf-8"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <script src=*"sticky_ex2.js"* defer></script> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p>2:05 pm: We also improved durability, which is another essential aspect
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | of our products.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p>2:10 pm: It has our most crack resistant front crystal, thanks to
+    a |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | stronger and more robust geometry.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <p>2:15 pm: It’s also our first product to have IP6X certification, so
+    you |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | don’t have to worry about wearing it in dusty environments.</p> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </html> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Call the querySelectorAll() method to retrieve all paragraph elements, and
+    pass each to a function that applies the regex, like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_sticky/sticky_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** result = *""*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Extract info from each element and append it to result* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** extractData(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */.+/*ys; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.lastIndex = 9; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (match) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | result = result + match[0] + *" "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **throw** **new** Error(*"No match found."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Execute extractData() for the content of each <p> element* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | document.querySelectorAll(*"p"*).forEach(el => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | extractData(el.textContent); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove newline characters from the resulting string,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// remove whitespace from both ends of the string,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// and enclose it in a pair of <p> tags.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*`<p>*${result.trim().replaceAll(*"***\***n"*, *""*)}*</p>`*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: You now have contiguous sentences that can be read like a story.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The sticky flag performs a search only at the position indicated by the lastIndex
+    property. Consider this code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_sticky/sticky_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **const** str = *"crack resistant"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** re = */resistant/*y; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | re.lastIndex = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  | console.log(str.match(re)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// → null (no match at index 0)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | re.lastIndex = 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | console.log(str.match(re)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10:  | *// → null (no match at index 2)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | re.lastIndex = 6; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | console.log(str.match(re)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// → ["resistant", index: 6, input: "crack resistant", groups: undefined]*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 15:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | console.log(re.lastIndex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// → 15* |'
+  prefs: []
+  type: TYPE_TB
+- en: A sticky search won’t match characters from any index other than the one indicated
+    by the lastIndex property. Also, notice how the flag updates the lastIndex property
+    when the operation is successful (Line 16).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| The Order of Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | JavaScript flags
+    can be specified in any order or combination. The regex /abc/img behaves in the
+    same way as /abc/mgi. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The sticky flag is useful when the string we want to match has a fixed structure.
+    In this recipe, we knew ahead of time about the structure of the input string:
+    a timestamp followed by a sentence. So we simplified the pattern by telling the
+    engine to search only at the position where the data we want is located. Without
+    the sticky flag, the pattern could become unnecessarily more complicated.'
+  prefs: []
+  type: TYPE_NORMAL

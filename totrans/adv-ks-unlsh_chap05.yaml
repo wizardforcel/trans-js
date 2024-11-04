@@ -1,0 +1,639 @@
+- en: Prototypes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**Inheritance** is a general object-oriented programming concept allowing objects
+    to inherit other objects’ methods and properties. This reduces code duplication
+    and promotes code sharing between different objects.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike traditional object-oriented programming languages like Java or C#, JavaScript
+    has a different way of dealing with inheritance. Objects in JavaScript are *linked*
+    to other objects, and this linkage allows an object to use the functionality of
+    another object to which it is linked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The linkage between objects in JavaScript forms a chain. This chain is known
+    as the “**prototype chain**”. Think of the scope chain, where each scope is linked
+    to another scope until we reach the global scope. The prototype chain is similar:
+    one object is linked to another object. This other object, in turn, is linked
+    to another object, forming a chain between objects.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The prototype chain allows the sharing of properties between objects, and this
+    is the idea of inheritance in JavaScript, known as the “**prototypal inheritance**”.
+    In prototypal inheritance, an object from which other objects inherit properties
+    is known as the “**prototype**” of those objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we create an object literal in JavaScript, it is, by default, linked to
+    the built-in `Object.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `Object.prototype` object is the **prototype** of the `obj` object in the
+    code example above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How are objects linked?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Objects in JavaScript have a hidden internal slot named `[[Prototype]]`. When
+    an object is created, it is linked to another object by saving a reference to
+    the other object in the `[[Prototype]]` internal slot of the newly created object.
+    The other object whose reference is saved in the internal slot will serve as the
+    “prototype” of the newly created object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code example above, the `[[Prototype]]` slot of the `obj` object contains
+    a reference to the `Object.prototype` object. So, `obj.[[Prototype]]` gives us
+    the prototype of the `obj` object, the object from which `obj` is linked to and
+    inherits the properties. But as `[[Prototype]]` is an internal slot not accessible
+    by JavaScript, later in this lesson, we will see how we can access the prototype
+    of any object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The “prototype” property
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In our discussion of prototypal inheritance so far, you might have noticed
+    the term “prototype” used in two different contexts: one as a property, i.e.,
+    `Object.prototype` and the other as a general term used to describe an object
+    that shares its properties with another object. This clash of names creates confusion
+    among many when they first start learning about prototypal inheritance in JavaScript.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As functions are objects in JavaScript, they can have properties just like any
+    other object. The property name “prototype” is one of the functions’ properties.
+    The arrow functions do not have this property.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The prototype property of a function refers to an object that is used as the
+    “prototype” of other objects when that function is invoked as a “constructor function”
+    using the “new” keyword. Again, the term “prototype” has been used in two contexts
+    here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The “prototype” property on functions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An object is referred to as a “prototype” when it is linked and shares its properties
+    with other objects.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The following code example shows that the property named “prototype” exists
+    on functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can probably tell from the code above that the `Car` function is meant to
+    be used as a constructor function. However, it is indeed just a normal function.
+    The “prototype” property is only useful when we invoke a function as a constructor,
+    i.e., with the `new` keyword.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any properties added to the `Car.prototype` object will be shared by all the
+    instances created from the `Car` constructor function. The `Car.prototype` function
+    will serve as the “prototype” for all the instances of the `Car` constructor function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Initially, the object pointed to by the prototype property on any function just
+    contains a single property named “constructor”. The value of this “constructor”
+    property is a reference to the constructor function. In the case of `Car.prototype`
+    object, `Car.prototype.constructor` refers to the `Car` constructor function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The following code example verifies that `Car.prototype.constructor` refers
+    to the `Car` function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::note
+  prefs: []
+  type: TYPE_NORMAL
+- en: The [constructor property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor)
+    is rarely used, if at all, in the JavaScript code that we write.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s add a property on the `Car.prototype` object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: When a function is invoked using the `new` keyword, one of the steps during
+    the creation of a new object is that the `[[Prototype]]` internal slot of the
+    newly created object is pointed to the object referenced by the function’s prototype
+    property. As a result, the newly created object has access to the properties defined
+    on the object referred to by the constructor function’s prototype property.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Getting prototype of any object
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The `Object` function has a static method named [getPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)
+    that can be used to get the prototype of any object. It returns the value of the
+    internal `[[Prototype]]` property of the object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For the `honda` object created in the previous code example, `Object.getPrototypeOf`
+    function returns the `Car.prototype` object because the `Car.prototype` object
+    is the prototype of all the instances of the `Car` constructor function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototypal-inheritance-example4”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we know what prototypal inheritance is let us explore the prototype
+    chain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Object.prototype - parent of all objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: At the top of the prototypal inheritance hierarchy is the `Object.prototype`
+    object. It is the root object or parent of all objects. When we create an object
+    literal, its prototype is the `Object.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: We didn’t define any properties on the `obj` object. But we can still call some
+    methods on it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We didn’t define a method named `toString` on the `obj` object; how is it accessible
+    in the code example above? You guessed it: it is defined on the `Object.prototype`
+    object, and as `Object.prototype` is the prototype of `obj`, the properties defined
+    on `Object.prototype` are inherited by `obj`, `toString` being one of them.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Objects created in this way are instances of the `Object` constructor function.
+    We can also define `obj` as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This has the same effect: it creates an empty object. As discussed in the previous
+    lesson, functions have a prototype property that points to an object that serves
+    as the “prototype” of all instances of that function when that function is invoked
+    as a “constructor”. So, the `Object.prototype` object serves as the “prototype”
+    of all objects created via `new Object()` or through object literal notation.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'At this point, you might ask: isn’t `toString` callable on all objects? Yes,
+    it is; some objects inherit it from the `Object.prototype` object, while other
+    objects, such as arrays, inherit it from their prototype, i.e., the `Array.prototype`
+    object, which overrides the `toString` implementation defined in `Object.prototype`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some objects are directly linked to the `Object.prototype` object, while others
+    are linked indirectly. Arrays, for example, are linked indirectly. Each array
+    instance is directly linked to the `Array.prototype` object. The `Array.prototype`
+    object is linked to the `Object.prototype` object. This forms a prototype chain
+    that ends at the `Object.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The prototype chain demonstrated in the code above can be visualized in the
+    image below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![array prototype chain](images/module_06----lesson_06.02----public----assets----prototype-chain-array.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: array prototype chain
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `Array.prototype` object contains the methods that are callable on every
+    array, for example, `map`, `filter`, etc. The `Object.prototype` object contains
+    the methods that are available to all objects, for example, the `toString` method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Just as JavaScript traverses the scope chain to find the declaration of an identifier
+    that can’t be found in the current scope, JavaScript traverses the prototype chain
+    to find the properties that cannot be found in the current object. The prototype
+    chain has to end somewhere. Otherwise, JavaScript will keep traversing an endless
+    chain; it ends at the `Object.prototype` object. Accessing the prototype of `Object.prototype`
+    returns `null`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example4”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The prototype chain for strings is similar to that for arrays, except that instead
+    of the `Array.prototype` object, there is the `String.prototype` object, which
+    serves as the prototype of all string instances. This `String.prototype` object
+    is, in turn, linked to the `Object.prototype` object, where the `Object.prototype`
+    object serves as the prototype of the `String.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: “Function” function
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As confusing as it may sound, there’s a function named [Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function).
+    Functions in JavaScript are objects and are instances of this “Function” constructor
+    function. The `Function.prototype` object provides properties that are accessible
+    by all functions; for example, methods like `bind`, `apply`, etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `Function.prototype` object serves as the prototype for functions, including
+    the `Object` function. Even the `Function` function, to which the `Function.prototype`
+    object belongs, inherits properties from the `Function.prototype` object because
+    `Function` is, after all, just a function itself. So it makes sense to make it
+    inherit from the `Function.prototype` object, which contains the common properties
+    for functions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/prototype-chain-example5”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The prototype chain described above can be visualized in the following image:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![array prototype chain](images/module_06----lesson_06.02----public----assets----function-prototype-chain.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: array prototype chain
+  prefs: []
+  type: TYPE_NORMAL
+- en: As the `Object.prototype` object is the root or parent object, it is part of
+    the prototype chain, directly linked to the `Function.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `__proto__` property is defined on the `Object.prototype` object. It is
+    a getter and a setter that returns or sets the prototype of an object. In other
+    words, it returns or sets the value of the internal `[[Prototype]]` property of
+    an object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although this property can be used to set and get the prototype of an object,
+    its use is discouraged. This property has been deprecated, and better alternatives
+    have been provided to get and set the prototype of an object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/proto-property-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above code example shows the use of the `__proto__` property as a *getter*
+    to get the prototype of the `user` object. It can also be used as a *setter* to
+    set the value of the `[[Prototype]]` internal property of an object. Again, its
+    use is discouraged, and there are better alternatives. For setting the prototype,
+    we can use the [setPrototypeOf](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)
+    method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The prototype of the `user` object in the code example above is the `Object.prototype`
+    object. As a result, the `user` object has access to the `__proto__` property.
+    As the `__proto__` property, when used as a getter, simply exposes the value of
+    the internal `[[Prototype]]` property of an object, in the case of `user`, it
+    returns the `Object.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Problems with __proto__
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: There are multiple reasons to avoid using `__proto__` property to get or set
+    the prototype of an object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As mentioned earlier, the `__proto__` property has been deprecated, and better
+    alternatives exist to set and get the prototype of an object. This property wasn’t
+    standardized until 2015, so before that, it existed as a non-standard feature
+    of the JavaScript language. Even though the `__proto__` property is now part of
+    the ECMAScript specification, this property wasn’t standardized by the ECMAScript
+    specification to promote or encourage its use; instead, it was standardized because
+    it already existed in several JavaScript engines running in the browsers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another problem with the `__proto__` property is that it may not be available
+    on all objects. You might ask how that is possible. Don’t all objects directly
+    or indirectly inherit from the `Object.prototype` object? The reason it may not
+    be available is that we can create objects that do not inherit from any other
+    object (we will discuss this in the next lesson).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So far, we have seen built-in objects, such as `Object.prototype`, automatically
+    being set as prototypes of objects. How can we use our own objects as prototypes
+    for other objects? For example, we have the following object, which we want to
+    use as a prototype of some other object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'How can we use this object as a prototype of another object? We can use the
+    `setPrototypeOf` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The deprecated `__proto__` property can also be used to achieve the same result,
+    but as it is deprecated, we will instead discuss another option to set the prototype
+    of an object explicitly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Object.create method
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `Object.create` method is used to create a new object with another object,
+    passed as the first argument, as the prototype of the newly created object. This
+    method lets us explicitly set the prototype of an object. The code example above
+    can be rewritten with `Object.create` as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Null prototype object
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: All objects ultimately inherit from the `Object.prototype` object because it
+    sits at the top of the prototype chain and is the parent of all objects. However,
+    we can create objects that do not inherit properties from any object. We just
+    have to set `null` as the value of the internal `[[Prototype]]` property using
+    the methods discussed above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example4”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `obj` object in the above example doesn’t have a prototype. If its prototype
+    wasn’t explicitly set to `null`, its prototype would have been the `Object.prototype`
+    object, and it would have inherited the `toString` method, but as is evident from
+    the code example above, `obj` doesn’t have access to the `toString` method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `null` prototype objects may seem useless, but they are useful in some cases.
+    For example, such objects are safe from attacks such as the [prototype pollution](https://learn.snyk.io/lessons/prototype-pollution/javascript/)
+    attack, where a malicious code might add some properties to the prototype chain
+    of an object that could change the normal flow of code execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following simplified example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example5”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the prototype of the `user` object was `null`, malicious code wouldn’t have
+    an effect on our code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Custom-prototypes-example6”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In conventional object-oriented languages like Java or C#, we can extend or
+    inherit a class to reuse its functionality. Extending a class creates a parent-child
+    relationship where the child class extends the parent class. It promotes code
+    reusability.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Until 2015, JavaScript didn’t have classes. Constructor functions were used
+    instead. To inherit from a constructor function, JavaScript developers explicitly
+    created a link between the prototype properties of two different constructor functions
+    by using the `Object.create` method. The following code example shows how one
+    constructor function could extend another constructor function to reuse some functionality:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit embed to run the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/ES6-classes-and-prototypes-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following three points are worth noting in the code example above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`Person.call(...)` is invoked inside the `Student` constructor function to
+    *delegate* the responsibility of adding and initializing the `name` and `age`
+    properties on the newly created instance or object of `Student`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Object.create` is used to create a `Student.prototype` object, and `Person.prototype`
+    is set as the prototype of the newly created object.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Normally, the object referred to by the “prototype” property of a function has
+    a `constructor` property that points back to the function. As the object created
+    by the `Object.create` method doesn’t have the `constructor` property, we explicitly
+    added the `constructor` property to the newly created `Student.prototype` object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The linkage between the `Student.prototype` object and the `Person.prototype`
+    object allows the instances of `Student` to use the properties defined on the
+    `Person.prototype` object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The image below helps visualize the prototype chain created as a result of
+    our code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![constructor function prototype chain](images/module_06----lesson_06.05----public----assets----constructor-function-prototype-chain.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: constructor function prototype chain
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although the code above works, it is error-prone because there are multiple
+    steps to set a prototype link correctly between the two constructors. Imagine
+    having more than two constructors that need to be linked like this. It is easy
+    to forget any steps necessary to set up the prototype link correctly. Ideally,
+    we want a more declarative way of achieving the same result. Ideally, we want
+    a more declarative way of achieving the same result. A declarative solution will
+    allow us to get the same result without having to explicitly create a link between
+    the `Student.prototype` and `Person.prototype` objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ES2015 classes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'As of 2015, JavaScript has classes. They provide a declarative way of writing
+    code that is less error-prone. Classes come with the [extends](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
+    keyword that helps create a parent-child relationship between classes. The code
+    example above can be rewritten using classes, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The code above gives us the same result as the one with the constructor functions.
+    It also creates the same prototype linkages. We can verify this with the following
+    comparisons:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: One important thing to mention here is that the classes are just syntactic sugar
+    over the traditional constructor functions. Under the hood, we are still using
+    the constructor functions, but classes allow us to write the code in a more declarative
+    way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One extra thing that the `extends` keyword does is that, apart from setting
+    the linkage between `Student.prototype` and `Person.prototype` objects, it also
+    links the constructor functions. It does this by setting the `Person` class as
+    the prototype of the `Student` class. The following code verifies the second prototype
+    chain that the `extends` keyword sets up for us behind the scenes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The two prototype chains set up by the `extends` keyword serve two different
+    purposes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`Student.prototype ---> Person.prototype` allows the inheritance of the instance
+    properties.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Student ---> Person` allows the inheritance of the static properties.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

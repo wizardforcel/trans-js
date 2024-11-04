@@ -1,0 +1,122 @@
+- en: '| Recipe 27 | Matching One of Several Characters with the Character Class |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to find a word in a document even if it is misspelled. For
+    example, the word “license” is one of the most misspelled words in English. You
+    want to write a pattern that matches “license,” “licence,” “lisence,” or “lisense”
+    in a document.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a character class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/character_class/character_class_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */li**[**sc**]**en**[**sc**]**e/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A driver''s license"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A driver''s lisense"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A driver''s licence"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"A shopping list"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: A character class matches only one out of the specified characters. In this
+    code, the specified characters are “s” and “c,” so the regex matches “license,”
+    “licence,” “lisense,” or “lisence,” but not “liscense.” Keep in mind that a character
+    class matches only one character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Certain characters change the behavior of the character class. If you place
+    a caret (^) after the opening square bracket, it negates the entire character
+    class. That means the character class will match any character that isn’t one
+    of the specified characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, /[^license]/ would match any character that isn’t “l,” “i,” “c,” “n,” “s,”
+    and “e”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/character_class/character_class_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**[^**license**]**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"lie"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"list"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: This pattern matches “t” in “list,” so test() returns true. You might have noticed
+    that the caret (^) is the same as the one that matches the beginning of a string
+    (Recipe 24, [*Asserting the Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar)).
+    Although the character is the same, its meaning is entirely different.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s just like the English word “arm” can mean different things depending on
+    what context it is used in (sometimes a part of the body, sometimes to provide
+    a weapon).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, keep in mind that caret has a special meaning only when used right after
+    the opening bracket of the character class. So, /[a^bc]/ wouldn’t negate the character
+    class because “^” would be treated as a literal character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As with a regular class, a negated class must match a character to be successful.
+    For example, the pattern /Number[^5]/ matches “Number6” but not “Number” because
+    the class expects a character:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/character_class/character_class_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */Number**[^**5**]**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Number6"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(*"Number"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: Use a character class to match a character out of several characters, such as
+    when you want to consider misspelled words or spelling differences in American
+    and British English.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use a negated character class to list characters you don’t want to appear in
+    a string. An exciting aspect of the character class is its ability to match a
+    range of characters, which you’ll learn about in the next recipe.
+  prefs: []
+  type: TYPE_NORMAL

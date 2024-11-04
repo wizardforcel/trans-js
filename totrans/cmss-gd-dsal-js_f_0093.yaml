@@ -1,0 +1,162 @@
+- en: Queues in Action
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Queues are common in many applications, ranging from printing jobs to background
+    workers in web applications.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we’re programming a simple JavaScript interface for a printer that
+    can accept printing jobs from various computers across a network. We want to make
+    sure we print each document in the order in which it was received.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This code uses our implementation of the Queue class from earlier:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ Queue ​**from**​ ​*''./queue.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ PrintManager { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.queue = ​**new**​ Queue(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | queuePrintJob(document) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.queue.enqueue(document); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | run() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**this**​.queue.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.printDocument(​**this**​.queue.dequeue()); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printDocument(document) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Code to run the actual printer goes here.*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// For demo purposes, we''ll print to the terminal:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(document); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can then utilize this class as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ printManager = ​**new**​ PrintManager(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printManager.queuePrintJob(​*''First Document''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printManager.queuePrintJob(​*''Second Document''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printManager.queuePrintJob(​*''Third Document''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printManager.run(); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Each time we call queuePrintJob, we add the document (represented by a string
+    in this example) to the queue:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | queuePrintJob(document) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.queue.enqueue(document); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'When we call run, we “print” each document by processing it in the order in
+    which it was received. That is, we dequeue each document from the queue and print
+    it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | run() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (​**this**​.queue.read()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.printDocument(​**this**​.queue.dequeue()); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'When we run the previous code, the program will output the three documents
+    in the same order in which they were received:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | First Document |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | Second Document |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | Third Document |'
+  prefs: []
+  type: TYPE_TB
+- en: While this example is simplified and abstracts away some of the nitty-gritty
+    details that a real live printing system may have to deal with, the fundamental
+    use of a queue for such an application is very real and serves as the foundation
+    for building such a system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Queues are also the perfect tool for handling asynchronous requests—they ensure
+    that the requests are processed in the order in which they were received. They’re
+    also commonly used to model real-world scenarios where events need to occur in
+    a certain order, such as airplanes waiting for takeoff and patients waiting for
+    their doctor.
+  prefs: []
+  type: TYPE_NORMAL

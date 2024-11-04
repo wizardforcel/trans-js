@@ -1,0 +1,267 @@
+- en: Chapter 11
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0111.xhtml#learning.to.write.in.recursive.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s call our function characterCount. The first step is to pretend that the
+    characterCount function has already been implemented.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Next, we need to identify the subproblem. If our problem is the array ["ab",
+    "c", "def", "ghij"], then our subproblem can be the same array missing one string.
+    Let’s specifically say that our subproblem is the array minus the first string,
+    which would be ["c", "def", "ghij"].
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Now, let’s see what happens when we apply the “already-implemented” function
+    on the subproblem. If we were to call characterCount(["c", "def", "ghij"]), we’d
+    get a return value of 8 since there are eight characters in total.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: So to solve our original problem, all we have to do is add the length of the
+    first string ("ab") to the result of calling the characterCount function on the
+    subproblem.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s one possible implementation:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ characterCount(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: when the array is empty:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0].length + characterCount(array.slice(1)); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ characterCount; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Note that our base case is an empty array, in which case there are zero characters
+    to count.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: First, let’s pretend the selectEven function already works. Next, let’s identify
+    the subproblem. If we try to select all the even numbers in the example array
+    [1, 2, 3, 4, 5], we could say that the subproblem is all the numbers in the array
+    besides the first one. So let’s imagine selectEven([2, 3, 4, 5]) already works
+    and returns [2, 4].
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Since the first number in the array is 1, we don’t want to do anything other
+    than return the [2, 4]. However, if the first number in the array was a 0, we’d
+    want to return the [2, 4] with the 0 added to it.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Our base case is an empty array.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s one possible implementation:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ selectEven(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ []; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array[0] % 2 === 0) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ [array[0]].concat(selectEven(array.slice(1))); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ selectEven(array.slice(1)); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: The definition of a triangular number is n plus the previous number from the
+    sequence, with n referring to the place where the number falls in the pattern.
+    (For example, if we’re computing the sequence’s seventh number, then n is 7.)
+    If the name of our function is triangle, we can express this simply as n + triangle(n
+    - 1). The base case is when n is 1.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ triangle(n) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (n === 1) { ​**return**​ 1; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ n + triangle(n - 1); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Let’s pretend that our function, indexOfX, has already been implemented. Next,
+    let’s say the subproblem is our string minus its first character. For example,
+    if our input string is "hex", the subproblem is "ex".
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Now, indexOfX("ex") would return 1. To calculate the index of the "x" for the
+    original string, we would add 1 to this since the additional "h" at the front
+    of the string moves the "x" down one index. Here’s our code:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ indexOfX(string) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { ​**return**​ 0; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ indexOfX(string.slice(1)) + 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'This exercise is similar to the staircase problem. Let’s break this down:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: From the starting position, we have only two choices of movement. We can either
+    move one space to the right or one space downward.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: What this means is that the total number of unique shortest paths will be the
+    number of paths from the space to the right of S + the number of paths from the
+    space below S.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'The number of paths from the space to the right of S is the same as calculating
+    the paths in a grid of six columns and three rows, as you can see here:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'The number of paths from the space below the S is the equivalent of the paths
+    in a grid of seven columns and two rows:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'Recursion allows us to express this beautifully:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
+    - 1); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: All we need to do now is add the base case. Possible base cases include when
+    we have just one row or one column since in such cases there’s only one path available
+    to us.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the complete function:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ uniquePaths(rows, columns) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (rows === 1 &#124;&#124; columns === 1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
+    - 1); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB

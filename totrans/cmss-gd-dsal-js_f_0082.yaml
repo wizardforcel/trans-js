@@ -1,0 +1,131 @@
+- en: Making an Efficient Hash Table
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Ultimately, a hash table’s efficiency depends on three factors:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How much data we’re storing in the hash table
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How many cells are available in the hash table
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Which hash function we’re using
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It makes sense why the first two factors are important. If you have a lot of
+    data and only a few cells, there will be many collisions and the hash table will
+    lose its efficiency. Let’s explore, however, why the hash function itself is important
+    for efficiency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we’re using a hash function that always produces a value that falls
+    in the range from 1 to 9\. An example of this is a hash function that converts
+    letters into their corresponding numbers and keeps adding the resulting digits
+    together until it ends up with a single digit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Take this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: PUT = 16 + 21 + 20 = 57
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Because 57 contains more than one digit, the hash function breaks up the 57
+    into 5 + 7:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5 + 7 = 12
+  prefs: []
+  type: TYPE_NORMAL
+- en: '12 also contains more than one digit, so it breaks up the 12 into 1 + 2:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 + 2 = 3
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the end, PUT hashes into 3.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This hash function by its very nature will always return a number 1 through
+    9.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s return to our example hash table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: With this hash function, the computer would never even use cells 10 through
+    16 even though they exist. All data would be stuffed into cells 1 through 9.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A good hash function, therefore, is one that distributes its data across all
+    available cells. The more we can spread out our data, the fewer collisions we’ll
+    have.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Great Balancing Act
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: You learned that a hash table’s efficiency goes up as its number of collisions
+    goes down. In theory, then, the best way to avoid collisions would be to have
+    a hash table with a large number of cells. Imagine we want to store just five
+    items in our hash table. A hash table with 1,000 cells would seem to be wonderful
+    for our case, since odds are there would be no collisions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, while avoiding collisions is important, we have to balance that with
+    avoiding memory hogging as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although a hash table with 1,000 cells for our five pieces of data is great
+    for avoiding collisions, we’d be using up 1,000 cells to store just five pieces
+    of data, and that’s a poor use of memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is the balancing act that a hash table must perform. A good hash table
+    strikes a balance of avoiding collisions while not consuming lots of memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To accomplish this, computer scientists have developed the following rule of
+    thumb: for every seven data elements stored in a hash table, it should have ten
+    cells.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if you’re planning on storing fourteen elements, you’d want to have twenty
+    available cells, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This ratio of data to cells is called the load factor. Using this terminology,
+    we’d say that the ideal load factor is 0.7 (7 elements / 10 cells).
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you initially stored seven pieces of data in a hash table, the computer might
+    allocate a hash table with ten cells. When you begin to add more data, though,
+    the computer will expand the hash table by adding more cells and changing the
+    hash function so that the new data will be distributed evenly across the new cells.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Again, most of the internals of a hash table are managed by the computer language
+    you’re using. It decides how big the hash table needs to be, what hash function
+    to use, and when it’s time to expand the hash table. You have the right to assume
+    that your programming language has implemented its hash table to allow for peak
+    performance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we’ve seen how hashes work, it’s clear that they have a superior lookup
+    efficiency of O(1). We’re going to use this knowledge shortly to optimize our
+    code for speed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But let’s first take a quick tour of the many different use cases for hash tables
+    when it comes to simple data organization.
+  prefs: []
+  type: TYPE_NORMAL

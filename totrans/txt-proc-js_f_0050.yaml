@@ -1,0 +1,153 @@
+- en: '| Recipe 39 | Global and Case-Insensitive Matching with the g and i Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose your task is creating a U.S. version of an existing company website.
+    You need to search the content of web pages, find instances of the word “tyre,”
+    including its plural form “tyres,” and replace each with its American spelling
+    “tire.” The search must ignore the letter case, so it matches “Tyre” at the beginning
+    of sentences as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another requirement is to find all possible matches in the string. So, rather
+    than stopping the search as soon as a match is found, the engine must continue
+    looking for more matches in the rest of the string. Doing all these manually takes
+    a lot of time. Fortunately, regex flags are here to save the day.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| One More Time? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | You have already
+    seen the i and g flags in action in the previous recipes. This recipe looks at
+    them one more time to solidify your understanding of them. |'
+  prefs: []
+  type: TYPE_TB
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Place i and g at the end of the pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_global_insensitive/gi_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_global_insensitive/gi_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`Tyre pressure is expressed as pounds per square inch*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *(PSI). Proper tyre pressure is necessary for optimal handling.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *It''s important to inspect your tyres every month for wear.`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\b(**t**)**yre**(**s**)?\b**/gi*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"$1ire$2"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "Tire pressure is expressed as pounds per square inch (PSI).* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Proper tire pressure is necessary for optimal handling. It''s important*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// to inspect your tires every month for wear."* |'
+  prefs: []
+  type: TYPE_TB
+- en: Mission accomplished! All instances of “tyre” in the string are replaced with
+    “tire.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In regex literals, it’s possible to specify options by adding single-letter
+    flags, also known as modifiers, following the forward slash that terminates the
+    pattern. Normally, the replace() method replaces only the first occurrence of
+    the specified pattern in a string. But here, we’re using the global search flag
+    (g), which instructs the engine to continue searching for other pattern occurrences.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The i flag complements the g flag by asking the engine to perform the match
+    in a case-insensitive manner. Here’s how each token in this regex works:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\b(t)yre(s)?\b/gi |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (t) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ t matches the character "t" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● yre matches the characters "yre" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (s)? 2nd capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ s matches the character "s" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ? matches the previous token between zero or one time (greedy) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g global match |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ i case-insensitive match |'
+  prefs: []
+  type: TYPE_TB
+- en: Pay attention to the special characters $1 and $2 in the second argument of
+    replace(). These characters have special meanings when used in the replacement
+    string. The pattern $n includes the value matched by the nth captured group.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, $1 refers to the character matched by the first capturing group, and $2
+    refers to the character matched by the second capturing group. So, if the pattern
+    matches the word “Tyre” with a capital “T,” that specific word will be replaced
+    with “Tire.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, if the pattern matches the optional “s” in the word “tyres,” that
+    word will be replaced with “tires.” To learn more about special replacement patterns,
+    see Recipe 34, [*Using Special Replacement Patterns*](f_0045.xhtml#rcp.replacement_patterns).
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript’s regular expression flavor supports seven optional flags, including
+    d, g, i, m, s, u, and y. Similar to g, these flags are placed after the closing
+    delimiter in the literal form, or passed as the second argument to the RegExp()
+    constructor. We’ll look at each of these flags in the recipes that follow.
+  prefs: []
+  type: TYPE_NORMAL

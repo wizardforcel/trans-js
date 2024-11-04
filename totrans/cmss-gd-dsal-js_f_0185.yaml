@@ -1,0 +1,173 @@
+- en: Weighted Graphs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We’ve already seen that graphs can come in a number of different flavors. Another
+    useful type of graph, known as a weighted graph, adds additional information to
+    the edges of the graph.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a weighted graph that represents a basic map of several major cities
+    in the United States:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_1.png](images/graphs/weighted_graph_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this graph, each edge is accompanied by a number that represents the distance
+    in miles between the cities the edge connects—for example, 714 miles between Chicago
+    and New York City.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It’s also possible to have weighted graphs that are also directional. In the
+    following example, we can see that although a flight from Dallas to Toronto is
+    $138, a flight from Toronto back to Dallas is $216:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_2.png](images/graphs/weighted_graph_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Weighted Graphs in Code
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We need to make a slight modification to our code if we want to add weights
+    to our graph. One way to do this is to use a hash table to represent the adjacent
+    vertices rather than using an array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ WeightedGraphVertex { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.value = value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.adjacentVertices = ​**new**​ Map(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | addAdjacentVertex(vertex, weight) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.adjacentVertices.​**set**​(vertex, weight); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, this.adjacentVertices is now a hash table instead of an array.
+    The hash table will contain key-value pairs, where in each pair the adjacent vertex
+    is the key and the weight (of the edge from this vertex to the adjacent vertex)
+    is the value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we use the addAdjacentVertex method to add an adjacent vertex, we now pass
+    in both the adjacent vertex as well as the weight.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since we’ll continue to deal with the example of a graph that depicts flight
+    fares to and from various cities, we’ll create a special class called City. This
+    is the same implementation as the preceding WeightedGraphVertex but uses class
+    and variable names appropriate to our use case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ City { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(name) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.name = name; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.routes = ​**new**​ Map(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | addRoute(city, price) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.routes.​**set**​(city, price); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'So if we want to create the Dallas–Toronto flight price graph from earlier,
+    we can run the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ dallas = ​**new**​ City(​*''Dallas''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ toronto = ​**new**​ City(​*''Toronto''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | dallas.addRoute(toronto, 138); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | toronto.addRoute(dallas, 216); |'
+  prefs: []
+  type: TYPE_TB
+- en: The Shortest Path Problem
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Weighted graphs can be very useful in modeling all sorts of datasets, and they
+    also come with some powerful algorithms that help us make the most out of that
+    data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s harness one of these algorithms to save us a bit of money.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a graph that demonstrates the costs of available flights between five
+    different cities:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_3.png](images/graphs/weighted_graph_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Now, say I’m in Atlanta and want to fly to El Paso. Unfortunately, we can see
+    in this graph that there’s no direct route from Atlanta to El Paso at this time.
+    However, I can get there if I’m willing to stop over in other cities along the
+    way. For example, I can fly from Atlanta to Denver and then from Denver to El
+    Paso. But there are other paths as well, and each path has a different price.
+    The Atlanta–Denver–El Paso path will set me back $300, but the Atlanta–Denver–Chicago–El
+    Paso path only costs $280.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The puzzle, now, is this: how do we create an algorithm that finds the cheapest
+    price I’d have to shell out to get to my destination? Let’s assume we don’t care
+    about how many stops we have to make; we’re just out to get the cheapest fare.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This kind of puzzle is known as the shortest path problem. This problem can
+    take other forms as well. For example, if the graph showed us distances between
+    cities, we might want to find the path that has the shortest distance. But here,
+    the shortest path we’re looking for is the cheapest one since the weights represent
+    flight prices.
+  prefs: []
+  type: TYPE_NORMAL

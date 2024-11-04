@@ -1,0 +1,165 @@
+- en: '| Recipe 60 | Removing Duplicate Lines Separated by Other Lines |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you want to eliminate duplicated lines that are not adjacent to each
+    other like in the previous recipe. For instance, let’s say you have text like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Team Power Rankings |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #3 Memphis Grizzlies 43-27 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'And you need to write a code that outputs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Team Power Rankings |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #2 Philadelphia 76ers 48-22 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #3 Memphis Grizzlies 43-27 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | #4 Boston Celtics 49-23 |'
+  prefs: []
+  type: TYPE_TB
+- en: Your code should have the capability to remove duplicate entries, even if they
+    are interspersed with other lines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Convert the string to an array, then pass the array to the Set constructor
+    to remove duplicates, and finally convert the resulting Set to a string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_lines_v2/removing_dup_lines_v2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_lines_v2/removing_dup_lines_v2_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** removeDuplicateLines(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** arr = str.split(*/**\r?\n**/*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** **set** = [...**new** Set(arr)]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** newStr = **set**.join(*"***\***n"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** newStr; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`Team Power Rankings* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#1 Cleveland Cavaliers 45-28* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#1 Cleveland Cavaliers 45-28* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#3 Memphis Grizzlies 43-27* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *#4 Boston Celtics 49-23`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** result = removeDuplicateLines(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(result); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Team Power Rankings* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #1 Cleveland Cavaliers 45-28* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #2 Philadelphia 76ers 48-22* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #3 Memphis Grizzlies 43-27* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// #4 Boston Celtics 49-23* |'
+  prefs: []
+  type: TYPE_TB
+- en: The result is a string with all duplicate lines eliminated.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: First, we use split(/\r?\n/) to split the string at line breaks and create an
+    array. This way, we can identify any duplicate elements in the array and eliminate
+    them. We can achieve this by iterating over the array items, or more conveniently,
+    by utilizing the Set constructor.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So we pass the array to Set(): it automatically eliminates duplicate items
+    and returns a Set object containing unique values. Afterward, we apply the spread
+    (...) syntax within an array to transform the Set back into an array again. Finally,
+    we use join("\n") to concatenate all of the elements in the array with each element
+    separated with a line break character.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s possible to use this approach to remove duplicate lines that appear next
+    to each other as well; however, the regex solution explained in the previous recipe
+    would be much faster. On the other hand, the non-regex approach described in this
+    recipe is faster than regex for removing duplicates that are separated by other
+    lines.
+  prefs: []
+  type: TYPE_NORMAL

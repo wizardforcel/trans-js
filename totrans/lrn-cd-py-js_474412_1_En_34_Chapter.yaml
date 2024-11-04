@@ -1,0 +1,571 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_34](https://doi.org/10.1007/978-3-658-42912-6_34)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '34. Conditional Statements & Event Handling: How Do I Control the Program Flow
+    and Make the Program React to User Actions and Other Events?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Previously, we have encountered two ways to guide the course of program execution:
+    through linear decision-making with If-Else mechanisms and by responding to actions
+    with event handlers. We will proceed to investigate these two methods in greater
+    detail.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how to use conditions with the help of If-Else constructs to branch into different
+    parts of the program code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to formulate conditions and link them with each other using logical operators
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use the conditional operator? instead of an If-Else constructs, and when
+    that makes sense
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use Switch-Case constructs to efficiently check many similarly structured
+    conditions and branch accordingly
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to use event handlers to process events
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what the main types of events are and how to evaluate information about an event
+    that has occurred
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 34.1 If-Else Constructs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Formulation with the Help of the Keywords if and else
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the example of the Kelvin-Celsius conversion from ► Sect. [32.​5.​2](474412_1_En_32_Chapter.xhtml#Sec13),
+    the function **convert()**, which was event-driven when the user clicked on the
+    corresponding button, checked whether degrees Celsius should be converted to Kelvin,
+    or vice versa—namely, the user could specify this with the help of two radio buttons.
+    The code of the function looked like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {document.write(`<p>${temp} Kelvin are${temp - 273.15} degrees Celsius.<p>`);}**else**
+    {document.write(`<p>${temp} degrees Celsius are${temp + 273.15} Kelvin.<p>`);}}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here you can clearly see the branching within the code of the function: **if
+    direction[0].checked == true** (i.e. radio button number 1 is checked) *then*
+    a conversion from Kelvin to Celsius takes place, otherwise (**else**) Celsius
+    is converted to Kelvin.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The general structure of the If-Else construct looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**if**(condition) {*// Instructions*}**else** {*// Instructions*}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**condition** is an expression that can be evaluated to **true** or **false**.
+    Often the expressions are *comparisons* like in the example. Note that in JavaScript
+    (as in many other programming languages—Python is no exception) the equality operator
+    is written as **==** and the inequality operator as **!=** (i.e. “not equal”).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In JavaScript, a comparison with **true** or **false** can also be omitted.
+    So instead of writing **if(direction[0].checked == true)** as in the example above,
+    **if(direction[0].checked)** would have sufficed, because **direction[0].checked**
+    is an expression that can be evaluated to **true** or **false**; the comparison
+    with **true** is therefore performed by default, even if we don’t write it explicitly.
+    After all, other comparisons are also expressions that can evaluate to **true**
+    or **false**. For example, instead of **if(x>5)** you could write if**((x>5) ==
+    true)**; **(x>5)** is an expression that can be **true** or **false**, depending
+    on the value **x** takes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By the way, the special values **null**, **undefined**, and **NaN** are always
+    evaluated as **false** in conditions. Some functions may return one of these values,
+    so if your expression to be checked consists of a call to such a function, you
+    should consider whether your program really branches the way you want it to in
+    case of such a return. Strings are always considered **true** (even if the string
+    is **'false'** or **'0'**, so there is no implicit conversion here), numbers are
+    always considered **true** unless they are the **0**, which is evaluated as **false**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Please note that the condition—unlike in Python, for example—must always be
+    enclosed in *round brackets.* Within the expression to be checked, additional
+    parentheses can be used. This is especially advisable if you use complicated expressions
+    with many operators and you do not know exactly in which order the operators are
+    processed. To ensure a certain order then, it does not hurt to use enough parentheses.
+    Better one bracket too many than one too few!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This also applies when you are working with compound conditions, i.e., conditions
+    that are composed of several sub conditions. The sub conditions are then linked
+    with each other using the logical operators **&&** (logical *AND*) and **||**
+    (logical *OR*). For example, if you wanted to check whether the variable **age**
+    is between 18 and 68, the appropriate condition would be: **if(age >= 18 && age
+    <=68)**. If you also want your condition to take into account the sex of the person
+    in question and always be true if the person is a woman or the person’s age is
+    between 18 and 68, you would formulate the condition as follows: **if((age >=
+    18 && age <=68) || sex** == **''f'')**. Note the parentheses here, which we use
+    to ensure that **(age >= 18 && age <=68)** is evaluated first as a sub condition.
+    These parentheses would not have been necessary here at all, because the logical
+    *AND* and *OR operators* are simply processed from left to right in the order
+    they appear in the code, and therefore there would never have been any danger
+    of **age <= 68 || sex == ''f''** being evaluated as a sub condition; nevertheless,
+    the notation with the parentheses makes it clear what belongs together here and
+    thus increases the readability of the program code.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The third logical operator missing is the logical *NOT*, which is written as
+    **!** in JavaScript and flips the truth of a statement. In contrast to the logical
+    *AND* and the logical *OR*, the logical *NOT* is a *unary* operator, i.e., it
+    requires only one operand (namely the expression whose truth value is flipped).
+    The logical *AND* and the logical *OR* are binary operators that link two operands
+    (here: logical expressions) with each other. With the help of the **! -**operator,
+    we could write the condition **if((age >= 18 && age <=68) || sex == ''f'')** as
+    **if((age >= 18 && age <=68) || !(sex == ''m''))**. Here **!(sex == ''m'')** means
+    that the statement **sex == ''m''** should *not be* true. Conversely, sex must
+    have the value **''f''** (at least if we assume two sexes as usual). By the way,
+    the parenthesis around the expression to be negated cannot be omitted here, because
+    otherwise the **!** operator would only refer to **sex**; **sex**, however, always
+    has the logical value **true** as a string, which would be twisted to **false**
+    by **!**. Thus, in case of a male, the expression !**sex == ''m''** is reduced
+    to **false == ''m''**, a logical statement, which itself is false, because **"m"**
+    as a string has the truth value **true**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: After the **if** condition and after the **else** keyword, which introduces
+    the alternate branch that is executed whenever the **if** condition evaluates
+    to **false**, there follows a block of code in curly braces. If the block contains
+    only a single statement, the curly braces can be omitted (so you could have done
+    that in our opening example).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The entire **else** branch can also be omitted. The minimal form of the If-else
+    construct thus contains only an **if** branch. If the condition to whose execution
+    it is linked does not apply, nothing happens. The program continues to run normally,
+    starting with the first statement after the code block of the **if** branch.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Formulation with the Help of the Condition Operator?
+  prefs: []
+  type: TYPE_NORMAL
+- en: A special kind of branching is the conditional operator **?**. It is a *ternary*
+    operator, i.e., an operator that, unlike the *unary* operator **!** (the logical
+    *NOT*) or the binary operators **&&** (the logical *AND*) and **||** (the logical
+    *OR*), processes *three* operands, hence the name *ternary*. It checks a condition
+    and returns either the first or the second as the result of two expressions, depending
+    on whether the condition was met or not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following example, which we will run in the console for simplicity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** name = ''Anderson''**>** sex = ''m''> console.log("Hello", (sex == ''f'')
+    ? ''woman'' : ''man'', name)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, depending on whether the person is female or male, the salutation is adjusted
+    accordingly. The condition **(sex == 'f')** is checked; if this is true, the operator
+    returns the expression after the question mark, otherwise the expression after
+    the colon. The general form of the condition operator is thus ***condition***
+    **?** ***returnIf*** **:** ***returnElse***. This concise formulation is advantageous
+    because it provides a more compact way of branching that is easier to integrate
+    with other statements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.1 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: How can we easily show that strings in conditions always evaluate to **false**?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.2 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reword the salutation example so that it no longer uses the conditional operator?:,
+    but instead uses a traditional If-Else construct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.3 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rewrite the function **convert()** for converting temperatures between Kelvin
+    and degrees Celsius so that Kelvin temperatures below 0 K and Celsius temperatures
+    below absolute zero of −273.15 °C (= 0 K) are acknowledged with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.2 Switch-Case Constructs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Sometimes you want to check many similar conditions at once; then a nested
+    If-Else construct is possible, but it quickly becomes very confusing. This is
+    why JavaScript, like many other languages, has a Switch-Case construct. For example,
+    suppose you wanted to determine the number of days for a given month. With nested
+    If-Else constructs, the readability and maintainability of the program code would
+    suffer significantly. It is simpler with **switch**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: month = 'December';switch(month) {case 'January', 'March', 'May', 'July', 'August','October','December':days
+    = 31;break;case 'April', 'June', 'September', 'November':days = 30;break;case
+    'February':days = 28;break;default:days = -1;break;}
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **switch** statement is passed the expression to be checked in parentheses.
+    The individual cases are then introduced with **case**. Several cases can also
+    be checked at once, as we do here in the example. After the colon for each checked
+    case, you see the statements that are to be executed when that case occurs; in
+    our example, only the variable **days** is set to the corresponding number of
+    days. The statement block for each case ends with the keyword **break**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: During execution, the interpreter determines the value of the expression to
+    be checked and jumps directly to the corresponding statement block. After the
+    statement block has been processed, program execution continues after the **switch**
+    code block which is enclosed in curly brackets. If none of the cases applies,
+    the **default** block is executed, but this is optional and can therefore be omitted.
+    If the **default** is omitted and none of the cases apply, execution continues
+    directly after the Switch-Case construct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.3 Events
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Besides the If-Else and Switch-case constructs, *events* are an important way
+    to control the program flow; in fact, in JavaScript they are the most important
+    form of flow control of all.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Insert Event Handlers Directly into the HTML Code
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have already worked with events when we attached event handlers to form elements
+    such as buttons in ► Chap. [32](474412_1_En_32_Chapter.xhtml), for example, to
+    be able to react to a user click. In this section, we’ll take a closer look at
+    working with events.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following HTML code is an excerpt from our color picker application from
+    ► Sect. [32.​7](474412_1_En_32_Chapter.xhtml#Sec18):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<input** id="colorRedRange" type="range" value="255"min="0" max="255" oninput="adjustColor()"**>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, for a **range input** element, i.e. a slider, we had set the property
+    **oninput** to the event handler **adjustColor()**. Whenever the user moves the
+    slider, this function we developed is called and can react to the user input.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The event covered here by an event handler is called **input**; by convention,
+    the corresponding property of the HTML element is named **oninput**¸ so the event
+    name is always prefixed with **on**. We have seen that elsewhere, for example,
+    with **onclick**. The value assigned to the property is our event handler, or
+    more precisely, the *call to* the event handler—easily recognizable by the round
+    brackets. Instead of this call, we could have directly entered more JavaScript
+    code here, for example **oninput = "alert('Change!'); console.log('Change!')"**.
+    However, this approach is only recommended for very short code segments, and even
+    then it’s not really recommended, because it makes maintaining the code more difficult.
+    So, normally at this point you will see the call to an event handler, as in our
+    example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assign Event Handlers via HTML Element Properties in JavaScript Code
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, let’s look at the following simple example. First, the HTML document:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>****<html>****<body>****<form>****<input** id="myinput" type="text"**>****</form>****<script**
+    src="eventtest.js"**></script>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we just create a text input field with the ID **myinput**. You may have
+    noticed that this time we have included the script at the very end of the body
+    in the HTML document. The reason is that, as you will see in a moment, we access
+    elements of the web page directly in the script. If we had included the script
+    at the beginning, we would have missed out on these access attempts, because the
+    elements of the pages do not yet exist at this early stage. Accordingly, the script
+    would run into an error (try it out and watch the error messages in the JavaScript
+    console).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The program logic is in the JavaScript file **eventtest.js**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** mouseclick(e) {console.log(''It was clicked. '');console.log(''X:
+    '', e.x, ''\nY: '', e.y);}**var** inpField = document.getElementById(''myinput'');inpField.onclick
+    = mouseclick;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this JavaScript code, first the input field of the web page is selected below.
+    Then, the **onclick** property of this element is assigned the **mouseclick()**
+    function defined above. More precisely, the **mouseclick** function *object* is
+    assigned to the property. Note that there is no call to the function here, hence
+    no round brackets after the function name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **onclick** property of our **inpField** object is an example of how JavaScript
+    objects representing HTML elements have event handler properties whose names are
+    formed using the same logic as for the HTML elements themselves, i.e., the **on*****event***
+    schema with **event** being the specific event that triggers the event handler.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The event we process here is the **click** event. The processing is done by
+    our event handler **mouseclick()**. As you can see, **mouseclick()** takes a parameter,
+    an *event object*, that describes the event in more detail. Depending on which
+    event is processed, the event object is composed differently. In the case of the
+    **click** event, the object has, among other things, the properties **x** and
+    **y**, which indicate exactly where on the page the click occurred. We take advantage
+    of this and output this information in the console. If you want to know what properties
+    the event object has for a particular event, just display it in the console with
+    **console.log(e)**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we had “wired” the event handlers directly in the HTML code with the HTML
+    elements, the event handlers were called without an event object, for example
+    with **oninput="adjustColors()"**. We could not have passed an event object here
+    at all. This was not a problem, because in these examples we had no need to access
+    the properties of the event. However, if we had wanted to do that, we could have
+    accessed the standard **event** object within our event handler, which would have
+    provided us with the information. Strictly speaking, we would not need our parameter
+    **e** at all and could always work with the standard object **event** instead.
+    The fact that we can call functions that should be passed an event object without
+    one, and even define the function without this parameter at all, is thanks to
+    JavaScript’s flexible handling of function parameters, which we have already dealt
+    with in ► Sect. [33.​1.​3](474412_1_En_33_Chapter.xhtml#Sec4).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **click** event is not the only event related to mouse clicks. With **mousedown**
+    and **mouseup**, two events are available that are always triggered when a mouse
+    button is pressed or released. The event objects of these two events have the
+    **buttons** property, which indicates which mouse button was used-with 1 for left
+    mouse button and 2 for right mouse button. The **click** event is triggered after
+    **mousedown** and **mouseup**. In the case of a double-click, the **detail** property
+    of the event object of the second **click event** with the value 2 indicates that
+    it was a double-click. Independently of this, the event **dblclick** is also triggered
+    in this case. If you are not at all interested in the clicks, but rather in the
+    mouse movements, you should take a closer look at the event **mousemove.** Since
+    it is triggered by even the smallest mouse movement, it is better not to attach
+    extensive code to this event.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add Event Handlers with addEventListener()
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The third way to attach an event handler to an event is to call the **addEventListener()**
+    method of the JavaScript object that represents the HTML element in question.
+    This is exactly what we do in the following example, where we process input in
+    our input field using the **keypress** event. The JavaScript code of our **eventtest.js**
+    file thus looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** showKeyPress(e) {**if**(e.key != ''a'') inpField.value = inpField.value
+    + e.key;e.preventDefault();}**var** inpField = document.getElementById(''myinput'');inpField.addEventListener(''keypress'',
+    showKeyPress);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Event Handler is installed in this example with the **addEventListener()**
+    method (event listener is a synonym for event handler). The method is called with
+    the name of the event and the event handler object as argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our event handler **showKeyPress()** causes the entered character to be displayed
+    in the input field, but only if it is not an **"a"**. So, in a sense, the **a**’s
+    are filtered out (try it out!). To do this, we make use of the **key** property
+    of the event object, which contains the input character. Now, it is in the nature
+    of an input field that the characters entered are also displayed. This standard
+    behavior of input fields is provided by the browser. But if we want to filter
+    the entered characters, we have to prevent this default behavior somehow. This
+    is exactly what we do by calling the **preventDefault()** method of our event
+    object. It prevents the browser from performing the default behavior normally
+    associated with such an event. So, this way you could also, for example, suppress
+    the default behavior of opening a context menu when you click the right mouse
+    button.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Analogous to **click** and the two “detail events” **mousedown** and **mouseup**
+    for mouse clicks, there are also special events for keystrokes with the names
+    **keydown** and **keyup**. Unlike **keypress**, which is triggered only when displayable
+    characters are entered, **keydown** and **keyup** are triggered whenever *any*
+    key is pressed at all. Display the event object of **keydown** or **keyup** once
+    with **console.log()**. You will see that special **boolean** properties are available
+    with **ctrlKey**, **shiftKey**, and **altKey** to indicate whether any of the
+    special keys were pressed. If a special key was pressed in combination with a
+    character, e.g. <CTRL> + <S>, then **key** contains the character; if *only* the
+    special key was pressed, however, **key** contains a string such as **control**,
+    **shift**, or **alt**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For the events, get an overview of the information provided and a sense of when
+    (and how often) the events are triggered by outputting the event objects to the
+    console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By the way, with **addEventListener()** you could attach several event handlers
+    for the same event to the same object. With the method **removeEventListener()**,
+    which has the same parameters as **addEventListener()**, you can then “disconnect”
+    an event handler again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Other Events
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript knows numerous other events in addition to those mentioned here.
+    Not only HTML elements can be carriers of events. The document (standard object
+    **document**) and the browser window (standard object **window**) also have events;
+    for example, the **resize** event is triggered when the browser window is resized,
+    and the **beforeunload** event is triggered when the web page is exited (navigation
+    to another URL). If you want to know which events an object supports, enter the
+    object identifier followed by **.on** in the JavaScript console, and the pop-up
+    list of object properties will take you directly to the available events (whose
+    property names all start with **on**).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 34.4 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we looked at how to branch in program flow depending on conditions
+    and events.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If-Else constructs have the general form **if(*****condition*****) {** ***codeIf***
+    **} else {** ***codeOtherwise*** **}**, where the **else** branch is optional.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The condition is an expression that can be evaluated as **true** or **false**;
+    the special values **null**, **undefined** and **NaN** are always considered **false**,
+    strings are always considered **true**; the same is **true** for numbers except
+    **0**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A condition can be composed of several sub-conditions that are linked with the
+    logical operators **&&** (logical *AND*), **||** (logical *OR*) and **!** (logical
+    *NOT*) operators.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In addition to the usual numeric comparison operators **>**, **>=**, **<** and
+    **<=,** the operators **==** and **!=** (unequal) are used to formulate conditions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The condition operator **?** allows efficient formulations of branches in the
+    form **condition ?** ***returnIf*** **:** ***returnOtherwise*** and is useful
+    when a value is to be decided on the basis of a condition.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Switch-Case constructs of the form **switch(*****expression*****) { case** ***expression1*****:**
+    ***statement1*****; …; break; … case** ***experssionN*****:** ***statementN*****;
+    … ; break; default:** ***statementDefault*****; … ; break; }** are well suited
+    when an expression (for example, the value of a variable) is to be tested for
+    many similar conditions. A deeply nested and therefore confusing If-Else construct
+    can be avoided in this way. The **default** branch is optional.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Event handlers are functions that are automatically called whenever an event
+    occurs.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Event handlers can be set directly in the HTML code of the Web page for an HTML
+    element with a property assignment of the form **one*****event*** **= "*****eventHandler*****()"**,
+    or they can be installed dynamically in the JavaScript code with the **addEventListener(*****eventName*****,**
+    ***eventHandlerObject*****)** method of an HTML element object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The most important events are mouse and keyboard events, of which there are
+    different types, which are triggered by certain constellations of actions (such
+    as one double-click = two clicks) or partial actions (such as releasing a mouse
+    button or pressing down a keyboard key).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Event handlers are automatically passed an event object whose properties describe
+    the event in more detail (for example, exactly which key was pressed on the keyboard,
+    or at which position on the screen a mouse click occurred); even if your event
+    handler does not provide an argument at all, you can always access the default
+    **event** argument in its code.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 34.5 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 34.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A simple way to show that strings always evaluate to **true** is to run a condition
+    like the following in the JavaScript console:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** if(''A string'') console.log(''Is true'')Is true'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interestingly, a condition of the form **if('A string' == true)** would not
+    have resulted in an output. This is because the string itself does not have the
+    value **true**, of course (it is just a string and has the value stored in the
+    string). However, if it actually has *to be* evaluated as **true** or **false**,
+    because a *logical expression* is expected at the corresponding position, it is
+    always considered **true**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 34.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One solution might look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**if**(sex == ''m'') salutation = ''Mr''**else** salutation = ''Ms'';console.log(''Hello'',
+    salutation, name);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because only one statement follows in each of the code blocks of the **if**
+    and **else** branch, the curly braces can be omitted here. The same applies to
+    the previous tasks, but note, however, the omission of the braces leads to a more
+    confusing code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 34.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One solution might look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {**if**(temp >= 0) {document.write(`<p>${temp} Kelvin are${temp -
+    273.15} degrees Celsius.<p>`);}**else** {alert(''The Kelvin temperature needs
+    to be greaterthan or equal to zero.'');}}**else** {**if**(temp >= -273.15) {document.write(`<p>${temp}
+    degrees Celsius are${temp + 273.15} Kelvin.<p>`);}**else** {alert(''The Celsius
+    temperature must be greateror equal to 273.15.'');}}}'
+  prefs: []
+  type: TYPE_NORMAL

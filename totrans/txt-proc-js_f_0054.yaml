@@ -1,0 +1,154 @@
+- en: '| Recipe 43 | Enabling Unicode Features with the u Flag |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have an online forum and want to limit the characters in user posts
+    to words, numbers, underscores, hyphens, and emoticons. You can impose the first
+    four rules with a character class like [-\w]+. Recall from Recipe 27, [*Matching
+    One of Several Characters with the Character Class*](f_0038.xhtml#rcp.character_class)
+    that \w is equivalent to [a-zA-Z0-9_], so you just need to add the hyphen and
+    emoticons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Matching emoticons is a bit more complicated. In Unicode, emoticons are a block
+    of code points containing 80 Unicode emojis. But adding all these code points
+    to your character class would be a real chore.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You need a solution that enables you to define a range of emojis in the character
+    class, just as you’d define a range of characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'List the first and last emojis of the emoticons Unicode block in a character
+    class and place a hyphen between them to define a range.^([[27]](f_0064.xhtml#FOOTNOTE-27))
+    Then, append the u flag to the pattern to enable matching emoji ranges:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_unicode/unicode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Match words, numbers, underscores, hyphens, and emoticons* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/flags_u_ex1.png](images/flags_u_ex1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Your pattern is now able to match a range of emojis successfully!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Although the regex in this recipe contains two hyphens, each serves a different
+    purpose. The first hyphen matches a hyphen literally because it is located at
+    the beginning of the character class and cannot possibly define a range. The second
+    hyphen, however, is placed between two emojis, which tells the regex engine to
+    match a range:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/flags_u_ex4.png](images/flags_u_ex4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Without the u flag, this code would throw a SyntaxError:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_unicode/unicode_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Same pattern with no unicode flag* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/flags_u_ex2.png](images/flags_u_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Another use of the Unicode flag is to tell the engine to treat a pattern as
+    a sequence of Unicode code points, making it possible to interpret surrogate pairs
+    as whole characters rather than two separate characters. For instance:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_unicode/unicode_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"***\***ud846"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/flags_u_ex3.png](images/flags_u_ex3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The Chinese character in this example consists of two code points: \ud846\udf10.
+    Without setting the u flag, the regex engine incorrectly interprets the first
+    pair as a match. For more details about Unicode, see Appendix 1, [*What Is Unicode?*](f_0088.xhtml#apx1).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'An important thing to remember about the u flag is that it’s more strict about
+    the unnecessary use of the backslash. If you escape a character that has no special
+    meaning in regex, and the Unicode mode is on, you’ll get an error:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_unicode/unicode_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"cab"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | */**\c**/*.test(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | */**\c**/*u.test(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → SyntaxError: Invalid regular expression: /\c/: Invalid Unicode
+    escape* |'
+  prefs: []
+  type: TYPE_TB
+- en: The second regex in this code attempts to escape “c,” which is not a reserved
+    character. The outcome is a SyntaxError.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Unicode Property Escapes |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/note.png](images/aside-icons/note.png) | An extremely
+    useful feature of the Unicode flag is to enable Unicode property escapes, which
+    you’ll learn about in Recipe 51, [*Matching Non-ASCII Numerals with the Unicode
+    Property Escape*](f_0062.xhtml#rcp.unicode_property_escapes_p1). |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Nitty-Gritty Details |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | There are more
+    nitty-gritty details about the u flag that could be useful to know if you are
+    working with non-BPM characters. Check out Mathias Bynens’ extensive article on
+    Unicode-aware regular expressions to learn more.^([[28]](f_0064.xhtml#FOOTNOTE-28))
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: The Unicode flag enables various ES2015 Unicode features. You can use it to
+    define a range of astral (non-BMP) symbols such as emojis, interpret surrogate
+    pairs as whole characters, interpret Unicode property escapes, and more.
+  prefs: []
+  type: TYPE_NORMAL

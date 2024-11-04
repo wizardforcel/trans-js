@@ -1,0 +1,211 @@
+- en: Quickselect
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s say you have an array in random order, and you don’t need to sort it,
+    but you do want to know the tenth-lowest value in the array, or the fifth-highest.
+    This can be useful if we have a lot of test grades and want to know what the 25th
+    percentile is, or if we want to find the median grade.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way to solve this would be to sort the entire array and then jump to the
+    appropriate index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, even were we to use a fast sorting algorithm like Quicksort, this algorithm
+    would take at least O(N log N) for average cases. And while that isn’t bad, we
+    can do even better with a brilliant little algorithm known as Quickselect. Like
+    Quicksort, Quickselect relies on partitioning and can be thought of as a hybrid
+    of Quicksort and binary search.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you’ve seen earlier in this chapter, after a partition, the pivot value
+    ends up in the appropriate spot in the array. Quickselect takes advantage of this
+    in the following way:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we have an array of eight values, and we want to find the second-to-lowest
+    value within the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we partition the entire array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/partition_entire_array.png](images/divide_and_conquer_code_in_turbo_mode/partition_entire_array.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'After the partition, the pivot will hopefully end up somewhere toward the middle
+    of the array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/pivot_in_middle.png](images/divide_and_conquer_code_in_turbo_mode/pivot_in_middle.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This pivot is now in its correct spot, and since it’s in the fifth cell, we
+    now know which value is the fifth-lowest value within the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, we’re looking for the second-lowest value, not the fifth-lowest. But we
+    do know that the second-lowest value is somewhere to the left of the pivot. We
+    can now ignore everything to the right of the pivot and focus on the left subarray.
+    It’s in this respect that Quickselect is similar to binary search: we keep dividing
+    the array in half and focus on the half in which we know the value we’re seeking
+    will be found.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, we partition the subarray to the left of the pivot:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/subarray_left_of_pivot.png](images/divide_and_conquer_code_in_turbo_mode/subarray_left_of_pivot.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Let’s say the new pivot of this subarray ends up the third cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/pivot_third_cell.png](images/divide_and_conquer_code_in_turbo_mode/pivot_third_cell.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We now know that the value in the third cell is in its correct spot, meaning
+    it’s the third-to-lowest value in the array. By definition, then, the second-to-lowest
+    value will be somewhere to its left. We can now partition the subarray to the
+    left of the third cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/partition_left_of_third_cell.png](images/divide_and_conquer_code_in_turbo_mode/partition_left_of_third_cell.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'After this next partition, the lowest and second-lowest values will end up
+    in their correct spots within the array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/second_lowest_value.png](images/divide_and_conquer_code_in_turbo_mode/second_lowest_value.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We can then grab the value from the second cell and know with confidence that
+    it’s the second-lowest value in the entire array. One of the beautiful things
+    about Quickselect is that we can find the correct value without having to sort
+    the entire array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With Quicksort, each time we halved the array, we needed to re-partition every
+    single element again (in their subarray form), giving us O(N log N). With Quickselect,
+    on the other hand, each time we cut the array in half, we only had to partition
+    the one half we cared about—the half in which we know our value is to be found.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Efficiency of Quickselect
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: When analyzing the efficiency of Quickselect, we’ll see that it’s O(N) for average
+    scenarios. Why is this?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our earlier example of an array of eight elements, we executed three partitions:
+    one on an array of eight elements, one on a subarray of four elements, and one
+    on a subarray of two elements.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Recall that each partition takes about N steps for the subarray it’s run upon.
+    The total steps, then, for the three partitions is 8 + 4 + 2 = 14 steps. So an
+    array of eight elements yields roughly 14 steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For an array of 64 elements, we run about 64 + 32 + 16 + 8 + 4 + 2 = 126 steps.
+    For 128 elements, we would need about 254 steps. And for 256 elements, we would
+    end up with 510 steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can see that we need about 2N steps for N elements in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: (Another way to formulate this is to say that for N elements, we would need
+    N + (N/2) + (N/4) + (N/8) + … 2 steps. This always turns out to be roughly 2N
+    steps.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since Big O ignores constants, we drop the 2 from the 2N and say that Quickselect
+    has an efficiency of O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Quickselect'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Following is an implementation of a quickselect method that can be dropped
+    into the SortableArray class described earlier. You’ll note that it’s very similar
+    to the quicksort method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | quickselect(kthLowestValue, leftIndex, rightIndex) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (rightIndex - leftIndex <= 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.array[leftIndex]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pivotIndex = ​**this**​.partition(leftIndex, rightIndex);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (kthLowestValue < pivotIndex) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.quickselect(kthLowestValue, leftIndex, pivotIndex
+    - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (kthLowestValue > pivotIndex) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.quickselect(kthLowestValue, pivotIndex + 1,
+    rightIndex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.array[pivotIndex]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The variable kthLowestValue allows us to choose which value we’re searching
+    for. We can search for the second-to-lowest value, the fifth-to-lowest value,
+    or any other value we’d like.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to find the second-to-lowest value of an unsorted array, you’d
+    run the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ array = [0, 50, 20, 10, 60, 30]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ sortableArray = ​**new**​ SortableArray(array); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(sortableArray.quickselect(1, 0, array.length - 1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: The first argument of the quickselect method accepts the position you’re looking
+    for, starting at index 0\. We’ve put in a 1 to represent the second-to-lowest
+    value. The second and third values are the left and right indexes of the array,
+    respectively.
+  prefs: []
+  type: TYPE_NORMAL

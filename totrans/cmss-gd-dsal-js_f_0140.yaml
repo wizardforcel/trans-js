@@ -1,0 +1,167 @@
+- en: Queues as Doubly Linked Lists
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Because doubly linked lists have immediate access to both the front and end
+    of the list, they can insert data on either side at O(1) as well as delete data
+    on either side at O(1).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because doubly linked lists can insert data at the end in O(1) time and delete
+    data from the front in O(1) time, they make the perfect underlying data structure
+    for a queue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We looked at [​*Queues*​](f_0092.xhtml#sect.queues), and you’ll recall that
+    they are lists of items in which data can only be inserted at the end and removed
+    from the beginning. You learned there that queues are an example of an abstract
+    data type and that we were able to use an array to implement them under the hood.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, since queues insert at the end and delete from the beginning, arrays are
+    only so good as the underlying data structure. While arrays are O(1) for insertions
+    at the end, they’re O(N) for deleting from the beginning.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A doubly linked list, on the other hand, is O(1) for both inserting at the end
+    and for deleting from the beginning. That’s what makes it a perfect fit for serving
+    as the queue’s underlying data structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Queue Built upon a Doubly Linked List'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Before implementing the queue itself, we’ll first add one more method to our
+    DoublyLinkedList class. This popHead method removes the head from the list and
+    returns it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | popHead() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ poppedNode = ​**this**​.firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = ​**this**​.firstNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode.previousNode = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ poppedNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, we effectively delete the first node by changing the list’s
+    this.firstNode to be what is currently the second node. We also make sure that
+    the new head doesn’t link to any previous node. Finally, we return the node we
+    just deleted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With this in place, we can now create a queue implementation that is built
+    upon a doubly linked list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ DoublyLinkedList ​**from**​ ​*''./doubly_linked_list.js''*​;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ Queue { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data = ​**new**​ DoublyLinkedList(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | enqueue(element) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data.append(element); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | dequeue() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ dequeuedNode = ​**this**​.data.popHead(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ dequeuedNode.data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | read() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!​**this**​.data.firstNode) { ​**return**​ ​**null**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.data.firstNode.data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The Queue class implements its methods on top of our DoublyLinkedList. The
+    enqueue method relies on the append method of our DoublyLinkedList:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | enqueue(element) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data.append(element); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Similarly, the dequeue method takes advantage of the linked list’s ability
+    to delete from the front of the list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | dequeue() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ dequeuedNode = ​**this**​.data.popHead(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ dequeuedNode.data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: By implementing our queue with a doubly linked list, we can now both insert
+    and delete from the queue at a speedy O(1). And that’s doubly awesome.
+  prefs: []
+  type: TYPE_NORMAL

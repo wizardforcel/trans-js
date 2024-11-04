@@ -1,0 +1,150 @@
+- en: 'Chapter 8: Implementing Search in our Blogging Application'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we'll enhance our blogging application by adding a search functionality
+    that allows users to search for specific blog posts based on keywords. Implementing
+    search will improve the user experience and make it easier for users to find relevant
+    content. Let's get started!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.1 Setting Up Search Index
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To enable search functionality, we''ll use a powerful search engine called
+    Elasticsearch. Follow these steps to set up Elasticsearch in your application:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.1.1 Install Elasticsearch
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: First, you'll need to install Elasticsearch on your system. Visit the official
+    Elasticsearch website (https://www.elastic.co/downloads/elasticsearch) and download
+    the appropriate version for your operating system. Follow the installation instructions
+    provided by Elasticsearch to complete the installation process.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.1.2 Create Elasticsearch Index
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Once Elasticsearch is installed, you need to create an index to store your
+    blog posts. An index is similar to a database table and is used to organize and
+    store your data. In your terminal, run the following command to create an index
+    named "blog_posts":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 8.1.3 Install Elasticsearch Client Library
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To interact with Elasticsearch from our Node.js application, we''ll use the
+    official Elasticsearch JavaScript client library called "elasticsearch". Install
+    it by running the following command in your project directory:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: With Elasticsearch set up and the client library installed, we can proceed to
+    implement the search functionality.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.2 Implementing Search Route
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Let''s start by creating a new route to handle search requests. In the `routes/search.js`
+    file, add the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we create a new route that handles GET requests to the `/search`
+    endpoint. We extract the search query from the request query parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the Elasticsearch client, we perform a search query on the "blog_posts"
+    index. We use a match query to search for the provided query in the "content"
+    field of the blog posts. The search results are returned as hits, and we map them
+    to extract the source (the blog post data).
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the search is successful, we return a 200 status code with the hits as JSON.
+    If there's an error, we return a 500 status code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.3 Updating Blog Post Creation Route
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To keep the search index up to date, we need to update the route that creates
+    new blog posts. In the `routes/posts.js` file, update the create route as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, after saving the new post to the database, we index the post in
+    Elasticsearch using the client's `index` method. We specify the index as "blog_posts"
+    and provide the post's title and content as the body of the index request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This ensures that the newly created post is added to the search index, allowing
+    it to be searchable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.4 Adding Search Form to Frontend
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To allow users to perform searches, we''ll add a search form to the frontend.
+    Update your blog''s homepage template (e.g., `views/home.ejs`) with the following
+    code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: This code adds a simple search form with an input field for the search query
+    and a submit button. The form's action is set to the `/search` endpoint, which
+    we defined in the backend.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.5 Displaying Search Results
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To display the search results on a dedicated search results page, create a
+    new template file called `search_results.ejs` in your views directory. Add the
+    following code to the file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we iterate over the `results` array passed from the server and
+    display each search result's title and content. If no results are found, we display
+    a message indicating that no results were found.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.6 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Congratulations! In this chapter, we implemented search functionality in our
+    blogging application using Elasticsearch. Users can now search for specific blog
+    posts based on keywords, enhancing the overall user experience.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We set up Elasticsearch, created a search route, updated the blog post creation
+    route to index posts, added a search form to the frontend, and displayed the search
+    results on a dedicated page.
+  prefs: []
+  type: TYPE_NORMAL

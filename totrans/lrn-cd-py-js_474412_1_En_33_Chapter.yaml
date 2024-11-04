@@ -1,0 +1,985 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_33](https://doi.org/10.1007/978-3-658-42912-6_33)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '33. Functions & Methods: How Do I Work with Program Functions to Work with
+    Data and Trigger Actions?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Moving forward, we will examine functions, which are considered the backbone
+    of programming in JavaScript, similar to their role in various other coding languages.
+    After all, not only do you constantly work with predefined functions that JavaScript
+    offers out-of-the-box or that you get from extension libraries, but you also regularly
+    write your own functions; in particular, the event handlers that take a central
+    role in event-driven JavaScript applications. So, it’s no wonder that an intensive
+    study of functions is a core part of our tour through JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: how to define and call functions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how functions process arguments and return results
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: that functions are also objects, and what consequences this has
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how the scopes of variables are cut in JavaScript—especially with regard to
+    functions—and how this affects the accessibility of variables
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to extend the available functions beyond the standard language with external
+    libraries, and how to find suitable extension libraries
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: what frameworks are and how they differ from libraries
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 33.1 Working with Functions
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 33.1.1 Definition of Functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Defining Functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Functions are defined in JavaScript with the keyword **function**. Any arguments
+    are placed after the function identifier in round brackets, which are necessary
+    even if the function is not passed any arguments at all. The program code that
+    is executed when the function is called follows as a code block in curly braces.
+    A simple function that just prints “Hello World” to the console would look like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** hello() {console.log(''Hello World! '');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It could now be called from the program (or the console):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: hello();
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you forget the round brackets when calling the function in the console, which
+    can happen quickly if the function takes no arguments, you will be shown the source
+    code of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions as Objects
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Functions in JavaScript are objects themselves, of type **function**, as can
+    be easily verified:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** typeof(hello)"function"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Because they are objects, they can also be assigned to other variable objects:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** greeting = hello**>** greetings()Hello World!'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we had written **greeting = hello()** here, we would have assigned the function
+    *value* of **hello()** to a variable **greeting,** because **hello()** is nothing
+    more than a call to the function of the same name. (As we will see below, this
+    function value would be **undefined** because the function does not explicitly
+    return a value).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As objects, they also have a number of methods and properties; the **toString()**
+    function, for example, returns the source text of the function as a string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** greeting.toString()"function hello() {console.log(''Hello World!'');}"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The round brackets must not be used after the function name (**greeting**) here,
+    because we do not want to *call* the function and get its return value, but only
+    access the function object’s methods and properties.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The fact that functions are objects also becomes clear in other places where
+    we can work with them, just as with any other object. In ► Sect. [31.​5.​2](474412_1_En_31_Chapter.xhtml#Sec13)
+    we saw how objects can be created using the **var** keyword. This is exactly what
+    we can do with function objects:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** hello = **function**() {console.log(''Hello World!'');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, we initialize a variable **hello** with a function expression, which is
+    introduced with the keyword **function**. Subsequently, **hello** is a callable
+    object and can be executed with **hello()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because **hello** is now a real object, we can also add properties to it—which
+    may seem a bit strange
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** hello.counter = 5**>** typeof(hello)"function"**>** hello.counter5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The object remains of type **function**, but now has an additional property,
+    **counter**. When we created objects using constructor functions in ► Sect. [31.​5.​5](474412_1_En_31_Chapter.xhtml#Sec16),
+    we did something very similar (scroll back again to the constructor function of
+    the **Product** object type). The constructor function ultimately wrote properties
+    of the current object, using the keyword **this**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Because functions are simply objects, they can also be used as properties in
+    other objects, giving those objects callable *methods*. Suppose we wanted to develop
+    an object that would hold a date, broken down into its constituent parts, and
+    have a **display()** method that would output the date in a responsive format.
+    We could define such an object as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** shortdate = {day: 0,month: 0,year: 0,display: **function**() {console.log(**this**.year
+    + ''/'' + **this**.month + ''/'' +**this**.day)}}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note the keyword **this**. We already encountered it in ► Sect. [31.​5.​5](474412_1_En_31_Chapter.xhtml#Sec16),
+    and it establishes a reference to the current context in which (as here) a property
+    or method is called. So, with **this.day** we access the **day** property in the
+    current context, and that is the context of the object definition. If you omit
+    the **this** keyword, JavaScript doesn’t understand what **day** is supposed to
+    be, because no variable of that name exists inside the **display()** function.
+    After this declaration, we can work with the object by entering the date components
+    and then calling the **display()** function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: shortdate.day = 14;shortdate.month = 12;shortdate.year = 2025;shortdate.display();
+  prefs: []
+  type: TYPE_NORMAL
+- en: This method call gives us the output **2025/12/14**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, as you can see, we can very easily populate an object with callable methods,
+    because the methods are ultimately just properties of the objects, and they are
+    properties of type **function**. These differ from other properties of the object
+    only in that they are callable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Advanced Topics I: Functions in Functions'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A special feature of JavaScript is that functions can also be defined within
+    functions. A simple (though admittedly not very meaningful in terms of content)
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** helloWorld() {**function** hello() {console.log(''Hello'');}**function**
+    world() {console.log(''World!'');}hello();world();}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we define within the function **helloWorld()** two further functions **hello()**
+    and w**orld()**, which respectively cause an output in the console. Then both
+    functions are called. In this way, two new lines **Hello** and **World!** are
+    created in the console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternatively, we could have created the (“sub”) functions by object assignments:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** helloWorld() {hello = **function**() {console.log(''Hello'');}world
+    = **function**() {console.log(''World!'');}hello();world();}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Defining functions within functions may seem like a syntactical gimmick at first
+    glance, but it has a practical use in this second variant when working with code
+    modules.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way, what would have happened if we had written **this.hello = function...**
+    and **this.world = function...** in the definitions of the (“sub”) functions?
+    Then we would have developed a *constructor function* for a **helloWorld** object,
+    which gives two properties to the object, namely the two functions. Then we could
+    have created objects of this type and accessed their two (function) properties
+    (i.e., methods):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'hi = **new** helloWorld();hi.hello();Advanced Topics II: Anonymous Functions'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions normally have a name under which they can be called. However, there
+    is also the possibility to define functions that do not have their own name, or
+    *anonymous* functions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A simple example is this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: (**function**() {console.log('Hello World')}) ()
+  prefs: []
+  type: TYPE_NORMAL
+- en: You will first see round brackets containing a function definition, but without
+    a function identifier. The parenthesis expression returns a function (a function
+    object) that we *immediately call again*. This can be seen by the pair of parentheses
+    at the end. They are the usual parentheses that are also used when calling a “normal”
+    function with a function identifier but with no arguments. This way, the function
+    does not need any name and can still be called, but in our example only in the
+    direct context of its definition, because otherwise we lack the “handle” to touch
+    it with.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For “syntax gourmets”, there is a way to create such a “handle”, which we have
+    used before. We assign the anonymous function to an object. To do this, let’s
+    look again at an example from above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** hello = function() {console.log(''Hello World!'');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here we create a variable named **hello**, but the function we assign to it
+    has no identifier. If you enter the name of the *variable* in the console, the
+    source code of the function is displayed; however, no function identifier is visible
+    in it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** hellof () {console.log(''Hello World!'');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Although it may seem a bit confusing, we have created an object called **hello**
+    that represents a function, but the function itself is anonymous, so it has no
+    name. However, if we define the function by using a function identifier, we again
+    get a function object; this time, however, the function has a name:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** var hello = function hello() {console.log(''Hello World!'');}**>** hellof
+    hello() {console.log(''Hello World!'');}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, we don’t necessarily have to call anonymous functions directly after their
+    definition, we can also catch them in an object. Just like the “functions in functions”,
+    anonymous functions are also useful when it comes to constructing entire code
+    modules. In “everyday programming” it is functions with function identifiers that
+    are mostly used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.1.2 Return Values
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Functions can return objects using the **return** statement. The following
+    function generates and returns a random number between 0 and 10:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** getRandomNumber() {**var** randomNumber;randomNumber = Math.round(Math.random()*10,0);**return**
+    randomNumber;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **return** statement can also be written like a function instead of using
+    the keyword **return**, in our case as **return(randomNumber)**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Functions that do not have a **return** statement do their job (in our case
+    printing something to the console) but return **undefined**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** function hello() {console.log(''Hello World!'');}**>** res = hello()Hello
+    World**>** resundefined'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.1.3 Arguments and Parameters of Functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Foundations of Arguments and Parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: The functions of mathematics are assignment rules that assign a value to one
+    or more arguments. So far, we have only considered functions that have managed
+    entirely without arguments. As a rule, however, functions become useful precisely
+    because you can call them with arguments and thereby control their behavior or
+    pass data to them for processing in this way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Terminologically, we have so far been less selective than is often seen with
+    JavaScript. Here, it is not uncommon to distinguish between *parameters* and *arguments.*
+    Parameters are the abstract values listed in the function *definition* that a
+    function accepts, while arguments are the concrete values that are actually passed
+    to the function when it is *called.*
+  prefs: []
+  type: TYPE_NORMAL
+- en: In JavaScript, parameters are specified in the function definition without a
+    type. This means that the programmer must take care of any necessary type checks
+    himself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The previously used example of converting temperature from Kelvin to degrees
+    Celsius would then look like this using function arguments (but without checking
+    the type of the parameter):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** kelvinToCelsius(kelvin) {**return** kelvin - 273.15;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**kelvin** is a *parameter* of the function. If we call the function later,
+    for example, with the Kelvin temperature 54, then 54 is the *argument* for the
+    parameter **kelvin**. Multiple parameters would be separated by commas in the
+    function definition.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Changing Arguments Within the Function
+  prefs: []
+  type: TYPE_NORMAL
+- en: In JavaScript, arguments are always passed as *values* if the data types of
+    the arguments are elementary data types, such as **number**, **string**, or **boolean**;
+    thus, if you pass a variable to a function and the function changes the argument
+    passed to it, the original variable does not change. In a sense, the function
+    works with a copy of the value passed to it, not the variable itself. So, the
+    passing is done by *value.*
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if you pass a more complex object to the variable and make a change
+    to it, the object passed to the function does change. The passing is then done
+    by *reference*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following example illustrates the difference:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** Product(price, name) {**this**.price = price;**this**.name = name;}**var**
+    chair = new Product(24.99, ''Garden chair'');**var** purchased = false;**function**
+    setPrice(article, price) {article.price = price;}**function** purchase(purchaseStatus)
+    {purchaseStatus = true;}In the example, we again use the object type **Product**,
+    whose constructor function we first call to create a **Product** object called
+    **chair** and initialize some properties, including the price, which is set to
+    **24.99**. We also create a **boolean** variable **purchased**, which indicates
+    whether something has already been sold and is initialized to **false**. Following
+    are the definitions of two functions: **setPrice(article, price)**, which changes
+    the price of a product passed to it as its first argument, and **purchase(purchaseStatus)**,
+    which takes a **boolean** variable as a sales indicator and sets it to **true**
+    (or not, as we’ll see). Let’s try both functions in the console:**>** setPrice(chair,
+    50.89)**>** purchase(purchased)**>** chair.price50.89**>** purchasedfalse'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, the price of the chair changes, but the status indicator **puchased**
+    keeps its old value. **purchased** is a *primitive value*, it cannot be changed
+    as an argument of the function (**purchaseStatus**); the object **chair**, on
+    the other hand, can very well be changed in the code of the function if it is
+    passed to the function as argument **article**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Calling Functions with Arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function arguments can also be passed with their parameter name when calling
+    the function; for example, we could call our Kelvin to Celsius conversion as **kelvinToCelsius(kelvin=54)**.
+    By passing the arguments with their parameter name makes the assignment of the
+    arguments to the parameters clear, this procedure also allows the arguments to
+    be passed in a different order than the parameter sequence specified in the function
+    definition.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript is very flexible about the number of parameters: if *too many* arguments
+    are given to the function, the “excess” arguments are simply ignored. The question
+    of what happens in the case of *too few* arguments leads us to the topic of default
+    values and optional parameters.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Working with Default Values and Optional Parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: Parameters can be given a default value, as in most other programming languages,
+    which is always used if no argument, i.e., no concrete value, is given for this
+    parameter when the function is called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike many other programming languages, however, it is not this default value
+    that makes a parameter optional in the first place. Instead, *all* parameters
+    are optional in JavaScript. If parameters do not have a default value and yet
+    are not specified in the function call, they are automatically assigned the value
+    **undefined**. In our example, a call to the temperature conversion function from
+    above as **kelvinToCelsius()** would be perfectly valid, but would result in the
+    return value **NaN** (*not a number*), because in this case JavaScript assumes
+    the value **undefined** for the parameter **kelvin**, and this cannot be used
+    for arithmetic calculations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using Functions as Arguments of Functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: The arguments of functions can be of any object type. They can also be function
+    objects themselves. This should not really surprise you after what we have discussed
+    before. However, we want to illustrate this fact here with an example to show
+    that this is a very useful feature of JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following two functions, each of which concatenates a student’s
+    first name and last name in different ways:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** lastFirst(firstname, lastName) {**return** lastName + '', '' +
+    firstName;}**function** firstLast(firstName, lastName) {**return** firstName +
+    '' '' + lastName;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We could now develop a function **showMark()** that, in addition to showing
+    the student’s name, also takes care of showing an exam grade:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'function showMark(firstName, lastName, mark, displayName) {console.log(displayName(firstName,
+    lastName) + '': '' + mark);}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We could now call **showMark()** as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** showNote(''Beth'', ''Hathaway'', ''A+'', lastFirst);Hathaway, Bath: A+**>**
+    showNote(''Beth'', ''Hathaway'', ''A+'', firstLast);Beth Hathaway: 1.0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Thus, **showMark()** uses the **displayName** function passed to it as an argument.
+    This makes **showMark()** extremely flexible. Because as long as the passed function
+    takes first and last names in that order, it can be used to display names in various
+    ways.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Working with a Variable Number of Arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript provides an easy way to access the arguments of a function without
+    using the name of the parameters. This is especially helpful when you don’t know
+    in advance exactly how many arguments the user will be passing. In the following
+    simple example, we have a function that can be passed several strings as arguments,
+    and that combines those strings as a news ticker with **+++** as the separator:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** newsTicker() {**var** ticker = Array.from(arguments).join('' +++
+    '');console.log(ticker)}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It can now be called like this, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** newsTicker(''Eagles at 49ers 35:38'', ''Chiefs at Bengals 23:20'')Eagles
+    at 49ers 35:38 +++ Chiefs at Bengals 23:20'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead of two match results, we could have returned *any other number* of pairings.
+    Our **newsTicker()** function would be able to cope with this, even though at
+    first glance it receives no arguments at all! However, since JavaScript allows
+    the function to be passed more arguments than it has parameters in its definition,
+    we can just feed our news ticker as many football results as we want to our heart’s
+    content.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Arguments behaves like an array in some respects. For example, you can access
+    the individual arguments passed to the function with **arguments[0]**, **arguments[1]**,
+    and so on. However, **arguments** is not a true array. Other than the **length**
+    property, which returns the number of arguments passed, **arguments** has none
+    of the usual array properties and methods. For our purposes, we must first convert
+    it to the **Array** type, which then provides us with the **join()** function
+    to concatenate the individual elements. Here we use the **from()** function of
+    the **Array object**, which converts an array-like object (like **arguments**)
+    into a real array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.1 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Define an object **Product** with product name and price as properties and develop
+    a method for this object that applies a price discount to the product, which the
+    caller of the method can specify as a parameter. If he does not specify a price
+    discount, it should be assumed that the price is to be reduced by 20%.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.2 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Write a function that can be passed a **Product** object like in previous task
+    and then applies the discount given as a parameter. The function should not be
+    a method of the object. In what two ways can the “return” of the modified product
+    object be done, and why?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.3 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Develop a function that takes an unspecified number of arguments and returns
+    them as an alphabetically sorted array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.4 [5 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Write a function that does an output to the console. Assign the resulting function
+    object to another variable. Then call the function using this other variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.1.4 Scope of Variables in Functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Especially in connection with functions, the range of validity of variables
+    plays an important role. Variables declared with **var** *within* a function are
+    *local* variables that exist only in the code block of that function. They cannot
+    be accessed outside the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if a variable is accessed within a function *without* **var**, it is
+    only created as a new local variable if there is no global variable of the same
+    name, i.e., declared outside the function (“one level higher”, so to speak).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following simple example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** factor1 = 3, factor2 = 5;**function** multiply() {**var** factor2 =
+    7;result = factor1 * factor2;factor1 = 11;factor3 = 200;**return** result;}console.log(multiply());console.log(factor1);console.log(factor2);console.log(factor3);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This little program makes four outputs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '21115200'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Within the function **multiply()** a *local* variable **factor2** is created
+    with **var**, whose value (7) differs from the value of the global variable with
+    the same name, which was declared and initialized outside the function (5).
+  prefs: []
+  type: TYPE_NORMAL
+- en: After calling the function, we output the value of the variable **factor2**
+    to the console. In doing so, we automatically access the *global* variable **factor2**,
+    because the local variable of the same name ceased to exist at the end of the
+    **multiply()** function. However, it is the local variable with the value 7 that
+    is used to calculate the multiplication within the function. In a sense, it shields
+    the global variable **factor2**; as a result, it is not visible. When the variable
+    **factor2** is accessed in the statement **result = factor1 * factor2**, the local
+    variable is therefore automatically used. Only if no local variable exists, a
+    global variable is searched for, and in the case of **factor1**, one is found.
+    A new value is then assigned to this variable. Since the keyword **var** is not
+    used, the assignment is made to the global variable. This change of the variable
+    value is therefore also visible outside the function, as the second output in
+    the console shows. If the assignment had been prefaced with **var**, instead of
+    assigning a value to a global variable, we would have created a *new local* variable
+    with the identifier **factor1**. The assignment of the value 11 would then have
+    gone to this local variable, leaving the global variable **factor1** unaffected,
+    shielded in its visibility by the local variable, and retaining its value after
+    the **multiply()** function had been executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is exactly what happens, as you can see in the third output, with the variable
+    **factor2**, which is only apparently assigned a new value within the function;
+    this new value goes to the new *local* variable **factor2**, so that the global
+    variable is not changed in its value by the assignment.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Output number four is interesting. It accesses the variable **factor3**, which
+    is used for the first time in our **multiply()** function. We already said that
+    variables accessed within a function without the **var** keyword are global variables.
+    And that’s exactly how it is with **factor3**: by assigning **factor3 = 200**,
+    we create a global variable, even though the assignment happens *inside* the function.
+    And because **factor3** is a global variable, we can access the value stored in
+    it outside the function without any problems.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By the way, the arguments that are passed to functions are always local variables.
+    If a global variable of the same name exists, it is practically masked by the
+    function, it is invisible. If you access the variable with its identifier, you
+    work with the local variable of the same name, i.e., the argument of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.5 [10 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: What values do the variables **x**, **y**, **y1**, **y2**, and **z** have after
+    executing the following program, and why?
+  prefs: []
+  type: TYPE_NORMAL
+- en: x = 5;z = 3;**function** allOthers(x, y) {y1 = x;x = null;var y2 = y;z = 1;}allOthers(6,2);
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.2 Working with Modules/Libraries
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 33.2.1 Developing and Using Your Own Modules
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Using modules means including code that is sourced out. Outsourcing code makes
+    sense especially if you want to use the code in different programs. For example,
+    if you have developed a practical function and want to use it not only in the
+    program for which you originally designed it, but also in other programs, the
+    easiest thing to do is to outsource this function to its own module and then include
+    this module in all programs that are to access the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The easiest way to include another JavaScript file is to include it in the web
+    page using the **script** element. Let’s take a look at exactly that with an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In ► Sect. [33.1.2](#Sec3) we developed a function **getRandomNumber()** which
+    returns a random number between 0 and 10\. Let’s assume that because this function
+    is convenient and we want to use it in different scripts, we want to put it in
+    its own module. To do this, we first create a new JavaScript file **mymodule.js**,
+    in which we place the function. In addition, we define a variable called **fixedNumber**
+    in our module. This will make our file **mymodule.js** look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** getRandomNumber() {**var** randomNumber;randomNumber = Math.round(Math.random()*10,
+    0);**return** randomNumber;}fixedNumber = 4;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The function **getRandomNumber()** and the variable **fixedNumber** are accessed
+    from another JavaScript program called **moduleapplication.js**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'document.write(''A random number: '', getRandomNumber());document.write(''<p></p>'');document.write(''A
+    fixed number: '', fixedNumber);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This script in turn is embedded in a simple web page:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Script with its own module**</title>****<noscript>**Please
+    enable JavaScript!**</noscript>****</head>****<body>****<script** src="mymodule.js"**></script>****<script**
+    src="moduleapplication.js"**></script>****</body>****</html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In order for the function and variable we defined in **mymodule.js** to be available
+    in our actual program, which is in the **moduleapplication.js** file, we need
+    to include the module in the web page as well, *before* **moduleapplication.js**.
+    Since the scripts are processed in order, if we included the module later, its
+    contents would not be known at the time we access it from **moduleapplication.js**.
+    So, pay attention to the order!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, when we open the web page, we get an output like the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A random number: 2A fixed number: 4'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In exactly the same way, you could now include the module **mymodule.js** in
+    other projects and access the function **getRandomNumber()** there without having
+    to repeat the code of the function in your new project in the main code file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript’s ability to work with modules has expanded more and more over time.
+    While in the beginning this ability was limited to including source several files
+    in the web page (as we just did), with newer language standards true modularization
+    became possible. This, along with other things, allows more precise control over
+    which objects are exported by modules and can then be imported again for use by
+    other modules (and thus also by the JavaScript applications themselves). When
+    importing, various options are also available to deal with naming conflicts that
+    can arise when modules provide objects (for example, functions) whose identifiers
+    are identical to the identifiers of objects already present in the importing code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, these considerations go well beyond the scope of an introduction to
+    JavaScript development. For us it is sufficient to know that we can modularize
+    our code by splitting it into individual script files and then embedding them
+    into our HTML page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.2.2 Finding and Integrating External Modules/Libraries
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Unlike for some other programming languages (such as Python with the *Python
+    Package Index*, see ► Sect. [23.​3.​3](474412_1_En_23_Chapter.xhtml#Sec10)), there
+    is no central or quasi-official platform for JavaScript where you can find useful
+    code to use when developing your own applications. Nevertheless, there are of
+    course some “hotspots” of the very active JavaScript community; first and foremost
+    *GitHub*, which we already had a look at in ► Sect. [13.​2](474412_1_En_13_Chapter.xhtml#Sec2)
+    and which is a platform for exchange and collaboration among developers based
+    on the versioning tool *git* developed by Linux inventor *Linus Torvalds*. Here
+    you will find a plethora of *repositories*, or code archives, with countless useful
+    functions and classes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Find out about the licensing situation from the **LICENSE** file in the repository
+    before using third-party code! Most developers who make their work available on
+    *GitHub* use one of the well-known standard licenses such as *GNU General Public
+    License* or *Creative Commons* or *MIT*, each of which usually comes in various
+    variants and versions. Conveniently, *GitHub* always provides you with a summary
+    of these standard licenses, showing what you are allowed to do with the code and
+    what you are not. So, you don’t have to read long legal texts on a regular basis
+    at all to understand how you’re allowed to make use of other developers’ prior
+    work. *GitHub* has already done that work for you.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A *GitHub repository* usually contains a large number of files. Don’t be surprised
+    if the supposed descriptions of these files (in the middle column of a repository
+    code view) seem strange to you. This column does not contain a description of
+    the files at all, but comments that explain the last change to the file. In practice,
+    the most important files are regularly located in the repository’s **\dist** directory;
+    they are the *distributable* files, i.e., those code files that are intended for
+    distribution and production use. If you want to read the code, it is recommended
+    to look at the **\src** directory. This is because the code in **\dist** is usually
+    stripped of unnecessary characters (for example, spaces and comments) in order
+    to keep the file size as small as possible and to improve the performance of the
+    web page that uses this code. Sometimes the code has been obfuscated (scroll back
+    a few pages to ► Sect. [29.​1.​2](474412_1_En_29_Chapter.xhtml#Sec3), where we
+    discussed obfuscation). You can, of course, also work with the code in the **\src**
+    directory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The easiest way to make the code usable for you is to download a ZIP file via
+    the “Close or download” button and then unzip it on your computer. It contains
+    the entire repository. While having the code available is necessary, it is also
+    important to understand how to use it. The **README** file of the respective project
+    and possibly other files in the **\doc** folder regularly provide information
+    on this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Besides *GitHub*, there are of course numerous other sources from which you
+    can obtain JavaScript modules, such as ► [*javascripting.com*](http://javascripting.com).
+    Also, a targeted internet search in which you follow the pattern “How can I...”
+    quite often brings you to answers that point to modules that you can download
+    from somewhere. Alternatively, you can ask ChatGPT something like “Which JavaScript
+    modules are available to *implement a running news ticker on a website?*” (Replace
+    the text in italics with your own topic of interest).
+  prefs: []
+  type: TYPE_NORMAL
+- en: By the way, one of the most popular JavaScript libraries is *jQuery*, which
+    especially simplifies working with the browser’s object model (i.e., selecting
+    and modifying HTML elements, for example).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.3 Frameworks
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '*Frameworks* play a big role in professional application development with JavaScript
+    today. Frameworks differ from normal program libraries/modules in that they provide
+    a wireframe for the application that calls the code written by the developer whenever
+    that is necessary. When using libraries, it is the developer’s code that calls
+    the library when it is needed. Therefore, in the context of frameworks, one speaks
+    of an *inversion of control*. Frameworks play a major role in practice because
+    they allow the programmer to concentrate on the core functionality of his application
+    and to hand off other, more standard tasks such as handling logins and session
+    management or retrieving data from databases and displaying it in template-based
+    pages to the framework.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some well-known JavaScript frameworks are *Angular*, *React*, and *Vue*. Looking
+    at their structure and usage is far beyond the scope of this book. However, a
+    prerequisite for using frameworks is knowledge of JavaScript basics, and these
+    are exactly what we cover in this part of the book. So, after studying this part,
+    you’ll have a solid foundation on which to venture into working with frameworks
+    as well, should you so desire. In fact, for most purposes in the “private user
+    area” (hobby programmer is not a nice phrase!) the use of standard JavaScript
+    (perhaps enhanced by some libraries from GitHub) without the use of frameworks
+    is sufficient, which although they are extremely powerful, also bring a certain
+    “overhead” of work and enforce a structure that is not necessary for smaller projects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 33.4 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter we have looked at functions and seen how functions are defined
+    and used. In addition, we have looked at extending the scope of functions with
+    external libraries and explored the question of what frameworks are and how they
+    differ from “conventional” libraries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions are usually defined with the keyword **function**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can take parameters (whose concrete values are called arguments when called)
+    that can be given a default value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript is very flexible about passing arguments when calling functions;
+    for example, a function can be called with more or fewer arguments than it has
+    parameters; accordingly, practically every parameter to a function is optional.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Arguments can be passed both as position arguments, that is, based on their
+    position in the order of the parameters list, and as keyword arguments, that is,
+    specifying the identifier of their parameter.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Functions can return values with the **return** statement (or the **return()**
+    function). Functions that do not explicitly return a value return **undefined**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In JavaScript, functions are objects of the type **function**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: They can therefore also be assigned to variables. In particular, methods can
+    be defined for objects in this way; the method of a JavaScript object is ultimately
+    nothing more than an attribute of the object, namely a (callable) attribute of
+    type **function**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Because functions are objects, they can be passed as arguments to other functions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Variables defined within a function with keyword **var** are local variables
+    that cease to exist as soon as the execution of the function is finished; accordingly,
+    they are not visible from the main program. Function arguments are also considered
+    local variables. Any global variables with the same name are “shielded” from access
+    by these local variables.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a variable is created within a function without using the keyword **var**,
+    a global variable is created that is also visible outside the function body. If
+    a global variable of this name already exists, this variable is accessed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Beyond JavaScript’s standard feature set, you can work with extension libraries;
+    while there is no official source for these, as there is for many programming
+    languages, there are platforms, such as ► [javascripting.​com](http://javascripting.com),
+    where developers provide a large set of libraries for a variety of purposes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Frameworks play a major role in practical (at least professional) JavaScript
+    development because they lead to a significant reduction in workload when developing
+    complex applications and allow the developer to focus on the essentials. They
+    provide a wireframe in which the developer can embed his code. The framework organizes
+    the flow of the application, and the developer’s code is invoked by the framework
+    where necessary. Because here—unlike “normally”—the control of the application
+    does not lie with the developer, but with the framework, one also speaks of an
+    “inversion of control”.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 33.5 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Exercise 33.1Product = {name: ''Garden chair'', price: 24.99 };Product.dicount
+    = function(discountPercent = 20) {**this**.price = **this**.price * (1-discountPercent/100);}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we create the object with its attributes **name** and **price**. We then
+    add the function **discount()** to the object; more precisely, we assign a function
+    object to the property **discount** that is to have the specified code. From now
+    on, the function object can be called under the identifier **discount**, namely
+    as the method **discount()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, we could of course have created our **Product** object with a constructor
+    function, as we saw in ► Sect. [33.1.3](#Sec4). We could then have included the
+    definition of the **discount** property in the constructor and simply assigned
+    the function object to **this.discount** instead of **product.discount**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 33.2**function** discount(prod, discountPercent = 20) {prod.price =
+    prod.price * (1-discountPercent/100);*// return prod;*}
+  prefs: []
+  type: TYPE_NORMAL
+- en: This function is not a method of the **Product** object. It simply takes a **Product**
+    object and adjusts its price. This is possible because in JavaScript, objects
+    are passed as function arguments *by reference*, which means that we have direct
+    access to the passed object with the **prod** parameter. The case would be different
+    if the argument was a *primitive*, such as a number or a string. In this case,
+    the argument value would be passed *by value*; changes that we would make to these
+    arguments would accordingly have no effect on the variable passed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead of using the arguments passing *by reference*, we could also return
+    the modified **Product** object to the caller using a **return** statement (commented
+    out in the solution suggestion above). By the way, this possibility would also
+    exist if the argument was a primitive and passed *by value*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 33.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The function could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**function** arrayCreateAndSort() {**return** Array.from(arguments).sort();}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we use the **arguments** object, which contains the argument values passed
+    for each function. Although it is not a real array itself, it can be converted
+    into an array with the function **Array.from()** and then sorted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'After that, we could call the function like this, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**>** arrayCreateAndSort(''Hello'', '', '', ''I'', ''will'', ''be'', ''a'',
+    ''sorted'', ''array'')[",", "array", "be", "hello", "I", "one", "sorted", "to",
+    "will"]Exercise 33.4**va**r myFunction = **function**() {console.log(''This is
+    the function that is actually called.'');}**var** myFunction2 = myFunction;myFunction2();'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we first assign a function expression to the variable **myFunction**; the
+    variable **myFunction** is thus an object of the type **function**. Like any other
+    object, we can now assign this object to another variable, in our example to the
+    variable **myFunction2**. With this variable we can call the function. As with
+    every function call, the round brackets must be specified, even if the function
+    does not take any parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Exercise 33.5Our program results in the following values of the variables:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**x = 5**: **x** is initialized as a global variable with the value 5\. Within
+    the function, the argument with the same name is then set to zero. However, the
+    argument of the function are *local variables*. So, if we access **x** within
+    the function, we do not work with the global variable **x**, but with the local
+    variable of the same name, namely the argument **x** with which the function was
+    called (and which ceases to exist at the end of the function body). Therefore,
+    the value of the global variable remains unchanged.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**y** does not exist: The variable **y** is also a *local variable* within
+    the function. It ceases to exist after the function is fully executed. Since no
+    global variable of the same name exists, we can no longer access a variable with
+    the identifier **y** after the execution of our function is complete.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**y1 = 6**: The variable **y1** is created within the function, but without
+    the keyword **var**. Therefore, when **y1 = x** is assigned, a new *global* variable
+    is created that is still available after the function has finished.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**y2** does not exist: Similar to **y1**, **y2** is also created within the
+    function by assignment, but using the keyword **var**. Thus, the assignment does
+    not create a global variable, as was the case with **y1**, but a *local* variable.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**z = 1**: **z** is a global variable that has the value 3 when the function
+    is called. Within the function, **z** is then set to the value 1\. Since the assignment
+    is made without the keyword **var** (which would have created a new local variable
+    with this identifier), we are therefore manipulating the *global* variable here.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

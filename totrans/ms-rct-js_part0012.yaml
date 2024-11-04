@@ -1,0 +1,297 @@
+- en: 'Chapter 8: React Router and Navigation'
+  prefs:
+  - PREF_H1
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: React Router is a powerful library for adding client-side routing and navigation
+    to your React applications. It allows you to create single-page applications (SPAs)
+    with multiple views or pages that can be navigated seamlessly without full page
+    reloads. In this chapter, we will explore how to set up and use React Router to
+    create dynamic and responsive navigation in your React projects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Introduction to React Router
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: React Router is a popular routing library for React applications that provides
+    a declarative way to manage the application's URL and navigate between different
+    views. It helps you build SPAs by rendering components based on the current URL,
+    all while maintaining a smooth user experience.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Key Concepts in React Router
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Before we dive into the practical implementation of React Router, let''s familiarize
+    ourselves with some key concepts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1\. **Route**: A `Route` is a component provided by React Router that renders
+    UI based on the current location. It matches a URL path to a specific component
+    and renders that component when the path matches.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2\. **BrowserRouter**: `BrowserRouter` is one of the router components that
+    should be wrapped around your application. It uses HTML5 history''s pushState
+    and replaceState methods to keep your UI in sync with the URL.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '3\. **Route Parameters**: Route parameters allow you to capture dynamic segments
+    of the URL, making your routes more flexible. For example, you can have a route
+    like `/users/:id`, where `:id` represents a parameter that can change.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '4\. **Link**: The `Link` component is used for navigation. It renders an anchor
+    tag (`<a>`) with the appropriate URL and ensures that the entire page does not
+    reload when navigating between views.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that we have a basic understanding of these concepts, let's set up React
+    Router in a React application and create some navigation examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Setting Up React Router
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To get started with React Router, you need to install it as a dependency in
+    your project. You can do this using npm or yarn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Once React Router is installed, you can begin configuring your routes and navigation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Basic Usage of React Router
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here''s a simple example of how to set up basic routing in a React application:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1\. Import the necessary components from `react-router-dom`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2\. Wrap your entire application in a `BrowserRouter` component to enable routing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3\. Define your routes using the `Route` component. Each `Route` component takes
+    a `path` prop that defines the URL path it should match and a `component` prop
+    that specifies the component to render when the URL matches.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4\. Use the `Link` component for navigation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let''s create a basic example to illustrate these steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We import the necessary components from `react-router-dom`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We wrap our entire application in a `Router` component.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We define two routes: one for the home page (`/`) and one for the about page
+    (`/about`). The `exact` prop is used for the home route to ensure it only matches
+    when the URL is exactly `/`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We use the `Link` component to navigate between views, ensuring that the
+    page does not fully reload when we switch between them.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this setup, you can create a basic navigation structure for your React
+    application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Route Parameters
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Route parameters allow you to capture dynamic segments of the URL. Let''s create
+    an example where we display user profiles based on their IDs from the URL:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We define a `UserProfile` component that uses route parameters to determine
+    which user''s profile to display. The `match.params` object contains the route
+    parameters.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We iterate over the `users` array and create links to each user''s profile
+    using their IDs in the URL.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- The `Route` component with the path `/user/:id` captures the user''s ID as
+    a route parameter.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- When a user clicks a link, the `UserProfile` component is rendered with the
+    appropriate user data.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Nested Routes and Layouts
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: React Router allows you to create nested routes, enabling more complex navigation
+    structures. You can use this feature to create layouts that are consistent across
+    multiple views while changing the content dynamically.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Nested Routes Example
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let's create an example of nested routes to illustrate how they work. We'll
+    have a layout with a header and sidebar that remains consistent across different
+    sections of an app, while the content changes based on the selected route.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We have three views: Home, About, and Contact, each represented by a component.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We create a `Sidebar` component that contains navigation links to these views.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We create a `Layout` component that includes a header and a sidebar. The
+    `children` prop represents the content that will be displayed within the layout.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- Within the `App` component, we set up nested routes under the path `/app`.
+    These nested routes render the appropriate view components within the `Layout`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this setup, we have a consistent layout for our app, with a changing content
+    area based on the selected route.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Programmatic Navigation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In addition to using `Link` components for navigation, you can also perform
+    programmatic navigation in response to user actions or other events.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'React Router provides a `history` object that allows you to navigate programmatically.
+    Here''s an example of how to use it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We use the `history` object that React Router provides as a prop to the `About`
+    component.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- Inside the `About` component, we define a `navigateToHome` function that
+    uses `history.push(''/'')` to navigate to the home page.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We also have a button in the `Home` component that triggers the `navigateToAbout`
+    function to navigate to the about page.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With programmatic navigation, you can control the flow of your application based
+    on user interactions or other events.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Protected Routes and Authentication
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In real-world applications, you often need to protect certain routes to ensure
+    that only authenticated users can access them. React Router allows you to implement
+    protected routes easily.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here''s an example of how to create a protected route:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We use a `isAuthenticated` state variable to keep track of whether the user
+    is authenticated.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- The `Login` component provides a way to simulate a successful login. It sets
+    a token in `localStorage` and updates the `isAuthenticated` state.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- The `/dashboard` route is protected. If the user is not authenticated, they
+    will be redirected to the `/login` page.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- The `Redirect` component from React Router is used for redirection.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this setup, you can implement authentication and protected routes in your
+    application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Conclusion and Best Practices
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'React Router is a powerful tool for handling navigation and routing in your
+    React applications. Here are some best practices and key takeaways:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1\. **Use React Router for Navigation**: React Router simplifies client-side
+    navigation and allows you to create SPAs with dynamic content.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2\. **Nested Routes for Layouts**: Consider using nested routes to create consistent
+    layouts with changing content.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '3\. **Programmatic Navigation**: Use the `history` object for programmatic
+    navigation in response to user actions or events.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '4\. **Protected Routes**: Implement protected routes for authentication and
+    authorization purposes, ensuring that only authorized users can access certain
+    views.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '5\. **Error Handling**: Handle errors gracefully when routes or views are not
+    found. You can use a `<Route>` with no `path` to create a "Not Found" page.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By mastering React Router, you can create complex and interactive web applications
+    with efficient navigation. It's a crucial tool for building modern SPAs that provide
+    a seamless user experience. In the next chapter, we'll explore more advanced topics
+    in React development, including state management with Redux and the use of middleware
+    for asynchronous actions.
+  prefs: []
+  type: TYPE_NORMAL

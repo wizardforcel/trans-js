@@ -1,0 +1,138 @@
+- en: Chapter 12
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0120.xhtml#dynamic.programming.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The problem here is the function recursively calls itself twice each time it
+    runs. Let’s make it so that it only calls itself once each time:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ addUntil100(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ sumOfRemainingNumbers = addUntil100(array.slice(1)); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array[0] + sumOfRemainingNumbers > 100) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ sumOfRemainingNumbers; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0] + sumOfRemainingNumbers; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Here is the memoized version:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ golomb(n, memo = {}) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (n === 1) { ​**return**​ 1; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!memo[n]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | memo[n] = 1 + golomb(n - golomb(golomb(n - 1, memo), memo), memo); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ memo[n]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: To accomplish memoization here, we need to make a key that takes into account
+    both the number of rows and the number of columns. To this end, we can make our
+    key be based on the row and column together.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ uniquePaths(rows, columns, memo = {}) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (rows === 1 &#124;&#124; columns === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!memo[[rows, columns]]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | memo[[rows, columns]] = (uniquePaths(rows - 1, columns, memo) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + uniquePaths(rows, columns - 1, memo)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ memo[[rows, columns]]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB

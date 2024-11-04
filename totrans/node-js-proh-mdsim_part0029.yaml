@@ -1,0 +1,212 @@
+- en: 'Chapter 9: Advanced JavaScript Concepts'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the previous chapters, we covered the fundamentals of JavaScript, including
+    variables, data types, functions, objects, events, and AJAX. Now, it's time to
+    explore advanced JavaScript concepts that will take your skills to the next level.
+    In this chapter, we'll delve into Promises, async/await, error handling techniques,
+    and more.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.1 Promises
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Promises are a powerful tool in JavaScript for handling asynchronous operations.
+    They provide a cleaner and more intuitive way to manage asynchronous code compared
+    to callbacks. A Promise represents the eventual completion or failure of an asynchronous
+    operation and allows us to chain multiple asynchronous operations together.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The basic structure of a Promise is as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, we create a new Promise using the `new Promise()` constructor,
+    passing it a callback function with `resolve` and `reject` parameters. Inside
+    the callback function, we perform our asynchronous operation. If the operation
+    is successful, we call `resolve(value)` with the desired value. If an error occurs,
+    we call `reject(error)` with the corresponding error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can chain `then()` methods to handle the resolved value and `catch()` methods
+    to handle any errors that occur during the Promise chain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.2 Async/Await
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Async/await is a more recent addition to JavaScript and provides a syntactic
+    sugar on top of Promises. It allows us to write asynchronous code in a more synchronous
+    and readable manner. Async/await makes working with Promises even more intuitive
+    and reduces the need for explicit Promise chaining.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To use async/await, we declare a function with the `async` keyword. Within
+    the function, we can use the `await` keyword to pause the execution and wait for
+    a Promise to resolve or reject. Here''s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, the `fetchData()` function is declared with the `async` keyword.
+    Within the function, we use the `await` keyword to pause the execution and wait
+    for the `fetch()` Promise to resolve. Once the Promise resolves, we assign the
+    response to the `response` variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We then use `await` again to pause the execution and wait for the `response.json()`
+    Promise to resolve. Once the Promise resolves, we assign the parsed data to the
+    `data` variable and log it to the console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If any error occurs during the Promise chain, it is caught in the `catch` block.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.3 Error Handling
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Proper error handling is essential in any JavaScript application. When working
+    with asynchronous code, it's crucial to handle errors effectively to ensure a
+    smooth user experience and provide meaningful feedback.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In addition to the try/catch block demonstrated in the previous examples, we
+    can also handle errors using the `catch()` method of Promises or by throwing custom
+    errors. Here''s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]javascript'
+  prefs: []
+  type: TYPE_NORMAL
+- en: function divide(a, b) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: if (b === 0) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: throw new Error('Division by zero is not allowed');
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: return a / b;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: try {
+  prefs: []
+  type: TYPE_NORMAL
+- en: const result = divide(10, 0);
+  prefs: []
+  type: TYPE_NORMAL
+- en: console.log('Result:', result);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '} catch (error) {'
+  prefs: []
+  type: TYPE_NORMAL
+- en: console.log('An error occurred:', error.message);
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]javascript'
+  prefs: []
+  type: TYPE_NORMAL
+- en: function* countUpTo(n) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for (let i = 0; i <= n; i++) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: yield i;
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: const generator = countUpTo(5);
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 1'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 4'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'console.log(generator.next().value); // Output: 5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, we define the `countUpTo()` generator function that generates
+    numbers from 0 to `n`. Inside the function, we use the `yield` keyword to pause
+    the execution and return the current value of `i`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We create an instance of the generator using `countUpTo(5)`. By calling the
+    `next()` method on the generator, we can resume the execution and retrieve the
+    next value in the sequence.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generators offer a powerful mechanism for controlling the flow of execution
+    and can be used in various scenarios to simplify complex logic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.5 Conclusion
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this chapter, we explored advanced JavaScript concepts that will enhance
+    your programming skills. We learned about Promises and how they provide a cleaner
+    and more intuitive way to handle asynchronous operations. We also delved into
+    async/await, a modern approach that simplifies working with Promises and makes
+    asynchronous code more readable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Furthermore, we discussed error handling techniques to ensure smooth error recovery
+    and effective user feedback. We touched on throwing custom errors, catching errors
+    in Promise chains, and using try/catch blocks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we introduced generators, a powerful feature that allows functions
+    to pause and resume their execution. Generators provide a flexible and expressive
+    way to handle iterative algorithms and asynchronous tasks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the next chapter, we will explore more advanced JavaScript topics, including
+    modules, classes, and object-oriented programming principles. These concepts will
+    further expand your capabilities as a JavaScript developer and enable you to build
+    more scalable and maintainable applications. Get ready to dive deeper into the
+    world of JavaScript!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note: The examples provided in this chapter are intended to illustrate the
+    concepts and may not cover all possible use cases or best practices. It''s recommended
+    to consult official documentation and additional resources for a more comprehensive
+    understanding of these advanced JavaScript concepts.'
+  prefs: []
+  type: TYPE_NORMAL

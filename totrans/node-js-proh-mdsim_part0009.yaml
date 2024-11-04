@@ -1,0 +1,108 @@
+- en: 'Chapter 5: Implementing CRUD Functionality'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we will take our blogging application to the next level by
+    implementing the CRUD (Create, Read, Update, Delete) functionality for managing
+    blog posts. We'll dive into the logic for each route and leverage MongoDB to store
+    and retrieve data. Let's get started!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.1 Creating a Blog Post
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the `routes.js` file, let''s implement the logic for creating a new blog
+    post. Update the `/create` route as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we first extract the `title` and `content` from the request body.
+    Then, we validate that both fields are provided. If not, we return a 400 status
+    code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we create a new instance of the `Post` model (assuming you have defined
+    the model using Mongoose). We pass in the `title` and `content` as parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we save the new blog post to the database using the `save` method.
+    If the save operation is successful, we return a 201 status code with a success
+    message. Otherwise, we return a 500 status code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.2 Retrieving Blog Posts
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Now, let''s implement the logic for retrieving all blog posts. Update the home
+    route (`/`) in the `routes.js` file as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we use the `find` method to retrieve all blog posts from the database.
+    If the retrieval is successful, we return a 200 status code with the array of
+    blog posts as the response. If there's an error, we return a 500 status code with
+    an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.3 Updating a Blog Post
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Let''s implement the logic for updating a blog post. Update the `/update/:id`
+    route in the `routes.js` file as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we first extract the `title` and `content` from the request body
+    and the `postId` from the URL parameters. We validate that both fields are provided
+    and return a 400 status code with an error message if they are missing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we use the `findByIdAndUpdate` method to find the blog post by its ID
+    and update its `title` and `content`. If the update is successful, we return a
+    200 status code with a success message. If there's an error, we return a 500 status
+    code with an error message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.4 Deleting a Blog Post
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Lastly, let''s implement the logic for deleting a blog post. Update the `/delete/:id`
+    route in the `routes.js` file as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we retrieve the `postId` from the URL parameters. Then, we use
+    the `findByIdAndDelete` method to find the blog post by its ID and delete it from
+    the database. If the deletion is successful, we return a 200 status code with
+    a success message. If there's an error, we return a 500 status code with an error
+    message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.5 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we implemented the CRUD functionality for our blogging application.
+    We created a new blog post, retrieved all blog posts, updated a blog post, and
+    deleted a blog post. We leveraged MongoDB and Mongoose to store and retrieve data
+    from the database.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our blogging application is now fully functional, allowing users to perform
+    all the necessary operations on blog posts. In the next chapter, we'll focus on
+    enhancing the user interface and adding additional features to make our application
+    even more robust.
+  prefs: []
+  type: TYPE_NORMAL

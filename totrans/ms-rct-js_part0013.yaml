@@ -1,0 +1,184 @@
+- en: 'Chapter 9: Working with APIs and Data Fetching'
+  prefs:
+  - PREF_H1
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In modern web development, applications often rely on external data sources
+    to provide dynamic content and functionality. This external data is typically
+    obtained through the use of APIs (Application Programming Interfaces). In this
+    chapter, we'll explore the process of working with APIs and fetching data in a
+    React application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding APIs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: An API is a set of rules and protocols that allows different software applications
+    to communicate with each other. In the context of web development, APIs are commonly
+    used to request and exchange data between a client (e.g., a web browser) and a
+    server (e.g., a web server or a third-party service).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Types of APIs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'There are various types of APIs, but two of the most common categories are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1\. **RESTful APIs**: Representational State Transfer (REST) APIs are designed
+    around a set of architectural principles. They use HTTP methods (GET, POST, PUT,
+    DELETE) to perform CRUD (Create, Read, Update, Delete) operations on resources.
+    REST APIs are widely used for web services.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2\. **GraphQL APIs**: GraphQL is a query language for APIs that allows clients
+    to request only the data they need. Unlike REST APIs, which have predefined endpoints
+    and return fixed data structures, GraphQL APIs enable clients to define the shape
+    and structure of the response.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: API Endpoints
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: APIs are typically accessed through specific URLs known as endpoints. Each endpoint
+    corresponds to a particular resource or functionality provided by the API. For
+    example, a weather API might have endpoints for retrieving current conditions,
+    forecasts, and historical data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Data Fetching in React
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'React applications often need to fetch data from APIs to display dynamic content.
+    To accomplish this, developers can use JavaScript''s built-in `fetch()` function
+    or libraries like Axios to make HTTP requests to API endpoints. Here''s an example
+    of how to use the `fetch()` function to retrieve data from an API:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We use the `fetch()` function to make a GET request to the specified API
+    endpoint (`https://api.example.com/data`).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We check if the response status is OK (status code 200) using the `response.ok`
+    property. If not, we throw an error.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- If the response is OK, we parse the JSON data using `response.json()`, which
+    returns a promise.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We then process the data or handle any errors that may occur during the fetch
+    operation.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fetching Data in React Components
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To fetch data in a React component, you typically make the data request within
+    a lifecycle method or a useEffect hook. Here''s an example of how to fetch and
+    display data in a React component using the `useState` and `useEffect` hooks:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We define a component called `DataFetchingComponent` that manages the state
+    for data, loading, and errors using the `useState` hook.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- We use the `useEffect` hook to initiate the data fetching operation when
+    the component mounts (empty dependency array `[]` ensures it runs once).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- During the fetch operation, we update the state based on the loading status
+    and handle any errors.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- Finally, we render the data or appropriate messages based on the state.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fetching Data in React Using Async/Await
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'You can also use the `async/await` syntax to make asynchronous data requests
+    in React components. Here''s an example of how to use `async/await` with `fetch()`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, we define an `async` function `fetchData()` within the `useEffect`
+    hook, allowing us to use `await` with the `fetch()` request and handle errors
+    using `try/catch`. The rest of the component remains the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Best Practices for Data Fetching in React
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'When working with data fetching in React, consider the following best practices:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1\. **Separation of Concerns**: Keep your data fetching logic separate from
+    your presentation components. This improves code organization and makes it easier
+    to test.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2\. **State Management**: Use React state or state management libraries like
+    Redux to manage fetched data, loading indicators, and errors.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '3\. **Loading Indicators**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Provide loading indicators or placeholders to inform users that data is being
+    fetched.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '4\. **Error Handling**: Implement error handling to gracefully handle network
+    errors or API failures and provide informative error messages to users.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '5\. **Caching**: Consider caching data on the client side to reduce unnecessary
+    API requests and improve performance.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '6\. **Optimistic UI**: In some cases, you can use an optimistic UI approach
+    to update the UI optimistically before the data is actually saved on the server.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '7\. **Authentication**: Handle authentication and authorization properly when
+    accessing protected APIs. Store authentication tokens securely.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '8\. **Code Splitting**: Consider code splitting to load data fetching components
+    only when needed to reduce initial bundle size.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Conclusion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Fetching data from APIs is a fundamental part of building dynamic and data-driven
+    React applications. By understanding the basics of APIs, making HTTP requests,
+    and managing data within your components, you can create web applications that
+    provide real-time information and interactivity to users. As you continue to develop
+    your React skills, mastering data fetching will enable you to build more complex
+    and feature-rich applications.
+  prefs: []
+  type: TYPE_NORMAL

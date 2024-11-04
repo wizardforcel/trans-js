@@ -1,0 +1,304 @@
+- en: '| Recipe 42 | Forcing . to Match Newline Characters with the s Flag |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you want to write a script that removes all comments from JavaScript
+    files to reduce their file size. Removing single-line comments is easy: just find
+    a line that starts with double forward slashes and delete the entire line.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: But removing block comments with the /* */ syntax that may span multiple lines
+    is a bit trickier. You might expect a pattern like /\/\*.*\*\// to work because
+    it finds a /* followed by any character until it reaches */.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But, the full stop token in this pattern won’t match line break characters,
+    so the regex could fail:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_dotall/dotall_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\/\***.***?\*\/**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** comment = *`/* this* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *is a multiline* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *comment */`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(comment); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'An old workaround is to use two opposite shorthand character classes, such
+    as [\w\W]. Since all characters are either word characters or non-word characters,
+    the character class will match any character, including \r and \n:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fortunately, ES2018 introduced the dotAll mode that fixes this problem more
+    elegantly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Append the s flag to the end of your pattern like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_dotall/dotall_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\/\***.***?\*\/**/*s; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** comment = *`/* this* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *is a multiline* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *comment */`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(comment); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Your regex now can match block comments that span multiple lines of text. Now,
+    let’s take advantage of this feature to build a function that takes a string and
+    removes all JavaScript comments from it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_dotall/dotall_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// Remove js comments* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** removeComments(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Match block comments (/*...*/)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re1 = */**\/\***.***?\*\/**/*sg; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Match single line comments (//...)* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */**\/\/\s**.+/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove comments* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** code = str.replace(re1, *""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | code = code.replace(re2, *""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** code; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** jsCode = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`// a variable* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *let abc = 123;* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | */* another* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *variable */* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *let def = 456;`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(removeComments(jsCode)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *//* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// let abc = 123;* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *//* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// let def = 456;* |'
+  prefs: []
+  type: TYPE_TB
+- en: Note that in some cases, this solution might not be able to remove JavaScript
+    comments accurately. For example, double forward slashes (//) enclosed in a string
+    is not a comment anymore, but regex doesn’t see them that way and removes them.
+    Or */ in the middle of a block comment doesn’t end the comment in the eye of the
+    JavaScript interpreter, but that’s not the case with regex. To strip comments
+    from JavaScript more accurately, you can take advantage of an AST parser, such
+    as acorn.^([[26]](f_0064.xhtml#FOOTNOTE-26))
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The beauty of using a flag to change how the full stop works is that it lets
+    us activate the mode on a per-regex basis. This way, existing regular expression
+    patterns that rely on the old behavior of the full stop won’t be affected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this recipe, we created a function that removes both single-line and block
+    JavaScript comments from a given string. To avoid overcomplicating the regex,
+    we used two different patterns to match each type of comment separately. After
+    finding all matches, we replaced them with an empty string, and returned the modified
+    string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The first pattern matches a multiline comment that starts with /* and ends
+    with */. Since forward slashes are also used to delimit regular expressions in
+    JavaScript, we need to escape it with a backslash to match a literal forward slash.
+    Similarly, we need to escape the asterisk with a backslash to match a literal
+    asterisk:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\/\*.*?\*\//sg |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \/ matches the character / literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \* matches the character * literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ *? matches the previous token between zero and unlimited times, as
+    few |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | times as possible (lazy) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \* matches the character * literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \/ matches the character / literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ s: enables matching newline characters |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g: enables searching for all matches |'
+  prefs: []
+  type: TYPE_TB
+- en: We use .*? to match any sequence of characters, including line breaks, but as
+    few as possible. The ? makes the * lazy. This is important because we want to
+    match only the content of the comment and not any subsequent comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we use \*\/ to match a literal asterisk followed by a forward slash. The
+    s flag at the end of the pattern enables the “dot all” mode. Without this flag,
+    the . wouldn’t match line breaks, and the regex wouldn’t match multiline comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The second regex matches any sequence of characters that begins with two forward
+    slashes (“//”) followed by a whitespace character, and then followed by one or
+    more of any character except a newline character. We need to escape each forward
+    slash by adding a backslash before it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\/\/\s.+/g |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \/ matches the character / literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \/ matches the character / literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \s matches any whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token between one and unlimited times, as many
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | times as possible (greedy) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ g: enables searching for all matches |'
+  prefs: []
+  type: TYPE_TB
+- en: We use “.+” to match everything until the end of the line. It’s not necessary
+    to add any extra expression to make the matching stop at the end of the line.
+    Just be sure that the s flag is not set for this regex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The full stop is perhaps the most commonly used metacharacter in the regular
+    expression. By default, it matches any single character except for line-break
+    characters. But more often than not, we want to match line breaks, too. The dotAll
+    mode offers a simple remedy to this problem that can be activated by the s flag.
+  prefs: []
+  type: TYPE_NORMAL

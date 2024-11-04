@@ -1,0 +1,258 @@
+- en: '| Recipe 14 | Formatting Currencies with Intl.NumberFormat() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine you run an online shop that delivers products to various countries.
+    You want to display the prices of the items in the currency of the user’s location.
+    So, for example, if a visitor from Canada chooses to view a monitor priced at
+    $499 in U.S. dollars, you want to automatically 1) convert the price from USD
+    to CAD and 2) format the currency according to CAD.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: First, you need to obtain the exchange rate between the U.S. dollar (USD) and
+    the Canadian dollar (CAD). Since the rate can vary constantly, you should use
+    an online API that gives you real-time data for the currencies you want to convert.
+    These services usually require a paid subscription.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this recipe, we’ll use the free service available at exchangerate.host, which
+    updates the exchange rates only once a day. You can send a fetch request to the
+    API by specifying the currencies you want to convert as parameters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Once the fetch is successful, read and parse the data using the json() method,
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **async** **function** getExchangeRate(**from**, to) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** response = **await** fetch(api); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | response = **await** response.json(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** response.info.rate; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** exchangeRate = getExchangeRate(*"USD"*, *"CAD"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now that you have an exchange rate for your target currency, you need a way
+    to format it. Pass the ISO code of the currency you want to convert to the Intl.NumberFormat()
+    constructor as an option. This will return an object that has a format() method
+    which you can use to format any amount:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **new** Intl.NumberFormat(*"en-US"*, { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | style: *"currency"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | currency: currency, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }).format(amount); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | getFormattedCurrency(*"CAD"*, exchangeRate * 499) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'After some cleanup, your final code should look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/formatting_currencies/NumberFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** USDprice = 499; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **async** **function** getExchangeRate(**from**, to) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** response = **await** fetch(api); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | response = **await** response.json(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** response.info.rate; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **new** Intl.NumberFormat(*"en-CA"*, { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | style: *"currency"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | currency: currency, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }).format(amount); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | getExchangeRate(*"USD"*, *"CAD"*).then(exchangeRate => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(getFormattedCurrency(*"CAD"*, exchangeRate * USDprice));
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Logs something like:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → CA$679.31* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| TypeError |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/error.png](images/aside-icons/error.png) | If you’re
+    getting an error like “TypeError: Failed to fetch,” it’s likely because you’re
+    running the code in your browser’s console. Unless you’re on https://exchangerate.host/,
+    your browser’s security mechanism will block the request. Try executing the code
+    in an HTML document or the Node environment (requires Node v18). |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As with every other method in the Internationalization API, Intl.NumberFormat()
+    takes a BCP 47 language tag as its first argument.^([[13]](f_0032.xhtml#FOOTNOTE-13))
+    Here, the language tag tells the method what locale to use when formatting currencies,
+    which is useful when you want to offer your website in multiple languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, if you pass “ar” as a language tag, the resulting number will
+    be in the Arabic alphabet:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/formatting_currencies/NumberFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **new** Intl.NumberFormat(*"ar"*, { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | style: *"currency"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | currency: currency, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }).format(amount); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/NumberFormat_ex2.png](images/NumberFormat_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: You can further refine how the currency is displayed by setting options in the
+    second argument. A useful option is signDisplay which lets you set when to display
+    the sign for the number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By default, the function displays a sign for negative numbers only (including
+    negative zero, which is a negative number that has been rounded to zero). If you
+    want to always display the sign, such as when indicating a change in balance,
+    you should use “always”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/formatting_currencies/NumberFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **new** Intl.NumberFormat(*"en"*, { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | style: *"currency"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | currency: currency, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | signDisplay: *"always"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }).format(amount); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | getFormattedCurrency(*"USD"*, 499); *// → "+$499.00"* |'
+  prefs: []
+  type: TYPE_TB
+- en: The Intl.NumberFormat() constructor makes it easy to deal with numbers in JavaScript.
+    Remember to take advantage of it whenever you need to format currencies.
+  prefs: []
+  type: TYPE_NORMAL

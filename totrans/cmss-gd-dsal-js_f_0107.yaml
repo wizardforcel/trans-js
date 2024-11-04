@@ -1,0 +1,461 @@
+- en: 'Top-Down Recursion: A New Way of Thinking'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'This brings us to the central point of this chapter: recursion shines when
+    implementing a top-down approach because going top-down offers a new mental strategy
+    for tackling a problem. That is, a recursive top-down approach allows one to think
+    about a problem in a completely different way.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Specifically, when we go top-down, we get to mentally “kick the problem down
+    the road.” We can free our mind from some of the nitty-gritty details we normally
+    have to think about when going bottom-up.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To see what I mean, let’s take another look at the key line from our top-down
+    factorial implementation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: This line of code makes its calculation based on factorial(number - 1). When
+    we write this line of code, do we have to understand how the factorial function
+    it’s calling works? Technically, we don’t. Whenever we write code that calls another
+    function, we assume that the function will return the correct value without necessarily
+    understanding how its internals work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here as well, when we calculate our answer based on calling the factorial function,
+    we don’t need to understand how the factorial function works; we can just expect
+    it to return the correct result. Of course, the weird part is that we’re the ones
+    writing the factorial function! This line of code exists within the factorial
+    function itself. But that’s what is so great about top-down thinking: in a way,
+    we can solve the problem without even knowing how to solve the problem.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we write “in recursive” to implement a top-down strategy, we get to relax
+    our brains a little. We can even choose to ignore the details of how the calculation
+    actually works. We get to say, “Let’s just rely on the subproblem to deal with
+    the details.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Top-Down Thought Process
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'If you haven’t done a lot of top-down recursion before, it takes time and practice
+    to learn to think in this way. I found that when tackling a top-down problem,
+    it helps to think the following three thoughts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Imagine that the function you’re writing has already been written by somebody
+    else.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Identify the subproblem of the problem.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: See what happens when you call the function on the subproblem and go from there.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: While these steps sound vague at the moment, they’ll become more clear through
+    the following examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Array Sum
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Say we have to write a function called sum that sums up all the numbers in a
+    given array. For example, if we pass the array [1, 2, 3, 4, 5] into the function,
+    it’ll return 15, which is the sum of those numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first thing we’ll do is imagine that the sum function has already been implemented.
+    Admittedly, this takes a certain suspension of disbelief, since we know that we’re
+    in the middle of writing this function as we speak! But let’s try to let go and
+    pretend that the sum function already works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, let’s identify the subproblem. This can be more of an art than a science,
+    but practice will help you get better at it. In our case, we can say that the
+    subproblem is the array [2, 3, 4, 5]—that is, all the numbers from the array save
+    the first one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, let’s see what happens when we apply the sum function to our subproblem.
+    If the sum function “already works,” and the subproblem is [2, 3, 4, 5], what
+    happens when we call sum([2, 3, 4, 5])? Well, we get the sum of 2 + 3 + 4 + 5,
+    which is 14.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To solve our problem of finding the sum of [1, 2, 3, 4, 5] then, we can just
+    add the first number, 1, to the result of sum([2, 3, 4, 5]).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In pseudocode, we’d write something like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | return array[0] + sum(the remainder of the array) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In JavaScript, we can write this like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: (In JavaScript, the syntax .slice(1) returns a new array that has the contents
+    of the original array starting from index 1 until the end.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, believe it or not, we’re done! Save for the base case, which we’ll get
+    to in a moment, our sum function can be written like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Note that we didn’t think about how we’re going to add all the numbers together.
+    All we did was imagine that someone else wrote the sum function for us, which
+    we applied to the subproblem. We kicked the problem down the road, but in doing
+    so, we solved the entire problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The last thing we need to do is handle the base case. That is, if each subproblem
+    recursively calls its own subproblem, we will eventually reach the subproblem
+    of sum([5]). This function will eventually try to add the 5 to the remainder of
+    the array, but there are no other elements in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To deal with this, we can add the base case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: only one element in the array:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: And now we’re done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Technically, there’s another case we haven’t handled, and that’s if the input
+    array is completely empty. Currently, our code will throw an error for such an
+    input.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this book, our code doesn’t necessarily attempt to handle every edge case.
+    (For example, what if the input array contains strings instead of numbers?) However,
+    we’ll sometimes put in a guard against an empty array by throwing an extra clause,
+    as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If array is empty:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Primary base case:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: We now technically have two base cases. The possibility of the array being empty
+    is kind of a base case unto itself but will only be triggered if the original
+    input is empty. On the other hand, an array of length 1 is the primary base case
+    since that case will always be triggered by the recursion itself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, a neat little trick can allow us to reduce our code to having just
+    one base case again—all while still dealing with the possibility of an empty array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It relies upon the fact that in JavaScript, when we call .slice(1) on an array
+    with only one value in it, we get back an empty array. With this in mind, we only
+    need the base case of an empty array, since the recursion will eventually trigger
+    such a case. We can eliminate the base case of an array of length 1 altogether,
+    since recursively calling the sum method on such an array will yield a case of
+    an empty array. So the following code works perfectly:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: an empty array*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: And now we’re really done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: String Reversal
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s try another example. We’re going to write a reverse function that reverses
+    a string. So if the function accepts the argument "abcde", it’ll return "edcba".
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, let’s identify the subproblem. Again, this takes practice, but very often
+    the first thing to try is the next-to-smallest version of the problem at hand.
+    So for the string "abcde", let’s assume the subproblem is "bcde". This subproblem
+    is the same as the original string minus its first character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, let’s imagine that someone did us the great favor of implementing the
+    reverse function for us. How nice of them!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, if the reverse function is available for our use and our subproblem is
+    "bcde", that means we can already call reverse("bcde"), which would return "edcb".
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once we can do that, dealing with the "a" is a piece of cake. We just need to
+    throw it onto the end of the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, we can write:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ reverse(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ reverse(string.slice(1)) + string[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Our computation is simply the result of calling reverse on the subproblem and
+    then adding the first character to the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once again, save for the base case, we’re done. I know, it’s crazy magical.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The base case occurs when the string has one character, so we can add the following
+    line of code to handle it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (string.length === 1) { ​**return**​ string[0]; } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'However, as in the previous example, we can make the base case an empty string
+    and thereby handle such an input as well. Again, this works since calling string.slice(1)
+    on a one-character string yields an empty string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ reverse(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string.length === 0) { ​**return**​ ​*''''*​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ reverse(string.slice(1)) + string[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: And we’re done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Counting X
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We’re on a roll, so let’s try another example. Let’s write a function called
+    countX that returns the number of “x”s in a given string. If our function is passed
+    the string "axbxcxd", it’ll return 3, since there are three instances of the character
+    “x”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first identify the subproblem. As in the previous example, we’ll say the
+    subproblem is the original string minus its first character. So for "axbxcxd",
+    the subproblem is "xbxcxd".
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, let’s imagine countX has already been implemented. If we call countX on
+    our subproblem, by calling countX("xbxcxd"), we get 3\. To that, we just need
+    to add 1 if our first character is also an “x”. (If our first character is not
+    an “x”, we don’t need to add anything to the result of our subproblem.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, we can write:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ countX(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​ ) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This conditional statement is straightforward. If the first character is an
+    “x”, we add 1 to the result of the subproblem. Otherwise, we return the result
+    of our subproblem as is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here too, we’re basically done. All we need to do is deal with the base case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can say that the base case here is when a string has only one character.
+    But this leads to some awkward code, since we really have two base cases, as the
+    single character may be an “x” but may also not be an “x”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ countX(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Two base cases:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string.length === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'But again, we can simplify our code and just have one single base case if we
+    make our base case an empty string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ countX(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: an empty string*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string.length === 0) { ​**return**​ 0; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: By definition, an empty string will always contain zero “x”s, so we truly have
+    only one base case.
+  prefs: []
+  type: TYPE_NORMAL

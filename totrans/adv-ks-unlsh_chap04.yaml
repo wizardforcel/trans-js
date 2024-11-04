@@ -1,0 +1,651 @@
+- en: Closures
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Closure is one of the fundamental topics in JavaScript and can be tricky to
+    understand for beginners. It is a powerful feature, and developing a good understanding
+    of this topic is essential. In this module, we will take a deeper look at what
+    closures are and how they work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What is a closure?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The closure is a combination of the following two things:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A Function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A reference to the environment/scope in which that function is created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'In other words, whenever we define a function in JavaScript, that function
+    saves a reference to the environment in which it was created. This is what’s referred
+    to as a closure: a function along with a reference to the environment in which
+    it is created.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Closures allow a nested function to access the declarations inside the containing
+    function, even after the execution of the containing function has ended.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: How does the `innerFn`, function returned by `outerFn`, have access to the `outerVar`
+    variable declared in `outerFn` even after the “outerFn” execution is complete?
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above code works because JavaScript functions always create closures when
+    they are created. In some programming languages, a function’s locally defined
+    variables only exist for the duration of that function’s execution; when a function’s
+    execution ends, variables defined in its local scope are destroyed. But that’s
+    not the case in JavaScript, as is evident from the code example above. So, how
+    do closures work?
+  prefs: []
+  type: TYPE_NORMAL
+- en: How do closures work?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To understand how closures work, we need to understand how JavaScript resolves
+    the scope of any identifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Although we had a detailed discussion on scope in an earlier module dedicated
+    to the topic of scope, let us once again briefly go over how the lexical scope
+    is resolved. Consider the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example2”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the `learnJavaScript` function is invoked to log the value of the `isReading`
+    variable, the JavaScript first needs to identify where it is defined. The first
+    place where JavaScript will search is the local scope of the `learnJavaScript`
+    function because this is where a reference to the `isReading` variable was found.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As the `isReading` variable is not defined in the local scope of the `learnJavaScript`
+    function, JavaScript will search for this variable in the outer scope, which in
+    this case is the global scope. JavaScript will find the declaration of the `isReading`
+    variable in the global scope, so it will get its value and pass it to the `console.log`
+    function so that it can be logged to the console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let us take a look at another code example that involves a nested function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example3”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this code example, we have a nested function, `stepsToLearnJavaScript`, that
+    logs the value of a variable defined in the global scope. If JavaScript hasn’t
+    already determined the scope of the `isReading` variable, how will it find its
+    declaration? Recall the scope chain!
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript will need to traverse the scope chain to find the declaration of
+    the `isReading` variable. As in the earlier example, the declaration is first
+    searched in the current scope, which in this case is the local scope of the `stepsToLearnJavaScript`
+    function. If the current scope doesn’t contain the declaration JavaScript is looking
+    for, the search is sequentially expanded to the outer scopes. In our example,
+    the `stepsToLearnJavaScript` function doesn’t contain the declaration of the `isReading`
+    variable, so the search is moved to the outer scope, which in this case is the
+    local scope of the `learnJavaScript` function. The declaration doesn’t exist in
+    this scope either; JavaScript traverses to the outer scope of the `learnJavaScript`
+    function scope. The outer scope now is the global scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code example above, the variable declaration is found in the global scope,
+    so the search for the variable declaration will be stopped when the search reaches
+    the global scope. But what will happen if we remove the variable declaration from
+    the above code example?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example4”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, the `stepsToLearnJavaScript` function is logging an undeclared variable.
+    Now, what will happen when the search for the variable declaration reaches the
+    global scope? At this point, javascript will do one of the following two things:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: throw an error if the code is in strict mode
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: declare a global variable for you in non-strict mode (recall “implicit globals”
+    in the scope module)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How are different scopes linked?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: At this point, we know how the scope is resolved, and the different scopes are
+    linked together, forming a chain that is known as the “scope chain.” But have
+    you wondered how different scopes are linked? It can’t be magic; some mechanism
+    must link different scopes together. How does JavaScript determine the outer scope
+    of the current scope?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let us revisit one of the code examples presented earlier in this lesson:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example5”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: We know that when the `learnJavaScript` function is invoked, the local scope
+    of this function is linked to the global scope, but how? The answer is the hidden
+    internal slot named [[[Environment]]](https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects).
+    This `[[Environment]]` internal slot exists on the functions, and it contains
+    a reference to the outer scope/environment. In other words, this internal slot
+    contains a reference to the scope on which the containing function has *closed
+    over* or formed a “closure.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::info
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are many [hidden internal slots](https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript)
+    mentioned in the ECMAScript specification. The specification uses these hidden
+    internal slots to define the required behavior. These hidden internal slots, just
+    like abstract operations, may or may not be actual things that are implemented
+    by the different JavaScript engines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code example above, when the `learnJavaScript` function is created, as
+    it is created in the global scope, a reference to the global environment is saved
+    in the internal `[[Environment]]` slot of the function object. Later, when the
+    function is called, a new environment is created for the execution of the code
+    inside the function. This environment (local scope of the function) is linked
+    to the global environment by getting a value that is saved in the `[[Environment]]`
+    slot of the `learnJavaScript` function and saving it in an internal slot named
+    [[[OuterEnv]]](https://tc39.es/ecma262/#sec-environment-records). Each environment
+    object has an internal slot that contains a reference to the outer environment.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The linkage of scopes in the above example can be conceptually visualized in
+    the image below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![scope linkage](images/missing.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: scope linkage
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s revisit one of the earlier examples from this lesson that involved a
+    nested function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example6”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this code example, we have three different environments:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The global environment
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The local environment of the `learnJavaScript` function (created when the function
+    is invoked)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The local environment of the `stepsToLearnJavaScript` function (created when
+    the function is invoked)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The linkage between different scopes can be visualized in the image below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![scope linkage](images/module_05----lesson_05.01----public----assets----closure-scope-linkage-2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: scope linkage
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hopefully, the above two code examples and images have clarified how different
+    scopes are linked together, forming a scope chain. This scope chain is traversed
+    by the JavaScript engine, if needed, to resolve the scope of any identifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This linkage between different environments, i.e., the scope chain, is what
+    makes closures possible in JavaScript. Due to this scope chain, a nested function
+    can still access variables from the outer function even after the execution of
+    the outer function has ended. This outer environment is kept in memory as long
+    as the inner function has a reference to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, let us revisit the first code example in this lesson, which involves invoking
+    a nested function from a different scope than the one it is defined in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/Example7”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hopefully, you can now explain how the nested function has access to the `outerVar`
+    variable, even after the completion of the `outerFn` execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `inner` function has a reference to the local scope of the `outerFn` function,
+    saved in its `[[Environment]]` internal slot. When the `inner` function is returned
+    from the `outerFn` function, although the `outerFn` execution has ended, the `inner`
+    function still has a reference to the local scope of the `outerFn`. When the `inner`
+    function is invoked, the value of the `[[Environment]]` slot of the `inner` function
+    is saved in the `[[OuterEnv]]` internal slot of the environment created for the
+    execution of the `inner` function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To summarize, every time a javascript function is created, a closure is formed,
+    which allows that function to access the scope chain that was in effect when that
+    function was defined. Each time a function is created, javascript saves the reference
+    to the surrounding environment of the function in the internal `[[Environment]]`
+    slot on the function object. When that function is called, a new environment is
+    created for that function call, and javascript saves the value of `[[Environment]]`
+    slot on the function in the `[[OuterEnv]]` slot of the environment object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is a common misconception among beginners that closures are only formed when
+    any function returns a nested function. But that is not the case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every time a function is created in JavaScript, it forms a closure over the
+    environment in which that function was created. Forming a closure is a fancy way
+    of saying that when a function is created, it saves a reference to the environment
+    in which it was created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What is the cause of this misconception? It is because of the following two
+    reasons:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Many online resources introduce the concept of closures with code examples containing
+    a function that returns a nested function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Closures are only noticeable when a function is invoked from a different scope
+    than the one it is defined in.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Most functions are usually invoked from the same scope in which they are defined.
+    This makes the closures go unnoticed. It is only when a function is invoked from
+    a different scope than the one it is defined in that closures become noticeable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the following code example, a function is defined and invoked from the global
+    scope, so a closure formed by the function is unnoticeable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the code above in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike the code example above, in the following code example, closure is noticeable
+    as the nested `greet` function has access to the `greetMsg` parameter of the containing
+    `createGreeting` function even after the completion of the `createGreeting` function.
+    The closure is noticeable because the `greet` function is invoked from a different
+    scope than the one it is defined in. The `greet` function is defined in the local
+    scope of the `createGreeting` function, but it is invoked from the global scope.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example2”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: What output do you expect from the following code example?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You might expect the following output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Although the above output seems reasonable, it is not the output we get from
+    the code example above. The actual output is as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output of the code example above in a Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: If this output surprised you, then this lesson is for you. Even if it didn’t,
+    do you understand the reasons behind this output? In this lesson, we will explore
+    what causes this problem, also known as the “**closures in loop**” problem, and
+    how we can fix it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What causes this problem?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The code example above suffers from this infamous “closures in loop” problem
+    because the callback function of each `setTimeout` forms a closure over the *same*
+    variable `i`. As there are a total of three loop iterations in our example, `setTimeout`
+    is called three times, so we have three callback functions, all having a closure
+    over the *same* variable `i`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The callback function of each `setTimeout` call is invoked *after* the loop
+    execution has completed. The value of variable `i` after the last iteration of
+    the loop is “4”, and because each callback function of the “setTimeout” has a
+    closure over the *same* variable `i`, all three of them see “4” as the value of
+    the `i`. This is the reason they all log “4” on the console.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The scope linkage for the code example above can be visualized in the image
+    below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-in-loop-problem.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: scope linkage
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is important to note that functions form closures over variables, not their
+    values. Closure over variables implies that each function logs the *latest* value
+    of the variable it has closed over; if functions formed closure over values rather
+    than variables, they would log the snapshot of the value in effect when the closure
+    was formed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our example, if the closure was over the values of `i` instead of the `i`
+    variable, then each callback would have logged the value of `i` that was in effect
+    in the iteration in which that callback was created. This means we would have
+    gotten the expected output, i.e., `1 2 3` instead of `4 4 4`. But as is evident
+    from the output of the code example, closures are formed over variables. As a
+    result, each callback function of `setTimeout` has a closure over the variable
+    `i`, and when each callback is executed, it sees the latest value of `i`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to resolve this problem?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Now that we understand what the “closures in loop” problem is and what causes
+    it let us discuss how this problem was tackled before ES2015.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pre-ES2015 solution
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Before the introduction of ES2015, also known as ES6, one way to solve this
+    problem was to use an [IIFE (Immediately Invoked Function Expression)](https://developer.mozilla.org/en-US/docs/Glossary/IIFE).
+    The following code example shows how using an IIFE resolves this problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output of the code example above in a Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example2”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: How does the use of an IIFE solve this problem?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Recall that the problem is caused by the closure of different callbacks over
+    the *same* variable. But with the use of an IIFE, we can pass the value of `i`
+    in each iteration to the IIFE as a parameter. This parameter (`counter`) is then
+    used inside the callback function of the `setTimeout` function. This solves the
+    problem because the `counter` parameter is closed over by each callback function,
+    and in each iteration, a new IIFE is created, along with the new callback function
+    of `setTimeout`. Each new instance of the IIFE gets passed a new value of `i`,
+    i.e., “1” in the first iteration, “2” in the second iteration, and so on. So now,
+    with the use of an IIFE, each callback function has a closure over a different
+    `counter` variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The image below helps visualize the scope chain in the above code example (function
+    objects are not shown in the image below to keep it simple):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![scope linkage](images/module_05----lesson_05.03----public----assets----closure-problem-pre-es6-solution.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: scope linkage
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although the callbacks of the `setTimeout` function log the `counter` variable,
+    they still have access to the `i` variable as well. What if we log both `counter`
+    and `i`? How will the output change?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The output of the code example above can be seen in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example3”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each callback has a closure over a *different* instance of the `counter` variable,
+    but they all still share the *same* variable `i` from the global scope. As a result,
+    they log the latest value of `i`, i.e., “4”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ES2015 solution
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: ES2015 introduced block-scoped variables and constants with the help of `let`
+    and `const` keywords, respectively. We can solve the “closures in loop” problem
+    simply by replacing the `var` keyword with the `let` keyword in our original code
+    example that had this problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output of the code example above in a Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/closures-in-loops-example4”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the `let` keyword solves this problem because, unlike each callback function
+    closing over the *same* variable `i`, the `let` being block-scoped causes each
+    iteration of the loop to have a *different* copy of the variable `i`. This is
+    the key idea that solves the problem of “closures in loop”. Each iteration has
+    its own *separate* copy of variable `i`, which means that the `setTimeout` callback
+    created in each iteration closes over the copy of variable `i` that is limited
+    to that particular iteration of the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our code example, we have three iterations of the loop and separate copies
+    of variable `i`, each limited to a particular iteration of the loop. Although
+    it seems that we have a single variable `i`, behind the scenes, each iteration
+    gets its own copy of the variable `i`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To understand how each iteration gets its own copy of variable `i`, the following
+    steps explain how the above code is executed:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before the execution of the `for` loop starts, an environment object (let’s
+    call it `initEnv`) is created, and it contains the variables declared in the initialization
+    part of the `for` loop. In our case, we have only one variable, `i`, so the `initEnv`
+    environment object contains a copy of variable `i`. This environment object is
+    linked to the outer environment by saving a reference to the outer environment
+    in the `[[OuterEnv]]` internal slot. The outer environment, in this case, is the
+    global environment.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: To start the first iteration of the `for` loop, a new environment object is
+    created (let’s call it `iter1Env`). This environment object also gets the global
+    environment as its outer environment. The variable `i` is copied into this newly
+    created `iter1Env` object by copying it from the `initEnv` object (created in
+    step 1).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The loop condition `i <= 3` is `true`, so the body of the loop is executed as
+    part of the first iteration of the loop. The callback function for the `setTimeout`
+    is created, saving a reference to the environment object of the first loop iteration
+    `iter1Env` (created in step 2) in the internal `[[Environment]]` slot of the callback
+    function. After that, the callback function is passed to the `setTimeout` function
+    as an argument to be executed later.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The first iteration has been completed. The following image shows the linkage
+    between different environments created so far:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![closue in loop - iteration 1](images/module_05----lesson_05.03----public----assets----closure-loop-iter-1.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: closue in loop - iteration 1
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Now, to start the second iteration, a new environment object is created (let’s
+    call it `iter2Env`). The variable `i` is copied from the `initEnv` environment
+    object (created in step 1), but the value of `i` in `iter2Env` is the value of
+    `i` in `iter1Env` (created in step 2). The value of `i` in `iter2Env` is then
+    incremented due to the increment part (`i++`) of the `for` loop.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As in the previous iteration, a new callback function is created, and the reference
+    to the `iter2Env` is saved in its `[[Environment]]` internal slot. The callback
+    function is then passed to the `setTimeout` function as an argument.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: This process is repeated for the third and final iteration of the loop.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The following diagram shows how different environments are linked together
+    after three iterations of the loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![closue in loop - all iterations](images/module_05----lesson_05.03----public----assets----closure-loop-iter.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: closue in loop - all iterations
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hopefully, the final diagram clarifies why using the `let` keyword solves the
+    “closures in loop” problem. As each environment object created for each iteration
+    of the loop has its *separate* copy of the variable `i`, the closure of each callback
+    created in different iterations of the loop forms a closure over a separate copy
+    of the variable `i`. As a result, they log the value they have closed over, giving
+    us the expected output, i.e., `1 2 3`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the recent additions to the JavaScript language, it is now possible to
+    have [private fields and methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
+    in JavaScript. However, before these changes were introduced in the language,
+    closures were the go-to option for hiding data from public access. In object-oriented
+    programming terminology, this is referred to as “data hiding” and “encapsulation”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Following is an example of how we can have private variables and methods using
+    closures:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: The code inside the IIFE is executed, and an object is returned from the IIFE
+    that is assigned to the `bank` variable. The object returned only contains the
+    data that needs to be accessible from outside the IIFE. The code that is meant
+    to be private is not returned; as a result, that data remains private, limited
+    to the boundary walls of the IIFE. However, thanks to closures, publicly exposed
+    data that is returned from the IIFE can still access the private data inside the
+    IIFE.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H5
+  type: TYPE_NORMAL
+- en: '[Emulating private methods with closures - (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#emulating_private_methods_with_closures)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,207 @@
+- en: '| Recipe 53 | Matching Unicode Word Boundaries with the Unicode Property Escape
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you want to search a document for the Portuguese word “vã,” which means
+    “go,” without matching other words that contain “vã,” such as “vão.” To achieve
+    this, you try using word boundaries to isolate the word “vã” from other words
+    containing similar characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/unicode_property_escapes_p3/upe_p3_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b**vã**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"vão"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["vã", index: 0, input: "vão bem", groups: undefined]* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"vã bem"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → null* |'
+  prefs: []
+  type: TYPE_TB
+- en: But, your regex is matching the opposite of your intended result. The problem
+    is that the word boundary (\b) considers accented characters such as “ã” as non-word
+    characters. You need an alternative solution that doesn’t share the same limitation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a combination of Unicode property escapes to match word boundaries in Unicode
+    characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/unicode_property_escapes_p3/upe_p3_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** re = */**(?<**=**[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;^**)**vã**(?=[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;$**)**/*u;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"vão"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → null* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"vã bem"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["vã", index: 0, input: ''vã bem'', groups: undefined]* |'
+  prefs: []
+  type: TYPE_TB
+- en: Successful outcome! The regex is now able to correctly match the word boundary
+    in Portuguese and other languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: When dealing with non-English text in JavaScript, one drawback is that the word
+    boundary in the regex engine identifies only characters present in the ASCII table.
+    As a result, \b fails to match a “complete word” when performing a search in text
+    containing accented characters or words written in non-Latin scripts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this recipe, the issue arises because the character “ã” is classified as
+    a non-word character, resulting in the detection of a word boundary between the
+    letters “ã” and “o.” Conversely, “ã” followed by a space character creates a continuous
+    string of non-word characters, and therefore, no word boundary is detected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To resolve this problem, we can use a set of Unicode property escapes in a
+    lookaround:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '\p{L} Letter category: matches any type of letter regardless of the language'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '\p{M} Mark category: matches a combining character, which is meant to be joined
+    with another character such as accents, umlauts, enclosing boxes, and so on'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '\p{Nd} Decimal digit number: matches any digit between 0 and 9 in any script,
+    excluding ideographic scripts'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '\p{Pc} Connector punctuation: matches a punctuation character, such as an underscore'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dealing with non-English text in JavaScript requires special attention to ensure
+    accurate searching and matching of words. Using the standard word boundary can
+    lead to incomplete matches for accented or non-Latin script words. Fortunately,
+    by using Unicode property escapes, we can address this issue and achieve more
+    reliable searches for non-English text.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wrapping Up
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Text processing is an essential part of any modern application. Whether you’re
+    working on a content-heavy website or building a sophisticated data analysis tool,
+    using regular expressions can significantly enhance your development capabilities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this part of the book, you discovered how to use regex in JavaScript and
+    take advantage of various regex methods. You learned about the building blocks
+    of regex, such as character classes, quantifiers, and metacharacters, and how
+    to combine them to form more complex patterns.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Up next, you’ll bolster your understanding of regex by solving a wide range
+    of text manipulation problems that require using the tokens discussed in this
+    part. Regex may seem daunting at first, but with practice and patience, mastering
+    this tool can significantly enhance your text-processing capabilities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Footnotes
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[[23]](f_0051.xhtml#FNPTR-23)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://mzl.la/3u78Y6w](https://mzl.la/3u78Y6w)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[24]](f_0051.xhtml#FNPTR-24)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://www.npmjs.com/package/regexp-match-indices](https://www.npmjs.com/package/regexp-match-indices)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[25]](f_0052.xhtml#FNPTR-25)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/API/fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[26]](f_0053.xhtml#FNPTR-26)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/acornjs/acorn](https://github.com/acornjs/acorn)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[27]](f_0054.xhtml#FNPTR-27)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://en.wikipedia.org/wiki/Emoticons_(Unicode_block)](https://en.wikipedia.org/wiki/Emoticons_(Unicode_block))'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[28]](f_0054.xhtml#FNPTR-28)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://mathiasbynens.be/notes/es6-unicode-regex](https://mathiasbynens.be/notes/es6-unicode-regex)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[29]](f_0060.xhtml#FNPTR-29)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://caniuse.com/?search=lookbehind](https://caniuse.com/?search=lookbehind)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[30]](f_0063.xhtml#FNPTR-30)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show](https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[31]](f_0063.xhtml#FNPTR-31)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://unicode.org/reports/tr18/](https://unicode.org/reports/tr18/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copyright © 2024, The Pragmatic Bookshelf.
+  prefs: []
+  type: TYPE_NORMAL

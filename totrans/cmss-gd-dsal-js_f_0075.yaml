@@ -1,0 +1,592 @@
+- en: Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The following exercises provide you with the opportunity to practice with algorithms
+    in practical situations. The solutions to these exercises are found in the section
+    [​*Chapter 7*​](f_0212.xhtml#big.o.in.everyday.code.solutions).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use Big O notation to describe the time complexity of the following function.
+    The function returns true if the array is a 100-sum array, and false if it is
+    not.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'A 100-sum array meets the following criteria:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Its first and last numbers add up to 100.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Its second and second-to-last numbers add up to 100.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Its third and third-to-last numbers add up to 100, and so on.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s the function:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ oneHundredSum(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length % 2 !== 0 &#124;&#124; array.length === 0) {
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ leftIndex = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ rightIndex = array.length - 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (leftIndex < Math.floor(array.length / 2)) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array[leftIndex] + array[rightIndex] !== 100) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | leftIndex += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | rightIndex -= 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Use Big O notation to describe the time complexity of the following function.
+    It merges two sorted arrays to create a new sorted array containing all the values
+    from both arrays:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ merge(array1, array2) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ newArray = []; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ array1Pointer = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ array2Pointer = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// Run the loop until we''ve reached end of both arrays:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (array1Pointer < array1.length &#124;&#124; array2Pointer
+    < array2.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// If we already reached the end of the first array,*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// add item from second array:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array1Pointer >= array1.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | newArray.push(array2[array2Pointer]); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array2Pointer += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// If we already reached the end of the second array,*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// add item from first array:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (array2Pointer >= array2.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | newArray.push(array1[array1Pointer]); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array1Pointer += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// If the current number in first array is less than current*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// number in second array, add from first array:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (array1[array1Pointer] < array2[array2Pointer])
+    { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | newArray.push(array1[array1Pointer]); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array1Pointer += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// If the current number in second array is less than or equal*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​*// to current number in first array, add from second array:*​ |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | newArray.push(array2[array2Pointer]); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | array2Pointer += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ newArray; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Use Big O notation to describe the time complexity of the following function.
+    This function solves a famous problem known as “finding a needle in the haystack.”
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Both the needle and haystack are strings. For example, if the needle is "def"
+    and the haystack is "abcdefghi", the needle is contained somewhere in the haystack,
+    as "def" is a substring of "abcdefghi". However, if the needle is "dd", it cannot
+    be found in the haystack of "abcdefghi".
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'This function returns true or false depending on whether the needle can be
+    found in the haystack:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ findNeedle(needle, haystack) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ needleStartIndex = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (needleStartIndex <= haystack.length - needle.length) {
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (needle[0] === haystack[needleStartIndex]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ needleOffset = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (needleOffset < needle.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (needle[needleOffset] !== |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | haystack[needleStartIndex + needleOffset]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (needleOffset === needle.length - 1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | needleOffset += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | needleStartIndex += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Use Big O notation to describe the time complexity of the following function.
+    This function finds the greatest product of three numbers from a given array:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ largestProduct(array) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length < 3) { ​**return**​ ​**null**​; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ largestProductSoFar = array[0] * array[1] * array[2]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ i = 0; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (i < array.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ j = i + 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (j < array.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ k = j + 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (k < array.length) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array[i] * array[j] * array[k] > largestProductSoFar) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | largestProductSoFar = array[i] * array[j] * array[k]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | k += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | j += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | i += 1; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ largestProductSoFar; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'I once saw a joke aimed at HR people: “Want to immediately eliminate the unluckiest
+    people from your hiring process? Just take half of the resumes on your desk and
+    throw them in the trash.”'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If we were to write software that kept reducing a pile of resumes until we had
+    one left, it might take the approach of alternating between throwing out the top
+    half and the bottom half; that is, it will first eliminate the top half of the
+    pile, and then proceed to eliminate the bottom half of what remains. It keeps
+    alternating between eliminating the top and bottom until one lucky resume remains,
+    and that’s who we’ll hire!
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Describe the efficiency of this function in terms of Big O:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ pickResume(resumes) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (resumes.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ eliminate = ​*''top''*​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (resumes.length > 1) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ midpoint = Math.floor(resumes.length / 2); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (eliminate === ​*''top''*​) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | resumes = resumes.slice(0, midpoint); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | eliminate = ​*''bottom''*​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (eliminate === ​*''bottom''*​) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | resumes = resumes.slice(midpoint); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | eliminate = ​*''top''*​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ resumes[0]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: Copyright © 2024, The Pragmatic Bookshelf.
+  prefs: []
+  type: TYPE_NORMAL

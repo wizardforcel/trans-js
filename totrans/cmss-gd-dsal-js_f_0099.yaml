@@ -1,0 +1,206 @@
+- en: Reading Recursive Code
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'It takes time and practice to get used to recursion, and you’ll ultimately
+    learn two sets of skills: reading recursive code and writing recursive code. Reading
+    recursive code is somewhat easier, so let’s get some practice with that first.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We’ll do this by looking at another example: calculating factorials.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A factorial is best illustrated with some examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is the factorial of 3:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3 * 2 * 1 = 6
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is the factorial of 5:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5 * 4 * 3 * 2 * 1 = 120
+  prefs: []
+  type: TYPE_NORMAL
+- en: And so on and so forth.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a recursive implementation that returns a number’s factorial:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ factorial(number) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number <= 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This code can look somewhat confusing at first glance. To walk through the
+    code to see what it does, here’s the process I recommend:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Identify the base case.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Walk through the function for the base case.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Identify the next-to-last case. This is the case just before the base case,
+    as I’ll demonstrate momentarily.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Walk through the function for the next-to-last case.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Repeat this process by identifying the case before the one you just analyzed
+    and walking though the function for that case.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Let’s apply this process to the preceding code. If we analyze the code, we’ll
+    quickly notice that there are two paths. One path is where number is less than
+    or equal to 1, and the other path is where number is greater than 1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (number <= 1) { ​*// Path 1*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ... |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { ​*// Path 2: number is greater than 1*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ... |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can see that the recursion happens inside the else path, since factorial
+    calls itself:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'So it must be that the base case is the first path, since it’s the path where
+    no recursion is taking place:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (number <= 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: We can conclude, then, that the base case is when number is less than or equal
+    to 1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, let’s walk through the factorial method assuming it’s dealing with a
+    base case, such as factorial(1). Again, the relevant code from our method is the
+    following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (number <= 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Well, that’s pretty simple—it’s the base case, so no recursion actually happens.
+    If we call factorial(1), the method simply returns 1\. Okay, so grab a napkin
+    and write this fact down:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/napkin_1.png](images/recursively_recurse_with_recursion/napkin_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, let’s move up to the next case, which would be factorial(2). The relevant
+    line of code from our method is this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: So calling factorial(2) will return 2 * factorial(1). To calculate 2 * factorial(1),
+    we need to know what factorial(1) returns. If you check your napkin, you’ll see
+    that it returns 1\. So 2 * factorial(1) will return 2 * 1, which just happens
+    to be 2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Add this fact to your napkin:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/napkin_2.png](images/recursively_recurse_with_recursion/napkin_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Now, what happens if we call factorial(3)? Again, here is the relevant line
+    of code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'So that would translate into return 3 * factorial(2). What does factorial(2)
+    return? You don’t have to figure that out all over again, since it’s on your napkin!
+    It returns 2\. So, factorial(3) will return 6 (because 3 * 2 = 6). Go ahead and
+    add this wonderful factoid to your napkin:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/napkin_3.png](images/recursively_recurse_with_recursion/napkin_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Take a moment and figure out for yourself what factorial(4) will return.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, starting the analysis from the base case and building up is
+    a great way to reason about recursive code.
+  prefs: []
+  type: TYPE_NORMAL

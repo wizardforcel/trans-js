@@ -1,0 +1,171 @@
+- en: 'Chapter 6: Enhancing the User Interface'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we will enhance the user interface of our blogging application
+    to provide a more engaging and user-friendly experience. We'll introduce additional
+    features and improve the design to make our application stand out. Let's dive
+    in!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.1 Adding Styling with CSS
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To improve the visual appeal of our blogging application, let''s add some CSS
+    styling. Create a new file called `style.css` in the `public` directory of your
+    project. Then, link the CSS file in the `index.html` file as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the `style.css` file, you can define custom styles to enhance the appearance
+    of your application. For example, you can set the background color, font styles,
+    padding, margins, and more to create a visually appealing layout.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.2 Implementing User Authentication
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To add an extra layer of security and enable personalized features, let''s
+    implement user authentication in our blogging application. We''ll use the popular
+    `passport` library for authentication. Follow these steps to get started:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.2.1 Install Required Packages
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Install the necessary packages by running the following command in your project
+    directory:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 6.2.2 Configuring Passport
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the `app.js` file, add the following code to configure Passport:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we import `passport` and the `LocalStrategy` from the required
+    packages. We then configure Passport by initializing and using it in our application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We also define the `LocalStrategy` for username/password authentication. Inside
+    the strategy callback function, you can implement the logic to authenticate the
+    user by checking their credentials against a database or any other authentication
+    mechanism.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lastly, we serialize and deserialize user objects to maintain user sessions.
+    You need to provide the logic to retrieve user objects by ID and store the user's
+    ID in the session.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.2.3 Protecting Routes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To protect certain routes and allow only authenticated users to access them,
+    add the following middleware to the routes that require authentication:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we define a middleware function called `ensureAuthenticated` that
+    checks if the user is authenticated using the `isAuthenticated` method provided
+    by Passport. If the user is authenticated, we call `next()` to allow them to access
+    the route. If not, we redirect them to the login page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can use this `ensureAuthenticated` middleware in any route that requires
+    authentication by simply adding it as a parameter before the
+  prefs: []
+  type: TYPE_NORMAL
+- en: route handler.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.3 Adding Pagination to Blog Posts
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'As our blogging application grows, it''s essential to add pagination to handle
+    a large number of blog posts efficiently. Let''s implement pagination using the
+    `mongoose-paginate-v2` package. Follow these steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.3.1 Install the Package
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Run the following command in your project directory to install the `mongoose-paginate-v2`
+    package:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 6.3.2 Implement Pagination
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the model file where you defined the `Post` schema, add the following code
+    to enable pagination:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: By adding the `mongoosePaginate` plugin to the schema, you enable pagination
+    for the `Post` model.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.3.3 Implement Pagination Logic
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the route where you retrieve blog posts, update the code as follows to implement
+    pagination:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we retrieve the `page` parameter from the query string (e.g.,
+    `?page=2`) and set a default value of 1 if no page is specified. We also define
+    the `perPage` variable to specify the number of posts to display per page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the `paginate` method provided by the `mongoose-paginate-v2` plugin, we
+    pass an empty object to retrieve all blog posts. We also provide the `page` and
+    `limit` options to specify the current page number and the number of posts per
+    page, respectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The paginated result will be returned with information about the current page,
+    total pages, and the array of blog posts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.4 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we focused on enhancing the user interface of our blogging
+    application. We added CSS styling to improve the visual appeal, implemented user
+    authentication using Passport for added security, and introduced pagination to
+    handle a large number of blog posts efficiently.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our application now provides a more engaging and user-friendly experience, allowing
+    users to navigate through blog posts, register, log in, and access protected routes.
+  prefs: []
+  type: TYPE_NORMAL

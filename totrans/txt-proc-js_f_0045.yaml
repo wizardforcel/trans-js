@@ -1,0 +1,363 @@
+- en: '| Recipe 34 | Using Special Replacement Patterns |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine you have a private group web page where members agreed to share their
+    contact information with other members. You don’t want to impose any restrictions
+    on the phone number format the website accepts other than it should consist of
+    ten digits. So, a user might enter 123-456-7890, 123 456 7890, or (123)4567890.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But you want to transform the digits into a formatted phone number so they will
+    display consistently, like (123) 456-7890, throughout the website. To achieve
+    this, you first need to remove any existing formatting from the number and then
+    format it the way you want.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Remove all formatting by replacing non-digit characters with an empty string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex1_p1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\D**/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | phoneNum.replace(re,*""*); *// → "1234567890"* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To format the number, use capturing groups to match different sections of the
+    phone number, and refer to each section with a replacement pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex1_p2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** phoneNum = *"1234567890"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**(\d{3})(\d{3})(\d{4})**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | phoneNum.replace(re, *"($1) $2-$3"*); *// → "(123) 456-7890"* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Your final code should look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex1_final.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_final.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** formatPhoneNumber(num) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove non-digits* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | num = num.replace(*/**\D**/g*,*""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Format the number* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | num = num.replace(*/**(\d{3})(\d{3})(\d{4})**/*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"($1) $2-$3"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Success: you now have a nicely formatted phone number to display despite a
+    variety of formats entered by users.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In this recipe, we use the replace() method to execute the regex patterns.
+    replace() takes a regex as its first argument, attempts to find a match in the
+    given string, and replaces it with its second argument. The first regex consists
+    of only one metacharacter: \D, which matches any non-digit character. When we
+    use it with the global flag (g), we get a string with all non-digit characters
+    removed.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second regex formats the number. When we use capturing groups, input strings
+    that match are stored in memory and available to be recalled later. In this case,
+    we’re recalling the first, second, and third capturing groups by using special
+    replacement patterns in the form of $1, $2, and $3, respectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A special replacement pattern starts with a dollar sign and has a special meaning
+    when used in the second argument of the replace() method. The result is a formatted
+    phone number ready to be displayed to the end user.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exploring Other Special Replacement Characters
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Besides $n, other special characters exist that allow reusing the portions of
+    the matched text. These characters are the only special constructs accepted in
+    a replacement string, so metacharacters like \w aren’t valid. Similarly, special
+    replacement characters only work in the replacement string and have no special
+    meaning in a regex pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: $<Name>
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Includes a named capturing group. Here’s an example of what the solution in
+    this recipe would look like if we wrote it with named capturing groups:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** formatPhoneNumber(num) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Remove non-digits* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | num = num.replace(*/**\D**/g*,*""*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Format the number* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | num = num.replace(*/**(?<**area>**\d{3})(?<**exchange>**\d{3})(?<**line>**\d{4})**/*,
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"($<area>) $<exchange>-$<line>"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
+  prefs: []
+  type: TYPE_TB
+- en: For further explanation of named capturing groups, see Recipe 33, [*Reading
+    Groups with Ease Using Named Capturing Groups*](f_0044.xhtml#rcp.named_capturing_group).
+  prefs: []
+  type: TYPE_NORMAL
+- en: $n
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Includes the nth captured group, where n is a positive integer. You’ve already
+    seen this special character in action, but we’re including it here for comparison:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex7.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"cold & hot"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**(**cold**)\s**&**\s(**hot**)**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"$2 & $1"*); *// → "hot & cold"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Available Only in Regex |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | $n
+    and $<Name> constructs have a special meaning only if the pattern is a regex.
+    In a string, they’re treated as literals. |'
+  prefs: []
+  type: TYPE_TB
+- en: $&
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Includes a copy of the matched substring. For example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"FAT is a computer file system architecture"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */FAT/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"$& (File Allocation Table)"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "FAT (File Allocation Table) is a computer file system architecture"*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: $’
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'A dollar sign followed by an apostrophe includes the portion of the input that
+    comes after the matched substring. For instance:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"#3"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */#/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"#$''"*); *// → "#33"* |'
+  prefs: []
+  type: TYPE_TB
+- en: $‘
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'A dollar sign followed by a backtick includes the portion of the input that
+    comes before the matched substring:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"1000 liter"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */liter/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"liter = $`kg"*); *// → "1000 Liter = 1000 kg"* |'
+  prefs: []
+  type: TYPE_TB
+- en: Sometimes the difference between an apostrophe and a backtick can be hard to
+    see. A way to remember the difference is that the backtick points backward and
+    so gives you the string that comes before the match.
+  prefs: []
+  type: TYPE_NORMAL
+- en: $$
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Includes a dollar sign ($):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/replacement_patterns/replacement_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex8.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"€700"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */€/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replace(re, *"$$"*); *// → "$700"* |'
+  prefs: []
+  type: TYPE_TB
+- en: We’ll talk about this pattern in more detail in Recipe 35, [*Taking Away the
+    Special Meaning of Replacement Patterns*](f_0046.xhtml#rcp.neutralizing_replacement).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Ordering |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | You may use special
+    replacement characters more than once and in any order. |'
+  prefs: []
+  type: TYPE_TB
+- en: Take advantage of special replacement characters inside a replacement string
+    to reference different parts of the matched substring. One thing to remember about
+    replace() is that it does not modify the original string. Instead, it creates
+    a new string, performs the replacement operation, and returns the edited copy.
+  prefs: []
+  type: TYPE_NORMAL

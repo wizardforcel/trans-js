@@ -1,0 +1,270 @@
+- en: '| Recipe 41 | Forcing ^ and $ to Match at the Start and End of a Line with
+    the m Flag |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine you have a database of movie subtitles and want to provide a search
+    mechanism that returns complete lines containing a specific word. You have already
+    seen how to assert the start and end of a string in Recipe 24, [*Asserting the
+    Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But this time, you want to assert the start and end of a line. So, if the search
+    word is “McClaren” and the subtitle file contains these lines:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | ... |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 491 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 00:39:21,396 --> 00:39:23,481 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Soon as you can, get that plane ready. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 492 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 00:39:23,565 --> 00:39:27,485 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Dr. McClaren could lose his leg |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | without proper medical attention. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ... |'
+  prefs: []
+  type: TYPE_TB
+- en: 'You want to retrieve only the line containing “McClaren”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | Dr. McClaren could lose his leg |'
+  prefs: []
+  type: TYPE_TB
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To retrieve a complete line, place a caret (^) at the beginning and a dollar
+    symbol ($) at the end of your regex pattern. Then enable the multiline mode by
+    setting the m flag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_multiline/multiline_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */^.***\b**McClaren**\b**.*$/m*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *491* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *00:39:21,396 --> 00:39:23,481* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Soon as you can, get that plane ready.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *492* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *00:39:23,565 --> 00:39:27,485* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Dr. McClaren could lose his leg* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *without proper medical attention.* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.match(re)[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "Dr. McClaren could lose his leg"* |'
+  prefs: []
+  type: TYPE_TB
+- en: With the m flag, your regex is able to match the line of text containing the
+    word “McClaren.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Reading the File from a Server |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Ideally, you’ll
+    want to read a subtitle from your server, and a useful tool for that job is the
+    fetch() method.^([[25]](f_0064.xhtml#FOOTNOTE-25)) |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The multiline flag allows the regex engine to process a string consisting of
+    multiple lines. By default, caret (^) and dollar ($) assert the beginning and
+    end of a string, but in multiline mode, they match the beginning and end of a
+    line (delimited by non-printable characters like \n and \r). Compare:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_multiline/multiline_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Anderson* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Miller* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *McClaren* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re1 = */^McClaren$/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */^McClaren$/m*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re1.test(str); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re2.test(str); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In this string, there’s a non-printable newline character at the end of each
+    word, which indicates the end of a line of text and the start of a new one. You
+    can confirm that by searching for the escape sequence (\n) in the string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/flag_multiline/multiline_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Anderson* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Miller* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *McClaren* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */Anderson**\n**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | re.test(str); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| What Is a Non-printable Character? |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | A non-printable
+    character (also known as a control character) doesn’t represent a written symbol.
+    Instead, it tells certain applications, such as web browsers, how a document is
+    supposed to look. Non-printable characters are designed to indicate formatting
+    actions such as horizontal tab, line feed, carriage return, etc. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Let’s dig a bit deeper into the regex pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^.*\bMcClaren\b.*$/m; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ^ asserts the position at the start of a line |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● McClaren matches the characters "McClaren" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● $ asserts the position at the end of a line |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● Flags |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ m enables multiline mode |'
+  prefs: []
+  type: TYPE_TB
+- en: The most important thing to remember from this recipe is to use the multiline
+    flag (m) when you want to change the default behavior of the caret (^) and the
+    dollar symbol ($) to match the beginning and end of a line.
+  prefs: []
+  type: TYPE_NORMAL

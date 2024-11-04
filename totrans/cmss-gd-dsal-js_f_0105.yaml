@@ -1,0 +1,381 @@
+- en: 'Recursive Category: Repeatedly Execute'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Over the course of tackling various recursive problems, I began to find that
+    there are various categories of problems. Once I learned an effective technique
+    for a certain category, when I found another problem that belonged to the same
+    category, I was able to apply the same technique to solve it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The category that I found to be the easiest was one in which the goal of the
+    algorithm was to repeatedly execute a task.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The NASA spacecraft countdown algorithm from the previous chapter is a great
+    example. The code prints a number such as 10, and then 9, then 8, all the way
+    down to 0\. While the number the function prints is different each time, we boil
+    down the code’s essence to the fact that it is repeatedly executing a task—namely,
+    the printing of a number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This was our implementation of that algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ countdown(number) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(number); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | countdown(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'I found that for problems of this category, the last line of code in the function
+    was a simple, single call to the function again. In the previous snippet, this
+    takes the form of countdown(number - 1). This line does one thing: it makes the
+    next recursive call.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The directory-printing algorithm from the previous chapter is another example
+    of this. This function repeatedly executes the task of printing directory names.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our code looked like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ { readdirSync, lstatSync } ​**from**​ ​*''fs''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**import**​ { join } ​**from**​ ​*''path''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ printSubdirectories(directoryName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ fileName ​**of**​ readdirSync(directoryName))
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ pathName = join(directoryName, fileName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (lstatSync(pathName).isDirectory()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | printSubdirectories(pathName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Here as well, the last line of code is printSubdirectories(pathName), which
+    is a simple call to the recursive function, triggering it again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Recursive Trick: Passing Extra Parameters'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s try our hand at another problem of the “repeatedly execute” category.
+    We’re going to write an algorithm that takes an array of numbers and doubles each
+    of the numbers within the array. Note that we’re not going to produce a new array;
+    instead, we’re going to modify the array in place.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In-Place Modifications
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s take a look at the concept of in-place modifications, just in case it’s
+    not clear.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generally speaking, there are two basic approaches to manipulating data. Let’s
+    take the example of doubling the values in an array. If I had the array [1, 2,
+    3, 4, 5] and wanted to “double” it to produce the array [2, 4, 6, 8, 10], I could
+    do one of two things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The first option is to create a new array that contains the doubled data but
+    leave the original array alone. Take the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ a = [1, 2, 3, 4, 5]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ b = doubleArray(a); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Since the doubleArray function is creating and returning a brand-new array,
+    if we were to check the values of a and b, we’d get the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | a; ​*// [1, 2, 3, 4, 5]*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | b; ​*// [2, 4, 6, 8, 10]*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: The original array a was unmodified, and b holds a brand-new array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second option is called in-place modification, meaning the function actually
+    changes the original array passed into function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With in-place modification, if we now check a and b, we’d find this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | a; ​*// [2, 4, 6, 8, 10]*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | b; ​*// [2, 4, 6, 8, 10]*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: The in-place function modifies a, and b is just pointing to the very same array
+    that a is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whether we choose to create a new array or modify the original one in place
+    is up to us and depends on the context of our project. We’re going to talk more
+    about in-place algorithms in Chapter 19, [​*Dealing with Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This algorithm, too, is one in which we repeatedly execute a task. Specifically,
+    we repeatedly double a number. We start with the first number and double it. We
+    move onto the second number and double it—and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a stab at writing this algorithm in JavaScript, which we’ll call
+    doubleArray(). We know that our final line will be the recursive call, so let’s
+    include that line:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Next, we need to add the code that will actually double the number. But which
+    number will we double? Let’s try to double the first number:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | array[0] *= 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Okay, so we’ve doubled the number at index 0, but how do we proceed to double
+    the number at index 1?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, if we were to use a loop instead of recursion, we would have used a variable
+    to keep track of the index and continuously increased it by 1, something along
+    these lines:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ index = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (index < array.length) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | array[index] *= 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | index += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In our recursive version, though, the only argument to our function is the array.
+    We need some way to keep track of and increment an index. How do we pull this
+    off?
+  prefs: []
+  type: TYPE_NORMAL
+- en: And now for our next trick…
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s pass in extra parameters!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s modify the beginning of our function so that it accepts two arguments—the
+    array itself and an index to keep track of. Here’s the code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'As things stand right now, when we call this function, we need to pass in the
+    array and the starting index, which will be 0:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | doubleArray([1, 2, 3, 4, 5], 0); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Once we have the index as a function argument, we have a way of incrementing
+    and tracking the index as we make each successive recursive call. Here’s the code
+    for this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | array[index] *= 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array, index + 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In each successive call, we pass in the array again as the first argument, but
+    we also pass along an incremented index. This allows us to keep track of an index
+    just as we would in a classical loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our code isn’t perfect just yet, though. Our function will throw an error once
+    the index goes past the end of the array and tries to multiply a nonexistent number.
+    To solve this, we need our base case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: when the index goes past the end of the array*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (index >= array.length) { ​**return**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | array[index] *= 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array, index + 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can test this function out with the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ array = [1, 2, 3, 4]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array, 0); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(array); |'
+  prefs: []
+  type: TYPE_TB
+- en: Our recursive function is now complete. However, if our programming language
+    supports default arguments as JavaScript does, we can make things even prettier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Right now, we need to call the function like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | doubleArray([1, 2, 3, 4, 5], 0); |'
+  prefs: []
+  type: TYPE_TB
+- en: Admittedly, passing in that 0 as a second parameter isn’t beautiful—it’s just
+    so we can achieve our trick of maintaining an index. After all, we always want
+    to start our index off at 0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, we can use default parameters to allow us to simply call the function
+    the original way:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | doubleArray([1, 2, 3, 4, 5]); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Here’s our updated code to make this work:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ doubleArray(array, index=0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Base case: when the index goes past the end of the array*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (index >= array.length) { ​**return**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | array[index] *= 2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | doubleArray(array, index + 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: All we updated here was setting a default argument of index=0. This way, the
+    first time we call the function, we don’t have to pass in the index parameter.
+    However, we still get to use the index parameter for all successive calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The “trick” of using extra function parameters is a common technique in writing
+    recursive functions, and a handy one.
+  prefs: []
+  type: TYPE_NORMAL

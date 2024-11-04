@@ -1,0 +1,49 @@
+- en: 'Tries with Values: A Better Autocomplete'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If we think about it, a good autocomplete feature isn’t necessarily going to
+    display every possible word the user might be intending to type. Showing, say,
+    sixteen options would be overwhelming to the user, so we’d rather show just the
+    most popular words from the available list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, if the user starts typing “bal”, the user might be intending to
+    type “ball”, “bald”, or “balance”. Now, it’s also possible that the user is typing
+    the obscure word “balter” (which means to dance clumsily, if you wanted to know).
+    However, odds are that “balter” is not the intended word, since it’s not a common
+    word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To display the most popular word options, we somehow need to store the word
+    popularity data in our trie as well. And we’re in luck since we only need to make
+    a slight modification to our trie to accomplish this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our current trie implementation, every time we’ve set an "*" key, we’ve made
+    its value null. This is because we’ve only ever paid attention to the "*" key;
+    the value carried no significance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, we can take advantage of these values to store additional data about
+    the words themselves, such as how popular they are. To keep things simple, let’s
+    work with a simple range of 1 to 10, with 1 being the rarest kind of word, and
+    10 being an extremely popular word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s say “ball” is a very popular word and has a popularity score of 10\.
+    The word “balance” may be slightly less popular and have a score of 9\. The word
+    “bald” is used even less often and has a score of 7\. And since “balter” is a
+    hardly known word, we’ll give it a score of 1\. We can store these scores in the
+    trie this way:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/weighted_trie.png](images/tries/weighted_trie.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: By using a number as the value of each "*" key, we can effectively store each
+    word’s popularity score. When we now collect all the words of the trie, we can
+    collect their scores along with them and then sort the words in order of their
+    popularity. We can then choose to only display the most popular word options.
+  prefs: []
+  type: TYPE_NORMAL

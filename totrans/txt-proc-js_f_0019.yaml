@@ -1,0 +1,308 @@
+- en: '| Recipe 9 | Intersecting HTML Tables with filter() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say you have a sports app that displays statistics and scores. You have
+    two objects and want to find properties that exist in both objects simultaneously.
+    Your first object contains a list of national teams that have won the FIFA World
+    Cup along with the total number of wins. Your second object includes similar information
+    about the UEFA European Football Championship.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You want to create an HTML table that lists the intersection of the two objects,
+    that is, a table of teams that have won at least one cup in both competitions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The first step is to create an HTML table. You can delegate this task to JavaScript,
+    but let’s keep it simple by having an HTML structure in place and using JavaScript
+    to insert information into the table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/intersecting_tables/filter_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | <table id=*"national_teams"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <thead> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <tr> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <th>Country</th> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <th>UEFA Wins</th> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <th>FIFA Wins</th> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </tr> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </thead> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <tbody></tbody> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </table> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now create two objects: one for FIFA champions and one for UEFA champions,
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** FIFAChamps = { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Brazil"*: 5, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Germany"*: 4, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Italy"*: 4, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Argentina"*: 2, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"France"*: 2, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Uruguay"*: 2, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Spain"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"England"*: 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** UEFAChamps = { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Germany"*: 3, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Spain"*: 3, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Italy"*: 2, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"France"*: 2, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Russia"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Czech Republic"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Portugal"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Netherlands"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Denmark"*: 1, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Greece"*: 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }; |'
+  prefs: []
+  type: TYPE_TB
+- en: To perform an intersection, obtain the keys of the first object with Object.keys()^([[8]](f_0032.xhtml#FOOTNOTE-8))
+    and then check which keys are present in the second object with filter():^([[9]](f_0032.xhtml#FOOTNOTE-9))
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getIntersection(obj1, obj2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** Object.keys(obj1).filter(key => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** key **in** obj2; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// This constant will hold an array containing the keys of intersection*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** intersection = getIntersection(FIFAChamps, UEFAChamps); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Get a reference to the body of the table* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** tbody = document.querySelector(*"#national_teams tbody"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | intersection.forEach(elem => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** row = tbody.insertRow(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** cell1 = row.insertCell(0); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** cell2 = row.insertCell(1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** cell3 = row.insertCell(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | cell1.textContent = elem; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | cell2.textContent = UEFAChamps[elem]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | cell3.textContent = FIFAChamps[elem]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Once you get the intersection of the two objects, loop over the properties,
+    and each time through the loop, insert the team, UEFA wins, and FIFA wins into
+    the first, second, and third cell, respectively. Here, we’re using JavaScript’s
+    built-in methods, including insertRow() and insertCell(), to create table rows
+    and cells, but you can use string literals too. Here’s the result after applying
+    some basic CSS styling:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/filter_ex1.png](images/filter_ex1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The table lists only countries that exist in both objects simultaneously.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The filter() method takes a function as an argument and executes it for each
+    element of an array—similar to forEach() and map(). The function you supply should
+    be a predicate (a function that returns true or false). filter() will add an element
+    to the resulting array only if the return value of your predicate is true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When using the filter() method in JavaScript, it’s important to remember that
+    it skips over any missing elements in arrays. For example, if you have an array
+    with gaps such as [0, 1, , , 4, , 6], you can take advantage of filter() to get
+    rid of the missing elements like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** sparseArr = [0, 1, , , 4, , 6]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | sparseArr.filter(() => **true**); *// → [ 0, 1, 4, 6 ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: Here we use an arrow function that always returns true. Since filter() skips
+    gaps, the new array won’t be sparse.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your array also has undefined and null elements, you can remove them with
+    filter() too:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** sparseArr = [0, 1, , **null**, 4, **undefined**, 6]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | sparseArr.filter(x => x !== **undefined** && x !== **null**); *// → [
+    0, 1, 4, 6 ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: In this code, we use the strict inequality operator (!==) to return true only
+    if the element isn’t null or undefined.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When it comes to performance optimization, you should take into account the
+    size of your objects and the number of times you’d need to get their intersection.
+    If your first object has 1000 properties and your second object has 50, your code
+    will run faster if you get the keys of the object with fewer properties and then
+    apply a filter, not the other way around.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With this in mind, let’s rewrite our intersection function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/intersecting_tables/filter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **function** getIntersection(obj1, obj2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2:  | **const** k1 = Object.keys(obj1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 3:  | **const** k2 = Object.keys(obj2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 4:  | **const** [first, next] = k1.length > k2.length ? [k2, obj1] : [k1,
+    obj2]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  | **return** first.filter(key => key **in** next); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 6:  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Notice how we used a ternary operator on the right hand of the destructuring
+    assignment to compare the length of objects and assign the one with fewer properties
+    to first (line 4). Destructuring enables us to extract values and assign them
+    to variables using a syntax that is similar to array literals. On the right side
+    of the assignment is the data to be destructured. On the left side is the variables
+    that will receive the data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our function now works faster when dealing with large arrays. But, remember,
+    such micro-optimization is helpful only for performance-critical applications.
+    In most cases, you’d be okay with the original solution in this recipe.
+  prefs: []
+  type: TYPE_NORMAL

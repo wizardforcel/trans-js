@@ -1,0 +1,102 @@
+- en: 'Chapter 11: Enabling Comments'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this chapter, we will implement the ability for users to leave comments on
+    blog posts. Enabling comments will encourage discussion and engagement within
+    our blogging application. Let's dive in and add this exciting feature!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.1 Comment Model
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To support comments, we need to create a Comment model. Open the `models/comment.js`
+    file and add the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this code, we define the structure of a comment using Mongoose's Schema.
+    A comment belongs to a specific post (`postId`) and is associated with an author
+    (`author`). The `content` field holds the actual comment text, and `createdAt`
+    stores the timestamp of when the comment was created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.2 Comment Routes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Now, let''s create the routes for handling comments in the `routes/comments.js`
+    file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the code above, we define two routes. The first route (`/create`) handles
+    the creation of a new comment. It requires authentication (`authenticate` middleware)
+    to ensure only logged-in users can leave comments. We extract the `postId` and
+    `content` from the request body. Then, we check if the associated post exists.
+    If the post is found, we create a new comment instance, set the appropriate values,
+    and save it to the database.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second route (`/post/:postId`) fetches all the comments associated with
+    a specific post. We extract the `postId` from the request parameters and use it
+    to find the comments. The `populate()` method is used to replace the `author`
+    ID with the actual `username` of the comment author.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.3 Updating the Post Model
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To enable seamless retrieval of comments for a post, we''ll update the Post
+    model. Open the `models/post.js` file and modify it as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this updated code, we add a `comments` field to the post schema. It's an
+    array of comment IDs, referencing the Comment model.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.4 Updating the Post Routes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To associate comments with posts, we need to modify the Post routes as well.
+    Open the `routes/posts.js` file and make the following changes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the first route (`/:postId`), we add the `populate('comments')` method to
+    retrieve the comments associated with the post. This ensures that when we fetch
+    a single post, we also retrieve its comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The second route (`/:postId`) handles the update of a post. We extract the
+    `postId`, `title`, and `content` from the request body. We use `findByIdAndUpdate`
+    to find the post by ID and update its title and content. The `{ new: true }` option
+    ensures that the updated post is returned as the response.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.5 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Great job! In this chapter, we implemented the comment feature in our blogging
+    application. Users can now leave comments on posts, fostering discussion and engagement.
+    We created the Comment model, added comment routes for creating and fetching comments,
+    and associated comments with posts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The ability to leave comments adds an interactive element to our application,
+    making it more dynamic and engaging for users.
+  prefs: []
+  type: TYPE_NORMAL

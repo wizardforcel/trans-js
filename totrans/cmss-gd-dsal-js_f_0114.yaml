@@ -1,0 +1,69 @@
+- en: The Little Fix for Big O
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Thankfully, there’s an easy way to eliminate all these extra recursive calls.
+    We’ll call max only once within our code, and save the result to a variable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ max(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Calculate the max of the remainder of the array*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// and store it inside a variable:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ maxOfRemainder = max(array.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// Comparison of first number against this variable:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array[0] > maxOfRemainder) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ array[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ maxOfRemainder; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: By implementing this simple modification, we end up calling max a mere four
+    times. Try it out yourself by adding the console.log(’RECURSION’) line and running
+    the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The trick here is we’re making each necessary function call once and saving
+    the result in a variable so we don’t have to ever call that function again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The difference in efficiency between our initial function and our ever-so-slightly
+    modified function is stark.
+  prefs: []
+  type: TYPE_NORMAL

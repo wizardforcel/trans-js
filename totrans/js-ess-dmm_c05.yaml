@@ -1,0 +1,568 @@
+- en: Chapter 5
+  prefs: []
+  type: TYPE_NORMAL
+- en: Harnessing the Power of Functions
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Getting to know JavaScript functions**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Creating and using custom functions**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Passing and returning function values**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Working with anonymous and arrow functions**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Almost every JavaScript project beyond the simplest scripts will require one
+    or more (usually a lot more) tasks or calculations that aren’t part of the JavaScript
+    language or any Web API. What’s a coder to do? You roll up your sleeves and then
+    roll your own code that accomplishes the task or runs the calculation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This chapter shows you how to create such do-it-yourself code. In the pages
+    that follow, you explore the powerful and infinitely useful realm of custom functions,
+    where you craft reusable code that performs tasks that out-of-the-box JavaScript
+    can’t do.  ## Getting to Know the Function Structure'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A *function* is a group of JavaScript statements that are separate from the
+    rest of the script and that perform a designated task. When your script needs
+    to perform that task, you tell it to run — or *execute,* in the vernacular — the
+    function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The basic structure of a function looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function *functionName*([*arguments*]) { *JavaScript statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a summary of the various parts of a function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function`: Identifies the block of code that follows it as a function.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`functionName`*: A unique name for the function. The naming rules and guidelines
+    that I outline for variables in [Chapter 2](c02.xhtml) also apply to function
+    names.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`arguments`*: One or more values that are passed to the function and that
+    act as variables within the function. Arguments (or *parameters,* as they’re sometimes
+    called) are typically one or more values that the function uses as the raw materials
+    for its tasks or calculations. You always enter arguments between parentheses
+    after the function name, and you separate multiple arguments with commas. If you
+    don’t use arguments, you must still include the parentheses after the function
+    name.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`JavaScript statements`*: This is the code that performs the function’s tasks
+    or calculations.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Note, too, the use of braces ({ and }). These are used to enclose the function’s
+    statements within a block, which tells you (and the browser) where the function’s
+    code begins and ends. There are only two rules for where these braces appear:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The opening brace must appear after the function’s parentheses and before the
+    first function statement.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The closing brace must appear after the last function statement.  ## Making
+    a Function Call'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'After your function is defined, you’ll eventually need to tell the browser
+    to execute — or *call* — the function. There are three main ways to do this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the browser parses the `<script>` tag
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After the page is loaded
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In response to an event, such as the user clicking a button
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The next three sections cover each of these scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### When the browser parses the <script> tag'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The simplest way to call a function is to include in your script a statement
+    consisting of only the function name, followed by parentheses (assuming for the
+    moment that your function uses no arguments). The following code provides an example.
+    (I’ve listed the entire page to show you where the function and the statement
+    that calls it appear in the page code.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Calling
+    a function when the <script> tag is parsed</title> <script> function displayGreeting()
+    { const currentHour = new Date().getHours(); if (currentHour < 12) { console.log("Good
+    morning!"); } else { console.log("Good day!"); } } displayGreeting(); </script>
+    </head> <body> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `<script>` tag includes a function named `displayGreeting`, which determines
+    the current hour of the day and then writes a greeting to the console (check out
+    [Figure 5-1](#c05-fig-0001); you learn about the console in [Chapter 9](c09.xhtml))
+    based on whether it’s currently morning. The function is called by the `displayGreeting`
+    statement that appears just after the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Snapshot of an example of calling a function when the ltltltscriptgtgtgt
+    tag is parsed.](images/9781394263219-fg0501.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 5-1:](#rc05-fig-0001) An example of calling a function when the `<script>`
+    tag is parsed.  ### When the page load is complete'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If your function references a page element, then calling the function from within
+    the page’s head section won’t work because when the browser parses the script,
+    the rest of the page hasn’t loaded yet, so your element reference will fail.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To work around this problem, place another `<script>` tag at the end of the
+    body section, just before the closing `</body>` tag, as shown here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Calling
+    a function after the page is loaded</title> <script> function makeBackgroundRed()
+    { document.body.style.backgroundColor = "red"; console.log("The background is
+    now red."); } </script> </head> <body> <!-- Other body elements go here -->  <script>
+    makeBackgroundRed(); </script> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `makeBackgroundRed` function does two things: It uses `document.body.style.backgroundColor`
+    to change the background color of the `body` element to red, and it uses `console.log`
+    to write a message to that effect on the console.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the function, `document.body` is a reference to the `body` element, which
+    doesn’t “exist” until the page is fully loaded. That means that if you try to
+    call the function with the initial script, you’ll get an error. To execute the
+    function properly, a second `<script>` tag appears at the bottom of the `body`
+    element, and that script calls the function with the following statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`makeBackgroundRed();`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By the time the browser executes that statement, the `body` element exists,
+    so the function runs without an error (check out [Figure 5-2](#c05-fig-0002)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Snapshot of an example of calling a function after the page has loaded.](images/9781394263219-fg0502.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 5-2:](#rc05-fig-0002) An example of calling a function after the page
+    has loaded.  ### When an event fires'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One of the most common ways that JavaScript functions are called is in response
+    to some event. Events are such an important topic that I devote a big chunk of
+    [Chapter 6](c06.xhtml) to them. For now, check out a relatively straightforward
+    application: executing the function when the user clicks a button. The following
+    code shows one way to do it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Calling
+    a function in response to an event</title> <script> function makeBackgroundRed()
+    { document.body.style.backgroundColor= "red"; } function makeBackgroundWhite()
+    { document.body.style.backgroundColor= "white"; } </script> </head> <body> <button
+    onclick="makeBackgroundRed()"> Make Background Red </button> <button onclick="makeBackgroundWhite()">
+    Make Background White </button> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What I’ve done here is place two functions in the script: `makeBackgroundRed`
+    changes the page background to red, as before, and `makeBackgroundWhite` changes
+    the background color back to white.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The buttons are standard HTML `button` elements (check out [Figure 5-3](#c05-fig-0003)),
+    each of which includes the `onclick` attribute. This attribute defines a *handler*
+    — that is, the function to execute — for the event that occurs when the user clicks
+    the button. For example, consider the first button:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<button onclick="makeBackgroundRed()">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Snapshot of an example of calling a function in response to an event.](images/9781394263219-fg0503.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 5-3:](#rc05-fig-0003) An example of calling a function in response
+    to an event.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `onclick` attribute here says, in effect, “When somebody clicks this button,
+    call the function named `makeBackgroundRed`.”  ## Passing One or More Values to
+    a Function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the main reasons to use functions is to gain control over when some chunk
+    of JavaScript code gets executed. The previous section, for example, discusses
+    how easy it is to use functions to set things up so that code doesn’t run until
+    the user clicks a button.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, there’s another major reason to use functions: to avoid repeating
+    code unnecessarily. To understand what I mean, consider the two functions from
+    the previous section:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function makeBackgroundRed() { document.body.style.backgroundColor= "red";
+    } function makeBackgroundWhite() { document.body.style.backgroundColor= "white";
+    }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: These functions perform the same task — changing the background color — and
+    the only difference between them is that one changes the color to red and the
+    other changes it to white. Whenever you end up with two or more functions that
+    do essentially the same thing, you know that your code is inefficient.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So how do you make the code more efficient? That’s where the arguments mentioned
+    earlier come into play. An *argument* is a value that is “sent” — or *passed,*
+    in programming terms — to the function. The argument acts just like a variable,
+    and it automatically stores whatever value is sent.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Passing one value to a function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As an example, you can take the previous two functions, reduce them to a single
+    function, and set up the color value as an argument. Here’s a new function that
+    does just that:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function changeBackgroundColor(newColor) { document.body.style.backgroundColor
+    = newColor; }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The argument is named `newColor` and is added between the parentheses that
+    occur after the function name. JavaScript declares `newColor` as a variable automatically,
+    so you don’t need a separate `let` or `const` statement. The function then uses
+    the `newColor` value to change the background color. So how do you pass a value
+    to the function? The following code presents a sample file that does so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Passing
+    a single value to a function</title> <script> function changeBackgroundColor(newColor)
+    { document.body.style.backgroundColor = newColor; } </script> </head> <body> <button
+    onclick="changeBackgroundColor(''red'')"> Make Background Red </button> <button
+    onclick="changeBackgroundColor(''white'')"> Make Background White </button> </body>
+    </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The key here is the `onclick` attribute that appears in both `<button>` tags.
+    For example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`onclick="changeBackgroundColor(''red'')"`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The string `'red'` is inserted into the parentheses after the function name,
+    so that value is passed to the function itself. The other button passes the value
+    `'white'`, and the function result changes accordingly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Warning](images/warning.png) In the two `onclick` attributes in the example
+    code, notice that the values passed to the function are enclosed in single quotation
+    marks (`''`). This is necessary because the `onclick` value as a whole is enclosed
+    in double quotation marks (`"`).  ### Passing two or more values to a function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For more complex functions, you may need to use multiple arguments so that
+    you can pass different kinds of values. If you use multiple arguments, separate
+    each one with a comma, like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function changeColors(newBackColor, newForeColor) { document.body.style.backgroundColor
+    = newBackColor; document.body.style.color = newForeColor; }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this function, the `document.body.style.color` statement changes the foreground
+    color (that is, the color of the page text). The following code shows a revised
+    page where the buttons pass two values to the function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <title>Passing
+    multiple values to a function</title> <script> function changeColors(newBackColor,
+    newForeColor) { document.body.style.backgroundColor = newBackColor; document.body.style.color
+    = newForeColor; } </script> </head> <body> *<*h1>Passing Multiple Values to a
+    Function</h1> <button onclick="changeColors(''red'', ''white'')"> Red Background,
+    White Text </button> <button onclick="changeColors(''white'', ''red'')"> White
+    Background, Red Text </button> </body> </html>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Warning](images/warning.png) If you define a function to have multiple arguments,
+    you must always pass values for each of those arguments to the function. If you
+    don’t, the “value” `undefined` is passed, instead, which can cause problems.  ##
+    Getting a Value from a Function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So far, I’ve outlined two major advantages of using functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can use them to control when code is executed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can use them to consolidate repetitive code into a single routine.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The third major benefit that functions bring to the JavaScript table is that
+    you can use them to perform calculations and then return the result. As an example,
+    here’s a function that calculates the tip on a restaurant bill:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function calculateTip(preTip, tipPercent) { const tipResult = preTip * tipPercent;
+    return tipResult; }  const preTipTotal = 100.00; const tipPercentage = 0.15; const
+    tipCost = calculateTip(preTipTotal, tipPercentage); const totalBill = preTipTotal
+    + tipCost; document.write("Your total bill is $" + totalBill);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The function named `calculateTip` takes two arguments: `preTip` is the total
+    of the bill before the tip, and `tipPercent` is the percentage used to calculate
+    the tip. The function then declares a variable named `tipResult` and uses it to
+    store the calculation — `preTip` multiplied by `tipPercent`. The key for this
+    example is the second line of the function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`return tipResult;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `return` statement is JavaScript’s way of sending a value *back* to the
+    statement that called the function. That statement comes after the function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`tipCost = calculateTip(preTipTotal, tipPercentage);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This statement first passes the value of `preTipTotal` (initialized as `100.00`
+    earlier in the script) and `tipPercentage` (initialized as `0.15` earlier) to
+    the `calculateTip` function. When that function returns its result, the entire
+    expression `calculateTip(preTipTotal, tipPercentage)` is replaced by that result,
+    meaning that it gets stored in the `tipCost` variable. Then `preTipTotal` and
+    `tipCost` are added together, the result is stored in `totalBill`, and a `document.write`
+    statement displays the final calculation (check out [Figure 5-4](#c05-fig-0004)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot displays the output as follows. Your total bill is 115 dollars.](images/9781394263219-fg0504.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 5-4:](#rc05-fig-0004) The output includes the return value of the custom
+    function calculation.  ## Working with Anonymous Functions'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s another look at the function syntax from earlier in this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function *functionName*([*arguments*]) { *JavaScript statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This version of function syntax creates a so-called *named function* because
+    — you guessed it — the function has a name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, creating a function that doesn’t have a name is also possible:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function ([*arguments*]) { *JavaScript statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This variety of function syntax creates a so-called *anonymous function* because
+    — that’s right — the function has no name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why use anonymous functions? Well, first, you don’t have to if you don’t want
+    to. Second, the main reason to use anonymous functions is to avoid creating a
+    named object when you don’t need to. Every large web project has a huge *namespace,*
+    which refers to the full collection of identifiers you assign to things like variables
+    and functions. The larger the namespace, the greater the chance of a *namespace
+    collision,* where you use the same identifier for two different things. Bad news!
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) Anonymous functions were introduced in ES6,
+    so don’t use them if you need to support very old browsers, such as Internet Explorer
+    11.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you have a function that will be used only once in your project, it’s considered
+    good modern programming practice to make that an anonymous function so that you
+    have one less identifier in your namespace.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Okay, I hear you thinking, earlier you said we invoke a function by using the
+    function name. If an anonymous function has no name, how are we supposed to run
+    it? Excellent question! There are two main methods to look at:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assigning the function to a variable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Replacing a function call with the function itself
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Assigning an anonymous function to a variable'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The example code from the previous section defines the named function `calculateTip()`
+    and later uses the `tipCost` variable to store the function result. This is a
+    perfect example of when a named function is not needed because you only ever use
+    the named function to calculate the `tipCost` value. Adding an identity to the
+    namespace when you don’t have to is called *polluting* the namespace, and it’s
+    a big no-no in modern JavaScript programming.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can rewrite this code to use an anonymous function instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const preTipTotal = 100.00; const tipPercentage = 0.15;  // Declare tipCost
+    using an anonymous function const tipCost = function (preTip, tipPercent) { const
+    tipResult = preTip * tipPercent; return (tipResult); } const totalBill = preTipTotal
+    + tipCost(preTipTotal, tipPercentage); document.write("Your total bill is $" +
+    totalBill);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The big change here is that now I declare the value of the `tipCost` variable
+    to be an anonymous function. That anonymous function is the same as the `calculateTip()`
+    named function from before, just without the name. In the second-last statement,
+    I invoke the anonymous function by using `tipCost(preTipTotal, tipPercentage)`.  ###
+    Replacing a function call with an anonymous function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the most common uses for anonymous functions is when you need to pass
+    a function as an argument to another function. The passed function is known as
+    a *callback* function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, here’s an example that uses named functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<body> <button id="bgRed"> Make Background Red </button> <button id="bgWhite">
+    Make Background White </button> <script> function makeBackgroundRed() { document.body.style.backgroundColor=
+    ''red''; } function makeBackgroundWhite() { document.body.style.backgroundColor=
+    ''white''; } document.getElementById(''bgRed'').addEventListener( ''click'', makeBackgroundRed
+    ); document.getElementById(''bgWhite'').addEventListener( ''click'', makeBackgroundWhite
+    ); </script> </body>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The script declares two named functions: `makeBackgroundRed()` and `makeBackgroundWhite()`.
+    The code then creates two event listeners. One of them listens for clicks on the
+    button that has the `id` value `bgRed` and, when a click is detected, runs the
+    `makeBackgroundRed()` callback function. The other event listener listens for
+    clicks on the button that has the `id` value `bgWhite` and, when a click is detected,
+    runs the `makeBackgroundWhite()` callback function. Refer to [Chapter 6](c06.xhtml)
+    to get the details on the `document` object and the `getElementById()` and `addEventListener()`
+    methods.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Again, you have two functions that don’t need to be named, so you can remove
+    them from the namespace by replacing the callbacks with anonymous functions. Here’s
+    the revised code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<body> <button id="bgRed"> Make Background Red </button> <button id="bgWhite">
+    Make Background White </button> <script> document.getElementById(''bgRed'').addEventListener(
+    ''click'', function() { document.body.style.backgroundColor= ''red''; } ); document.getElementById(''bgWhite'').addEventListener(
+    ''click'', function() { document.body.style.backgroundColor= ''white''; } ); </script>
+    </body>`  ## Working with Arrow Functions'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As you progress in JavaScript, you’ll find yourself using anonymous functions
+    constantly. When you get to that stage, you’ll be happy to know that ES6 also
+    offers a simpler anonymous function syntax. That is, instead of using this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`function ([*arguments*]) { *JavaScript statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'you can use this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`([*arguments*]) => { *JavaScript statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: All I’ve done here is remove the `function` keyword and replaced it with the
+    characters `=` and `>` between the arguments and the opening brace. The characters
+    `=>` look like an arrow (JavaScripters call it a *fat arrow*), so this version
+    of the syntax is known as an *arrow function*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) Arrow functions are an ES6 invention, so don’t
+    use them if you need to support very old browsers, such as Internet Explorer 11.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, here’s an anonymous function from a bit earlier (the “[Assigning
+    an anonymous function to a variable](#c05-sec-0012)” section):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`// Declare tipCost using an anonymous function const tipCost = function (preTip,
+    tipPercent) { const tipResult = preTip * tipPercent; return (tipResult); }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can rewrite this using an arrow function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`// Declare tipCost using an arrow function const tipCost = (preTip, tipPercent)
+    => { const tipResult = preTip * tipPercent; return (tipResult); }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If your anonymous function consists of a single statement, you can take advantage
+    of an arrow function feature called *implicit return:*
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`([arguments]) => *statement*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here, JavaScript assumes that a single-statement function means that the function
+    returns right after executing the statement, so you can leave out the braces and
+    the `return` keyword. Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`// Declare tipCost using an arrow function with implicit return const tipCost
+    = (preTip, tipPercent) => preTip * tipPercent;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similarly, here’s one of the anonymous callback functions from the previous
+    section:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(''bgRed'').addEventListener( ''click'', function()
+    { document.body.style.backgroundColor= ''red''; } );`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can rewrite this code as follows to use an arrow function with implicit
+    return:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.getElementById(''bgRed'').addEventListener( ''click'', () => document.body.style.backgroundColor=
+    ''red'' );`'
+  prefs: []
+  type: TYPE_NORMAL

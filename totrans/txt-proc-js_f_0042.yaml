@@ -1,0 +1,131 @@
+- en: '| Recipe 31 | Extracting a Matched Value with the Capturing Group |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you need to search for a file with a .pdf extension and extract only
+    the filename without the extension. Typically, regular expressions return the
+    entire matched string, but you want a solution that enables you to identify and
+    extract a specific part of the matched string for further processing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Place a pair of parentheses around the specific part of the pattern that you
+    want to extract:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/capturing_group_p2/capturing_group_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/capturing_group_p2/capturing_group_p2_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"Please download data_p2x53.pdf"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** result = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (result) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(result[1]) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.error(*"No match found."*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → data_p2x53* |'
+  prefs: []
+  type: TYPE_TB
+- en: You can now access the filename by referencing the second item of the resulting
+    array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In this example, we used the match() method instead of test(). Unlike test(),
+    which gives a yes/no as an answer (a Boolean value) indicating whether or not
+    a match is found, match() provides more detailed information in the form of an
+    array. We can access the substring captured by the capturing group in the regex
+    using the second element of the resulting array (result[1]). Since JavaScript
+    arrays are zero-indexed, the second element is available at index 1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pay attention to the type of value that match() is called on. Unlike test(),
+    which is a property of the RegEx object, match() is a property of the String object
+    and so must be called on a string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, let’s examine the regex:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\b(\w+)\.pdf\b/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts the position at a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (\w+) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \w matches any word character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token one or more times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \. matches the period character . literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● pdf matches the characters pdf literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \b asserts a word boundary |'
+  prefs: []
+  type: TYPE_TB
+- en: The regex pattern starts with a word boundary (\b), which means the match must
+    occur at the beginning of a word. Next, we use (\w+) to match one or more word
+    characters. The parentheses around \w+ signal that this group should be captured
+    and made available for further use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After that, we use .pdf to match the literal characters “.pdf,” and once again
+    use \b to match a word boundary, ensuring the “.pdf” is at the end of a word.
+    Putting it all together, this regex matches any word that ends with “.pdf” characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Parentheses are a versatile tool in regex. They not only let us group tokens
+    and apply quantifiers to them but also enable us to extract matched values for
+    further processing. But the meaning of parentheses can change if we place special
+    characters right after the opening bracket. The next recipe explains more.
+  prefs: []
+  type: TYPE_NORMAL

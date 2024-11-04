@@ -1,0 +1,586 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_24](https://doi.org/10.1007/978-3-658-42912-6_24)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '24. Conditional Statements & Event Handling: How Do I Control the Program Flow
+    and Make the Program React to User Actions and Other Events?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we will look at how to branch in Python programs and—depending on the
+    situation—sometimes execute one part of the code, sometimes another. This way,
+    our program flow becomes really interesting and is not just the execution of exactly
+    the same sequence of Python statements over and over again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to branch in the program code with If-Else constructs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how If-Else constructs are nested within each other
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how multiple alternative conditions can be considered with the elif statement
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how conditions for If-Else constructs are built, and which comparison operators
+    can be used for this purpose
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to combine several conditions into one overall condition using logical operators
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to make your program react to events
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 24.1 If-Else Constructs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 24.1.1 Simple If-Else Constructs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s review our conversion of temperatures between the units Kelvin and degrees
+    Celsius. In the previous chapter (► Sect. [23.​1.​3](474412_1_En_23_Chapter.xhtml#Sec4))
+    we defined the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**def** kelvin_to_celsius(kelvin: float) -> float:return kelvin - 273.15'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Suppose now that we wanted to improve this simple function by making it less
+    prone to erroneous input. A temperature in Kelvin, as you recall, can never be
+    negative. Absolute zero is 0 K, which is −273.15 °C. Lower temperatures are physically
+    impossible. At 0 K, there is simply no more heat at all, and accordingly it cannot
+    get any colder. Thus, if we want to prevent our function from returning an invalid
+    value because the function argument was invalid, we need to check whether the
+    function argument **kelvin** is greater than or equal to 0\. If **kelvin** is
+    less than 0, i.e., illegal, our function should respond, it could do so by displaying
+    an error message on the console, or it could return a special error code that
+    the programmer calling our function can use to check whether the conversion was
+    successful. We will take the latter route, which is preferable because it allows
+    the programmer to react to an error the way they want to, whereas just displaying
+    our error message does not give the user any option other than starting the program
+    again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, to make our function robust to incorrect input, we need to add an If-Else
+    construct that checks if the **kelvin** value is invalid, i.e., less than 0, and
+    in that case return an error indicator, for example None. The adapted function
+    might then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**def** kelvin_to_celsius(kelvin: float) -> float:**if** kelvin < 0:res = None**else**:res
+    = kelvin - 273.15**return** res'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can see that we have built in a program hint here: The keyword if is followed
+    by the condition to be checked, in our case whether the Kelvin temperature is
+    less than 0\. If the condition is met, the following code block is executed, which—like
+    the code blocks for functions—begins after a colon and is indented. In our example,
+    the code block contains only a single statement, namely an assignment in which
+    we assign None to an intermediate variable called **res**, but of course there
+    could be any number of further statements here. This is followed—at the same indentation
+    level as **if**—by the **else** keyword, again followed by a block of code that
+    is executed only if the **if** condition is not met. The **else** branch is, in
+    a sense, the logical inverse of the **if** condition; whenever the **if** condition
+    is not met, the program jumps directly to **else** without executing the program
+    code in the **if** code block. In our example, moving to the **else** code block
+    means that our kelvin argument is valid and can thus be converted to a Celsius
+    value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **return** statement after the If-Else construct is executed in any case,
+    no matter whether the program branches into the **if** or **else** branch. In
+    this way, we ensure that the function value stored in **res** is always returned,
+    which—depending on whether the **if** or **else** branch has been traversed—contains
+    the converted Celsius value or the error indicator None.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our main program we could now integrate this function, for example, like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'kelv = input(''Please enter a temperature in Kelvin: '')cel = kelvin_to_celsius(float(kelv))**if**
+    celis None:print(''You have entered an invalid Kelvin temperature!'')**else**:print(round(float(kelv),
+    2), ''Kelvin are'', round(cel, 2),''degrees celsius.'')'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, we ask the user for a temperature in Kelvin, convert it, and
+    then look to see if there was an error; depending on whether there was, we either
+    output an error message or the converted value in Celsius.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You will have noticed the double equal sign that we use to compare the variable
+    **cel** with the error indicator None. Python, like many other languages, distinguishes
+    between the *assignment operator* **=** and the *comparison operator* **==**.
+    The mathematical inequality sign (≠) is equivalent in Python to the comparison
+    operator **!=**, i.e. “not equal”, because the exclamation mark is, as in many
+    other programming languages, the logical operator *NOT*, which turns the truth
+    of a statement around. In this case the statement that the two values to the left
+    and right of the equal sign operator are equal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The **else** branch in an If-Else construct can also be omitted. So our function
+    **kelvin_to_celsius()** could also look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**def** kelvin_to_celsius(kelvin: float) -> float:res = None**if** kelvin >=
+    0:res = kelvin - 273.15**return** res'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This formulation of the function does exactly the same as the previous option.
+    We first set the variable **res** to None, that is, to error. So, if nothing happens
+    now, the function returns the error value. But something else happens if the kelvin
+    argument is a valid value. Then the value of **res** (currently the error code)
+    is replaced by the value converted to Celsius.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: We could have moved the whole logic of checking whether the user
+    input is valid or not from the function **kelvin_to_celsius()** to the main program
+    and simply call the function only if the input was valid. Otherwise, a corresponding
+    error message would be output.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.1 [15 min]Modify the text editor code from ► Sect. [22.​4](474412_1_En_22_Chapter.xhtml#Sec22)
+    so that
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A file is read when opening and written when saving only if a file name actually
+    exists (i.e., the user did not click “Cancel” in the file open dialog without
+    selecting a file).
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A click on “Save” automatically opens the “Save File As” dialog if no file name
+    has been specified yet.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: With these changes, you avoid the nasty error messages in the run console when,
+    for example, the user clicks “Save” without first specifying a filename; in this
+    case, Python tries to write to a file with an empty filename (''), which of course
+    fails.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Handling situations in which further execution of the program would lead to
+    an error is a common use of branching with the help of If-Else constructs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.1.2 Nested if-else Constructs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Now suppose we wanted to convert our function **celsius_to_kelvin()** to a
+    function **convert_temperature(temperature: float, toCelsius: bool)**, which converts
+    a temperature specification either from Kelvin to Celsius or from Celsius to Kelvin.
+    A new **bool** argument **toCelsius** should specify in which direction the conversion
+    should take place. If this argument has the value **True**, then Kelvin is converted
+    *to Celsius*, otherwise vice versa. Also, in the new function **convert_temperature()**
+    we want to make sure that only permissible temperatures are specified as argument
+    temperature, i.e. temperatures greater than 0 if it is a Kelvin value (**toCelsius
+    == True**) or greater than −273.15° if temperature contains a Celsius value (**toCelsius
+    == False**).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our function could then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1 **def** convert_temperature(temperature: float,toCelsius: bool) -> float:2
+    **if** toCelsius == **True**:3 **if** temperature >= 0:4 res = temperature - 273.155
+    **else**:6 res = None7 **else**:8 **if** temperature >= -273.15:9 res = temperature
+    + 273.1510 **else**:11 res = None12 **return** res'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We could now call the function, for example, with
+  prefs: []
+  type: TYPE_NORMAL
+- en: print(convert_temperature(100, False))to convert 100 °C to Kelvin.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you take a closer look at the function, you will notice that two If-Else
+    constructs have been nested here: The “outer” one checks (line 2) in which direction
+    the user wants to convert the temperature and branches accordingly; the “inner”
+    constructs (lines 3 and 8) check whether the argument temperature has a valid
+    value in the respective program branch. If this is the case, the conversion is
+    performed and stored in the local variable **res** (lines 5 and 10), otherwise
+    (in case of an invalid temperature specification) **res** is assigned the error
+    value **None** (see Sect. [21.​3.​4](474412_1_En_21_Chapter.xhtml#Sec7)) (lines
+    6 and 11).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The “outer” **if** and the “outer” else are each followed by a code block (indented,
+    of course), which in turn contains another If-Else construct. Theoretically, there
+    are no limits to the depth of nesting, but in practice the code becomes more and
+    more difficult to read with increasing nesting depth, almost like a natural language
+    sentence that opens many subordinate clauses and closes them again in quick succession
+    at the end of the sentence. For the sake of clarity, it is advisable to make an
+    appropriate comment, at the latest when more than two constructs are nested, especially
+    to describe to which condition the many different **else** clauses belong. The
+    same applies if the code within the **if** and **else** blocks is long (in the
+    example above, these code blocks each comprise only a single line), because then
+    you read a lot of code and suddenly come across an **else** you no longer know
+    to which if condition it belongs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: Instead of **if toCelsius == True**, we could have formulated the
+    “outer” condition more simply as **if toCelsius**; the comparison with the value
+    **True** may thus be omitted. This is because Python, if no comparison value is
+    specified, compares with **True** by default.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.1.3 If-Else Construct with Composite Conditions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We could have written the **temperature_convert()** function from the previous
+    section like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '1 **def** convert_temperature(temperature: float,toCelsius: bool) -> float:2
+    **if** toCelsius == **True and** temperature >= 0:3 res = temperature - 273.154
+    **else**:5 **if** toCelsius == **False and** temperature >= -273.15:6 res = temperature
+    + 273.157 **else**:8 res = None9 **return** res'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This formulation of the function does the same as the function above but is
+    structured differently with regard to the nesting of the If-Else construct s.
+    The “outer” construct checks two conditions at once, namely whether a conversion
+    to Celsius is desired (**toCelsius == True**) *and* whether the specified (Kelvin)
+    temperature is permissible for it (**temperature >=0**). These two partial conditions
+    are combined with **and** to a total condition, which is true only if *both* partial
+    conditions are true. In this case, the conversion is performed (line 3). But if
+    at least one partial condition is not true, i.e., either **toCelsius == False**
+    *or* **temperature < 0** (or even both!), the program is continued in the **else**
+    block of the outer If-Else construct (line 4).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There again a compound condition is checked, namely whether a conversion from
+    Celsius to Kelvin is required and whether the argument temperature is permissible
+    for this conversion. If both partial conditions are fulfilled, the conversion
+    is carried out (line 6). But if this condition is not fulfilled either, the program
+    goes to the “innermost” **else**-block: Since **toCelsius** can only take the
+    values **True** or **False** (at least when the function is called “properly”),
+    there is now only the possibility that the argument **temperature** has a value
+    that is not permissible for the required conversion. So, in this case the variable
+    **res** is assigned the error value **None** (line 8).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, we have linked two partial conditions with a logical *AND*.
+    Other important logical operators besides **and** are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**or**, the logical *OR*, with which two conditions are linked in such a way
+    that the total condition is true if *either* one or the other or *both* conditions
+    are true.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**not**, the logical *NOT*, with which the truth of a statement can be reversed.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'So the condition **toCelsius == True and temperature >= 0** could have been
+    written—admittedly somewhat awkwardly—as **not(toCelsius == False or temperature
+    < 0)**. Then the overall condition would have required that it must not be true
+    that either **toCelsius** equals **False**, or **temperature < 0**, or both. In
+    other words: Only if **toCelsius == True** and **temperature >= 0**, the overall
+    condition is fulfilled and the following code block (namely the conversion from
+    Kelvin to degrees Celsius) is executed. By the way: You do not always have to
+    link compound conditions with logical operators. For example, instead of**if**
+    x >= 0 **and** x < 10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Python (unlike many other programming languages) also allows the more compact
+    notation
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**if** 0 <= x < 10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This causes exactly the same check, namely whether the value of the variable
+    **x** is at least 0 but less than 10.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.2 [10 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Write a function **age_in_seconds(age_years: int) -> int**, which converts
+    an age in years passed as argument **age_years**, into seconds; the function shall
+    thus calculate and return the *minimum* seconds already experienced. Specific
+    error messages are to be output if the argument **age_years** is not an integer
+    variable, or the age is less than 0 or greater than 120.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you don’t remember how to check whether a value is an integer, scroll back
+    to ► Sect. [21.​4.​1](474412_1_En_21_Chapter.xhtml#Sec10).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.1.4 If-Else Construct with Alternative Conditions (elif)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Sometimes you want to check several similar conditions. Many other languages
+    provide a Switch-Case construct for this, as we saw in ► Sect. [14.​6](474412_1_En_14_Chapter.xhtml#Sec6).
+    Switch-Case is excellent for checking an expression (for example, a variable)
+    for several different values. There is no such construct in Python. However, with
+    the **elif** keyword, there is a very efficient way to check multiple alternative
+    conditions to the **if**-condition of an If-Else construct; this way of formulating
+    the conditions is even more flexible than a conventional Switch-Case construct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As an example, suppose you have developed a program that allows the user to
+    select a file and then specify what to do with the file. In doing so, the file
+    can be renamed, deleted, copied to another directory, or moved there. To select
+    the desired action, the user simply enters the first letter of the desired action,
+    i.e., **r** (rename), **d** (delete), **c** (copy), or **m** (move). After the
+    user enters this action request, it is stored in a **str** variable **action**.
+    Now, what is the condition that checks which action the user wants to perform?
+    Using nested If-Else constructs as in ► Sect. [24.1.2](#Sec3), we could choose
+    the following formulation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**if** action == ''r'':# Code executed if the user enters ''r''# (rename the
+    file)**else**:**if** action == ''d'':# Code executed if the user enters ''d''#
+    (delete the file)**else**:**if** action == ''c'':# Code executed if the user enters
+    ''c''# (rename the file)**else**:**if** action == ''m'':# Code executed if the
+    user enters ''m''# (move the file)**else**:# Code executed if the user enters#
+    something else'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This nested formulation checks in sequence which action code has been entered.
+    If **''r''** was not entered, **''d''** is checked next, if this was not entered
+    either, then **''c''** and so on. Due to the nesting, the whole thing appears
+    somewhat confusing. With the help of the **elif** keyword it is possible to structure
+    this part of the program much more clearly:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**if** action == ''r'':# rename**elif** action == ''d'':# delete**elif** action
+    == ''c'':# copy**elif** action == ''m'':# move**else**:# no valid action code'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With **elif**, on the same level as the introductory **if**, further conditions
+    can be checked. The (optional) **else** code block at the end is used if neither
+    the **if** condition nor one of the **elif** conditions is true. If one of the
+    **elif** conditions is in fact true, its code block is executed and the program
+    is continued *after* the **else** code block, i.e., after the whole If-Elif-Else
+    construct construct. The other **elif** conditions are no longer checked, because
+    **elif** formulates *alternative* conditions. In this way, a highly convoluted
+    and difficult to understand construct can be replaced by a very clear, easy to
+    read notation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.3 [10 min]Consider the If-Elif-Else construct in the following program excerpt.
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What values do the variables **a** and **b** take after running the program
+    extract if their values at the beginning are **a = 100**, **b = 50**?
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What values do the variables **a** and **b** take after running the program
+    extract if their values at the beginning are **a = 110**, **b = 40**?
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: What combinations of values of **a** and **b** result in **b = 0** in the end?
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: If you don’t get the solution directly in subtasks (a) and (b), enter the code
+    in Python and try it out.**if** a > 90 **and** b <= 20:b = 15**elif** b < 10:b
+    = 0**elif** (a > 90 **and** b < 50) **or** (a == 100 **and** b > 50):b = 20**if**
+    a >= 100 **or** b <= 50:a = 5**else:**a = 25**elif** a >= 90 **or** b <= 50:b
+    = 5**else**:b = 10a = 20
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.2 Events
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Like If-(Elif-)Else constructs, *events* are used to control the program flow,
+    such as to be able to react to user input. However, unlike If-(Elif-)Else constructs,
+    events do not simply run through the program linearly from beginning to end, branching
+    into certain parts and “skipping” others. Instead, events cause a specific function,
+    the *event handler*, to be called and the code it contains to be executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This can be seen very nicely in our **tkinter** programs, such as the calculator
+    application from ► Sect. [22.​2.​6](474412_1_En_22_Chapter.xhtml#Sec20). The function
+    **equal_press()**, for example, is an event handler that is called whenever the
+    user has clicked on the button with the equal sign. When the code in the event
+    handler is completely processed, the program jumps back to the main loop of the
+    program—in **tkinter** programs, this is the function **mainloop()**. In this
+    loop, the program “waits” for the next event to occur for which an event handler
+    is defined. Once that happens, the event handler gets control; after the event
+    handler has been passed, the program goes back into “lurking” mode. In ► Sect.
+    [25.​2](474412_1_En_25_Chapter.xhtml#Sec5), we will use simple means to build
+    a program with a main loop and event handlers that runs in the Python (run) console,
+    i.e., without a graphical user interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 24.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we have dealt with how branches can be built into the program
+    code, so that not always the entire code, but, depending on conditions, only individual
+    parts are executed. The central tools for this are the If-Else construct and events.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If-Else constructs allow you to make the execution of parts of the program
+    code dependent on conditions; **if** (and **else**) is followed by the code block
+    that is to be executed if the condition (or its alternative) is fulfilled; the
+    **else** branch can also be omitted; the general structure is thus: **if** ***condition:
+    code_block*** **else:** ***code_block***.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If-Else constructs can be nested within each other.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With **elif** several further conditions can be formulated, which are only checked
+    if the **if**-condition and possibly further, preceding **elif** constructs were
+    not fulfilled.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Conditions are regularly formed by comparisons; the operator for checking equality
+    is the double equal sign (**==**), the single equal sign is used for assignments;
+    for inequality relations **!=** is used.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Several (sub-)conditions can be linked with logical operators (especially **and**,
+    **or**, **not**) to form a composite condition.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Events are processed by defining a special function (event handler) that is
+    called whenever the event is triggered. Events are especially useful in programs
+    with a graphical user interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 24.4 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 24.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The (event handler) functions **saveas_press()**, **save_press()** and **open_press()
+    have** to be adapted. The supplemented If-Else constructs are highlighted in italics
+    in the following sample solution:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**def** open_press():**global** filenamefname = askopenfilename(defaultextension
+    = ''txt'',filetypes = [(''Text files'', ''*.txt''),(''All files'', ''*.*''),],title
+    = ''Open File....'',initialdir = ''C:\\Windows'')**if** fname != '''':textfile
+    = open(fname, ''r'')text.delete(1.0, END)text.insert(1.0, file.read())textfile.close()status[''text'']
+    = ''File "'' + fname + ''" opened.''filename = fname**def** saveas_press():**global**
+    filenamefname = asksaveasfilename(defaultextension = ''txt'',filetypes=[(''Text
+    files'', ''*.txt''),(''All files'', ''*.*''),],title = ''Save File As...'',initialdir
+    = ''C:\\Windows'')**if** fname != '''':textfile = open(fname, ''w'')textfile.write(text.get(1.0,
+    END))textfile.close()status[''text''] = ''File "'' + fname + ''" saved.''filename
+    = fname**def** save_press():**global** filename**if** filename != '''':textfile
+    = open(filename, ''w'')textfile.write(text.get(1.0, END))textfile.close()status[''text'']
+    = ''File "'' + filename + ''" saved.''**else**:saveas_press()Exercise 24.2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A possible formulation of the function could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**def** age_in_seconds(age_years: int) -> int:**if** **not** isinstance(alter_years,
+    int):print(''Error: The age is not an integer value!'')**else**:**if** age_years
+    < 0 **or** age_years > 120:print(''Error: Implausible age information!'')**else**:return
+    age_years * 365 * 24 * 60 * 60'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, the **isinstance()** function is used in an outer If-Else construct to
+    check whether the argument **age_years** is not (!) an integer value. If this
+    is the case, an error message is issued and the function is exited. We take advantage
+    here of the fact that **isinstance** returns a **bool** value and Python compares
+    an expression in a condition against **True** by default. Alternatively, we could
+    have written **if not isinstance(age_years, int) == True** or **if isinstance(age_years,
+    int) != True**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if **age_years** is indeed an integer value, the inner If-Else construct
+    checks whether the age is outside the plausible limits. In this case, the function
+    is again exited with an error message. If this hurdle is also successfully overcome,
+    the function returns the age in seconds.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You could then call the function for example with
+  prefs: []
+  type: TYPE_NORMAL
+- en: print(age_in_seconds(38))Exercise 24.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**a = 100**, **b = 5** (the condition applies: **a >= 90 or b <= 50**)'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**a = 5**, **b = 20** (the conditions: **(a > 90 and b < 50) or (a == 100 and
+    b > 50)** and **a >= 100 or b <= 50** apply)'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: None. For this, the condition **a >= 95 and b < 15** would have to be fulfilled.
+    But this is an alternative condition to **a > 90 and b <= 20**. Every combination
+    of **a** and **b** that satisfies **a >= 95 and b < 15** also satisfies **a >
+    90 and b <= 20**. The alternative condition therefore never comes into play, it
+    is “dead code”.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL

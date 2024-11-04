@@ -1,0 +1,1133 @@
+- en: Dijkstra’s Algorithm
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Numerous algorithms can solve the shortest path problem, and one of the most
+    famous is one discovered by Edsger Dijkstra (pronounced “dike’ struh”) in 1959\.
+    Unsurprisingly, this algorithm is known as Dijkstra’s algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this section, we’re going to use Dijkstra’s algorithm to find the cheapest
+    path in our city flights example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dijkstra’s Algorithm Setup
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The first thing to note is that Dijkstra’s algorithm comes with a free bonus.
+    By the time we’re done, we’re not just going to find the cheapest price from Atlanta
+    to El Paso, but also we’re going to find the cheapest prices from Atlanta to all
+    known cities. As you’ll see, the algorithm simply works this way; we end up gathering
+    all of this data. So we’ll know the cheapest price from Atlanta to Chicago, the
+    cheapest price from Atlanta to Denver, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set things up, we’ll create a way to store the cheapest known prices from
+    our starting city to all other known destinations. In our code that follows, we’ll
+    use a hash table for this. For our example walk-through, though, we’ll use a visual
+    table that looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | City #1 | City #2 | City #3 | Etc. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | ? | ? | ? | ? |'
+  prefs: []
+  type: TYPE_TB
+- en: The algorithm will begin at the Atlanta vertex, as it’s the only city we’re
+    currently aware of. As we discover new cities, we’ll add them to our table and
+    record the cheapest price from Atlanta to each of these cities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the time the algorithm is complete, the table will look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Price from Atlanta To: | Boston | Chicago | Denver | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | $100 | $200 | $160 | $280 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In code, this will be represented with a hash table that looks like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"Atlanta"*​: 0, ​*"Boston"*​: 100, ​*"Chicago"*​: 200, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Denver"*​: 160, ​*"El Paso"*​: 280} |'
+  prefs: []
+  type: TYPE_TB
+- en: (Note that Atlanta is in the hash table as well with a value of 0\. We’ll need
+    this to get the algorithm to work, but it also makes sense, as it costs nothing
+    to get to Atlanta from Atlanta since you’re already there!)
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our code and going forward, we’ll call this table the cheapestPricesTable,
+    as it stores all the cheapest prices from the starting city to all other destinations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, if all we wanted to do is figure out the cheapest price to get to a particular
+    destination, the cheapestPricesTable would contain all the data we need. But we
+    probably also want to know the actual path that would get us the cheapest price.
+    For instance, if we want to get from Atlanta to El Paso, we don’t want to just
+    know the cheapest price is $280; we also want to know that to get this price,
+    we need to fly the specific path of Atlanta--Denver--Chicago--El Paso.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To achieve this, we’ll also need another table, which we’ll call the cheapestPreviousStopoverCityTable.
+    The purpose of this table will only become clear once we jump into the algorithm,
+    so I’ll hold off on the explanation until then. For now, though, it’ll suffice
+    to show what it’ll look like by the end of the algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Denver | Atlanta | Chicago |'
+  prefs: []
+  type: TYPE_TB
+- en: (Note that this table, too, will be implemented using a hash table.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dijkstra’s Algorithm Steps
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Now that everything is set up, here are the steps for Dijkstra’s algorithm.
+    For clarity, I’m going to describe the algorithm in terms of cities, but you can
+    replace the word “city” with “vertex” to make it work for any weighted graph.
+    Also note that these steps will become clearer when we walk through an example.
+    But for now, here we go:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We visit the starting city, making it our “current city.”
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We check the prices from the current city to each of its adjacent cities.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'If the price to an adjacent city from the starting city is cheaper than the
+    price currently in cheapestPricesTable (or the adjacent city isn’t yet in the
+    cheapestPricesTable at all):'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: a. We update the cheapestPricesTable to reflect this cheaper price.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: b. We update the cheapestPreviousStopoverCityTable, making the adjacent city
+    the key and the current city the value.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: We then visit whichever unvisited city has the cheapest price from the starting
+    city, making it the current city.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We repeat the Steps 2 through 4 until we’ve visited every known city.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Again, this will all make more sense when we walk through an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dijkstra’s Algorithm Walk-Through
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s walk through Dijkstra’s algorithm step by step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To start, our cheapestPricesTable only contains Atlanta:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 |'
+  prefs: []
+  type: TYPE_TB
+- en: At the start of the algorithm, Atlanta is the only city we have access to; we’ve
+    not yet “discovered” the other cities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: We officially visit Atlanta and make it the currentCity.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To indicate that it’s the currentCity, we’ll surround it with lines. And to
+    add to the record that we’ve visited it, we’ll add a check mark:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_4.png](images/graphs/weighted_graph_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In the next steps, we’ll proceed to inspect each of the currentCity’s adjacent
+    cities. This is how we discover new cities; if a city we have access to has adjacent
+    cities we weren’t aware of before, we can add them to our map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 2: One city adjacent to Atlanta is Boston. As we can see, the price from
+    Atlanta to Boston is $100\. We then check the cheapestPricesTable to see whether
+    this is the cheapest known price from Atlanta to Boston, but it turns out we haven’t
+    recorded any prices from Atlanta to Boston yet. That means this is the cheapest
+    known flight from Atlanta to Boston (as of now), so we add that to the cheapestPricesTable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Since we’ve made a change to the cheapestPricesTable, we now also need to modify
+    the cheapestPreviousStopoverCityTable, making the adjacent city (Boston) the key
+    and the currentCity the value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta |'
+  prefs: []
+  type: TYPE_TB
+- en: Adding this data to this table means that to earn the cheapest known price from
+    Atlanta to Boston ($100), the city we need to visit immediately before Boston
+    is Atlanta. At this point, this is obvious since Atlanta is the only way to get
+    to Boston that we know of. However, as we proceed, we’ll see why this second table
+    becomes useful.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 3: We’ve checked out Boston, but Atlanta has another adjacent city, Denver.
+    We check whether the price ($160) is the cheapest known route from Atlanta to
+    Denver, but Denver isn’t in the cheapestPricesTable at all yet, so we add it as
+    the cheapest known flight:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston | Denver |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 | $160 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then also add Denver and Atlanta as a key-value pair to the cheapestPreviousStopoverCityTable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Denver |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Atlanta |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Step 4: By this point, we’ve inspected all of Atlanta’s adjacent cities, so
+    it’s time to visit our next city. But we need to figure out which city to visit
+    next.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, as stated in the algorithm steps earlier, we only proceed to visit cities
+    we haven’t yet visited. Furthermore, among the unvisited cities, we always choose
+    to first visit the city that has the cheapest known route from the starting city.
+    We can get this data from the cheapestPricesTable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our example, the only cities we know about that we haven’t visited yet are
+    Boston or Denver. By looking at the cheapestPricesTable, we can see that it’s
+    cheaper to get from Atlanta to Boston than it is to get from Atlanta to Denver,
+    so we’re going to visit Boston next.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 5: We visit Boston and designate it as the currentCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_5.png](images/graphs/weighted_graph_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Next, we’re going to inspect Boston’s adjacent cities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 6: Boston has two adjacent cities, Chicago and Denver. (Atlanta isn’t
+    considered adjacent, since we can’t fly from Boston to Atlanta.)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Which city should we visit first—Chicago or Denver? Again, we want to first
+    visit the city whose price is cheapest if we were flying to it from Atlanta. So
+    let’s do the math.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The price from Boston to Chicago alone is $120\. When looking at the cheapestPricesTable,
+    we can see that the cheapest route from Atlanta to Boston is $100\. So this means
+    that the cheapest flight from Atlanta to Chicago with Boston as the previous stopover
+    city would be $220.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since, at this point, this is the only known price from Atlanta to Chicago,
+    we’ll add it to the cheapestPricesTable. We’ll insert it in the middle of the
+    table to keep the cities alphabetized:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston | Chicago | Denver |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 | $220 | $160 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Again, because we made a change to that table, we’ll also modify the cheapestPreviousStopoverCityTable.
+    The adjacent city always becomes the key, and the currentCity always becomes the
+    value, so the table becomes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Boston | Atlanta |'
+  prefs: []
+  type: TYPE_TB
+- en: In our quest to find the city to visit next, we analyzed Chicago. We’ll inspect
+    Denver next.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 7: Let’s now look at the edge between Boston and Denver. We can see that
+    the price is $180\. Since the cheapest flight from Atlanta to Boston, again, is
+    $100, that would mean the cheapest flight from Atlanta to Denver through Boston
+    as the previous stopover city is $280.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This gets a little interesting, because when we inspect our cheapestPricesTable,
+    we can see that the cheapest route from Atlanta to Denver is $160, which is cheaper
+    than the Atlanta–Boston–Denver route. Accordingly, we do not modify either of
+    our tables; we want to leave $160 as the cheapest known route from Atlanta to
+    Denver.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’re done with this step, and since we’ve looked at all of Boston’s adjacent
+    cities, we can now visit our next city.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 8: The current known unvisited cities are Chicago and Denver. Again, the
+    one we visit next—and pay careful attention to this—is the city with the cheapest
+    known path from our starting city (Atlanta).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Looking at our cheapestPricesTable, we can see that it’s cheaper to go from
+    Atlanta to Denver ($160) than it is to go to from Atlanta to Chicago ($220), so
+    that means that we visit Denver next:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_6.png](images/graphs/weighted_graph_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Next up, we’ll look at Denver’s adjacent cities.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 9: Denver has two adjacent cities, Chicago and El Paso. Which of these
+    cities will we visit next? To find out, we need to analyze the prices to each
+    city. Let’s start with Chicago.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It costs just $40 to go from Denver to Chicago (a good deal!), which means the
+    cheapest flight from Atlanta to Chicago through Denver as the previous stopover
+    city would be $200 since the cheapest route from Atlanta to Denver is $160.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When looking at the cheapestPricesTable, we can see that the current cheapest
+    price from Atlanta to Chicago is $220\. That means this new route we just found
+    to Chicago through Denver is even cheaper, so we can update the cheapestPricesTable
+    accordingly:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston | Chicago | Denver |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 | $200 | $160 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Whenever we update the cheapestPricesTable, we also have to update the cheapestPreviousStopoverCityTable.
+    We set the adjacent city (Chicago) as the key and the currentCity (Denver) as
+    the value. Now, in this case, Chicago already exists as a key. This means we’ll
+    be overwriting its value from Boston to Denver:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Denver | Atlanta |'
+  prefs: []
+  type: TYPE_TB
+- en: What this means is that to nab the cheapest flight path from Atlanta to Chicago,
+    we need to stop over at Denver as the city immediately prior to Chicago; that
+    is, Denver should be our second-to-last stop before we proceed to Chicago. Only
+    then will we save the most money.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This information will be useful in determining the cheapest path from Atlanta
+    to our destination city, as you’ll see in a little bit. Hang on, we’re almost
+    there!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 10: Denver has another adjacent city, El Paso. The price from Denver to
+    El Paso is $140\. We can now construct our first known price from Atlanta to El
+    Paso. The cheapestPricesTable tells us the cheapest price from Atlanta to Denver
+    is $160\. This means if we then go from Denver to El Paso, we incur another $140,
+    making the total price from Atlanta to El Paso $300\. We can add this to the cheapestPricesTable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston | Chicago | Denver | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 | $200 | $160 | $300 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We must then also add the key-value pair of El Paso-Denver to our cheapestPreviousStopoverCityTable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Denver | Atlanta | Denver |'
+  prefs: []
+  type: TYPE_TB
+- en: Again, this means that to save the most money when flying from Atlanta to El
+    Paso, our second-to-last stop should be Denver.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ve seen all our currentCity’s adjacent cities, so it’s time to visit our
+    next city.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 11: We have two known unvisited cities, Chicago and El Paso. Since it’s
+    cheaper to get from Atlanta to Chicago ($200) than it is to get from Atlanta to
+    El Paso ($300), we visit Chicago next, as shown in the following graph:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_7.png](images/graphs/weighted_graph_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 12: Chicago has only one adjacent city, El Paso. The price from Chicago
+    to El Paso is $80 (not bad). With this information, we can now calculate the cheapest
+    price from Atlanta to El Paso when assuming that Chicago is our second-to-last
+    stop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The cheapestPricesTable shows us that the cheapest path from Atlanta to Chicago
+    is $200\. Adding the $80 to this means the cheapest price from Atlanta to El Paso
+    with Chicago as the second-to-last stop would cost $280.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wait! This is cheaper than the currently known cheapest path from Atlanta to
+    El Paso. In our cheapestPricesTable, we see that the cheapest known price is $300\.
+    But when we fly through Chicago, the price is $280, which is cheaper.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Accordingly, we need to update the cheapestPricesTable to indicate our newly
+    found cheapest path to El Paso:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| From Atlanta To: | Boston | Chicago | Denver | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| $0 | $100 | $200 | $160 | $280 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We also need to update the cheapestPreviousStopoverCityTable, with El Paso
+    as the key and Chicago as the value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Denver | Atlanta | Chicago |'
+  prefs: []
+  type: TYPE_TB
+- en: Chicago has no more adjacent cities, so we can now visit our next city.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 13: El Paso is the only known unvisited city, so let’s make it our currentCity,
+    as shown in this graph:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/weighted_graph_8.png](images/graphs/weighted_graph_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 14: El Paso has only one outbound flight, which is to Boston. That flight
+    costs $100\. Now, the cheapestPricesTable reveals that the cheapest price from
+    Atlanta to El Paso is $280\. So if we travel from Atlanta to Boston with El Paso
+    as the second-to-last stop, our grand total will be $380\. This is more expensive
+    than the cheapest-known price from Atlanta to Boston ($100), so we don’t update
+    any of our tables.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since we’ve visited every known city, we now have all the information we need
+    to find the cheapest path from Atlanta to El Paso.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finding the Shortest Path
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If we just want to know the cheapest price from Atlanta to El Paso, we can look
+    in our cheapestPricesTable and see that it’s $280\. But if we want to figure out
+    the exact path to fly to snag that low price, we have one last thing to do.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember the cheapestPreviousStopoverCityTable? It’s now time to use that data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Currently, the cheapestPreviousStopoverCityTable looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
+    | El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '|  | Atlanta | Denver | Atlanta | Chicago |'
+  prefs: []
+  type: TYPE_TB
+- en: We can use this table to draw the shortest path from Atlanta to El Paso—if we
+    go backward.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at El Paso. Its corresponding city is Chicago. This means the cheapest
+    route from Atlanta to El Paso involves stopping over in Chicago as the immediate
+    step before flying to El Paso. Let’s write this down:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | Chicago -> El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now, if we look up Chicago in the cheapestPreviousStopoverCityTable, we can
+    see that its corresponding value is Denver. This means the cheapest route from
+    Atlanta to Chicago involves stopping in Denver right before Chicago. Let’s add
+    this to our figure:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | Denver -> Chicago -> El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If we then look up Denver in the cheapestPreviousStopoverCityTable, we can
+    see that the cheapest flight to get from Atlanta to Denver is to fly directly
+    from Atlanta to Denver:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | Atlanta -> Denver -> Chicago -> El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, Atlanta happens to be our starting city, so this route is the exact path
+    we’d take from Atlanta to El Paso to get the cheapest price.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s review the logic we’re using to chain together the cheapest path.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember, the cheapestPreviousStopoverCityTable contains, for each destination,
+    the second-to-last stop before that destination to earn the cheapest price if
+    you’re flying from Atlanta.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So from the cheapestPreviousStopoverCityTable, we can see that the cheapest
+    price from Atlanta to El Paso means:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We need to fly directly from Chicago to El Paso, and
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We need to fly directly from Denver to Chicago, and
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We need to fly directly from Atlanta to Denver.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'This means that the following is our cheapest path:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | Atlanta -> Denver -> Chicago -> El Paso |'
+  prefs: []
+  type: TYPE_TB
+- en: And…that’s it. Whew!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Dijkstra’s Algorithm'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Before we get to the actual algorithm, we can set up our example from earlier,
+    using this code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ atlanta = ​**new**​ City(​*''Atlanta''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ boston = ​**new**​ City(​*''Boston''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ chicago = ​**new**​ City(​*''Chicago''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ denver = ​**new**​ City(​*''Denver''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ elPaso = ​**new**​ City(​*''El Paso''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | atlanta.addRoute(boston, 100); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | atlanta.addRoute(denver, 160); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | boston.addRoute(chicago, 120); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | boston.addRoute(denver, 180); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | chicago.addRoute(elPaso, 80); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | denver.addRoute(chicago, 40); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | denver.addRoute(elPaso, 140); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | elPaso.addRoute(boston, 100); |'
+  prefs: []
+  type: TYPE_TB
+- en: Finally, here’s the code for Dijkstra’s algorithm. It doesn’t make for light
+    reading, and it’s probably the most complex piece of code in this book. However,
+    if you’re ready to study it carefully, read on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our implementation here, this method does not live inside the City class,
+    but outside it. The method accepts two City instances and returns the shortest
+    path between them:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ dijkstraShortestPath(startingCity, finalDestination)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ cheapestPricesTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ cheapestPreviousStopoverCityTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ unvisitedCities = [startingCity]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ visitedCities = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPricesTable[startingCity.name] = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentCity = startingCity; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (unvisitedCities.length > 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | visitedCities[currentCity.name] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | unvisitedCities = unvisitedCities.filter((city) => city !== currentCity);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ adjacentCity ​**of**​ currentCity.routes.keys())
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ price = currentCity.routes.​**get**​(adjacentCity); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!visitedCities[adjacentCity.name] && |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | !unvisitedCities[adjacentCity]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | unvisitedCities.push(adjacentCity); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ priceThroughCurrentCity = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | (cheapestPricesTable[currentCity.name] + price); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!cheapestPricesTable[adjacentCity.name] &#124;&#124; priceThroughCurrentCity
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | < cheapestPricesTable[adjacentCity.name]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPricesTable[adjacentCity.name] = priceThroughCurrentCity; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPreviousStopoverCityTable[adjacentCity.name] = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentCity.name; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ cheapestPrice = ​**Infinity**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ city ​**of**​ unvisitedCities) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (cheapestPricesTable[city.name] < cheapestPrice) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPrice = cheapestPricesTable[city.name]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentCity = city; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ shortestPath = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentCityName = finalDestination.name; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentCityName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | shortestPath.unshift(currentCityName); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentCityName = cheapestPreviousStopoverCityTable[currentCityName];
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ shortestPath; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: We have a decent amount of code here, so let’s break it down.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The dijkstraShortestPath function accepts two vertices, representing the startingCity
+    and finalDestination.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Eventually, our function will return an array of strings that represent the
+    cheapest path. For our example, here’s what this function would return:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ["Atlanta", "Denver", "Chicago", "El Paso"] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The first thing our function does is set up the two primary tables that fuel
+    the entire algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ cheapestPricesTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ cheapestPreviousStopoverCityTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then set up ways to track which cities we’ve visited and the ones we have
+    yet to visit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ unvisitedCities = [startingCity]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ visitedCities = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: Note that we prepopulate unvisitedCities with the startingCity as the only item
+    in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It may seem odd that unvisitedCities is an array, while visitedCities is a hash
+    table. The reason we’ve made visitedCities a hash table is because in the code
+    that follows we only use it for lookups, for which a hash table is an ideal choice
+    in terms of time complexity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The choice of the best data structure for the unvisitedCities is less simple.
+    In our code that follows, the next city we visit is always the cheapest unvisited
+    city to reach from the starting city. Ideally, then, we always want immediate
+    access to the cheapest option from among the unvisited cities. Our code that accesses
+    this data is simpler if the data structure is an array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In truth, a priority queue would be a perfect fit for this, as its whole function
+    is to provide ready access to the least (or greatest) value from a collection
+    of items. As you saw in Chapter 16, [​*Keeping Your Priorities Straight with Heaps*​](f_0153.xhtml#chp.heaps),
+    a heap is generally the best data structure for implementing a priority queue.
+    However, I’ve instead chosen to use a simple array for this implementation only
+    to keep the code as simple and small as possible since Dijkstra’s algorithm is
+    complex enough on its own. But I encourage you to try replacing the array with
+    a priority queue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, we add the first key-value pair to the cheapestPricesTable with the startingCity
+    as the key and 0 as the value. Again, this makes sense because it costs nothing
+    to get to the startingCity as we’re already there:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | cheapestPricesTable[startingCity.name] = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'As the last bit of setup, we designate the startingCity to be our currentCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ currentCity = startingCity; |'
+  prefs: []
+  type: TYPE_TB
+- en: We now begin the core of the algorithm, which takes the form of a loop that
+    runs as long as unvisitedCities contains any cities. Within this loop, we mark
+    the currentCity as having been visited by adding its name to the visitedCities
+    hash table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (unvisitedCities.length > 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | visitedCities[currentCity.name] = ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'And, by definition, since we’ve visited currentCity, we need to remove it from
+    the list of unvisitedCities:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | unvisitedCities = unvisitedCities.filter((city) => city !== currentCity);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: This JavaScript filter syntax creates a copy of the unvisitedCities array, except
+    that the currentCity is removed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, within the while loop we begin another loop, iterating over all of the
+    adjacent cities of the currentCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**const**​ adjacentCity ​**of**​ currentCity.routes.keys())
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Within this inner loop, we first grab the price of the route from the currentCity
+    to the adjacent city we’re currently iterating over:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ price = currentCity.routes.​**get**​(adjacentCity); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Then we add each adjacent city to the array of unvisitedCities if it’s a city
+    we’ve never visited before. Additionally, we only add the adjacent city to unvisitedCities
+    if it’s not already there:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!visitedCities[adjacentCity.name] && !unvisitedCities[adjacentCity])
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | unvisitedCities.push(adjacentCity); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Next, we calculate the cheapest possible price to get from the starting city
+    to the adjacent city, assuming that the currentCity is the second-to-last stop.
+    We do this by using the cheapestPricesTable to look up the cheapest known route
+    to the currentCity and then adding that to the price of the route from the currentCity
+    to the adjacent city. This calculation then gets stored in a variable called priceThroughCurrentCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ priceThroughCurrentCity = |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | (cheapestPricesTable[currentCity.name] + price); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Then we look within the cheapestPricesTable to see whether this price_through_currentCity
+    is now the cheapest known flight from the starting city to the adjacent city.
+    If the adjacent city isn’t yet in the cheapestPricesTable, this price is, by definition,
+    the cheapest known price:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!cheapestPricesTable[adjacentCity.name] &#124;&#124; priceThroughCurrentCity
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | < cheapestPricesTable[adjacentCity.name]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If the priceThroughCurrentCity is now the cheapest route from the starting
+    city to the adjacent city, we update the two main tables; that is, we store the
+    new price for the adjacent city in the cheapestPricesTable. And we also update
+    the cheapestPreviousStopoverCityTable with the adjacent city’s name as the key
+    and the currentCity’s name as the value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | cheapestPricesTable[adjacentCity.name] = priceThroughCurrentCity; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPreviousStopoverCityTable[adjacentCity.name] = currentCity.name;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'After iterating over all the adjacent cities of the currentCity, it’s time
+    to visit the next city. We use the following snippet to find the cheapest unvisited
+    city we can reach from the starting city and declare the cheapest city to be our
+    new currentCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ cheapestPrice = ​**Infinity**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ city ​**of**​ unvisitedCities) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (cheapestPricesTable[city.name] < cheapestPrice) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cheapestPrice = cheapestPricesTable[city.name]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentCity = city; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The preceding code creates a cheapestPrice variable and sets it to infinity.
+    This is a little trick to ensure that each price we encounter will be lower than
+    the initial value of cheapestPrice. The loop then iterates over each of the unvisitedCities,
+    checking each city against the cheapestPricesTable. Each time it finds a cheaper
+    city, it sets currentCity to that city. By the time the loop completes, currentCity
+    will indeed be pointing to the cheapest unvisited city.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The main while loop ends once the unvisitedCities array is empty. This means
+    we visited all the cities in the graph!
+  prefs: []
+  type: TYPE_NORMAL
+- en: At this point, the two tables have been fully populated with all the data we
+    need. If we so chose, we could at this point simply return the cheapestPricesTable
+    and see all the cheapest prices to all known cities from the startingCity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead, though, we proceed to find the precise cheapest path to get to our
+    finalDestination.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set things up for this, we create an array called shortestPath, which is
+    what we’ll return at the end of the function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ shortestPath = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We also create a variable called currentCityName, which starts out as the name
+    of the finalDestination:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ currentCityName = finalDestination.name; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then begin a while loop that populates the shortestPath. This loop will
+    insert all the cities in backward order, starting with the finalDestination and
+    working its way to the startingCity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (currentCityName) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | shortestPath.unshift(currentCityName); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then use the cheapestPreviousStopoverCityTable to find the city that should
+    be the stop immediately preceding the currentCityName. This previous city now
+    becomes the new currentCityName:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentCityName = cheapestPreviousStopoverCityTable[currentCityName];
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The shortestPath now contains the backward path from the finalDestination to
+    the startingCity, so that’s what we finally return:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ shortestPath; |'
+  prefs: []
+  type: TYPE_TB
+- en: Although our implementation deals with cities and prices, all the variable names
+    can be changed to handle the shortest path for any weighted graph.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Efficiency of Dijkstra’s Algorithm
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Dijkstra’s algorithm is a general description of the approach for finding the
+    shortest path within a weighted graph, but it doesn’t specify the precise code
+    implementation. In fact, a number of variations in how this algorithm can be written
+    are out there.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our code walk-through, for example, we used a simple array for the unvisitedCities
+    data structure, but I noted that a priority queue could be used instead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It turns out that the precise implementation has a considerable effect on the
+    algorithm’s time complexity. But let’s at least analyze our implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we use a simple array for keeping track of the cities we haven’t visited
+    yet (unvisitedCities), our algorithm can take up to O(V²) steps. This is because
+    the worst-case scenario for Dijkstra’s algorithm is when each vertex has an edge
+    leading to every other vertex within the graph. In this case, for every vertex
+    we visit, we check the weight of the path from that vertex to every other vertex.
+    This is V vertices multiplied by V vertices, which is O(V²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Other implementations, such as using a priority queue instead of an array, lead
+    to faster speeds. Again, there are several variations of Dijkstra’s algorithm,
+    and each variation needs its own analysis to determine its precise time complexity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whatever implementation of the algorithm you choose, though, is a big win over
+    the alternative, which would be to find every possible path through the graph
+    and then select the fastest one. Dijkstra’s algorithm gives a sure way to proceed
+    thoughtfully through the graph and zero in on the shortest path.
+  prefs: []
+  type: TYPE_NORMAL

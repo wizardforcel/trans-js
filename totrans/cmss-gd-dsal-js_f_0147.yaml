@@ -1,0 +1,211 @@
+- en: Insertion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: As I mentioned earlier, binary search trees are at their best when it comes
+    to insertion. Now we’ll see why.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Say we want to insert the number 45 into our example tree. The first thing
+    we’d have to do is find the correct node to attach the 45 to. To begin our search,
+    we start at the root, as shown in the following illustration:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_6.png](images/binary_trees/bst_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Since 45 is less than 50, we drill down to the left child:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_10.png](images/binary_trees/bst_10.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Since 45 is greater than 25, we must inspect the right child:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_11.png](images/binary_trees/bst_11.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Since 45 is greater than 33, we check the 33’s right child:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_12.png](images/binary_trees/bst_12.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: At this point, we’ve reached a node that has no children, so we have nowhere
+    to go. This means we’re ready to perform our insertion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since 45 is greater than 40, we insert it as a right child of the 40:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_13.png](images/binary_trees/bst_13.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this example, insertion took five steps, consisting of four search steps
+    plus one insertion step. Insertion always takes just one extra step beyond a search,
+    which means insertion takes (log N) + 1 steps. In Big O notation, which ignores
+    constants, this is O(log N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: In an ordered array, by contrast, insertion takes O(N), because in addition
+    to search, we must shift a lot of data to the right to make room for the value
+    we’re inserting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is what makes binary search trees so efficient. While ordered arrays have
+    O(log N) search and O(N) insertion, binary search trees have O(log N) search and
+    O(log N) insertion. This becomes critical in an application in which you anticipate
+    a lot of changes to your data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Binary Search Tree Insertion'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s a JavaScript implementation of inserting a new value into a binary search
+    tree. Like the search function, it’s recursive:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ TreeNode ​**from**​ ​*''./tree_node.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ insert(value, node) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (value < node.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!node.leftChild) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node.leftChild = ​**new**​ TreeNode(value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | insert(value, node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (value > node.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!node.rightChild) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node.rightChild = ​**new**​ TreeNode(value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | insert(value, node.rightChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The insert function accepts a value that we’re going to insert and a node that
+    serves as the ancestor node for which our value will become a descendant.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we check whether the value is less than the value of the current node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (value < node.value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: If the value is less than the node, we know that we need to insert the value
+    somewhere among the left descendants of the node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We then check to see whether the current node has a left child. If the node
+    doesn’t have a left child, we make the value into the left child, since that’s
+    exactly where the value belongs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!node.leftChild) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node.leftChild = ​**new**​ TreeNode(value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This is the base case, since we don’t need to make any recursive calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, if the node already has a left child, we can’t place the value there.
+    Instead, we recursively call insert on the left child so that we continue to search
+    for the spot in which we’ll place the value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | insert(value, node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Eventually, we’ll hit a descendant node that doesn’t have its own child, and
+    that’s where the value is going to go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The rest of the function is the exact inverse; it handles cases where the value
+    is greater than the current node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Order of Insertion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'It’s important to note that only when creating a tree out of randomly sorted
+    data do trees usually wind up being well-balanced. However, if we insert sorted
+    data into a tree, it can become imbalanced and less efficient. For example, if
+    we were to insert the following data in this order—1, 2, 3, 4, 5—we’d end up with
+    a tree that looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_14.png](images/binary_trees/bst_14.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This tree is completely linear, so searching for the 5 within this tree would
+    take O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, if we inserted the same data in the following order—3, 2, 4, 1, 5—the
+    tree would be evenly balanced:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_15.png](images/binary_trees/bst_15.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Only with a balanced tree does search take O(log N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because of this, if you ever want to convert an ordered array into a binary
+    search tree, you’d want to first randomize the order of the data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It emerges that in a worst-case scenario, when a tree is completely imbalanced,
+    search is O(N). In a best-case scenario, when it is perfectly balanced, search
+    is O(log N). In the typical scenario, in which data is inserted in random order,
+    a tree will be pretty well balanced and search will take about O(log N).
+  prefs: []
+  type: TYPE_NORMAL

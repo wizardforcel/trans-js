@@ -1,0 +1,188 @@
+- en: 'Recursive Category: Calculations'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the previous section, we discussed the first category of recursive functions—those
+    whose job it is to repeatedly execute a task. For the remainder of this chapter,
+    I’ll elaborate on a second general category: performing a calculation based on
+    a subproblem.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goal of many functions is to perform a calculation. A function that returns
+    the sum of two numbers, or a function that finds the greatest value within an
+    array, are examples. These functions receive some sort of input and return the
+    result of calculations involving that input.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Chapter 10, [​*Recursively Recurse with Recursion*​](f_0096.xhtml#chp.recursion),
+    we found that one area in which recursion shines is where we need to act on a
+    problem that has an arbitrary number of levels of depth. A second area in which
+    recursion shines is where it is able to make a calculation based on a subproblem
+    of the problem at hand.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Before I define what a subproblem is, let’s refer back to the factorial problem
+    of the previous chapter. As you learned, the factorial of 6 is as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6 * 5 * 4 * 3 * 2 * 1
+  prefs: []
+  type: TYPE_NORMAL
+- en: To write a function that calculates the factorial of a number, we could use
+    a classic loop that starts with the 1 and builds up from there. That is, we’d
+    multiply the 2 by the 1, and then multiply 3 by the result, and then 4, and so
+    on until we reach 6.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Such a function may look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ factorial(n) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ product = 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ num = 1; num <= n; num += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | product *= num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ product; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'However, we could approach the problem differently: we could calculate the
+    factorial based on its subproblem.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A subproblem is a version of the very same problem applied to a smaller input.
+    Let’s apply this to our case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you think about it, factorial(6) will be 6 multiplied by whatever the result
+    of factorial(5) is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since factorial(6) is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6 * 5 * 4 * 3 * 2 * 1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'and factorial(5) is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5 * 4 * 3 * 2 * 1
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'we can conclude that factorial(6) is equivalent to:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6 * factorial(5).
+  prefs: []
+  type: TYPE_NORMAL
+- en: That is, once we have the result of factorial(5), we can simply multiply that
+    result by 6 to get the answer to factorial(6).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since factorial(5) is the smaller problem that can be used to compute the result
+    for the bigger problem, we call factorial(5) a subproblem of factorial(6).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the implementation of this from the last chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ factorial(number) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number <= 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Again, the key line here is return number * factorial(number - 1), in which
+    we compute the result as number multiplied by our subproblem, which is factorial(number
+    - 1).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Two Approaches to Calculations
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We’ve seen that when writing a function that makes a calculation, there are
+    two potential approaches: we can try to build the solution from the “bottom-up,”
+    or we can attack the problem going “top-down” by making the calculation based
+    on the problem’s subproblem. Indeed, computer science literature refers to the
+    terms bottom-up and top-down in regard to recursion strategies.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The truth is that both approaches can be achieved through recursion. We previously
+    saw the bottom-up approach using a classic loop; we can also use recursion to
+    implement the bottom-up strategy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To do this, we need to use our trick of passing extra parameters, as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ factorial(n, i=1, product=1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (i > n) { ​**return**​ product; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ factorial(n, i + 1, product * i); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this implementation, we have three parameters. n, as before, is the number
+    whose factorial we’re computing. i is a simple variable that starts at 1 and increments
+    by one in each successive call until it reaches n. Finally, product is the variable
+    in which we store the calculation as we keep multiplying each successive number.
+    We keep passing the product to the successive call so we can keep track of it
+    as we go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While we can use recursion in this way to achieve the bottom-up approach, it’s
+    not particularly elegant and doesn’t add much value over using a classic loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When going bottom-up, we’re employing the same strategy for making the calculation
+    whether we’re using a loop or recursion. The computational approach is the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But to go top-down, we need recursion. And because recursion is the only way
+    to achieve a top-down strategy, it’s one of the key factors that makes recursion
+    a powerful tool.
+  prefs: []
+  type: TYPE_NORMAL

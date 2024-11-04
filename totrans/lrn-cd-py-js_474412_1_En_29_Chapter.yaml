@@ -1,0 +1,533 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_29](https://doi.org/10.1007/978-3-658-42912-6_29)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '29. Program Execution & Hello World: What Do I Have to Do to Get a Program
+    Running?'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript programs are typically integrated into web pages. Therefore, to make
+    a program functional, we first need to understand how to incorporate it into a
+    web page. This chapter covers essential HTML fundamentals necessary for this process
+    and illustrates different methods to link an HTML web page with your JavaScript
+    code. Throughout this section, you will also have the opportunity to write your
+    inaugural "Hello World" program in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to use the HTML element **script** to refer to a JavaScript script from
+    within a web page (if you are not yet familiar with HTML, this chapter also gives
+    you a short introduction to the “programming language of the web”)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to embed JavaScript code directly into a web page using the **script** element
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how you can try out JavaScript thanks to special web services without having
+    to worry about embedding your script in the web page
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to write your first little “Hello World” program in JavaScript
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 29.1 Embedding JavaScript Code in Web Pages
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 29.1.1 The Script Element in HTML
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Unlike Python, JavaScript does not need an interpreter in order to run as it
+    is embedded in a web page and interpreted together with the web page by the browser.
+    This means that while we don’t have to deal with the question of how to run a
+    JavaScript program, because the browser does that for us, we do have to deal with
+    how to integrate a JavaScript program into a web page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Web pages consist of code written in the descriptive programming language HTML
+    (*Hypertext Markup Language*); for the conceptual distinction between descriptive
+    and other languages, scroll back to ► Sect. [3.​1](474412_1_En_3_Chapter.xhtml#Sec1).
+    If you already know the basics of how HTML works (and basics is all we’ll need
+    here), then just read on. But if you think your knowledge could do with a quick
+    refresher, then before you read on, turn first to the HTML (Hypertext Markup Language)
+    background box.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTML (Hypertext Markup Language)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**The Language of the Web**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTML is the language in which web pages are written. It was developed at the
+    end of the 1980s by the physicist *Tim Berners-Lee* at the European nuclear research
+    center CERN. Berners-Lee was not only raised to the peerage by the Queen of England,
+    showered with countless other honors (like the *Turing Award*, widely considered
+    as the Noble Prize in computer science) and placed on the list of the *100 Most
+    Important People of the Twentieth Century* by Time Magazine, but is also generally
+    regarded as the father of the World Wide Web. Today, the HTML standard is defined
+    by the *World Wide Web Consortium* (also known as *W3C*).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTML Elements and Their Components**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML documents consist of HTML elements. Such HTML elements basically have
+    three components:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*Tags*: Tags are symbols that mark the beginning and end of an HTML element;
+    to distinguish them from other parts of the document, they are enclosed in “less
+    than” and “greater than” characters, with a slash (**/**) preceding the element
+    name in the closing tag. A combination of opening and closing tags might thus
+    look like this: **<h1>…</h1>**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*Content*: There can often be content between the tags. For example, the **h1**
+    element describes a top-level heading (*header 1*). The text of the heading is
+    placed between the opening and closing tags, so for example: **<h1>Introduction</h1>**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*Attributes*: Attributes are inside the opening tag and modify the behavior
+    of the tag. They consist of an attribute name and an attribute value. The value
+    of the attribute is written in quotation marks and assigned to the attribute name
+    with an equal sign. The attribute **dir**, for example, controls the direction
+    of the text display. Its value **rtl** means *right-to-left*, i.e., the text is
+    displayed from right to left (right-justified). Incorporated into our **h1** element,
+    the attribute then looks like this: **<h1 dir="rtl">introduction</h1>**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Structure of HTML Documents**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Many HTML elements can be nested within each other. This results in a hierarchical
+    structure that the web browser reads and displays as a *Document Object Model*
+    (*DOM*). This already becomes clear in the structure of an HTML document. HTML
+    documents consist of a head (element **head**) and a body (element **body**).
+    The document head usually contains general information about the document, such
+    as the title of the document or meta information such as keywords or a description
+    of the web page for search engines. The body of the document contains the actual
+    content of the web page; it is therefore usually the disproportionately larger
+    part of the document.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**head** and **body** are embedded in an enclosing **html** element, which
+    is often called root element, because it is the hierarchically highest element
+    in the Document Object Model.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A simple website might look like this:**<!DOCTYPE html>****<html>****<head>****<title>**Test
+    Page**</title>****</head>****<body>****<h1>**Introduction**</h1>****<p>**Here
+    is some text.**</p>****</body>****</html>**
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **DOCTYPE** element is optional (and is one of those special kinds of elements
+    that don’t have a closing tag), it describes the document as an HTML document.
+    In the **body** of the document, you will see another element, **p**. It marks
+    a paragraph of text and usually causes some spacing to be left above and below
+    the text in the display, making the text appear as a free-standing paragraph.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The tab indentations in the source code of the HTML document have only been
+    added for the sake of better readability, they are ignored in the interpretation
+    of the document content, just like the upper and lower case of the tags (HTML
+    is not case sensitive). Thus, the following code is also a valid web page:**<!DOCTYPEhtml><html><head><TITLE>Test
+    Page</title></head><body><h1>Introduction</h1><p>Here is some text.</p></BOdy></HTML>**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Paste this code (preferably with the indentations) into an empty file using
+    an editor, save it with the extension **.htm** or **.html**, and there’s your
+    little web page, which you can now open and view with your browser.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the way: HTML also has *comments*: They have special opening and closing
+    tags with **<!--** and **-->**. Comments may also be multiline.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Cascading Style Sheets (CSS)**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In addition to the HTML source code of web pages and scripts, especially JavaScript
+    programs, which we will deal with in this part of the book, *Cascading Style Sheets*
+    (*CSS*) are an important part of modern web pages. It used to be common to specify
+    formatting with HTML elements and attributes directly in the HTML source code
+    of the web page; for example, a text can be easily centered with the **align**
+    attribute, which is supported by the **p** element, among others: **<p align="center"><Here
+    is some centered text</p>**. But if a web page wanted to change its design fundamentally
+    or if a “section” from a web page was to be shown on another web page that used
+    a different design, the formatting had to be changed in painstaking and error-prone
+    detail work in the HTML code.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This became easier with the introduction of *Cascading Style Sheets*. The idea
+    behind Cascading Style Sheets is to separate the structure and content of a web
+    page from the design and formatting, so that the design can be more easily replaced
+    or adapted without having to dig deep into the part of the web page that houses
+    the structure and content. This is implemented by describing formatting and design
+    in a separate file (typically with the extension **.css**) and not in the HTML
+    file itself. In the style sheet, i.e., in the CSS file, it can be specified, for
+    example, that **h1** headings should always be displayed in blue and in bold.
+    If the design of the website is revised and the default headline color is changed
+    to red, this change only must be made in one place, namely in the style sheet.
+    The display of all **h1** headlines in the entire HTML document will then change
+    automatically. A related advantage is of course obvious. The same CSS file can
+    be used for many different web pages, a large site with hundreds of subpages can
+    thus very easily adapt its design to new needs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Sometimes, however, you don’t want to format *all* headings of type **h1**
+    in a fixed way, but only certain ones. For this purpose, there is the **class**
+    attribute, which can be used with practically all HTML elements and which you
+    often see when you look at the source code of a web page. For example, a heading
+    might be distinguished like this: **<h1 class="section">News</h1>**. This attribute
+    can now be referred to in the CSS code. This means that some formatting rules
+    stored in the CSS only apply to this class of **h1** elements, but not to other
+    **h1** elements. The CSS could contain the following code for formatting the **h1**
+    heading elements:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'h1.section {color: red;}h1 {color: blue;font-weight: bold;}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here it also becomes clear what the term *cascading* means. Property attributes
+    are *inherited*. The general **h1** formatting statement in CSS says that the
+    text color should be blue. The formatting for **h1** elements of the class **section**
+    differs from this. For them, a different statement applies, namely coloring in
+    red. The statement **font-weight: bold** from the CSS of the **h1** element, on
+    the other hand, is not overwritten by the special statements for **h1** elements
+    of the class **section**, and therefore also applies there. Thus, an **h1** element
+    of the class **section**, like all **h1** elements, is also displayed in bold.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Like the HTML standard, the CSS standard is managed and developed by the World
+    Wide Web Consortium.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To get a JavaScript program to work, we need to embed it in a web page. This
+    is done with the **script** element, the use of which you can see in the following
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Test Page**</title>****</head>****<body>****<script**
+    src="helloworld.js"**></script>****</body>****<html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The name of the script file is specified as the value for the **src** (*source*)
+    attribute.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the example, we have placed the script element in the body of the web page,
+    but we could also have placed it in the head. However, scripts are usually included
+    in the body, or more precisely: at the end of the body. There is a good reason
+    for this: scripts are executed in the HTML document where they are placed. If
+    your script is at the end of the web page and needs a little longer to be fully
+    executed—no problem. The rest of the web page is already loaded and displayed
+    at this point. It would be more unpleasant if the viewer had to wait in front
+    of an empty page while the JavaScript code runs, which was included at the beginning
+    of the HTML document and is therefore also executed first, even before any other
+    elements of the page are loaded.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We have included our JavaScript program code here *as an extra file*. This
+    is the usual procedure. However, you can also include (especially short) scripts
+    *directly* in the HTML file. This would then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Test Page**</title>****</head>****<body>****<script**
+    type="text/JavaScript"**>**console.log("This goes to the console!")**</script>****</body>****<html>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the attribute **type** of the **script** element, we tell the HTML engine
+    of the browser that the code between the opening and closing tag (in our example
+    only a single line) should be understood as JavaScript code. De facto, JavaScript
+    is the only scripting language used. In the past, however, you might have encountered
+    Microsoft’s VBScript here and there, whose use in practice was admittedly quite
+    limited because it was only supported by Microsoft’s own browsers and had a powerful
+    competitor in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 29.1.2 Safety Aspects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Enable Execution of Scripts in the Browser
+  prefs: []
+  type: TYPE_NORMAL
+- en: While many of the more popular websites use JavaScript in one form or another,
+    they do not work or do not work properly if JavaScript code execution is disabled.
+    However, all modern browsers allow you to disable the execution of script code.
+    So, take a look at your browser’s settings and see if anything could get in the
+    way of enjoying your first JavaScript program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When the functionality of a website depends on the ability to run JavaScript,
+    you naturally want to tell the user of the page to enable JavaScript. This can
+    easily be done in the HTML source code of the page by using the **noscript** element
+    and giving it a message to the user as a hint, as in the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**<noscript>**Please activate JavaScript to use this website.**</noscript>**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The message is only displayed if JavaScript execution is disabled in the browser’s
+    security settings (try it out!).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Visibility of the Source Code
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike PHP, JavaScript programs are interpreted by the browser (i.e., client-side).
+    To do this, they must first be downloaded, which is not necessary in the case
+    of PHP code, since its interpreter operates entirely on the server and does not
+    use the client’s resources for execution. Therefore, you cannot hide your source
+    code from the user’s eyes, even if you dump it into an extra file that you load
+    from a web server with **<script src=…>**. As you will see in the following section,
+    it is usually easy to see the code. True, there are methods and tools for obfuscation,
+    with which the source code can be practically encrypted. But even these approaches
+    have their limits because the browser has to decode the source code in order to
+    execute it. So, expect your JavaScript programs to be viewable by your site’s
+    viewers. This may not be true for the average user, but those who have the knowledge
+    to understand the JavaScript code will know how to access it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 29.2 “Hello World” in JavaScript
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '29.2.1 Do-it-Yourself: The (Not so) Laborious Way'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The classic “hello world” program in JavaScript is very simple:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: console.log("Hello World!")
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you save this line in a JavaScript file **helloword.js** and then include
+    this script in an otherwise empty (except for the mandatory elements) HTML web
+    page document, as seen in the example of the previous section, you have already
+    successfully completed this task.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now when you open the finished HTML document in your browser, you see…nothing!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Didn’t our simple program work? Yes, it did, it just doesn’t output the text
+    in the browser window, but in a different area, the *JavaScript Console*. How
+    you get to this console, which is not displayed by default and is more of a tool
+    for developers, differs from browser to browser: On Windows, for example, press
+    <CTRL>+<SHIFT>+<J> in Google *Chrome*, <F12> in Microsoft Edge, and <CTRL>+<SHIFT>+<I>
+    (or <F12>) in Mozilla *Firefox*. You can also open the console via the menus,
+    often under menu items like “More tools” or “Developer tools”. If you have more
+    than one browser installed and open the console once in all browsers, you will
+    immediately recognize certain similarities.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first two tabs, which we will mainly work with here, usually have names
+    like “Elements”, “Inspector” or similar and “Console”. Under “Elements” you see
+    the HTML code of the currently loaded page and can navigate interactively in this
+    HTML code. By marking an element in the HTML source code, the representation of
+    the element is automatically highlighted in the web page view. This makes it easy
+    to see which part of the source code leads to which part of the web page display.
+    By expanding and collapsing the elements in the source code, you can also display
+    the source code more compactly and better understand the hierarchical nesting
+    of the HTML elements. This may not be very impressive for our small sample page
+    (◘ Fig. [29.1](#Fig1)) but open the Elements view when you have another website
+    open, such as Wikipedia or YouTube! Then you will see very nicely how practical
+    this function is. Conversely, you can switch from *Elements* to a selection mode
+    where you click on an element of the browser’s web page view and then the corresponding
+    location in the page’s source code is automatically highlighted in the “Elements”
+    view. For more on this useful feature, see ► Sect. [32.​6.​2](474412_1_En_32_Chapter.xhtml#Sec16).![](../images/474412_1_En_29_Chapter/474412_1_En_29_Fig1_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot denotes an H T M L code under the Elements tag in the Google Chrome
+    developer tools. The code comprises a Java script inside the body tag. The styles
+    tag is selected on the right.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 29.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: Developer tools in Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The JavaScript programs that are swapped out to other files can also be viewed
+    in this way. If you click on a reference to a swapped-out JavaScript file in the
+    HTML code, the source code immediately opens in another tab. By the way: You can
+    even edit the HTML source code via the *Elements* tab, mostly by using corresponding
+    options in the context menu. You can regularly save the changes as an HTML file
+    with the key combination <CTRL>+<S>.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For our “Hello World” JavaScript program, however, we are primarily interested
+    in the second tab, the *Console*. If you open it, you will see that our JavaScript
+    code has indeed produced an output (◘ Fig. [29.2](#Fig2)).![](../images/474412_1_En_29_Chapter/474412_1_En_29_Fig2_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the developer tool denotes the output. The console tab is selected
+    at the top and a text at the bottom reads Hello World.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 29.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: Output of the “Hello World” program in the console
+  prefs: []
+  type: TYPE_NORMAL
+- en: This means that we can use the console to print outputs that the viewer of the
+    website does not see immediately. This is especially useful in development to
+    output debug messages that do not affect the actual display of the web page in
+    this way. But also the JavaScript interpreter of the browser uses the console
+    to output error or warning messages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the example of ◘ Fig. [29.3](#Fig3), the first quotation mark was forgotten
+    in the source code line **console.log(Hello world!')**. The interpreter points
+    out the syntax error to us when executing the code.![](../images/474412_1_En_29_Chapter/474412_1_En_29_Fig3_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot of the Developers tool highlights the Console tab at the top. It
+    exhibits an uncaught syntax error message at the bottom.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 29.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: Error message in the JavaScript console of Google *Chrome*
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also use the console in an interactive mode, that is, you can enter
+    and execute statements directly in the console. Unlike Python, however, the console
+    in JavaScript does not have a separate namespace from the web page. If you execute
+    a program and create variables, these variables are then available in the console
+    for further interactive editing. Most web browsers also support code completion
+    in the console. When you start typing, you will be presented with a pop-up menu
+    with several choices that can help you speed up the typing process.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will work quite intensively with the console in the next chapter because
+    it offers a simple way to quickly output some information, and the next chapter
+    will focus precisely not on inputs and outputs, but on other concepts to which
+    we want to devote our full attention. In ► Sect. [31.​7](474412_1_En_31_Chapter.xhtml#Sec19),
+    where we deal specifically with the input and output of data, we will also see
+    how you can write data directly into the web page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you can’t wait, and think a “hello world” program that doesn’t write directly
+    to the web page isn’t a real “hello world” program, try this code in your script
+    file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: document.write('<p>Hello World</p>');
+  prefs: []
+  type: TYPE_NORMAL
+- en: After refreshing the view (typically with F5), you see the output in the browser,
+    not in the console, but in the actual page view.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '29.2.2 With a Little Help: Fast Implementation with a Web Service'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: It’s not that easy to just start programming in JavaScript, because first of
+    all you have to create a web page and integrate your script into it. It’s easier
+    with web services like the open-source project *JS Bin* (► [http://​www.​jsbin.​com](http://www.jsbin.com)),
+    which allow you to get started at will without any fuss. *JS Bin* executes the
+    JavaScript code you type in the appropriate pane at the end of the HTML body (but
+    without displaying a reference to your script in the HTML code). You can also
+    edit the HTML code manually. At the top of the screen you can use the toggle buttons
+    to determine which views are displayed; the *Output* is the finished website (◘
+    Fig. [29.4](#Fig4)).![](../images/474412_1_En_29_Chapter/474412_1_En_29_Fig4_HTML.jpg)
+  prefs: []
+  type: TYPE_NORMAL
+- en: A screenshot denotes 4 sections. It exhibits an H T M L code, the JavaScript,
+    the console, and the output text reading Hello World from left to right. The respective
+    tabs are highlighted at the top.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fig. 29.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: The JavaScript web service JS Bin
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Tip: If you are working with *JS Bin*, it is recommended to uncheck the *Auto-run
+    JS* checkbox on the right side of the screen and to always start the execution
+    of the JavaScript manually via the *Run with JS* button instead. Otherwise, *JS
+    Bin will* re-execute the current state of your JavaScript code every time you
+    hit a key, which of course leads to an unpleasantly long list of useless error
+    messages in the console.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In addition to *JS Bin*, there are a number of other services that offer similar
+    functionalities, such as *Plunker* (► [http://​plnkr.​co](http://plnkr.co)) or
+    *JS.do* (► [http://​www.​js.​do](http://www.js.do)), although the structure is
+    somewhat different in each case. What all these services have in common is that
+    they are well suited for trying things out. However, if you want to get serious
+    about JavaScript, it is advisable to work offline with your own “infrastructure”
+    (HTML and JavaScript code files). And that is exactly what we will do in the following
+    chapters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 29.3 Summary
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this chapter, we looked at how to get a JavaScript program running.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Be sure to take the following points from this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript programs typically run in web pages, so they must be integrated into
+    them.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is done with the help of the HTML element **script**; this can either be
+    given a reference to a script file with JavaScript with the attribute **src**,
+    or the JavaScript code is embedded directly into the web page between the **<script>…</script>**
+    tags.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is good practice to include scripts *at the end of* the web page so that
+    the web page loads first and can be viewed while the script is still loading or
+    running, if applicable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The HTML element **noscript** can be used to display a message if the user has
+    disabled JavaScript in his browser (normally JavaScript is already enabled thanks
+    to corresponding browser default settings).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript code is always visible to the viewer of the website. So, you cannot
+    “hide” your code.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Web services like *JS Bin* or *Plunker* allow you to try out JavaScript without
+    having to worry about integrating it into a web page; that’s handy for quick testing,
+    but if you want to get serious about JavaScript, you can’t avoid learning how
+    to integrate scripts into web pages (which is really not complicated).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

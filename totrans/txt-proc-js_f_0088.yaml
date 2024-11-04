@@ -1,0 +1,208 @@
+- en: Appendix 1
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: What Is Unicode?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Throughout this book, you’ll encounter the word “Unicode” in several recipes.
+    So, what exactly is Unicode?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unicode is a character encoding system that provides a consistent way of encoding,
+    processing, and displaying written texts. Put simply, an encoding system assigns
+    numbers to characters, which can then be translated into binary language used
+    by computers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unicode is implemented in all modern operation systems and programming languages.
+    And it plays an increasingly important role in the JavaScript language. Prior
+    to the invention of Unicode, there were hundreds of different character encoding
+    systems, most of which were severely limited in size and scope and incompatible
+    with one another.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The most widely used character encoding system besides Unicode is ASCII. American
+    Standard Code for Information Interchange (ASCII) was published in 1963 as a standard
+    for electronic communication. ASCII is based on a seven-bit byte, with each byte
+    representing a character, capable of encoding 128 characters, including lowercase
+    letters a-z, uppercase letters A-Z, digits 0-9, and punctuation symbols.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In addition, 33 non-printing control signals are set aside for Teletype machines,
+    most of which are now obsolete. Because ASCII is an American standard designed
+    for transmitting English characters, it cannot represent characters from other
+    languages. As computers became more prevalent in other parts of the world, other
+    encoding systems were invented to represent characters in other languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Over time, the need to support new languages led to the creation of hundreds
+    of conflicting ways to encode characters. These encoding systems were not only
+    inconsistent but also incomplete: two encodings could encode the same character
+    using different codes, and they were only able to encode a small number of characters.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unicode aims to solve this problem by unifying all existing character encoding
+    systems and replacing them with a universal character encoding standard supporting
+    every character in every writing system and language in the world. By providing
+    a standard to encode multilingual text, Unicode creates the foundation for developing
+    global software.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Prior to the introduction of the Unicode standard, most programs supported a
+    small set of encodings. They were designed primarily for larger markets due to
+    the cost and complexity of developing specific versions of programs for smaller
+    markets. Furthermore, converting text between different programs posed a risk
+    of corruption. Unicode’s ability to easily exchange text data internationally
+    enables programs to function anywhere in the world.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To achieve this, Unicode uses more bits to encode each character, allowing more
+    space for encoding. At this time, the most recent version of the Unicode standard,
+    Unicode 15.0, contains a collection of 149,186 characters from many modern and
+    historic scripts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In addition to including modern and classical forms of many languages from around
+    the world, the standard contains important symbol sets, including punctuation
+    marks, mathematics symbols, currency symbols, technical symbols, emojis, dingbats,
+    and geometric shapes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With a capacity of over one million characters, Unicode is more than enough
+    for encoding text expressed in most writing systems. But, capacity limitation
+    in fonts means no one font set supports all Unicode characters. So even though
+    Unicode provides a way to display the characters, they still won’t display right
+    if they are not part of the font being used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason behind this is that a font can only have 16 bits of glyph identifiers,
+    which corresponds to 65,536 glyphs (note that a glyph is different from a character^([[37]](#FOOTNOTE-37))).
+    As a result, it has been technically impossible to represent all +149,186 characters
+    of Unicode with a single font.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Characters in Unicode are represented in three encoding forms:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8-bit form (UTF-8)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 16-bit form (UTF-16)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 32-bit form (UTF-32)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: UTF is the abbreviation for Unicode Transformation Format, and the number following
+    it indicates the number of bits used to encode each character. The 8-bit form
+    of Unicode is the most common character encoding on the web. It was designed not
+    only to represent standard Unicode characters but also to be backward compatible
+    with ASCII. The ASCII characters are the first 128 code points in Unicode (UTF-8).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Therefore, an ASCII text is also considered a Unicode text. In fact, Unicode
+    is a superset of all characters in common use today because it includes characters
+    from various international standards, as well as important industry character
+    sets. UTF-16 represents characters using one or two 16-bit integers. Most of the
+    characters in major languages can be represented using one 16-bit code unit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: These characters, known as Basic Multilingual Plane (BMP), are encoded in the
+    first 65,536 code points and require 2 bytes per character. Any character beyond
+    BMP is called a supplementary character and cannot be represented in just 16 bits.
+    Supplementary characters need a pair of 16-bit surrogate code units and are encoded
+    in 4 bytes. Unicode allocates 2,048 code points as surrogate code points for the
+    UTF-16 form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For UTF-8, 1 byte is used to represent characters in ASCII, 3 bytes for the
+    rest of the BMP, and 4 bytes for supplementary characters. UTF-32 is a fixed-width
+    encoding using 4 bytes for all characters — unlike UTF-8 and UTF-16, which represent
+    each code point by a variable number of code values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unicode code points are usually represented in hexadecimal notation and prefixed
+    with U+. The range between U+0000 and U+FFFF represents code points in BMP. For
+    supplementary characters, five or six hex digits are used to represent code points,
+    and the range is between U+10000 and U+10FFFF.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The characters you see on computers are actually binary data consisting of a
+    series of ones and zeros. A character encoding interprets those binary data into
+    real characters. In order to accomplish this, the encoding associates each character
+    with a number which is called a code point. For example, the character “F” is
+    assigned a code point of U+0046.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A character that’s assigned to a specific code point is called an encoded character.
+    In JavaScript, you can use the code point of a character directly by preceding
+    the code point with \u, as in this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | console.log(*"***\***u0046"*); *// → F* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'A character encoding has two components: an encoder and a decoder. When you
+    input text, the encoder translates the characters into a sequence of numeric values
+    (bytes) that represents those characters. To display the characters, the decoder
+    translates the sequence of bytes back into characters.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since ES2015, you can use most Unicode characters as an identifier. For example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[appendix/unicode/unicode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/unicode/unicode_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// An identifier in the Persian language* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** **سلام** = *"hi"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(**سلام**); *// → hi* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// An identifier in the Japanese language* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** **こんにちは** = *"Hello"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(**こんにちは**); *// → Hello* |'
+  prefs: []
+  type: TYPE_TB
+- en: The goal of Unicode is to enable everybody in the world to use their language
+    on computers. Therefore, it’s no wonder Unicode is the most used character set
+    encoding in the world.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you are interested in reading more about Unicode, check out unicode.org.^([[38]](#FOOTNOTE-38))
+  prefs: []
+  type: TYPE_NORMAL
+- en: Footnotes
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[[37]](#FNPTR-37)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://help.fontlab.com/fontlab/7/manual/About-Glyphs/](https://help.fontlab.com/fontlab/7/manual/About-Glyphs/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[38]](#FNPTR-38)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://home.unicode.org/](https://home.unicode.org/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copyright © 2024, The Pragmatic Bookshelf.
+  prefs: []
+  type: TYPE_NORMAL

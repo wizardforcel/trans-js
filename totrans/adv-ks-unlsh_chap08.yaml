@@ -1,0 +1,2909 @@
+- en: Asynchronous JavaScript
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this module, we will cover asynchronous programming in JavaScript. We will
+    learn what asynchronous programming means and how it was traditionally done in
+    JavaScript. We will also discuss the problems with the traditional way of handling
+    asynchronous code in JavaScript and how promises, introduced in ES2015, changed
+    the way we handle asynchronous code in JavaScript. We will discuss promises in
+    detail and also learn about the `async-await` syntax that simplifies using promises.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What does asynchronous mean?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the context of programming, “asynchronous” means that the program starts
+    a potentially long-running task and is free to do other tasks while the long-running
+    task is executed in the background. The key point to understand here is that the
+    program doesn’t have to wait for the long-running task to be completed; it is
+    free to do other tasks. Once the task is complete, the program is notified and
+    presented with the result of the task.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Asynchronous programming is needed because of the problems with traditional
+    synchronous programming. In synchronous programs, each instruction is executed
+    one after the other in a sequential manner. Instructions are executed in the order
+    they appear in the program. As a result, synchronous programs are easier to reason
+    about, but they also present problems that are solved by asynchronous programming.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The problem with synchronous programs is that a potentially long-running task
+    will block the program’s execution until its completion. This presents problems
+    like poor program performance, poor user experience, and inefficient resource
+    utilization.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although asynchronous programs solve the problems presented by synchronous programs,
+    asynchronous programs come with their own set of challenges, like error handling,
+    managing the shared state and resources, managing the coordination between different
+    parts of the program, etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Asynchronous JavaScript
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Before we dive into how asynchronous code can be written in JavaScript and
+    how it is handled behind the scenes, let’s take a step back and see the problem
+    we face in JavaScript if we execute some long-running code, like a loop in the
+    following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the code above in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example1”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript is a single-threaded language, which has its pros and cons. JavaScript
+    developers generally don’t have to worry about problems that come with multi-threaded
+    programs, like [race conditions](https://stackoverflow.com/questions/34510/what-is-a-race-condition)
+    and [deadlocks](https://stackoverflow.com/questions/34512/what-is-a-deadlock).
+    However, the limitation of the single thread is evident in the code example above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code example above is designed to simulate some long-running code that takes
+    approximately 3 seconds to complete. During these 3 seconds, the main thread on
+    which our JavaScript code is executed is blocked; nothing else executes during
+    those 3 seconds. If this JavaScript code is attached to an HTML file and executed
+    in a browser, the UI will freeze until the loop ends.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To see the frozen UI in action, try adding the above Javascript code to a file
+    named `index.js` and attaching it to an HTML file containing the following HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the code above in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/overview-example2”>
+  prefs: []
+  type: TYPE_NORMAL
+- en: On the initial page load, you will notice that the button is not clickable for
+    a few seconds. The UI will stay frozen until the JavaScript code has been executed,
+    specifically the long-running loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This presents a horrible user experience in web applications. The single thread
+    puts a hard limit on what we can do with JavaScript on the main thread.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Nowadays, JavaScript engines are good enough to execute the code at a very good
+    speed; engines are designed to heavily optimize the JavaScript code to execute
+    it as efficiently as possible. Still, one needs to be mindful that the main thread
+    should not be blocked by any code that could take long enough to make the delay
+    noticeable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::info
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript also allows us to execute some code in another thread, independent
+    of the main thread, using the [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, let’s discuss the traditional way of writing asynchronous code in JavaScript
+    using callbacks. We will also discuss the problems with using callbacks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using callback functions to handle asynchronous code has been the traditional
+    way of writing asynchronous code in JavaScript. A callback function is a function
+    that is passed to another function as an argument and is intended to be invoked
+    after some asynchronous operation. The function that receives the callback function
+    as an argument typically invokes the callback function with the result of the
+    asynchronous operation or the error if the asynchronous operation fails.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Operations like HTTP requests are asynchronous, but they aren’t handled by JavaScript.
+    The code we write initiates the asynchronous operation; the actual asynchronous
+    operation is handled by the browser in the case of client-side JavaScript, background
+    threads, or the operating system itself in the case of the NodeJS runtime.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In simple words, asynchronous operations take place in the background (outside
+    of JavaScript land), and in the meantime, other things can execute on the main
+    thread (in JavaScript land).
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the asynchronous operation is completed, our JavaScript code is notified,
+    leading to the execution of the callback function that we provided at the time
+    of initiating the asynchronous operation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is how JavaScript gets around its limitation of a single thread. The asynchronous
+    operations are actually handled by the runtime (browser, NodeJS, etc.). In the
+    meantime, JavaScript can do other things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following code example shows the use of a callback function by sending
+    an HTTP request to a fake REST API:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the code above in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: A callback function passed to the `addEventListener` method handles the result
+    of the HTTP request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Different DOM events, for example, the click event, are also handled asynchronously
+    using the callback functions. A callback is registered as an event handler and
+    is invoked later whenever the event is triggered.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similarly, different timer functions like `setTimeout` are also provided with
+    a callback function that is intended to be invoked after the specified amount
+    of time has elapsed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the code above in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example3” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is a common misconception that the callback provided to `setTimeout` is
+    invoked exactly after the specified amount of time has passed. The time we specify
+    when invoking `setTimeout` is the *minimum* amount of time after which the provided
+    callback will be invoked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the code example provided above, we have specified 2 seconds (2000 milliseconds)
+    as the time after which the callback should be invoked. But the callback will
+    not be invoked exactly after 2 seconds. Imagine a scenario where we also have
+    a long-running loop that takes approximately 4 seconds to run. As we discussed
+    in the previous lesson, JavaScript is single-threaded, so a long-running loop
+    will block the main thread, which means that the callback function provided to
+    `setTimeout` cannot be executed until the loop ends. The following code example
+    demonstrates this scenario:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the code above in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/callbacks-example4” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above code example shows that the `setTimeout` callback or the callback
+    provided to the `setInterval` function may not be invoked after the specified
+    time has passed; some other code can block them from being invoked after the specified
+    time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript is single-threaded; only one thing can execute at a time on the main
+    thread. Currently, executing code cannot be interrupted to execute some other
+    code, like the callback function of `setTimeout` in the code example above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The callback functions are at the heart of asynchronous code in JavaScript.
+    Using callbacks works, but they also come with problems.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Problems with callbacks
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Using the traditional way of using callbacks to handle asynchronous code presents
+    multiple problems that make it hard to use callbacks effectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Callback hell
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Imagine a scenario where multiple asynchronous operations need to start sequentially
+    because each operation depends on the result of the previous operation. To handle
+    such a scenario, we have to nest callbacks, which, depending on the number of
+    asynchronous operations, can lead to code that is hard to read and maintain. The
+    following code example shows this in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is what’s referred to as the **Callback Hell** or the **Pyramid of Doom**
+    because the nesting at each level creates a structure that looks like a pyramid.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Looking at the code example above, it is not hard to imagine that it will get
+    harder to read as more operations are added to the sequence of asynchronous operations.
+    Not only is it hard to read, but it is also hard to maintain and refactor. Note
+    that the code example above does not include any error handling; add that to the
+    code above, and you will have the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The code above fits its name: “Callback Hell”. No one wants to deal with such
+    a code. It is hard to reason about. We will see in later lessons in this module
+    how the same code can be rewritten using promises and async-await syntax to make
+    it more readable and maintainable.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Error handling
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Writing error handling code using callbacks, as shown above, is not a pleasant
+    experience. As shown in the code above, we need to handle errors in each callback,
+    which can lead to duplication of error handling logic. There is no central place
+    where we can catch and handle errors for all the asynchronous operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this lesson, we discussed how callbacks are used to write asynchronous code
+    in JavaScript. Though there are better alternatives like promises and async-await
+    that solve the problems with callbacks discussed above, callbacks are still commonly
+    used. Although promises solve the problems with callbacks, they still use callbacks,
+    but in a more manageable way that helps us avoid the callback hell.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As we know already, the JavaScript language is single-threaded. Long-running
+    code on the main thread can block the thread; in the case of browsers, blocking
+    the main thread means that browsers cannot respond to user interactions and cannot
+    render changes on the UI. This is why the screen freezes when some long-running
+    code blocks the main thread. In the case of NodeJs, in the context of application
+    servers, blocking the main thread means that the server cannot handle the incoming
+    HTTP requests until the main thread is unblocked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To get around the limitation of a single thread where JavaScript code executes,
+    as discussed in the previous lesson, any asynchronous operation is handled in
+    the background, and in the meantime, the main thread can do other things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Asynchronous operations like HTTP requests are handled by the browser in the
+    background, and when the HTTP request is completed, our JavaScript code is executed
+    using the callback we provided at the time of starting the HTTP request. The same
+    is true for other asynchronous operations, like file handling in NodeJS. Every
+    asynchronous operation in NodeJs is either handled by the internal thread pool
+    of NodeJS or the operating system itself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we consider the main thread as the “JavaScript world”, then the asynchronous
+    operations actually happen outside the JavaScript world. Once the operation is
+    completed, to get back into the JavaScript world, callbacks are used, which are
+    invoked to execute the JavaScript code in response to the successful completion
+    or failure of the operation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, in short, the code we write that executes on the main thread only initiates
+    the asynchronous operation. Instead of waiting for the operation to complete,
+    the main thread is free to do other things. The asynchronous operation is handled
+    in the background by the environment in which our JavaScript code is executed.
+    It can be a browser or a runtime like NodeJS. But how does the execution get back
+    from the background to the main thread where our code is executed? This is where
+    the **event loop** comes into the picture.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What is an event loop?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The event loop in JavaScript is one of those concepts that is explained abstractly
+    to make it easier for others to understand. This lesson will aim to create a solid
+    understanding of the event loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The event loop helps to execute asynchronous operations in a non-blocking manner.
+    When an asynchronous operation is completed in the background to execute the JavaScript
+    callback that we provided at the time of initiating the asynchronous operation,
+    it needs to be pushed onto the call stack.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The call stack is a stack data structure used to keep track of the currently
+    executing code. Every function call is added to the stack as a stack frame. The
+    frame is popped off the stack when the function execution ends.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let us understand the event loop using the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the code above in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/event-loop-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The code above logs “after setTimeout” before “hello world” which is inside
+    the callback of `setTimeout`. The following steps explain how the code above executes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To execute the code, a task is created and pushed onto the call stack. This
+    is what’s commonly referred to as the “global execution context”.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Once the code execution starts, the first thing to do is to invoke the `setTimeout`
+    function, passing in a callback that is to be invoked after approximately 2 seconds.
+    Calling `setTimeout` starts a timer in the background that will expire after 2
+    seconds in our code example. In the meantime, the main thread continues executing
+    the code instead of waiting for the timer to expire. This is why “after setTimeout”
+    is logged before “hello world”.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Next, the `console.log` is executed, logging “after setTimeout” on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'At this point, the synchronous execution of our code has ended. As a result,
+    the task created (step 1) to execute the code is popped off the call stack. Now,
+    JavaScript is ready to execute any scheduled callbacks. This point is important:
+    *no asynchronous callback can be invoked until the synchronous execution of the
+    code has ended*. Remember, only one thing executes at a time on the main thread,
+    and the currently executing code cannot be interrupted.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: After the synchronous execution ends, let us assume that by this time the timer
+    has expired (in reality, our code execution will end long before 2 seconds). As
+    soon as the timer expires, a task is enqueued in a **task queue** to execute the
+    callback of `setTimeout`. The task queue is where different tasks are queued until
+    they can be pushed onto the call stack and executed.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The **event loop** is the entity that processes the tasks in the task queue
+    and pushes each of them to the call stack to execute them. Tasks are processed
+    in the order they are enqueued in the task queue. In our case, there is only one
+    task in the task queue. This task is pushed onto the call stack, but the event
+    loop only pushes the tasks onto the call stack if the call stack is empty. In
+    our case, the call stack is empty, so the callback of `setTimeout` can be executed.
+    As a result, “hello world” is logged on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The role of the event loop, as described in the above steps, is to process the
+    tasks in the task queue if the call stack is empty and there are one or more tasks
+    in the task queue waiting to be executed. So, the event loop is an entity that
+    allows asynchronous code to be executed in JavaScript in a non-blocking manner.
+    The event loop can be thought of as a loop that continuously checks if there are
+    any tasks waiting to be executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The event loop is what connects the two worlds: the “JavaScript world”, where
+    our code executes, and the “background world”, where the asynchronous operations
+    are actually executed.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The above steps can be visualized in the following image:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![function parameter scope](images/module_09----lesson_09.03----public----assets----__event-loop-visualization.gif)'
+  prefs: []
+  type: TYPE_IMG
+- en: function parameter scope
+  prefs: []
+  type: TYPE_NORMAL
+- en: Take your time to understand exactly what happens behind the scenes. The timer
+    is intentionally shown to take longer than 2 seconds to make the visualization
+    easier to understand. Understanding the steps above before seeing the image will
+    make it easy to understand how our code example executes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any user interaction like the click event requires scheduling a task; the same
+    is true for executing the callbacks of timing functions like `setTimeout`. Tasks
+    are queued in the task queue until the event loop processes them. The task queue
+    is also referred to as the **event queue** or the **callback queue**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The event loop processes a single task during its single turn, commonly referred
+    to as the “event loop tick” or just “tick”. The next task is processed during
+    the next turn or tick of the event loop. The browser may choose to render UI updates
+    between tasks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The event loop can have multiple sources of tasks, and the browser decides which
+    source to process tasks from during each tick of the event loop. Another queue
+    is known as the microtask queue, which we will discuss later in this module. The
+    event loop also processes microtasks, but there is a difference in how the event
+    loop processes tasks and microtasks. The difference will be clear when we discuss
+    the microtask queue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this lesson, we discussed what an event loop is and how tasks are processed:
+    a single task per tick of the event loop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tool to visualize the event loop
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'The following is a great tool to visualize the workings of an event loop using
+    our code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[loupe](http://latentflip.com/loupe)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'The following resources are recommended to further our understanding of the
+    event loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[The event loop (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[What the heck is the event loop anyway? | Philip Roberts (youtube video)](https://www.youtube.com/watch?v=8aGhZQkoFbQ)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Jake Archibald on the web browser event loop, setTimeout, micro tasks, requestAnimationFrame
+    (youtube video)](https://www.youtube.com/watch?v=cCOL7MC4Pl0)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Promises introduced in ES2015 have transformed the way we handle asynchronous
+    code in JavaScript. Promises are meant to address the problems we discussed with
+    callbacks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A promise represents an object that acts as a *placeholder* for a value that
+    is typically produced as a result of an asynchronous operation. In other words,
+    a promise object represents the successful completion or failure of an asynchronous
+    operation. There is a common misconception among beginners that promises to make
+    our code asynchronous; they do not. Think of promises as a notification mechanism
+    that notifies us about the success or failure of some operation that is *already*
+    asynchronous. Promises wrap asynchronous operations and allow us to execute code
+    when an asynchronous operation is successfully completed or when it fails. That’s
+    all a promise does. Nothing more, nothing less. It is only meant to observe the
+    asynchronous operation and notify us when that operation is completed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before we learn how we can create promise objects, let us first learn how we
+    can deal with promises using the built-in `fetch` function that allows us to make
+    HTTP requests from the JavaScript code running in the browser.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the `fetch` function is called, instead of making the calling code wait
+    for the HTTP request to complete, it returns a promise object. We can associate
+    callback functions with the returned promise object to execute code when the HTTP
+    request is complete. We still use callbacks with promises, but the problems we
+    discussed with callbacks in an earlier lesson in this module don’t exist when
+    using promises. Compared to callbacks, promises provide a clean and structured
+    way to handle asynchronous operations in JavaScript.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The promise returned by the `fetch` function can be thought of as the `fetch`
+    function *promising* us to supply a value when the HTTP request completes some
+    time in the future. In the meantime, the main thread is free to do other things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What can we do with the returned promise? We can register callbacks with the
+    promise object that will be invoked when the network request completes. We can
+    register separate callbacks to handle the success or failure of the network request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise states
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Promises can be in one of the following three states in their lifecycle:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**pending:** the initial state in which promises typically start when they
+    are created. It indicates that the asynchronous operation associated with the
+    promise is in progress.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**fulfilled:** means that the asynchronous operation associated with the promise
+    has been completed successfully.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**rejected:** means that the asynchronous operation associated with the promise
+    has failed.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: During the lifecycle of a promise, its state changes from pending to either
+    fulfilled or rejected. The state of a promise is saved in the hidden internal
+    slot named [[[PromiseState]]](https://262.ecma-international.org/14.0/#table-internal-slots-of-promise-instances).
+  prefs: []
+  type: TYPE_NORMAL
+- en: A promise in the pending state is considered *unsettled*. Once the promise transitions
+    from the pending state into either a fulfilled or rejected state, it is said to
+    have *settled*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise instance methods
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'There are three instance methods we can call on promise instances:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.then()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.catch()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.finally()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: then method
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'The `then` method is used to register a callback that is invoked asynchronously
+    once the promise is fulfilled, i.e., the asynchronous operation wrapped by the
+    promise completes successfully. This method allows us to execute code upon the
+    successful completion of an asynchronous operation. Consider the following code
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The `then` method accepts two callback functions as arguments: the **fulfillment
+    handler** and the **rejection handler**. The fulfillment handler is the first
+    argument, as shown in the code example above. The rejection handler is the optional
+    second argument that is invoked if the promise on which the `then` method is called
+    gets rejected.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: The fulfillment handler is passed the result of the asynchronous operation as
+    an argument. In other words, the fulfillment handler receives the value with which
+    the promise is fulfilled. In the case of an HTTP request, the promise is fulfilled
+    with the server response, so the fulfillment handler receives the server response
+    as an argument. On the other hand, the rejection handler receives the rejection
+    reason as an argument if the promise is rejected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: catch method
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: We learned in the previous section that we can pass the rejection handler as
+    the second argument to the `then` method to handle the promise rejection. There
+    is another option to register the rejection handler, and that is through the `catch`
+    method. Instead of passing the rejection handler to the `then` method, we can
+    call the `catch` method on the promise to register the rejection handler.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The `catch` method is similar to the `then` method that is called with only
+    a rejection handler, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: However, using the `catch` method to register a rejection handler is more common
+    than using the second argument of the `then` method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: finally method
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Imagine a scenario where we want to send an HTTP request to a server, and while
+    the request is in progress, we show a loading spinner to the user to indicate
+    that data is being loaded. When the request completes, either successfully or
+    unsuccessfully, we want to hide the loading spinner. To achieve this, we will
+    have to duplicate the code that hides the loading spinner in the fulfillment and
+    rejection handlers, as shown in the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'We want to avoid code duplication, and the `finally` method can help us remove
+    the code duplication. The `finally` method allows us to execute code regardless
+    of promise fulfillment or rejection. Just like the `then` and `catch` methods,
+    the `finally` method also accepts a callback function that is invoked asynchronously
+    after promise fulfillment as well as promise rejection. The callback passed to
+    the `finally` method is the perfect place for the code that we want to execute
+    regardless of whether the asynchronous operation fails or completes successfully.
+    We can refactor the code above as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Unlike the callbacks of the `then` and `catch` methods, the callback passed
+    to the `finally` method receives no arguments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Creating promises
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We can create new promise objects using the `Promise` constructor, as shown
+    below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `Promise` constructor takes a callback function as an argument, referred
+    to as the **executor** function, that is invoked *synchronously* to create the
+    promise object. It is common to incorrectly assume that any code inside the executor
+    function is executed asynchronously, but that is not the case. The executor function
+    is invoked synchronously to create the promise object. The code inside the executor
+    function should be any code that starts some asynchronous operation. The newly
+    created promise object will observe that asynchronous operation. The promise object
+    will notify us about the success or failure of the asynchronous operation that
+    is initiated inside the executor function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How is the asynchronous operation linked to the newly created promise? Through
+    the `resolve` and `reject` functions that, the executor function receives as arguments.
+    The parameters could be given different names, but it is common practice to name
+    them `resolve` and `reject` to clearly indicate their purpose. The `resolve` function
+    is used to resolve or fulfill the promise, and the `reject` function is used to
+    reject the promise. Let us take a look at a concrete example that will clarify
+    how we can create a promise object that wraps around an asynchronous operation
+    and is resolved or rejected depending on whether the asynchronous operation succeeds
+    or fails.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promises-example9” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code example above shows how a promise object can be wrapped around an asynchronous
+    operation and be resolved or rejected when the asynchronous operation succeeds
+    or fails. In response to the promise being fulfilled or rejected, the appropriate
+    handler (fulfillment or rejection) is invoked asynchronously.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is important to note that the promise won’t be fulfilled or rejected until
+    the `resolve` or `reject` functions are called within the executor function. As
+    a result, any registered fulfillment or rejection handlers won’t be called until
+    the promise is settled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The code example above might not make you see how promises are an improvement
+    over the traditional way of using callbacks to handle asynchronous code, but wait
+    until we discuss promise chaining and `async-await` syntax in the upcoming lessons
+    in this module. These two topics will help you see how promises address the two
+    main problems with callbacks: Callback hell and error handling.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using promises with callback-based API
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If you noticed in the code example in the previous section, we just wrapped
+    a promise around the callback-based `XMLHttpRequest` API. We wrapped a promise
+    around it so that we could interact with it using promises.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Similar to what we did above, we can convert any callback-based API into a
+    promise-based API. All we need to do is place the callback-based code in the executor
+    function and call the `resolve` and `reject` functions at appropriate places to
+    fulfill or reject the promise. Following is an example of wrapping a promise around
+    `setTimeout` to add an artificial delay in the code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promises-example10” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the code example above, we wrapped `setTimeout` in a promise to add an artificial
+    delay in the code. To resolve the promise after the specified delay (2 seconds
+    in our code above), we call the `resolve` function inside the callback function
+    of `setTimeout`. Note that we didn’t call or use the `reject` function because
+    we didn’t need it to reject the promise. We just want the promise to be fulfilled
+    after the specified delay.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise specification
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Promises/A+](https://promisesaplus.com/) is a standard that defines the behavior
+    of promises in JavaScript. It ensures that different implementations of promises
+    in different environments conform to the standard behavior defined in the specification
+    to ensure consistency in the behavior of promises across different environments.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Promise vs thenable
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'If you read the promise specification, you will find the word “**thenable**”
+    mentioned multiple times. A thenable is any object that has defined a method named
+    `then` but is not a promise. It is a generic term for objects with a method named
+    `then`. As promises have a method named `then`, we can say that all promises are
+    thenables, but the reverse is not true: every thenable is not a promise.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To summarize the difference, thenable is an object with a `then` method, and
+    promise is an object with a `then` method that conforms to the [Promises/A+](https://promisesaplus.com/)
+    specification.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the previous lesson, we discussed the following instance methods of promises:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.then()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.catch()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Promise.prototype.finally()`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We discussed what each of these methods allows us to do, but what we didn’t
+    discuss is what each of these methods returns. Their return value is important
+    because it allows for promise chaining, which is the topic of this lesson.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Each of the instance methods of promises returns a new promise, which enables
+    us to create a chain of method calls, effectively creating a chain of asynchronous
+    operations. Promise chaining helps resolve the two main problems we face when
+    using callbacks: “Callback Hell” and error handling.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following code example shows how we have registered fulfillment and rejection
+    handlers with the promise returned by the `fetch` function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'As each promise instance method returns a new promise, we can rewrite the above
+    code as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The refactored code achieves the same result as the first code example, but
+    technically, the first code example is different compared to the refactored code.
+    In the first code example, the rejection handler is registered on the promise
+    returned by the `fetch` function, whereas in the refactored code, the rejection
+    handler is registered on the promise returned by the `then` method. The promise
+    chain in the refactored code can be split into different parts, as shown below
+    to make it easier to understand:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the promises for which fulfillment and rejection handlers have been registered.
+    The fulfillment handler is registered on the promise returned by the `fetch` function,
+    but unlike the first code example, the rejection handler is registered on the
+    promise returned by the `then` method. So does it mean that if the promise returned
+    by the `fetch` function is rejected, there is no rejection handler registered
+    to handle the rejection? No, the rejection handler registered on the `pThen` promise
+    will handle the rejection. To understand how it works, we have to understand how
+    the promise chain works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Further code examples in this lesson will use the following function that simulates
+    an HTTP request that takes approximately two seconds to complete:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: This above function will make it easy for us to understand the promise chaining.
+    The function takes a boolean parameter that specifies whether we want our fake
+    request to be fulfilled or rejected. The default value of the parameter is `true`,
+    so we only need to pass the argument if we want the request to fail. Inside the
+    function, a promise is returned that wraps around the `setTimeout` to simulate
+    a request that takes approximately two seconds to complete. After the timer expires,
+    the promise is fulfilled or rejected, depending on the value of the `isSuccessRequest`
+    parameter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the `fakeRequest` function defined, let us dive into the world of promise
+    chaining.
+  prefs: []
+  type: TYPE_NORMAL
+- en: then promise
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Calling the `then` method on a promise registers a fulfillment handler on that
+    promise. The `then` method itself returns a new promise that is different from
+    the original promise on which the `then` method is called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example5”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The promise returned by the `then` method fulfills or gets rejected based on
+    the following two questions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What happens to the promise on which the `then` method is called? In our case,
+    the `then` method is called on the `pRequest` promise.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What is returned from the fulfillment or rejection handlers passed to the `then`
+    method? Which handler will affect the promise returned by the `then` method depends
+    on which handler is invoked when the original promise on which the `then` method
+    is called settles.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Keeping the above two questions in mind, let us discuss the different scenarios
+    that can affect the promise returned by the `then` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 1: Original promise gets fulfilled'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'If the original promise on which the `then` method is called is fulfilled,
+    the promise returned by the `then` method depends on what happens inside the fulfillment
+    handler. Following are different things a fulfillment handler can do that affect
+    the promise returned by the `then` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the fulfillment handler is registered and it returns a value that is not
+    a promise or a thenable, then the promise returned by the `then` method gets fulfilled
+    with that returned value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example6”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the fulfillment handler doesn’t explicitly return any value, the promise
+    returned by the `then` method is fulfilled with `undefined` as the fulfillment
+    value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example7”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the `then` method is called on a promise but the fulfillment handler isn’t
+    provided, the promise returned by the `then` method gets fulfilled with the same
+    fulfillment value as the original promise.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example8”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the fulfillment handler throws any value or an error, the promise returned
+    by the `then` method gets rejected with the thrown value as the rejection reason
+    or value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example9”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the fulfillment handler returns a promise, the promise returned by the `then`
+    method gets *resolved* to the promise returned by the fulfillment handler. One
+    promise getting *resolved to another promise* simply means that the fate of one
+    promise (let’s call it `p1`) depends on the other promise (let’s call it `p2`).
+    If `p2` is fulfilled, `p1` also gets fulfilled with the same fulfillment value.
+    If `p2` gets rejected, `p1` also gets rejected with the same rejection value.
+    Promise `p1` will wait for `p2` to settle before it also settles and will eventually
+    meet the same fate as `p2`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example10”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above code example, `pThen` promise returned by the `then` method gets
+    *resolved* to the promise returned by the fulfillment handler of the `pRequest`
+    promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 2: Original promise gets rejected'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'If the original promise on which the `then` method is called is rejected, the
+    promise returned by the `then` method depends on the following scenarios:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If only the fulfillment handler is passed to the `then` method, the promise
+    returned by the `then` method also gets rejected with the same rejection reason
+    or value with which the original promise was rejected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example11”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If a rejection handler is passed to the `then` method, then the promise returned
+    by the `then` method depends on what happens inside the rejection handler. This
+    works similarly to how it works in the case of the fulfillment handler:'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the rejection handler returns a non-promise value, the promise returned by
+    the `then` method gets fulfilled with the value returned by the rejection handler.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the rejection handler doesn’t explicitly return any value, the promise returned
+    by the `then` method is fulfilled with `undefined` as the fulfillment value.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the `then` method is called on the original promise but the rejection handler
+    isn’t provided, the promise returned by the `then` method gets rejected with the
+    same rejection value as the original promise.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the rejection handler throws any value or an error, the promise returned
+    by the `then` method gets rejected with the thrown value as the rejection reason
+    or value.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the rejection handler returns a promise, the promise returned by the `then`
+    method gets resolved to the promise returned by the rejection handler, the same
+    as in the case of the fulfillment handler discussed earlier.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now that we have discussed how the promise returned by the `then` method settles
+    in different scenarios, next we will discuss the promise returned by the `catch`
+    method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: catch promise
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `catch` method is used to register a rejection handler for a promise in
+    which it is called. Just like the `then` method, the `catch` method also returns
+    a new promise, and just like the `then` method promise, the promise returned by
+    the `catch` method settles depending on the following two questions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What happens to the promise on which the `catch` method is called?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What is returned from the rejection handler passed to the `catch` method?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Scenario 1: Original promise gets fulfilled'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Suppose the original promise on which the `catch` method is called is fulfilled.
+    In that case, the rejection handler registered using the `catch` method isn’t
+    called, and the promise returned by the `catch` method gets fulfilled with the
+    same fulfillment value as the original promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example12”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 2: Original promise gets rejected'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'The rejection handler registered using the `catch` handler is called when the
+    original promise on which the `catch` method is called gets rejected. If the original
+    promise is rejected, then the promise returned by the `catch` method, just like
+    the promise returned by the `then` method, depends on what happens inside the
+    rejection handler:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the rejection handler returns a non-promise value, the promise returned by
+    the `catch` method gets fulfilled with the value returned by the rejection handler.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example13”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the rejection handler doesn’t explicitly return any value, the promise returned
+    by the `catch` method is fulfilled with `undefined` as the fulfillment value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example14”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the `catch` method is called on the original promise but the rejection handler
+    isn’t provided, the promise returned by the `catch` method gets rejected with
+    the same rejection value as the original promise.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example15”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the rejection handler throws any value or an error, the promise returned
+    by the `catch` method gets rejected with the thrown value as the rejection reason
+    or value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example16”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the rejection handler returns a promise, the promise returned by the `catch`
+    method gets resolved to the promise returned by the rejection handler, the same
+    as in the case of the fulfillment handler discussed earlier.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example17”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: finally promise
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `finally` method is used to register a callback function that is invoked
+    asynchronously after the promise settles. The callback passed to the `finally`
+    method is invoked regardless of whether the promise on which it is called is fulfilled
+    or rejected. Just like the `then` and `catch` methods, the `finally` method also
+    returns a new promise, and the settlement of the promise returned by the `finally`
+    method depends on the following two questions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What happens to the promise on which the `finally` method is called?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What is returned from the callback function passed to the `finally` method?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Scenario 1: Original promise gets fulfilled'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Suppose the original promise on which the `finally` method is called is fulfilled.
+    In that case, the promise returned by the finally method also gets fulfilled with
+    the same fulfillment value as the original promise, provided that the following
+    conditions are met:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `finally` callback doesn’t throw an error or a value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The `finally` callback doesn’t return a rejected promise or a promise that eventually
+    gets rejected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s the code in the Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example18”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that the `finally` callback didn’t explicitly return any value, but the
+    `finally` promise fulfilled with the fulfillment value of the original `pRequest`
+    promise. This behavior is different than that of the `then` and `catch` methods;
+    their promise is fulfilled with the value `undefined` if their callback implicitly
+    returns `undefined`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 2: Original promise gets rejected'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Suppose the original promise on which the `finally` method is called is rejected.
+    In that case, the promise returned by the `finally` method also gets rejected
+    with the same rejection value as the original promise, provided that the same
+    two conditions mentioned previously are met:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The finally callback doesn’t throw an error or a value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The finally callback doesn’t return a rejected promise or a promise that eventually
+    gets rejected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s the code in the Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example19”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 3: shadowing original promise settlement'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: Unlike the `then` and `catch` methods, the return value of the `finally` callback
+    is ignored, and the promise returned by the `finally` method simply meets the
+    same fate as the original promise on which it is called; if the original promise
+    fulfills, the `finally` promise also fulfills; if the original promise gets rejected,
+    the `finally` promise also gets rejected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, the two conditions mentioned in the first two scenarios of the `finally`
+    method are exceptions to this rule. If the `finally` callback throws an error,
+    the `finally` promise gets rejected with the thrown value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example20”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The rejection of the `finally` method shadowed the rejection of the original
+    `pRequest` promise. The same thing will happen if the `pRequest` promise is fulfilled.
+    Throwing an error from the `finally` callback simply rejects the `finally` promise,
+    regardless of what happens to the original promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, returning a promise that is rejected from the `finally` callback
+    rejects the `finally` promise, regardless of what happens to the original promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example21”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Making sense of promise chaining
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We have discussed every scenario that can reject or fulfill the promise returned
+    by each of the promise instance methods. Finally, we can make sense of how the
+    promise chain works. We will go through a series of examples to solidify our understanding.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example 1
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example22”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What output do you expect in the above code example? Keep in mind that each
+    instance method returns a new promise, and its fulfillment or rejection depends
+    on two things:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What happens to the original promise on which the method is called?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What happens inside the callback function of that method?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Considering the different scenarios discussed above that can fulfill or reject
+    the promise returned by each of the promise instance methods, try to test your
+    understanding by guessing the output of the above code. Below is an explanation
+    of the output produced by the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Starting from the top of the promise chain, the promise returned by the `fakeRequest`
+    function will be fulfilled, resulting in the invocation of its fulfillment handler
+    that is registered using the first invocation of the `then` method. As a result,
+    the following is logged on the console:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: The promise returned by the `fakeRequest` function has been settled. The next
+    promise in the chain is the one returned by the first `then` method call. As the
+    original promise is fulfilled, the first `then` promise now depends on what happens
+    inside its callback function. As it returns the string “hello world”, the first
+    `then` promise will get fulfilled with “hello world” as the fulfillment value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'As a result, its fulfillment handler is called, which was registered using
+    the second `then` method call. The fulfillment handler of the first `then` promise
+    receives its fulfillment value, i.e., “hello world”, as an argument. This results
+    in “hello world” getting logged to the console. The console output so far is shown
+    below:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: At this point, two promises in the promise chain have settled. The next promise
+    in the chain is the one returned by the second `then` method. Just like the first
+    `then` method, the promise returned by the second `then` method depends on the
+    original promise on which it is called, i.e., the promise returned by the first
+    `then` method. As the original promise is fulfilled, the second `then` promise
+    now depends on what happens inside its callback function. Its callback returns
+    the string “123”. So the second `then` promise fulfills with “123” as its fulfillment
+    value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: But there is no fulfillment handler registered for the second `then` promise;
+    only the rejection handler is registered using the `catch` method. As a result,
+    no fulfillment handler is invoked in response to the fulfillment of the second
+    `then` method. The promise chain moves to the last promise in the chain, i.e.,
+    the one returned by the `catch` method.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'The promise returned by the `catch` method is called on the promise returned
+    by the second `then` method. As the second `then` promise is fulfilled, the `catch`
+    promise also gets fulfilled with the same fulfillment value as the second `then`
+    promise. But there is no fulfillment or rejection handler registered for the `catch`
+    promise, so its fulfillment is simply ignored. The final output of the code is
+    shown below:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Example 2
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example23”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Below is an explanation of the output produced by the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Starting from the top of the promise chain, the promise returned by the `fakeRequest`
+    function will be fulfilled, resulting in the invocation of its fulfillment handler
+    that is registered using the first invocation of the `then` method. As a result,
+    the following is logged on the console:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: The promise returned by the `fakeRequest` function has been settled. The next
+    promise in the chain is the one returned by the first `then` method call. As the
+    original promise is fulfilled, the first `then` promise now depends on what happens
+    inside its callback function. As it is returning a new promise by calling the
+    `fakeRequest` function, the first `then` promise will get *resolved* to the promise
+    returned from its callback function. The `then` promise will wait for the promise
+    returned from its callback function to settle before settling itself.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The promise returned from the callback function of the first `then` method
+    will be fulfilled after approximately two seconds. As soon as it is fulfilled,
+    the promise returned by the `then` method will also get fulfilled with the same
+    fulfillment value as the promise returned by its callback. As a result, its fulfillment
+    handler is called, which was registered using the second `then` method call. The
+    fulfillment handler of the first `then` promise receives its fulfillment value
+    as an argument, which is logged inside the fulfillment handler. The console output
+    so far is shown below:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: At this point, two promises in the promise chain have settled. The next promise
+    in the chain is the one returned by the second `then` method. Just like the first
+    `then` method, the promise returned by the second `then` method depends on the
+    original promise on which it is called, i.e., the promise returned by the first
+    `then` method. As the original promise is fulfilled, the second `then` promise
+    now depends on what happens inside its callback function. Its callback implicitly
+    returns `undefined`. So the second `then` promise fulfills with `undefined` as
+    its fulfillment value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: But there is no fulfillment handler registered for the second `then` promise;
+    only the rejection handler is registered using the `catch` method. As a result,
+    no fulfillment handler is invoked in response to the fulfillment of the second
+    `then` method. The promise chain moves to the last promise in the chain, i.e.,
+    the one returned by the `catch` method.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'The promise returned by the `catch` method is called on the promise returned
+    by the second `then` method. As the second `then` promise is fulfilled, the `catch`
+    promise also gets fulfilled with the same fulfillment value as the second `then`
+    promise. But there is no fulfillment or rejection handler registered for the `catch`
+    promise, so its fulfillment is simply ignored. The final output of the code is
+    shown below:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Example 3
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example24”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Below is an explanation of the output produced by the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
+    function will get rejected, but there is no rejection handler registered for this
+    promise; only a fulfillment handler is registered. As a result, no rejection handler
+    will be invoked for this promise. We move on to the next promise in the chain.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The promise returned by the `fakeRequest` function has been settled. The next
+    promise in the chain is the one returned by the first `then` method call. As the
+    original promise is rejected and no rejection handler was passed to the `then`
+    method, the promise returned by the `then` method will also get rejected with
+    the same rejection value as the original promise. As a result, its rejection handler,
+    registered using the `catch` method, is invoked, logging the following on the
+    console:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: The error object with which the first promise got rejected is the same value
+    with which the promise returned by the `then` method also got rejected. The promise
+    chain moves to the last promise in the chain, i.e., the one returned by the `catch`
+    method.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'At this point, two promises in the promise chain have settled. The next promise
+    in the chain is the one returned by the `catch` method. As the `then` promise
+    is rejected, the promise returned by the `catch` method depends on what happens
+    inside its callback. Its callback implicitly returns `undefined`, resulting in
+    the `catch` promise getting fulfilled with `undefined` as a fulfillment value.
+    But there is no fulfillment handler registered for the `catch` promise, so its
+    fulfillment is simply ignored. The final output of the code is shown below:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE50]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: One thing to note in the above code example is that the rejection of the promise
+    returned by the `fakeRequest` function was eventually handled by the rejection
+    handler registered for the promise returned by the `then` method. This is one
+    of the powers of promise chaining. Unlike callbacks, where we had to check for
+    the error in every callback, with promise chaining, we can register one rejection
+    handler, and it can handle the rejection of all the promises that come before
+    it in the promise chain. We could have multiple `then` method calls in the promise
+    chain and only one rejection handler at the end of the promise chain, registered
+    using the `catch` method. This makes error handling easy to manage in a promise
+    chain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example 4
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-chaining-example25”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Below is an explanation of the output produced by the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Starting from the top of the promise chain, the promise returned by the `fakeRequest`
+    function will be fulfilled, resulting in the invocation of its fulfillment handler
+    that is registered using the first invocation of the `then` method, passing the
+    fulfillment value to its fulfillment handler as an argument.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The promise returned by the `fakeRequest` function has been settled. The next
+    promise in the chain is the one returned by the first `then` method call. As the
+    original promise is fulfilled, the first `then` promise now depends on what happens
+    inside its callback function. As it is returning a new promise by calling the
+    `fakeRequest` function, the first `then` promise will get *resolved* to the promise
+    returned from its callback function. The `then` promise will wait for the promise
+    returned from its callback function to settle before settling itself.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The promise returned from the callback function of the first `then` method will
+    be rejected after approximately two seconds. As soon as it is rejected, the promise
+    returned by the `then` method will also get rejected with the same rejection value
+    as the promise returned by its callback. As a result, its rejection handler is
+    called, which was registered using the first `catch` method call. The rejection
+    handler of the first `then` promise receives its rejection value as an argument.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: At this point, the first two promises in the promise chain have settled. The
+    next promise in the chain is the one returned by the first `catch` method. As
+    the promise on which the `catch` method is called gets rejected, the first `catch`
+    promise now depends on what happens inside its callback function. It returns an
+    object literal. As a result, the first `catch` promise fulfills the returned object
+    as its fulfillment value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Note that the `catch` method doesn’t necessarily have to be at the end of the
+    promise chain; however, the `catch` method is most commonly placed at the end
+    of the promise chain. Depending on the requirement, the `catch` method can be
+    placed anywhere in the chain. In our code example, it is called after the first
+    `then` method to handle the possible rejection of the first `then` promise by
+    returning the default data and letting the chain continue. If the rejection of
+    the first `then` promise wasn’t handled, all the `then` promises after the first
+    `then` method would also be rejected with the same rejection value as the first
+    `then` promise, and the rejection would finally be handled in the last `catch`
+    method call.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'At this point, the first three promises in the promise chain have settled.
+    The next promise in the chain is the one returned by the second `then` method
+    call. As the promise (the first `catch` promise) on which the second `then` method
+    is called is fulfilled, the promise returned by the second `then` method now depends
+    on what happens inside its callback function. Its callback logs the fulfillment
+    value of the first `catch` promise and implicitly returns undefined, resulting
+    in the second `then` promise getting fulfilled with `undefined` as the fulfillment
+    value. Following is the console output up to this point:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: At this point, the first four promises in the promise chain have settled. The
+    next promise in the chain is the one returned by the third `then` method call.
+    As the promise (the second `then` promise) on which the third `then` method is
+    called is fulfilled, the promise returned by the third `then` method now depends
+    on what happens inside its callback function. Its callback throws an error, resulting
+    in the third `then` promise getting rejected with the thrown error as the rejection
+    reason or value. As a result, its rejection handler, registered using the last
+    `catch` method, is invoked, passing in the rejection value as an argument.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'As the promise (the third `then` promise) on which the last `catch` method
+    is called gets rejected, the last `catch` promise depends on what happens inside
+    its callback function. Its callback logs the rejection value of the third `then`
+    promise and implicitly returns `undefined`, resulting in the last `catch` promise
+    getting fulfilled with `undefined` as the fulfillment value. But there is no fulfillment
+    handler registered for the last `catch` promise, so its fulfillment is simply
+    ignored. The final console output of the code is shown below:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Hopefully, the examples above, along with the earlier discussion in this lesson
+    on different scenarios that can reject or fulfill the promise returned by each
+    of the promise instance methods, have laid a solid foundation for understanding
+    the promise chains and making use of them in your own code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rejection handler in then vs catch
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In the previous lesson, it was mentioned that a rejection handler can be registered
+    by passing a second argument to the `then` method, as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'There is one thing that should be kept in mind when registering a rejection
+    handler using the `then` method: the rejection handler registered using the `then`
+    method is not invoked if the promise returned by the `then` method, to which the
+    rejection handler is passed as an argument, gets rejected. The following code
+    example shows this in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE55]'
+  prefs: []
+  type: TYPE_PRE
+- en: The rejection handler registered using the `then` method is only invoked if
+    the original promise on which the `then` method is called gets rejected. As a
+    result, we have an *unhandled promise rejection* in the above code example, which,
+    in the worst case, can terminate the program. As a result, always remember to
+    handle all the possible promise rejections in your code when working with promises.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this lesson, we will discuss a couple of common use cases of the two [static
+    methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_properties)
+    of promises and learn how they can be useful. Other promise static methods are
+    also useful, but in my opinion, the following two use cases are the most common
+    ones:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Making concurrent requests
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Implementing request timeout
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Concurrent requests
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine a scenario where we want to initiate multiple HTTP requests all at once
+    and wait for their collective results. We cannot use a promise chain, as shown
+    below, because it will execute each request in a sequential manner.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE56]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: As each request in the above code is independent, instead of initiating the
+    requests in a sequential manner, we want [concurrent](https://en.wikipedia.org/wiki/Concurrent_computing)
+    requests. This can be achieved using the `Promise.all` method. It allows us to
+    start each request one after the other without waiting for one request to complete
+    before starting the other one. As a result, all three requests are initiated concurrently,
+    and we can wait for their collective results.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `Promise.all` method takes an [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)
+    of promises as an input and returns a promise that fulfills once all the promises
+    passed to it are fulfilled. The fulfillment value of the promise returned by this
+    method is an array of fulfillment values of all the promises passed to this method
+    as input. The promise this method returns gets rejected if any of the input promises
+    gets rejected. We can rewrite the above code example using the `Promise.all` method
+    as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE57]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Request timeout
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: An HTTP request can sometimes just hang due to some problem on the server. We
+    do not want the request to be in a pending state for longer than a few seconds.
+    To avoid longer request pending times, we can implement the request timeout feature,
+    which lets our code know that a request is taking longer than expected. This allows
+    us to take the appropriate action.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the `Promise.race` method, we can initiate an HTTP request with a timeout.
+    This method, just like the `Promise.all` method, takes an iterable of promises
+    and returns a promise that fulfills when any of the promises out of one or more
+    promises provided to this method as an input fulfills. Similarly, the promise
+    returned by this method is rejected when any of the input promises is rejected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following code example shows the request timeout implemented using the
+    `Promise.race` method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE58]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/static-promise-methods-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this lesson, we discussed only two static methods, but it’s worth learning
+    about the other [static methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#static_methods)
+    available on the `Promise` constructor. Each static method has its own use cases;
+    we just discussed two use cases that I think are the most commonly needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While promises have changed the way we write asynchronous code in JavaScript,
+    we still use callbacks to register fulfillment and rejection handlers with promises.
+    Some people might view using callbacks with promises as verbose, even though promises
+    solve the problem of “Callback Hell” and the problem of error handling using the
+    traditional way of using callbacks. What if there was an easier, more concise,
+    and more intuitive way to deal with promises? What if we could get rid of callbacks
+    when using promises? Enter `async await`!
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `async await` can be considered a syntax sugar over the traditional way
+    of using promises. It allows us to deal with promises using code that executes
+    asynchronously but looks synchronous. It also allows us to write more concise
+    code that is easier to reason about, as the code doesn’t include callbacks, and
+    the flow of the code looks like that of synchronous code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a look at the following code example that uses promise chaining:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE59]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The code above is certainly an improvement over the traditional way of using
+    callbacks for writing asynchronous code, but it still has room for improvement,
+    at least in terms of readability. The `async await` syntax can be used to rewrite
+    the above code example as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE60]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example2” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The revised code achieves the same result but is more readable, doesn’t use
+    any callbacks, and is easier to reason about as compared to the earlier example
+    that uses promise chaining. Although the code looks like synchronous code, it
+    is asynchronous. Let us understand how `async await` works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two things should be noted in the code example above that uses the `async await`
+    syntax: the `async` keyword in the function signature and the `await` keyword
+    inside the function. Following are the two main steps to using the `async await`
+    syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mark any function as “async” using the `async` keyword. This is needed because
+    the `await` keyword can only be used inside an “async” function.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Use the `await` keyword inside the `async` function to wait for any promises
+    to settle.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: :::info While the `await` keyword is mostly used inside an `async` function
+    because the `await` keyword was only allowed inside `async` functions until a
+    recent change in the language that allows using the [await keyword at the top-level
+    of a module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await#top_level_await)
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: async functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'An `async` function allows the use of the `await` keyword inside its body.
+    An `async` function is different from a non-async function because an `async`
+    function always returns a promise. An `async` function implicitly creates and
+    returns a promise, similar to how each promise instance method creates and returns
+    a new promise. The following code verifies this claim:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE61]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example3” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The fulfillment or rejection of the promise returned by an `async` function
+    depends on what happens inside its body, similar to how the promise returned by
+    each of the promise instance methods depends on the events occurring within its
+    callback function. The following points summarize the settlement of the `async`
+    function promise:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returning any non-promise value from an `async` function leads to the fulfillment
+    of the `async` function promise, using the returned value as the fulfillment value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE62]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example4” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Not returning any value from the function implicitly returns `undefined`. This
+    leads to the function promise getting fulfilled with `undefined` as the fulfillment
+    value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE63]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example5” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Throwing an error inside the `async` function rejects the `async` function promise,
+    using the thrown value as the rejection reason.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE64]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example6” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returning a promise from the `async` function results in the `async` function
+    promise getting *resolved* to the promise returned inside the function body. As
+    we learned about one promise *resolving* to another promise in one of the earlier
+    lessons in this module, the promise created by the `async` function will wait
+    for the promise, returned inside its body, to settle. Eventually, the `async`
+    function promise will be fulfilled or rejected depending on what happens to the
+    promise returned inside the `async` function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE65]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example7” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: await keyword
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `await` keyword, also referred to as the `await` operator, is used to wait
+    for a promise to settle. The following is an example of using the `await` keyword
+    to wait for a promise to settle:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE66]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `await fetch(url)` is an expression that will either evaluate the fulfillment
+    value of the promise returned by the `fetch` function or it will throw the rejection
+    value if the promise returned by the `fetch` function gets rejected. The thrown
+    value can either be caught in the `catch` block of the surrounding `try-catch`
+    block or, if `try-catch` is not wrapped around the `await` statement, rejection
+    of the *awaited* promise can reject the `async` function promise, allowing the
+    calling code to handle the promise rejection.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike promise chaining, where we have to register the fulfillment handler to
+    get the fulfillment value of the promise, the `await` expressions evaluate the
+    promise fulfillment value, which we can save in a variable. But how does it work?
+    Isn’t it blocking the main thread while waiting for the promise to settle?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whenever an `async` function is called, it is executed synchronously until the
+    first `await` expression is encountered. The function’s execution is suspended
+    or paused until the awaited promise is settled. Instead of blocking the main thread,
+    the function’s execution is paused, and in the meantime, the main thread is free
+    to do other things. When the promise is eventually settled, the function’s execution
+    is resumed, resuming the code execution after the `await` expression if the promise
+    is fulfilled or throwing the rejection value of the promise if the awaited promise
+    is rejected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What’s important to note is that the code inside the `async` function is executed
+    synchronously until the first `await` expression. What if the `async` function
+    doesn’t have the `await` keyword inside it? Will the function execute synchronously?
+    Yes, it will, but keep in mind that the `async` function always returns a promise,
+    and it will either get fulfilled or rejected depending on what happens inside
+    the `async` function. This means that the following code doesn’t work as one might
+    expect:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE67]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The `async` function in the above code example didn’t use the `await` keyword,
+    so the code inside it is executed synchronously, but does it return the value
+    “123” synchronously as well? No, it doesn’t. The function is `async`, which means
+    it returns a promise, so the `result` in the above example contains the promise
+    and not the value “123”. To get the fulfillment value of the promise, we can either
+    use promise chaining as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE68]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example10”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Or `await` the promise returned by the `foo` function using the `async await`
+    syntax as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE69]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example11”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple await expressions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: An `async` function is not limited to using the `await` keyword only once inside
+    its body. You can use the `await` keyword as many times as you want inside an
+    `async` function. The only thing to be aware of regarding multiple `await` expressions
+    is that they are not executed in parallel; instead, they are executed in sequence,
+    one after the other. The function execution will be paused at each `await` expression,
+    and the next `await` expression can only be executed after the ones before it
+    has been executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE70]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example12”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each of the `await` expressions in the above code example takes approximately
+    1 second, so the function takes approximately 3 seconds to evaluate all the `await`
+    expressions, logging their value at the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE71]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example13”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The two `await` expressions in the above code example are also not executed
+    in parallel; instead, they are executed one after the other, from left to right.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Suppose we want concurrent asynchronous operations inside an `async` function.
+    In that case, we can use the `Promise.all` function, providing all the promises
+    as input and awaiting the promise returned by `Promise.all`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE72]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example14”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Error handling
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To handle promise rejections inside an `async` function, we can wrap the `await`
+    expressions with the `try-catch` block as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE73]'
+  prefs: []
+  type: TYPE_PRE
+- en: If any of the promises awaited in the `try` block are rejected, the code after
+    that `await` expression won’t be executed, and the execution will jump to the
+    `catch` block. The `await` keyword throws the promise rejection value, allowing
+    the `catch` block to catch the rejection.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternatively, we can omit the `try-catch` block, but in this case, the code
+    that calls the `async` function must handle the promise rejection, either by using
+    the promise chaining:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE74]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'or using the `try-catch` block in the calling code if we are using the `async
+    await` syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE75]'
+  prefs: []
+  type: TYPE_PRE
+- en: Returning vs awaiting promise
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Forgetting to `await` a promise inside an `async` function can lead to bugs,
+    causing unexpected output. The code below shows the problem it can cause:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE76]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example18”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `getPromise` function returns a promise that can be rejected, but the promise
+    returned by the `foo` function is always fulfilled. Why? The `foo` function has
+    a problem: it didn’t return or `await` the promise returned by the `getPromise`
+    function. As a result, the `foo` function doesn’t wait for the promise returned
+    by the `getPromise` function to settle; instead, it just calls the `getPromise`
+    function, and the function execution ends, implicitly returning `undefined`, leading
+    to the `foo` function promise getting fulfilled with `undefined` as the fulfillment
+    value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further code examples will use the `getPromise` function defined above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To catch the rejection of the promise returned by the `getPromise` function,
+    we have the following options:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: return the promise returned by the `getPromise` function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE77]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example19”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returning the promise *resolves* the `foo` function of the promise returned
+    inside its body. As a result, whatever happens to the promise returned by `getPromise`,
+    the `foo` function promise meets the same fate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: await the promise returned by the `getPromise` function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE78]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example20”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: As mentioned earlier, if the awaited promise is rejected, its rejection value
+    is thrown inside the `async` function. As there is no `try-catch` block inside
+    the `foo` function, the promise rejection causes the `foo` function promise to
+    also get rejected with the same rejection reason.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, one thing to note in this code example is that if the promise returned
+    by `getPromise` is fulfilled, the `foo` function promise doesn’t fulfill with
+    its fulfillment value; instead, it fulfills with `undefined` as the fulfillment
+    value because we didn’t explicitly return anything from the `foo` function, and
+    we know what happens to the `async` function promise when we don’t explicitly
+    return any value inside the function: the `async` function promise gets fulfilled
+    with `undefined` as the fulfillment value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: await the promise returned by the `getPromise` function and surround it with
+    the `try-catch` block.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE79]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example21”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Awaiting the `getPromise` call will catch the promise rejection, causing the
+    `catch` block to execute. However, the promise returned by the `foo` function
+    will always be fulfilled. Why? Because the `catch` block didn’t throw an error
+    or return a promise that gets rejected. As a result, the `foo` function promise
+    always fulfills with the return value of the `catch` block. We can throw the error
+    from the `catch` to fix this problem. Having said that, if all we do inside the
+    `catch` block is throw the error, then it’s better to just omit the `try-catch`
+    block and let the promise rejection automatically reject the `foo` function promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another problem in this code example is that we didn’t explicitly return any
+    value in case the promise was fulfilled and the `catch` block was never executed.
+    So the `foo` function promise will be fulfilled with `undefined`. Adding the `return`
+    keyword before the `await` expression will do the job.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::caution Can’t we just do `return getPromise();` instead of `return await
+    getPromise();`? We could have if the `await` expression wasn’t wrapped in the
+    `try-catch` block. What difference does `try-catch` make? With the `try-catch`
+    block, `return getPromise();` will lead to the `catch` block inside the `foo`
+    function never executing. For the `catch` block inside the `foo` function to execute,
+    we need to `await` the promise inside the `try` block instead of just returning
+    it. For more details, read: [await vs return vs return await](https://jakearchibald.com/2017/await-vs-return-vs-return-await/)
+    :::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Awaiting non-promise value
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `await` keyword is usually used to wait for a promise to settle, but it
+    can also be used with a non-promise value. The following code example shows this
+    action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE80]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/async-await-example22”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you execute the above code example, you will note that the `console.log`
+    statement at the end of the code example is logged *before* the random number
+    is printed, even though the function is called *before* the last `console.log`
+    statement. Why is that? We haven’t awaited any promises, so what’s happening here?
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the `await` keyword is used with a non-promise value, a new promise is
+    created, and that promise is fulfilled with the value we used with the `await`
+    keyword. In our code example, we have awaited a random number; it is not a promise,
+    so a new promise is created and fulfilled with the generated random number. Code
+    after the `await` expression is executed as though it were in a fulfillment handler.
+    As a result, when the promise is fulfilled, the code after the `await` expression
+    is not immediately executed. It is executed asynchronously, and as we learned
+    in the lesson about event loop, any asynchronous code is only executed after the
+    synchronous execution of our code ends. The last `console.log` statement is executed
+    as part of the synchronous execution of our code. As a result, it is logged before
+    the random number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using `await` with a non-promise value is hardly useful, but just be aware that
+    it is possible, and the value is implicitly wrapped in a promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We learned in one of the earlier lessons in this module that executing DOM event
+    listeners and `setTimeout` or `setInterval` callbacks require scheduling a “task”.
+    Tasks are enqueued in a task queue until the event loop processes them. What about
+    the promise fulfillment or rejection handlers? Does their execution also require
+    scheduling a task? Not exactly a task, but a “microtask”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Microtasks, which the ECMAScript specification calls [jobs](https://tc39.es/ecma262/#sec-promise-jobs),
+    are scheduled for things that have higher priority than “tasks”. Microtasks are
+    processed after:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: each callback, provided that the callstack is empty.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: each task
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Whereas “tasks” are executed in the order they are enqueued in the task queue,
+    only one task is executed per one turn or tick of the event loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another important thing to note about microtasks is that while only one task
+    is processed per tick of the event loop, microtasks are processed until the microtask
+    queue is empty. If a task schedules another task, it won’t be processed until
+    the next turn or tick of the event loop, but in the case of microtasks, if any
+    microtask is queued by a microtask, the queued microtask will also be processed.
+    This means that the event loop can get stuck in an infinite loop if each microtask
+    keeps queuing another microtask.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE81]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/microtasks-example1” />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Executing the above code requires scheduling tasks and microtasks. The following
+    steps explain how different tasks and microtasks are scheduled to execute the
+    code above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A task is created to execute the script, starting the synchronous execution
+    of the code.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The first `console.log` statement is executed, logging “start” on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE82]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Next, we have the `setTimeout` call with a 500ms delay. This starts a timer
+    in the background, and its expiration will result in a task to execute the `setTimeout`
+    callback getting queued in the task queue.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE83]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Moving on with the synchronous execution of the code, [Promise.resolve](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve)
+    is called, which creates a resolved promise. To execute its fulfillment handler,
+    a microtask or job is queued in the microtask queue.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE84]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Next, we have a `setTimeout` call with a 0ms delay. This also schedules a task
+    to execute its callback.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE85]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Finally, the synchronous execution reaches its end with the final `console.log`
+    statement, logging “end” on the console. At this point, the callstack is empty,
+    and the event loop can start processing the scheduled tasks and microtasks.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE86]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: As mentioned earlier, microtasks are processed after each task as well as after
+    each callback, provided that the callstack is empty. The synchronous execution
+    of the code is a task, and when it ends, the callstack is empty, so any microtasks
+    in the microtask queue are ready to be processed by the event loop. We have only
+    one microtask in the microtask queue. It will be processed by logging “first ‘then’
+    callback” on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE87]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: The callback function of the first `then` method implicitly returns `undefined`,
+    and as a result, the promise returned by the `then` method is fulfilled with `undefined`
+    as the fulfillment value. This queues another microtask in the microtask queue
+    to execute the fulfillment handler of the promise returned by the first `then`
+    method.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE88]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: As mentioned earlier, microtasks are processed until the microtask queue is
+    empty, so the newly queued microtask will also be processed, logging “second ‘then’
+    callback” on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE89]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Similar to step 8, the callback function of the second `then` method implicitly
+    returns `undefined`, and as a result, the promise returned by the `then` method
+    is fulfilled with `undefined` as the fulfillment value. This queues another microtask
+    in the microtask queue to execute the fulfillment handler of the promise returned
+    by the second `then` method.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE90]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: This results in the “third ‘then’ callback” getting logged on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE91]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: We didn’t do anything with the promise returned by the third `then` method,
+    so its fulfillment is ignored. At this point, all the microtasks have been processed,
+    and the microtask queue is empty. The event loop can now process the first task
+    in the task queue.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The first task in the task queue is that of the second `setTimeout` call because
+    it had less delay than the first one, so it was queued before the task of the
+    other `setTimeout` callback, which had a 500ms delay. Processing it results in
+    a “setTimeout callback with 0ms delay” being logged on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE92]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Finally, the last task in the task queue is that of the first `setTimeout` call
+    with a 500ms delay, resulting in “setTimeout callback with 500ms delay” getting
+    logged on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE93]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: :::note In this module, we have used the term “resolved” to refer to a promise
+    that is waiting for another promise to settle. In other words, we have used the
+    term “resolved” to refer to a promise in a pending state.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Having said that, the term “resolved” can also be used to refer to a promise
+    that has either been fulfilled or rejected. For more details, read: [promises-unwrapping
+    - States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Further reading
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'The following are links to some of the Stackoverflow questions that I answered
+    that are related to microtasks and explain the execution of code examples similar
+    to the one discussed above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[How to explain the output order of this code snippet?](https://stackoverflow.com/questions/63052649/how-to-explain-the-output-order-of-this-code-snippet)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[JavaScript quiz of printing sequence with a combination of promise.then and
+    async function](https://stackoverflow.com/questions/72306157/javascript-quiz-of-printing-sequence-with-combination-of-promise-then-and-async)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Promise chain .then .catch](https://stackoverflow.com/questions/68784426/promise-chain-then-catch)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Asynchronous Execution Order in JavaScript](https://stackoverflow.com/questions/68882535/asynchronous-execution-order-in-javascript)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The following is an article that explains the execution of tasks and microtasks
+    with the help of interactive examples:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Tasks, microtasks, queues, and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'In this lesson, we will discuss common promise-related anti-patterns that should
+    be avoided. Following is a list of anti-patterns we will discuss:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unnecessary use of the Promise constructor
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Incorrect error handling
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Converting promise rejection into fulfillment
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Async executor function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unnecessary use of the Promise Constructor
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'One of the most common mistakes made by JavaScript developers, especially those
+    who don’t have much experience with promises, is creating promises unnecessarily
+    using the `Promise` constructor function. Let’s take a look at an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE94]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The above code will work if you pass a URL to the `fetchData` function and
+    then wait for the promise to resolve, but the use of the `Promise` constructor
+    is unnecessary in the above code example. The `fetch` function already returns
+    a promise, so instead of wrapping the `fetch` function call with the promise constructor,
+    we can re-write the above function as shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE95]'
+  prefs: []
+  type: TYPE_PRE
+- en: The revised version of the `fetchData` function is concise, easy to read, free
+    from the creation of any unnecessary promises, and allows the code that calls
+    the `fetchData` function to catch and handle any errors. The older version of
+    the fetchData function also allowed the calling code to handle errors, but the
+    revised version does it without using the catch method call.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Unnecessary use of the promise constructor can lead to another problem: if
+    we forget to add the `catch` method call to the promise chain inside the `Promise`
+    constructor, then any error thrown during the HTTP request won’t be caught. Forgetting
+    to call the `reject` function inside the executor function can hide the failure
+    of the asynchronous operation inside the executor function.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Incorrect Error Handling
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: When writing code that uses promises, one of the most important rules to keep
+    in mind is to *either catch and handle the error or return the promise to allow
+    the calling code to catch and handle it*. This fundamental rule can help you avoid
+    hidden bugs in the code that uses promises.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a look at an example of incorrect handling of errors that breaks
+    the above rule:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE96]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above code throws an error because the `fetchData` function doesn’t return
+    the promise. It also doesn’t allow the calling code to do any kind of error handling.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There are two ways to fix the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return the promise from the `fetchData` function by adding the `return` keyword
+    before `fetch(...)`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE97]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example4”
+    />
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: As the above function just makes the HTTP request and returns the response data
+    after calling the `json()` method on the response object, the calling code is
+    responsible for using the response data as well as handling any error.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[PRE98]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Handle the error inside the `fetchData` function by chaining the `catch` method
+    to the `then` method.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE99]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'and you call the function above as shown below:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[PRE100]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Converting promise rejection into fulfillment
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Each method on the `Promise.prototype` object returns a new promise. If we
+    are not careful, we can write code that can implicitly convert promise rejection
+    into promise fulfillment. Let’s take a look at an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE101]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example8”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What output do you expect? The output is shown below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE102]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'We called [Promise.reject](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject)
+    inside the `getData` function, so instead of logging “then block”, why didn’t
+    “catch block” get logged? Instead of the catch block, why was the callback function
+    of the `then` method invoked? Let’s understand how the above code executes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`getData` function is invoked.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`Promise.reject(new Error())` creates a rejected promise.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As a result of the promise rejection, the callback function of the `catch` method
+    is invoked.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: “inside catch block in getData function” gets logged on the console.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As the callback function of the `catch` method didn’t explicitly return anything,
+    the callback function implicitly returns `undefined`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The promise returned by the `catch` method is fulfilled with the return value
+    of its callback function, i.e., `undefined`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: This fulfilled promise is returned to its calling code by the `getData` function.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As the promise returned by the `getData` function is fulfilled with the value
+    `undefined`, the `then` method’s callback is invoked in the calling code, which
+    logs “then block”.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: See this [stackoverflow post](https://stackoverflow.com/questions/62859190/handle-promise-catches-in-typescript),
+    which explains this behavior in more detail.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although the above code is a contrived example, imagine if there was a `fetch`
+    function call instead of `Promise.reject` in the `getData` function; if the HTTP
+    request is successful, our code will work without any problem, but if the HTTP
+    request fails, the `catch` method in the `getData` function will convert promise
+    rejection into promise fulfillment. As a result, instead of returning a rejected
+    promise, the `getData` function will return a fulfilled promise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: :::info
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sometimes, you do want to convert promise rejection into promise fulfillment
+    to handle the rejection and let the promise chain continue. This is fine if done
+    intentionally. Just be aware that promise rejection can turn into promise fulfillment
+    if you are not careful. Doing this will certainly lead to bugs in your code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: ':::'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Suppose you are wondering why the promise returned by the `catch` method got
+    fulfilled instead of getting rejected. In that case, the answer is that, as explained
+    in the previous lesson, the promise returned by the `then` or `catch` method gets
+    fulfilled if their callback function explicitly or implicitly returns a value
+    instead of throwing an error or returning a rejected promise or a promise that
+    eventually gets rejected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, how can we fix the above code example to avoid this problem? There are
+    two ways to fix this problem:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Throw the error from the callback function of the `catch` method.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE103]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example9”
+    />
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: This will reject the promise returned by the `catch` method, and the `getData`
+    function will return this rejected promise. As a result, as expected, `catch`
+    method callback in the calling code will be invoked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remove the `catch` method call.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE104]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: 'Here’s a Replit of the above code in action:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/promise-anti-patterns-example10”
+    />
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'This will also invoke the catch block in the calling code because now the `getData`
+    function returns the result of calling `Promise.reject`, and as mentioned before,
+    `Promise.reject` creates a rejected promise. :::tip Personally, I recommend using
+    this approach instead of throwing the error from the `catch` method callback.
+    Just allow the calling code to catch and handle the errors. The `catch` method
+    callback that just re-throws the error is unnecessary. :::'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Async executor function
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: When creating a new promise using the `Promise` constructor, we pass a function
+    to the promise constructor. This function is known as the **executor** function.
+    The executor function should never be an `async` function. Why is that?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Suppose the executor function is an `async` function. In that case, any errors
+    thrown by the `async` executor function will not be caught, and the thrown error
+    won’t cause the newly-constructed promise to reject.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE105]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code example, as the executor function is an `async` function,
+    the error thrown inside it doesn’t reject the newly-created promise `p`. As a
+    result, the callback function of the `catch` method, called on promise `p`, never
+    gets called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the executor function is a synchronous function, then any error thrown inside
+    the executor function will automatically reject the newly created promise. Try
+    removing the `async` keyword in the above code example and observe the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another thing to note is that if you find yourself using `await` inside the
+    executor function, this should be a signal to you that you don’t need the promise
+    constructor at all (remember the first anti-pattern discussed above).
+  prefs: []
+  type: TYPE_NORMAL

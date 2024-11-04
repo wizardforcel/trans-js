@@ -1,0 +1,138 @@
+- en: Tries
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The trie is a kind of tree that’s ideal for text-based features such as autocomplete.
+    Before we get into how the trie works, though, let’s first address its pronunciation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In my (unasked for) opinion, the trie is one of the most unfortunately named
+    data structures out there. The word trie is derived from the word retrieval. So
+    technically, it should be pronounced “tree.” But since that would be confused
+    with the word tree, which is the general term for all tree-based data structures,
+    most people pronounce trie as “try.” Some resources refer to this same data structure
+    as the prefix tree or the digital tree, but trie, amazingly, remains the most
+    popular name. So there you have it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s one last comment before we dive into the details. The trie is not as
+    well documented as the other data structures in this book, and many different
+    resources implement the trie in slightly different ways. I’ve chosen a particular
+    implementation that I find to be the most straightforward and understandable,
+    but you’ll find other implementations out there. In any case, the general ideas
+    behind most of the implementations remain the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Trie Node
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Like most other trees, the trie is a collection of nodes that point to other
+    nodes. However, the trie is not a binary tree. Whereas a binary tree doesn’t allow
+    any node to have more than two child nodes, a trie node can have any number of
+    child nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In our implementation, each trie node contains a hash table, where the keys
+    are English characters and the values are other nodes of the trie. Take a look
+    at the following diagram:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/abc_trie.png](images/tries/abc_trie.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Here, the root node contains a hash table with the keys "a", "b", and "c". The
+    values are other trie nodes, which are the children of this node. These children
+    also contain hash tables, which will in turn point to their children. (For now,
+    we left the children’s hash tables empty, but they’ll contain data in future diagrams.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The implementation of the actual trie node itself is very simple. Here is our
+    JavaScript version of the TrieNode class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ TrieNode { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.children = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ TrieNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, the TrieNode just contains a hash table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we print (to the console) the data from our root node in the previous example,
+    we’ll get something along these lines:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | a: TrieNode { }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | b: TrieNode { }, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | c: TrieNode { } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Again, in this hash table, the keys are individual character strings, and the
+    values are instances of other TrieNodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Trie Class
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To fully create our trie, we’ll also need a separate Trie class, which will
+    keep track of the root node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**import**​ TrieNode ​**from**​ ​*''./trie_node.js''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**class**​ Trie { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.root = ​**new**​ TrieNode(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This class keeps track of a this.root variable that points to the root node.
+    In this implementation, when we create a new Trie, it begins with an empty TrieNode
+    as its root.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As we progress through this chapter, we’re going to add our trie operation methods
+    to this Trie class as well.
+  prefs: []
+  type: TYPE_NORMAL

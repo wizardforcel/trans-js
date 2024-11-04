@@ -1,0 +1,265 @@
+- en: '| Recipe 3 | Matching the Beginning or End of a String with startsWith() and
+    endsWith() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s assume you have a database of articles about pet care and your task is
+    to compile a list of questions that are answered in the articles. Suppose the
+    articles are formatted in the Markdown language and the questions are all in level
+    2 heading tags (preceded with ##).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How would you write a code that distinguishes a heading from a normal sentence?
+    And what would you use if you wanted to filter those that are questions? You need
+    a solution that lets you check the characters at the beginning and end of a string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'First, we’ll use the startsWith() method to determine if the string begins
+    with ##:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"## Why is chocolate bad for your dog?"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"# 10 Amazing Dog Facts"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchStr = *"##"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str1.startsWith(searchStr); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str2.startsWith(searchStr); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Then we’ll use the endsWith() method to check if the string ends with a question
+    mark:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str1 = *"## Why is chocolate bad for your dog?"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"## Best way to trim your dog''s nails"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchStr = *"?"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str1.endsWith(searchStr); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str2.endsWith(searchStr); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now that we know startsWith() and endsWith() produce the result we want, let’s
+    create a function that performs both these operations at the same time:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** ((str.startsWith(start) === **true**) && (str.endsWith(end) ===
+    **true**)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **true**; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** **false**; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We can also simplify the function by removing the if statement. The logical
+    AND (&&) operator returns true if both startsWith() and endsWith() return true,
+    so we can get the same result in a single statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.startsWith(start) && str.endsWith(end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This code works fine for testing a string containing a single sentence, but
+    we want to extract level 2 Markdown headings from an article. So, we need a way
+    to pass each line of the article to our function. Divide the string at line breaks
+    by calling split("\n"), then loop over the resulting array with forEach() and
+    pass each line to startsWithEndsWith():'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`## Why is chocolate bad for your dog?* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *Some text ...* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *## Best way to trim your dog''s nails* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *More text ...* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *## Are there human foods that are safe for dogs?* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *...`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.startsWith(start) && str.endsWith(end); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.split(*"***\***n"*).forEach(str => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (startsWithEndsWith(str, *"##"*, *"?"*)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ## Why is chocolate bad for your dog?* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ## Are there human foods that are safe for dogs?* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success!
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Safari 15.4,
+    released on March 15, 2022, joined the party a little later than other leading
+    browsers, as it incorporated at() after its major competitors had already done
+    so. For backward compatibility with older browser versions, you need to use a
+    polyfill.^([[2]](f_0032.xhtml#FOOTNOTE-2)) In the Node environment, you’ll need
+    a minimum Node version of 16.6.0.^([[3]](f_0032.xhtml#FOOTNOTE-3)) |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In JavaScript, there are often multiple ways to complete a task. As a programmer,
+    you should usually strive to use the most efficient tool for the job. But you
+    should also take into account the reliability and readability of your code, which
+    are more important in most projects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: An alternative way to get the last character of a string is to use the at()
+    method. It’s compact and fast! But browser support isn’t quite there yet, so you
+    might find your code broken in older browsers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With at(), you can retrieve a single character at a position in a string like
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"Do dogs dream?"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.at(-1); *// → "?"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.at(-2); *// → "m"* |'
+  prefs: []
+  type: TYPE_TB
+- en: When calling at() with a negative number, the method counts back from the end
+    of the string. So, -1 gets you the last character, -2 gets you the second to last
+    character, and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Calling at() on Arrays |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | You can also
+    use at() with JavaScript arrays. Check out my article on Medium to learn more.^([[4]](f_0032.xhtml#FOOTNOTE-4))
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: While startsWith() lets you check characters at a string’s beginning, endsWith()
+    lets you determine if a string ends with specific characters. If you want to get
+    the value of only a single character, then at() is a compact alternative you may
+    use, but be sure to check browser support.
+  prefs: []
+  type: TYPE_NORMAL

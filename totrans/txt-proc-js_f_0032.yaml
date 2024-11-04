@@ -1,0 +1,390 @@
+- en: '| Recipe 22 | Copying Text to Clipboard with the Clipboard API |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have a cooking website that provides recipes for different meals,
+    and you want to provide readers with the option of copying the ingredients of
+    the recipes to their clipboard so that they can create a shopping list. To achieve
+    this, you need to create a button that, when clicked, copies the list of ingredients
+    to the clipboard.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'First, set up your HTML elements. You need a button that triggers a JavaScript
+    code. Remember, your program should not attempt to read or write the user’s clipboard
+    without permission. So, creating a button that clearly states it copies data to
+    the clipboard is the first step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/copying_to_clipboard/clipboard_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.xhtml)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *<!doctype html>* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <html lang=*"en-us"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta charset=*"utf-8"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <script src=*"clipboard_ex1.js"* defer></script> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </head> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <ul id=*"ingredients"*> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>1 cup olive oil</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>4 garlic cloves</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>1 tablespoon ground cumin</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>1 tablespoon chili powder</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>2 cans beans</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <li>1 can crushed tomatoes</li> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </ul> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | <button id=*"copyBtn"* type=*"button"*>Copy Ingredients to Cliboard</button>
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </body> |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | </html> |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Next, locate the button using getElementById() or querySelector(), and add
+    an event listener to it. As soon as the button is clicked, you want to grab the
+    ingredients list and extract its text:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | document.querySelector(*"#copyBtn"*).addEventListener(*"click"*, () =>
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Select the list elements* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** nodeList = document.querySelectorAll(*"#ingredients li"*);
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create a variable that will hold the text to be sent to clipboard*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **let** textList = *""*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Append the text of each li element to textList* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | nodeList.forEach(li => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | textList += *`** ${li.textContent} *\n`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Append the current URL to textList* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | textList += *"View recipe at "* + window.location.href; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | writeToClipboard(textList); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Now, define the function responsible for writing the list to the clipboard:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** writeToClipboard(text){ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | navigator.clipboard.writeText(text).then(() => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"Copying to clipboard was successful!"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }, (err) => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.error(*"Unable to copy text: "*, err); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The main part of the function is the writeText() property of the Clipboard interface.
+    This property returns a promise, so you need to use a then() to handle its result
+    (alternatively, you can use await).
+  prefs: []
+  type: TYPE_NORMAL
+- en: If your code successfully writes the string to the clipboard, you’ll get a fulfilled
+    promise, and the code logs a message to the console. If not, you’ll get an error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Besides readText() and writeText(), the clipboard API provides two other methods
+    for reading and writing non-text data, such as images, to the user clipboard:
+    read() and write(). While readText() and writeText() work on all browsers, the
+    support for read() and write() is spotty. So be sure to check browser support
+    before you use them in your projects.^([[22]](#FOOTNOTE-22))'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When working with the Clipboard API, you might get an error like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | DOMException: Clipboard write was blocked due to lack **of** user activation.
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: This error is from the Firefox console and indicates you’re attempting to write
+    to the clipboard programmatically, but there hasn’t been any user interaction
+    with the page, such as clicking on a button. Errors like this are essential for
+    keeping developers’ access to the clipboard in check.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Other important factors to consider when using the clipboard API are as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You may write text to the clipboard without permission, but to read from it,
+    you always need to get user permission (the browser usually pops up a permission
+    dialogue automatically)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can access the clipboard only if the page is the active browser tab
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The Clipboard API is available only in secure contexts (HTTPS)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Previously, the only way to access the clipboard was through the Web API document.execCommand()
+    method. But because this method is synchronous and blocks the browser when reading/writing
+    large data, browser vendors have deprecated it in favor of the clipboard API.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use the Clipboard interface to provide a smoother experience for your users
+    when they need to copy code snippets, activation keys, tokens, verification codes,
+    etc., but always be explicit about when and what you store in their clipboard.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wrapping Up
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Anything you want to do with text, JavaScript is up to the job. In the first
+    part of this book, you learned how to handle entangled text using JavaScript’s
+    built-in methods. This involved sifting through the data and extracting the relevant
+    information, formatting different data types, handling Unicode characters, and
+    more.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the second part, you will focus on JavaScript’s implementation of regular
+    expressions. You will explore the syntax in detail and examine several examples
+    to understand their application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Footnotes
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[[2]](f_0013.xhtml#FNPTR-2)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[3]](f_0013.xhtml#FNPTR-3)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[4]](f_0013.xhtml#FNPTR-4)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc](https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[5]](f_0014.xhtml#FNPTR-5)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[6]](f_0014.xhtml#FNPTR-6)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[7]](f_0015.xhtml#FNPTR-7)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://en.wikipedia.org/wiki/Web_colors](https://en.wikipedia.org/wiki/Web_colors)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[8]](f_0019.xhtml#FNPTR-8)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[9]](f_0019.xhtml#FNPTR-9)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[10]](f_0023.xhtml#FNPTR-10)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[11]](f_0023.xhtml#FNPTR-11)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[12]](f_0023.xhtml#FNPTR-12)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[13]](f_0024.xhtml#FNPTR-13)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[14]](f_0026.xhtml#FNPTR-14)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://caniuse.com/mdn-javascript_builtins_intl_listformat_format](https://caniuse.com/mdn-javascript_builtins_intl_listformat_format)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[15]](f_0026.xhtml#FNPTR-15)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/wessberg/intl-list-format](https://github.com/wessberg/intl-list-format)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[16]](f_0026.xhtml#FNPTR-16)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[17]](f_0028.xhtml#FNPTR-17)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment](https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[18]](f_0028.xhtml#FNPTR-18)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/flmnt/graphemer](https://github.com/flmnt/graphemer)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[19]](f_0029.xhtml#FNPTR-19)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[20]](f_0029.xhtml#FNPTR-20)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[21]](f_0031.xhtml#FNPTR-21)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://caniuse.com/mdn-javascript_builtins_string_normalize](https://caniuse.com/mdn-javascript_builtins_string_normalize)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[[22]](#FNPTR-22)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://caniuse.com/?search=Clipboard](https://caniuse.com/?search=Clipboard)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copyright © 2024, The Pragmatic Bookshelf.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,156 @@
+- en: Reading
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: As you know, a computer can read from an array in O(1) time. But now let’s figure
+    out the efficiency of reading from a linked list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you want to read, say, the value of the third item of a linked list, the
+    computer cannot look it up in one step, because it wouldn’t immediately know where
+    to find it in the computer’s memory. After all, each node of a linked list could
+    be anywhere in memory! All our program knows immediately is the memory address
+    of the first node of the linked list; it doesn’t know offhand where any of the
+    other nodes are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To read from the third node, then, the computer must go through a process. First,
+    it accesses the first node. It then follows the first node’s link to the second
+    node and then the second node’s link to the third node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To get to any node, then, we always need to start with the first node (the only
+    node we initially have access to), and follow the chain of nodes until we reach
+    the node we want.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It turns out, then, that if we were to read from the last node in the list,
+    it would take N steps for N nodes in the list. Linked lists having a worst-case
+    read of O(N) is a major disadvantage when compared with arrays that can read any
+    element in just O(1). But don’t fret, as linked lists will have their moment to
+    shine, as we’ll see soon.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Linked List Reading'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s go ahead and add a read method to our LinkedList class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | read(index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentIndex = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentIndex < index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentIndex += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!currentNode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentNode.data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If we want to read the fourth node from a list, for example, we’d call our
+    method by passing in the node’s index as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | list.read(3); |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s walk through how this method works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we create a variable called currentNode that refers to the node we’re
+    currently accessing. Since we’re going to start by accessing the head, we say
+    this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: Recall that firstNode is an instance variable of the LinkedList class.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We also track the index of currentNode so that we can know when we reach the
+    desired index. We start at 0 since the first node’s index is 0:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ currentIndex = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We then launch a loop that runs while currentIndex is less than the index we’re
+    attempting to read:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (currentIndex < index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In each pass-through of the loop, we access the next node in the list and make
+    it the new currentNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentNode = currentNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'We also bump up the currentIndex by 1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentIndex += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'At the end of each pass-through, we check whether we’ve reached the end of
+    the list, and we return null if the index we’re trying to read isn’t in our list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (!currentNode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This works because the final node of the list will actually have a nextNode
+    that is null since the last node was never assigned a nextNode of its own. This
+    being the case, when currentNode refers to the final node and we then execute
+    current =currentNode.nextNode, the currentNode becomes null.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Finally, if we do break out of the loop, it’s because we reached the desired
+    index. We can then return the node’s value with the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ currentNode.data; |'
+  prefs: []
+  type: TYPE_TB

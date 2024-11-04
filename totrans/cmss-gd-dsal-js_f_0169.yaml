@@ -1,0 +1,170 @@
+- en: Trie Search
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The most classic trie operation is search—namely, determining whether a string
+    is found in the trie. Search has two flavors: we can search to see whether the
+    string is a complete word, or we can search to see whether the string is at least
+    a word prefix (that is, the beginning of a word). These two versions are similar,
+    but we’ll implement the latter one, where our search will look for prefixes. This
+    search will end up finding complete words as well since a complete word is at
+    least as good as a prefix.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The algorithm for prefix search performs the following steps (they’ll become
+    clearer when we walk though an example that follows):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We establish a variable called currentNode. At the beginning of our algorithm,
+    this points to the root node.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We iterate over each character of our search string.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: As we point to each character of our search string, we look to see if the currentNode
+    has a child with that character as a key.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If it does not, we return null, as it means our search string does not exist
+    in the trie.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the currentNode does have a child with the current character as the key,
+    we update the currentNode to become that child. We then go back to Step 2, continuing
+    to iterate over each character in our search string.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If we get to the end of our search string, it means we’ve found our search string.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s see this in action by searching for the string "cat" in our trie from
+    earlier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Setup: We set the currentNode to be the root node. (The currentNode is indicated
+    in bold in the diagrams on the following pages.) We also point to the first character
+    of our string, which is the "c", as shown in the top [diagram](#fig.ch17.point_to_c).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/point_to_c.png](images/tries/point_to_c.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 1: Since the root node has "c" as a child key, we update the currentNode
+    to become that key’s value. We also continue iterating through the characters
+    in our search string, so we point to the next character, which is the "a", as
+    shown in the bottom [diagram](#fig.ch17.point_to_a).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/point_to_a.png](images/tries/point_to_a.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 2: We inspect the currentNode for a child with the key of "a". It has
+    one, so we make that child the new currentNode. We then proceed to search for
+    the next character in our string, which is the "t":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/point_to_t.png](images/tries/point_to_t.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 3: We’re now pointing to the "t" of our search string. Since the currentNode
+    has a "t" child, we follow it, as shown in the [diagram](#fig.ch17.follow_the_t).
+    Since we’ve reached the end of our search string, it means we’ve found "cat" in
+    our trie.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/follow_the_t.png](images/tries/follow_the_t.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Code Implementation: Trie Search'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s implement trie search by adding a search method to our Trie class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | search(word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Our search method accepts a string that represents the word (or prefix) we’re
+    searching for.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, we establish the root node as our currentNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Then we iterate over each character of our search word:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Within each round of the loop, we check whether the current node has any children
+    with the current character as the key. If there is such a child, we update the
+    current node to be the child node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: If there is no such child, we return null, as it means we’ve hit a dead end
+    and our search word isn’t contained in the trie.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we get past the end of the loop, it means we’ve found the entire word in
+    our trie. In this case, we return the currentNode. The reason we return the current
+    node, as opposed to just returning true, is to help us with the autocomplete feature,
+    as I’ll explain when we get there.
+  prefs: []
+  type: TYPE_NORMAL

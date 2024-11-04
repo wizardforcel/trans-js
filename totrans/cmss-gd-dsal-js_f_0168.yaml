@@ -1,0 +1,98 @@
+- en: Storing Words
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Now, the point of our trie is to store words. Let’s see how the following trie
+    stores the words, “ace”, “bad”, and “cat”, as shown in the [diagram](#fig.ch17.ace_bad_cat).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/ace_bad_cat.png](images/tries/ace_bad_cat.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This trie stores the three words by turning each character of each word into
+    its own trie node. If you start with the root node and follow its "a" key, for
+    example, it points to a child node containing a key of "c". The "c" key, in turn,
+    points to a node that contains a key of "e". When we string these three characters
+    together, we get the word "ace".
+  prefs: []
+  type: TYPE_NORMAL
+- en: With this pattern, you can see how the trie also stores the words "bad" and
+    "cat".
+  prefs: []
+  type: TYPE_NORMAL
+- en: You’ll note that the final characters in these words have children nodes of
+    their own. If you look at the "e" node from the word "ace", for example, you can
+    see that the "e" points to a child node that contains a hash table with a key
+    of "*", an asterisk. (The value doesn’t actually matter, so it can simply be null.)
+    This indicates we’ve reached the end of a word, and that "ace", therefore, is
+    a complete word. The need for this "*" key will become more apparent shortly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, here’s where tries become even more interesting. Let’s say we want to
+    also store the word “act”. To do this, we keep the existing "a" and "c" keys,
+    but we add one new node containing the key of "t". Look at the following diagram:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/add_act.png](images/tries/add_act.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As you can see, the bolded node’s hash table now contains two children nodes,
+    an "e" and a "t". By doing this, we indicate that both "ace" and "act" are valid
+    dictionary words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To make things easier to visualize going forward, we’re going to represent
+    our tries using a simpler diagram. Here’s the same trie using this new format:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/no_hash.png](images/tries/no_hash.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this diagram style, we place each hash table key next to an arrow pointing
+    to its child node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Need for the Asterisk
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s say we want to store the words “bat” and “batter” in a trie. This is
+    an interesting case since the word “batter” actually contains the word “bat”.
+    Here’s how we handle this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/bat_and_batter.png](images/tries/bat_and_batter.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The first "t" points to a node that has two keys. One key is an "*" key (with
+    a null value), while the other is a "t" whose value points to another node. This
+    indicates that "bat" is itself a word even though it’s also a prefix of the longer
+    word "batter".
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that in this diagram, we’re not using classic hash table syntax anymore
+    but instead using a condensed syntax to save space. We’ve used curly braces to
+    indicate that the node contains a hash table. However, the {*, "t"} is not a key-value
+    pair but simply two keys. The "*" key has a null value, and the "t" key has the
+    next node as its value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is why those "*"s are critical. We need them to indicate when parts of
+    a word are also words themselves.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s bring this all together with a more complex example. Here’s a trie that
+    contains the words “ace”, “act”, “bad”, “bake”, “bat”, “batter”, “cab”, “cat”,
+    “catnap”, and “catnip”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tries/foundational_trie.png](images/tries/foundational_trie.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Tries used in real applications may contain thousands of words. If they don’t
+    contain the entire English language, they at least contain the most common words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To build our autocomplete feature, let’s first analyze the basic trie operations.
+  prefs: []
+  type: TYPE_NORMAL

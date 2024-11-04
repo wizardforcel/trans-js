@@ -1,0 +1,89 @@
+- en: replaceAll()
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The replaceAll() method outputs the same result as replace() when the global
+    flag is set. Compare:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[appendix/methods/methods_ex13.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex13.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"$5, $10, $20"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\$**/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.replace(re, *"€"*)); *// → €5, €10, €20* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.replaceAll(re, *"€"*)); *// → €5, €10, €20* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'As a result, calling replaceAll() doesn’t seem to yield much benefit over calling
+    replace(). The main difference between the two methods is how replaceAll() handles
+    replacement when the pattern is a string, as opposed to a regex:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[appendix/methods/methods_ex14.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex14.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"$5, $10, $20"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** searchStr = *"$"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.replace(searchStr, *"€"*)); *// → €5, $10, $20* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(str.replaceAll(searchStr, *"€"*)); *// → €5, €10, €20* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'While replaceAll() replaces all instances of a substring, replace() stops searching
+    as soon as it replaces the first substring. Keep in mind that replaceAll() always
+    expects the global flags to be present in a regex pattern; otherwise, it throws
+    an error:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[appendix/methods/methods_ex15.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex15.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"$5, $10, $20"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\$**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.replaceAll(re, *"€"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → TypeError: String.prototype.replaceAll called with a non-global
+    RegExp* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// argument* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Special Replacement Patterns |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/note.png](images/aside-icons/note.png) | The second
+    parameter of replace() and replaceAll() supports a set of special patterns that
+    let you reference different parts of the matched substring. See Recipe 34, [*Using
+    Special Replacement Patterns*](f_0045.xhtml#rcp.replacement_patterns). |'
+  prefs: []
+  type: TYPE_TB

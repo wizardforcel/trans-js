@@ -1,0 +1,171 @@
+- en: Recursion in the Eyes of the Computer
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To complete your understanding of recursion, we need to see how the computer
+    itself processes a recursive function. It’s one thing for humans to reason about
+    recursion using the earlier “napkin” method. However, the computer has to do the
+    tricky work of calling a function from within the function itself. So let’s break
+    down the process of how the computer executes a recursive function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Say that we call factorial(3). Since 3 isn’t the base case, the computer reaches
+    this line:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+  prefs: []
+  type: TYPE_TB
+- en: This then launches the function factorial(2).
+  prefs: []
+  type: TYPE_NORMAL
+- en: But there’s a catch. When the computer begins to run factorial(2), did the computer
+    yet complete running factorial(3)?
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is what makes recursion tricky for the computer. Until the computer reaches
+    the end keyword of factorial(3), it’s not done with factorial(3). So we enter
+    into a weird situation. The computer didn’t yet complete executing factorial(3),
+    yet it’s starting to run factorial(2) while still in the middle of factorial(3).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'And factorial(2) isn’t the end of the story, because factorial(2) triggers
+    factorial(1). So it’s a crazy thing: while still in the middle of running factorial(3),
+    the computer calls factorial(2). And while running factorial(2), the computer
+    runs factorial(1). It turns out, then, that factorial(1) runs in the middle of
+    both factorial(2) and factorial(3).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How does the computer keep track of all of this? It needs some way to remember
+    that after it finishes factorial(1), it needs to go back and finish running factorial(2).
+    And then it needs to remember to complete factorial(3) once it completes factorial(2).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Call Stack
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Luckily, you recently learned about stacks in Chapter 9, [​*Crafting Elegant
+    Code with Stacks and Queues*​](f_0087.xhtml#chp.stacks_queues). The computer uses
+    a stack to keep track of which functions it’s in the middle of calling. This stack
+    is known, appropriately enough, as the call stack.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s how the call stack works in the context of our factorial example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The computer begins by calling factorial(3). Before the method completes executing,
+    however, factorial(2) gets called. To track that the computer is still in the
+    middle of factorial(3), the computer pushes that information onto a call stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/call_stack_push_factorial_3.png](images/recursively_recurse_with_recursion/call_stack_push_factorial_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This indicates that the computer is in the middle of factorial(3). (Really,
+    the computer also needs to save which line it’s in the middle of, and some other
+    things like variable values, but I’m keeping the diagrams simple.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The computer then proceeds to execute factorial(2). Now, factorial(2), in turn,
+    calls factorial(1). Before the computer dives into factorial(1), though, the computer
+    needs to remember that it’s still in the middle of factorial(2), so it pushes
+    that onto the call stack as well:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/call_stack_push_factorial_2.png](images/recursively_recurse_with_recursion/call_stack_push_factorial_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The computer then executes factorial(1). Since 1 is the base case, factorial(1)
+    completes without calling the factorial method again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After the computer completes factorial(1), it checks the call stack to see whether
+    it’s in the middle of any other functions. If there’s something in the call stack,
+    it means that the computer still has work to do—namely, wrap up some other functions
+    it was in the middle of.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you recall, stacks are restricted in that we can only pop its top element.
+    This is ideal for recursion, since the top element will be the most recently called
+    function, which is what the computer needs to wrap up next. It’s a LIFO situation:
+    the function that was called last (that is, most recently) is the function we
+    need to complete first.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next thing the computer does is pop the top element of the call stack,
+    which currently is factorial(2):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/recursively_recurse_with_recursion/call_stack_pop_factorial_2.png](images/recursively_recurse_with_recursion/call_stack_pop_factorial_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The computer then completes its execution of factorial(2).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, the computer pops the next item from the stack. By this time, only factorial(3)
+    is left on the stack, so the computer pops it and therefore completes running
+    factorial(3).
+  prefs: []
+  type: TYPE_NORMAL
+- en: At this point, the stack is empty, so the computer knows it’s done executing
+    all of the methods, and the recursion is complete.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Looking back at this example from a bird’s-eye view, you’ll see that the order
+    in which the computer calculates the factorial of 3 is as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: factorial(3) is called first. Before it’s done…
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: factorial(2) is called second. Before it’s done…
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: factorial(1) is called third.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: factorial(1) is completed first.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: factorial(2) is completed based on the result of factorial(1).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Finally, factorial(3) is completed based on the result of factorial(2).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The factorial function is a calculation made based on recursion. The calculation
+    is ultimately made by factorial(1) passing its result (which is 1) to factorial(2).
+    Then factorial(2) multiplies this 1 by 2, yielding 2, and passes this result to
+    factorial(3). Finally, factorial(3) takes this result and multiplies it by 3,
+    computing the result of 6.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some refer to this idea as passing a value up through the call stack; that is,
+    each recursive function returns its computed value to its “parent” function. Eventually,
+    the function that was initially called first computes the final value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Stack Overflow
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s take a look back at the infinite recursion example from the beginning
+    of the chapter. Recall that blah() called itself ad infinitum. What do you think
+    will happen to the call stack?
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of infinite recursion, the computer keeps pushing the same function
+    again and again onto the call stack. The call stack grows and grows until, eventually,
+    the computer reaches a point where there’s simply no more room in its short-term
+    memory to hold all this data. This causes an error known as stack overflow—the
+    computer just shuts down the recursion and says, "I refuse to call the function
+    again, because I’m running out of memory!"
+  prefs: []
+  type: TYPE_NORMAL

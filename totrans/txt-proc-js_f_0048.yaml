@@ -1,0 +1,234 @@
+- en: '| Recipe 37 | Escaping Metacharacters with the Backslash |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you have an array of quotations that uses square brackets to include
+    words within a quote that are not part of the original quote:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | const quotes = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "The children [Hansel and Gretel] found a house made of candy.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "Fortune favors the bold.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "They [France] are playing against England tomorrow.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "Everything you’ve ever wanted is on the other side of fear.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // ... |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'You want to find those instances containing square brackets so that you can
+    add them to a new collection for search purposes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | const quotesWithMod = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "The children [Hansel and Gretel] found a house made of candy.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | "They [France] are playing against England tomorrow.", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ] |'
+  prefs: []
+  type: TYPE_TB
+- en: Since a bracket has a special meaning in regex, you need a way to escape the
+    bracket character to match the actual bracket.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Precede the brackets with a backslash (\) to match for the actual bracket:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/backslash/backslash_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/backslash/backslash_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **const** quotes = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *"The children [Hansel and Gretel] found a house made of candy."*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *"Fortune favors the bold."*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *"They [France] are playing against England tomorrow."*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  | *"Everything you’ve ever wanted is on the other side of fear."*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// ...* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | ] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** quotesWithMod = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10:  | **const** re = */**\[\w**+**(?:\s\w**+**)*****\]**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | quotes.forEach(quote => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **if** (re.test(quote)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | quotesWithMod.push(quote); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 15:  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | console.log(quotesWithMod); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 20:  | *// log:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// [* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// "The children [Hansel and Gretel] found a house made of candy.",*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// "They [France] are playing against England tomorrow."* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// ]* |'
+  prefs: []
+  type: TYPE_TB
+- en: You now have a separate array containing quotes with words that are not part
+    of the original quote.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The regex in our example matches any text enclosed in square brackets, which
+    could contain one or more words separated by spaces. Pay attention to the backslash
+    character preceding [ and ]. Without a backslash, these brackets would be treated
+    as a character class. \w and \s are different: the backslash before them is a
+    part of the expression and creates a shorthand character class (see Recipe 28,
+    [*Matching a Range of Characters with Character Classes*](f_0039.xhtml#rcp.character_class_range)).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When a backslash is followed by certain characters, it has a special meaning
+    in the regular expression. For example, \n will represent a line feed, and \s
+    will match a whitespace character. But we can also use a backslash to escape metacharacters.
+    When we want to take away the special meaning of a metacharacter and use it as
+    a literal character, we need to precede it with a backslash. For instance, to
+    match a backslash followed by the letter “s,” we write \\s.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at the regex pattern step by step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /\[\w+(?:\s\w+)*\]/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \[ matches the character "[" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \w matches a word character (ASCII letter, digit, or underscore) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token between one and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?:\s\w+)* non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ (?: indicates the start of a non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \s matches a whitespace character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \w matches a single word character (ASCII letter, digit, or underscore)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ + matches the previous token between one and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ ) closes the non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \] matches the character "]" literally |'
+  prefs: []
+  type: TYPE_TB
+- en: In line 12, we try to loop through each quote in the quotes array using the
+    forEach() method. Inside the loop, we call the test() method on the regex to check
+    whether the current quote contains a word enclosed in square brackets. If the
+    test returns true, we add the current quote to the quotesWithMod array using the
+    push() method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the end, the quotesWithMod array will contain all the quotes from the quotes
+    array that include a word enclosed in square brackets.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Escaping a Normal Character |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | If you attempt
+    to escape a character that is not a metacharacter, the character will be treated
+    as a literal character and nothing will happen to it. In other words, escaping
+    a non-metacharacter will not have any effect on the character’s interpretation
+    by the engine. Here’s an example:The code tag should not be here.But there is
+    one exception to this rule: if you set the u flag, the engine will enforce stricter
+    rules about the unnecessary use of backslashes and throw an error. For more on
+    the u flag see Recipe 43, [*Enabling Unicode Features with the u Flag*](f_0054.xhtml#rcp.flag_u).
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: Remember, you can use a backslash when you want to take away the special meaning
+    of a metacharacter and use it as a literal character in a regex pattern.
+  prefs: []
+  type: TYPE_NORMAL

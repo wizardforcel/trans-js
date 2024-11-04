@@ -1,0 +1,195 @@
+- en: Binary Search Tree Traversal
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Now, we’ve already seen how to search, insert, and delete data from a binary
+    search tree. I mentioned, though, that we also want to be able to print the entire
+    list of book titles in alphabetical order. How can we do that?
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we need the ability to visit every single node in the tree. Visiting
+    nodes is another term for accessing them. The process of visiting every node in
+    a data structure is known as traversing the data structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Second, we need to make sure we traverse the tree in alphabetically ascending
+    order so that we can print the list in that order. You can traverse a tree in
+    multiple ways, but for this application, we’ll perform what is known as inorder
+    traversal, so that we can print each title in alphabetical order.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Recursion is a great tool for performing traversal. We’ll create a recursive
+    function called traverse that can be called on a particular node. The function
+    then performs the following steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Call itself (traverse) recursively on the node’s left child. The function will
+    keep getting called until we hit a node that does not have a left child.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Visit the node. (For our book title app, we print the value of the node at this
+    step.)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Call itself (traverse) recursively on the node’s right child. The function will
+    keep getting called until we hit a node that does not have a right child.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: For this recursive algorithm, the base case is when we call traverse on a child
+    that does not exist, in which case we return without doing anything further.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a JavaScript traverseAndPrint function that works for our list of book
+    titles. Note how concise it is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ traverseAndPrint(node) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!node) { ​**return**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | traverseAndPrint(node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | console.log(node.value); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | traverseAndPrint(node.rightChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s walk through the inorder traversal step by step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We first call traverseAndPrint on “Moby Dick”. This, in turn, calls traverseAndPrint
+    on the left child of “Moby Dick”, which is “Great Expectations”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | traverseAndPrint(node.leftChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Before we move on to that, though, we’re going to add to the call stack the
+    fact that we’re in the middle of the function in “Moby Dick” and the fact that
+    we’re in the middle of traversing its left child:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_1.png](images/binary_trees/call_stack_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We then proceed with traverseAndPrint("Great Expectations"), which calls traverse_and_print
+    on the left child of “Great Expectations”, which is “Alice in Wonderland”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s add traverseAndPrint("Great Expectations") to the call stack before moving
+    on:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_2.png](images/binary_trees/call_stack_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The traverseAndPrint("Alice in Wonderland") calls traverseAndPrint on the left
+    child of “Alice in Wonderland”. However, there isn’t any left child (the base
+    case), so nothing happens. The next line of traverseAndPrint is the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | console.log(node.value); |'
+  prefs: []
+  type: TYPE_TB
+- en: This line prints "Alice in Wonderland".
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, the function attempts to traverseAndPrint the right child of “Alice in
+    Wonderland”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | traverseAndPrint(node.rightChild); |'
+  prefs: []
+  type: TYPE_TB
+- en: However, there’s no right child (the base case), so the function returns without
+    doing anything further.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Since we’ve completed the function traverseAndPrint("Alice in Wonderland"),
+    we check the call stack to see where we’re up to in this recursive soup:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_3.png](images/binary_trees/call_stack_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Ah, that’s right. We were in the middle of traverseAndPrint("Great Expectations"),
+    and we had just completed calling traverseAndPrint on its left child. Let’s pop
+    this from the call stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_4.png](images/binary_trees/call_stack_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'And let’s continue. The function next prints "Great Expectations" and then
+    calls traverseAndPrint on the right child, which is “Lord of the Flies”. Before
+    moving on to that, though, let’s hold our place within this function in the call
+    stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_5.png](images/binary_trees/call_stack_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We now execute traverseAndPrint("Lord of the Flies"). First, we call traverseAndPrint
+    on its left child, but it doesn’t have one. Next, we print “Lord of the Flies”.
+    Finally, we call traverseAndPrint on its right child, but that doesn’t exist either,
+    so the function is now done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We look at our call stack and see that we were in the process of executing traverseAndPrint
+    on the right child of “Great Expectations”. We can pop that from the stack and
+    continue, as shown in the [diagram](#fig.ch15.call_stack_6).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_6.png](images/binary_trees/call_stack_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Now, it just so happens that we’ve also now completed everything we have to
+    do in traverseAndPrint("Great Expectations"), so we can go back to the call stack
+    to see what to do next:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_7.png](images/binary_trees/call_stack_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We can see that we were in the middle of traverseAndPrint of the left child
+    of “Moby Dick”. We can pop that from the call stack (which leaves the stack empty
+    for now) and continue with the next step within traverseAndPrint("Moby Dick"),
+    which is to print “Moby Dick”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then, we call traverseAndPrint on the right child of “Moby Dick”. We’ll add
+    this to the call stack:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/call_stack_8.png](images/binary_trees/call_stack_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: For the sake of brevity (although it’s probably too late for that), I’ll let
+    you walk through the rest of the traverseAndPrint function from here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By the time our function has finished executing, we’ll have printed the nodes
+    in this order:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_trees/bst_27.png](images/binary_trees/bst_27.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: And that’s how we achieve our goal of printing the book titles in alphabetical
+    order. Note that tree traversal is O(N), since by definition, traversal visits
+    all N nodes of the tree.
+  prefs: []
+  type: TYPE_NORMAL

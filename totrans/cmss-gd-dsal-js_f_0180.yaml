@@ -1,0 +1,149 @@
+- en: Object-Oriented Graph Implementation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: I demonstrated how a hash table can be used to implement a graph, but going
+    forward, we’ll work with an object-oriented approach.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the beginning of an object-oriented graph implementation, using JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ Vertex { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​(value) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.value = value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.adjacentVertices = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | addAdjacentVertex(vertex) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.adjacentVertices.push(vertex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ Vertex; |'
+  prefs: []
+  type: TYPE_TB
+- en: The Vertex class has two primary attributes, the value and an array of adjacentVertices.
+    In our social network example, each vertex represents a person, and the value
+    might be a string containing the person’s name. With a more complex application,
+    we’d probably want to store multiple pieces of data inside a vertex, such as the
+    person’s additional profile information.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The adjacentVertices array contains all the vertices this vertex connects to.
+    We can add a new adjacent vertex to a given vertex using the addAdjacentVertex
+    method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how we can use this class to build a directed graph representing who
+    follows whom in this image:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/graph_2.png](images/graphs/graph_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '| ​  | ​**let**​ alice = ​**new**​ Vertex(​*''alice''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ bob = ​**new**​ Vertex(​*''bob''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ cynthia = ​**new**​ Vertex(​*''cynthia''*​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | alice.addAdjacentVertex(bob); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | alice.addAdjacentVertex(cynthia); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | bob.addAdjacentVertex(cynthia); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | cynthia.addAdjacentVertex(bob); |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, if we were building an undirected graph for the social network (where all
+    friendships are mutual), it would make sense if we add Bob to Alice’s list of
+    friends, we should automatically add Alice to Bob’s list of friends as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To do this, we can modify our addAdjacentVertex method as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | addAdjacentVertex(vertex) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.adjacentVertices.push(vertex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | vertex.adjacentVertices.push(​**this**​); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s say we’re calling this method on Alice and adding Bob to her list of friends.
+    As with the previous version, we use this.adjacentVertices.push(vertex) to add
+    Bob to Alice’s list of adjacentVertices. However, we also call this very method
+    on Bob’s vertex, with vertex.adjacentVertices.push(this). This adds Alice to Bob’s
+    list of friends as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To keep things simple going forward, we’re going to work with graphs that are
+    connected (again, meaning all vertices are connected to each other in some way).
+    With such graphs, we can use this one Vertex class to achieve all the algorithms
+    going forward. The general idea is if we have access to just one vertex, we can
+    find all other vertices from there since all the vertices are connected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, it’s important to point out that if we’re dealing with a disconnected
+    graph, it may be impossible to discover all the vertices just from one vertex.
+    In this case, we may need to store all the graph vertices in some additional data
+    structure, such as an array, so that we have access to all of them. (It’s common
+    to see graph implementations use a separate Graph class to contain this array.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adjacency List vs. Adjacency Matrix
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our implementation of the graph uses a simple list (in the form of an array)
+    to store a vertex’s adjacent vertices. This approach is known as the adjacency
+    list implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, it’s good to know that there’s another implementation that uses two-dimensional
+    arrays instead of lists. This alternative approach is known as the adjacency matrix,
+    and it can provide advantages in specific situations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both approaches are popular, and I’ve decided to stick with the adjacency list
+    because I find it to be more intuitive. But I recommend you research the adjacency
+    matrix as well, as it can be useful and is particularly interesting.
+  prefs: []
+  type: TYPE_NORMAL

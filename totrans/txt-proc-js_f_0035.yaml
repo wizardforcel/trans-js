@@ -1,0 +1,168 @@
+- en: '| Recipe 24 | Asserting the Start or End of a String with ^ and $ |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you have an input field in your app that allows customers to enter
+    their order number and track their package. You want to ensure the user input
+    is a number before searching it in your database. If you are a bit familiar with
+    regex, you know that to match a digit with regex, you can use \d. And to match
+    one or more digits, you can put a plus sign right after it like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/caret_and_dollar/cnd_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/caret_and_dollar/cnd_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** input = *"8751409"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** verifyDigits(input) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\d**+/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(input); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | verifyDigits(input); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This regex matches “8751409” as you intended. But it also matches a string
+    like “123abc” or “abc123abc”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/caret_and_dollar/cnd_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/caret_and_dollar/cnd_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** input = *"abc123abc"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** verifyDigits(input) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**\d**+/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(input); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | verifyDigits(input); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: So what happened here? Your pattern tells the regex engine to match one or more
+    digits, but it doesn’t tell it where. So, it successfully matches the digits in
+    the middle of the string and returns true even though there are other non-matching
+    characters in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What you need is a way to specify the beginning and end of the string in your
+    regex so it won’t match other characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Place a caret (^) at the beginning and a dollar symbol ($) at the end of the
+    pattern, like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/caret_and_dollar/cnd_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/caret_and_dollar/cnd_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** digits = *"8757409"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** digits_and_letters = *"875abc"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** verifyDigits(input) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**\d**+$/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(input); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(verifyDigits(digits)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(verifyDigits(digits_and_letters)); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: The regex now matches the exact phrase you’re looking for! The caret (^) asserts
+    the position at the start of the string, and a dollar symbol ($) asserts the position
+    at the end of the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Don’t confuse ^ and $ with startsWith() and endsWith(). ^ and $ are known as
+    zero-width assertions, which means they don’t match actual characters, but rather
+    positions in the text. So, the caret symbol in /^Hello$/ doesn’t match “H” in
+    the input. Instead, it asserts that no other character comes before the literal
+    characters “Hello.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, the dollar symbol doesn’t match any character, it just ensures that
+    the position is the end of the string. If you want to match specific characters
+    at the beginning or end of a string, you should use JavaScript’s startsWith()
+    and endsWith() methods (see Recipe 3, [*Matching the Beginning or End of a String
+    with startsWith() and endsWith()*](f_0013.xhtml#rcp.start_end)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| The Multiline Flag Changes the Rules |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | If you
+    use a multiline flag, $ also matches the point before a line break character,
+    and ^ also matches the point after a line break character. We’ll cover the multiline
+    flag in Recipe 41, [*Forcing ^ and $ to Match at the Start and End of a Line with
+    the m Flag*](f_0052.xhtml#rcp.flag_m). |'
+  prefs: []
+  type: TYPE_TB
+- en: Use ^ and $ to assert a position at the beginning or end of a string, but be
+    careful when using the multiline flag as it changes how these symbols work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Regex also comes with a syntax for matching whole words only: \b. This syntax,
+    along with ^ and $, are known as boundaries. The next recipe tells you all about
+    the word boundary (\b).'
+  prefs: []
+  type: TYPE_NORMAL

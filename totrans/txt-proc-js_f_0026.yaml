@@ -1,0 +1,278 @@
+- en: '| Recipe 16 | Creating Language-Sensitive Lists with Intl.ListFormat() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say you have a gaming app and want to display the top three players of
+    the week based on their scores. Because your app is available in multiple languages,
+    you need a function that can format the list automatically based on the user’s
+    language preference. It’s fairly common to have a series of items like this stored
+    in an array that you need to format as a sentence in different languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the Intl.ListFormat() constructor:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/creating_lists/ListFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 1:  | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **const** msg = *"Congratulations to this week''s winners: "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **function** getFormattedList(lang, arr) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5:  | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | **return** formatter.format(arr); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10:  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -  | *// → Congratulations to this week''s winners: Kraken, Boss99, and Ninja*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: This function returns a formatted string representation of the array items based
+    on the specified language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | Support
+    for ListFormat was added in Safari 14.1 on macOS and Safari 14.5 on iOS.^([[14]](f_0032.xhtml#FOOTNOTE-14))
+    So, although all modern browsers support ListFormat, users who haven’t updated
+    their browsers for a while won’t be able to run your app. For maximum compatibility,
+    use this API with a polyfill,^([[15]](f_0032.xhtml#FOOTNOTE-15)) or on the server
+    side (available since Node version 13.0.0). |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The ECMAScript Internationalization API enables us to develop applications that
+    can adapt to different languages. To access this API, we use the Intl namespace.
+    In the example, we used the Intl.ListFormat() constructor of the API, which provides
+    a straightforward way to format lists in a way that is culturally appropriate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We begin by creating a function called getFormattedList() that takes two arguments:
+    lang and arr. lang is a BCP 47 language tag that represents the language code
+    of the locale to be used for formatting the list, and arr is an array of items
+    to be formatted.^([[16]](f_0032.xhtml#FOOTNOTE-16))'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Inside the function, we create an instance of Intl.ListFormat, which takes
+    two arguments: lang and an options object. In this case, we want to format the
+    list for the English language, so we pass “en” as the language tag. The options
+    object specifies the type of conjunction to be used to join the items in the list.
+    We specify that the conjunction “and” should be used to join the items in the
+    list by setting {type: "conjunction"}.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we call the formatter.format(arr) method on the Intl.ListFormat object
+    with the arr argument passed in. This method returns a formatted string representation
+    of the array items based on the specified language and conjunction type that we
+    set earlier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To format the list in a different language, we can simply pass the relevant
+    language tag to the function. For instance, if we want to format the list in Spanish,
+    we can call the function with the argument “es.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here is an example output of the function when the language argument is set
+    to “es”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/creating_lists/ListFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** msg = *"Felicidades a los ganadores de esta semana: "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** getFormattedList(lang, arr) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** formatter.format(arr); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(msg + getFormattedList(*"es"*, topPlayers)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Felicidades a los ganadores de esta semana: Kraken, Boss99 y Ninja*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The Intl.ListFormat() constructor comes in handy even if we want to format
+    lists only in English because it eliminates possible grammatical errors. For example,
+    if we have only two items in an array, it won’t add a comma before “and”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/creating_lists/ListFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** msg = *"Congratulations to this week''s winners: "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** getFormattedList(lang, arr) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** formatter.format(arr); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Congratulations to this week''s winners: Kraken and Boss99* |'
+  prefs: []
+  type: TYPE_TB
+- en: The second argument of the ListFormat method is optional and lets us set options
+    such as the style and type of grouping. The default value of type is a conjunction,
+    but if we want to do an “or”-based grouping of the list items, we can use disjunction.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, perhaps we want to ask players which honorary title they prefer:
+    Legendary, Mighty, or Bold. So then the app will append that title to their name
+    like “Faraz the Mighty”:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/creating_lists/ListFormat_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"disjunction"*});
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"Which honorary title do you prefer? "* + |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | formatter.format(titles)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Which honorary title do you prefer? Legendary, Mighty, or Bold*
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: 'There’s also an option that lets us group the list items as a unit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/creating_lists/ListFormat_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"unit"*});
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(formatter.format(titles)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// logs:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Legendary, Mighty, Bold* |'
+  prefs: []
+  type: TYPE_TB
+- en: This example sets the value of type as unit, so it formats the list with no
+    “and” or “or.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whenever you want to list a series of items in a sentence, consider using the
+    ListFormat constructor, as it properly takes care of punctuation in English or
+    other languages.
+  prefs: []
+  type: TYPE_NORMAL

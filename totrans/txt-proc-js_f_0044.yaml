@@ -1,0 +1,182 @@
+- en: '| Recipe 33 | Reading Groups with Ease Using Named Capturing Groups |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you need to find the exact time when an error occurred by searching
+    through a log file. You know that the time is in the format of hours, minutes,
+    seconds, and AM/PM indicator (HH:MM:SS XM). To extract each time segment, you
+    create a pattern that can recognize and capture each segment separately. However,
+    as the number of groups in the pattern increases, the already cryptic regex syntax
+    becomes even harder to read. Consider this example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/named_capturing_group/ncg_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(\d{2})**:**(\d{2})**:**(\d{2})\s(\w{2})**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[1]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[2]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[3]); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[4]); |'
+  prefs: []
+  type: TYPE_TB
+- en: Which one of these matches represents minutes? And which one represents seconds?
+    Using a more expressive syntax to group the segments can greatly reduce the chances
+    of encountering issues in your code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use named capturing groups:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/named_capturing_group/ncg_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s(?<**period>**\w{2})**/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match.groups.hour); *// → 09* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match.groups.min); *// → 30* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match.groups.sec); *// → 00* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match.groups.period); *// → AM* |'
+  prefs: []
+  type: TYPE_TB
+- en: A named capturing group uses a more extended syntax in the form of (?<name>...).
+    So, patterns with multiple capturing groups can be read and edited with less difficulty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Named capturing groups is a syntax introduced in ES2018\. A valid capturing
+    group name must be an alphanumeric sequence starting with a letter. To avoid name
+    collision with existing property names, JavaScript assigns all named groups to
+    a separate object called groups.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If a pattern has an optional named capturing group that does not participate
+    in the match, it will still create a property for that group on the groups object.
+    Let’s make the last capturing group in our code optional by placing a question
+    mark after it to see what happens:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/named_capturing_group/ncg_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s?(?<**period>**\w{2})?**/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// A timestamp without AM/PM* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"09:30:00"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match.groups); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → {hour: "09", min: "30", sec: "00", period: undefined}* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In this example, period doesn’t participate in the match, but it’s still included
+    in the groups object. Even if there is no named group in the regex, the groups
+    object will be available in the result:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/named_capturing_group/ncg_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\w**+/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = *"abc"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"groups"* **in** match); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'It’s also possible to use numbered references to access named groups. Of course,
+    employing numbered references would defeat the purpose of our recipe (reading
+    the value of groups with ease). However, you may find numbered references useful
+    when you want to improve the readability of the regex part of your code only:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/named_capturing_group/ncg_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**minute>**\d{2})**:**(?<**second>**\d{2})**/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = *"09:30:00"*.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[0]); *// → 09:30:00* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[1]); *// → 09* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[2]); *// → 30* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(match[3]); *// → 00* |'
+  prefs: []
+  type: TYPE_TB
+- en: Take advantage of the named capturing group syntax when writing patterns with
+    multiple capturing groups to easily edit the pattern and read the result.
+  prefs: []
+  type: TYPE_NORMAL

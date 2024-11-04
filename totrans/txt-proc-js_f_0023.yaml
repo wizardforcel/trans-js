@@ -1,0 +1,266 @@
+- en: '| Recipe 13 | Formatting Dates with Intl.DateTimeFormat() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you work as a programmer for an online shop that delivers products after
+    two days from the date of purchase. Your task is to create a JavaScript code that
+    will notify the user about the exact day of the week when they can expect to receive
+    their ordered goods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For instance, if a customer purchases a product on a Saturday, your code should
+    inform them that the delivery will take place on the following Monday.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'This task involves three steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Getting the current date
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Adding two days to the current date
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Converting that date to the day of the week
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'We can perform the first two steps with a function like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** addDaysToToday(days) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** d = **new** Date(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | d.setDate(d.getDate() + days); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** d; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(dayAfterTomorrow); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Wed Apr 12 2023 11:41:09 GMT+0400* |'
+  prefs: []
+  type: TYPE_TB
+- en: First, use the Date() constructor to get the current date. Next, retrieve the
+    day of the month for today by calling the getDate() method of the date object.
+    Add two to this value to get the day after tomorrow’s date. Then, use the setDate()
+    method to update the day of the month, and the date object will automatically
+    adjust the month and year if needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'After performing the preceding steps, you’ll have a string that contains the
+    date after tomorrow, along with the timestamp and timezone. But you need only
+    the day and the month and don’t want to include the timestamp or timezone. So,
+    use the Intl.DateTimeFormat() constructor to format the date:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getFormattedDate(locale, date) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** formatter.format(date); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formattedDate = getFormattedDate(*"en-US"*, dayAfterTomorrow)
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(formattedDate); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Wednesday, April 12, 2023* |'
+  prefs: []
+  type: TYPE_TB
+- en: Intl.DateTimeFormat() accepts an object as its second argument that specifies
+    how the date should be formatted. In this case, you want to include the day of
+    the week in the date, so set the dateStyle to full.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how the final code should look like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/formatting_dates/adding_days_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** addDaysToToday(days) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** d = **new** Date(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | d.setDate(d.getDate() + days); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** d; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** getFormattedDate(locale, date) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** formatter.format(date); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** msg = *"We''ll deliver your purchase on "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(msg + getFormattedDate(*"en-US"*, dayAfterTomorrow)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → We''ll deliver your purchase on Wednesday, April 12, 2023* |'
+  prefs: []
+  type: TYPE_TB
+- en: This code generates a message containing the expected delivery date of a purchase
+    based on the current date and a specified locale.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To ensure that the date format in your application is suitable for the country
+    where the products are being shipped, you should pass an appropriate BCP 47 language
+    tag to Intl.DateTimeFormat().^([[10]](f_0032.xhtml#FOOTNOTE-10))
+  prefs: []
+  type: TYPE_NORMAL
+- en: A language tag is composed of one or more subtags, which identify the language,
+    script, region, and other language-related information. For example, “en-GB” is
+    a language tag that represents British English, where “en” indicates the language
+    and “GB” indicates the region. The BCP-47 standard is widely used in software
+    development to ensure consistent language support across different platforms.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this solution, we’ve used the “en-US” language to indicate American English.
+    But, if you’re delivering a product to France, for example, you should use the
+    “fr-FR” tag to indicate the French language:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/formatting_dates/adding_days_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** addDaysToToday(days) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** d = **new** Date(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | d.setDate(d.getDate() + days); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** d; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** getFormattedDate(locale, date) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** formatter.format(date); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** msg = *"Nous livrerons votre achat "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(msg + getFormattedDate(*"fr-FR"*, dayAfterTomorrow)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → Nous livrerons votre achat mercredi 12 avril 2023* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Converting a String to a Date Object |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | If you want to
+    scrape a date from text and turn it into a Date object, you can use the Date()
+    constructor.^([[11]](f_0032.xhtml#FOOTNOTE-11)) |'
+  prefs: []
+  type: TYPE_TB
+- en: Consider using the Intl.DateTimeFormat() constructor when working with date
+    and time. Intl.DateTimeFormat() lets you get date formatting for different languages,
+    set the style for date and time, define a numbering system for languages such
+    as Thai and Arabic, and more. For a complete list of available options, visit
+    MDN Web Docs.^([[12]](f_0032.xhtml#FOOTNOTE-12))
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,193 @@
+- en: Word Builder
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The next example is an algorithm that collects every combination of two-character
+    strings built from an array of single characters. For example, given the array
+    ["a", "b", "c", "d"], we’d return a new array containing the following string
+    combinations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''ab''*​, ​*''ac''*​, ​*''ad''*​, ​*''ba''*​, ​*''bc''*​, ​*''bd''*​,
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''ca''*​, ​*''cb''*​, ​*''cd''*​, ​*''da''*​, ​*''db''*​, ​*''dc''*​
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Following is an implementation of this algorithm. Let’s see if we can figure
+    out its Big O efficiency:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ wordBuilder(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ collection = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [indexI, valueI] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [indexJ, valueJ] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (indexI !== indexJ) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | collection.push(valueI + valueJ); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ collection; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Here we’re running one loop nested inside another. The outer loop iterates over
+    each character in the array, keeping track of the index of valueI. For each indexI,
+    we run an inner loop that iterates again over each character in the same array
+    using the index indexJ. Within this inner loop, we concatenate the characters
+    at indexI and indexJ, with the exception of when indexI and indexJ are pointing
+    to the same index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To determine the efficiency of our algorithm, we once again need to determine
+    what the N data elements are. In our case, as in the previous example, N is the
+    number of items inside the array passed to the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The next step is to determine the number of steps our algorithm takes relative
+    to the N data elements. In our case, the outer loop iterates over all N elements,
+    and for each element, the inner loop iterates again over all N elements, which
+    amounts to N steps multiplied by N steps. This is the classic case of O(N²) and
+    is often what nested-loop algorithms turn out to be.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, what would happen if we modified our algorithm to compute each combination
+    of three-character strings? For our example array of ["a", "b", "c", "d"], our
+    function would return the following array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''abc''*​, ​*''abd''*​, ​*''acb''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''acd''*​, ​*''adb''*​, ​*''adc''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''bac''*​, ​*''bad''*​, ​*''bca''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''bcd''*​, ​*''bda''*​, ​*''bdc''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''cab''*​, ​*''cad''*​, ​*''cba''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''cbd''*​, ​*''cda''*​, ​*''cdb''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''dab''*​, ​*''dac''*​, ​*''dba''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*''dbc''*​, ​*''dca''*​, ​*''dcb''*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ] |'
+  prefs: []
+  type: TYPE_TB
+- en: Here’s an implementation that uses three nested loops. What is its time complexity?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ wordBuilder(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ collection = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [indexI, valueI] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [indexJ, valueJ] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [indexK, valueK] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (indexI !== indexJ && indexJ !== indexK && indexI !== indexK)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | collection.push(valueI + valueJ + valueK); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ collection; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: In this algorithm, for N data elements, we have N steps of the “i” loop multiplied
+    by the N steps of the “j” loop multiplied by the N steps of the “k” loop. This
+    is N * N * N, which is N³ steps, which is described as O(N³).
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we had four or five nested loops, we’d have algorithms that are O(N⁴) and
+    O(N⁵), respectively. Let’s take a look at how these all appear on a graph as [shown](#fig.ch7.big_o_graph_with_arrows).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/big_o_in_everyday_code/big_o_graph_with_arrows.png](images/big_o_in_everyday_code/big_o_graph_with_arrows.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Optimizing any code from a speed of O(N³) to O(N²) would be a big win since
+    the code becomes exponentially faster. However, the algorithm above remains stuck
+    at O(N³).
+  prefs: []
+  type: TYPE_NORMAL

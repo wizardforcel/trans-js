@@ -1,0 +1,122 @@
+- en: '| Recipe 70 | Matching Nearby Words |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to search for the term “client-side” in a tutorial database
+    because you’ve been asked to assess whether client-side issues are sufficiently
+    covered for new hires. If you write a regex that matches only the exact word,
+    it would be unable to retrieve results for instances that contain the words “client”
+    and “side” without being adjacent to each other. For example, tutorials with phrases
+    such as “client- and server-side” or “client and server side” would not be included
+    in the search results.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But if you specify a proximity search for the words, where they appear within
+    a certain number of characters of each other, it will help you to find more relevant
+    results. So, what you need is to create a pattern that can locate words, as long
+    as they appear within a specific distance of each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To find words near each other, use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/proximity_search/proximity_search_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/proximity_search/proximity_search_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** findNearbyWords(text, word1, word2, maxDistance) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** regex = **new** RegExp(*`*${word1}*.{0,*${maxDistance}*}*${word2}*`*,
+    *"gi"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** matches = text.match(regex); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** matches; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** text = *"Both client- and server-side scripts must validate
+    form data."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** word1 = *"client"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** word2 = *"side"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** maxDistance = 20; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | findNearbyWords(text, word1, word2, maxDistance); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["client- and server-side"]* |'
+  prefs: []
+  type: TYPE_TB
+- en: This function performs a proximity search for “client” and “side” within 20
+    characters of each other and retrieves the part of the string that contains them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We construct the pattern by using a template literal that contains the word1
+    and word2 variables, as well as the maxDistance variable as a quantifier {0,${maxDistance}}
+    to match between word1 and word2. Note that ${word1}, ${maxDistance}, and ${word2}
+    are JavaScript placeholders for performing substitutions, and they are entirely
+    distinct from the regex syntax. Let’s take a closer look:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | ${word1}.{0,${maxDistance}}${word2} |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ${word1} gets replaced with "client" |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● . matches any character that is not a line break character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {0,${maxDistance}} gets replaced with {0,20}, so it matches the previous
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | token between 0 to 20 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ${word2} gets replaced with "side" |'
+  prefs: []
+  type: TYPE_TB
+- en: Additionally, we add the g and i flags to the regex to make it global and case-insensitive.
+    Then, we call the match() method on the text with the regex object as an argument.
+    The output will be an array of matches that contain word1 and word2 within maxDistance
+    characters of each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Proximity search techniques can be especially useful when searching for complex
+    or technical information. By specifying that we want to see results where certain
+    words or phrases appear near each other, we can find the text we’re looking for
+    more accurately.
+  prefs: []
+  type: TYPE_NORMAL

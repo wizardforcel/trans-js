@@ -1,0 +1,151 @@
+- en: Abstract Data Types
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Most programming languages don’t come with the stack as a built-in data type
+    or class. Instead, it’s up to you to implement it yourself. This is a stark contrast
+    with arrays, which are available in most languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To create a stack, then, you generally have to use one of the built-in data
+    structures to hold the data. Here’s one way to implement a stack using JavaScript,
+    which uses an array under the hood:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**class**​ Stack { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**constructor**​() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | push(element) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.data.push(element); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | pop() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (​**this**​.data.length > 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.data.pop(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | read() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (​**this**​.data.length > 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.data[​**this**​.data.length - 1]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**export**​ ​**default**​ Stack; |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, our stack implementation stores the data in an array called
+    this.data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whenever a stack is initiated, we automatically build an empty array with this.data
+    = []. Our stack also contains methods that push a new element onto the end of
+    this.data, pop an element from the beginning of this.data, and read the first
+    element from the this.data array. (The read and pop methods return null if the
+    stack is empty.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our code may look a little confusing at first because our pop method calls this.data.pop()
+    and our push method calls this.data.push(). However, this is because JavaScript
+    happens to implement methods with these very names on arrays, which is what this.data
+    is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, by building the Stack class around the array, we’ve built an interface
+    that forces the user to interact with the array in limited ways. While one can
+    normally read from any index of an array, when using the array through the stack
+    interface, one can only read the last item. The same goes for inserting and deleting
+    data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The stack data structure, then, isn’t the same kind of data structure that an
+    array is. The array is built into most programming languages and interacts directly
+    with the computer’s memory. The stack, on the other hand, is a set of rules and
+    processes around how we should interact with an array so that we can achieve a
+    particular result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In fact, a stack doesn’t even care about what data structure is under the hood.
+    All it cares about is that there’s a list of data elements that act in a LIFO
+    way. Whether we accomplish this with an array or some other type of built-in data
+    structure doesn’t matter. Because of this, the stack is an example of what is
+    known as an abstract data type—it’s a kind of data structure that is a set of
+    theoretical rules that revolve around some other built-in data structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The set we encountered in Chapter 1, [​*Why Data Structures Matter*​](f_0013.xhtml#chp.understanding_data_structures),
+    is another example of an abstract data type. Some implementations of sets use
+    arrays under the hood, while other implementations use hash tables. The set itself,
+    though, is simply a theoretical concept: it’s a list of non-duplicated data elements.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Many of the data structures we’ll encounter in the remainder of this book are
+    abstract data types—they’re pieces of code that are written on top of other built-in
+    data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It should be noted that even a built-in data structure can be an abstract data
+    type. Even if a programming language does implement its own Stack class, it doesn’t
+    change the fact that the stack data structure is still a concept that allows for
+    various data structures to be used under the hood.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,79 @@
+- en: Quicksort in the Worst-Case Scenario
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For many other algorithms we’ve encountered, the best case was one where the
+    array was already sorted. When it comes to Quicksort, however, the best-case scenario
+    is one in which the pivot always ends up smack in the middle of the subarray after
+    the partition. Interestingly, this generally occurs when the values in the array
+    are mixed up pretty well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The worst-case scenario for Quicksort is one in which the pivot always ends
+    up on one side of the subarray instead of in the middle. This can happen where
+    the array is in perfect ascending or descending order. The visualization for this
+    process is shown here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/divide_and_conquer_code_in_turbo_mode/visualization.png](images/divide_and_conquer_code_in_turbo_mode/visualization.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this diagram you can see that the pivot always ends up on the left end of
+    each subarray.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While in this case each partition still involves only one swap, we lose out
+    because of the increased number of comparisons. In the first example, when the
+    pivot always ended up toward the middle, each partition after the first one was
+    conducted on relatively small subarrays (the largest subarray had a size of 4).
+    In this example, however, the first five partitions take place on subarrays of
+    size 4 or greater. And each of these partitions has as many comparisons as there
+    are elements in the subarray.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So in this worst-case scenario, we have partitions of 8 + 7 + 6 + 5 + 4 + 3
+    + 2 + 1 elements, which yields a total of 36 comparisons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To put this a little more formulaically, we’d say that for N elements, there
+    are N + (N - 1) + (N - 2) + (N - 3) … + 1 steps. We saw in our discussion of [​*Get
+    All the Products*​](f_0072.xhtml#sect.get-all-the-products), that this computes
+    to N² / 2 steps, which for the purposes of Big O is O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: So in a worst-case scenario, Quicksort has an efficiency of O(N²).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Quicksort vs. Insertion Sort
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Now that we’ve got Quicksort down, let’s compare it with one of the simpler
+    sorting algorithms, such as Insertion Sort:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | Best Case | Average Case | Worst Case |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Insertion Sort | O(N) | O(N²) | O(N²) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Quicksort | O(N log N) | O(N log N) | O(N²) |'
+  prefs: []
+  type: TYPE_TB
+- en: We can see they have identical worst-case scenarios and that Insertion Sort
+    is faster than Quicksort in a best-case scenario. However, the reason Quicksort
+    is superior to Insertion Sort is because of the average scenario—which, again,
+    is what happens most of the time. For average cases, Insertion Sort takes a whopping
+    O(N²), while Quicksort is much faster at O(N log N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because of Quicksort’s superiority in average circumstances, many programming
+    languages use Quicksort under the hood of their built-in sorting functions. So
+    it’s unlikely you’ll be implementing Quicksort yourself. However, a very similar
+    algorithm can come in handy for practical cases—and it’s called Quickselect.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,244 @@
+- en: '| Recipe 18 | Counting Unicode Characters with Intl.Segmenter() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s say you have an app that requires user registration and includes a text
+    input for the user’s bio. The bio may be in any language and include emojis. You
+    want to limit the length of the bio to precisely 120 characters. So, you need
+    to calculate the length of the string. Easy! Use the length() method to get the
+    number of characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex1.png](images/char_segmenter_ex1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This is probably not the result you expected. Strings in JavaScript are based
+    on UTF-16, which represents characters using one or two 16-bit integers. Some
+    characters, such as the Chinese character for kǒu cái (eloquence) and the cat
+    emoji, require two 16-bit units (surrogate pairs) to encode. The length() method
+    gives you the number of UTF-16 code units in a string, not the number of characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Supplementary Characters |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Characters
+    that are made of a pair of 16-bit surrogate code units are known as supplementary
+    characters. |'
+  prefs: []
+  type: TYPE_TB
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the Intl.Segmenter() constructor:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_characters/char_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getLength(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** [...**new** Intl.Segmenter().segment(str)].length; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/char_segmenter_ex2.png](images/char_segmenter_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This function returns the number of Unicode segments in the input string. In
+    other words, it determines the length of the given string based on the number
+    of Unicode characters, rather than the number of code units.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Segmenter()
+    is a part of the Internationalization API. While most browsers have supported
+    the Internationalization API features for years, Segmenter() is a relatively newer
+    feature that remains unsupported in Firefox (at the time of this writing).^([[17]](f_0032.xhtml#FOOTNOTE-17))There
+    are some Unicode-aware libraries like Graphemer that let you split JavaScript
+    strings into separate letters,^([[18]](f_0032.xhtml#FOOTNOTE-18)) but their results
+    aren’t perfectly consistent with those from Segmenter. There’s no perfect way
+    to emulate the behavior of Segmenter() in browsers, because doing so requires
+    lots of language-specific rules.Until browser support is more solid, you can run
+    Intl.Segmenter() on the server side (supported since Node 16). |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The Intl.Segmenter() constructor allows us to segment a string according to
+    a specified locale and granularity. In this case, we are using the default implementation,
+    so we call the method with no arguments. Because Intl.Segmenter() is a constructor,
+    we need to call it with the new keyword.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The returned object has a segment() method, which accepts a single-string argument.
+    The method segments the string, as its name suggests, meaning that it splits the
+    string into user-perceived character boundaries. Because the returned value is
+    an iterator, we can use the spread syntax (...) to expand the object into its
+    elements. The spread syntax consists of three dots in a row, and lets us quickly
+    create an array from the iterator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Finally, we calculate the length of the array to get the number of Unicode
+    characters in the string. If you find the code to be too cryptic, you can use
+    this version instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_characters/char_segmenter_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** getLength(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create a an instance of segmenter* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** Segmenter = **new** Intl.Segmenter(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Segment the string* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** segment = Segmenter.segment(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Convert it into an array* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** arr = Array.**from**(segment); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Return the number of characters* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** arr.length; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/char_segmenter_ex3.png](images/char_segmenter_ex3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'This version of the code does the exact same operations as the first. You’ll
+    probably come across code that uses other techniques to count the number of characters
+    in a string. One technique is to convert the string into an array of characters
+    and then count the number of elements in the array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex4.png](images/char_segmenter_ex4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'This trick works because strings since ES2015 have built-in iterators that
+    are Unicode-aware and automatically treat a supplementary character as a single
+    value. However, counting the number of characters in a string is not always as
+    simple. In some cases, this technique could give you an inaccurate result. For
+    example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex5.png](images/char_segmenter_ex5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The family emoji above is known as an Emoji ZWJ Sequence that’s made of three
+    independent emojis:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex6.png](images/char_segmenter_ex6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: These emojis are shown in their connected forms when a zero-width joiner (ZWJ)
+    is placed between them. ZWJ is a non-printing character that causes characters
+    or emojis to be shown in their connected forms on supported platforms.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the example above, the length of the emoji is 5 because we’re counting every
+    ZWJ too. The following code snippet should make this clearer:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex7.png](images/char_segmenter_ex7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The empty strings in the result represent ZWJ characters. Since ZWJs are non-printable,
+    they are displayed as empty strings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another issue is that some characters look the same but have different code
+    points, and thus are not equal. Consider the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex8.png](images/char_segmenter_ex8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The character assigned to str1 may look exactly the same as the character assigned
+    to str2, but in reality, they’re different characters. The character in the first
+    string has a code point of U+00E9 (LATIN SMALL LETTER E WITH ACUTE), while the
+    second character consists of two separate code points, including U+0065 (LATIN
+    SMALL LETTER E) and U+0301 (COMBINING ACUTE ACCENT):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | console.log(*"***\***u00E9"*); *// → é* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"***\***u0065***\***u0301"*); *// → é* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This explains why the length of the second string is two. Fortunately, the
+    Internationalization API is smart enough to count such characters as a single
+    character. Compare:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/char_segmenter_ex9.png](images/char_segmenter_ex9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Recall from the previous recipe that charAt() cannot handle supplementary characters.
+    Let’s take advantage of Intl.Segmenter() to write a function that remedies this
+    shortcoming:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_characters/char_segmenter_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// charAt() alternative* |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/char_segmenter_ex10.png](images/char_segmenter_ex10.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This function is very similar to our first function in this recipe, except that
+    it uses [index]["segment"] rather than .length. The expression [index] gets us
+    the character wrapped in an object, and ["segment"] refers to the property of
+    the object that holds the character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use the Intl.Segmenter() constructor whenever you want to get the length of
+    a string that contains Unicode characters. But counting characters isn’t the only
+    thing that you can do with Intl.Segmenter(). In the next recipe, we’ll look at
+    using the API to count the number of words in a string.
+  prefs: []
+  type: TYPE_NORMAL

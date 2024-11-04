@@ -1,0 +1,578 @@
+- en: Recognizing Patterns
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: One of the most helpful strategies for both code optimization and algorithm
+    development in general is to find patterns within the problem at hand. Often,
+    the discovery of a pattern can help you cut through all the complexity of a problem
+    and develop an algorithm that is simple.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Coin Game
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s a great example. A game I call “the coin game” has two players who compete
+    in the following way: they start with a pile of coins, and each player has the
+    choice of removing either one or two coins from the pile. The player who removes
+    the last coin loses. Fun, right?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It turns out that this isn’t a game of random chance, and with the right strategy,
+    you can force your opponent to take the last coin and lose the game. To make this
+    clear, let’s start with some really small coin piles and see how the game plays
+    out.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If there’s just one coin in the pile, the player whose turn it is loses, since
+    they have no choice but to take the last coin.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If there are two coins left, the player whose turn it is can force a win. This
+    is because they can take just one coin and thereby force their opponent to take
+    the final coin.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When there are three coins remaining, the player whose turn it is can also force
+    a win, since they can remove two coins, forcing their opponent to take the final
+    coin.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, when there are four coins left, the current player is in trouble. If they
+    remove one coin, the opponent is given a pile of three coins, which we established
+    earlier can allow that player to force a win. Similarly, if the current player
+    removes two coins, the opponent is left with two coins, which can also allow the
+    opponent to force a win.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we were to write a function that calculated whether you can win the game
+    when presented with a coin pile of a given size, what approach should we take?
+    If we think about this carefully, we may realize we can use subproblems to help
+    calculate an accurate result for any number of coins. This would make top-down
+    recursion a natural fit for solving this problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a JavaScript implementation of a recursive approach:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ gameWinner(numberOfCoins, currentPlayer=​*''you''*​)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ nextPlayer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (numberOfCoins <= 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentPlayer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentPlayer === ​*''you''*​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | nextPlayer = ​*''them''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (currentPlayer === ​*''them''*​) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | nextPlayer = ​*''you''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (gameWinner(numberOfCoins - 1, nextPlayer) === currentPlayer
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | &#124;&#124; gameWinner(numberOfCoins - 2, nextPlayer) === currentPlayer)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentPlayer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ nextPlayer; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This gameWinner function is given a number of coins and the player whose turn
+    it is (either "you" or "them"). The function then returns either "you" or "them"
+    as the winner of the game. When the function is first called, the currentPlayer
+    is "you".
+  prefs: []
+  type: TYPE_NORMAL
+- en: We define our base case as when the currentPlayer is dealt 0 or fewer coins.
+    This means the other player took the last coin and the current player, by default,
+    won the game.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We then define a nextPlayer variable, which keeps track of which player will
+    go next.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we do our recursion. We recursively call our gameWinner function on piles
+    of coins that are both one and two coins smaller than the current pile and see
+    if the next player would win or lose in those scenarios. If the nextPlayer loses
+    in both scenarios, that means the currentPlayer will win.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This isn’t an easy algorithm, but we pulled it off. Now let’s see if we can
+    optimize it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To satisfy our prereq, we first need to figure out our algorithm’s current speed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You may have noticed that this function makes multiple recursive calls. If alarm
+    bells are going off in your head, that’s for good reason. The time complexity
+    of this function is a whopping O(2^N), which can be unbearably slow.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can improve this by using the memoization technique you learned about in
+    Chapter 12, [​*Dynamic Programming*​](f_0112.xhtml#chp.dynamic_programming), which
+    could bring the speed up to O(N), with N being the number of coins in the starting
+    pile. That’s a huge improvement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But let’s see if we can push our algorithm’s speed even further.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To determine whether we can optimize our algorithm further, we need to ask ourselves
+    what we think the best-imaginable Big O is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because N is just a single number, I could conceive that we can make an algorithm
+    that takes just O(1) time. Since we don’t actually have to touch N items in an
+    array or anything like that, if someone told me they figured out an algorithm
+    for the coin game that was just O(1), I’d believe them. So let’s strive for O(1).
+  prefs: []
+  type: TYPE_NORMAL
+- en: But how do we get there? This is where finding a pattern can help.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generating Examples
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: While each problem has a unique pattern, I found a technique for finding patterns
+    that helps across all problems—and that is to generate numerous examples. This
+    means we should take a bunch of example inputs, calculate their respective outputs,
+    and see if we can detect a pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s apply this to our case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we map out who wins for coin piles of size 1 through 10, we get this table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Number of Coins | Winner |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1 | Them |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 3 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 4 | Them |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 6 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 7 | Them |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 8 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 9 | You |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 10 | Them |'
+  prefs: []
+  type: TYPE_TB
+- en: The pattern becomes clear when we lay it out this way. Basically, starting with
+    1 coin, every third number gives victory to the opponent. Otherwise, you are the
+    winner.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So if we take the number of coins and subtract 1, each "them" ends up at a
+    number that is divisible by 3\. At this point, then, we can determine who will
+    win based on a single division calculation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ gameWinner(numberOfCoins) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ ((numberOfCoins - 1) % 3 === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''them''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''you''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This code is saying that if after subtracting 1, the numberOfCoins is divisible
+    by 3, the winner is "them". Otherwise, "you" are the winner.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because this algorithm consists of a single mathematical operation, it’s O(1)
+    in both time and space. It’s also a lot simpler! This is a real win-win-win.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By generating many examples of coin piles (as inputs) and seeing who’d win the
+    game (as outputs), we were able to identify a pattern in how the coin game works.
+    We were then able to use this pattern to cut to the heart of the problem and turn
+    a slow algorithm into an instantaneous one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Sum Swap Problem
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Here’s an example where we can use both pattern recognition and magical lookups
+    together to optimize an algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next problem, known as the sum swap problem, goes like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We want to write a function that accepts two arrays of integers. As an example,
+    let’s say these are our arrays:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/two_arrays.png](images/tips_for_code_optimization/two_arrays.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Currently, the numbers in array1 add up to 20, while the numbers in array2 add
+    up to 18.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our function needs to find one number from each array that can be swapped to
+    cause the two array sums to be equal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this example, if we swapped the 2 from array1 and the 1 from array2, we’d
+    get:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/swap_2_and_1.png](images/tips_for_code_optimization/swap_2_and_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: And both arrays would now have the same sum—namely, 19.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To keep things simple, our function won’t actually perform the swap but will
+    return the two indexes that we’d have to swap. We can do this as an array containing
+    the two indexes. So, in this case, we swapped index 2 of array1 with index 0 of
+    array2, so we’ll return an array of [2, 0]. In a case where there’s no possible
+    swap that makes the two arrays equal, we’ll return null.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way we can write this algorithm is to use nested loops; that is, as our
+    outer loop points to each number from array1, an inner loop can iterate over each
+    number from array2 and test the sums of each array if we were to swap the two
+    numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To begin optimizing this, we must first satisfy our prereq of knowing the Big
+    O of our current algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because our nested-loops approach visits M numbers from the second array for
+    each of the N numbers of the first array, this algorithm is O(N * M). (I’m discussing
+    N and M because the arrays may be two different sizes.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Can we do better? To find out, let’s determine what we think the best-imaginable
+    Big O may be.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It would seem that we absolutely have to visit each number from the two arrays
+    at least once since we need to be aware of what all the numbers are. But it’s
+    possible that this may be all we need to do. If so, this would be O(N + M). Let’s
+    make this our best-imaginable Big O and aim for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we need to try to dig up any patterns hidden within the problem. Again,
+    the best technique to dig up patterns is to come up with numerous examples and
+    look for patterns among them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So let’s look at a number of different examples where swapping numbers will
+    cause the two arrays to have equal sums, as shown in the [diagram](#fig.ch20.multiple_swap_examples).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/multiple_swap_examples.png](images/tips_for_code_optimization/multiple_swap_examples.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In looking at these examples, a few patterns begin to emerge. Some of these
+    patterns may seem obvious, but let’s look at them anyway.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One pattern is that to achieve equal sums, the larger array needs to trade a
+    larger number with a smaller number from the smaller array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A second pattern is that with a single swap, each array’s sum changes by the
+    same amount. For example, when we swap a 7 with a 4, one array’s sum decreases
+    by 3, while the other array’s sum increases by 3.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A third interesting pattern is that the swaps always cause the two array sums
+    to fall out exactly in the middle of where the two array sums began.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the first case, for example, array1 was 18 and array2 was 12\. When making
+    a correct swap, the two arrays land at 15, which is exactly in the middle between
+    18 and 12.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we think about it further, this third pattern is a logical outgrowth of
+    the other patterns. Since a swap causes the two arrays to shift their sums by
+    the same amount, the only way to make their sums equal is to meet in the middle.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Based on this, if we know the sums of the two arrays, we should be able to look
+    at any number in one of the arrays and calculate what number it should be swapped
+    with.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take this example again:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_example.png](images/tips_for_code_optimization/second_example.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We know that for a swap to work successfully, we’ll need the two arrays’ sums
+    to land in the middle. The exact middle between 18 and 12 is 15.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s look at different numbers from array1 and figure out what number we’d
+    want to swap it with. We can call this other number its counterpart. Let’s start
+    with the first number from array1, which is the number 5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What number would we want to swap the 5 with? Well, we know that we want array1
+    to decrease by 3, and array2 to increase by 3, so we’d need to swap the 5 with
+    a number 2\. It just so happens that array2 doesn’t contain a 2, so the 5 cannot
+    be successfully swapped with any number from array2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we look at the next number from array1, it’s a 3\. We’d have to swap this
+    with a 0 from array2 to get the two sums to be equal. Alas, a 0 doesn’t exist
+    in array2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The last number from array1, though, is a 7\. We can calculate that we’d want
+    to swap the 7 with a 4 to make the sums both land at 15\. Luckily, array2 does
+    contain a 4, so we can make a successful swap.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, how do we express this pattern in code?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Well, we can first determine how much an array sum needs to shift using this
+    calculation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | shiftAmount = Math.floor((sum1 - sum2) / 2); |'
+  prefs: []
+  type: TYPE_TB
+- en: Here, sum1 is the sum of array1, and sum2 is the sum of array2. If sum1 is 18
+    and sum2 is 12, we end up with a difference of 6\. We then divide that by 2 to
+    determine how much each array needs to shift. This is the shiftAmount.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, the shiftAmount is 3, indicating that array2 needs to increase
+    by 3 to hit the target sum. (Likewise, array1 needs to decrease by 3.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: So we can start building our algorithm by first calculating the sums of the
+    two arrays. We can then loop through all the numbers in one of the arrays and
+    look for the counterpart in the other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we were to iterate over each number in array2, for example, we know that
+    the current number would have to be swapped with its counterpart, which would
+    be the current number plus the shiftAmount. For example, if the current number
+    is 4, to find its counterpart we add the shiftAmount (3) to it and get 7\. This
+    means we need to find a 7 in array1 to swap with our current number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, we’ve figured out that we can look at any number in either array and know
+    exactly what its counterpart from the other array should be. But how does this
+    help? Don’t we still need to use nested loops and have an algorithm that is O(N
+    * M)? That means that for each number in one array, we have to search the entire
+    other array for the counterpart.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is where we can invoke magical lookups and ask ourselves, “If I could magically
+    find a desired piece of information in O(1) time, can I make my algorithm faster?”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Indeed, if we could find a number’s counterpart from the other array in just
+    O(1) time, our algorithm would be much faster. And we can achieve those quick
+    lookups by following the usual technique of bringing in our good ol’ hash table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we first store the numbers from one array in a hash table, we can then immediately
+    find any number from it in O(1) time as we iterate through the other array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the complete code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ sumSwap(array1, array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ hashTable = {}; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ sum1 = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ sum2 = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [index, num] ​**of**​ array1.entries()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | sum1 += num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | hashTable[num] = index; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ num ​**of**​ array2) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | sum2 += num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// If the input consists of integers and the difference*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// between the two sums is odd, it''s impossible to find*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*// an integer smack in the middle, so no swap is possible:*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (Math.abs((sum1 - sum2) % 2) === 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ shiftAmount = Math.floor((sum1 - sum2) / 2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [index, num] ​**of**​ array2.entries()) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (hashTable[num + shiftAmount] &#124;&#124; hashTable[num +
+    shiftAmount] === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ [hashTable[num + shiftAmount], index]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This approach is much faster than our original O(N * M) one. If we consider
+    array1 to be N and array2 to be M, we could say that this algorithm runs in O(N
+    + M) time. While we do iterate over array2 twice and it is technically 2M, it
+    becomes M since we drop the constants.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This approach takes up an extra O(N) space since we copy all N numbers from
+    array1 into the hash table. Again, we’re sacrificing space to gain time, but this
+    is a big win if speed is our primary concern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In any case, this is another example of where discovering patterns allows us
+    to cut to the heart of the problem and develop a simple and fast solution.
+  prefs: []
+  type: TYPE_NORMAL

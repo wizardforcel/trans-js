@@ -1,0 +1,190 @@
+- en: Deletion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Linked lists also shine when it comes to deletion, especially when deleting
+    from the beginning of the list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To delete a node from the beginning of a linked list, all we need to do is
+    perform one step: we change the firstNode of the linked list to now point to the
+    second node.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s return to our example of the linked list containing the values "once",
+    "upon", "a", and "time". If we want to delete the value "once", we could simply
+    change the linked list to begin at "upon":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | list.firstNode = node2; |'
+  prefs: []
+  type: TYPE_TB
+- en: Contrast this with an array, in which deleting the first element means shifting
+    all remaining data one cell to the left, which takes O(N) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When it comes to deleting the final node of a linked list, the actual deletion
+    takes one step—we just take the second-to-last node and make its link null. However,
+    it takes N steps to even access the second-to-last node in the first place, since
+    we need to start at the beginning of the list and follow the links until we reach
+    it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following table contrasts the various scenarios of deletion for both arrays
+    and linked lists. Note how it’s identical to insertion:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Situation | Array | Linked List |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Delete at beginning | Worst case | Best case |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Delete at middle | Average case | Average case |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Delete at end | Best case | Worst case |'
+  prefs: []
+  type: TYPE_TB
+- en: While deleting from the beginning or end of a linked list is straightforward,
+    deleting from anywhere in the middle is slightly more involved.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Say we want to delete the value at index 2 ("purple") from our example linked
+    list of colors, as shown in the following diagram:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/list_of_colors.png](images/pitting_linked_lists_against_arrays/list_of_colors.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: To accomplish this, we need to first access the node immediately preceding the
+    one we’re deleting ("blue”). Then we change its link to point to the node that
+    is immediately after the node we’re deleting ("green").
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following visualization demonstrates us changing the link of the "blue"
+    node from "purple" to "green":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/linked_list_6.png](images/pitting_linked_lists_against_arrays/linked_list_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: It’s interesting to note that whenever we delete a node from our linked list,
+    the node still exists in memory somewhere. We’re just removing the node from our
+    list by ensuring that no other node from the list links to it. This has the effect
+    of deleting the node from our list, even if the node still exists in memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: (Different programming languages handle these deleted nodes in various ways.
+    Some will automatically detect that they’re not being used and will “garbage collect”
+    them, freeing up memory.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Linked List Deletion'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s what the delete operation might look like in our LinkedList class. It’s
+    called delete, and we pass in the index we’re going to delete:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**delete**​(index) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (index === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = ​**this**​.firstNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentIndex = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentIndex < (index - 1)) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentIndex += 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode.nextNode = nodeAfterDeletedNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This method is pretty similar to the insert method we saw earlier. Let’s highlight
+    some of the novel points.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The method first deals with a case in which index is 0, meaning we intend to
+    delete the first node of the list. The code for this is ridiculously simple:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (index === 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = ​**this**​.firstNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: All we do is change our list’s firstNode to point to what is currently the second
+    node, and we’re done!
+  prefs: []
+  type: TYPE_NORMAL
+- en: The rest of the method handles deletions anywhere else from the list. To do
+    this, we use a while loop to access the node immediately preceding the one we
+    want to delete. This becomes our currentNode.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We then grab the node that comes immediately after the node we’re going to
+    delete and store it in a variable called nodeAfterDeletedNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: Notice our little trick in accessing that node. It’s simply the node that comes
+    two nodes after the currentNode!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then we modify the link of the currentNode to point to the nodeAfterDeletedNode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | currentNode.nextNode = nodeAfterDeletedNode; |'
+  prefs: []
+  type: TYPE_TB

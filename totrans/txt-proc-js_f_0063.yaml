@@ -1,0 +1,94 @@
+- en: '| Recipe 52 | Matching Non-ASCII Words with the Unicode Property Escape |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s assume you want to search for a file with a specific extension and extract
+    the filename. This task is similar to Recipe 31, [*Extracting a Matched Value
+    with the Capturing Group*](f_0042.xhtml#rcp.capturing_group_p2), where you matched
+    a file with a .pdf extension.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now you want to match a filename that has non-ASCII characters. It’s not uncommon
+    for people to save files in their own language, but your current script is unable
+    to match non-ASCII letters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/unicode_property_escapes_p2/upe_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/upe_p2_ex1.png](images/upe_p2_ex1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: You need a solution that allows you to match non-ASCII words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a combination of Unicode property escapes to match Unicode word characters
+    in the same way \w matches ASCII word characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/unicode_property_escapes_p2/upe_p2_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**([\p**{Alpha}**\p**{Pc}**\p**{Mark}**\p**{Nd}**\p**{Join_Control}**]**+**)\.**pdf**\b**/*u;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/upe_p2_ex2.png](images/upe_p2_ex2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Now you can match a filename in any language!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The \w character class matches any alphanumeric character from the basic Latin
+    alphabet, including the underscore. To match a similar range of characters but
+    in Unicode, we need to use multiple property escapes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: \p{Alpha} is short for Alphabetic and matches any character with the Alphabetic
+    property
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: \p{Pc} is an abbreviation for Connector_Punctuation, which matches a connecting
+    punctuation mark, like an underscore
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: \p{Mark} matches a combining mark
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: \p{Nd} is an abbreviation for Decimal_Number and matches a decimal digit
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: \p{Join_Control} matches format control characters that have functions for control
+    of cursive joining and ligation
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the Unicode Standard, each character is assigned a set of properties and
+    property values. The Unicode property escape enables us to match a character based
+    on a particular property. For example, the letter “A” has an Alphabetic property
+    with a value of Yes, which means we can match it with \p{Alpha} or \p{Alphabetic}.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To see the properties of a particular character, visit the Unicode character
+    database and enter the character in the search bar.^([[30]](f_0064.xhtml#FOOTNOTE-30))
+    For a list of supported property escapes, refer to the Unicode specification.^([[31]](f_0064.xhtml#FOOTNOTE-31))
+  prefs: []
+  type: TYPE_NORMAL

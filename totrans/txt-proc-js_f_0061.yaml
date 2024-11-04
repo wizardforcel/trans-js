@@ -1,0 +1,99 @@
+- en: '| Recipe 50 | Testing a Pattern with the Negative Lookbehind |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you’re searching hospital records for a patient named Smith, but most
+    of the data you get from search results is about Dr. Smith. You need a regex that
+    matches “Smith” but excludes “Dr. Smith.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use a negative lookbehind assertion denoted by (?<! ... ):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/negative_lookbehind/negative_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/negative_lookbehind/negative_lookbehind_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(?<**!Dr**\.\s)**Smith/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(*"Dr. Smith"*)); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(*"Mr. Smith"*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(*"John Smith"*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: Your regex now finds all records containing “Smith” except for “Dr. Smith.”
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The negative version of lookbehind asserts that the pattern within the lookbehind
+    does not precede a pattern. In this case, we’re using it to ensure that the word
+    “Smith” isn’t preceded by an uppercase D, a lowercase r, a period (.), and a whitespace
+    character (\s). You must use a backslash to escape the period; otherwise, the
+    regex engine will interpret it as a metacharacter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Not Just at the Beginning |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Lookbehinds can
+    be used anywhere in the regex, not just at the beginning. |'
+  prefs: []
+  type: TYPE_TB
+- en: '![images/aside-icons/info.png](images/aside-icons/info.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'In addition to lookarounds, regular expressions provide several types of groups
+    that are constructed using a pair of parentheses, with the opening parenthesis
+    immediately followed by a question mark. For easier comparison, we’ve summarized
+    the syntax for these groups in the following table. Keep this table bookmarked—it’s
+    sure to come in handy:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Metacharacter | Meaning |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ( ... ) | Capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '| (?: ... ) | Non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '| (?= ... ) | Positive lookahead |'
+  prefs: []
+  type: TYPE_TB
+- en: '| (?! ... ) | Negative lookahead |'
+  prefs: []
+  type: TYPE_TB
+- en: '| (?<= ... ) | Positive lookbehind |'
+  prefs: []
+  type: TYPE_TB
+- en: '| (?<! ... ) | Negative lookbehind |'
+  prefs: []
+  type: TYPE_TB
+- en: The takeaway from this recipe is to use a negative lookbehind when you want
+    to match a pattern not preceded by a specific pattern.
+  prefs: []
+  type: TYPE_NORMAL

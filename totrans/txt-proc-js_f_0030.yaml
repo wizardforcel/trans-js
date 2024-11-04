@@ -1,0 +1,144 @@
+- en: '| Recipe 20 | Counting the Number of a Specific Word with split() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you want to add search functionality to your application that provides
+    information on how many times a word has appeared in a text. You can use the includes()
+    method to determine whether the word exists within the string. But it doesn’t
+    tell you the frequency of the word’s appearance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You want to create a function that counts the number of a specified word (in
+    this case, “cougar”) and returns the total number it finds.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Divide the string into an array of substrings with the split() method, count
+    the number of items in the array by reading its length property, and return the
+    result:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_a_specific_word/split_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_a_specific_word/split_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *`Cougar is an adaptable, generalist species, occurring
+    in most* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *American habitat types. Secretive and largely solitary by nature, the
+    cougar* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *is properly considered both nocturnal and crepuscular. Primary food
+    sources* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *are ungulates, particularly deer, but cougars also hunt smaller prey
+    such as* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *rodents.`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** countWord(str, word, caseSensitivity) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (caseSensitivity) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.split(word).length - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } **else** { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.toLowerCase().split(word).length - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(countWord(str, *"cougar"*, **true**)); *// → 2* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(countWord(str, *"cougar"*, **false**)); *// → 3* |'
+  prefs: []
+  type: TYPE_TB
+- en: The countWord() function returns the total number of occurrences of the word
+    in the str string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The countWord() function accepts three arguments:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'str: A string containing the text to search for a word'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'word: A string representing the word to count in the text'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'caseSensitivity: A Boolean value indicating whether the search should be case
+    insensitive'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Inside the function, we check the value of caseSensitivity. If it has a value
+    of false, we first convert the string to lowercase with the toLowerCase() method.
+    Then we split the str input string at each occurrence of word and return the number
+    of resulting substrings, which is equal to the number of times word appears in str.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Notice the subtraction at the end of the statement. If we pass a string having
+    one instance of “cougar” to split(), it returns an array with two items. The subtraction
+    is necessary to offset one item and get the correct count:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_a_specific_word/split_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_a_specific_word/split_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"The word cougar is borrowed from the Portuguese çuçuarana."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** word = *"cougar"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.split(word); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → ["The word ", " is borrowed from the Portuguese çuçuarana."]* |'
+  prefs: []
+  type: TYPE_TB
+- en: split() is one of those versatile JavaScript tools that come in handy in so
+    many different situations. In this recipe, we incorporated split() in a function
+    to count the number of occurrences of a specific word. But as you’ve seen in recipes
+    like Recipe 3, [*Matching the Beginning or End of a String with startsWith() and
+    endsWith()*](f_0013.xhtml#rcp.start_end) and Recipe 4, [*Extracting Lists from
+    Text with slice()*](f_0014.xhtml#rcp.slice), you can take advantage of split()
+    to solve other text-processing problems as well.
+  prefs: []
+  type: TYPE_NORMAL

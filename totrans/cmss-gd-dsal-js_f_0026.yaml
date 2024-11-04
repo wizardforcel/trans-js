@@ -1,0 +1,105 @@
+- en: Searching an Ordered Array
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the previous chapter, I described the process for searching for a particular
+    value within a classic array: we check each cell one at a time—from left to right—until
+    we find the value we’re looking for. I noted that this process is referred to
+    as linear search.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see how linear search differs between a classic and an ordered array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Say we have a regular array of [17, 3, 75, 202, 80]. If we were to search for
+    the value 22—which happens to be nonexistent in this array—we would need to search
+    each and every element because the 22 could potentially be anywhere in the array.
+    The only time we could stop our search before we reach the array’s end is if we
+    happen to find the value we’re looking for before we reach the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With an ordered array, however, we can stop a search early even if the value
+    isn’t contained within the array. Let’s say we’re searching for a 22 within an
+    ordered array of [3, 17, 75, 80, 202]. We can stop the search as soon as we reach
+    the 75, since it’s impossible for the 22 to be anywhere to the right of it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a JavaScript implementation of linear search on an ordered array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ linearSearch(array, searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [index, element] ​**of**​ array.entries()) {
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (element === searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ index; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (element > searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**break**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This method accepts two arguments: array is the ordered array we’re searching,
+    and searchValue is the value we’re searching for.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how to use this function to find the 22 in our example array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | console.log(linearSearch([3, 17, 75, 80, 202], 22)) |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, this linearSearch method iterates over every element of the
+    array, looking for the searchValue. The search stops as soon as the element it’s
+    iterating over is greater than the searchValue, since we know that the searchValue
+    will not be found further within the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this light, linear search can take fewer steps in an ordered array than in
+    a classic array in certain situations. That being said, if we’re searching for
+    a value that happens to be the final value or not within the array at all, we’ll
+    still end up searching each and every cell.
+  prefs: []
+  type: TYPE_NORMAL
+- en: At first glance, then, standard arrays and ordered arrays don’t have tremendous
+    differences in efficiency, or at least not in worst-case scenarios. For both kinds
+    of arrays, if they contain N elements, linear search can take up to N steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But we’re about to unleash an algorithm that is so powerful that it’ll leave
+    linear search in the dust.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ve been assuming until now that the only way to search for a value within
+    an ordered array is linear search. The truth, however, is that linear search is
+    only one possible algorithm for searching for a value. It’s not the only algorithm
+    we can use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The big advantage of an ordered array over a classic array is that an ordered
+    array allows for an alternative searching algorithm. This algorithm is known as
+    binary search, and it is a much, much faster algorithm than linear search.
+  prefs: []
+  type: TYPE_NORMAL

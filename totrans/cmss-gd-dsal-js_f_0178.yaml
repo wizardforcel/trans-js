@@ -1,0 +1,131 @@
+- en: Graphs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A graph is a data structure that specializes in relationships, as it easily
+    conveys how data is connected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a visualization of our social network, displayed as a graph:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/graph_1.png](images/graphs/graph_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Each person is represented by a node, and each line indicates a friendship with
+    another person. If you look at Alice, for example, you can see that she is friends
+    with Bob, Diana, and Fred since her node has lines that connect to their nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Graphs vs. Trees
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: You might have noticed that graphs look similar to trees, which we’ve dealt
+    with in the past few chapters. Indeed, trees are a type of graph. Both data structures
+    consist of nodes connected to each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So what’s the difference between a graph and a tree?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the deal: while all trees are graphs, not all graphs are trees.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Specifically, for a graph to be considered a tree, it cannot have cycles, and
+    all nodes must be connected. Let’s see what that means.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A graph may have nodes that form what is known as a cycle—that is, nodes that
+    reference each other circularly. In the previous example, Alice is friends with
+    Diana, and Diana is connected to Bob, and Bob is connected…to Alice. These three
+    nodes form a cycle.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Trees, on the other hand, are not “allowed” to have cycles. If a graph has a
+    cycle, then it’s not a tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another characteristic specific to trees is that every node is somehow connected
+    to every other node, even if the connections are indirect. However, it’s possible
+    for a graph to not be fully connected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'See the following graph:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/graphs/disconnected_graph.png](images/graphs/disconnected_graph.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: In this social network, we have two pairs of friends. However, no one from either
+    pair is friends with anyone from the other pair. Additionally, we can see that
+    Vicky has no friends yet, as perhaps she signed up for this social network just
+    minutes ago. With trees, however, there’s never a node that’s disconnected from
+    the rest of the tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Graph Jargon
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Graphs have a bit of their own technical jargon. We’re used to calling each
+    piece of data a node, but in “graph-speak,” each node is called a vertex. The
+    lines between nodes, um—vertices, have their own name as well and are called edges.
+    And vertices that are connected by an edge are said to be adjacent to each other.
+    Some computer scientists also refer to adjacent vertices as neighbors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our first graph, then, the vertices of Alice and Bob are adjacent to each
+    other since they share an edge.
+  prefs: []
+  type: TYPE_NORMAL
+- en: I mentioned earlier that it’s possible for a graph to have a vertex that isn’t
+    connected at all to other vertices. However, a graph where all the vertices are
+    connected in some way is said to be a connected graph.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Bare-Bones Graph Implementation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'For the sake of code organization, we’re going to use object-oriented classes
+    to represent our graphs, but it’s worth noting that we can also use a basic hash
+    table (see Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes)
+    ) to represent a rudimentary graph. Here’s a bare-bones implementation of our
+    social network using a hash table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | friends = { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Alice"*​: [​*"Bob"*​, ​*"Diana"*​, ​*"Fred"*​], |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Bob"*​: [​*"Alice"*​, ​*"Cynthia"*​, ​*"Diana"*​], |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Cynthia"*​: [​*"Bob"*​], |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Diana"*​: [​*"Alice"*​, ​*"Bob"*​, ​*"Fred"*​], |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Elise"*​: [​*"Fred"*​], |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"Fred"*​: [​*"Alice"*​, ​*"Diana"*​, ​*"Elise"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'With a graph, we can look up Alice’s friends in O(1) because we can look up
+    the value of any key in the hash table with one step:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | friends[​*"Alice"*​] |'
+  prefs: []
+  type: TYPE_TB
+- en: This immediately returns the array containing all of Alice’s friends.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,248 @@
+- en: '| Recipe 23 | Creating Your First Regular Expression |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Before using the recipes in Parts 2 and 3, you need to know how to implement
+    regular expressions in your code. In JavaScript, you have two options for creating
+    regular expressions: you can either use the RegExp() constructor or use the regex
+    literal. When using the literal form, you’ll need to enclose the pattern in a
+    pair of forward slash (/) characters, like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */Hello/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: This regex pattern is made up of five characters that tell the regex engine
+    to find a direct match for “Hello” in a string. A pattern can be as simple as
+    a single literal character such as “i.” If there are multiple occurrences of “i”
+    in a string, it matches the first one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, in the string “If opportunity doesn’t knock, build a door,” the
+    regex matches the “i” in “opportunity,” not “build.” It also doesn’t match the
+    “I” in “If” because that word uses a capital letter. As you will learn later in
+    this part, you can use flags to configure your regular expression to continue
+    searching after the first match or ignore the letter case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at another example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */123/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str1 = *"123"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"321"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(str1)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(str2)); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: When running this code, the regex engine tries to find “1,” immediately followed
+    by a “2,” and immediately followed by a “3.” This pattern exists within the first
+    string, so test() returns true, but although the second string contains the same
+    characters, they’re not counted as a match because they’re not in the correct
+    order.
+  prefs: []
+  type: TYPE_NORMAL
+- en: JavaScript provides several methods to determine whether a pattern exists in
+    a string. The test() method is the simplest one. It returns true if a match exists
+    in the given string or false if otherwise.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can get the same result with the RegExp() constructor:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex3.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = **new** RegExp(*"123"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str1 = *"123"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str2 = *"321"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(str1)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(str2)); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Unlike the literal form, the RegExp() constructor allows us to construct a
+    pattern dynamically. For example, we can use it to build a pattern out of the
+    items of an array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex4.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"Debuggers don''t remove bugs. They show them in slow
+    motion."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** arr = [*"bug"*, *"flea"*, *"mite"*, *"midge"*]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = **new** RegExp(arr.join(*"&#124;"*)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re.test(str)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: A pipe symbol in a regex pattern works like the logical OR (||) operator in
+    JavaScript. It matches either everything to the left of the symbol or everything
+    to the right. In this case, we have four items in the array, and we’re joining
+    them with a pipe, so it’s like writing the literal form /bug|flea|mite|midge/.
+    The main difference is that RegExp() lets us build the pattern dynamically.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| When to Use a Constructor |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Keep in mind
+    that the literal form is always faster than the constructor form. So, use a constructor
+    only when you need to build a pattern dynamically. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Another difference between the two forms is that when using the RegExp constructor,
+    it’s necessary to use escape characters for backslashes and quotes. Compare:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex5.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// A RegExp pattern* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re1 = **new** RegExp(*"**\"***\\***d"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// The literal version of the above pattern* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */"**\d**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.test(*''"3''*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re2.test(*''"3''*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'To match a quote character in a regex pattern that is already enclosed in quotes,
+    we need to use an escape character to indicate that the quote character is part
+    of the string, rather than a delimiter for the string. An alternative way to write
+    the same pattern would be to use single quotes for the pattern string: new RegExp(’"\\d’).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '\d is a metacharacter in regex that matches a digit. If we don’t escape \d,
+    RegExp() will match a backslash followed by a “d” literally:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex6.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re1 = **new** RegExp(*"***\***d"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.test(*"***\***d"*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.test(*"3"*)); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'In literal notation, where the pattern is enclosed in forward slashes, we must
+    use a backslash to escape any forward slashes that appear within the pattern.
+    This is necessary because a forward slash marks the end of the pattern in literal
+    notation, and without escaping, it would be interpreted as such. Compare:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/first_regex/first_regex_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex7.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | *// A RegExp pattern* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re1 = **new** RegExp(*"/"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// The literal version of the above pattern* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */**\/**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re1.test(*"/"*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(re2.test(*"/"*)); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Case Sensitivity |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | By default,
+    regular expressions are case sensitive. The pattern /abc/ does not match Abc,
+    unless you use a special flag called ignoreCase to instruct the engine to ignore
+    any differences in letter case. You’ll learn about flags later in this part. |'
+  prefs: []
+  type: TYPE_TB
+- en: But finding a direct match is not the biggest strength of regular expressions.
+    JavaScript already has the indexOf() method that can do that job just fine. Regular
+    expressions are designed to find more complex patterns, such as /\b(\w+)\s+\1\b/gi,
+    which finds duplicate words.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now that you understand how to implement regex in JavaScript, you’re prepared
+    to work on the recipes in Parts 2 and 3.
+  prefs: []
+  type: TYPE_NORMAL

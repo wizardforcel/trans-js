@@ -1,0 +1,62 @@
+- en: Completing Autocomplete
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We’re finally ready to implement our autocomplete feature. In fact, we’ve pretty
+    much done all the legwork already. All we need to do is put the pieces together.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a basic autocomplete method that we can drop into our Trie class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | autocomplete(prefix) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ currentNode = ​**this**​.search(prefix); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!currentNode) { ​**return**​ ​**null**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.collectAllWords([], currentNode); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Yes, that’s it. By using our search method and collectAllWords method together,
+    we can autocomplete any prefix. Here’s how this works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The autocomplete method accepts the prefix parameter, which is the string of
+    characters the user begins typing in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we search the trie for the existence of the prefix. If the search method
+    doesn’t find the prefix in the trie, the search method returns null, and so our
+    method does as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if the prefix is found in the trie, the search method returns the node
+    in the trie that represents the final character in the prefix. We noted earlier
+    that we could have simply had the search method return true once it finds the
+    word. The reason why we had it return the final node was so that we could use
+    the search method to help us with the autocomplete feature.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our autocomplete method continues by calling the collectAllWords method on the
+    node returned by the search method. This finds and collects all words that stem
+    from that final node, which represents all the complete words that can be appended
+    to the original prefix to form a word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our method finally returns an array of all possible endings to the user’s prefix,
+    which we could then display to the user as possible autocomplete options.
+  prefs: []
+  type: TYPE_NORMAL

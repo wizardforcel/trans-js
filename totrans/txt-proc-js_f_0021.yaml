@@ -1,0 +1,213 @@
+- en: '| Recipe 11 | Generating HTML Tables from an Array of Objects |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose your task is to generate reports of data that are stored in an array
+    of objects like the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | const data = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: "Q1 FY22", revenue: 45962, netIncome: 20820, eps: 2.71}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: "Q2 FY22", revenue: 44845, netIncome: 20610, eps: 2.71}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: "Q3 FY22", revenue: 46151, netIncome: 16027, eps: 2.03}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: "Q4 FY22", revenue: 46822, netIncome: 16244, eps: 2.11}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: "Q1 FY23", revenue: 45215, netIncome: 20256, eps: 2.64} |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: In the previous recipe, you created a table using an array of arrays. But, for
+    this recipe, the data is stored in an array of objects. This means that you need
+    to use a slightly different approach to generate a table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/generating_html_table_v2/html_table_v2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/generating_html_table_v2/html_table_v2_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** data = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: *"Q1 FY22"*, revenue: 45962, netIncome: 20820, eps: 2.71},
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: *"Q2 FY22"*, revenue: 44845, netIncome: 20610, eps: 2.71},
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: *"Q3 FY22"*, revenue: 46151, netIncome: 16027, eps: 2.03},
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: *"Q4 FY22"*, revenue: 46822, netIncome: 16244, eps: 2.11},
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | {quarter: *"Q1 FY23"*, revenue: 45215, netIncome: 20256, eps: 2.64} |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** headers = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Quarter"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Revenue (in millions of US dollars)"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Net Income (in millions of US dollars)"*, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *"Earnings per Share (EPS)"* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** createTable(data, headers) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** table = document.createElement(*"table"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** thead = table.createTHead(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** tbody = table.createTBody(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** headerRow = thead.insertRow(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create table head* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | headers.forEach(header => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** th = document.createElement(*"th"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | th.innerText = header; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | headerRow.appendChild(th); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create table body* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | data.forEach(data => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** row = tbody.insertRow(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | Object.values(data).forEach(value => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** cell = row.insertCell(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | cell.innerText = value; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | document.body.appendChild(table); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | createTable(data, headers); |'
+  prefs: []
+  type: TYPE_TB
+- en: When we call this function with the data array as the argument, it generates
+    an HTML table displaying the company’s financial performance data. The output
+    will look like the [table](#fig.part1.generating_html_table_v2) after applying
+    some basic styling.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/generating_html_table_v2.png](images/generating_html_table_v2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: This recipe is similar to the previous one except that the array items are objects,
+    with each object having properties such as revenue, netIncome, and eps. In this
+    recipe, we also define a separate array containing the column headers for the
+    table that we’ll be creating.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we create a table header (thead) and a table body (tbody) for the table.
+    We then create a header row (headerRow) within the header and populate it with
+    the headers from the headers array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For each header in the array, we create a th element using the createElement()
+    method, set its content to the header string using the innerText property, and
+    append it to the header row using the appendChild() method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After creating the header row, we loop through each object in the data array
+    and create a new row in the table body for each object. Within each row, we loop
+    through each property of the object and create a new cell in the row for each
+    property value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we append the table element to the HTML body element. You should modify
+    this line to append the data to the element you want.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,197 @@
+- en: '| Recipe 19 | Counting Words in a String with Intl.Segmenter() |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have a weblog that allows users to submit articles. You have a requirement
+    that each article should have a minimum word count of 500\. You want to create
+    a function that gives feedback to users about their article’s word count. To achieve
+    this, your application needs to determine the number of words in a given text
+    string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One crude solution to this problem is to split the text string by spaces and
+    count the resulting segments. However, this approach may not work correctly in
+    cases where there are multiple consecutive spaces between words, or when the article
+    is written in a language that doesn’t use spaces to separate words, such as Korean
+    or Japanese.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You need a solution that can accurately count the number of words in a text,
+    regardless of the language used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Call the Intl.Segmenter() constructor with the granularity option set to word:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_words/word_segmenter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"White, red, and blue."*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** countWords(str, lang) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .segment(str)]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | countWords(str, *"en"*); *// → 4* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success! The countWords() function counts the number of words in str based on
+    a specified language (lang).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Browser Compatibility |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | At the
+    time of this writing, Firefox has not implemented Intl.Segmenter() yet.^([[19]](f_0032.xhtml#FOOTNOTE-19))
+    Until browser support is more solid, you can run Intl.Segmenter() on the server
+    side with Node 16 or higher. |'
+  prefs: []
+  type: TYPE_TB
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the previous recipe, we used the default implementation of Intl.Segmenter(),
+    which splits a string at grapheme cluster (user-perceived character) boundaries.
+    This time, we’re setting the granularity to word so that the split occurs at word
+    boundaries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first argument of Intl.Segmenter() determines the locale, which must be
+    a BCP 47 language tag.^([[20]](f_0032.xhtml#FOOTNOTE-20)) In this case, we want
+    to split English words, so we pass “en.” Once we get the segments of the string,
+    we should filter those that aren’t words. Fortunately, the API makes it easy for
+    us by providing the isWordLike property. The filter effectively removes any non-word
+    segments (such as punctuation or numbers).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Finally, we return the length of the filtered segments array, which represents
+    the total number of word segments in the original string. Now, if we want to count
+    the words in another language, all we need to do is pass the corresponding language
+    tag to the countWords() function. For instance, the following example counts the
+    words in Japanese:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/counting_words/word_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"アジア・東アジアの中でも東方にあります"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** countWords(str, lang) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .segment(str)]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | countWords(str, *"jp"*); *// → 8* |'
+  prefs: []
+  type: TYPE_TB
+- en: Even though the Japanese language has no whitespace between words, the function
+    is able to distinguish word boundaries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you search online for a JavaScript solution to count words, you’ll surely
+    come across codes like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **return** str.split(*" "*).length; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'This code returns an array of words split by a single space character and counts
+    its length. But if your string has double spaces or trailing spaces, the result
+    would be wrong:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"White, red, and blue. "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | str.split(*" "*).length; *// → 5* |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Of course, you can fix this problem by filtering the array like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = *"White, red, and blue. "*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** countWords(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .split(*" "*) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .filter(a => {**return** a != *""*}) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | .length; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | countWords(str); *// → 4* |'
+  prefs: []
+  type: TYPE_TB
+- en: But this solution would work only for languages that use spaces between words.
+    The beauty of using Intl.Segmenter() is its ability to detect word boundaries
+    in different languages.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,572 @@
+- en: Chapter 4
+  prefs: []
+  type: TYPE_NORMAL
+- en: Controlling the Flow of JavaScript
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Setting up your code to make decisions**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Understanding code looping**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Setting up code loops**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With the default script flow, the browser processes the code inside a `script`
+    element or an external JavaScript file one statement at a time. The browser reads
+    and then executes the first statement, reads and then executes the second statement,
+    and so on until it has no more JavaScript left to read and execute.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'That statement-by-statement flow seems reasonable, but it’s extremely limited.
+    What if you want your code to test some condition and then branch to a specific
+    chunk of code depending on the result of that test? What if you want your code
+    to repeat some statements multiple times, with some change occurring in each repetition?
+    Code that runs tests and code that repeats itself all fall under the rubric of
+    controlling the flow of JavaScript. In this chapter, you explore this fascinating
+    and powerful subject.  ## Decision-Making with if Statements'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A smart script performs tests on its environment and then decides what to do
+    next based on the results of each test. For example, suppose you’ve declared a
+    variable that you later use as a divisor in an expression. You should test the
+    variable before using it in the expression to make sure that the variable’s value
+    isn’t 0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The most basic test is the simple true/false decision (which could also be thought
+    of as a yes/no or an on/off decision). In this case, your program looks at a certain
+    condition, determines whether it’s currently true or false, and acts accordingly.
+    Comparison and logical expressions (covered in [Chapter 3](c03.xhtml)) play a
+    big part here because they always return a `true` or `false` result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In JavaScript, simple true/false decisions are handled by the `if` statement.
+    You can use either the *single-line* syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`if (*expression*) *statement*;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'or the *block* syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`if (*expression*) { *statement1*; *statement2*; … }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In both cases, *`expression`* is a comparison or logical expression that returns
+    `true` or `false`, and *`statement(s)`* represent the JavaScript statement or
+    statements to run if *`expression`* returns `true`. If *`expression`* returns
+    `false`, JavaScript skips over the statements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) This is a good place to note that JavaScript defines
+    the following values as the equivalent of `false`: `0`, `""` (that is, the empty
+    string), `null`, and `undefined`. Everything else is the equivalent of `true`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) This is the first time you’ve encountered
+    JavaScript’s braces (`{` and `}`), so take a second to understand what they do
+    because they come up a lot. The braces surround one or more statements that you
+    want JavaScript to treat as a single entity. This entity is a kind of statement
+    itself, so the whole caboodle — the braces and the code they enclose — is called
+    a *block statement.* Also, any JavaScript construction that consists of a statement
+    (such as `if`) followed by a block statement is called a *compound statement.*
+    And, just to keep you on your toes, note that the lines that include the braces
+    don’t end with semicolons.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whether you use the single-line or block syntax depends on the statements you
+    want to run if the *`expression`* returns a `true` result. If you have only one
+    statement, you can use either syntax. If you have multiple statements, use the
+    block syntax.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider the following example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`if (totalSales != 0) { const grossMargin = (totalSales - totalExpenses) /
+    totalSales; }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This code assumes that earlier, the script has calculated the total sales and
+    total expenses, which are stored in the `totalSales` and `totalExpenses` variables,
+    respectively. The code now calculates the gross margin, which is defined as gross
+    profit (that is, sales minus expenses) divided by sales. The code uses `if` to
+    test whether the value of the `totalSales` variable is not equal to zero. If the
+    `totalSales != 0` expression returns `true`, the `grossMargin` calculation is
+    executed; otherwise, nothing happens. The `if` test in this example is righteous
+    because it ensures that the divisor in the calculation — `totalSales` — is never
+    zero.  ## Branching with if…else Statements'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Using the `if` statement to make decisions adds a powerful new weapon to your
+    JavaScript arsenal. However, the simple version of `if` suffers from an important
+    limitation: A `false` result only bypasses one or more statements; it doesn’t
+    execute any of its own. This is fine in many cases, but there will be times when
+    you need to run one group of statements if the condition returns `true` and a
+    different group if the result is `false`. To handle these scenarios, you need
+    to use an `if…else` statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`if (*expression*) { *statements-if-true* } else { *statements-if-false* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The *`expression`* is a comparison or logical expression that returns `true`
+    or `false`. *`statements-if-true`* represents the block of statements you want
+    JavaScript to run if *`expression`* returns `true`, and *`statements-if-false`*
+    represents the block of statements you want executed if *`expression`* returns
+    `false`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As an example, consider the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let discountRate; if (currMonth === "December") { discountRate = 0.2; } else
+    { discountRate = 0.1; } const discountedPrice = regularPrice * (1 – discountRate);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This code calculates a discounted price of an item, where the discount depends
+    on whether the current month is December. The code assumes that earlier, the script
+    set the value of the current month (`currMonth`) and the item’s regular price
+    (`regularPrice`). After declaring the `discountRate` variable, an `if…else` statement
+    checks whether `currMonth` equals December. If it does, `discountRate` is set
+    to 0.2; otherwise, `discountRate` is set to 0.1\. Finally, the code uses the `discountRate`
+    value to calculate `discountedPrice`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png)`if…else` statements are much easier to read when you
+    indent the statements within each block, as I’ve done in my examples. This indentation
+    lets you easily identify which block will run if there is a `true` result and
+    which block will run if the result is `false`. I find that an indent of four spaces
+    does the job, but many programmers prefer either two spaces or a tab.  ## Understanding
+    the Value of Code Looping'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are some who would say that the only real goal of the programmer should
+    be to get the job done. As long as the code produces the correct result or performs
+    the correct tasks in the correct order, everything else is superfluous. Perhaps,
+    but *real* programmers know that the true goal of programming is not only to get
+    the job done, but to get it done *as efficiently as possible.* Efficient scripts
+    run faster, take less time to code, and are usually (not always, but usually)
+    easier to read and troubleshoot.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One of the best ways to introduce efficiency into your coding is to avoid reinventing
+    too many wheels. For example, consider the following code fragment:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num = prompt("Type a number:", 1); sum += Number(num); num
+    = prompt("Type a number:", 1); sum += Number(num); num = prompt("Type a number:",
+    1); sum += Number(num); document.write("The total of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This code first declares a variable named `sum`. The code prompts the user for
+    a number (using the `prompt` method with a default value of `1`) that gets stored
+    in the `num` variable, adds that value to `sum`, and then repeats this prompt-and-sum
+    routine two more times. (Note my use of the `Number` function, which ensures that
+    the value returned by `prompt` is treated as a number rather than a string.) Finally,
+    the sum of the three numbers is displayed to the user.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Besides being a tad useless, this code just reeks of inefficiency because most
+    of the code consists of the following two lines appearing three times:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`num = prompt("Type a number:", 1); sum += Number(num);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wouldn’t it be more efficient if you put these two statements just once in the
+    code and then somehow get JavaScript to repeat these statements as many times
+    as necessary?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Why, yes, it would, and the good news is that not only is it possible to do
+    this, but JavaScript also gives you a number of different methods to perform this
+    so-called *looping.* I spend the rest of this chapter investigating each of these
+    methods.  ## Working with while Loops'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The most straightforward of the JavaScript loop constructions is the `while`
+    loop, which uses the following syntax:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`while (*expression*) { *statements* }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, *`expression`* is a comparison or logical expression (that is, an expression
+    that returns `true` or `false`) that, as long as it returns `true`, tells JavaScript
+    to keep executing the *`statements`* within the block.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Essentially, JavaScript interprets a `while` loop as follows: “Okay, as long
+    as *`expression`* remains `true`, I’ll keep running through the loop statements,
+    but as soon as *`expression`* becomes `false`, I’m out of there.”'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a closer look at how a `while` loop works:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Evaluate the *`expression`* in the `while` statement.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If *`expression`* is `true`, continue with Step 3; if *`expression`* is `false`,
+    skip to Step 5.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Execute each of the statements in the block.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Return to Step 1.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Exit the loop (that is, execute the next statement that occurs after the `while`
+    block).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The following code demonstrates how to use `while` to rewrite the inefficient
+    code shown in the previous section:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let counter = 1; let num; while (counter <= 3) { num = prompt("Type
+    a number:", 1); sum += Number(num); counter += 1; } document.write("The total
+    of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To control the loop, the code declares a variable named `counter` and initializes
+    it to `1`, which means that the expression `counter <= 3` is `true`, so the code
+    enters the block, does the prompt-and-sum thing, and then increments `counter`.
+    This is repeated until the third time through the loop, when `counter` is incremented
+    to `4`, at which point the expression `counter <= 3` becomes `false` and the loop
+    is done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) To make your loop code as readable as possible, always
+    use a two- or four-space indent for each statement in the `while` block. The same
+    applies to the `for` and `do…while` loops that I talk about later in this chapter.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The `while` statement isn’t the greatest loop choice when you know exactly
+    how many times you want to run through the loop. For that, use the `for` statement,
+    described in the next section. The best use of the `while` statement is when your
+    script has some naturally occurring condition that you can turn into a comparison
+    expression. A good example is when you’re prompting the user for input values.
+    You’ll often want to keep prompting the user until they click the Cancel button.
+    The easiest way to set that up is to include the prompt inside a `while` loop,
+    as shown here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num = prompt("Type a number or click Cancel:", 1); while
+    (num != null) { sum += Number(num); num = prompt("Type a number or click Cancel:",
+    1); } document.write("The total of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first `prompt` method displays a dialog box like the one shown in [Figure
+    4-1](#c04-fig-0001) to get the initial value; then it stores it in the `num` variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of paulmcfederies webpage. The message box displays, type a number
+    or click cancel. The cancel and ok options are given below.](images/9781394263219-fg0401.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 4-1:](#rc04-fig-0001) Set up your `while` expression so that the prompting
+    stops when the user clicks the Cancel button.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then the `while` statement checks the following expression:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`num != null`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two things can happen here:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the user enters a number, this expression returns `true` and the loop continues.
+    In this case, the value of `num` is added to the `sum` variable, and the user
+    is prompted for the next number.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'If the user clicks Cancel, the value returned by `prompt` is `null`, so the
+    expression becomes `false` and the looping stops.  ## Working with for Loops'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Although `while` is the most straightforward of the JavaScript loops, the most
+    common type by far is the `for` loop. This fact is slightly surprising when you
+    consider (as you will shortly) that the `for` loop’s syntax is a bit more complex
+    than that of the `while` loop. However, the `for` loop excels at one thing: looping
+    when you know exactly how many times you want to repeat a group of statements.
+    This is extremely common in all types of programming, so it’s no wonder `for`
+    is so often used in scripts.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The structure of a typical `for` loop looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (let *counter = start*; *counterExpression*; *counterUpdate*) { *statements*
+    }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There’s a lot going on here, so I’ll take it one bit at a time:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`counter`*: A numeric variable used as a *loop counter.* The loop counter
+    is a number that counts how many times the procedure has gone through the loop.
+    (Note that you need to include `let` only if this is the first time you’ve used
+    the variable in the script.)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`start`*: The initial value of *`counter`*. This value is usually 1, but you
+    can use whatever value makes sense for your script.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`counterExpression`*: A comparison or logical expression that determines the
+    number of times through the loop. This expression usually compares the current
+    value of *`counter`* to some maximum value.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`counterUpdate`*: An expression that changes the value of *`counter`*. This
+    expression is evaluated after each turn through the loop. Most of the time, you’ll
+    increment the value of counter with the expression *`counter`*`+= 1`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`statements`*: The statements you want JavaScript to execute each time through
+    the loop.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'When JavaScript stumbles upon the `for` statement, it changes into its for-loop
+    outfit and follows this seven-step process:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set *`counter`* equal to *`start`*.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Evaluate the *`counterExpression`* in the `for` statement.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If *`counterExpression`* is `true`, continue with Step 4; if *`counterExpression`*
+    is `false`, skip to Step 7.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Execute each of the statements in the block.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Use *`counterUpdate`* to increment (or whatever) *`counter`*.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Return to Step 2.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Exit the loop (that is, execute the next statement that occurs after the `for`
+    block).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'As an example, the following code shows how to use `for` to rewrite the inefficient
+    code shown earlier in this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num; for (let counter = 1; counter <= 3; counter += 1) {
+    num = prompt("Type a number:", 1); sum += Number(num); } document.write("The total
+    of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is the most efficient version yet because the declaring, initializing,
+    and incrementing of the `counter` variable all take place within the `for` statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) To keep the number of variables declared in
+    a script to a minimum, always try to use the same name in all your `for` loop
+    counters. The letters `i` through `n` traditionally are used for counters in programming.
+    For greater clarity, you may prefer full words, such as `count` or `counter`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a slightly more complex example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; for (let counter = 1; counter < 4; counter += 1) { let num; let
+    ordinal; switch (counter) { case 1: ordinal = "first"; break; case 2: ordinal
+    = "second"; break; case 3: ordinal = "third"; } num = prompt("Enter the " + ordinal
+    + " number:", 1); sum += Number(num); } document.write("The average is " + sum
+    / 3);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The purpose of this script is to ask the user for three numbers and then to
+    display the average of those values. The `for` statement is set up to loop three
+    times. (Note that `counter < 4` is the same as `counter <= 3`.) The first thing
+    the loop block does is use `switch` to determine the value of the `ordinal` variable:
+    If `counter` is 1, `ordinal` is set to `"first"`; if `counter` is 2, `ordinal`
+    becomes `"second"`; and so on. These values enable the script to customize the
+    `prompt` message with each pass through the loop (check out [Figure 4-2](#c04-fig-0002)).
+    With each loop, the user enters a number, and that value is added to the `sum`
+    variable. When the loop exits, the average is displayed.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of paulmcfederies webpage. The message box displays, enter the
+    first number. The cancel and ok options are given below.](images/9781394263219-fg0402.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 4-2:](#rc04-fig-0002) This script uses the current value of the `counter`
+    variable to customize the prompt message.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It’s also possible to use `for` to count down. You do this by using the subtraction
+    assignment operator instead of the addition assignment operator:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (let *counter = start*; *counterExpression*; *counter -= 1*) { *statements*
+    }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, you must initialize the *`counter`* variable to the maximum value
+    you want to use for the loop counter, and use the *`counterExpression`* to compare
+    the value of *`counter`* to the minimum value you want to use to end the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the following example, I use a decrementing counter to ask the user to rank,
+    in reverse order, their top three CSS colors:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (let rank = 3; rank >= 1; rank -= 1) { let ordinal; let color; switch
+    (rank) { case 1: ordinal = "first"; break; case 2: ordinal = "second"; break;
+    case 3: ordinal = "third"; } color = prompt("What is your " + ordinal + "-favorite
+    CSS color?", ""); document.write(rank + ". " + color + "<br>"); }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `for` loop runs by decrementing the `rank` variable from `3` down to `1`.
+    Each iteration of the loop prompts the user to type a favorite CSS color, and
+    that color is written to the page, with the current value of `rank` being used
+    to create a reverse-ordered list, as shown in [Figure 4-3](#c04-fig-0003).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of paulmcfederies webpage. The reverse ordered list are, 3\. papaya
+    whip, 2\. lemon chiffon, 1\. chocolate.](images/9781394263219-fg0403.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 4-3:](#rc04-fig-0003) The decrementing value of the rank variable is
+    used to create a reverse-ordered list.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) There’s no reason why the `for` loop counter has to
+    be only incremented or decremented. You’re actually free to use any expression
+    to adjust the value of the loop counter. For example, suppose you want the loop
+    counter to run through only the odd numbers 1, 3, 5, 7, and 9\. Here’s a `for`
+    statement that will do that:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (let counter = 1; counter <= 9; counter += 2)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The expression `counter += 2` uses the addition assignment operator to tell
+    JavaScript to increase the `counter` variable by 2 each time through the loop.  ##
+    Working with do…while Loops'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript has a third and final type of loop that I’ve left until the last
+    because it isn’t one that you’ll use all that often. To understand when you might
+    use it, consider this code snippet:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num = prompt("Type a number or click Cancel:", 1); while
+    (num != null) { sum += Number(num); num = prompt("Type a number or click Cancel:",
+    1); }`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The code needs the first `prompt` statement so that the `while` loop’s expression
+    can be evaluated. The user may not feel like entering *any* numbers, and they
+    can avoid it by clicking Cancel in the first prompt box so that the loop will
+    be bypassed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'That seems reasonable enough, but what if your code requires that the user
+    enter at least one value? The following presents one way to change the code to
+    ensure that the loop is executed at least once:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num = 0; while (num !== null || sum === 0) { num = prompt("Type
+    a number; when you''re done, click Cancel:", 1); sum += Number(num); } document.write("The
+    total of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The changes here are that the code initializes both `sum` and `num` as `0`.
+    Initializing both to `0` ensures that the `while` expression — `num !== null ||
+    sum === 0` — returns `true` the first time through the loop, so the loop will
+    definitely execute at least once. If the user clicks Cancel right away, `sum`
+    will still be `0`, so the `while` expression — `num !== null || sum === 0` — still
+    returns `true` and the loop repeats once again.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This approach works fine, but you can also turn to JavaScript’s third loop
+    type, which specializes in just this kind of situation. It’s called a `do…while`
+    loop, and its general syntax looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`do { *statements* } while (*expression*);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, *`statements`* represents a block of statements to execute each time through
+    the loop, and *`expression`* is a comparison or logical expression that, as long
+    as it returns `true`, tells JavaScript to keep executing the *`statements`* within
+    the loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This structure ensures that JavaScript executes the loop’s statement block
+    at least once. How? Take a closer look at how JavaScript processes a `do…while`
+    loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execute each of the statements in the block.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Evaluate the *`expression`* in the `while` statement.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If *`expression`* is `true`, return to Step 1; if *`expression`* is `false`,
+    continue with Step 4.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Exit the loop.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'For example, the following shows you how to use `do…while` to restructure the
+    prompt-and-sum code I showed you earlier:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`let sum = 0; let num; do { num = prompt("Type a number; when you''re done,
+    click Cancel:", 1); sum += Number(num); } while (num !== null || sum === 0); document.write("The
+    total of your numbers is " + sum);`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This code is very similar to the `while` code I show earlier in this section.
+    All that’s really changed is that the `while` statement and its expression have
+    been moved after the statement block so that the loop must be executed once before
+    the expression is evaluated.
+  prefs: []
+  type: TYPE_NORMAL

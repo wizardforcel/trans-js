@@ -1,0 +1,256 @@
+- en: Binary Search
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'You’ve probably played this guessing game as a child: I’m thinking of a number
+    between 1 and 100\. Keep guessing which number I’m thinking of, and I’ll let you
+    know whether you need to guess higher or lower.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You may know intuitively how to play this game. You wouldn’t begin by guessing
+    number 1\. Instead, you’d probably start with 50, which is smack in the middle.
+    Why? Because by selecting 50, no matter whether I tell you to guess higher or
+    lower, you’ve automatically eliminated half the possible numbers!
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you guess 50 and I tell you to guess higher, you’d then pick 75, to eliminate
+    half of the remaining numbers. If after guessing 75, I told you to guess lower,
+    you’d pick 62 or 63\. You’d keep on choosing the halfway mark to keep eliminating
+    half of the remaining numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s visualize this process where we’re told to guess a number between 1 and
+    10, as shown in the [image](#fig.ch2.conversation).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/conversation.png](images/binary_search/conversation.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: This, in a nutshell, is binary search.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see how binary search is applied to an ordered array. Say we have an
+    ordered array containing nine elements. The computer doesn’t know offhand what
+    value each cell contains, so we’ll portray the array like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_11.png](images/binary_search/binary_search_11.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Say we’d like to search for the value 7 inside this ordered array. Here’s how
+    binary search would work:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: We begin our search from the central cell. We can immediately jump
+    to this cell, since we can calculate its index by taking the array’s length and
+    dividing it by 2\. We check the value at this cell:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_12.png](images/binary_search/binary_search_12.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Because the value uncovered is a 9, we can conclude that the 7 is somewhere
+    to its left. We’ve just successfully eliminated half of the array’s cells—that
+    is, all the cells to the right of the 9 (and the 9 itself):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_13.png](images/binary_search/binary_search_13.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 2: Among the cells to the left of the 9, we inspect the middlemost value.
+    There are two middlemost values, so we arbitrarily choose the left one:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_14.png](images/binary_search/binary_search_14.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'It’s a 4, so the 7 must be somewhere to its right. We can eliminate the 4 and
+    the cell to its left:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_15.png](images/binary_search/binary_search_15.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 3: There are two more cells where the 7 can be. We arbitrarily choose
+    the left one, as shown in the [image](#fig.ch2.binary_search_16).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_16.png](images/binary_search/binary_search_16.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Step 4: We inspect the final remaining cell. (If it’s not there, that means
+    there is no 7 within this ordered array.)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/binary_search/binary_search_17.png](images/binary_search/binary_search_17.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We found the 7 in four steps. In this example this is the same number of steps
+    linear search would have taken, but we’ll take a look shortly at another example
+    to see the power of binary search.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note that binary search is only possible within an ordered array. With a classic
+    array, values can be in any order and we’d never know whether to look to the left
+    or right of any given value. This is one of the advantages of ordered arrays:
+    we have the option of binary search.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Code Implementation: Binary Search'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Here’s an implementation of binary search in JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ binarySearch(array, searchValue) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ lowerBound = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ upperBound = array.length - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (lowerBound <= upperBound) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ midpoint = Math.floor((upperBound + lowerBound) / 2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ valueAtMidpoint = array[midpoint]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (searchValue === valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ midpoint; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (searchValue < valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | upperBound = midpoint - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (searchValue > valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | lowerBound = midpoint + 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Let’s break this down. As with the linearSearch method, binarySearch accepts
+    the array and the searchValue as arguments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example of how to call this method:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | console.log(binarySearch([3, 17, 75, 80, 202], 22)) |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The method first establishes the range of indexes in which the searchValue
+    might be found. We do this with the following code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ lowerBound = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ upperBound = array.length - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: Because when starting our search the searchValue might be found anywhere within
+    the entire array, we establish the lowerBound as the first index and the upperBound
+    as the last index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The essence of the search takes place within the while loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**while**​ (lowerBound <= upperBound) { |'
+  prefs: []
+  type: TYPE_TB
+- en: This loop runs while we still have a range of elements in which the searchValue
+    may lie. As we’ll see shortly, our algorithm will keep narrowing this range as
+    we go. The clause lowerBound <= upperBound will no longer hold true once there’s
+    no more range left, and we can conclude that the searchValue is not present in
+    the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Within the loop, our code inspects the value at the midpoint of the range.
+    The following code accomplishes this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ midpoint = Math.floor((upperBound + lowerBound) / 2); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ valueAtMidpoint = array[midpoint]; |'
+  prefs: []
+  type: TYPE_TB
+- en: The valueAtMidpoint is the item found at the center of the range.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, if the valueAtMidpoint is the searchValue we’re looking for, we’ve struck
+    gold and can return the index in which the searchValue is found:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**if**​ (searchValue === valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ midpoint; |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If the searchValue is less than the valueAtMidpoint, it means the searchValue
+    must be found somewhere earlier in the array. We can then narrow the range of
+    our search by making the upperBound the index to the left of the midpoint, since
+    the searchValue cannot possibly be found anywhere further than that:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | } ​**else**​ ​**if**​ (searchValue < valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | upperBound = midpoint - 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Conversely, if the searchValue is greater than the valueAtMidpoint, it means
+    the searchValue can only be found somewhere to the right of the midpoint, so we
+    raise the lowerBound appropriately:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | } ​**else**​ ​**if**​ (searchValue > valueAtMidpoint) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | lowerBound = midpoint + 1; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: We return null once the range has been narrowed down to 0 elements, and we know
+    with certainty that the searchValue doesn’t exist within the array.
+  prefs: []
+  type: TYPE_NORMAL

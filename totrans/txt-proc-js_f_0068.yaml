@@ -1,0 +1,159 @@
+- en: '| Recipe 56 | Validating Social Security Numbers |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you have a loan application form (or maybe a background check form)
+    and want to perform a check to ensure that the Social Security number (SSN) provided
+    by users conforms to the standard format of an SSN.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The SSN is a nine-digit number that is divided into three parts separated by
+    hyphens: AAA-GG-SSSS. The first set of three digits is called the area number,
+    as it was once assigned based on geographical region. But it cannot be 000, 666,
+    or between 900 and 999.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The group number, which consists of digits four and five, ranges from 01 to
+    99\. The last four digits are known as serial numbers and are assigned from 0001
+    to 9999\. You need a solution that adheres to all these rules and lets you quickly
+    identify invalid SSNs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/validating_ssn/ssn_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_ssn/ssn_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** isValidSSN(ssn) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */^**(?!**666&#124;000**)[**0-8**]\d{2}**-**(?!**00**)\d{2}**-**(?!**0000**)\d{4}**$/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** re.test(ssn); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidSSN(*"123-45-6789"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidSSN(*"123-456-789"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidSSN(*"123-00-6789"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidSSN(*"666-45-6789"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: This function ensures that the format of the SSN is correct and that it contains
+    the correct number of digits, thus minimizing data entry errors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The regex in this recipe matches a valid SSN that has the format XXX-XX-XXXX,
+    where the first three digits are not 666 or 000, the fourth and fifth digits are
+    not 00, and the last four digits are not 0000.
+  prefs: []
+  type: TYPE_NORMAL
+- en: (?!000|666) at the beginning of the pattern is a negative lookahead assertion
+    that prevents matching SSNs that start with 666 or 000, which are invalid SSNs.
+    The pattern matches any two- or four-digit number in its second and third sets
+    of digits. But, it incorporates a negative lookahead beforehand to avoid matching
+    zeros.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here is the regex pattern with explanations for each segment:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^(?!666&#124;000)[0-8]\d{2}-(?!00)\d{2}-(?!0000)\d{4}$/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● ^ asserts the position at start of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?!666&#124;000) negative lookahead: assert that the regex below does
+    not match. |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 1st Alternative |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 666 matches the characters 666 literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 2nd Alternative |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 000 matches the characters 000 literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● [0-8] matches a single character in the range between 0 and 8 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {2} matches the previous token exactly 2 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● - matches a hyphen character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?!00) negative lookahead: asserts that the regex doesn''t match 00
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {2} matches the previous token exactly 2 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● - matches a hyphen character |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?!0000) negative lookahead: asserts that the regex doesn''t match
+    0000 |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● \d matches a digit |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {4} matches the previous token exactly 4 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● $ asserts the position at the end of the string |'
+  prefs: []
+  type: TYPE_TB
+- en: After confirming that the provided value adheres to the standard format of the
+    Social Security number, you might consider employing a more strict approach, which
+    involves verifying with the Social Security Administration that the number corresponds
+    to an existing individual.^([[35]](f_0087.xhtml#FOOTNOTE-35))
+  prefs: []
+  type: TYPE_NORMAL
+- en: Keep in mind the significance of validating Social Security numbers to avoid
+    administrative errors during the processing of important documents such as official
+    records.
+  prefs: []
+  type: TYPE_NORMAL

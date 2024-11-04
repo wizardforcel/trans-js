@@ -1,0 +1,146 @@
+- en: Chapter 17
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0176.xhtml#tries.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This trie stores the words: “tag”, “tan”, “tank”, “tap”, “today”, “total”,
+    “we”, “well”, and “went”.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Here is a trie that stores the words “get”, “go”, “got”, “gotten”, “hall”,
+    “ham”, “hammer”, “hill”, and “zebra”:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '![images/tries/solution_2.png](images/tries/solution_2.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'The following code starts at the trie’s node and iterates over each of its
+    children. For each child, it prints the key and then recursively calls itself
+    on the child node:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | traverse(node = ​**null**​) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ currentNode = node &#124;&#124; ​**this**​.root; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ [key, childNode] ​**of**​ Object.entries(currentNode.children))
+    { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | console.log(key); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (key !== ​*''*''*​) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.traverse(childNode); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Our autocorrect implementation is a combination of the search and collectAllWords
+    functions:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | autocorrect(word) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ wordFoundSoFar = ​*''''*​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | wordFoundSoFar += ​**char**​; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ wordFoundSoFar + ​**this**​.collectAllWords([], currentNode)[0];
+    |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ word; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: The basic approach is that we first search the trie to find as much of the prefix
+    as we can. When we hit a dead end, instead of just returning null (as the search
+    function does), we call collectAllWords on the current node to collect all the
+    suffixes that stem from that node. We then use the first suffix of the array and
+    concatenate it with the prefix to suggest a new word to the user.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL

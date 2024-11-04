@@ -1,0 +1,152 @@
+- en: Hash Tables for Organization
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Because hash tables keep data in pairs, they’re useful in many scenarios for
+    organizing data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some data exists naturally in paired form. The fast-food menu and thesaurus
+    scenarios from this chapter are classic examples. The menu contains each food
+    item paired with its price. The thesaurus contains each word paired with its synonym.
+    In fact, this is why JavaScript refers to hash tables as dictionaries. A dictionary
+    is a common form of paired data; it’s a list of words with their respective definitions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Other examples of naturally paired data can include tallies, such as political
+    candidates and the number of votes each received:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"Candidate A"*​: 1402021, ​*"Candidate B"*​: 2321443, ​*"Candidate
+    C"*​: 432} |'
+  prefs: []
+  type: TYPE_TB
+- en: 'An inventory tracking system, which keeps track of how much of each item is
+    in supply, is another tally example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"Yellow Shirt"*​: 1203, ​*"Blue Jeans"*​: 598, ​*"Green Felt Hat"*​:
+    65} |'
+  prefs: []
+  type: TYPE_TB
+- en: Hash tables are such a natural fit for paired data that we can even use them
+    to simplify conditional logic in certain instances.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Say we encounter a function that returns the meaning of common HTTP status
+    code numbers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ statusCodeMeaning(number) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number === 200) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''OK''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number === 301) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''Moved Permanently''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number === 401) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''Unauthorized''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number === 404) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''Not Found''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (number === 500) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​*''Internal Server Error''*​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: If we think about this code, we’ll realize that the conditional logic revolves
+    around paired data, namely, the status code numbers and their respective meanings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'By using a hash table, we can completely eliminate the conditional logic:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ statusCodes = { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 200: ​*''OK''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 301: ​*''Moved Permanently''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 401: ​*''Unauthorized''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 404: ​*''Not Found''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 500: ​*''Internal Server Error''*​, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | }; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**function**​ statusCodeMeaning(number) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ statusCodes[number]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Another common use for hash tables is to represent objects that have various
+    attributes. For example, here’s a representation of a dog:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"name"*​: ​*"Fido"*​, ​*"breed"*​: ​*"Pug"*​, ​*"age"*​: 3, ​*"gender"*​:
+    ​*"Male"*​} |'
+  prefs: []
+  type: TYPE_TB
+- en: As you can see, attributes are a kind of paired data, since the attribute name
+    becomes the key, and the actual attribute becomes the value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We can create an entire list of dogs if we place multiple hash tables inside
+    an array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | {​*"name"*​: ​*"Fido"*​, ​*"breed"*​: ​*"Pug"*​, ​*"age"*​: 3, ​*"gender"*​:
+    ​*"Male"*​}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | {​*"name"*​: ​*"Lady"*​, ​*"breed"*​: ​*"Poodle"*​, ​*"age"*​: 6, ​*"gender"*​:
+    ​*"Female"*​}, |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | {​*"name"*​: ​*"Spot"*​, ​*"breed"*​: ​*"Dalmatian"*​, ​*"age"*​: 2,
+    ​*"gender"*​: ​*"Male"*​} |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ] |'
+  prefs: []
+  type: TYPE_TB

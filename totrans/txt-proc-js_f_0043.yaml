@@ -1,0 +1,158 @@
+- en: '| Recipe 32 | Excluding Groups from Result with the Non-capturing Group |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say you need to keep track of a particular golf player’s ranking based
+    on information scraped from the player’s profile on a sports blog. The ranking
+    information is in a string with an ordinal indicator such as “3rd” or “4th.” You
+    only care about the number, not its suffix, and want to use a capturing group
+    to extract it for additional processing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you use /(\d{1,2})(st|nd|rd|th)/, the second parentheses will capture the
+    suffix, too, which is redundant. You need a way to tell the regex engine not to
+    capture those letters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Add a question mark (?) and a colon (:) right after the opening parentheses
+    to create a non-capturing group:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/non_capturing_group/non_capturing_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"Tiger Woods sits 16th in the latest World Golf Ranking."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (match) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"Player Rank: "* + match[1]); *// → Player Rank: 16* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Your regex is now able to match the ordinal number “16th,” and you can access
+    the number in the second item of the resulting array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The pattern in this recipe matches an ordinal number but remembers only the
+    first capturing group: the digits. The second group is non-capturing because there’s
+    a question mark and a colon right after the opening parentheses.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, unlike the capturing group, it doesn’t capture anything from the substring
+    it matches. Here, “16th” is the string we want to match, “16” is the substring
+    we want to capture, and “th” is the substring we want to exclude.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a closer look at the pattern:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /(\d{1,3})(?:st&#124;nd&#124;rd&#124;th)/ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (\d{1,3}) 1st capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ \d matches a digit (equivalent to [0-9]) |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ {1,3} matches the previous token between 1 to 3 times |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ● (?:st&#124;nd&#124;rd&#124;th) non-capturing group |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 1st Alternative: st matches the characters st literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 2nd Alternative: nd matches the characters nd literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 3rd Alternative: rd matches the characters rd literally |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ○ 4th Alternative: th matches the characters th literally |'
+  prefs: []
+  type: TYPE_TB
+- en: The match() method returns a wealth of information about the result. In this
+    case, we’re interested in only the second item of the array, which is the ranking
+    number without the ordinal indicator, so we use str.match(re)[1].
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A non-capturing group may have a quantifier like a regular group. In the following
+    example, the final question mark makes the group optional, so the pattern matches
+    non-ordinal numbers as well:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_2/non_capturing_group/non_capturing_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex2.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)?**/*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"Tiger Woods sits 16 in the latest World Golf Ranking."*;
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** match = str.match(re); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **if** (match) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(*"Player Rank: "* + match[1]); *// → Player Rank: 16* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: The question mark at the end of this regex is not related to the one in the
+    group. It simply tells the regular expression engine to match zero or one occurrence
+    of the group.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remember, to avoid capturing a matched substring, use a non-capturing group
+    instead of a regular one. Your code may also benefit from using non-capturing
+    groups when adding more groupings to an existing pattern. This way, you won’t
+    have to make major changes when revising a pattern. There’s also a minor performance
+    improvement in some engines because JavaScript doesn’t have to add the group to
+    the result.
+  prefs: []
+  type: TYPE_NORMAL

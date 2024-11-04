@@ -1,0 +1,181 @@
+- en: '| Recipe 66 | Escaping a String for Use in a Regex |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Imagine a scenario where you’re designing a search feature for an online bookstore.
+    Within the app’s search functionality, there is a field where users can enter
+    a partial title or author’s name to find the specific book they are looking for.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Your code involves using the user-provided string as a component of a regex
+    to search a database. In order to safeguard your app from potential attacks, you
+    should implement a function that escapes all regex metacharacters in the user-provided
+    string before using it as a component of your search pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Escaping ensures that the special characters within the string are properly
+    handled and do not inadvertently affect the behavior of the regular expression.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To ensure that characters with special meanings within a pattern are treated
+    as ordinary characters without any special interpretation, you can create a function
+    that adds a backslash before those characters:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/escaping_metacharacters/escaping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/escaping_metacharacters/escaping_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **function** escapeRegex(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**[**-**\\**^$*+?.()&#124;[**\]**{}**]**/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *"***\\***$&"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** str = *"These should be escaped: -* **\\** *^ $ * + ? . ( )
+    &#124; [ ] { }"*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** escaped = escapeRegex(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | console.log(escaped); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// → "These should be escaped: \- \\ \^ \$ \* \+ \? \. \( \) \&#124;
+    \[ \] \{ \}"* |'
+  prefs: []
+  type: TYPE_TB
+- en: The string is now safe to use as part of your regex.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The regex for this recipe encapsulates all the regex metacharacters in a character
+    class. The square brackets [] denote a character class, which means any character
+    within the class will be matched. Then, the replace() method replaces all occurrences
+    of the metacharacters with their escaped versions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The $& in the replacement string represents the matched substring itself. Notice
+    the double backslash preceding it: since the backslash is used as the escape character,
+    you cannot use it directly if you want to add a literal backslash to a string.
+    Instead, you need to type two backslashes in a row. This is because the first
+    backslash acts as an escape character for the second backslash, telling JavaScript
+    to treat the second backslash as a literal character instead of an escape sequence.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the reasoning behind escaping each of those characters in the character
+    class:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '- The hyphen symbol defines a range of characters in a character class. To
+    prevent accidental creation of ranges while incorporating text within a character
+    class, it’s necessary to escape it'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: \ The backslash can be used to make certain literal characters special. For
+    example, \n creates a newline character (rather than a backslash followed by the
+    letter n)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ^ The caret symbol matches the start of a line/string. It can also create a
+    negated character class
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: $ The dollar symbol matches the end of a line/string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '* The * quantifier matches its preceding item zero or more times'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + The + quantifier matches its preceding item one or more times
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '? The ? quantifier matches its preceding item zero or one time'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: . The dot symbol matches any character
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '| The vertical bar matches any of two or more options'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: () Parentheses are used for capturing, grouping, and other constructs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[] Square brackets create a character class'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '{} Curly brackets create a quantifier'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When using the pattern in this recipe, make sure to use the g flag to replace
+    all matches, rather than only the first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s important to be careful when using user-provided input in your regex. Failing
+    to do so could render your program vulnerable to a type of attack called ReDos
+    (regular expression denial of service). An attacker could potentially exploit
+    your program by providing an extremely intricate regex that requires a significant
+    amount of time to process.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When evaluating user input in a browser, a ReDoS attack will typically cause
+    the browser to hang. But, when the input is being evaluated on a server, the consequences
+    can be more severe and potentially lead to a denial-of-service attack. In such
+    an attack, the attacker floods the server with a barrage of highly processing-intensive
+    requests, effectively preventing the server from servicing legitimate requests.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this case, protecting your program from ReDoS isn’t too difficult: escape
+    all metacharacters that could alter the pattern of the expression. This can be
+    done by placing a backslash before the metacharacter, which tells the regex engine
+    to treat it as a literal character.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Escaping Metacharacters in Other Languages |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | There exist built-in
+    functions in several programming languages that automatically escape regex metacharacters.
+    For example, Java has Pattern.quote(str) and Python provides e.escape(str). If
+    you’re using the Lodash library, you might as well take advantage of its_.escapeRegExp()
+    method to escape metacharacters. |'
+  prefs: []
+  type: TYPE_TB

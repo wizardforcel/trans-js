@@ -1,0 +1,1692 @@
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
+    [https://doi.org/10.1007/978-3-658-42912-6_11](https://doi.org/10.1007/978-3-658-42912-6_11)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11. How Do I Store Data to Work With?
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Programs work with data. These are read in from the user or from files, databases
+    or other sources. We will look at exactly how this happens in the following chapter.
+    This chapter is about something else: all data must be stored in the computer''s
+    memory so that it can be processed. This is done in the form of variables. But
+    don''t worry: even if these variables have a lot in common with their namesakes
+    from mathematics, you don''t need to delve into the depths of mathematics to understand
+    how to work safely with variables when programming.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter you will learn the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What variables are and how to create them
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What types of data variables can hold
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to combine many variables of the same kind into variable fields (arrays
+    and hashes)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: How to combine different variables reflecting the properties of a certain real-world
+    object (e.g., a car with the properties brand, maximum speed and list price) into
+    one object and how to then manipulate these properties (object-oriented programming
+    paradigm).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 11.1 Variables as Placeholders for Data
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Variables are tools with which we record data in programs. As in mathematics,
+    variables act as *placeholders* that we can address by their name, as with the
+    *identifiers* discussed in ► Chap. [10](474412_1_En_10_Chapter.xhtml). As the
+    name suggests, their content is variable, so we can store different data in the
+    variable (one after the other), but no matter what the current content of the
+    variable may be, it is always accessible via their identifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A variable is comparable to a box that we label. The label, or the name or identifier,
+    always remains the same, even if we change the contents of the box. The contents
+    of the box should match the label to some extent, otherwise confusion arises.
+    It is exactly the same with variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In general, we are quite free in choosing the name of the variable. However,
+    as you have already seen in the previous chapter, there are some language-specific
+    basic rules that must be observed. These rules usually dictate which characters
+    may appear in the name of a variable (certain special characters such as **%**
+    or **#** are usually not allowed). In addition, many programming languages also
+    specify which characters may or even must appear at the beginning of a variable
+    name. In R, for example, variable names may not begin with a digit, in PHP variable
+    names *must* begin with the dollar sign (**$**). However, as you will remember
+    from the last chapter, it is important not only to follow these “hard” rules,
+    the violation of which will inevitably lead to the compiler or interpreter refusing
+    to obey you, but also to name variables meaningfully and *consistently.* Meaningful
+    in this context means that you can tell the content or purpose of the variable
+    from its name. Consistent means that you ideally always form variable names in
+    the same way, for example, always capitalize and lowercase the parts of compound
+    variable names in the same way. Let’s say you are developing a web-shop and want
+    to store the number of orders a customer placed in the last 12 months in a variable.
+    This variable could be called, for example, **CountOrders12Months**, but also
+    **CntOrd12M** or **cntOrd12M** or **Count_Orders_12_Months** or … The possibilities
+    are numerous, and there are few limits to creativity. For the readability and
+    comprehensibility of the program code, it is important that you think about a
+    system, how you want to form variable names, and then follow this system as consistently
+    as possible.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.2 Data Types of Variables
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 11.2.1 Different Types of Data Require Different Types of Variables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: So far, we haven’t talked about what *kind of information* a variable can hold,
+    such as a number or a text. For the compiler or interpreter of your programming
+    language, this makes a difference, for at least two reasons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For one thing, the compiler or interpreter of your language must reserve memory
+    for the variable. It is obvious that a long text (for example, a street name)
+    requires more memory than a number (for example, a house number). If you first
+    assign a number to a variable, let’s say the house number 58, your compiler or
+    interpreter then makes sure that enough memory is reserved to store a number.
+    If then you assign a long text to the same variable, for example the address “Times
+    Square, Manhattan, NY”, the space initially reserved is no longer sufficient.
+    Additional memory space must be found, possibly at a completely different location
+    in memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Secondly, very different operations can be performed with numbers and texts.
+    For example, you can multiply a number by another number. With a text, these operations
+    make no sense. In the worst case, the program will even crash if you perform an
+    operation that is not allowed for the kind of data your variable contains. Therefore,
+    it makes sense to check at times whether the data in a variable is of the “right”
+    kind, has the right *data type,* in programming terms.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The data type of a variable describes what kind of information can be stored
+    in it. In this respect, a data type specifies, for example, whether a variable
+    should hold integers, fractional numbers, or texts. In practice, however, data
+    types differ not only in the type *of* data they cover. They also differ in terms
+    of *the range of values* or *length of information* they can hold: A variable
+    that is intended for a text and provides 10 characters for it, will store “Peter
+    Miller” as “Peter Mill” (the space counts also as a character here). In an integer
+    variable whose value range is from 0 to 65,535 (that’s a value range you can cover
+    with two bytes), you won’t be able to store a negative account balance of –254
+    USD. In the same way, an integer variable with the value range from –32,768 to
+    32,767 (which also requires two bytes of memory) will not be able to handle an
+    account balance of 50,000 USD. Data types therefore have different value ranges,
+    which – just like the basic type of information for which they are intended –
+    limits the data they can hold. In the case of data types for floating-point numbers,
+    such as fractional decimal numbers like 3.1415926, another characteristic comes
+    into play in the form of *precision,* or the number of decimal places. Accuracy
+    matters. Whether you receive the gold medal at a skiing or speed skating world
+    championship together with a competitor, or come in second behind this competitor,
+    may depend on whether the result is measured in hundredths of a second (and both
+    athletes have the same result and would therefore both be declared winners) or
+    whether thousandths of a second are also taken into account, and a small difference
+    between the two times then becomes apparent.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.2.2 Important Data Types
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The basic data types are quite similar in most programming languages. Usually
+    there are data types for:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Integers
+  prefs: []
+  type: TYPE_NORMAL
+- en: These data types take integers such as –4, –3, –2, 0, 1, 2, 3, 4\. Optionally,
+    there are data types that take only positive integers (including zero), that is,
+    natural numbers. Integer data types in many programming languages have a name
+    that includes the word integer, or an abbreviation of it. Classical names of such
+    data types are **integer** or **int**. For integer data types with a particularly
+    large value range, i.e., the possibility of storing very large numbers, they are
+    also often called **bigint**, **long int** or simply **long**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Floating-Point Values
+  prefs: []
+  type: TYPE_NORMAL
+- en: Floating point data types take fractional decimal numbers, such as 1.7 or 3.141459\.
+    Of course, integers can also be represented as floating-point numbers, e.g., 4
+    as 4.0\. Accordingly, all integers can also be stored in floating-point variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If this is so, the question naturally arises why one needs integer variables
+    at all and does not simply always work with floating-point variables. The reason
+    is mainly the larger memory requirement of floating-point values, because they
+    must store the fractional part of the decimal point as well as the digits before
+    the decimal point, or they have to keep capacity for its storage, even if the
+    fractional part after the decimal point is always zero, as is the case for integer
+    numbers. The problem is that our compiler or interpreter does not know in advance
+    that we only want to store integer values. Therefore, it always reserves as much
+    memory as it needs to store a fractional decimal number. If you need a lot of
+    such floating-point variables at once, this will result in a noticeably higher
+    memory requirement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are a number of names for floating-point data types in different programming
+    languages, such as **real** (for real numbers) or **float**. In most languages
+    there is – analogous to **integer** and **long integer** – another floating-point
+    data type, which offers higher precision (i.e., more decimal places) and a larger
+    range of values. In most cases, names such as **double** or even **long double**
+    already indicate the higher precision.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Characters and Strings
+  prefs: []
+  type: TYPE_NORMAL
+- en: Individual characters, such as letters, are not dissimilar to integers, because
+    every character that the computer understands, i.e., that is part of its *character
+    set,* can also be encoded as a number. Well-known character sets are ASCII or
+    Unicode. Although there is a close connection between characters and numbers,
+    most programming languages have a special data type for individual characters,
+    often with a name based on the word *character*. Accordingly, many languages have
+    a character type **char** for individual characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Entire texts are ultimately sequences of characters, or *strings*. Some programming
+    languages therefore do not know a separate type for character strings but build
+    character strings from a string of individual character variables. Here, a more
+    complex data type is created from a simple data type, in which many variables
+    of the simple data type are practically connected in series. This kind of series
+    connection is called an *array*, a construction we will deal with more intensively
+    later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Other languages do have a special data type for strings, which is often simply
+    called **string**. This somewhat shields the programmer from the nature of the
+    string, namely that it consists of different characters strung together. For him,
+    it then “feels” as if the text is a single variable and not composed of individual
+    variables arranged in a field.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, strings can often contain not only letters, digits and special characters
+    (such as punctuation marks, **#, <** , **>** , *****, **~**), but also so-called
+    escape sequences. These are special control instructions. In practice, the most
+    important one marks a line break and is represented as **\n**. The backslash (**\**)
+    tells the interpreter or compiler that the following character is not a letter
+    but a control statement; the **n** itself stands for *new line*. Thus, the string
+    **"Mr./Mrs.\nFirstName Name\nStreet\nZIP City"** would be interpreted as
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mr/MrsFirstName NameStreetZIP city
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Wherever the escape sequence **\n** is encountered, a line break is inserted.
+    While the escape sequence marks the position of the line break within the string,
+    certain program functions – such as those for outputting strings to the screen
+    – “understand” the encoding and implement it accordingly. Besides **\n**, there
+    are several other escape sequences, for example **\t** for a tabulator jump. Escape
+    sequences solve another common problem: In most programming languages, strings
+    are enclosed by single (**''**) or double (**"**) quotes. But what if a string
+    is supposed to contain a quote, for example, so how do the quotes need to be *real
+    characters* within the string? Consider the following string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"He said, "I love you!""'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It is enclosed in double quotes, but contains a quote that itself uses double
+    quotes. Normally, the interpreter or compiler would refuse to follow us here.
+    It would first recognize a string **"He said: "**. However, this is followed (without
+    this being understood as a string) by **I love you!** followed by an empty string
+    (**""**). The **I love you!** would probably cause problems, because it will not
+    be a valid statement in the respective programming language, so outside of a string
+    the interpreter or compiler would try to interpret it as a statement. So what
+    to do? Apart from the trivial solution of simply using single quotes for the quote
+    inside the string, the “inner” double quotes can also simply be *escaped*, as
+    follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"He said: \"I love you!\""'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The backslashes tell the interpreter or compiler that the following quotation
+    mark should be understood as *part of the string*, not as its delimiter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But what if there should be a backslash in the string? For example, in this
+    string:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"\n is an escape sequence."'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The escape sequence **\n** would normally lead to an undesired line break within
+    the string. Masking by the backslash helps here too, only this time the existing
+    backslash itself is masked, because it should be understood as part of the text
+    and not as the start of a control statement. So:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"\\n is an escape sequence."'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This string would result in the correct output. Escaping the backslash itself
+    is especially important when you code paths on Windows systems, for example **C:\\Home\\My
+    source codes**. A common cause of errors is that escaping is forgotten in strings
+    like this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Escape sequences are used in many programming languages, for example in C, Python,
+    Perl or R.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Truth/Logical Values
+  prefs: []
+  type: TYPE_NORMAL
+- en: Practically all programming languages have a special data type for the truth
+    content of statements, i.e., *true* or *false*. In this context, we often speak
+    of *boolean* (after the nineteenth century English mathematician and logician
+    *George Boole*) or *logical* variables. Unlike the data types we have considered
+    so far, boolean variables allow the storage of only two different values, true
+    and false. This is completely different from, say, integer variables, which can
+    hold *any* integer. In most programming languages, the two truth values have special
+    identifiers, usually **true** and **false,** so that boolean variables can be
+    easily assigned values or compared, and these assignments and comparisons are
+    easily readable in the program code. Because there are the easy-to-understand
+    identifiers **true** and **false,** programming languages usually store only 1
+    and 0 as values of boolean variables. In this sense, boolean variables are mostly
+    just integer variables, where the compiler or interpreter takes care that they
+    have only one of two possible values, which can conveniently be accessed with
+    special identifiers, mostly just **true** and **false.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: In programming language, boolean data types are often called **bool**, **boolean**,
+    or **logical**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Other Data Types
+  prefs: []
+  type: TYPE_NORMAL
+- en: These data types can be found in practically all modern high-level languages,
+    albeit with different names, different value ranges, and different precision.
+    In addition, most programming languages have several other, more complex data
+    types, which are often based on the simple types you have just learned about.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some languages, for example, have (at least) one special data type for the date
+    or the time. If you want to store the date and time, there seems to be no way
+    around simply storing days, months, year, hours, minutes, and seconds as integers
+    and then “assembling” them into some complex data type. This is indeed one possible
+    solution that is often used. But there are others. For example, time on systems
+    using the UNIX operating system, which dates to the 1970s, is measured using only
+    a single integer representing the number of seconds that have passed since 0:00
+    a.m. GMT on January 01, 1970\. Then, for example, the turn of the millennium,
+    i.e., January 01, 2000, at 0:00 a.m., in New York City corresponds to the Unix
+    time 946,702,800\. This time concept is also called *UNIX Epoch*. So, the date
+    can also be represented in a single number, but in many programming languages
+    it is treated as a separate data type, although it is ultimately an integer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This example also nicely illustrates the role of the value range in data types.
+    Systems running on UNIX did not have a year 2000 problem. However, they will run
+    into trouble for this on Tuesday, January 19, 2038 at 3:14:08 UTC. This is because
+    the data type used by UNIX (at least on the older systems) to store the time will
+    then reach the value 2,147,483,647 and thus the limit of its value range. This
+    data type cannot store larger numbers. So, what happens one second later, at 3:14:09?
+    The date value measured in seconds will jump back to its smallest possible value,
+    –2,147,483,648\. According to Unix chronology, this corresponds to a time in December
+    1913\. The developers of Unix, of course, knew this, but accepted it; the year
+    2038 was still far away from the perspective of the 1970s, and data types with
+    a larger value range were not available.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But the example shows very well that you have to think about whether the data
+    type you intend to use is really sufficient for the intended purpose, or whether
+    you need a data type with a larger range of values (if you have one available,
+    unlike the UNIX developers).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Date/time is an example of a data type that exists in many languages alongside
+    the other data types discussed above. In addition, there are often other data
+    types, such as for enumerations. In variables of these types, categorical data
+    can be stored, i.e., data that can only have certain distinct values, for example
+    the sex of a person, their highest school-leaving qualification, or a car color.
+    In this sense, they are like boolean variables, except that the number of possible
+    values may well be more than two. Often, such *enumerations* (*sets* or *factors*)
+    are special data types in a programming language even though “under the hood”
+    they are essentially stored as integers (each category/value is represented by
+    a specific number).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Date values, strings, and enumerations are all examples of data types that are
+    based on simpler data types. When we discussed strings which can be thought of
+    as consisting of a sequence of characters you already became acquainted with the
+    field as a way of combining variables into a more complex data type. Besides fields,
+    we will later take a closer look at another possibility, the core idea of which
+    is to combine variables of *different* types into one object. Such an object then
+    often represents a real object with its central properties, for example a car,
+    which can be described by its age in years (integer), its brand (string), and
+    its color (enumeration), among other things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '11.2.3 Changing the Data Type: Conversion of Variables'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Sometimes you need to change the data type of variables. This is called *converting*
+    the variable. For example, suppose you have written the software for an online
+    book store. A user of your program has just entered the information about how
+    many of which book he wants to buy (usually just one, but sometimes maybe two,
+    one for himself, one as a gift). On the check-out page, you want to show the user
+    how many books they are ordering in total. This is easy if you have read the quantities
+    into integer variables. However, it becomes problematic if you have used string
+    variables. Your addition will not succeed. Why is the difference between the two
+    variables so important?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Data types, as you have seen in the previous sections, are defined by the kind
+    of information the range of values that variables of this type can hold, and,
+    if applicable, also by the precision with which (floating-point) values are stored.
+    But there is another characteristic that distinguishes data types: The question
+    of what kinds of operations can be performed on variables of a data type. That
+    you can add integers is obvious. But what about strings? Can you add the two strings
+    **"apples"** and **"pears"** in the mathematical sense? No, of course not. But
+    what about the strings **"2"** and **"1"**? These could be the quantities of two
+    books from our online shop example. Can these two strings be added together? The
+    answer is, possibly to your surprise: No.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The compiler or interpreter that processes your program code is simply not interested
+    in what exactly is contained in the variable. It is simply a string of characters,
+    completely without meaning for the computer. Whether the string contains letters,
+    numbers, or any special characters like the dollar sign or the underscore is irrelevant.
+    The compiler or interpreter is not interested in the content. Therefore, addition
+    is not an operation that is allowed for strings. But if you now know that the
+    string variables you read in via your online store’s website definitely contain
+    numbers, of course you still want to calculate with them. What to do?
+  prefs: []
+  type: TYPE_NORMAL
+- en: The key to solving this is to change the type of the variable. Many programming
+    languages provide special statements that allow you to do just that and perform
+    an *explicit type conversion.* Some languages, however, also have *implicit type
+    conversion*. In a certain sense they are not as ignorant as described before,
+    but if you want to calculate for example **"2" + 1** (where **"2"** is a string
+    value), they look at the variables and their content quite closely and would recognize
+    that in our example the calculation would be possible if the string **"2"** was
+    converted to a number. The conversion is then performed automatically, without
+    you having to intervene with a special statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another example of this is the following calculation: **TRUE – 1**: Here, an
+    integer value is subtracted from a Boolean value. Languages that follow a very
+    strict type concept would reject this calculation with an error message. Languages
+    that support implicit conversion would recognize that **TRUE** is ultimately (in
+    most languages) represented by the value **1,** because it is this that is stored
+    internally as the truth value. Thus, the value of **TRUE – 1** can be determined.
+    In this sense it is even true: **TRUE – 1 = 0 = FALSE**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Languages that look very strictly at the adherence to the data types, convert
+    little implicitly and possibly even allow little explicit conversion, are called
+    *strongly typed*. Here the data types of variables play a big role. At the other
+    end of the spectrum are languages where the programmer does not have to specify
+    the type of the variables, but where the data type always adapts automatically
+    by implicit conversion in such a way that the desired operations can be performed
+    as far as possible. Such languages are “weaker typed”. In extreme cases, even
+    operations that make no sense at all can be performed without an error message:
+    The addition **3 + "My name"** (where **3** is a number, **"My name"** is a string)
+    would then perhaps simply result in **3**. The type conversion from **"My name"**
+    to a number fails, of course, but the programming language is so weakly typed
+    that it just “keeps on calculating” as best it can.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: What may sound tempting is at the same time dangerous. Because obviously it
+    would be bad if the user of our online shop enters the quantity **3** for one
+    book and the quantity **"Tom Peterson"** for the other book. We can’t really work
+    with this information. In the worst case, our program gets into trouble and produces
+    implausible results or even crashes completely. A little more “control” over whether
+    the variables are good for the operations you want to perform should not be seen
+    as a restriction on your own programming freedom. It is simply an aid to writing
+    safer, more stable program code and to detecting errors at an early stage (ideally
+    during development and testing, and not at runtime).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.3 Creating and Initializing Variables
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In the last section, you saw that variables can be distinguished according
+    to their data type, i.e., according to what kind of information they can store
+    and what range of values can be covered with them. Now the question arises - how
+    do you create a variable in order to be able to work with it. The “birth” of a
+    variable is done differently in different programming languages. Roughly, however,
+    two types of languages can be distinguished: Those in which you have to create
+    a variable explicitly before using it for the first time, and those that create
+    the variable automatically as soon as you use it for the first time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Languages of the former kind include C, Visual Basic for Applications (VBA),
+    and JavaScript. Suppose we wanted to assign the value **10** to an integer variable
+    called **piececount** in both languages. Before that happens, however, the variable
+    must be created. Programmers refer to this as *declaring*, which is the process
+    of telling the compiler or interpreter that you want to use this variable from
+    now on. The compiler or interpreter then takes over the technical part of variable
+    creation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The declaration of the variable including the assignment of the value **10**
+    would look like this in C:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**int** piececount;piececount = 10;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**int piececount** not only declares a new variable **piececount,** but also
+    specifies its type as **int**, which in C is the integer data type. After this
+    declaration, the compiler knows that there is an integer variable called **piececount**,
+    and it can be used in the program from now on. Without the declaration, the assignment
+    ***piececount = 10*** would lead to an error message, with which the compiler
+    points out that it does not know the variable **piececount** and thus cannot assign
+    a value to it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The same code section in VBA would look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Dim** piececount **As Integer**piececount = 10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike in C (where the declaration was introduced with the type of the variable),
+    a special keyword is used here to declare the variable, namely **Dim**, from *to
+    dimension*. And that’s actually very good, because what happens when the variable
+    is created is that memory is reserved, as much as the data type of the variable
+    requires. In this sense, the memory is *dimensioned* according to need.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Some languages like JavaScript require a declaration of variables, but no type
+    is specified:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var** piececount;piececount = 10;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here the compiler or interpreter decides based on the use of the variables,
+    which data type it needs. By the assignment **piececount = 10** it becomes clear
+    that this must be an integer variable. If the variable is later assigned a value
+    that requires a different data type, for example by the assignment **piececount
+    = "Not specified"**, then the data type of the variable changes accordingly in
+    the background without you as the programmer noticing anything. Unlike in C or
+    VBA, the typing is *implicit*. In C and VBA, on the other hand, the type must
+    be specified *explicitly*; this is why we also speak of *explicitly typed* programming
+    languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You may now ask yourself whether a declaration in JavaScript is really that
+    useful, since the type of the variable is not specified at all. If the type has
+    to be specified, it can be argued that the compiler or interpreter can check whether
+    a variable is unintentionally assigned values that it cannot accept due to its
+    data type. This additional check provides security and may prevent troublesome
+    errors and strange behavior of the program. After the above declaration, the C
+    compiler will refuse to work with an assignment such as **piececount = "Not specified"**
+    and abort with an error message. This way, the programmer is made aware of the
+    fact that he has somehow worked inconsistently in the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Does the necessity to declare a variable the way it is done in JavaScript have
+    any benefit for the programmer? Or is it simply a chicanery devised by the inventor
+    of the language to drive the users of his invention crazy? As you can imagine,
+    this is not the case. There is a point to forcing the programmer to register his
+    variables, because that way, the compiler or interpreter knows *which variable
+    identifiers* are allowed. If you then make a typo, as happened to the author several
+    times while writing these lines, and for example write the assignment **pieccount
+    = "Not specified"** (note the missing **e**) in your code, the JavaScript interpreter
+    will recognize that you are trying to access a variable that does not exist. This
+    is because the variable you declared has a different name. This way you will quickly
+    get to the root of the problem and be able to fix it. This would be much more
+    difficult if the programming language did not require a declaration. Then the
+    statement **pieccount = 10** would simply create a new variable called **pieccount**.
+    In that case, you’d probably have some trouble determining what’s causing your
+    program not to behave the way you want it to. Uncovering the real cause, namely
+    that you are actually working with two different variables, is then considerably
+    more time-consuming than if the compiler or interpreter already gives you a “hint”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So sometimes it can be quite helpful to accept a stricter regime. This strictness
+    makes it easier to detect and locate problems. If your programming language offers
+    the possibility to switch to a stricter mode (which can be achieved in VBA, for
+    example, by a special option that forces variable declaration), you should accept
+    this offer, even if it looks like more control and less freedom at first glance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The strictness that some programming languages impose on their users sometimes
+    includes that the declaration of variables is only allowed at the beginning of
+    a program, which improves the structure and thus the readability of the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In our examples above, we assign a value to the variable directly after its
+    declaration. But what if we do without this, but still use the variable later
+    anyway, for example output its content on the screen? What would be displayed
+    then? In other words, what is the value with which variable is “born”? In the
+    past, variables often had a somewhat random value after their declaration, namely
+    the one that was currently in the memory area released by the operating system,
+    which was then reserved for the variables. This value was ultimately a residue
+    of the program that had previously used the same memory area but had not “cleaned
+    up” after itself. Therefore, a very important recommendation to any programmer
+    was to always load his variables with a value at the beginning, to *initialize*
+    them, or to give them a clearly defined, known content. This prevents the program
+    from crashing or reacting in an unpredictable way due to “strange” variable contents.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Today, most programming languages initialize variables automatically, numeric
+    variables with **0**, strings with an empty string. Some languages even have a
+    special value for variables not explicitly initialized by the user, such as **undefined**
+    in JavaScript. This value signals that the variable does not yet have a real value
+    because it has not yet been initialized. Many languages also have another value
+    that indicates that the user is deliberately leaving the value of the variable
+    open (think of an unanswered question in a poll, for example). In JavaScript,
+    for example, this value is **null** (not to be confused with number 0), in Delphi/Object
+    Pascal it is **nil**, in R it is **NA** (for *not available*). If the variable
+    has such a value, this indicates that the variable is indeed used, just that it
+    does not contain an explicit value. In other words: No value is also a value!'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Even though initialization is strictly speaking no longer necessary in many
+    programming languages today, it is good practice. Often, initialization can be
+    done directly in the declaration, for example in C. Our example above would be
+    shortened to:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**int** piececount = 10;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '11.4 Not So Variable: Constants'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Another type of language elements, which are usually initialized directly at
+    declaration, are *constants.* Constants behave similarly to variables in the sense
+    that they are values that can be addressed in the program under a certain name,
+    their identifier. Unlike variables, however, their value cannot be changed in
+    the further course of the program once it has been set. This protects the value
+    of the constant from being accidentally overwritten. Usually, constants must be
+    initialized with their (henceforth constant) value already at the declaration.
+    An example from Pascal:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**const** pi = 3.14159;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In C, the constant declaration looks just like the declaration of a variable,
+    with the addition of the **const** keyword:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**const int** pi = 3.14159;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.5 Ordered Fields of Variables/Arrays
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: So far, we have always created single variables. However, most programming languages
+    also support *arrays* of variables. An array is an ordered collection of variables
+    of the same type that can be addressed under the same name. The individual values
+    of the field are accessed via an index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the context of our hypothetical online shop example, we could, for example,
+    store the click history, i.e., the sequence of products that the customer has
+    looked at, in an array. This is important information when it comes to analyzing
+    customer behavior in more detail and making tailored suggestions to the customer
+    as to which products might also interest him, as is the case with many online
+    shops today.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, our field could be called **history**. In this field, we would
+    sequentially store the IDs of the products that the customer has viewed. Let’s
+    assume here that these IDs are integer values. Then we have a field of integer
+    variables. We can now use an *index* to access the individual *elements* of the
+    field. We could access the fifth element in the click history this way through
+    **history[5]**. In the square brackets you see the number of the element that
+    is to be accessed, in this case the fifth product that our current customer has
+    looked at.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Of course, we could have implemented the whole thing with single variables:
+    Thus, we could have created variables **history1**, **history2**, **history3**,
+    **history4, history5**, **history6,** and stored the sequence of products under
+    consideration in these variables. However, this has some disadvantages. For one
+    thing, in many languages the variables must be explicitly declared. If you envision
+    a click history with, say, 30 products, you would have a lot of typing to do just
+    to declare the variables in the first place. On the other hand, in practically
+    all languages that support fields, there are very efficient mechanisms for traversing
+    those fields, namely by moving the index that identifies a field element one position
+    at a time. This way you can go through the whole field step by step. The whole
+    thing can be solved very elegantly from a programming point of view, so that you
+    do not have to write much code. It would be much more complex and maintenance-intensive
+    (think of the case where you just want to quickly increase the length of the history
+    from 30 to 100 products) if you were to work with individual, independent variables.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although virtually all modern high-level languages provide fields, the languages
+    differ in one important respect; namely, what the index value of the *first* field
+    element is. In many languages, field indices start at 0\. Then **history[0]**
+    would be the product ID of the first product the user looked at.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fields/arrays can also be multi-dimensional. In our example, we could store
+    the click history of all our visitors in one field; we would use a two-dimensional
+    field, which we can think of as a table or matrix. The rows would contain the
+    users, and the columns would contain the IDs of the products they viewed. Then
+    **history[3][1]** would be the ID that website visitor number 3 looked at first
+    (assuming our field indexing starts at 1). To access elements of a field, we now
+    need two indexes as coordinates that describe exactly where we want to reach in
+    our two-dimensional tableau.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The dimensionality of fields is, of course, by no means limited to two dimensions.
+    We could easily add a third, fourth, fifth dimension. All no problem, as long
+    as we still have in mind which index (and thus which dimension) stands for which
+    “coordinate” we use to store the information in our field. For example, in addition
+    to the user, we could also store the day (from 1 = Monday, to 7 = Sunday) and
+    thus have a third dimension. Our field would have the structure **history[day][user][productid]**
+    and with **history[2][3][1]** we would get the ID of the first product that user
+    3 looked at on Tuesday.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Without going into it in detail, we have introduced a notation in the past
+    paragraphs to access the individual elements of fields with indexes: We put the
+    index number in square brackets. This is actually how many programming languages
+    do it, but not all: some put the indexes in *round* brackets. However, the possibilities
+    of indexing are not exhausted by simply specifying an index number. Many programming
+    languages allow further methods of indexing, for example indexing by exclusion:
+    Here, not the index or indices of those elements of the field are specified that
+    you want to select, but just the other way around, those that you do not want
+    to select. This is often done by prefixing the index with a minus sign. **history[–5]**
+    would then be the entire field except for the fifth element. In some programming
+    languages, however, a negative value means something else, namely that the field
+    is indexed from the end. In this case, **history[–5]** would be the fifth element
+    *from the end*. Some languages also offer the specification of a whole range of
+    indices: so **history[5:9]** would grab the fifth, sixth, seventh, eighth and
+    ninth element of the field. A notation in the form history**[from:to]** not only
+    saves typing work but makes it easier especially when the selection limits **from**
+    and **to** are not yet known, but variables are used in their place whose values
+    are first determined by the program (for example, by a user input).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The world of fields is relatively colorful across programming languages. However,
+    most of them have the following principles in common:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Fields are combinations of several single variables (however, there are exceptions
+    to this fundamental definition): In the statistical language R, one-dimensional
+    fields, so-called vectors, are even the standard; a single variable is then only
+    a special case of such a vector, namely a vector of length one).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The variables in a field all have the same type (for example, they are all strings,
+    or all numbers).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Fields can be one-dimensional or multidimensional.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Individual elements of the fields can be accessed via a numerical index by specifying
+    the element to be selected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When creating a field (if variables have to be declared at all) its dimensions
+    as well as the type of the field variable have to be specified.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Beyond that, however, working with fields can differ greatly in different programming
+    languages. We had already learned about some of these differences. In summary,
+    among other things, the following questions may well be handled very differently
+    in different programming languages:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whether the numeric indices start at 0 or at 1.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Whether round or square brackets are used in indexing.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What indexing options are available beyond simply specifying the element number.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Whether, and if so, which functions are available to work with fields (for example,
+    to determine the length of a field or to delete an element from a field).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Which data types are allowed for fields.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The maximum size of fields.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Next, let’s look at how fields are actually declared and used in some programming
+    languages. In all cases, we want to create a field of six variables that can hold
+    the names of a group of people. We then want to set the second name to “Sophie”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The whole thing first in Visual Basic for Application (VBA):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Dim** names(6) **As String**names(1) = "Sophie"The same in JavaScript:**var**
+    names = [];names[1] = "Cathy"'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, in JavaScript the size of the array does not have to be specified
+    in advance. The indexing also starts here at 0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'And finally, Delphi:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**var**names: **array**[1..6] of **string**;names[2] = "Cathy";'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, the value range of the indices can be set explicitly. We set it so that
+    it runs from 1 to 6\. The second element thus has the index 2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Finally, it should be mentioned that in some programming languages string variables
+    are understood as fields of individual characters. The individual characters within
+    the string can then be accessed by normal indexing. Consider the following examples
+    from C and Python; first the C version:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**char** my_name[] = "Thomas";printf("Third character: %c", my_name[2]);'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Then in Python:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'my_name = "Thomas"print("Third character: ", my_name[2])'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In both cases we grab the character with index 2, i.e., the third character
+    (because both programming languages start the field indexing at 0) and display
+    it. Both languages understand strings as fields, but C is much stricter than Python.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.6 Associative Fields of Variables/Hashes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In addition to the classical ordered fields/arrays, some programming languages
+    know a second type of fields, the *associative fields*, sometimes also called
+    *hashes*, *dictionaries* or *maps*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Associative fields consist of an *unordered* set of *key-value pairs*. The key
+    can be used to access the respective value. Such key-value pairs could, for example,
+    consist of the name of a customer (key) and the order value of his last order
+    (value). The entries in an associative field, unlike those in an ordered field/array,
+    do not have a natural order; they don’t need one, since the individual elements
+    are accessed via a clearly defined key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s look at the example of two languages that support associative fields:
+    Perl – associative fields are called *hashes* here – and in Python where they
+    are called *dictionaries.* First the Perl variant:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**my** %ordervalues = ("Thomas_Schultz" => 43.99,"Jim_Scott" => 19.49,"Mary_McGregor"
+    => 68.99,);$ordervalues{" Mary_McGregor"} = 8.99;print(''Last order of Thomas
+    Schultz was: $bestellwerte{" Jim_Scott "}'');'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, the upper part of the code first creates a new hash field called
+    **ordervalues** (hash identifiers in Perl are always preceded by the percent sign
+    when speaking of the field as a “whole”). The hash field is immediately initialized
+    with three key-value pairs. To the left of the operator **=>** is the key, in
+    this case the name of the customer, to the right of the operator the last order
+    value. Further down in the code, a special element of the hash field is accessed,
+    once to change a value, another time to display a value on the screen. As expected,
+    access is not made with a numerical index (after all, the elements in the hash
+    field are not sorted), but via the key, in this case the customer name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now the same again in Python:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'ordervalues = {"Thomas_Schulz" : 43.99," Jim_Scott" : 19.49," Mary_McGregor"
+    : 68.99,}ordervalues[''Mary_McGregor''] = 8.99print("Last order of Thomas Schultz
+    was: ", ordervalues[''Thomas_Schultz''])'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even if the exact syntax differs slightly in both languages, the parallels in
+    dealing with hashes or dictionaries, as the associative fields are called in Python,
+    cannot be overlooked. It becomes clear how easily values can be looked up in an
+    associative field – in fact, like a dictionary.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The languages that support associative fields usually come with a whole set
+    of tools for analyzing and manipulating such fields. For example, functions or
+    operators are regularly available to the programmer to extract all keys or all
+    values from the field in one fell swoop, or to determine the size of the field,
+    that is, the number of key-value pairs it contains.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.1 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: What is meant by the declaration of variables?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.2 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name two advantages of being forced to declare variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7 Objects
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the last two sections, we dealt with fields. Fields allow you to store a
+    lot of similar information in an orderly way and to access it again. This is very
+    useful in many cases, but often not the easiest or most natural way to deal with
+    data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this section, you will therefore learn about an approach to working with
+    related data that is so fundamental that it constitutes a programming paradigm
+    of its own. Many programming languages have adopted this approach, in whole or
+    in part. Because it shapes many popular languages, such as C++, Java and JavaScript,
+    Python, and Kotlin, it is extremely important in practice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We are talking about *object-oriented programming* (OOP for short). We will
+    deal with it quite extensively in this section, and not entirely without ulterior
+    motives, since the two programming languages introduced in the third and fourth
+    parts of this book also belong to the broad class of object-oriented languages.
+    In the eyes of not a few contemporaries, object orientation is associated with
+    attributes such as “difficult to understand” and “complex”. After reading this
+    section, however, you will find that such fears are not justified at all.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.1 The World Is Made of Objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s assume we wanted to program a catalog-like display of products for an
+    online store. Each product has a set of properties that we want to display, such
+    as: a name, a description, an item number, a manufacturer, a price, and quantity.
+    Using the knowledge from the previous sections, we could map each of these properties
+    as a separate field/array. Then, for example, there would be an array **itemnumbers**
+    and **itemnumbers[187]** would be the item number of the 187th article. If we
+    wanted to retrieve the item description for the same item, we would use the array
+    element **descriptions[187]**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The leading criterion here is therefore the respective property. The product
+    for which we query this property is indicated by the index, in our example, 187\.
+    However, this approach is a little artificial, because in reality we do not normally
+    start from the property, but from its carrier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When we program our catalog view, we are faced with the problem that we have
+    a *product* in front of us and we need to display it, with *all the* relevant
+    attributes. We start from the product and ask ourselves what attributes this product
+    has. So, we then take the name, the description, the item number and all the other
+    attributes that we want to display in our catalog list and display them for that
+    particular product. We always look at one and the same *object*, namely the product,
+    from all possible points of view (its attributes). It’s the same when you go to
+    a used car dealer and check out the cars for sale in their yard. You look at a
+    car, check the model, color, age, condition, price and other parameters that are
+    important for your assessment. Then you look at the next car and then the one
+    after that. But you always start from one object, the car, and look at its respective
+    characteristics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You’ve probably noticed what this reasoning boils down to: The world is simply
+    not organized by properties, but by objects, whether that be products, cars, houses,
+    businesses, buttons, emails, or students. All these physical and non-physical
+    objects are ultimately summaries of properties. In this sense, people or roles
+    that people perform (such as the role of “student”) can also be objects. We shouldn’t
+    be too particular about the choice of language here, although at first it might
+    seem a little odd to think of a customer or a colleague as an “object”. But if
+    we define an object as a set of properties, it becomes clear that in this broad
+    sense people, animals, plants, and gods are also “objects”.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: But if the world is organized by objects and not by properties, why is this
+    not reflected in programming? Why do we work with fields that clearly focus on
+    a single property and not on an object as a whole collection of different properties?
+    In the 1960s, the American computer scientist *Alan Kay* and other pioneers of
+    object-oriented programming also asked themselves this question and, in response,
+    brought about a paradigm shift in the truest sense of the word. One of the first
+    programming languages to follow this new paradigm was Kay’s *Smalltalk*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the concept of object-oriented programming, the object is in the foreground;
+    it embodies the organizing principle of this approach. It is no longer the properties
+    that determine the way we deal with data, it is the bearers of the properties,
+    the objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.2 Classes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s follow the object-oriented approach and define an object product with
+    the following properties:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: product.nameproduct.descriptionproduct.itemnumberproduct.manufacturerproduct.price
+  prefs: []
+  type: TYPE_NORMAL
+- en: All products that we sell through our shop have these properties. In order to
+    recognize that the properties all describe the object “product”, we summarize
+    them by prefixing them with **product**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let us now be a little more precise linguistically. What we have defined there
+    is our view of *any* product, it is in a sense the *template for a product*; this
+    is what products look like to us, these are their essential characteristics from
+    our point of view. Such an abstract template, which describes which properties
+    an object has, is called a *class* in object-oriented programming. Each real product
+    that we offer has an individual value for each of these properties, for example
+    the name “Garden shovel, stainless steel” and a price of 10.99 USD. The actual
+    objects whose properties are modeled after our class are called *instances* of
+    the class. So, in a way, an instance is the concretization of the abstract idea
+    expressed in a class. All our products will have different values for each of
+    the properties, so there are as many instances as there are products. But all
+    products belong to the same class, they are just products.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the next step, we’ll get a little more formal and define our class as we
+    would in a programming language:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Class** Product**Begin**name : Stringdescription : Stringitemnumber : Integermanufacturer
+    : Stringprice : DecimalNumber**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The properties of the class – we also speak of *attributes* in this context
+    – are located between the limiting keywords **Begin** and **End**. This code excerpt
+    here is not written in any existing programming language, but is formulated as
+    “pseudo-code”, as we will do several times in this part of the book in order to
+    illustrate basic principles. The point here is simply to describe, in a formalized
+    but easily understood way, what a class definition might look like. Later, you
+    will see how class definitions are constructed in some real programming languages
+    and will be able to cope with them immediately once you have understood the basic
+    concept from this pseudo-code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now that we have defined which attributes our class should consist of and what
+    data type these attributes have, we can create an instance of the class, i.e.,
+    a variable that (built along the lines of the class definition) represents a concrete
+    product. As soon as the new variable of type product is created, we can start
+    to adjust its attributes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'GardenShovel : ProductGardenShovel.name = "Garden shovel, stainless steel"GardenShovel.price
+    = 10.99'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To access the attributes of the **GardenShovel** instance of our **Product**
+    class, we use the dot operator in the form ***instance*****.*****attribute***.
+    This notation is common in many programming languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With **Product**, we have created our own data type, which is more complex than
+    the data types we learned about in the previous sections, because it stores different
+    values. However, we can work with it just as with one of the “built-in” data types
+    (such as integers or logical values). For example, we can create variables of
+    this type and assign values to them (not to the variable as a whole, but to the
+    individual attributes, which are of course elementary variables).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.3 Inheritance
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Sometimes we have objects that are special cases of other objects. A book, for
+    example, is a special product. It has all the properties that our products have,
+    it has a name (the book title), a manufacturer (the publisher), and of course
+    it has a price. In addition, it has a couple of other properties that we should
+    also show in our web shop, for example the author and the number of pages. After
+    all, both are information that could influence the purchase decision of our customers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now, in order to represent our special product “book” as a class, there is
+    a trick in object-oriented programming called *inheritance*. Contrary to what
+    the term might suggest, nobody must die to be able to inherit. The basic idea,
+    however, is easy: Our book as a special case of the product simply “inherits”
+    all the attributes that a product has and gets, with the author and the number
+    of pages, two more attributes. These two attributes are what makes the book special.
+    So, our book is a product, but not every product is a book. There are products
+    that have only the standard properties of products, but not the special properties
+    of author and number of pages; these are unique to books.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, we could include these additional properties that books have beyond
+    the general definition of a product directly in the **Product** class. But what
+    values should we then assign to these attributes for concrete instances of our
+    class that are not books? And what happens if we give special treatment to other
+    special cases of products, such as clothing, or garden furniture? The number of
+    attributes that are then no longer applicable to all products, but only to a single
+    product category, would increase considerably, making the class **Product** very
+    confusing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It is simpler and more elegant with inheritance. We create a new class **Book**,
+    which takes over all properties of the above defined class product and additionally
+    adds the attributes number of pages and author. The class definition for the class
+    book could then look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Class** Book **Inherits** Product**Begin**author : Stringpages : Integer**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you compare this class definition with the definition of the class **Product**,
+    you will notice that the keyword **Inherits** is added here, followed by the class
+    whose attributes our class **Book** is to take over (i.e., “inherit”). Of course,
+    we can now create instances of our class, i.e., concrete variables, and change
+    their attributes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Grisham1992 : BookGrisham1992.name = "The Pelican Brief"Grisham1992.price =
+    8.99Grisham1992.author = "John Grisham"Grisham1992.pagenumber = 478'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see here, in this code snippet we edit our variable **Grisham1992**
+    not only with regard to the special properties of books, namely author and number
+    of pages, but also with regard to the standard attributes of products, namely
+    name and price. These do not occur explicitly in the definition of the class **Book**.
+    However, books inherit these properties from the more general class **Product**,
+    from which the class **Book** is derived.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Ultimately, we build a *class hierarchy*, with **Product** as the superclass
+    and **Book** as the subclass. Class hierarchies can of course have much more than
+    two levels; for example, we could add novels and encyclopedias as further subclasses
+    of books and provide them with special attributes that are not contained in the
+    class book**.** In the same way, we could of course extend the hierarchy by modeling
+    other product categories besides books (for example, clothing and garden furniture)
+    as separate classes that are directly derived from the **Product** class.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, let’s take a look at what our two classes, **Product** and **Book**,
+    would look like in two real programming languages; we’ll start with C++:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**class** Product{char designation[30];char description[200];long itemnumber;char
+    manufacturer[30];float price;}**class** Book : **public** Product{char author[50];int
+    pages;}*// Later in the main program ...*Book grisham1992;Product gardenshovel;gardenshovel.name
+    = "Garden shovel, stainless steel";gardenshovel.price = 10.99;grisham1992.name
+    = "The Pelican Brief";grisham1992.price = 8.99;grisham1992.author = "John Grisham";grisham1992.pages
+    = 478;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, even if you are not familiar with the particular syntax of C++, your
+    understanding of the concepts of object-oriented programming and our pseudo-code
+    will allow you to understand what is happening in this program snippet.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Now let’s look at the same thing in Delphi/Object Pascal:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**type**TProduct = **Class**(TOBject)**property** Name : String;**property**
+    Description : String;**property** ItemNumber: Longint;**property** Manufacturer
+    : String;**property** Price : Single;**end**;TBook = **Class**(TProduct)**property**
+    Author : String;**property** Pages : Integer;**end**;*// Later in the main program
+    ...***var**GardenShovel : TProduct;Grisham1992 : TBook;GardenShovel.Name = "Garden
+    shovel, stainless steel";GardenShovel.Price = 10.99;Grisham1992.Name = "The Pelican
+    Brief";Grisham1992.Price = 8.99;Grisham1992.Author = "John Grisham";Grisham1992.Pages
+    = 478;'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we have followed the Delphi-typical notation, that classes (and in general
+    all data types defined beyond the basic data types) begin with “T”, our two classes
+    are then called accordingly **TProduct** and **TBook**. Behind the keyword **Class**,
+    the class from which is inherited is written in brackets. This is the class one
+    level higher in the class hierarchy. The interesting thing here is that the class
+    **TProduct** also inherits attributes from a higher class, namely from the class
+    **TObject**. This class is the highest in the class hierarchy, and all other classes
+    are ultimately derived from it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can see from these examples that class definitions in programming languages
+    may have their own peculiarities, but they still have a lot in common. With the
+    few basic ideas of object-oriented programming that we have looked at so far,
+    you can already understand what the class definitions mean in the respective language
+    without a detailed understanding of the programming languages they are written
+    in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.4 Methods
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the examples of the previous section, we directly changed the attributes,
+    i.e., properties of our classes, by assigning values to them. For the “pure doctrine”
+    of object-oriented programming, this is sacrilege. According to the “pure doctrine”,
+    the attributes may not be edited directly, but only with the help of something
+    called *methods*. Methods are callable subroutines to which you can pass certain
+    values, called *arguments*, and which then process these values in some way, for
+    example by assigning the “passed” value to a class property.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To make this a bit more concrete, let’s assume that our product class has a
+    **setprice()** method that can be used to edit the price. The method is passed
+    the price as an argument, and the method in turn then makes sure that the class
+    property **price** is changed accordingly. The class definition would then look
+    like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Class** Product**Begin**name : Stringdescription : Stringitemnumber : Integermanufacturer
+    : Stringprice : DecimalNumbersetPrice(newprice: DecimalNumber)**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our original class has been extended by the method **setPrice()**. This method
+    takes as argument **newprice** a decimal/floating point number, namely the price
+    we want to set for our product. We could then create a new instance of the **Product**
+    class later in the program and initialize the price using the setPrice() method,
+    here in the example to the price 10.99 USD:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'GardenShovel : ProductGardenShovel.setPrice(10.99)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we see now apparently a substantial difference to the fundamental data
+    types, which we became acquainted with so far, such as integer or character string
+    variables. The classes of object-oriented programming not only consist of data
+    values, but, with the methods, also contain the tools to process these data. But
+    this is only an apparent difference. In fact, even the fundamental data types
+    in many object-oriented languages are themselves classes that offer a set of methods
+    to the outside world. For example, the **DecimalNumber** class might provide a
+    method **round()**; if price were a **DecimalNumber** object, that is, an instance
+    of the **DecimalNumber** class, then, for example, **price.round(2)** would round
+    the value of the variable **price** to two decimal places.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But why so complicated? Why don’t we just stick to assigning values directly
+    to the attributes of our class instances? Why is a special method necessary, which
+    itself has to be developed? In our example above, we did without it for the sake
+    of simplicity and assumed that the method **setPrice()** is already programmed
+    somewhere and can be used by us; therefore, a hint (a *prototype*) in the class
+    definition that the method should be part of the class was sufficient. But in
+    fact, the code behind this method, the code that is executed when the method is
+    called, must of course also be developed. So why all the effort just to change
+    a value, which we could have done with a simple assignment?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Proponents of object-oriented programming would argue that the use of methods
+    shields the internal data structure of the class from the outside world, i.e.,
+    from the programmer using the class. Programmers don’t have to worry about how
+    the various facts are mapped into the class; after all, they don’t edit the class
+    attributes directly, but via the methods. The developer of the class could change
+    the class attributes, but as long as the methods available to the user of the
+    class do not change, the user will not notice the changes. From their point of
+    view, everything remains the same. The programmer does not have to rewrite software
+    but can continue to work with the existing code without making any changes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The advantage of using methods is that the modularization of code and thus the
+    division of labor between the developer of the class and the programmer who uses
+    the class in his programs is simplified. The developer of the class is responsible
+    for the functionality that his class provides via the methods, the programmer
+    as the “consumer” of this class only has to call the methods that are always to
+    be used in the same way and does not have to worry about their exact functionality.
+    This type of programming, in which a *programming interface* is provided externally
+    in the form of the methods, makes the programs *more robust*, i.e., less susceptible
+    to changes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A second factor that contributes to the robustness of object-oriented programming
+    is that methods can naturally ensure that *only permissible operations* are performed.
+    Suppose our programmer wanted to assign the value –10.99 to the attribute **gardenshovel.price.**
+    If he can easily assign values to the attribute **price**, he could also assign
+    it a negative price. However, this could have unfavorable effects at a later point
+    in the program, such as when the customer is supposed to “settle” a negative invoice
+    amount and would thus ultimately receive a refund. This is where the methods can
+    show their strengths: Our **setPrice()** method could check whether the price
+    passed to it as an argument is greater than 0\. If it is, the attribute **price**
+    would be set to that value. Otherwise, that is, if the price is negative, the
+    attribute would be set to the value 0\. In this way, the method would prevent
+    invalid prices, such as negative prices, from being set accidentally. By validating
+    the price, the method contributes to the stability of the program; in other words,
+    it is no longer easy to “upset” the program, it becomes more robust against erroneous
+    data entries.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A special method that exists in practically all object-oriented languages is
+    the *constructor*. The constructor is called automatically when a new instance
+    of the class is created. It can be used, for example, to initialize certain important
+    attributes of the class, either with default values or with values passed as arguments
+    to the constructor method. If we were to include such a constructor in our **Product**
+    class, our class definition might look something like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Class** Product**Begin**name : Stringdescription : Stringitemnumber : Integermanufacturer
+    : Stringprice : DecimalNumbersetPrice(newprice: DecimalNumber)Product(startprice
+    : DecimalNumber, name : String)**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What is new is that the class has a constructor method **Product()**. It is
+    named the same as the class itself and takes two arguments, a price and a product
+    name. With these two data, the constructor could now initialize the attributes
+    **price** and **name,** when a new instance of this class is created. To do this,
+    the constructor must of course be called with the two arguments when the instance
+    is created; this could look like this, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'GardenShovel : Product(10.99, "Garden shovel, stainless steel")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, we declare here – as in the previous examples – a variable of
+    type **Product**, but this time the constructor is called with the necessary parameters,
+    the price and the name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.5 Polymorphism
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: This term may sound like a disease, but *polymorphism* is by no means a negative
+    phenomenon; on the contrary, it is a very practical possibility offered by object-oriented
+    programming. Polymorphism is closely related to the concept of inheritance. You
+    remember that classes can “inherit” their methods and attributes to derived classes.
+    In the previous sections, we defined a class **Book** that inherits all the properties
+    and methods of the more general class **Product** and can also have its own properties
+    and methods that are not available in the “parent class” **Product.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now we could define a method that displays the properties of the product, i.e.,
+    creates a kind of product profile. We could put this method in the general class
+    **Product**. Thanks to inheritance, it would also be available for the class **Book**
+    derived from **Product.** However, the display would ignore the special properties
+    of books, such as the author or the number of pages, both of which are attributes
+    of the **Book** class. These properties are only part of the **Book** class, not
+    the **Product** class, so a display method that we place in the **Product** class
+    naturally cannot access these properties. The garden shovel from the previous
+    examples, an instance of the general class **Product**, has no number of pages!
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, it would be practical if we had a display method that simply returned
+    the correct display for each product, no matter what type of product we were dealing
+    with. Ideally, we would call the display method **showProduct()**, and it would
+    take care of outputting the right information on the screen for each type of product.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is exactly what polymorphism allows. Polymorphism means that classes that
+    are derived from each other can have methods with the same name, but they all
+    do something different. If the method is then called for a specific object, i.e.,
+    an instance of a class, the method belonging to the *respective class* is automatically
+    executed. In our example, the properties author and number of pages would then
+    also be displayed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Such a polymorphic design of the method **showProduct()** could look like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Class** Product**Begin**name : Stringdescription : Stringitemnumber : Integermanufacturer
+    : Stringprice : DecimalNumbershowProduct()setPrice(newprice: DecimalNumber)Product(startprice
+    : DecimalNumber, name : String)**End****Class** Book **Inherits** Product**Begin**author
+    : Stringpages : IntegershowProduct()**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you can see, both classes, the “parent class” **Product** and the derived
+    “child class” **Book**, each have a function **showProduct()**. Which one is executed
+    when we call the method depends on whether the object for which we call the method
+    is an instance of **Product** or an instance of its derived class **Book**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, if we declare two objects
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'GardenShovel : ProductGrisham1992 : Book'
+  prefs: []
+  type: TYPE_NORMAL
+- en: and then call the method **showProduct()** for each of the two objects,
+  prefs: []
+  type: TYPE_NORMAL
+- en: GardenShovel.showProduct()Grisham1992.showProduct()
+  prefs: []
+  type: TYPE_NORMAL
+- en: two different methods are ultimately called; for the object **GardenShovel**
+    the method of the class **Product**, of which **GardenShovel** is an instance,
+    for the object **Grisham1992** the method of the derived class **Book,** so that
+    **showProduct()** can then also display number of pages and author correctly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The handy thing about polymorphic methods is that we don’t have to bother with
+    what kind of object **GardenShovel** and **Grisham1992** actually are. We just
+    stubbornly call the **showProduct()** method, and what happens is always what’s
+    best for the object class in question; the same names of the methods make it possible.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A term that comes up again and again in connection with polymorphism is *overloading*.
+    One speaks of the method **showProduct()** of the class **Product** being overloaded
+    by classes derived from **Product** each bringing their own method **showProduct()**
+    in order to optimally consider their specifics. Both terms describe the situation
+    well: While “polymorphism” refers to the fact that (apparently) one and the same
+    method can have many (Greek *poly*) forms (Greek *morphía*), “overloading” describes
+    the process by which the same function is given a different meaning several times.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.7.6 Access Rights
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To conclude our look at object-oriented programming, let’s look at one last
+    feature that reemphasizes the motivation of object-oriented programming to strictly
+    separate the development from the use of classes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There is a way to restrict access to attributes and methods of classes. The
+    concrete design can vary from programming language to programming language, but
+    usually there is at least the following gradation of access rights:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*Private*: Methods and attributes under this access restriction can only be
+    used by methods of the same class. They are not “visible” to the outside world;
+    as a user of the class who uses the class in his or her own programs, you could
+    not access these methods and attributes. However, a method that you call (which
+    is not itself private) could use these methods and attributes. However, you cannot
+    do this directly. Private methods and attributes are therefore shielded from the
+    outside world. Access protection *private* is therefore well suited to defining
+    auxiliary variables or auxiliary methods that are not called from outside but
+    are only to be used by other methods of the class.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*Protected*: Methods and attributes that have been declared as protected can
+    be used by the class to which they belong, and also by derived classes, but not
+    by the programmer working with these classes in his program.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*Public/open*: Methods and attributes with the access restriction public can
+    be accessed from anywhere, from within the own class, from derived classes and
+    also by the user of the class.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Consider the following extension of our example for clarification:**Class**
+    Product**Begin****Public**name : Stringdescription : Stringitemnumber : Integermanufacturer
+    : StringshowProduct()setPrice(newprice: DecimalNumber)Product(startprice : DecimalNumber,
+    name : String)**Private**price : DecimalNumber**End**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here we have declared the attribute **price** as a private property. The **setPrice()**
+    method, on the other hand, is a public method. So, as developers of the class,
+    we don’t want anyone to directly edit our attribute **price**. Therefore, we protect
+    it as private. However, a method from the same class can access it and change
+    its value. **setPrice()** is such a method. It is a public method that can be
+    called from outside the class. So a programmer using our class could now edit
+    the attribute **price** via the interface method **setprice()**, but not directly,
+    for example by assigning a value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this way, it is very easy to control which parts of classes should be visible
+    to the outside and serve as an interface to the functionalities of the class,
+    and which should not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.3 [5 min]Are the following statements true or false?
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Object-oriented programming is the attempt to achieve as “natural” a representation
+    of things in the real world as possible.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A method is a function that belongs to a class and can change the attributes
+    of this class instance.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: All attributes of a class instance can be changed directly from the program
+    by assignment.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (d)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The use of object-oriented programming makes the program clearer but makes adjustments
+    to the program more difficult.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (e)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Inheritance means that you can reuse the definition of a class in different
+    programs.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 11.4 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Describe the difference between a class and an instance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.5 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: What are the essential elements of a class definition?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.6 [3 min]
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why is polymorphism a useful approach in object-oriented programming?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.8 Your Roadmap to Learning a New Programming Language
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When you learn a new programming language …
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'you’ll discover:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: whether the language is case-sensitive for the identifiers, i.e., the names
+    of variables and functions,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: which basic data types the language offers (especially numbers, strings, logical/truth
+    values),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether you have to declare variables, and if so, how to do it
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: how to assign values to variables,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether, and if so how, variables can be (explicitly) converted between data
+    types and which conversions, if any, are already (implicitly) performed by the
+    programming language itself,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether the language supports fields of similar variables (arrays), and if so,
+    how to create fields and access their elements (in particular whether the indexing
+    of the field elements starts at 0 or at 1),
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether the language knows associative fields whose values can be accessed with
+    keys, and if so, how to create these fields and address their elements,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: which other complex data types are common in the programming language,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: whether the language supports object-oriented programming, and if so, how to
+    access class attributes and methods, and how to define classes yourself, especially
+    how to derive classes from existing classes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 11.9 Solutions to the Exercises
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Exercise 11.1
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the languages that require a variable declaration, the variable is registered
+    with the interpreter/compiler by the declaration; it reserves the necessary memory
+    and, if necessary, assigns an initial value to the variable. After that, the variable
+    can be used in the program. When declaring a variable, the identifier (name) of
+    the variable and, in some languages, also its data type is specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 11.2
+  prefs: []
+  type: TYPE_NORMAL
+- en: The need to declare a variable allows the interpreter/compiler to indicate the
+    use of undeclared variables. Because undeclared variables are often the result
+    of typos in the program code, this prevents a new variable from being accidentally
+    created and worked with, while the variable that should have been accessed remains
+    completely unchanged. The program code thus becomes more robust by forcing variables
+    to be declared. The same is true if the type is already specified when declaring,
+    and this type cannot be changed afterwards. In this case, the interpreter/compiler
+    can report an error if the variable is accidentally assigned a value of an “inappropriate”
+    type. This also avoids errors and makes the program code more robust.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 11.3
+  prefs: []
+  type: TYPE_NORMAL
+- en: (a)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: True.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (b)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: True.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (c)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: False. In many programming languages, attributes of class instances can be shielded
+    from external access by defining them as “private”. These attributes can then
+    only be edited by methods of the same class but are practically invisible to the
+    outside world and therefore cannot be accessed directly by the programmer.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (d)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: False. Object-oriented programming helps program elements become more independent
+    of each other. Because the programmer only addresses the class instance via the
+    defined methods (and, if necessary, by directly accessing the attributes), the
+    inner workings of the class need not interest him or her any further. Thus, as
+    long as the *interface* of the class remains unchanged externally, the developer
+    of the class itself can change it internally at will, and the programs based on
+    the class remain syntactically correct. Adaptations to the code are facilitated
+    by this stronger modularization.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: (e)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: False. Inheritance means that further classes can be derived from a class, which
+    “inherits” its methods and attributes. In this way, a class can be extended elegantly,
+    especially for more specific uses.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Exercise 11.4
+  prefs: []
+  type: TYPE_NORMAL
+- en: The class is the abstract definition of an object (or object type) with the
+    attributes and methods belonging to objects of this type and acts like a template.
+    According to this template, the concrete objects, the class instances, are formed
+    and therefore possess as images of the class all its methods and attributes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 11.5
+  prefs: []
+  type: TYPE_NORMAL
+- en: Essentially, a class definition consists of the identifier (name) of the class
+    and the attributes and methods belonging to the class. These can be provided with
+    access right restrictions by means of corresponding keywords (cf. ► Sect. [11.7.6](#Sec16)).
+    If the class is derived from another class, the reference to the “parent class”
+    is also part of the class definition (see ► Sect. [11.7.3](#Sec13)).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Exercise 11.6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Polymorphism allows a particular method to be offered by objects of different
+    types (classes). This makes it possible to adapt the method to the specifics of
+    the respective class. This is particularly interesting if a class hierarchy is
+    created by inheritance. If the method is now called for the instance of a class
+    from this class hierarchy, the special implementation of the method for the class
+    of the object instance is used. If this class does not have a special implementation
+    of the method, the method with the same name of the next higher class is used.
+    This ensures that you always use the method that is best suited to the special
+    features of the class in question, but that, if necessary, you use methods that
+    belong to classes higher up in the class hierarchy. This means that different
+    object types can be handled differently, but still offer the same interface (that
+    is, the method with the same name) to the outside world. The programmer does not
+    have to deal with the question of which method of which class he or she should
+    actually call; he or she simply calls the method for his or her object instance,
+    and the interpreter/compiler clarifies for him or her exactly which method should
+    be used in this case.
+  prefs: []
+  type: TYPE_NORMAL

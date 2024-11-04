@@ -1,0 +1,318 @@
+- en: Chapter 14
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0142.xhtml#pitting.linked.lists.against.arrays.exercises).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One way we can do this is with a simple while loop:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | printList() { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentNode) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | console.log(currentNode.data); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.nextNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'With a doubly linked list, we have immediate access to the last nodes and can
+    follow their “previous node” links to access the previous nodes. This code is
+    basically the inverse of the previous exercise:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | reversePrint() { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.lastNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentNode) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | console.log(currentNode.data); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.previousNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'Here, we use a while loop to move through each node. However, before we move
+    forward, we check ahead using the node’s link to ensure that there is a next node:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '| ​  | last() { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentNode.nextNode) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNode = currentNode.nextNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentNode.data; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: 'For fun, here’s an alternative implementation that uses recursion:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '| ​  | recursiveLast(currentNode = ​**null**​) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (!currentNode) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | currentNode = ​**this**​.firstNode; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentNode.nextNode) { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**this**​.recursiveLast(currentNode.nextNode); |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ currentNode.data; |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs:
+  - PREF_IND
+  type: TYPE_TB
+- en: One way to reverse a classic linked list is to iterate through the list while
+    keeping track of three variables.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'The primary variable is the currentNode, which is the primary node we’re iterating
+    over. We also keep track of the next_node, which is the node immediately after
+    the currentNode. And we also keep track of the previousNode, which is the node
+    immediately before the currentNode. See the following diagram:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_4_a.png](images/pitting_linked_lists_against_arrays/solution_4_a.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: Note that when we first begin and the currentNode is the first node, the previousNode
+    points to null; there are no nodes before the first node.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: Once we have our three variables set up, we proceed with our algorithm, which
+    begins a loop.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Inside the loop, we first change the currentNode’s link to point to the previousNode:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_4_b.png](images/pitting_linked_lists_against_arrays/solution_4_b.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'Then we shift all our variables to the right:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_4_c.png](images/pitting_linked_lists_against_arrays/solution_4_c.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: We begin the loop again, repeating this process of changing the currentNode’s
+    link to point to the previousNode, until we reach the end of the list. Once we
+    reach the end, the list will have been fully reversed.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Here’s the implementation for this algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | reverse() { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ previousNode = ​**null**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**while**​ (currentNode) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ nextNode = currentNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode.nextNode = previousNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | previousNode = currentNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentNode = nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**this**​.firstNode = previousNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Believe it or not, we can delete a middle node without having access to any
+    of the nodes that precede it.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Following is a diagram of an example situation. We have four nodes, but we
+    only have access to node "b". This means we don’t have access to node "a", since
+    links only point forward in a classic linked list. We’ve indicated this using
+    a dashed line; that is, we don’t have access to any node to the left of the dashed
+    line:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_5_a.png](images/pitting_linked_lists_against_arrays/solution_5_a.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: Now, here’s how we can delete node "b" (even though we don’t have access to
+    node "a"). For the sake of clarity, we’re going to call this node the “access
+    node” since it’s the first node we have access to.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'First, we take the next node beyond the access node and copy its data into
+    the access node, overwriting the access node’s data. In our example, this means
+    copying the string "c" into our access node:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_5_b.png](images/pitting_linked_lists_against_arrays/solution_5_b.png)'
+  prefs:
+  - PREF_IND
+  type: TYPE_IMG
+- en: 'We then change the link of the access node and have it point to the node that
+    is two nodes to the right of it. This effectively deletes the original "c" node:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/pitting_linked_lists_against_arrays/solution_5_c.png](images/pitting_linked_lists_against_arrays/solution_5_c.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The code for this is short and sweet:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ deleteNode(node) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node.data = node.nextNode.data; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | node.nextNode = node.nextNode.nextNode; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB

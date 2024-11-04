@@ -1,0 +1,129 @@
+- en: '| Recipe 63 | Replacing Duplicate Whitespaces with the Same Type |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Imagine that your whitespace removal script is effective for paragraphs and
+    headings, but you come across posts that have redundant tabs before certain list
+    items, like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | My list: |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 1\. Item one |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 2\. Item two |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 3\. Item three |'
+  prefs: []
+  type: TYPE_TB
+- en: 'If you implement the solution in the preceding recipe, the repeated tab characters
+    will be replaced with a single space character, resulting in an inconsistent appearance
+    of the items in the list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | My list: |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 1\. Item one |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 2\. Item two |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | 3\. Item three |'
+  prefs: []
+  type: TYPE_TB
+- en: You need a solution that replaces repeated whitespaces with the same type of
+    whitespace.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Capture the repeated whitespace with a capturing group and reference it with
+    $1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** str = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`My list:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *1\. Item one* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *2\. Item two* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *3\. Item three`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** removeExtraWhitespaces(str) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re = */**(\s)\1**+/g*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** str.replace(re, *"$1"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | removeExtraWhitespaces(str); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *//"My list:* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// 1\. Item one* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// 2\. Item two* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// 3\. Item three"* |'
+  prefs: []
+  type: TYPE_TB
+- en: This function replaces duplicate whitespaces with a single whitespace of the
+    same type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In this recipe, str holds a list of items where each item is indented with a
+    tab character (\t). The first item, however, has an extra tab character that we
+    want to remove. Inside the function, we use (\s)\1+ to match any whitespace character
+    followed by one or more occurrences of the same whitespace character.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Because we want to replace all these tab characters with a single tab character,
+    we use a backreference to match the same character that was matched by the capturing
+    group (\s).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then, we use the special replacement pattern $1 to replace the matched characters
+    with the same type of whitespace. The g flag at the end of the regular expression
+    indicates global matching, meaning it will search for all occurrences of the pattern
+    in the input string.
+  prefs: []
+  type: TYPE_NORMAL

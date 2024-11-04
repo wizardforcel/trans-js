@@ -1,0 +1,543 @@
+- en: Chapter 9
+  prefs: []
+  type: TYPE_NORMAL
+- en: Debugging JavaScript
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Debugging errors using the Console**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Setting breakpoints**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Stepping through JavaScript code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript and modern web browsers offer a ton of top-notch debugging tools
+    that can remove some of the burden of program problem solving. In this chapter,
+    you delve into these tools to explore how they can help you find and fix most
+    programming errors. You also investigate a number of tips and techniques that
+    can go a long way in helping you avoid coding errors in the first place.  ## Laying
+    Out Your Debugging Tools'
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the major web browsers come with a sophisticated set of debugging tools
+    that can make your life as a web developer much easier and much saner. Most web
+    developers debug their scripts using Google Chrome, so I focus on that browser
+    in this chapter. But in this section, I give you an overview of the tools that
+    are available in all the major browsers and how to get at them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s how you open the web development tools in Chrome, Firefox, Microsoft
+    Edge, and Safari:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Chrome for Windows:** Click Customize and Control Google Chrome (the three
+    vertical dots to the right of the address bar) and then select More Tools ⇒ Developer
+    Tools. Shortcut: Ctrl+Shift+I.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Chrome for Mac:** Select View ⇒ Developer ⇒ Developer Tools. Shortcut: Option+⌘    +I.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Firefox for Windows:** Click Open Application Menu (the three horizontal
+    lines on the far right of the toolbar) and then select More Tools  ⇒ Web Developer
+    Tools. Shortcut: Ctrl+Shift+I.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Firefox for Mac:** Select Tools ⇒ Browser Tools ⇒ Web Developer Tools. Shortcut:
+    Option+⌘    +I.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Microsoft Edge:** Click Settings and More (the three vertical dots to the
+    right of the address bar) and then select More Tools ⇒ Developer Tools. Shortcut:
+    Ctrl+Shift+I.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Safari:** Select Develop ⇒ Show Web Inspector. Shortcut: Option+⌘    +I.
+    If you don’t have the Develop menu, select Safari ⇒ Settings, click the Advanced
+    tab, and then select the Show Develop Menu in Menu Bar checkbox.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'These development tools vary in the features they offer, but each one provides
+    the same set of basic tools, which are the tools you’ll use most often. These
+    basic web development tools include the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTML viewer:** This tab (called Inspector in Firefox and Elements in the
+    other browsers) shows the HTML source code used in the web page. When you hover
+    the mouse pointer over a tag, the browser highlights the element in the displayed
+    page and shows its width and height, as shown in [Figure 9-1](#c09-fig-0001).
+    When you click a tag, the browser shows the CSS styles applied with the tag, as
+    well as the tag’s box dimensions (again, refer to [Figure 9-1](#c09-fig-0001)).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Console:** This tab enables you to view error messages, log messages, test
+    expressions, and execute statements. I cover the Console in more detail in the
+    next section.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Debugging tool:** This tab (called Debugger in Firefox and Sources in the
+    other browsers) enables you to pause code execution, step through your code, watch
+    the values of variables and properties, and much more. This is the most important
+    JavaScript debugging tool, so I cover it in detail later in this chapter.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Network:** This tab tells you how long it takes to load each file referenced
+    by your web page. If you find that your page is slow to load, this tab can help
+    you find the bottleneck.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Web storage:** This tab (called Application in Chrome and Edge and Storage
+    in Firefox and Safari) enables you to examine data stored in the browser.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![A snapshot of the Chrome’s Elements tab. The selected element is highlighted
+    and the elements width and height are mentioned.](images/9781394263219-fg0901.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 9-1:](#rc09-fig-0001) The HTML viewer, such as Chrome’s Elements tab,
+    enables you to inspect each element’s styles and box dimensions.  ## Debugging
+    101: Using the Console'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If your web page is behaving strangely — for example, the page is blank or missing
+    elements — you should first check your HTML code to make sure it’s correct. (Common
+    HTML errors are not finishing a tag with a greater than sign (>), not including
+    a closing tag, and missing a closing quotation mark for an attribute value.) If
+    your HTML checks out, there’s a good chance that your JavaScript code is wonky.
+    How do you know? A trip to the Console window is your first step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Console is an interactive browser window that shows warnings and errors,
+    displays the output of `console.log()` statements, and enables you to execute
+    expressions and statements without having to run your entire script. The Console
+    is one of the handiest web browser debugging tools, so you need to know your way
+    around it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Getting the console onscreen'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To display the Console, open your web browser’s development tools and then
+    click the Console tab. You can also use the following keyboard shortcuts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Chrome for Windows:** Press Ctrl+Shift+J.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Chrome for Mac:** Press Option+⌘    +J.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Firefox for Windows:** Press Ctrl+Shift+K.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Firefox for Mac:** Press Option+⌘    +K.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Microsoft Edge:** Press Ctrl+Shift+J.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Safari:** Press Option+⌘    +C.  ### Printing program data in the Console'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'You can use the `console.log()` method of the special `Console` object to print
+    text and expression values in the Console:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`console.log(*output*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`output`* is the expression you want to print in the Console.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The *`output`* expression can be a text string, a variable, an object property,
+    a function result, or any combination of these.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) You can also use the handy `console.table()` method
+    to output the values of arrays or objects in an easy-to-read tabular format:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`console.table(*output*)`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`output`* is the array or object (as a variable or as a literal)
+    you want to view in the Console.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For debugging purposes, you most often use the Console to keep an eye on the
+    values of variables, object properties, and expressions. That is, when your code
+    sets or changes the value of something, you insert a `console.log()` (or `console.table()`)
+    statement that outputs the new value. When the script execution is complete, you
+    can open the Console and then check out the logged value or values.  ### Running
+    code in the Console'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One of the great features of the Console is that it’s interactive, which means
+    that you can not only read messages generated by the browser or by your `console.log()`
+    statements but also type code directly into the Console. That is, you can use
+    the Console to execute expressions and statements. There are many uses for this
+    feature:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can try some experimental expressions or statements to determine their effect
+    on the script.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the script is paused, you can output the current value of a variable or
+    property.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the script is paused, you can change the value of a variable or property.
+    For example, if you notice that a variable with a value of zero is about to be
+    used as a divisor, you can change that variable to a nonzero value to avoid crashing
+    the script.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the script is paused, you can run a function or method to determine whether
+    it operates as expected under the current conditions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each browser’s Console tab includes a text box (usually marked by a greater-than
+    > prompt) that you can use to enter your expressions or statements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) You can execute multiple statements in the Console by
+    separating each statement with a semicolon. For example, you can test a `for…`
+    loop by entering a statement similar to the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`for (let i=1; i < 10; i += 1){console.log(i**2); console.log(i**3);}`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Tip](images/tip.png) If you want to repeat an earlier code execution in the
+    Console, or if you want to run some code that’s very similar to code you ran earlier,
+    you can recall statements and expressions that you used in the current browser
+    session. Press the Up Arrow key to scroll back through your previously executed
+    code; press the Down Arrow key to scroll forward through your code.  ## Putting
+    Your Code into Break Mode'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pausing your code midstream lets you examine certain elements such as the current
+    values of variables and properties. It also lets you execute program code one
+    statement at a time so that you can monitor the flow of the script.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you pause your code, JavaScript enters *break mode,* which means that the
+    browser displays its debugging tool and highlights the current statement (the
+    one that JavaScript will execute next). [Figure 9-2](#c09-fig-0002) shows a script
+    in break mode in Chrome’s debugger (the Sources tab).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of the web browser displays its debugging tool and highlights
+    the statement that it will execute next.](images/9781394263219-fg0902.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 9-2:](#rc09-fig-0002) When you invoke break mode, the web browser displays
+    its debugging tool and highlights the statement that it will execute next.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Invoking break mode'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript gives you two ways to enter break mode:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By setting breakpoints
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: By using a `debugger` statement
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '#### Setting a breakpoint'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you know approximately where an error or logic flaw is occurring, you can
+    enter break mode at a specific statement in the script by setting up a *breakpoint*.
+    Here are the steps to set up a breakpoint:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Display your web browser’s developer tools and switch to the debugging tool
+    (such as the Sources tab in Chrome).**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Open the file that contains the JavaScript code you want to debug.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'How you do this depends on the browser: in Chrome (and most browsers), you
+    have two choices:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: In the left pane, click the HTML file (if your JavaScript code is within a `script`
+    element in your HTML file) or the JavaScript (`.js`) file (if your code resides
+    in an external JavaScript file).
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Press Ctrl+P (Windows) or ⌘    +P (macOS) and then click the file in the list
+    that appears.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Locate the statement where you want to enter break mode.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: JavaScript will run every line of code up to, but not including, this statement.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '**Click the line number to the left of the statement to set the breakpoint,
+    as shown in** [**Figure** **9-3**](#c09-fig-0003)**.**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '![A snapshot of the browser’s debugging tool, click a line number to set a
+    breakpoint on that statement.](images/9781394263219-fg0903.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 9-3:](#rc09-fig-0003) In the browser’s debugging tool, click a line
+    number to set a breakpoint on that statement.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To remove a breakpoint, most browsers give you three choices:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To disable a breakpoint temporarily, deselect the breakpoint’s checkbox in the
+    Breakpoints list.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0901](images/9781394263219-ma0901.png)To disable all your
+    breakpoints temporarily, click the Deactivate Breakpoint button. Chrome’s version
+    of this button is shown here in the margin. Click this button again to reactivate
+    all the breakpoints.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To remove a breakpoint completely, click the statement’s line number.  ####
+    Adding a debugger statement'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When developing your web pages, you’ll often test the robustness of a script
+    by sending it various test values or by trying it out under different conditions.
+    In many cases, you’ll want to enter break mode to make sure things appear okay.
+    You could set breakpoints at specific statements, but you lose them if you close
+    the file. For something a little more permanent, you can include a `debugger`
+    statement in a script. JavaScript automatically enters break mode whenever it
+    encounters a `debugger` statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a bit of code that includes a `debugger` statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`// Add the sentence to the <div> document.querySelector(''div'').innerHTML
+    = sentence; // Generate random colors (use values < 128 to keep the text dark)
+    const randomRed = parseInt(Math.random() * 128); const randomGreen = parseInt(Math.random()
+    * 128); const randomBlue = parseInt(Math.random() * 128); debugger;`  ### Getting
+    out of break mode'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To exit break mode, you can use either of the following methods in the browser’s
+    debugging tool:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0902](images/9781394263219-ma0902.png) **Click the Resume
+    button.** Chrome’s version of this button is shown here in the margin.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Press the browser’s Resume keyboard shortcut.** In Chrome (and most browsers),
+    either press F8 or press Ctrl+\ (Windows) or ⌘    +\ (macOS).  ## Stepping Through
+    Your Code'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'One of the most common (and most useful) debugging techniques is to step through
+    the code one statement at a time. Doing so lets you get a feel for the program
+    flow to make sure that things such as loops and function calls are executing properly.
+    You can use four techniques:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Stepping one statement at a time
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stepping into some code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stepping over some code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stepping out of some code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Stepping one statement at a time'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The most common way of stepping through your code is to step one statement
+    at a time. In break mode, stepping one statement at a time means two things:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You execute the current statement and then pause on the next statement.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the current statement to run is a function call, stepping takes you into
+    the function and pauses at the function’s first statement. You can then continue
+    to step through the function until you execute the last statement, at which point
+    the browser returns you to the statement after the function call.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To step through your code one statement at a time, set a breakpoint and then,
+    after your code is in break mode, do one of the following to step through a single
+    statement:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0903](images/9781394263219-ma0903.png) **Click the Step button.**
+    Chrome’s version of this button is shown here in the margin.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Press the browser’s Step keyboard shortcut.** In Chrome (and most browsers,
+    except Firefox, which doesn’t support Step as of this writing; use the Step Into
+    button, instead), press F9.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Keep stepping through until the script ends or until you’re ready to resume
+    normal execution (by clicking Resume).  ### Stepping into some code'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In all the major browsers (except Firefox), stepping into some code is exactly
+    the same as stepping through the code one statement at a time. The difference
+    comes when a statement executes asynchronously (that is, it performs its operation
+    after some delay rather than right away).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To understand the difference, consider the following code (I’ve added line
+    numbers to the left; they’re not part of the code):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`1 setTimeout(() => { 2 console.log(''Inside the setTimeout() block!''); 3
+    }, 5000); 4 console.log(''Outside the setTimeout) block!'');`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This code uses `setTimeout()` to execute an anonymous function after five seconds.
+    Suppose you enter break mode at the `setTimeout()` statement (line 1). What happens
+    if you use Step versus Step Into here? Check it out:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Step:** Clicking the Step button doesn’t take you to line 2, as you may expect.
+    Instead, because `setTimeout()` is asynchronous, Step essentially ignores the
+    anonymous function and takes you directly to line 4.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Step Into:** Clicking the Step Into button *does* take you to line 2, but
+    only after the specified delay (five seconds, in this case). You can then step
+    through the anonymous function as needed.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To step into your code, set a breakpoint and then, after your code is in break
+    mode, do one of the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0904](images/9781394263219-ma0904.png) **Click the Step Into
+    button.** Chrome’s version of this button is shown here in the margin.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Press the browser’s Step Into keyboard shortcut.** In Chrome (and most browsers),
+    either press F11 or press Ctrl+; (Windows) or ⌘    +; (macOS).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![Remember](images/remember.png) My description of Step Into here doesn’t apply
+    (at least as I write this) to Firefox. Instead, the Firefox Step Into feature
+    works like the Step feature I describe in the previous section.  ### Stepping
+    over some code'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some statements call other functions. If you’re not interested in stepping through
+    a called function, you can step over it. Stepping over a function means that JavaScript
+    executes the function normally and then resumes break mode at the next statement
+    *after* the function call.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To step over a function, first either step through your code until you come
+    to the function call you want to step over, or set a breakpoint on the function
+    call and refresh the web page. When you’re in break mode, you can step over the
+    function using any of the following techniques:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0905](images/9781394263219-ma0905.png) **Click the Step Over
+    button.** Chrome’s version of this button is shown here in the margin.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Press the browser’s Step Over keyboard shortcut.** In Chrome (and most browsers),
+    either press F10 or press Ctrl+'' (Windows) or ⌘    +'' (macOS).  ### Stepping
+    out of some code'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'I’m always accidentally stepping into functions I’d rather step over. If the
+    function is short, I just step through it until I’m back in the original code.
+    If the function is long, however, I don’t want to waste time stepping through
+    every statement. Instead, I invoke the Step Out feature using any of these methods:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![9781394263219-ma0906](images/9781394263219-ma0906.png) **Click the Step Out
+    button.** Chrome’s version of this button is shown here in the margin.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Press the browser’s Step Out keyboard shortcut.** In Chrome (and most browsers),
+    either press Shift+F11 or press Ctrl+Shift+; (Windows) or ⌘    +Shift+; (macOS).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: JavaScript executes the rest of the function and then reenters break mode at
+    the first line after the function call.
+  prefs: []
+  type: TYPE_NORMAL

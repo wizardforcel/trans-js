@@ -1,0 +1,713 @@
+- en: Greedy Algorithms
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This next tactic can speed up some of the most stubborn algorithms. It doesn’t
+    work in every situation, but when it does, it can be a game changer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s talk about writing greedy algorithms.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This may sound like a strange term, but here’s what it means. A greedy algorithm
+    is one that, in each step, chooses what appears to be the best option at that
+    moment in time. This will make sense with a basic example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Array Max
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s write an algorithm that finds the greatest number in an array. One way
+    we can do this is to use nested loops and check each number against every other
+    number in the array. When we find the number that is greater than every other
+    number, it means we’ve found the greatest number in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As is typical for such algorithms, this approach takes O(N²) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another approach would be to sort the array in ascending order and return the
+    final value from the array. If we use a fast sorting algorithm like Quicksort,
+    this would take O(N log N) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A third option is the greedy algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ max(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestNumber = array[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (number > greatestNumber) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | greatestNumber = number; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestNumber; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: 'After ensuring the array isn’t empty, we say the following:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**let**​ greatestNumber = array[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: This line “assumes” that the first number in the array is the greatestNumber.
+    Now, this is a “greedy” assumption; that is, we’re declaring the first number
+    to be the greatestNumber because it’s the greatest number we’ve encountered so
+    far. Of course, it’s also the only number we’ve encountered so far! But that’s
+    what a greedy algorithm does—it chooses what appears to be the best option based
+    on the information available at that moment in time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Next, we iterate over all the numbers in the array. As we find any number that
+    is greater than the greatestNumber, we make this new number the greatestNumber.
+    Here too, we’re being greedy; each step selects the best option based on what
+    we know at that moment in time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’re basically like a child in a candy shop grabbing the first candy we see,
+    but as soon as we see a bigger candy, we drop the first one and grab the bigger
+    one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Yet, this seemingly naive greediness actually works. By the time we’re done
+    with the function, our greatestNumber will indeed be the greatest number in the
+    entire array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And while being greedy isn’t a virtue in a societal context, it can do wonders
+    for algorithm speed. This algorithm takes just O(N) time, as we touch each number
+    in the array just once.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Largest Subsection Sum
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s see another example of how greed pays off.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’re going to write a function that accepts an array of numbers and returns
+    the largest sum that could be computed from any “subsection” of the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what I mean. Let’s take the following array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [3, -4, 4, -3, 5, -9] |'
+  prefs: []
+  type: TYPE_TB
+- en: If we computed the sum of all the numbers in this array, we’d get -4.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But we can also compute the sum of subsections of the array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/subsection_sums.png](images/tips_for_code_optimization/subsection_sums.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: When I refer to subsections, I mean contiguous subsections; that is, a subsection
+    is a section of the array that contains a series of numbers in a row.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following is not a contiguous subsection, since the numbers are not in
+    a row:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/not_in_a_row.png](images/tips_for_code_optimization/not_in_a_row.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Our job is to find the largest sum that can be computed from any subsection
+    within the array. In our example, the largest sum is 6, derived from the following
+    subsection:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/largest_sum_6.png](images/tips_for_code_optimization/largest_sum_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: To make the discussion simpler, let’s assume the array contains at least one
+    positive number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now, how can we write the code to calculate the largest subsection sum?
+  prefs: []
+  type: TYPE_NORMAL
+- en: One approach would be to calculate the sum of every subsection within the array
+    and pick out the greatest one. However, there are about N² / 2 subsections for
+    N items in an array, so the mere generation of the different subsections would
+    take O(N²) time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Again, let’s start by dreaming up the best-imaginable Big O. We definitely need
+    to inspect each number at least once, so we can’t beat O(N). So let’s make O(N)
+    our goal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: At first glance, O(N) seems beyond our reach. How can we add up multiple subsections
+    by iterating over the array a single time?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see what happens if we get a little greedy…
+  prefs: []
+  type: TYPE_NORMAL
+- en: A greedy algorithm in this context would attempt to “grab” the greatest sum
+    at each step as we iterate over the array. Here’s what this might look like as
+    we iterate over the earlier example array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Starting at the front of the array, we encounter a 3\. In perfect greedy fashion,
+    we’ll say that our greatest sum is 3:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_3.png](images/tips_for_code_optimization/encounter_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, we reach the -4\. When we add this to the previous number of 3, we get
+    a current sum -1\. So 3 is still our greatest sum:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_negative_4.png](images/tips_for_code_optimization/encounter_negative_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We then hit the 4\. If we add this to our current sum, we get 3:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_4.png](images/tips_for_code_optimization/encounter_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As of now, 3 is still the greatest sum.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The next number we reach is a -3\. This puts our current sum at 0:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_negative_3.png](images/tips_for_code_optimization/encounter_negative_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Again, while 0 is our current sum, 3 is still our greatest sum.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, we reach the 5\. This makes our current sum 5\. In our greed, we’ll declare
+    this to be the greatest sum, as it’s the greatest sum we’ve encountered so far:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_5.png](images/tips_for_code_optimization/encounter_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We then reach the last number, which is -9\. This deflates our current sum
+    to -4:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_negative_9.png](images/tips_for_code_optimization/encounter_negative_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: By the time we get to the end of the array, our greatest sum is 5\. So if we
+    follow this pure-greed approach, it would appear that our algorithm should return
+    5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, 5 is not the greatest subsection sum. A subsection in the array yields
+    a sum of 6:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/largest_sum_6.png](images/tips_for_code_optimization/largest_sum_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The problem with our algorithm is that we only calculated the largest sum based
+    on subsections that always begin with the first number in the array. But other
+    subsections begin with numbers later on in the array as well, and we haven’t accounted
+    for those.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Our greedy algorithm, then, didn’t pan out as we’d hoped.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But we shouldn’t give up yet! Often, we need to tweak greedy algorithms a bit
+    to get them to work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see if finding a pattern may help. (It usually does.) As we’ve seen before,
+    the best way to find a pattern is to generate lots of examples. So let’s come
+    up with some examples of arrays with their largest subsection sums and see if
+    we discover anything interesting:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/largest_sum_examples.png](images/tips_for_code_optimization/largest_sum_examples.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'When analyzing these cases, an interesting question emerges: why is it that
+    in some cases, the greatest sum comes from a subsection that starts at the beginning
+    of the array, and in other cases it doesn’t?'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In looking at these cases, we can see that when the greatest subsection doesn’t
+    start at the beginning, it’s because a negative number broke the streak:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/streak_breakers.png](images/tips_for_code_optimization/streak_breakers.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The greatest subsection would’ve been derived from the beginning of the array,
+    but a negative number killed the streak, and the greatest subsection has to start
+    later on in the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'But wait a second. In some cases, the greatest subsection includes a negative
+    number, and the negative number didn’t break the streak:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/unbroken_streak.png](images/tips_for_code_optimization/unbroken_streak.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: So what’s the difference?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The pattern is this: if the negative number causes the preceding subsection’s
+    sum to sink to a negative number, the streak is broken. But if the negative number
+    simply lowers the current subsection’s sum, and the sum remains a positive number,
+    the streak isn’t broken.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we think about it, this makes sense. If, as we’re iterating through the array,
+    our current subsection’s sum becomes less than 0, we’re best off just resetting
+    the current sum to 0. Otherwise, the current negative sum will just detract from
+    the greatest sum we’re trying to find.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So let’s use this insight to tweak our greedy algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Again, let’s start with the 3\. The greatest sum is currently 3:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_3.png](images/tips_for_code_optimization/encounter_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, we encounter the -4\. This would make our current sum -1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/encounter_negative_4.png](images/tips_for_code_optimization/encounter_negative_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Since we’re trying to find the subsection with the greatest sum, and our current
+    sum is a negative number, we need to reset the current sum to 0 before continuing
+    on to the next number:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/reset_sum_to_zero.png](images/tips_for_code_optimization/reset_sum_to_zero.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: We’ll also start a brand-new subsection beginning with the next number.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Again, the reasoning is that if the next number is positive, we may as well
+    just start the next subsection from there, without letting the current negative
+    number drag down the sum. Instead, we’re going to perform a reset by setting the
+    current sum to 0 and considering the next number to be the beginning of a new
+    subsection.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So let’s continue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We now reach a 4\. Again, this is the beginning of a new subsection, so the
+    current sum is 4, which also becomes the greatest sum we’ve seen yet:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/greatest_sum_is_4.png](images/tips_for_code_optimization/greatest_sum_is_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, we encounter the -3\. The current sum is now 1:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/current_sum_is_1.png](images/tips_for_code_optimization/current_sum_is_1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We next come upon a 5\. This makes the current sum 6, which is the greatest
+    sum as well:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/current_sum_is_6.png](images/tips_for_code_optimization/current_sum_is_6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Finally, we reach the -9\. This would make the current sum -3, in which case
+    we’d reset it to 0\. However, we’ve also reached the end of the array, and we
+    can conclude the greatest sum is 6\. And, indeed, that is the correct result.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s the code for this approach:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ maxSum(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ currentSum = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ greatestSum = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ num ​**of**​ array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentSum + num < 0) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentSum = 0; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | currentSum += num; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (currentSum > greatestSum) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | greatestSum = currentSum; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ greatestSum; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: Using this greedy algorithm, we were able to solve this thorny problem in just
+    O(N) time, as we loop through the array of numbers just once. That’s a great improvement
+    over our initial O(N²) approach. In terms of space, this algorithm is O(1), as
+    we don’t generate any extra data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While the discovery of a pattern helped us discover the precise solution, by
+    adopting the greedy mindset, we knew what kind of pattern we were looking for
+    in the first place.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Greedy Stock Predictions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s look at one more greedy algorithm.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Say we’re writing financial software that makes stock predictions. The particular
+    algorithm we’re working on now looks for a positive trend for a given stock.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Specifically, we’re writing a function that accepts an array of stock prices
+    and determines whether there are any three prices that create an upward trend.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, take this array of stock prices that represents the price of a
+    given stock over time:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [22, 25, 21, 18, 19.6, 17, 16, 20.5] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Although it may be difficult to spot at first, there are three prices that
+    form an upward trend:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/upward_trend.png](images/tips_for_code_optimization/upward_trend.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As we go from left to right, there are three prices where a “right-hand” price
+    is greater than a “middle” price, which in turn is greater than a “left-hand”
+    price.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The following array, on the other hand, does not contain a three-point upward
+    trend:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | [50, 51.25, 48.4, 49, 47.2, 48, 46.9] |'
+  prefs: []
+  type: TYPE_TB
+- en: Our function should return true if the array contains an upward trend of three
+    prices and false if it does not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So how do we go about this?
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way we can do this is with three nested loops. As one loop iterates over
+    each stock price, a second loop iterates over all the stock prices that follow.
+    And for each round of the second loop, a third nested loop checks all the prices
+    that follow the second price. As we point to each set of three stock prices, we
+    check whether they’re in ascending order. As soon as we find such a set, we return
+    true. But if we complete the loops without finding any such trend, we return false.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The time complexity of this algorithm is O(N³). That’s pretty slow! Is there
+    any way we can optimize this?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first think about the best-imaginable Big O. We definitely need to inspect
+    each stock price to find a trend, so we know that our algorithm cannot be faster
+    than O(N). Let’s see if we can optimize for such a speed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once again, it’s time to get greedy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To apply the greedy mentality to our case, we’d want to somehow keep grabbing
+    what we think is the lowest point of our three-price upward trend. It would also
+    be cool if we can use the same greedy approach to constantly grab what we think
+    are the middle and highest points of that trend.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what we’ll do:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll assume the first price from the array is the lowest point in the three-price
+    upward trend.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As far as the middle price, we’ll initialize it to a number that’s guaranteed
+    to be greater than even the highest stock price in the array. To do this, we’ll
+    set it to infinity. This particular step might be the least intuitive at first
+    glance, but you’ll see shortly why we need to do this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We’ll then make a single pass through the entire array, according to the following
+    steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the current price is lower than the lowest price we’ve encountered so far,
+    this price becomes the new lowest price.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the current price is higher than the lowest price but lower than the middle
+    price, we update the middle price to be the current price.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the current price is higher than the middle price, it means we’ve found a
+    three-price upward trend!
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Let’s see this in action. First, we’ll start with a simple example, working
+    with this array of stock prices:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/array_of_stocks.png](images/tips_for_code_optimization/array_of_stocks.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We begin iterating through the array, starting with the 5\. We start out of
+    the gates with pure greed, and assume that this 5 is the smallest price in the
+    three-point trend as shown in the following array:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_5.png](images/tips_for_code_optimization/stock_5.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, we proceed to the 2\. Because the 2 is lower than the 5, we get even
+    greedier and assume that the 2 is now the lowest price in the trend:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_2.png](images/tips_for_code_optimization/stock_2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We arrive at the next number in the array, which is 8\. This is higher than
+    our lowest point, so we keep the lowest point at 2\. However, it’s less than the
+    current middle price, which is infinity, so we now greedily assign the 8 to be
+    our middle point in the three-point trend:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_8.png](images/tips_for_code_optimization/stock_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next up, we reach the 4\. This is higher than the 2, so we continue to assume
+    that the 2 is the lowest point in our trend. However, because the 4 is less than
+    the 8, we make the 4 our middle point instead of the 8\. This, too, is out of
+    greed, as by making our middle point lower, we increase our chances of finding
+    a higher price later on, forming the trend that we’re seeking. So the 4 is our
+    new middle point:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_4.png](images/tips_for_code_optimization/stock_4.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'The next number in the array is the 3\. We’ll leave our lowest price at 2,
+    since the 3 is greater than it. But we will make it our new middle point since
+    it’s less than the 4:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_3.png](images/tips_for_code_optimization/stock_3.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Finally, we reach the 7, which is the last value in the array. Because the
+    7 is greater than our middle price (which is 3), this means the array contains
+    an upward three-point trend, and our function can return true:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/stock_7.png](images/tips_for_code_optimization/stock_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Note that two such trends exist in the array. There’s 2-3-7, but there’s also
+    2-4-7\. Ultimately, though, this doesn’t matter to us, since we’re just trying
+    to determine whether this array contains any upward trend; so finding a single
+    instance is enough to return true.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an implementation of this algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ isIncreasingTriplet(array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ lowestPrice = array[0]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**let**​ middlePrice = ​**Infinity**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ price ​**of**​ array) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (price <= lowestPrice) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | lowestPrice = price; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ ​**if**​ (price <= middlePrice) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | middlePrice = price; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } ​**else**​ { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**true**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ ​**false**​; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: One counterintuitive aspect of this algorithm is worth pointing out. Specifically,
+    in some scenarios it would appear this algorithm wouldn’t work, yet it does.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s take a look at this scenario:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_stock_example.png](images/tips_for_code_optimization/second_stock_example.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s see what happens when we apply our algorithm to this array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'At first, the 8 becomes our lowest point:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_example_stock_8.png](images/tips_for_code_optimization/second_example_stock_8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Then the 9 becomes our middle point:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_example_stock_9.png](images/tips_for_code_optimization/second_example_stock_9.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Next, we reach the 7\. Because this is lower than our lowest point, we update
+    the lowest point to be 7:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_example_stock_7.png](images/tips_for_code_optimization/second_example_stock_7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'We then reach the 10:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/tips_for_code_optimization/second_example_stock_10.png](images/tips_for_code_optimization/second_example_stock_10.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Because the 10 is greater than the current middle point (9) our function returns
+    true. Now, this is the correct response since our array indeed contains the trend
+    of 8-9-10\. However, by the time our function is done, our lowest point variable
+    is pointing to the 7\. But the 7 is not part of the upward trend!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Despite this being the case, our function still returned the correct response.
+    And this is because all our function needs to do is reach a number that is higher
+    than the middle point. Because the middle point was only established once we already
+    found a lower point before it, as soon as we reach a number higher than the middle
+    point, it still means an upward trend is present in the array. This is true even
+    though we ended up overwriting the lower point to be some other number later on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In any case, our greedy approach paid off, as we only iterated over our array
+    a single time. This is an astounding improvement, as we turned an algorithm that
+    ran at O(N³) into one of O(N).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Of course, a greedy approach doesn’t always work. But it’s another tool you
+    can try out when optimizing your algorithms.
+  prefs: []
+  type: TYPE_NORMAL

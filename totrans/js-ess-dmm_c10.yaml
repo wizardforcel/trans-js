@@ -1,0 +1,796 @@
+- en: Chapter 10
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dealing with Form Data
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: IN THIS CHAPTER
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Coding text boxes**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Programming checkboxes, radio buttons, and selection
+    lists**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Monitoring and triggering form events**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![Bullet](images/check.png) **Dealing with the form data**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In this chapter, you learn how to “wire up” your HTML forms by plugging them
+    into some JavaScript code. You explore various form-related objects and then get
+    right to work coding text fields, checkboxes, radio buttons, and selection lists.
+    You also dive into the useful world of form events and even learn how to enhance
+    your form controls with keyboard shortcuts. To top it all off, you go hog wild
+    and learn how to store form data using the Web Storage API.  ## Coding Text Fields'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Text-based fields are the most commonly used form elements, and most of them
+    use the `<input>` tag. The `input` element has tons of attributes, but from a
+    coding perspective, you’re generally interested in only four:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<input id="*textId*" type="*textType*" name="*textName*" value="*textValue*">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`textId`*: A unique identifier for the text field'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`textType`*: The kind of text field you want to use in your form'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`textName`*: The name you assign to the field'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`textValue`*: The initial value of the field, if any'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Referencing by field type'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One common form-scripting technique is to run an operation on every field of
+    the same type. For example, you may want to apply a style to all the URL fields.
+    Here’s the JavaScript selector to use to select all `input` elements of a given
+    type:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''input[type=*fieldType*]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***Note:****`fieldType`* is the `type` attribute value you want to select,
+    such as `text` or `url`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example where the JavaScript returns the set of all `input` elements
+    that use the type `url`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<label for="url1"> Site 1: </label> <input id="url1" type="url" name="url1"
+    value="https://"> <label for="url2"> Site 2: </label> <input id="url2" type="url"
+    name="url2" value="https://"> <label for="url3"> Site 3: </label> <input id="url3"
+    type="url" name="url3" value="https://">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const urlFields = document.querySelectorAll(''input[type=url]''); console.log(urlFields);`  ###
+    Getting a text field value'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your script can get the current value of any text field by using one of the
+    field object’s value-related properties:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.value *field*.valueAsDate *field*.valueAsNumber`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<label for="search-field"> Search the site: </label> <input id="search-field"
+    name="q" type="search">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const searchString = document.getElementById(''search-field'').value; console.log(searchString);`  ###
+    Setting a text field value'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To change a text field value, assign the new string to the field object’s `value`
+    property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.value = *value*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`field`*: A reference to the form field object you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`value`*: The string you want to assign to the text field'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<label for="homepage-field"> Type your homepage address: </label> <input id="homepage-field"
+    name="homepage" type="url" value="HTTPS://PAULMCFEDRIES.COM/"">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const homepageField = document.getElementById(''homepage-field''); const homepageURL
+    = homepageField.value; homepageField.value = homepageURL.toLowerCase();`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The HTML defines an `input` element of type `url` where the default value is
+    in all-uppercase letters. The JavaScript code grabs a URL, converts it to all-lowercase
+    characters, and then returns it to the same `url` field. As shown in [Figure 10-1](#c10-fig-0001),
+    the text box now displays all-lowercase letters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![CaptionThe script converts the input element’s default text to all-lowercase
+    letters. The fields below reads, type your homepage address.](images/9781394263219-fg1001.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 10-1:](#rc10-fig-0001) The script converts the `input` element’s default
+    text to all-lowercase letters.  ## Programming Checkboxes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You use a checkbox in a web form to toggle a setting on (that is, the checkbox
+    is selected) and off (the checkbox is deselected). You create a checkbox by including
+    in your form the following version of the `<input>` tag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<input id="*checkId*" type="checkbox" name="*checkName*" value="*checkValue*"
+    [checked]>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`checkId`*: A unique identifier for the checkbox.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`checkName`*: The name you want to assign to the checkbox.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`checkValue`*: The value you want to assign to the checkbox. Note that this
+    is a hidden value that your script can access when the form is submitted; the
+    user never encounters it.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`checked`: When this optional attribute is present, the checkbox is initially
+    selected.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Referencing checkboxes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to reference all the checkboxes in a page, use the following
+    selector:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''input[type=checkbox]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you just want the checkboxes from a particular form, use a descendent or
+    child selector on the form’s `id` value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''#*formid* input[type=checkbox]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Or:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''#*formid* > input[type=checkbox]'')`  ### Getting
+    the checkbox state'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your code will want to know whether a checkbox is selected or deselected. This
+    is called the checkbox *state.* In that case, you need to examine the checkbox
+    object’s `checked` property instead:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*checkbox*.checked`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `checked` property returns `true` if the checkbox is selected, or `false`
+    if the checkbox is deselected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<label> <input id="autosave" type="checkbox" name="autosave"> Autosave this
+    project </label>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '``const autoSaveCheckBox = document.querySelector(''#autosave''); if (autoSaveCheckBox.checked)
+    { console.log(`${autoSaveCheckBox.name} is checked`); } else { console.log(`${autoSaveCheckBox.name}
+    is unchecked`); }``'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The JavaScript code stores a reference to the checkbox object in the `autoSaveCheckBox`
+    variable. Then an `if` statement examines the object’s `checked` property and
+    displays a different message in the console, depending on whether `checked` returns
+    `true` or `false`.  ### Setting the checkbox state'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set a checkbox field to either the selected or deselected state, assign
+    a Boolean expression to the `checked` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*checkbox*.checked = true|false`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, suppose you have a form with a large number of checkboxes and
+    you want to set up that form so that the user can select at most three checkboxes.
+    Here’s some code that does the job:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''form'').addEventListener(''click'', event => {  //
+    Make sure a checkbox was clicked if (event.target.type === ''checkbox'') {  //
+    Get the total number of selected checkboxes const totalSelected = document.querySelectorAll(''input[type=checkbox]:checked'').length;  //
+    Are there more than three selected checkboxes? if (totalSelected > 3) {  // If
+    so, deselect the checkbox that was just clicked event.target.checked = false;
+    } } });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This event handler runs when anything inside the `form` element is clicked,
+    and it passes a reference to the click event as the parameter `event`. Then the
+    code uses the `:checked` selector to return the set of all `checkbox` elements
+    that have the `checked` attribute, and the `length` property tells you how many
+    are in the set. An `if` test checks whether more than three are now selected.
+    If that’s true, the code deselects the checkbox that was just clicked.  ## Coding
+    Radio Buttons'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You create a radio button using the following variation of the `<input>` tag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<input id="*radioId*" type="radio" name="*radioGroup*" value="*radioValue*"
+    [checked]>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`radioId`*: A unique identifier for the radio button.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`radioGroup`*: The name you want to assign to the group of radio buttons.
+    All the radio buttons that use the same `name` value belong to that group.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`radioValue`*: The value you want to assign to the radio button. If this radio
+    button is selected when the form is submitted, this is the value that’s included
+    in the submission.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`checked`: When this optional attribute is present, the radio button is initially
+    selected.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Referencing radio buttons'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to work with all the radio buttons in a page, use this JavaScript
+    selector:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''input[type=radio]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want the radio buttons from a particular form, use a descendent or child
+    selector on the form’s `id` value:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''#*formid* input[type=radio]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Or:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''#*formid* > input[type=radio]'')`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you require just the radio buttons from a particular group, use the following
+    JavaScript selector, where *`radioGroup`* is the common name of the group:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelectorAll(''input[name=*radioGroup*]'')`  ### Getting a radio
+    button state'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to know whether a particular radio button is selected or
+    deselected, you need to determine the radio button *state.* You do that by examining
+    the radio button’s `checked` attribute, like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*radio*.checked`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `checked` attribute returns `true` if the radio button is selected, or `false`
+    if the button is deselected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, consider the following HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<form> <fieldset> <legend> Select a delivery method </legend> <label> <input
+    type="radio" id="carrier-pigeon" name="delivery" value="pigeon" checked>Carrier
+    pigeon </label> <label> <input type="radio" id="pony-express" name="delivery"
+    value="pony">Pony express </label> <label> <input type="radio" id="snail-mail"
+    name="delivery" value="postal">Snail mail </label> <label> <input type="radio"
+    id="some-punk" name="delivery" value="bikecourier">Some punk on a bike </label>
+    </fieldset> </form>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to know which radio button in a group is selected, you can
+    do that by applying the `:checked` selector to the group and then getting the
+    `value` property of the returned object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const deliveryMethod = document.querySelector(''input[name=delivery]:checked'').value;`  ###
+    Setting the radio button state'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set a radio button field to either the selected or deselected state, assign
+    a Boolean expression to the `checked` attribute:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*radio*.checked = true|false`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, in the HTML code from the previous section, the initial state
+    of the form group had the first radio button selected. You can reset the group
+    by selecting that button. You could get a reference to the `id` of the first radio
+    button, but what if later you change (or someone else changes) the order of the
+    radio buttons? A safer way is to get a reference to the first radio button in
+    the group, whatever it may be, and then select that element. Here’s some code
+    that does this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const firstRadioButton = document.querySelectorAll(''input[name=delivery]'')[0];
+    firstRadioButton.checked = true;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This code uses `querySelectorAll()` to return a `NodeList` collection of all
+    the radio buttons in the `delivery` group; then it uses `[0]` to reference just
+    the first element in the collection. Then that element’s `checked` property is
+    set to `true`.  ## Programming Selection Lists'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Selection lists are common sights in HTML forms because they enable the web
+    developer to display a relatively large number of choices in a compact control
+    that most users know how to operate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To create the list container, you use the `<select>` tag:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<select id="*selectId*" name="*selectName*" size="*selectSize*" [multiple]>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`selectId`*: A unique identifier for the selection list.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`selectName`*: The name you want to assign to the selection list.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`selectSize`*: The optional number of rows in the selection list box that
+    are visible. If you omit this value, the browser displays the list as a drop-down
+    box.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`multiple`: When this optional attribute is present, the user is allowed to
+    select multiple options in the list.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'For each item in the list, you add an `<option>` tag between the `<select>`
+    and `</select>` tags:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<option value="*optionValue*" [selected]>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`optionValue`*: The value you want to assign to the list option.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`selected`: When this optional attribute is present, the list option is initially
+    selected.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '### Referencing selection list options'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to work with all the options in a selection list, use the
+    selection list object’s `options` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(*list*).options`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To work with a particular option within a list, use JavaScript’s square brackets
+    operator (`[]`) to specify the index of the option’s position in the list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(*list*).options[*n*]`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`list`*: A selector that specifies the `select` element you want to work with'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`n`*: The index of the option in the returned `NodeList` collection (where
+    `0` is the first option, `1` is the second option, and so on)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To get the option’s text (that is, the text that appears in the list), use
+    the option object’s `text` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(*list*).options[2].text`  ### Getting the selected
+    list option'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If your code needs to know whether a particular option in a selection list
+    is selected or deselected, examine the option’s `selected` property, like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*option*.selected`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `selected` attribute returns `true` if the option is selected, or `false`
+    if the option is deselected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For example, consider the following selection list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<select id="hair-color" name="hair-color"> <option value="black">Black</option>
+    <option value="blonde">Blonde</option> <option value="brunette" selected>Brunette</option>
+    <option value="red">Red</option> <option value="neon">Something neon</option>
+    <option value="none">None</option> </select>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Your code will likely want to know which option in the selection list is selected.
+    You do that via the list’s `selectedOptions` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const hairColor = document.querySelector(''#hair-color'').selectedOptions[0];`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This isn’t a multi-select list, so specifying `selectedOptions[0]` returns the
+    selected `option` element. In this example, your code could use `hairColor.text`
+    to get the text of the selected option.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If the list includes the `multiple` attribute, the `selectedOptions` property
+    may return an `HTMLCollection` object that contains multiple elements. Your code
+    needs to allow for that possibility by, say, looping through the collection:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<select id="hair-products" name="hair-products" size="5" multiple> <option
+    value="gel" selected>Gel</option> <option value="grecian-formula" selected>Grecian
+    Formula</option> <option value="mousse">Mousse</option> <option value="peroxide">Peroxide</option>
+    <option value="shoe-black">Shoe black</option> </select>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`const selectedHairProducts = document.querySelector(''#hair-products'').selectedOptions;
+    for (const hairProduct of selectedHairProducts) { console.log(hairProduct.text);
+    }`  ### Changing the selected option'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To set a selection list option to either the selected or deselected state,
+    assign a Boolean expression to the option object’s `selected` property:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*option*.selected = *Boolean*`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s what the various parts are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*`option`*: A reference to the `option` element you want to modify.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*`Boolean`*: The Boolean value or expression you want to assign to the option.
+    Use `true` to select the option; use `false` to deselect the option.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Using the HTML code from the previous section, the following statement selects
+    the third option in the list:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#hair-products'').options[2].selected = true;`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can reset the list by deselecting all the options. You do that by setting
+    the selection list object’s `selectedIndex` property to `-1`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#hair-products'').selectedIndex = -1`  ## Working
+    with Form Events'
+  prefs: []
+  type: TYPE_NORMAL
+- en: With all the clicking, typing, tabbing, and dragging that goes on, web forms
+    are veritable event factories. Fortunately, you can let most of these events pass
+    you by, but a few do come in handy, both in running code when the event occurs
+    and in triggering the events yourself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Most form events are clicks, so you can handle them by setting `click` event
+    handlers using JavaScript’s `addEventListener()` method (which I cover in [Chapter
+    6](c06.xhtml)). Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<form> <label for="user">Username:</label> <input id="user" type="text" name="username">
+    <label for="pwd">Password:</label> <input id="pwd" type="password" name="password">
+    </form>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''form'').addEventListener(''click'', () => { console.log(''Thanks
+    for clicking the form!''); });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This example listens for clicks on the entire `form` element, but you can also
+    create `click` event handlers for buttons, `input` elements, checkboxes, radio
+    buttons, and more.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '### Setting the focus'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One simple feature that can improve the user experience on your form pages is
+    to set the focus on the first form field when your page loads. Setting the focus
+    saves the user from having to make that annoying click inside the first field.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To get this done, run JavaScript’s `focus()` method on the element you want
+    to have the focus at startup:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.focus()`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example that sets the focus on the text field with `id` equal to
+    `user` at startup:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<form> <label for="user">Username:</label> <input id="user" type="text" name="username">
+    <label for="pwd">Password:</label> <input id="pwd" type="password" name="password">
+    </form>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#user'').focus();`  ### Monitoring the focus event'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Rather than set the focus, you may want to monitor when a particular field
+    gets the focus (for example, by the user clicking or tabbing into the field).
+    You can monitor that by setting up a `focus` event handler on the field:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.addEventListener(''focus'', () => { *Focus code goes here* });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#user'').addEventListener(''focus'', () => { console.log(''The
+    username field has the focus!''); });`  ### Monitoring the blur event'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The opposite of setting the focus on an element is *blurring* an element, which
+    removes the focus from the element. You blur an element by running the `blur()`
+    method on the element, which causes it to lose focus:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.blur()`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, rather than blur an element, you’re more likely to want to run some
+    code when a particular element is blurred (for example, by the user clicking or
+    tabbing out of the field). You can monitor for a particular blurred element by
+    setting up a `blur()` event handler:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.addEventListener(''blur'', () => { *Blur code goes here* });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#user'').addEventListener(''blur'', () => { console.log(''The
+    username field no longer has the focus!''); });`  ### Listening for element changes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'One of the most useful form events is the `change` event, which fires when
+    the value or state of a field is modified in some way. When this event fires depends
+    on the element type:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For a `textarea` element and the various text-related `input` elements, the
+    `change` event fires when the element loses the focus.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For checkboxes, radio buttons, selection lists, and pickers, the `change` event
+    fires as soon as the user clicks the element to modify the selection or value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'You listen for a field’s `change` events by setting up a `change()` event handler:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*field*.addEventListener(''change'', () => { *Change code goes here* });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<label for="bgcolor">Select a background color</label> <input id="bgcolor"
+    type="color" name="bg-color" value="#ffffff">`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`document.querySelector(''#bgcolor'').addEventListener(''change'', (event)
+    => { const backgroundColor = event.target.value; document.body.bgColor = backgroundColor;
+    });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The HTML code sets up a color picker. The JavaScript code applies the `change`
+    event handler to the color picker. When the `change` event fires on the picker,
+    the code stores the new color value in the `backgroundColor` variable by referencing
+    `event.target.value`, where `event.target` refers to the element to which the
+    event listener is bound (the color picker, in this case). The code then applies
+    that color to the `body` element’s `bgColor` property.  ## Handling Form Data'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'There’s one form event that I didn’t cover earlier, and it’s a biggie: the
+    `submit` event, which fires when the form data is to be sent to the server.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if your scripts deal with form data only locally — that is, you never
+    send the data to a server — then you don’t need to bother with submitting the
+    form. Instead, it’s more straightforward to add a button to your form and then
+    use that button’s `click` event handler to process the form data in whatever way
+    you need.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'HTML:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`<form> <fieldset> <legend> Settings </legend> <label for="background-color">Select
+    a background color</label> <input id="background-color" type="color" name="bg-color"
+    value="#ffffff"> <label for="text-color">Select a text color</label> <input id="text-color"
+    type="color" name="text-color" value="#000000"> <label for="font-stack">Select
+    a typeface:</label> <select id="font-stack" name="font-stack"> <option value="Georgia,
+    ''Times New Roman'', serif" selected>Serif</option> <option value="Verdana, Tahoma,
+    sans-serif">Sans-serif</option> <option value="''Bradley Hand'', Brush Script
+    MT, cursive">Cursive</option> <option value="Luminari">Fantasy</option> <option
+    value="Monaco, Courier, monospace">Monospace</option> </select> <button> Save
+    Your Settings </button> </fieldset> </form>`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`// Listen for changes on the #background-color color picker document.querySelector(''#background-color'').addEventListener(''change'',
+    function() { const backgroundColor = this.value; document.body.style.backgroundColor
+    = backgroundColor; }); // Listen for changes on the #text-color color picker document.querySelector(''#text-color'').addEventListener(''change'',
+    function() { const textColor = this.value; document.body.style.color = textColor;
+    }); // Listen for changes on the #font-stack selection list document.querySelector(''#font-stack'').addEventListener(''change'',
+    function() { const fontStack = this.selectedOptions[0].value; document.body.style.fontFamily
+    = fontStack; }); // Listen for the button being clicked document.querySelector(''button'').addEventListener(''click'',
+    () => { // Store the form data in a JavaScript object const userSettings = { backgroundColor:
+    document.querySelector(''#background-color'').value, textColor: document.querySelector(''#text-color'').value,
+    fontStack: document.querySelector(''#font-stack'').selectedOptions[0].value }
+    // Save the settings in local storage localStorage.setItem(''user-settings'',
+    JSON.stringify(userSettings)); });`'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The HTML sets up a form (check out [Figure 10-2](#c10-fig-0002)) to gather some
+    user settings — background color, text color, and typeface style — as well as
+    a button. The JavaScript sets up `change` event handlers for the two color pickers
+    and the selection list. Finally, the code listens for `click` events on the button,
+    and the handler stores the form data in a JavaScript object and then saves the
+    data to local storage.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![A snapshot of a form used to gather user settings for the page. The setting
+    fields include, select a background color, select a text color, and select a typeface.](images/9781394263219-fg1002.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[FIGURE 10-2:](#rc10-fig-0002) A form used to gather user settings for the
+    page.'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,191 @@
+- en: '| Recipe 67 | Striping Invalid Characters from Filenames |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Suppose you operate a file hosting service. To ensure a smooth download process,
+    you should avoid certain characters in the filenames of the files being provided
+    for download. In iOS and macOS, the filename cannot contain a colon (:), while
+    Android and Windows OS have stricter restrictions and do not allow the use of
+    <, >, :, ", /, \, |, ?, and * in filenames.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason is that the OS uses these characters for enclosing paths in quotes,
+    marking off drives and directories, indicating wildcards and command line redirection,
+    etc. Moreover, there are certain words that Windows uses as reserved names for
+    internal purposes, and as a result, they cannot be used as filenames.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'These reserved names are as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | CON, PRN, AUX, NUL |'
+  prefs: []
+  type: TYPE_TB
+- en: When attempting to download a file with invalid characters in its name, Windows
+    will automatically replace those characters with an underscore, without any warning
+    to the user. To avoid such issues, you may want to create a script that can detect
+    problematic characters in a filename and notify the user to resolve them before
+    proceeding with the download.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To improve readability and maintainability, it’s easier to test each list of
+    characters and words separately, rather than merging them and using a single regex.
+    Create a function that accepts a filename as an input, tests each regex against
+    it, and returns true if the tests pass:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_3/striping_invalid_characters/striping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/striping_invalid_characters/striping_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **let** reservedNames = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *`LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9,* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *CON, PRN, AUX, NUL`*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create an array from the reservedNames string* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | reservedNames = reservedNames.split(*/,**\s**/*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** isValidFilename(name) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re1 = **new** RegExp(*`^(*${reservedNames.join(*"&#124;"*)}*)$`*,
+    *"i"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** re2 = */**[**<>:"**/\\**&#124;?***]**/*; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **return** !(re1.test(name) &#124;&#124; re2.test(name)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"COM1"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"com1"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"com1_"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"@com1"*); *// → true* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"]-:"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | isValidFilename(*"<myfile>"*); *// → false* |'
+  prefs: []
+  type: TYPE_TB
+- en: Success!
+  prefs: []
+  type: TYPE_NORMAL
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To start with, prepare an array containing the invalid characters/names. If
+    you’re like me and don’t feel like creating the array by typing, you can use the
+    split() method to separate the reserved names and store them in the array. The
+    result will be as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | let reservedNames = |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | `LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | CON, PRN, AUX, NUL`; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | reservedNames.split(/,\s/); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // → ["LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8",
+    "LPT9", |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | // "CON", "PRN", "AUX", "NUL"] |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Inside the isValidFilename() function, we use the RegExp constructor to join
+    the items of the resulting array with a pipe symbol to form alternations like
+    this: LPT1|LPT2|LPT3...'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you want to avoid creating the pattern dynamically, you don’t have to type
+    each name separately. Instead, take advantage of a character class to define a
+    range:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | /^(LPT[1-9]&#124;COM[1-9]&#124;CON&#124;PRN&#124;AUX&#124;NUL)$/i |'
+  prefs: []
+  type: TYPE_TB
+- en: A filename with these words is invalid only if it doesn’t contain additional
+    characters. For example, “LPT1” is an invalid filename, but not “LPT1z” or “ALPT1.”
+    The caret symbol (^) at the start of the pattern asserts the beginning of the
+    string and ensures that no other characters precede the desired string match.
+    Similarly, the dollar symbol ($) asserts the end of the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second pattern, which lists reserved characters, consists of only nine characters.
+    So, it’s sufficient to include them in a character class using square brackets
+    []. A character class matches any single character that appears between the brackets,
+    so we can check if any of those characters exist in the given string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inside character classes, the backslash is considered a metacharacter and, therefore,
+    requires escaping with another backslash. But, all other characters are treated
+    as literal characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Filenames may contain characters that are not allowed by the operating system
+    or filesystem. By using a regex pattern, we can detect those characters and provide
+    a problem-free download process.
+  prefs: []
+  type: TYPE_NORMAL

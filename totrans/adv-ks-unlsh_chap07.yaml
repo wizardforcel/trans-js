@@ -1,0 +1,408 @@
+- en: Symbol
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '`symbol` is a primitive value that can be created using a function named `Symbol`.
+    What makes this primitive value interesting is that it is guaranteed to be unique.
+    This guarantee of being unique is the selling point of symbols.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'With the introduction of symbols in ES2015, two things changed in JavaScript:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A new type of value was introduced in the language.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Only strings were allowed to be added to objects as property keys. Now, symbols
+    can be keys as well.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Before we discuss how to use symbols in our code, let us first understand the
+    motivation behind adding symbols to the JavaScript language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Symbols were originally meant to be used as a mechanism to add private properties
+    to objects and were supposed to be called “**private name objects**”. But later,
+    their name was changed to symbols, and they were made a primitive value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It turned out that each symbol being a unique value is pretty useful because
+    it allows the JavaScript language to be extended and remain backwards compatible.
+    Symbols allow JavaScript to add new properties to objects that cannot conflict
+    with the existing properties on objects that others might have used in their code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the main goals of TC39 is to keep JavaScript backwards compatible. With
+    this goal in mind, any new feature added to the language must not break existing
+    code. Symbols help keep the promise of backward compatibility.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some features in the JavaScript language require looking up a property on an
+    object. What property keys could have been chosen for such features? Choosing
+    any string property name wasn’t possible because someone might have used that
+    property in their code, and using that property for a new feature might have broken
+    their code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, for converting an object into a primitive value, a special property
+    named [Symbol.toPrimitive](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
+    is looked up on the object by the type conversion algorithm. If such a property
+    exists and its value is a function, its return value is used as the primitive
+    representation of the object. Otherwise, the default mechanism of calling the
+    `toString` and `valueOf` methods in different order is used, as explained in an
+    earlier module on coercion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Think about how such a feature could have been added to the language with a
+    string property. What name could possibly have been chosen that was guaranteed
+    to not break existing code?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is where symbols shine. Using symbols as properties enables such features
+    by adding unique properties to objects that cannot possibly break existing code
+    because:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: symbols didn’t exist before ES2015, and
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: each symbol is a unique value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Symbol values can be created using the `Symbol` function. It’s important to
+    note that the `Symbol` function must be invoked without the `new` keyword. Attempting
+    to use the `new` keyword to invoke the `Symbol` function will result in an error.
+    This is because it prevents the creation of an object wrapper around the symbol.
+    Every call to the `Symbol` function must create a new unique symbol value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Once a symbol has been created, it can be added to an existing object as a
+    property using the square bracket notation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternatively, the computed property notation can also be used to add a symbol
+    as a property to the object:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Symbols and privacy
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Regular `string` properties on objects can be accessed in a variety of ways.
+    For instance, consider the following code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example4”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this example, a property key “name” was added to the `person` object using
+    the computed property name. This property can be accessed in multiple ways, as
+    demonstrated in the code example above. But what happens if the value of the `name`
+    variable is changed from a `string` to a symbol?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example5”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: It will be noticed that `person.name` and `person["name"]` output `undefined`,
+    but the last `console.log` statement logs the name as expected. So, what’s the
+    difference between the first two statements and the last one? The first two statements
+    log `undefined` because symbol properties cannot be accessed until access to the
+    original symbol is obtained. Only the last `console.log` statement in the code
+    example above used the original symbol, which is why it logged the name instead
+    of `undefined`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So, if the original symbol is not accessible, does that make the symbol property
+    a private property? What happens if the properties of an object are iterated over?
+    Let’s find out if the symbol properties of an object can be obtained.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example6”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Looking at the output of the above code example, it might be assumed that symbol
+    properties are indeed private. However, this assumption would be incorrect. Symbol
+    properties are not private, as the next code example demonstrates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example7”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above code example shows that symbol properties can be discovered using
+    methods like `Object.getOwnPropertyDescriptors` or `Object.getOwnPropertySymbols`.
+    While symbol properties may be a bit more inconvenient to access compared to `string`
+    properties, they are not private. JavaScript has true [private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields),
+    and symbols are not intended to be used as private properties.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adding a description to symbols
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'When creating symbols, there is the option to provide a description for each
+    symbol. This description can be useful for debugging purposes. The following code
+    example creates a symbol with a description:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The description is passed as an argument to the `Symbol` function. The provided
+    description can then be accessed using the property named `description` on symbols.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example9”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `description` property can only be used to get the property of a symbol;
+    it cannot be used to set the description. The following code example shows that
+    assigning a value to the `description` property of a symbol doesn’t change its
+    value. The `description` property is actually a getter, and a setter isn’t defined
+    for this property. As a result, the description can only be obtained but not set
+    using this property.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/creating-symbols-example10”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each call to the `Symbol` function creates a new unique symbol. However, JavaScript
+    also allows us to create symbols that can be shared across files or [realms](https://weizmangal.com/2022/10/28/what-is-a-realm-in-js/#:~:text=You%20can%20informally%20think%20of,order%20to%20exist%20within%20it.).
+    This is where the concept of a **global symbol** repository comes in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can use the `Symbol.for` method to create a global symbol in the global symbol
+    repository.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can run the above code in the Replit below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: We pass a key to `Symbol.for` method, and using this key, we can retrieve the
+    symbol associated with it in the global symbol repository. If the key exists in
+    the repository, the `Symbol.for` method returns the symbol associated with it;
+    otherwise, it creates a new symbol in the repository and associates it with the
+    given key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we have a global symbol, we can get the key it is associated with using the
+    `Symbol.keyFor` method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here’s a Replit where you can run the above code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/global-symbols-example2”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: The JavaScript language uses several built-in symbols to make different features
+    work, for example, the `Symbol.toPrimitive` described in an earlier lesson in
+    this module. Such symbols are referred to as “well-known symbols” by the ECMAScript
+    specification.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While the complete list of well-known symbols in the JavaScript language can
+    be found in the [ECMAScript specification](https://tc39.es/ecma262/#sec-well-known-symbols),
+    this lesson describes some of the well-known symbols.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Symbol.toPrimitive
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As explained in an earlier lesson in this module, `Symbol.toPrimitive` represents
+    a symbol property that is used by the object to primitive conversion process in
+    JavaScript. Its value is a function that is passed a *hint* or the *preferred
+    type* of the primitive value to represent the object being converted into a primitive
+    value. The return value is used as the primitive value of the object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The following code example hooks into the object to the primitive conversion
+    process of the `movie` object and returns a different representation of the object
+    based on the value of the `hint` argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the output of the above code example in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example1”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Symbol.toStringTag
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The default implementation of the `Object.prototype.toString` method isn’t very
+    useful for user-defined objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: For some built-in objects, the default implementation of the `toString` method
+    is also not useful. As a result, many objects override the default `toString`
+    implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the output of the above code example in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example3”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice the “Array” part in the output of the default `toString` implementation.
+    It is known as the tag. For some built-in objects, the tag is the type of the
+    value, for example, “Array” in the case of arrays and “String” in the case of
+    strings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of user-defined objects, the default `toString` output, as shown
+    above, is `[object Object]` where the tag is “Object” - not very useful.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The well-known symbol `Symbol.toStringTag` allows us to change the value of
+    the tag.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the output of the above code example in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example4”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: Symbol.isConcatSpreadable
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The `[Symbole.isConcatSpreadable]` property is looked up by the `concat` method
+    of arrays to determine if the elements of the array or array-like object passed
+    to the `concat` method should be *spread* or flattened.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the output of the above code example in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example5”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: As the output of the above code example shows, the default behavior for arrays
+    is to spread their elements. This default behavior can be overridden by setting
+    `Symbol.isConcatSpreadable` to `false`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For [array-like objects](https://stackoverflow.com/questions/29707568/javascript-difference-between-array-and-array-like-object),
+    the default behavior is to not spread their properties. This can be overridden
+    by setting `Symbol.isConcatSpreadable` to `true`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'You can see the output of the above code example in this Replit:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <ReplitEmbed src=”https://replit.com/@newlineauthors/well-known-symbols-example6”
+    />
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are other well-known symbols that allow us to hook into different built-in
+    operations in JavaScript. The complete list can be seen in the [ECMAScript specification](https://tc39.es/ecma262/#sec-well-known-symbols)
+    or [MDN - Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+  prefs: []
+  type: TYPE_NORMAL

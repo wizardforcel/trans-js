@@ -1,0 +1,194 @@
+- en: '| Recipe 10 | Generating HTML Tables from an Array of Arrays |'
+  prefs: []
+  type: TYPE_TB
+- en: Task
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose your task is to generate reports or summaries of data that are stored
+    in an array of arrays. For instance, you may need to create a summary of performance
+    metrics for a company across multiple financial quarters from an array like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | const data = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Quarter", "Revenue", "Eps"], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Q1 FY22", 45962, 2.71], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Q2 FY22", 44845, 2.71], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Q3 FY22", 46151, 2.03], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Q4 FY22", 46822, 2.11], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ["Q1 FY23", 45215, 2.64] |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: Your objective is to convert the array into an HTML table so that you can present
+    the data in a structured and organized format.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Solution
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Use the following function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[part_1/generating_html_table_v1/html_table_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/generating_html_table_v1/html_table_v1_ex1.js)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|   | **const** data = [ |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Quarter"*, *"Revenue"*, *"Eps"*], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Q1 FY22"*, 45962, 2.71], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Q2 FY22"*, 44845, 2.71], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Q3 FY22"*, 46151, 2.03], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Q4 FY22"*, 46822, 2.11], |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | [*"Q1 FY23"*, 45215, 2.64] |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | ]; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **function** createTable(data) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** table = document.createElement(*"table"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** thead = table.createTHead(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** tbody = table.createTBody(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** headerRow = thead.insertRow(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create table head* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | data[0].forEach(item => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** th = document.createElement(*"th"*); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | th.innerText = item; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | headerRow.appendChild(th); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | *// Create table body* |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | data.slice(1).forEach(rowData => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** row = tbody.insertRow(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | rowData.forEach(item => { |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | **const** cell = row.insertCell(); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | cell.innerText = item; |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | }); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | document.body.appendChild(table); |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '|   | createTable(data); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'The createTable() function takes an array of arrays as its argument and creates
+    an HTML table with the data. Here’s the output after applying some basic styling:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/generating_html_table_v1.png](images/generating_html_table_v1.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Discussion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We begin by creating an HTML table element using the createElement() method.
+    We then create three more elements: a thead element (to hold the table header
+    row), a tbody element (to hold the table body rows), and a row element (to hold
+    the thead data).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this recipe, we assume that the column headers for the table are contained
+    in the first sub-array of the data array. So, we loop through each item in the
+    first sub-array, create a new th element using the createElement() method, set
+    the innerText property of the th element to the current item, and append the th
+    element to the previously created header row.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After creating the header row, we then loop through each sub-array of the data
+    array except the first one (in other words, all the rows of data except the header
+    row). We use the slice() method to set aside the first sub-array. For each row,
+    we create a new tr element within the tbody element and loop through each item
+    in the rowData, creating a new td element for each item, and setting its innerText
+    property to the current item.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Finally, we append the entire table element (including the header and body rows)
+    to the body of the HTML document using the appendChild() method. Make sure to
+    modify this line to append the data to the element you want.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you have data in an array that you want to display in a tabular format on
+    a web page, converting it to an HTML table can make it easier for users to read
+    and understand.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,272 @@
+- en: Anagram Generation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To top off our conversation, let’s tackle our most complex recursive problem
+    yet. We’re going to use everything we’ve got in our recursion toolbox to make
+    this work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We’re going to write a function that returns an array of all anagrams of a
+    given string. An anagram is a reordering of all the characters within a string.
+    For example, these are the anagrams of "abc":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ["abc", |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | "acb", |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | "bac", |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | "bca", |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | "cab", |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | "cba"] |'
+  prefs: []
+  type: TYPE_TB
+- en: Now, let’s say we were to collect all the anagrams of the string "abcd". Let’s
+    apply our top-down mindset to this problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Presumably, we could say that the subproblem of "abcd" is "abc". The question
+    then is this: if we had a working anagrams function that returned all the anagrams
+    of "abc", how can we use them to produce all the anagrams of "abcd"? Think about
+    this for a bit and see if you can come up with any approaches.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here’s the approach that occurred to me. (There are others, though.)
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If we had all six anagrams of "abc", we can come up with every permutation
+    of "abcd" if we stick the "d" in every possible spot within each anagram of "abc":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/learning_to_write_in_recursive/d_anagram_placement.png](images/learning_to_write_in_recursive/d_anagram_placement.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'Here is a JavaScript implementation of this algorithm. You’ll note that it’s
+    certainly more involved than the previous examples in this chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**function**​ anagramsOf(string) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**if**​ (string.length === 1) { ​**return**​ [string[0]]; } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ collection = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ substringAnagrams = anagramsOf(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**const**​ substringAnagram ​**of**​ substringAnagrams)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**for**​ (​**let**​ index = 0; index <= substringAnagram.length; index
+    += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ newString = (substringAnagram.slice(0, index) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + string[0] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + substringAnagram.slice(index)); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | collection.push(newString); |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**return**​ collection; |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | } |'
+  prefs: []
+  type: TYPE_TB
+- en: This code is not trivial, so let’s break it down. For now, we’ll skip over the
+    base case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We start by creating an empty array in which we’ll collect the entire collection
+    of anagrams:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ collection = []; |'
+  prefs: []
+  type: TYPE_TB
+- en: This is the same array we’ll return at the end of our function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Next, we grab the array of all anagrams from the substring of our string. This
+    substring is the subproblem string—namely, from the second character until the
+    end. For example, if the string is "hello", the substring is "ello":'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**const**​ substringAnagrams = anagramsOf(string.slice(1)); |'
+  prefs: []
+  type: TYPE_TB
+- en: Note how we use the top-down mentality to assume that the anagramsOf function
+    already works on the substring.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We then iterate over each of the substringAnagrams:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**const**​ substringAnagram ​**of**​ substringAnagrams)
+    { |'
+  prefs: []
+  type: TYPE_TB
+- en: Before moving on, it’s worth noting at this point that we are using a combination
+    of loops and recursion together. Using recursion doesn’t mean that you have to
+    eliminate loops from your code altogether! We’re using each tool in the way that
+    most naturally helps us solve the problem at hand.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'For each substring anagram, we iterate over each of its indexes—plus an extra
+    index at the end. For each index, we create a brand-new string (called newString)
+    and fill it with the substring anagram plus the first character of our current
+    string inserted at the current index:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​**for**​ (​**let**​ index = 0; index <= substringAnagram.length; index
+    += 1) { |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​**const**​ newString = (substringAnagram.slice(0, index) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + string[0] |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | + substringAnagram.slice(index)); |'
+  prefs: []
+  type: TYPE_TB
+- en: 'For example, if the string is "abcd" and the substring anagram is "bcd", we
+    iterate over each index (plus an extra index at the end), which comes out to 0
+    through 3, and create the following new strings:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | ​*"abcd"*​ ​*// inserted ''a'' at index 0*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"bacd"*​ ​*// inserted ''a'' at index 1*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"bcad"*​ ​*// inserted ''a'' at index 2*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | ​*"bcda"*​ ​*// inserted ''a'' at index 3*​ |'
+  prefs: []
+  type: TYPE_TB
+- en: Really, the substring anagram "bcd" doesn’t have an index 3, but we iterate
+    through index 3 so we can insert the "a" at the very end of the substring anagram.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Each newString represents a new anagram, so we add it to our collection:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | collection.push(newString); |'
+  prefs: []
+  type: TYPE_TB
+- en: When we’re done, we return the collection of anagrams.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The base case is where the substring contains only one character, in which case
+    there’s only one anagram—the character itself!
+  prefs: []
+  type: TYPE_NORMAL
+- en: The Efficiency of Anagram Generation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As an aside, let’s stop for a moment to analyze the efficiency of our anagram-generating
+    algorithm, since we’ll discover something interesting. In fact, the time complexity
+    of generating anagrams is a new category of Big O that we haven’t encountered
+    before.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we think about how many anagrams we generate, we’ll notice an interesting
+    pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For a string containing three characters, we create permutations that start
+    with each of the three characters. Each permutation then picks its middle character
+    from one of the two remaining characters, and its last character from the last
+    character that’s left. This is 3 * 2 * 1, which is six permutations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Looking at this for other string lengths, we get:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ​  | 4 characters: 4 * 3 * 2 * 1 anagrams |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 5 characters: 5 * 4 * 3 * 2 * 1 anagrams |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ​  | 6 characters: 6 * 5 * 4 * 3 * 2 * 1 anagrams |'
+  prefs: []
+  type: TYPE_TB
+- en: Do you recognize this pattern? It’s a factorial!
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if the string has six characters, the number of anagrams is whatever the
+    factorial of 6 is. This is 6 * 5 * 4 * 3 * 2 * 1, which computes to 720.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The mathematical symbol for factorial is the exclamation point. So, factorial
+    6 is expressed as 6!, and the factorial of 10 is expressed as 10!.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Remember that Big O expresses the answer to the key question: if there are
+    N data elements, how many steps will the algorithm take? In our case, N would
+    be the length of the string.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For a string of length N, we produce N! anagrams. In Big O notation then, this
+    is expressed as O(N!). This is also known as factorial time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: O(N!) is the slowest category of Big O we’ll encounter in this book. Let’s see
+    how it looks compared to other “slow” Big O categories as shown in the [graph](#fig.ch11.big_o_factorial_graph).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![images/learning_to_write_in_recursive/big_o_factorial_graph.png](images/learning_to_write_in_recursive/big_o_factorial_graph.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Although O(N!) is extremely slow, we don’t have a better option here, since
+    our task is to generate all the anagrams, and there simply are N! anagrams for
+    an N-character word.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In any case, recursion played a pivotal role in this algorithm, which is an
+    important example of how recursion can be used to solve a complex problem.
+  prefs: []
+  type: TYPE_NORMAL
