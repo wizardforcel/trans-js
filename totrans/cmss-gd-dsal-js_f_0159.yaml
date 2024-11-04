@@ -1,125 +1,185 @@
 - en: Heap Deletion
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: The first thing to know about deleting a value from a heap is that we only ever
     delete the root node. This is right in line with the way a priority queue works,
     in that we only access and remove the highest-priority item.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The algorithm for deleting the root node of a heap is as follows:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Move the last node into where the root node was, effectively removing the original
     root node.
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Trickle the root node down into its proper place. I’ll explain how trickling
     down works shortly.
+  id: totrans-4
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s say we’re going to remove the root node from the [heap](#fig.ch16.foundational_heap).
+- en: Let’s say we’re going to remove the root node from the [`heap`](#fig.ch16.foundational_heap).
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/foundational_heap.png](images/heaps/foundational_heap.png)'
+- en: '![`images/heaps/foundational_heap.png`](images/heaps/foundational_heap.png)'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'In this example, the root node is the 100\. To delete it, we overwrite the
+- en: 'In this example, the root node is the `100`。To delete it, we overwrite the
     root by placing the last node there instead. In this case, the last node is the
-    3\. So we move the 3 and place it where the 100 was:'
+    `3`。So we move the `3` and place it where the `100` was:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/move_3_to_root.png](images/heaps/move_3_to_root.png)'
+- en: '![`images/heaps/move_3_to_root.png`](images/heaps/move_3_to_root.png)'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Now, we can’t leave the heap as is, because the heap condition has been violated
-    since the 3 is currently less than some (actually, most) of its descendants. To
-    make things right again, we need to trickle the 3 down until its heap condition
+    since the `3` is currently less than some (actually, most) of its descendants.
+    To make things right again, we need to trickle the `3` down until its heap condition
     has been restored.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Trickling down is a tad more complex than trickling up since each time we trickle
     a node down, we have two possible directions as to where we’ll trickle it down;
     that is, we can either swap it with its left child or its right child. (When trickling
     up, on the other hand, each node has only one parent to swap with.)
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here’s the algorithm for trickling down. For the sake of clarity, we’re going
     to call the node we’re trickling the “trickle node.” (Sounds gross, I know.)
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We check both children of the trickle node and see which one is larger.
+  id: totrans-12
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: If the trickle node is smaller than the larger of the two child nodes, we swap
     the trickle node with that larger child.
+  id: totrans-13
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: We repeat Steps 1 and 2 until the trickle node has no children who are greater
     than it.
+  id: totrans-14
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s see this in action.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 1: The 3, which is the trickle node, currently has two children, the 88
-    and the 25\. The 88 is larger of the two, and since the 3 is smaller than the
-    88, we swap the trickle node with the 88:'
+- en: 'Step 1: The `3`，which is the trickle node, currently has two children, the
+    `88` and the `25`。The `88` is larger of the two, and since the `3` is smaller
+    than the `88`，we swap the trickle node with the `88`：'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/swap_3_with_88.png](images/heaps/swap_3_with_88.png)'
+- en: '![`images/heaps/swap_3_with_88.png`](images/heaps/swap_3_with_88.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 2: The trickle node now has two new children, the 87 and the 16\. The
-    87 is the larger one, and it’s greater than the trickle node. So we swap the trickle
-    node with the 87:'
+- en: 'Step 2: The trickle node now has two new children, the `87` and the `16`。The
+    `87` is the larger one, and it’s greater than the trickle node. So we swap the
+    trickle node with the `87`：'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/swap_3_with_87.png](images/heaps/swap_3_with_87.png)'
+- en: '![`images/heaps/swap_3_with_87.png`](images/heaps/swap_3_with_87.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 3: The trickle node’s children are currently the 86 and the 50\. The 86
-    is the larger of the two, and it’s also greater than the trickle node, so we swap
-    the 86 with the trickle node:'
+- en: 'Step 3: The trickle node’s children are currently the `86` and the `50`。The
+    `86` is the larger of the two, and it’s also greater than the trickle node, so
+    we swap the `86` with the trickle node:'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/swap_3_with_86.png](images/heaps/swap_3_with_86.png)'
+- en: '![`images/heaps/swap_3_with_86.png`](images/heaps/swap_3_with_86.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: At this point, the trickle node has no children that are greater than it. (In
-    fact, it has no children at all.) So we’re done, as the heap condition has been
-    restored.
+- en: At this point, the `trickle node` has no children that are greater than it.
+    (In fact, it has no children at all.) So we’re done, as the heap condition has
+    been restored.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The reason why we always swap the trickle node with the greater of its two children
-    is because if we swap it the with the smaller one, we’d end up violating the heap
+    is because if we swap it with the smaller one, we’d end up violating the heap
     condition immediately. Watch what happens when we try to swap the trickle node
     with a smaller child.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s start again with the trickle node of 3 as our root:'
+- en: 'Let’s start again with the trickle node of `3` as our root:'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/move_3_to_root.png](images/heaps/move_3_to_root.png)'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Let’s swap the 3 with the 25, which is the smaller of the children:'
+- en: 'Let’s swap the `3` with the `25`，which is the smaller of the children:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/swap_3_with_25.png](images/heaps/swap_3_with_25.png)'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We’ve now placed the 25 in a situation where it is a parent of the 88\. Since
-    the 88 is greater than its parent, the heap condition has been broken.
+- en: We’ve now placed the `25` in a situation where it is a parent of the `88`。Since
+    the `88` is greater than its parent, the heap condition has been broken.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Like insertion, the time complexity of deletion from a heap is O(log N), as
-    we have to trickle a node from the root down through all log(N) levels of the
+- en: Like insertion, the time complexity of deletion from a heap is `O(log N)`，as
+    we have to trickle a node from the root down through all `log(N)` levels of the
     heap.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

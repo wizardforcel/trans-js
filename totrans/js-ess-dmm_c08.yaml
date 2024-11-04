@@ -1,492 +1,654 @@
-- en: Chapter 8
+- en: '`Chapter 8`'
+  id: totrans-0
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Coding Strings and Dates
+- en: '`Coding Strings and Dates`'
+  id: totrans-1
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: IN THIS CHAPTER
+- en: '`IN THIS CHAPTER`'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![Bullet](images/check.png) **Stringing together strings**'
+- en: '![Bullet](images/check.png) `Stringing together strings`'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![Bullet](images/check.png) **Dealing with dates**'
+- en: '![Bullet](images/check.png) `Dealing with dates`'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![Bullet](images/check.png) **Tinkering with times**'
+- en: '![Bullet](images/check.png) `Tinkering with times`'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Although your JavaScript code will spend much of its time dealing with web
-    page knickknacks such as HTML tags and CSS properties, it will also perform lots
-    of behind-the-scenes chores that require manipulating strings and dealing with
-    dates and times. To help you through these tasks, in this chapter you explore
-    two of JavaScript’s built-in objects: the `String` object and the `Date` object.
-    You investigate the most important properties of each object and master the most
-    used methods.  ## Manipulating Strings'
+- en: 尽管你的JavaScript代码在处理网页小玩意（如HTML标签和CSS属性）时会花费大量时间，但它还会执行许多后台工作，这些工作需要操作字符串以及处理日期和时间。为了帮助你完成这些任务，在本章中你将探讨JavaScript的两个内置对象：`String`对象和`Date`对象。你将研究每个对象最重要的属性并掌握最常用的方法。##
+    `Manipulating Strings`
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: I’ve used dozens of examples of strings so far in this book. These include not
-    only string literals (such as `"JavaScript Essentials For Dummies"`) but also
-    methods that return strings (such as the `prompt()` method). So, it should be
-    clear by now that strings play a major role in all JavaScript programming, and
-    it will be a rare script that doesn’t have to deal with strings in some fashion.
+- en: 到目前为止，我在这本书中使用了数十个字符串的示例。这些示例不仅包括字符串字面量（例如`"JavaScript Essentials For Dummies"`），还包括返回字符串的方法（例如`prompt()`方法）。因此，现在应该清楚，字符串在所有JavaScript编程中扮演着重要角色，几乎没有脚本不以某种方式处理字符串。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For this reason, it pays to become proficient at manipulating strings, which
-    includes locating text within a string and extracting text from a string. You’ll
-    find out about all that and more in this section.
+- en: 出于这个原因，掌握字符串的操作是值得的，包括在字符串中定位文本和从字符串中提取文本。你将在本节中了解到这些内容及更多信息。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Any string you work with — whether it’s a string literal or the result of a
-    method or function that returns a string — is a `String` object. So, for example,
-    the following two statements are equivalent:'
+- en: 你处理的任何字符串——无论是字符串字面量还是返回字符串的方法或函数的结果——都是一个`String`对象。因此，例如，以下两个语句是等效的：
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`const bookName = new String("JavaScript Essentials For Dummies"); const bookName
     = "JavaScript Essentials For Dummies";`'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This means that you have quite a bit of flexibility when applying the properties
-    and methods of `String` objects. For example, the `String` object has a `length`
-    property that I describe in the next section. The following are all legal JavaScript
-    expressions that use this property:'
+- en: 这意味着在应用`String`对象的属性和方法时，你有相当大的灵活性。例如，`String`对象有一个`length`属性，我将在下一节中描述。以下都是使用该属性的合法JavaScript表达式：
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`bookName.length; "JavaScript Essentials For Dummies".length; prompt("Enter
     the book name:").length; myFunction().length;`'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The last example assumes that `myFunction()` returns a string value.
+- en: 最后一个示例假设`myFunction()`返回一个字符串值。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '### Working with string templates'
+- en: '### `Working with string templates`'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Before diving in to the properties and methods of the `String` object, take
-    a second to examine a special type of string that’s designed to solve three string-related
-    problems that will come up again and again in your coding career:'
+- en: 在深入了解`String`对象的属性和方法之前，花点时间来审视一种特殊类型的字符串，它旨在解决你编程生涯中会反复遇到的三个与字符串相关的问题：
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Handling internal quotation marks:** String literals are surrounded by quotation
-    marks, but what do you do when you need the same type of quotation mark inside
-    the string?'
+- en: '`Handling internal quotation marks:` 字符串字面量用引号括起来，但当你需要在字符串内部使用相同类型的引号时，该怎么办？'
+  id: totrans-16
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'One solution is to use a different type of quotation mark to delimit the string.
-    For example, this is illegal:'
+- en: 一种解决方案是使用不同类型的引号来定界字符串。例如，这样是非法的：
+  id: totrans-17
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '`''There''s got to be some better way to do this.''`'
+  id: totrans-18
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'But this is fine:'
+- en: 但这样是可以的：
+  id: totrans-19
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '`"There''s got to be some better way to do this."`'
+  id: totrans-20
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'A second solution is to escape the internal quotation mark with a slash, like
-    so:'
+- en: 第二种解决方案是用斜杠转义内部引号，如下所示：
+  id: totrans-21
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '`''There\''s got to be some better way to do this.''`'
+  id: totrans-22
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: These solutions work fine, but *remembering* to use them is harder than you
-    may think!
+- en: 这些解决方案效果良好，但`remembering`使用它们比你想象的要困难！
+  id: totrans-23
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Incorporating variable values:** When you need to use the value of a variable
-    inside a string, you usually end up with something ungainly, such as the following:
-    `const adjective = "better"; const lament = "There''s got to be some " + adjective
-    + " way to do this.";`'
+- en: '`Incorporating variable values:` 当你需要在字符串中使用变量的值时，通常会得到一些笨拙的表达式，例如：`const adjective
+    = "better"; const lament = "There''s got to be some " + adjective + " way to do
+    this.";`'
+  id: totrans-24
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Multiline strings:** It’s occasionally useful to define a string using multiple
-    lines. However, if you try the following, you’ll get a `string literal contains
-    an unescaped line break` error: `const myHeader = '' <nav class="banner"> <h3
-    class="nav-heading">Navigation</h3> <ul class="nav-links"> <li>Home</li> <li>Away</li>
-    <li>In Between</li> </ul> </nav>''`'
+- en: '`Multiline strings:` 它有时用于定义使用多行的字符串。然而，如果你尝试以下操作，你会得到一个 `string literal contains
+    an unescaped line break` 错误：`const myHeader = ''<nav class="banner"> <h3 class="nav-heading">Navigation</h3>
+    <ul class="nav-links"> <li>Home</li> <li>Away</li> <li>In Between</li> </ul> </nav>''`'
+  id: totrans-25
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'You can solve all three problems by using a *string template* (also called
-    a *template literal*), which is a kind of string literal where the delimiting
-    quotation marks are replaced by back ticks (`` ` ``):'
+- en: 你可以通过使用一个`string template`（也称为`template literal`）来解决所有三个问题，这是一种字符串字面量，其中分隔的引号被反引号（``
+    ` ``）替换：
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`` `*Your string goes here*` ``'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![Remember](images/remember.png) String templates were introduced as part of
-    ECMAScript 2015 (ES6), so use them only if you don’t need to support ancient web
-    browsers such as Internet Explorer 11.'
+- en: '![Remember](images/remember.png) 字符串模板是在 ECMAScript 2015 (ES6) 中引入的，因此仅在不需要支持古老的网页浏览器（如
+    Internet Explorer 11）时使用它们。'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s how you can use a string template to solve each of the three problems
-    just described:'
+- en: 这是你如何使用字符串模板来解决刚刚描述的三个问题：
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Handling internal quotation marks:** You’re free to plop any number of single
-    or double quotation marks inside a string template: `` `Ah, here''s the better
-    way to do this!` ``'
+- en: '`Handling internal quotation marks:` 你可以在字符串模板中放置任意数量的单引号或双引号： `` `Ah, here''s
+    the better way to do this!` ``'
+  id: totrans-30
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Incorporating variable values:** String templates support something called
-    *variable interpolation,* which is a technique for referencing a variable value
-    directly within a string. Here’s an example: ``const adjective = "better"; const
-    paean = `Ah, here''s the ${adjective} way to do this!`;``'
+- en: '`Incorporating variable values:` 字符串模板支持一种叫做`variable interpolation`的技术，可以直接在字符串中引用变量值。以下是一个例子：
+    ``const adjective = "better"; const paean = `Ah, here''s the ${adjective} way
+    to do this!`;``'
+  id: totrans-31
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Within any string template, using `${*variable*}` inserts the value of *`variable`*,
-    no questions asked. Actually, you don’t have to stick to just variables. String
-    templates can also interpolate any JavaScript expression, including function results.
+- en: 在任何字符串模板中，使用`${*variable*}`会插入`*variable*`的值，毫无疑问。实际上，你不必仅限于变量。字符串模板还可以插入任何JavaScript表达式，包括函数结果。
+  id: totrans-32
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Multiline strings:** String templates are happy to work error free with strings
-    that are spread over multiple lines: `` const myHeader = ` <nav class="banner">
+- en: '`Multiline strings:` 字符串模板乐于与跨越多行的字符串无误地工作： `` const myHeader = `<nav class="banner">
     <h3 class="nav-heading">Navigation</h3> <ul class="nav-links"> <li>Home</li> <li>Away</li>
     <li>In Between</li> </ul> </nav>` ``  ### Determining the length of a string'
+  id: totrans-33
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The most basic property of a `String` object is its `length`, which tells you
-    how many characters are in the string:'
+- en: '`String`对象最基本的属性是它的`length`，它告诉你字符串中有多少个字符：'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`*string*.length`'
+- en: '`` *string*.length ``'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: All characters within the string — including spaces and punctuation marks —
-    are counted toward the length. The only exceptions are escape sequences (such
-    as `\n`), which always count as one character. The following code grabs the length
-    property value for various `String` object types.
+- en: 字符串中的所有字符——包括空格和标点符号——都算作长度。唯一的例外是转义序列（如`\n`），它们始终算作一个字符。以下代码获取各种`String`对象类型的长度属性值。
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`function myFunction() { return "filename.htm"; } const bookName = "JavaScript
-    Essentials For Dummies";  length1 = myFunction().length; // Returns 12 length2
+    Essentials For Dummies"; length1 = myFunction().length; // Returns 12 length2
     = bookName.length; // Returns 37 length3 = "123\n5678".length; // Returns 8`'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'What the `String` object lacks in properties, it more than makes up for in
     methods. There are dozens, and they enable your code to perform many useful tasks,
     from converting between uppercase and lowercase letters, to finding text within
     a string, to extracting parts of a string.  ### Searching for substrings'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A *substring* is a portion of an existing string. For example, some substrings
-    of the string `"JavaScript"` would be `"Java"`, `"Script"`, `"vaSc"`, and `"v"`.
-    When working with strings in your scripts, you’ll often have to determine whether
-    a given string contains a given substring. For example, if you’re validating a
-    user’s email address, you should check that it contains an @ symbol.
+- en: A `substring` is a portion of an existing string. For example, some substrings
+    of the string `"JavaScript"` would be `"Java"`，`"Script"`，`"vaSc"`，and `"v"`。When
+    working with strings in your scripts, you’ll often have to determine whether a
+    given string contains a given substring. For example, if you’re validating a user’s
+    email address, you should check that it contains an `@` symbol.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[Table 8-1](#c08-tbl-0001) lists the several `String` object methods that find
     substrings within a larger string.'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[TABLE 8-1](#rc08-tbl-0001) String Object Methods for Searching for Substrings'
+- en: '[TABLE 8-1](#rc08-tbl-0001) `String` Object Methods for Searching for Substrings'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| **Method** | **What It Does** |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string*.endsWith(*substring*, *start*)` | Tests whether *`substring`* appears
-    at the end of *`string`* |'
+- en: '| `string.endsWith(substring, start)` | Tests whether `substring` appears at
+    the end of `string` |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string*.includes(*substring, start*)` | Tests whether *`substring`* appears
-    in *`string`* |'
+- en: '| `string.includes(substring, start)` | Tests whether `substring` appears in
+    `string` |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string*.indexOf(*substring, start*)` | Searches *`string`* for the first
-    instance of *`substring`* |'
+- en: '| `string.indexOf(substring, start)` | Searches `string` for the first instance
+    of `substring` |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string*.lastIndexOf(*substring*, *start*)` | Searches *`string`* for the
-    last instance of *`substring`* |'
+- en: '| `string.lastIndexOf(substring, start)` | Searches `string` for the last instance
+    of `substring` |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`string.startsWith(substring, start)`* | Tests whether *`substring`* appears
-    at the beginning of *`string`* |  ### Learning the methods that extract substrings'
+- en: '| `string.startsWith(substring, start)` | Tests whether `substring` appears
+    at the beginning of `string` |  ### Learning the methods that extract substrings'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Finding a substring is one thing, but you’ll often have to extract a substring,
     as well. For example, if the user enters an email address, you may need to extract
-    just the username (the part to the left of the @ sign) or the domain name (the
-    part to the right of @). For these kinds of operations, JavaScript offers six
+    just the username (the part to the left of the `@` sign) or the domain name (the
+    part to the right of `@`)。For these kinds of operations, JavaScript offers six
     methods, listed in [Table 8-2](#c08-tbl-0002).
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[TABLE 8-2](#rc08-tbl-0002) String Object Methods for Extracting Substrings'
+- en: '[TABLE 8-2](#rc08-tbl-0002) `String` Object Methods for Extracting Substrings'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| **Method** | **What It Does** |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string.*charAt(*index*)` | Returns the character in *`string`* that’s at
-    the index position specified by *`index`* |'
+- en: '| `string.charAt(index)` | Returns the character in `string` that’s at the
+    index position specified by `index` |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `string.charCodeAt(*index*)` | Returns the code of the character in *`string`*
-    that’s at the index position specified by *`index`* |'
+- en: '| `string.charCodeAt(index)` | Returns the code of the character in `string`
+    that’s at the index position specified by `index` |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `string.slice(*start*, *end*)` | Returns the substring in *`string`* that
-    starts at the index position specified by *`start`* and ends immediately before
-    the index position specified by *`end`* |'
+- en: '| `string.slice(start, end)` | Returns the substring in `string` that starts
+    at the index position specified by `start` and ends immediately before the index
+    position specified by `end` |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `string.split(*separator*, *limit*)` | Returns an array where each item is
-    a substring in *`string`,* where those substrings are separated by the *`separator`*
+- en: '| `string.split(separator, limit)` | Returns an array where each item is a
+    substring in `string`，where those substrings are separated by the `separator`
     character |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `string.substr(*start*, *length*)` | Returns the substring in *`string`*
-    that starts at the index position specified by *`start`* and is *`length`* characters
-    long |'
+- en: '| `string.substr(start, length)` | Returns the substring in `string` that starts
+    at the index position specified by `start` and is `length` characters long |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*string.*substring(start*,* end)` | Returns the substring in *`string`*
-    that starts at the index position specified by *`start`* and ends immediately
-    before the index position specified by *`end`* |  ## Dealing with Dates and Times'
+- en: '| `string.substring(start, end)` | Returns the substring in `string` that starts
+    at the index position specified by `start` and ends immediately before the index
+    position specified by `end` |  ## Dealing with Dates and Times'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Dates and times seem like the kind of things that ought to be straightforward
     programming propositions. After all, there are only 12 months in a year, 28 to
     31 days in a month, seven days in a week, 24 hours in a day, 60 minutes in an
     hour, and 60 seconds in a minute. Surely something so set in stone couldn’t get
     even the least bit weird, could it?
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'You’d be surprised. Dates and times *can* get strange, but they get much easier
+- en: 'You’d be surprised. Dates and times `can` get strange, but they get much easier
     to deal with if you always keep three crucial points in mind:'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: JavaScript time is measured in milliseconds, or thousandths of a second. More
     specifically, JavaScript measures time by counting the number of milliseconds
     that elapsed between January 1, 1970 and the date and time in question. So, for
-    example, *you* might come across the date January 1, 2001, and think, “Ah, yes,
-    the start of the new millennium.” *JavaScript,* however, comes across that date
-    and thinks “978220800000.”
+    example, `you` might come across the date January 1, 2001, and think, “Ah, yes,
+    the start of the new millennium.” `JavaScript`, however, comes across that date
+    and thinks `978220800000`.
+  id: totrans-61
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: In the JavaScript world, time began on January 1, 1970, at midnight Greenwich
-    Mean Time. Dates before that have *negative* values in milliseconds.
+    Mean Time. Dates before that have `negative` values in milliseconds.
+  id: totrans-62
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Because your JavaScript programs run inside a user’s browser, dates and times
-    are almost always the user’s *local* dates and times. That is, the dates and times
-    your scripts will manipulate will *not* be those of the server on which your page
+    are almost always the user’s `local` dates and times. That is, the dates and times
+    your scripts will manipulate will `not` be those of the server on which your page
     resides. This means that you can never know what time the user is viewing your
     page.
+  id: totrans-63
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: '### Learning the arguments used with the Date object'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Before getting to the nitty-gritty of the `Date` object and its associated methods,
     I’ll take a second to run through the various arguments that JavaScript requires
     for many date-related features. This will save me from repeating these arguments
     tediously later on. [Table 8-3](#c08-tbl-0003) has the details.
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[TABLE 8-3](#rc08-tbl-0003) Arguments Associated with the Date Object'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| **Argument** | **What It Represents** | **Possible Values** |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`date`* | A variable name | A `Date` object |'
+- en: '| `date` | A variable name | A `Date` object |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`yyyy`* | The year | Four-digit integers |'
+- en: '| `yyyy` | The year | Four-digit integers |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`yy`* | The year | Two-digit integers |'
+- en: '| `yy` | The year | Two-digit integers |'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`month`* | The month | The full month name from `"January"` to `"December"`
+- en: '| `month` | The month | The full month name from `"January"` to `"December"`
     |'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`mth`* | The month | Integers from 0 (January) to 11 (December) |'
+- en: '| `mth` | The month | Integers from 0 (January) to 11 (December) |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`dd`* | The day of the month | Integers from 1 to 31 |'
+- en: '| `dd` | The day of the month | Integers from 1 to 31 |'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`hh`* | The hour of the day | Integers from 0 (midnight) to 23 (11:00 PM)
+- en: '| `hh` | The hour of the day | Integers from 0 (midnight) to 23 (11:00 PM)
     |'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`mm`* | The minute of the hour | Integers from 0 to 59 |'
+- en: '| `mm` | The minute of the hour | Integers from 0 to 59 |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`ss`* | The second of the minute | Integers from 0 to 59 |'
+- en: '| `ss` | The second of the minute | Integers from 0 to 59 |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| *`ms`* | The milliseconds of the second | Integers from 0 to 999 |  ### Getting
+- en: '| `ms` | The milliseconds of the second | Integers from 0 to 999 |  ### Getting
     to know the Date object'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Whenever you work with dates and times in JavaScript, you work with an instance
-    of the `Date` object. More to the point, when you deal with a `Date` object in
-    JavaScript, you deal with a specific moment in time, down to the millisecond.
-    A `Date` object can never be a block of time, and it’s not a kind of clock that
-    ticks along while your script runs. Instead, the `Date` object is a temporal snapshot
-    that you use to extract the specifics of the time it was taken: the year, month,
-    date, hour, and so on.'
+- en: 每当你在JavaScript中处理日期和时间时，你都在处理一个`Date`对象的实例。更准确地说，当你在JavaScript中处理`Date`对象时，你是在处理一个特定的时间点，精确到毫秒。`Date`对象绝不会是一个时间段，也不是一个在脚本运行时一直走的时钟。相反，`Date`对象是一个时间的快照，你可以用来提取它所记录的时间的具体信息：年份、月份、日期、小时等等。
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '#### Specifying the current date and time'
+- en: '#### 指定当前的日期和时间'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The most common use of the `Date` object is to store the current date and time.
-    You do that by invoking the `Date()` function, which is the constructor function
-    for creating a new `Date` object. Here’s the general format:'
+- en: '`Date`对象最常见的用途是存储当前的日期和时间。你可以通过调用`Date()`函数来实现，这个函数是创建新的`Date`对象的构造函数。以下是一般格式：'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`const dateToday = new Date();`  #### Specifying any date and time'
+- en: '`const dateToday = new Date();`  #### 指定任何日期和时间'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If you need to work with a specific date or time, you need to use the `Date()`
-    function’s arguments. There are five versions of the `Date()` function syntax
-    (refer to the list of arguments near the beginning of this chapter):'
+- en: 如果你需要处理特定的日期或时间，需要使用`Date()`函数的参数。`Date()`函数语法有五种版本（请参考本章开头的参数列表）：
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '`const *date* = new Date("*month dd*, *yyyy hh*:*mm*:*ss*"); const *date* =
-    new Date("*month dd*, *yyyy*"); const *date* = new Date(*yyyy*, *mth*, *dd*, *hh*,
-    *mm*, *ss*); const *date* = new Date(*yyyy*, *mth*, *dd*); const *date* = new
-    Date(*ms*);`'
+- en: '`const date = new Date("month dd, yyyy hh:mm:ss"); const date = new Date("month
+    dd, yyyy"); const date = new Date(yyyy, mth, dd, hh, mm, ss); const date = new
+    Date(yyyy, mth, dd); const date = new Date(ms);`'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following statements give you an example for each syntax:'
+- en: 以下语句为每种语法提供了一个示例：
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '`const myDate = new Date("August 23, 2024 3:02:01"); const myDate = new Date("August
     23, 2024"); const myDate = new Date(2024, 8, 23, 3, 2, 1); const myDate = new
-    Date(2024, 8, 23); const myDate = new Date(1692763200000);`  ### Getting info
-    about a date'
+    Date(2024, 8, 23); const myDate = new Date(1692763200000);`  ### 获取日期信息'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When your script just coughs up whatever `Date` object value you stored in the
-    variable, the results aren’t particularly appealing. If you want to display dates
-    in a more attractive format, or if you want to perform arithmetic operations on
-    a date, you need to dig a little deeper into the `Date` object to extract specific
-    information such as the month, year, hour, and so on. You do that by using the
-    `Date` object methods listed in [Table 8-4](#c08-tbl-0004).
+- en: 当你的脚本简单地输出你存储在变量中的`Date`对象值时，结果并不是特别美观。如果你想以更吸引人的格式显示日期，或者想对日期进行算术运算，你需要深入挖掘`Date`对象，以提取特定信息，比如月份、年份、小时等。你可以使用在[表8-4](#c08-tbl-0004)中列出的`Date`对象方法来实现这一点。
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '[TABLE 8-4](#rc08-tbl-0004) Date Object Methods That Extract Date Values'
+- en: '[TABLE 8-4](#rc08-tbl-0004) `Date`对象方法，用于提取日期值'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| **Method Syntax** | **What It Returns** |'
+- en: '| `**Method Syntax**` | `**What It Returns**` |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getFullYear()` | The year as a four-digit number (1999, 2000, and
-    so on) |'
+- en: '| `date.getFullYear()` | 四位数的年份（1999, 2000，等等） |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getMonth()` | The month of the year; from 0 (January) to 11 (December)
-    |'
+- en: '| `date.getMonth()` | 这一年的月份；从0（1月）到11（12月） |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getDate()` | The date in the month; from 1 to 31 |'
+- en: '| `date.getDate()` | 月份中的日期；从1到31 |'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getDay()` | The day of the week; from 0 (Sunday) to 6 (Saturday)
-    |'
+- en: '| `date.getDay()` | 一周中的天；从0（星期天）到6（星期六） |'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getHours()` | The hour of the day; from 0 (midnight) to 23 (11:00
-    PM) |'
+- en: '| `date.getHours()` | 一天中的小时；从0（午夜）到23（11:00 PM） |'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getMinutes()` | The minute of the hour; from 0 to 59 |'
+- en: '| `date.getMinutes()` | 这一小时的分钟；从0到59 |'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getSeconds()` | The second of the minute; from 0 to 59 |'
+- en: '| `date.getSeconds()` | 这一分钟的秒；从0到59 |'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getMilliseconds()` | The milliseconds of the second; from 0 to 999
-    |'
+- en: '| `date.getMilliseconds()` | 这一秒的毫秒；从0到999 |'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.getTime()` | The milliseconds since January 1, 1970 GMT |  ### Setting
-    the date'
+- en: '| `date.getTime()` | 自1970年1月1日格林威治时间以来的毫秒数 |  ### 设置日期'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When you perform date arithmetic, you often have to change the value of an existing
-    `Date` object. For example, an e-commerce script may have to calculate a date
+    ``Date`` object. For example, an e-commerce script may have to calculate a date
     that is 90 days from the date that a sale occurs. It’s usually easiest to create
-    a `Date` object and then use an expression or literal value to change the year,
-    month, or some other component of the date. You do that by using the `Date` object
-    methods listed in [Table 8-5](#c08-tbl-0005).
+    a ``Date`` object and then use an expression or literal value to change the year,
+    month, or some other component of the date. You do that by using the ``Date``
+    object methods listed in [Table 8-5](#c08-tbl-0005).
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '[TABLE 8-5](#rc08-tbl-0005) Date Object Methods That Set Date Values'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| **Method Syntax** | **What It Sets** |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setFullYear(*yyyy*)` | The year as a four-digit number (1999, 2000,
+- en: '| ``date``.setFullYear(`yyyy`) | The year as a four-digit number (1999, 2000,
     and so on) |'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setMonth(*mth*)` | The month of the year; from 0 (January) to 11
+- en: '| ``date``.setMonth(`mth`) | The month of the year; from 0 (January) to 11
     (December) |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setDate(*dd*)` | The date in the month; from 1 to 31 |'
+- en: '| ``date``.setDate(`dd`) | The date in the month; from 1 to 31 |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setHours(*hh*)` | The hour of the day; from 0 (midnight) to 23 (11:00
+- en: '| ``date``.setHours(`hh`) | The hour of the day; from 0 (midnight) to 23 (11:00
     PM) |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setMinutes(*mm*)` | The minute of the hour; from 0 to 59 |'
+- en: '| ``date``.setMinutes(`mm`) | The minute of the hour; from 0 to 59 |'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setSeconds(*ss*)` | The second of the minute; from 0 to 59 |'
+- en: '| ``date``.setSeconds(`ss`) | The second of the minute; from 0 to 59 |'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setMilliseconds(*ms*)` | The milliseconds of the second; from 0 to
+- en: '| ``date``.setMilliseconds(`ms`) | The milliseconds of the second; from 0 to
     999 |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| `*date*.setTime(*ms*)` | The milliseconds since January 1, 1970 GMT |'
+- en: '| ``date``.setTime(`ms`) | The milliseconds since January 1, 1970 GMT |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB

@@ -1,237 +1,349 @@
 - en: The Efficiency of Graph Search
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s analyze the time complexity of graph search using Big O notation.
+- en: Let’s analyze the time complexity of graph search using `Big O` notation.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In both depth-first search and breadth-first search, we traverse all the vertices
-    in a worst-case scenario. The worst-case scenario may be that we’re intending
+- en: In both `depth-first search` and `breadth-first search`, we traverse all the
+    vertices in a worst-case scenario. The worst-case scenario may be that we’re intending
     to do a full-graph traversal, or we may be searching for a vertex that doesn’t
     exist in the graph. Or, the vertex we’re searching for may just happen to be the
     last vertex in the graph that we check.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In any case, we touch all vertices in the graph. At first glance, this would
-    seem to be O(N), with N being the number of vertices.
+    seem to be `O(N)` with `N` being the number of vertices.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, in both search algorithms, for each vertex we traverse, we also iterate
     over all of its adjacent vertices. We may ignore an adjacent vertex if it has
     already been visited, but we still spend a step checking that vertex to see whether
     we’ve visited it.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So for each vertex we visit, we also spend steps checking each of the vertex’s
-    adjacent neighbors. This would seem tough to peg down using Big O notation since
+    adjacent neighbors. This would seem tough to peg down using `Big O` notation since
     each vertex may have a different number of adjacent vertices.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s analyze a simple graph to make this clear:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/abcde_graph.png](images/graphs/abcde_graph.png)'
+- en: '`![images/graphs/abcde_graph.png](images/graphs/abcde_graph.png)`'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Here, Vertex A has four neighbors. By contrast, B, C, D, and E each have three
-    neighbors. Let’s count the number of steps it takes to search this graph.
+- en: Here, `Vertex A` has four neighbors. By contrast, `B`, `C`, `D`, and `E` each
+    have three neighbors. Let’s count the number of steps it takes to search this
+    graph.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: At the very least, we have to visit each of the five vertices. This alone takes
     five steps.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Then, for each vertex, we iterate over each of its neighbors.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This would add the following steps:'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'A: 4 steps to iterate over 4 neighbors'
+- en: '`A`: 4 steps to iterate over 4 neighbors'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'B: 3 steps to iterate over 3 neighbors'
+- en: '`B`: 3 steps to iterate over 3 neighbors'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'C: 3 steps to iterate over 3 neighbors'
+- en: '`C`: 3 steps to iterate over 3 neighbors'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'D: 3 steps to iterate over 3 neighbors'
+- en: '`D`: 3 steps to iterate over 3 neighbors'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'E: 3 steps to iterate over 3 neighbors'
+- en: '`E`: 3 steps to iterate over 3 neighbors'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This yields sixteen iterations.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So we have the visiting of the five vertices, plus sixteen iterations over adjacent
     neighbors. That’s a total of twenty-one steps.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'But here’s another graph with five vertices:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/vwxyz_graph.png](images/graphs/vwxyz_graph.png)'
+- en: '`![images/graphs/vwxyz_graph.png](images/graphs/vwxyz_graph.png)`'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'This graph has five vertices, but the count of iterations over adjacent neighbors
     is as follows:'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'V: 4 steps to iterate over 4 neighbors'
+- en: '`V`: 4 steps to iterate over 4 neighbors'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'W: 1 step to iterate over 1 neighbor'
+- en: '`W`: 1 step to iterate over 1 neighbor'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'X: 1 step to iterate over 1 neighbor'
+- en: '`X`: 1 step to iterate over 1 neighbor'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Y: 1 step to iterate over 1 neighbor'
+- en: '`Y`: 1 step to iterate over 1 neighbor'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Z: 1 step to iterate over 1 neighbor'
+- en: '`Z`: 1 step to iterate over 1 neighbor'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is a total of eight iterations.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We have the five vertices, plus eight iterations over adjacent neighbors. This
     is a total of thirteen steps.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So, we have two graphs, each containing five vertices. However, searching one
     takes twenty-one steps, while searching the other takes thirteen steps.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It emerges that we can’t just count how many vertices are in the graph. Instead,
     we also need to consider how many adjacent neighbors each vertex has.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To effectively describe the efficiency of graph search, then, we’re going to
     need to use two variables. We need one to represent the number of vertices in
     the graph and another to be the total number of adjacent neighbors each vertex
     has.
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: O(V + E)
+- en: '`O(V + E)`'
+  id: totrans-32
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Interestingly enough, Big O notation doesn’t use the variable N to describe
-    either of these things. Instead, it uses the variables V and E.
+- en: Interestingly enough, Big O notation doesn’t use the variable `N` to describe
+    either of these things. Instead, it uses the variables `V` and `E`.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The V is the easier one. V stands for vertex and represents the number of vertices
-    in the graph.
+- en: The `V` is the easier one. `V` stands for vertex and represents the number of
+    vertices in the graph.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: E, interestingly, stands for edge, meaning the number of edges in the graph.
+- en: '`E`，有趣的是，代表边，意味着图中边的数量。'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, computer scientists describe the efficiency of graph search as O(V + E).
-    This means that the number of steps is the number of vertices in the graph plus
-    the number of edges in the graph. Let’s see why this is the efficiency of graph
-    search, as it’s not immediately intuitive.
+- en: Now, computer scientists describe the efficiency of graph search as `O(V + E)`。这意味着步骤的数量是图中顶点的数量加上图中边的数量。让我们看看为什么这是图搜索的效率，因为这并不是立刻直观的。
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Specifically, if you look at our two earlier examples, you’ll notice that V
-    + E doesn’t seem to be accurate.
+- en: Specifically, if you look at our two earlier examples, you’ll notice that `V
+    + E` doesn’t seem to be accurate.
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the A-B-C-D-E graph, there are five vertices and eight edges. This would
+- en: In the `A-B-C-D-E` graph, there are five vertices and eight edges. This would
     be a total of thirteen steps. However, we noted that there’s actually a total
     of twenty-one steps.
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: And in the V-W-X-Y-Z graph, there are five vertices and four edges. O(V + E)
-    says that graph search would have nine steps. But we saw that there are actually
+- en: And in the `V-W-X-Y-Z` graph, there are five vertices and four edges. `O(V +
+    E)` says that graph search would have nine steps. But we saw that there are actually
     thirteen.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The reason for this discrepancy is that while O(V + E) only counts the number
+- en: The reason for this discrepancy is that while `O(V + E)` only counts the number
     of edges once, in reality graph search touches each edge more than once.
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the V-W-X-Y-Z graph, for example, there are only four edges. However, the
-    edge between V and W is used twice; that is, when V is the current vertex, we
-    find its adjacent neighbor W using that edge. But when W is the current vertex,
-    we find its adjacent vertex V using that same edge.
+- en: In the `V-W-X-Y-Z` graph, for example, there are only four edges. However, the
+    edge between `V` and `W` is used twice; that is, when `V` is the current vertex,
+    we find its adjacent neighbor `W` using that edge. But when `W` is the current
+    vertex, we find its adjacent vertex `V` using that same edge.
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'With this in mind, the most accurate way to describe the efficiency of graph
-    search in the V-W-X-Y-Z graph would be to count the five vertices plus the following:'
+    search in the `V-W-X-Y-Z` graph would be to count the five vertices plus the following:'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 2 * edge between V and W
+- en: '`2 * edge` between `V` and `W`'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 2 * edge between V and X
+- en: '`2 * edge` between `V` and `X`'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 2 * edge between V and Y
+- en: '`2 * edge` between `V` and `Y`'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 2 * edge between V and Z
+- en: '`2 * edge` between `V` and `Z`'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So this comes out to be V + 2E since we visit all the vertices once (that’s
-    the V) and use each edge twice (that’s the 2E).
+- en: So this comes out to be `V + 2E` since we visit all the vertices once (that’s
+    the `V`) and use each edge twice (that’s the `2E`).
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this example, V is 5, as we visit 5 vertices. And since we use each of the
-    four edges twice, 2E comes out to be 8\. This is how V + 2E gives us a total of
-    thirteen steps.
+- en: In this example, `V` is 5, as we visit 5 vertices. And since we use each of
+    the four edges twice, `2E` comes out to be 8。这是`V + 2E`给我们一个总共的十三步。
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The answer, though, to why we just call this O(V + E), is because Big O drops
-    the constants. While in reality the number of steps is V + 2E, we reduce this
-    to O(V + E).
+- en: The answer, though, to why we just call this `O(V + E)`，是因为Big O忽略了常数。虽然实际上步骤的数量是`V
+    + 2E`，我们将其简化为`O(V + E)`。
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So while O(V + E) is ultimately just an approximation, it’s good enough, as
+- en: So while `O(V + E)` is ultimately just an approximation, it’s good enough, as
     are all expressions of Big O.
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: What is definitely clear, though, is that increasing the number of edges will
-    increase the number of steps. After all, both the A-B-C-D-E and V-W-X-Y-Z graphs
-    have five vertices, but because the A-B-C-D-E graph has more edges, it takes considerably
-    more steps.
+    increase the number of steps. After all, both the `A-B-C-D-E` and `V-W-X-Y-Z`
+    graphs have five vertices, but because the `A-B-C-D-E` graph has more edges, it
+    takes considerably more steps.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: At the end of the day, graph search is O(V + E) in a worst-case scenario, where
-    the vertex we’re searching for is the last one we find (or isn’t present in the
-    graph at all). And this is true for both breadth-first search and depth-first
+- en: At the end of the day, graph search is `O(V + E)` in a worst-case scenario,
+    where the vertex we’re searching for is the last one we find (or isn’t present
+    in the graph at all). And this is true for both breadth-first search and depth-first
     search.
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, we saw earlier that depending on the shape of the graph and the data
-    we’re searching for, our choice of breadth-first versus depth-first can optimize
+    we’re searching for, our choice of `breadth-first` versus `depth-first` can optimize
     our search where we’d hope to find our vertex at some point before having to traverse
     the entire graph. The right method of search can help us increase the odds that
     we won’t end up in a worst-case scenario and that we’ll find the vertex early.
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the next section, you’re going to learn about a specific type of graph that
-    comes with its own set of search methods that can be used to solve some complex
+- en: In the next section, you’re going to learn about a specific type of `graph`
+    that comes with its own set of search methods that can be used to solve some complex
     but useful problems.
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Graph Databases
+- en: '`Graph Databases`'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because graphs are so efficient at working with data involving relationships
-    (such as friends in a social network), special graph databases are often used
+    (such as friends in a social network), special `graph` databases are often used
     to store this kind of data in real-world software applications. These databases
     use the concepts you’re learning about in this chapter, as well as other elements
-    of graph theory, to optimize efficiency of operations around this kind of data.
-    Indeed, many social networking applications are powered by graph databases under
+    of `graph theory`, to optimize efficiency of operations around this kind of data.
+    Indeed, many social networking applications are powered by `graph` databases under
     the hood.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Some examples of graph databases include Neo4j^([[7]](f_0188.xhtml#FOOTNOTE-7))
-    and ArangoDB.^([[8]](f_0188.xhtml#FOOTNOTE-8)) These websites are a good place
-    to start if you’re interested in learning more about how graph databases work.
+- en: Some examples of `graph` databases include `Neo4j`^([[7]](f_0188.xhtml#FOOTNOTE-7))
+    and `ArangoDB`^([[8]](f_0188.xhtml#FOOTNOTE-8)). These websites are a good place
+    to start if you’re interested in learning more about how `graph` databases work.
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

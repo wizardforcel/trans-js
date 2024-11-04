@@ -1,461 +1,689 @@
 - en: 'Top-Down Recursion: A New Way of Thinking'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This brings us to the central point of this chapter: recursion shines when
     implementing a top-down approach because going top-down offers a new mental strategy
     for tackling a problem. That is, a recursive top-down approach allows one to think
     about a problem in a completely different way.'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Specifically, when we go top-down, we get to mentally “kick the problem down
     the road.” We can free our mind from some of the nitty-gritty details we normally
     have to think about when going bottom-up.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To see what I mean, let’s take another look at the key line from our top-down
-    factorial implementation:'
+    `factorial` implementation:'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+- en: '| ​  | ​`return number * factorial(number - 1);` |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This line of code makes its calculation based on factorial(number - 1). When
-    we write this line of code, do we have to understand how the factorial function
+- en: This line of code makes its calculation based on `factorial(number - 1)`. When
+    we write this line of code, do we have to understand how the `factorial` function
     it’s calling works? Technically, we don’t. Whenever we write code that calls another
     function, we assume that the function will return the correct value without necessarily
     understanding how its internals work.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here as well, when we calculate our answer based on calling the factorial function,
-    we don’t need to understand how the factorial function works; we can just expect
-    it to return the correct result. Of course, the weird part is that we’re the ones
-    writing the factorial function! This line of code exists within the factorial
-    function itself. But that’s what is so great about top-down thinking: in a way,
-    we can solve the problem without even knowing how to solve the problem.'
+- en: 'Here as well, when we calculate our answer based on calling the `factorial`
+    function, we don’t need to understand how the `factorial` function works; we can
+    just expect it to return the correct result. Of course, the weird part is that
+    we’re the ones writing the `factorial` function! This line of code exists within
+    the `factorial` function itself. But that’s what is so great about top-down thinking:
+    in a way, we can solve the problem without even knowing how to solve the problem.'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When we write “in recursive” to implement a top-down strategy, we get to relax
     our brains a little. We can even choose to ignore the details of how the calculation
     actually works. We get to say, “Let’s just rely on the subproblem to deal with
     the details.”
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Top-Down Thought Process
+  id: totrans-8
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If you haven’t done a lot of top-down recursion before, it takes time and practice
     to learn to think in this way. I found that when tackling a top-down problem,
     it helps to think the following three thoughts:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Imagine that the function you’re writing has already been written by somebody
     else.
+  id: totrans-10
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Identify the subproblem of the problem.
+  id: totrans-11
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: See what happens when you call the function on the subproblem and go from there.
+  id: totrans-12
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: While these steps sound vague at the moment, they’ll become more clear through
     the following examples.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Array Sum
+  id: totrans-14
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Say we have to write a function called sum that sums up all the numbers in a
-    given array. For example, if we pass the array [1, 2, 3, 4, 5] into the function,
-    it’ll return 15, which is the sum of those numbers.
+- en: Say we have to write a function called `sum` that sums up all the numbers in
+    a given array. For example, if we pass the array `[1, 2, 3, 4, 5]` into the function,
+    it’ll return `15`, which is the sum of those numbers.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The first thing we’ll do is imagine that the sum function has already been implemented.
-    Admittedly, this takes a certain suspension of disbelief, since we know that we’re
-    in the middle of writing this function as we speak! But let’s try to let go and
-    pretend that the sum function already works.
+- en: The first thing we’ll do is imagine that the `sum` function has already been
+    implemented. Admittedly, this takes a certain suspension of disbelief, since we
+    know that we’re in the middle of writing this function as we speak! But let’s
+    try to let go and pretend that the `sum` function already works.
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, let’s identify the subproblem. This can be more of an art than a science,
     but practice will help you get better at it. In our case, we can say that the
-    subproblem is the array [2, 3, 4, 5]—that is, all the numbers from the array save
-    the first one.
+    subproblem is the array `[2, 3, 4, 5]`—that is, all the numbers from the array
+    save the first one.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Finally, let’s see what happens when we apply the sum function to our subproblem.
-    If the sum function “already works,” and the subproblem is [2, 3, 4, 5], what
-    happens when we call sum([2, 3, 4, 5])? Well, we get the sum of 2 + 3 + 4 + 5,
-    which is 14.
+- en: Finally, let’s see what happens when we apply the `sum` function to our subproblem.
+    If the `sum` function “already works,” and the subproblem is `[2, 3, 4, 5]`, what
+    happens when we call `sum([2, 3, 4, 5])`? Well, we get the sum of `2 + 3 + 4 +
+    5` which is `14`.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To solve our problem of finding the sum of [1, 2, 3, 4, 5] then, we can just
-    add the first number, 1, to the result of sum([2, 3, 4, 5]).
+- en: To solve our problem of finding the sum of `[1, 2, 3, 4, 5]` then, we can just
+    add the first number, `1`, to the result of `sum([2, 3, 4, 5])`.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In pseudocode, we’d write something like this:'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | return array[0] + sum(the remainder of the array) |'
+- en: '| ​  | `return` `array[0] + sum(the remainder of the array)` |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'In JavaScript, we can write this like so:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+- en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: (In JavaScript, the syntax .slice(1) returns a new array that has the contents
+- en: (In JavaScript, the syntax `.slice(1)` returns a new array that has the contents
     of the original array starting from index 1 until the end.)
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, believe it or not, we’re done! Save for the base case, which we’ll get
-    to in a moment, our sum function can be written like this:'
+    to in a moment, our `sum` function can be written like this:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ sum(array) { |'
+- en: '| ​  | `function`​ `sum(array) {` |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+- en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Note that we didn’t think about how we’re going to add all the numbers together.
-    All we did was imagine that someone else wrote the sum function for us, which
+    All we did was imagine that someone else wrote the `sum` function for us, which
     we applied to the subproblem. We kicked the problem down the road, but in doing
     so, we solved the entire problem.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The last thing we need to do is handle the base case. That is, if each subproblem
     recursively calls its own subproblem, we will eventually reach the subproblem
-    of sum([5]). This function will eventually try to add the 5 to the remainder of
-    the array, but there are no other elements in the array.
+    of `sum([5])`. This function will eventually try to add the `5` to the remainder
+    of the array, but there are no other elements in the array.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To deal with this, we can add the base case:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ sum(array) { |'
+- en: '| ​  | `function`​ `sum(array) {` |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case: only one element in the array:*​ |'
+- en: '| ​  | `// Base case: only one element in the array:`​ |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
+- en: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+- en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: And now we’re done.
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Technically, there’s another case we haven’t handled, and that’s if the input
     array is completely empty. Currently, our code will throw an error for such an
     input.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In this book, our code doesn’t necessarily attempt to handle every edge case.
     (For example, what if the input array contains strings instead of numbers?) However,
     we’ll sometimes put in a guard against an empty array by throwing an extra clause,
     as follows:'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ sum(array) { |'
+- en: '| ​  | `function`​ `sum(array) {` |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// If array is empty:*​ |'
+- en: '| ​  | `// If array is empty:`​ |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+- en: '| ​  | `if`​ `(array.length === 0) { `​ `return`​ `0; }` |'
+  id: totrans-43
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// Primary base case:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+- en: '| ​  | `// Primary base case:`​ |'
+  id: totrans-45
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
+  id: totrans-46
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-47
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
+  id: totrans-48
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We now technically have two base cases. The possibility of the array being empty
-    is kind of a base case unto itself but will only be triggered if the original
-    input is empty. On the other hand, an array of length 1 is the primary base case
-    since that case will always be triggered by the recursion itself.
+- en: 我们现在在技术上有两个基本情况。数组为空的可能性本身就是一个基本情况，但只有在原始输入为空时才会触发。另一方面，长度为1的数组是主要的基本情况，因为该情况将始终被递归本身触发。
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, a neat little trick can allow us to reduce our code to having just
-    one base case again—all while still dealing with the possibility of an empty array.
+- en: 然而，一个巧妙的小技巧可以让我们再次将代码减少到只有一个基本情况，同时仍然处理空数组的可能性。
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'It relies upon the fact that in JavaScript, when we call .slice(1) on an array
-    with only one value in it, we get back an empty array. With this in mind, we only
-    need the base case of an empty array, since the recursion will eventually trigger
-    such a case. We can eliminate the base case of an array of length 1 altogether,
-    since recursively calling the sum method on such an array will yield a case of
-    an empty array. So the following code works perfectly:'
+- en: 它依赖于这样一个事实：在JavaScript中，当我们对一个仅包含一个值的数组调用`.slice(1)`时，我们会得到一个空数组。考虑到这一点，我们只需要空数组的基本情况，因为递归最终会触发这样的情况。我们可以完全消除长度为1的数组的基本情况，因为对这样的数组递归调用`sum`方法将产生一个空数组的情况。因此，以下代码可以完美工作：
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ sum(array) { |'
+- en: '| ​  | ​`function`​ `sum(array) {` |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case: an empty array*​ |'
+- en: '| ​  | ​*// 基本情况：一个空数组*​ |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+- en: '| ​  | ​`if`​ (array.length === 0) { ​`return`​ 0; } |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0] + sum(array.slice(1)); |'
+- en: '| ​  | ​`return`​ `array[0] + sum(array.slice(1));` |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: And now we’re really done.
+- en: 而现在我们真的完成了。
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: String Reversal
+- en: 字符串反转
+  id: totrans-60
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s try another example. We’re going to write a reverse function that reverses
-    a string. So if the function accepts the argument "abcde", it’ll return "edcba".
+- en: 让我们尝试另一个例子。我们将编写一个反转字符串的`reverse`函数。如果该函数接受参数"abcde"，它将返回"edcba"。
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: First, let’s identify the subproblem. Again, this takes practice, but very often
-    the first thing to try is the next-to-smallest version of the problem at hand.
-    So for the string "abcde", let’s assume the subproblem is "bcde". This subproblem
-    is the same as the original string minus its first character.
+- en: 首先，让我们识别子问题。再次，这需要实践，但通常首先尝试的是当前问题的次小版本。因此，对于字符串"abcde"，我们假设子问题是"bcde"。这个子问题是原始字符串去掉第一个字符后的结果。
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Next, let’s imagine that someone did us the great favor of implementing the
-    reverse function for us. How nice of them!
+- en: 接下来，让我们想象一下，有人为我们实现了`reverse`函数。真是太好了！
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, if the reverse function is available for our use and our subproblem is
-    "bcde", that means we can already call reverse("bcde"), which would return "edcb".
+- en: 现在，如果`reverse`函数可用，并且我们的子问题是"bcde"，这意味着我们可以调用`reverse("bcde")`，它将返回"edcb"。
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Once we can do that, dealing with the "a" is a piece of cake. We just need to
-    throw it onto the end of the string.
+- en: Once we can do that，处理"a"就简单多了。我们只需将其添加到字符串的末尾。
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So, we can write:'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ reverse(string) { |'
+- en: '| ​  | ​`function`​ `reverse(string) {` |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ reverse(string.slice(1)) + string[0]; |'
+- en: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Our computation is simply the result of calling reverse on the subproblem and
-    then adding the first character to the end.
+- en: 我们的计算仅仅是调用`reverse`在子问题上的结果，然后将第一个字符添加到末尾。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Once again, save for the base case, we’re done. I know, it’s crazy magical.
+- en: 一次又一次，除了基本情况，我们就完成了。我知道，这真是神奇。
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The base case occurs when the string has one character, so we can add the following
-    line of code to handle it:'
+- en: 基本情况发生在字符串只有一个字符时，因此我们可以添加以下代码行来处理它：
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (string.length === 1) { ​**return**​ string[0]; } |'
+- en: '| ​  | ​`if`​ (string.length === 1) { ​`return`​ string[0]; } |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'However, as in the previous example, we can make the base case an empty string
-    and thereby handle such an input as well. Again, this works since calling string.slice(1)
-    on a one-character string yields an empty string:'
+- en: 然而，和之前的例子一样，我们可以将基本情况设为一个空字符串，从而处理这样的输入。这再次有效，因为对一个单字符字符串调用`string.slice(1)`会产生一个空字符串：
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ reverse(string) { |'
+- en: '| ​  | ​`function`​ `reverse(string) {` |'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string.length === 0) { ​**return**​ ​*''''*​; } |'
+- en: '| ​  | ​`if`​ (string.length === 0) { ​`return`​ ​*''''*​; } |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ reverse(string.slice(1)) + string[0]; |'
+- en: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: And we’re done.
+- en: 然后我们就完成了。
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Counting X
+- en: 计数X
+  id: totrans-81
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: We’re on a roll, so let’s try another example. Let’s write a function called
     countX that returns the number of “x”s in a given string. If our function is passed
     the string "axbxcxd", it’ll return 3, since there are three instances of the character
     “x”.
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s first identify the subproblem. As in the previous example, we’ll say the
     subproblem is the original string minus its first character. So for "axbxcxd",
     the subproblem is "xbxcxd".
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, let’s imagine countX has already been implemented. If we call countX on
-    our subproblem, by calling countX("xbxcxd"), we get 3\. To that, we just need
-    to add 1 if our first character is also an “x”. (If our first character is not
-    an “x”, we don’t need to add anything to the result of our subproblem.)
+    our subproblem, by calling countX("xbxcxd"), we get 3. To that, we just need to
+    add 1 if our first character is also an “x”. (If our first character is not an
+    “x”, we don’t need to add anything to the result of our subproblem.)
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So, we can write:'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ countX(string) { |'
+- en: '| ​  | `function` countX(string) { |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​ ) { |'
+- en: '| ​  | `if` (string[0] === ''x'') { |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+- en: '| ​  | `return` 1 + countX(string.slice(1)); |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+- en: '| ​  | `return` countX(string.slice(1)); |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This conditional statement is straightforward. If the first character is an
     “x”, we add 1 to the result of the subproblem. Otherwise, we return the result
     of our subproblem as is.
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here too, we’re basically done. All we need to do is deal with the base case.
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We can say that the base case here is when a string has only one character.
     But this leads to some awkward code, since we really have two base cases, as the
     single character may be an “x” but may also not be an “x”:'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ countX(string) { |'
+- en: '| ​  | `function` countX(string) { |'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Two base cases:*​ |'
+- en: '| ​  | `// Two base cases:` |'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string.length === 1) { |'
+- en: '| ​  | `if` (string.length === 1) { |'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+- en: '| ​  | `if` (string[0] === ''x'') { |'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
+- en: '| ​  | `return` 1; |'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 0; |'
+- en: '| ​  | `return` 0; |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+- en: '| ​  | `if` (string[0] === ''x'') { |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+- en: '| ​  | `return` 1 + countX(string.slice(1)); |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+- en: '| ​  | `return` countX(string.slice(1)); |'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'But again, we can simplify our code and just have one single base case if we
     make our base case an empty string:'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ countX(string) { |'
+- en: '| ​  | `function` countX(string) { |'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case: an empty string*​ |'
+- en: '| ​  | `// Base case: an empty string` |'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string.length === 0) { ​**return**​ 0; } |'
+- en: '| ​  | `if` (string.length === 0) { `return` 0; } |'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string[0] === ​*''x''*​) { |'
+- en: '| ​  | `if` (string[0] === ''x'') { |'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1 + countX(string.slice(1)); |'
+- en: '| ​  | `return` 1 + countX(string.slice(1)); |'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ countX(string.slice(1)); |'
+- en: '| ​  | `return` countX(string.slice(1)); |'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: By definition, an empty string will always contain zero “x”s, so we truly have
     only one base case.
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

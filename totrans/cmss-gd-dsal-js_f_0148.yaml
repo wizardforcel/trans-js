@@ -1,754 +1,1155 @@
 - en: Deletion
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Deletion is the least straightforward operation within a binary search tree
     and requires some careful maneuvering.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s say we want to delete the 4 from this binary search tree:'
+- en: 'Let’s say we want to delete the `4` from this binary search tree:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_4.png](images/binary_trees/bst_4.png)'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: First, we perform a search to find the 4\. We won’t visualize this search again,
+- en: First, we perform a search to find the `4`。 We won’t visualize this search again,
     since you’ve already got that down.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Once we find the 4, we can delete it in one step:'
+- en: Once we find the `4`，we can delete it in one step：
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_16.png](images/binary_trees/bst_16.png)'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Well, that was simple. But let’s see what happens when we try to delete the
-    10:'
+- en: Well, that was simple. But let’s see what happens when we try to delete the
+    `10`：
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_17.png](images/binary_trees/bst_17.png)'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We end up with an 11 that isn’t connected to the tree anymore. And we can’t
-    have that, because we’d lose the 11 forever.
+- en: We end up with an `11` that isn’t connected to the tree anymore. And we can’t
+    have that, because we’d lose the `11` forever.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'However, to solve this problem, we can plug the 11 into where the 10 used to
-    be:'
+- en: 'However, to solve this problem, we can plug the `11` into where the `10` used
+    to be:'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_18.png](images/binary_trees/bst_18.png)'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'So far, our deletion algorithm follows these rules:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the node being deleted has no children, simply delete it.
+  id: totrans-13
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If the node being deleted has one child, delete the node and plug the child
     into the spot where the deleted node was.
+  id: totrans-14
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Deleting a Node with Two Children
+  id: totrans-15
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Deleting a node that has two children is the most complex scenario. Let’s say
-    we want to delete the 56 in this tree:'
+- en: Deleting a node that has two children is the most complex scenario. Let’s say
+    we want to delete the `56` in this tree：
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_19.png](images/binary_trees/bst_19.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'What are we going to do with its former children, 52 and 61? We can’t move
-    both of them to where the 56 was. This is where the next rule of the deletion
+- en: 'What are we going to do with its former children, `52` and `61`? We can’t move
+    both of them to where the `56` was. This is where the next rule of the deletion
     algorithm comes into play:'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When deleting a node with two children, replace the deleted node with the successor
     node. The successor node is the child node whose value is the least of all values
     that are greater than the deleted node.
+  id: totrans-19
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'That was a tricky sentence. To put it in other words: if we were to put the
     deleted node and all of its descendants in ascending order, the successor node
     would be the next number after the one we just deleted.'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this case, it’s easy to figure out which node is the successor since the
-    deleted node had only two descendants. If we put the numbers 52-56-61 in ascending
-    order, the next number after 56 is 61.
+    deleted node had only two descendants. If we put the numbers `52-56-61` in ascending
+    order, the next number after `56` is `61`.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Once we find the successor node, we plug it into where the deleted node was.
-    So we replace the 56 with the 61:'
+- en: Once we find the successor node, we plug it into where the deleted node was.
+    So we replace the `56` with the `61`：
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_20.png](images/binary_trees/bst_20.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Finding the Successor Node
+  id: totrans-24
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: How does the computer find the successor node? This can be tricky when we delete
     a node high up in the tree.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s the algorithm for finding the successor node:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Visit the right child of the deleted value, and then keep on visiting the left
     child of each subsequent child until there are no more left children. The bottom
     value is the successor node.
+  id: totrans-27
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s see this again in action in a more complex example. Let’s delete the
     root node:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/delete_root_node.png](images/binary_trees/delete_root_node.png)'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We now need to plug the successor node into where the 50 was and turn it into
+- en: We now need to plug the successor node into where the `50` was and turn it into
     the root node. So let’s find the successor node.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To do this, we first visit the right child of the deleted node, and then keep
     descending leftward until we reach a node that doesn’t have a left child:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_21.png](images/binary_trees/bst_21.png)'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: It turns out that the 52 is the successor node.
+- en: It turns out that the `52` is the successor node.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now that we’ve found the successor node, we plug it into the node we deleted:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_22.png](images/binary_trees/bst_22.png)'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: And we’re done!
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Successor Node with a Right Child
+  id: totrans-37
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We haven’t accounted for one case yet, though, and that’s where the successor
     node has a right child of its own. Let’s re-create the preceding tree but add
-    a right child to the 52:'
+    a right child to the `52`:'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_23.png](images/binary_trees/bst_23.png)'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'In this case, we can’t simply plug the successor node—the 52—into the root,
-    since we’d leave its child of 55 hanging. This leads us to one more rule for our
-    deletion algorithm:'
+- en: 'In this case, we can’t simply plug the successor node—the `52`—into the root,
+    since we’d leave its child of `55` hanging. This leads us to one more rule for
+    our deletion algorithm:'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the successor node has a right child, after plugging the successor node into
     the spot of the deleted node, take the former right child of the successor node
     and place it where the successor node used to be.
+  id: totrans-41
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: That was another tricky sentence, so let’s walk through the steps.
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'First, we plug the successor node (52) into the root. This leaves the 55 dangling
-    without a parent:'
+- en: 'First, we plug the successor node (`52`) into the root. This leaves the `55`
+    dangling without a parent:'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_24.png](images/binary_trees/bst_24.png)'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Next, we place the 55 in the spot where the successor node used to be, which
-    is the left child of the 61:'
+- en: 'Next, we place the `55` in the spot where the successor node used to be, which
+    is the left child of the `61`:'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_25.png](images/binary_trees/bst_25.png)'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Successor Node is a Right Child
+  id: totrans-47
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'It can sometimes happen that the successor node is itself a right child. And
     sometimes this successor node can have a right child of its own. For example,
-    in the following tree, if we delete the 3, the 4 becomes the successor node, since
-    the 4 has no left children:'
+    in the following tree, if we delete the `3`, the `4` becomes the successor node,
+    since the `4` has no left children:'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_15.png](images/binary_trees/bst_15.png)'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Here, when we plug the successor node into the spot where the deleted 3 was,
-    we don’t make the 5 dangling and reattach it elsewhere. Instead, we simply keep
-    the 5 as the 4’s right child.
+- en: Here, when we plug the successor node into the spot where the deleted `3` was,
+    we don’t make the `5` dangling and reattach it elsewhere. Instead, we simply keep
+    the `5` as the `4`’s right child.
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: And now we’re really done.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Complete Deletion Algorithm
+  id: totrans-52
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Putting all the steps together, here is the algorithm for deletion from a binary
     search tree:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If the node being deleted has no children, simply delete it.
+  id: totrans-54
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If the node being deleted has one child, delete the node and plug the child
     into the spot where the deleted node was.
+  id: totrans-55
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: When deleting a node with two children, replace the deleted node with the successor
     node. The successor node is the child node whose value is the least of all values
     that are greater than the deleted node.
+  id: totrans-56
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To find the successor node: visit the right child of the deleted node, and
     then keep on visiting the left child of each subsequent child until there are
     no more left children. The bottom node is the successor node. If the deleted node’s
     right child has no left children, the deleted node’s right child itself becomes
     the successor node.'
+  id: totrans-57
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If the successor node has a right child (and the successor node was itself a
     left child of its parent), after plugging the successor node into the spot of
     the deleted node, take the former right child of the successor node and turn it
     into the left child of the former parent of the successor node.
+  id: totrans-58
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Binary Search Tree Deletion'
+  id: totrans-59
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a JavaScript implementation of deletion from a binary search tree. The
-    primary method here is delete, which in turn relies on a helper method called
-    replaceWithSuccessorNode:'
+    primary method here is `delete`, which in turn relies on a helper method called
+    `replaceWithSuccessorNode`:'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ deleteNode(valueToDelete, node) { |'
+- en: '`function deleteNode(valueToDelete, node) {`'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = node; |'
+- en: '`let currentNode = node;`'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ parentOfCurrentNode; |'
+- en: '`let parentOfCurrentNode;`'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ childOfDeletedNode; |'
+- en: '`let childOfDeletedNode;`'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ nodeToDelete; |'
+- en: '`let nodeToDelete;`'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  |  |'
+- en: '``'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (currentNode) { |'
+- en: '`while (currentNode) {`'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (currentNode.value === valueToDelete) { |'
+- en: '`if (currentNode.value === valueToDelete) {`'
+  id: totrans-68
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`nodeToDelete = currentNode;`'
+  id: totrans-69
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`break;`'
+  id: totrans-70
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-71
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-72
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfCurrentNode = currentNode;`'
+  id: totrans-73
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (valueToDelete < currentNode.value) {`'
+  id: totrans-74
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`currentNode = currentNode.leftChild;`'
+  id: totrans-75
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`} else if (valueToDelete > currentNode.value) {`'
+  id: totrans-76
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`currentNode = currentNode.rightChild;`'
+  id: totrans-77
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-78
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-79
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-80
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (!nodeToDelete) { return null; }`'
+  id: totrans-81
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-82
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (nodeToDelete.leftChild && nodeToDelete.rightChild) {`'
+  id: totrans-83
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`replaceWithSuccessorNode(nodeToDelete);`'
+  id: totrans-84
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`} else { // deleted node has 0 or 1 children`'
+  id: totrans-85
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`'
+  id: totrans-86
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-87
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (!parentOfCurrentNode) {`'
+  id: totrans-88
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`nodeToDelete.value = childOfDeletedNode.value;`'
+  id: totrans-89
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`nodeToDelete.leftChild = childOfDeletedNode.leftChild;`'
+  id: totrans-90
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`nodeToDelete.rightChild = childOfDeletedNode.rightChild;`'
+  id: totrans-91
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`} else if (nodeToDelete === parentOfCurrentNode.leftChild) {`'
+  id: totrans-92
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfCurrentNode.leftChild = childOfDeletedNode;`'
+  id: totrans-93
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`} else if (nodeToDelete === parentOfCurrentNode.rightChild) {`'
+  id: totrans-94
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfCurrentNode.rightChild = childOfDeletedNode;`'
+  id: totrans-95
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-96
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-97
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-98
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`return nodeToDelete;`'
+  id: totrans-99
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-100
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-101
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`function replaceWithSuccessorNode(node) {`'
+  id: totrans-102
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`let successorNode = node.rightChild;`'
+  id: totrans-103
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`let parentOfSuccessorNode;`'
+  id: totrans-104
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-105
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (!successorNode.leftChild) {`'
+  id: totrans-106
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`node.value = successorNode.value;`'
+  id: totrans-107
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`node.rightChild = successorNode.rightChild;`'
+  id: totrans-108
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`return;`'
+  id: totrans-109
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-110
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-111
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`while (successorNode.leftChild) {`'
+  id: totrans-112
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfSuccessorNode = successorNode;`'
+  id: totrans-113
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`successorNode = successorNode.leftChild;`'
+  id: totrans-114
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-115
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-116
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`if (successorNode.rightChild) {`'
+  id: totrans-117
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfSuccessorNode.leftChild = successorNode.rightChild;`'
+  id: totrans-118
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`} else {`'
+  id: totrans-119
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`parentOfSuccessorNode.leftChild = null;`'
+  id: totrans-120
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`}`'
+  id: totrans-121
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '``'
+  id: totrans-122
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`node.value = successorNode.value;`'
+  id: totrans-123
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`return successorNode;`'
+  id: totrans-124
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-125
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 这段代码相当多，但我们将一步步走过。
+  id: totrans-126
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 与搜索和插入相比，我们在没有递归的情况下编写了删除代码。虽然我们可以递归地编写删除方法，但我发现递归删除代码要比非递归的代码难以理解得多。相反，我们使用循环在树中移动。
+  id: totrans-127
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们开始逐步了解删除方法。
+  id: totrans-128
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 当我们调用这个方法时，我们传入想要删除的值（valueToDelete）以及树的根节点（node）。
+  id: totrans-129
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 一开始，我们创建了几个变量：
+  id: totrans-130
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `let` currentNode = node; |'
+  id: totrans-131
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `let` parentOfCurrentNode; |'
+  id: totrans-132
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `let` childOfDeletedNode; |'
+  id: totrans-133
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `let` nodeToDelete; |'
+  id: totrans-134
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`currentNode`最初指向根节点，但在我们向下移动树时会被更新，寻找要删除的值。`parentOfCurrentNode`，顾名思义，将追踪`currentNode`的父节点。`childOfDeletedNode`的情况也是如此。我们需要追踪这些变量的原因稍后会变得清楚。最后，`nodeToDelete`最终将指向我们要删除的节点。'
+  id: totrans-135
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 然后我们开始一个循环，在树中搜索`valueToDelete`。这本质上是一个搜索操作，但这次我们使用迭代而不是递归：
+  id: totrans-136
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `while`(currentNode) { |'
+  id: totrans-137
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if`(currentNode.value === valueToDelete) { |'
+  id: totrans-138
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | nodeToDelete = currentNode; |'
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
+- en: '| ​  | `break`; |'
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-141
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | parentOfCurrentNode = currentNode; |'
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (valueToDelete < currentNode.value) { |'
+- en: '| ​  | `if`(valueToDelete < currentNode.value) { |'
+  id: totrans-144
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | currentNode = currentNode.leftChild; |'
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (valueToDelete > currentNode.value) { |'
+- en: '| ​  | } `else` `if`(valueToDelete > currentNode.value) { |'
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | currentNode = currentNode.rightChild; |'
+  id: totrans-147
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  |  |'
+- en: 这个代码片段在树中向下移动，随着我们搜索`valueToDelete`更新`currentNode`。如果我们没有找到它（当值不在树中时就是这种情况），循环会因`currentNode`为`null`而自动终止。
+  id: totrans-150
   prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 然而，如果我们找到了`valueToDelete`，我们将`currentNode`声明为`nodeToDelete`并退出循环。注意，我们还跟踪`parentOfCurrentNode`，它现在是我们将要删除的节点的父节点。
+  id: totrans-151
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 接下来，我们有这个代码片段：
+  id: totrans-152
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `if`(!nodeToDelete) { `return` `null`; } |'
+  id: totrans-153
+  prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!nodeToDelete) { ​**return**​ ​**null**​; } |'
+- en: 如果我们想要删除的值根本不在树中，则返回`null`。
+  id: totrans-154
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
+  stylish: true
+  type: TYPE_NORMAL
+- en: 该方法的其余部分执行实际的删除操作。我们首先处理最复杂的情况，即我们要删除的节点有两个子节点：
+  id: totrans-155
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (nodeToDelete.leftChild && nodeToDelete.rightChild) { |'
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `if`(nodeToDelete.leftChild && nodeToDelete.rightChild) { |'
+  id: totrans-156
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | replaceWithSuccessorNode(nodeToDelete); |'
+  id: totrans-157
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { ​*// deleted node has 0 or 1 children*​ |'
+- en: '| ​  | } |'
+  id: totrans-158
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | childOfDeletedNode = (nodeToDelete.leftChild &#124;&#124; nodeToDelete.rightChild);
+- en: 在这里，我们将重任外包给`replaceWithSuccessorNode`辅助方法，稍后我们会分析它。与此同时，让我们继续。
+  id: totrans-159
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 接下来，我们处理被删除节点有0个或1个子节点的情况：
+  id: totrans-160
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `else` { |'
+  id: totrans-161
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`
     |'
+  id: totrans-162
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-163
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!parentOfCurrentNode) { |'
+- en: '| ​  | `if (!parentOfCurrentNode) {` |'
+  id: totrans-164
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | nodeToDelete.value = childOfDeletedNode.value; |'
+- en: '| ​  | `nodeToDelete.value = childOfDeletedNode.value;` |'
+  id: totrans-165
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | nodeToDelete.leftChild = childOfDeletedNode.leftChild; |'
+- en: '| ​  | `nodeToDelete.leftChild = childOfDeletedNode.leftChild;` |'
+  id: totrans-166
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | nodeToDelete.rightChild = childOfDeletedNode.rightChild; |'
+- en: '| ​  | `nodeToDelete.rightChild = childOfDeletedNode.rightChild;` |'
+  id: totrans-167
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (nodeToDelete === parentOfCurrentNode.leftChild)
-    { |'
+- en: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.leftChild) {` |'
+  id: totrans-168
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | parentOfCurrentNode.leftChild = childOfDeletedNode; |'
+- en: '| ​  | `parentOfCurrentNode.leftChild = childOfDeletedNode;` |'
+  id: totrans-169
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (nodeToDelete === parentOfCurrentNode.rightChild)
-    { |'
+- en: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.rightChild) {` |'
+  id: totrans-170
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | parentOfCurrentNode.rightChild = childOfDeletedNode; |'
+- en: '| ​  | `parentOfCurrentNode.rightChild = childOfDeletedNode;` |'
+  id: totrans-171
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-172
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-173
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ nodeToDelete; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**function**​ replaceWithSuccessorNode(node) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ successorNode = node.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ parentOfSuccessorNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!successorNode.leftChild) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | node.value = successorNode.value; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | node.rightChild = successorNode.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**while**​ (successorNode.leftChild) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode = successorNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | successorNode = successorNode.leftChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (successorNode.rightChild) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode.leftChild = successorNode.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode.leftChild = ​**null**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | node.value = successorNode.value; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ successorNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: That’s a decent amount of code, but we’ll walk through it step by step.
-  prefs: []
-  type: TYPE_NORMAL
-- en: In contrast with search and insertion, we wrote the deletion code without recursion.
-    While we could have written the deletion method recursively, I find that the recursive
-    code for deletion is considerably more difficult to grasp. Instead, we use a loop
-    to move about the tree.
-  prefs: []
-  type: TYPE_NORMAL
-- en: Let’s begin by walking through the delete method.
-  prefs: []
-  type: TYPE_NORMAL
-- en: When we call this method, we pass in the value we’d like to delete (valueToDelete)
-    as well as the root node of the tree (node).
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'At first, we create a few variables:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ currentNode = node; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ parentOfCurrentNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ childOfDeletedNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ nodeToDelete; |'
-  prefs: []
-  type: TYPE_TB
-- en: The currentNode initially points to the root but will be updated as we move
-    down the tree looking for the value we are to delete. The parentOfCurrentNode,
-    as the name implies, will track the parent of the currentNode. The same goes for
-    the variable childOfDeletedNode. The reason we need to track these will become
-    apparent later on. Finally, the nodeToDelete will eventually point to the node
-    we’ll be deleting.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'We then begin a loop that searches for the valueToDelete within the tree. This
-    is essentially a search operation, but again, this time we use iteration instead
-    of recursion:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (currentNode) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (currentNode.value === valueToDelete) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | nodeToDelete = currentNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfCurrentNode = currentNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (valueToDelete < currentNode.value) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.leftChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (valueToDelete > currentNode.value) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: This snippet moves down through the tree, updating currentNode as we go, searching
-    for the valueToDelete. If we don’t find it, which will be the case if the value
-    is not present in the tree, the loop will terminate on its own because currentNode
-    will be null.
-  prefs: []
-  type: TYPE_NORMAL
-- en: If, however, we do find the valueToDelete, we declare the currentNode to be
-    the nodeToDelete and break out of the loop. Note that we also keep track of the
-    parentOfCurrentNode, which is now the parent of the node we’ll be deleting.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Next, we have this snippet:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!nodeToDelete) { ​**return**​ ​**null**​; } |'
-  prefs: []
-  type: TYPE_TB
-- en: This returns null if the value we’d like to delete isn’t even in our tree to
-    begin with.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'The remainder of this method performs the actual deletion. We first handle
-    the most complex case, where the node we’re deleting has two children:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (nodeToDelete.leftChild && nodeToDelete.rightChild) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | replaceWithSuccessorNode(nodeToDelete); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: Here, we outsource the heavy lifting to the replaceWithSuccessorNode helper
-    method, which we’ll analyze soon. In the meantime, though, let’s move on.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Next, we handle the case in which the deleted node has 0 or 1 children:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | childOfDeletedNode = (nodeToDelete.leftChild &#124;&#124; nodeToDelete.rightChild);
-    |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!parentOfCurrentNode) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | nodeToDelete.value = childOfDeletedNode.value; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | nodeToDelete.leftChild = childOfDeletedNode.leftChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | nodeToDelete.rightChild = childOfDeletedNode.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (nodeToDelete === parentOfCurrentNode.leftChild)
-    { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfCurrentNode.leftChild = childOfDeletedNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (nodeToDelete === parentOfCurrentNode.rightChild)
-    { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | parentOfCurrentNode.rightChild = childOfDeletedNode; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: Here, we first set a new variable called childOfDeletedNode, which will represent
+- en: Here, we first set a new variable called `childOfDeletedNode`, which will represent
     the deleted node’s child. In a case where the deleted node has no children, this
-    variable will be set to null. This variable is crucial, for when we delete our
-    nodeToDelete, we need to place its child in the spot where the deleted node used
-    to be.
+    variable will be set to `null`. This variable is crucial, for when we delete our
+    `nodeToDelete`, we need to place its child in the spot where the deleted node
+    used to be.
+  id: totrans-174
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: And that’s exactly what the code above does in the two else if clauses. It determines
-    whether the deleted node was a left or right child of its parent, and attaches
-    the childOfDeletedNode to the deleted node’s parent accordingly.
+- en: And that’s exactly what the code above does in the two `else if` clauses. It
+    determines whether the deleted node was a left or right child of its parent, and
+    attaches the `childOfDeletedNode` to the deleted node’s parent accordingly.
+  id: totrans-175
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The first clause in the if statement handles the case where we’re deleting the
-    root node. To ensure that we mark the deleted root’s child as the new root, we
-    overwrite the root with its child.
+- en: The first clause in the `if` statement handles the case where we’re deleting
+    the root node. To ensure that we mark the deleted root’s child as the new root,
+    we overwrite the root with its child.
+  id: totrans-176
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This brings us to the final line of our method, which simply returns the deleted
     node in case we may want to use it for some other purpose:'
+  id: totrans-177
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ nodeToDelete; |'
+- en: '| ​  | `return nodeToDelete;` |'
+  id: totrans-178
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s now return to the case where the deleted node had two children. Our previous
-    code called the helper method replaceWithSuccessorNode, so let’s walk through
+    code called the helper method `replaceWithSuccessorNode`, so let’s walk through
     that now.
+  id: totrans-179
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When calling this method, we pass in the node that we’ll be deleting, which
-    will be called node.
+    will be called `node`.
+  id: totrans-180
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we identify the successor node using the following code:'
+  id: totrans-181
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ successorNode = node.rightChild; |'
+- en: '| ​  | `let successorNode = node.rightChild;` |'
+  id: totrans-182
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ parentOfSuccessorNode; |'
+- en: '| ​  | `let parentOfSuccessorNode;` |'
+  id: totrans-183
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!successorNode.leftChild) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | node.value = successorNode.value; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | node.rightChild = successorNode.rightChild; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-184
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (successorNode.leftChild) { |'
+- en: '| ​  | `if (!successorNode.leftChild) {` |'
+  id: totrans-185
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode = successorNode; |'
+- en: '| ​  | `node.value = successorNode.value;` |'
+  id: totrans-186
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | successorNode = successorNode.leftChild; |'
+- en: '| ​  | `node.rightChild = successorNode.rightChild;` |'
+  id: totrans-187
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `return;` |'
+  id: totrans-188
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-189
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-190
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `while (successorNode.leftChild) {` |'
+  id: totrans-191
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `parentOfSuccessorNode = successorNode;` |'
+  id: totrans-192
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `successorNode = successorNode.leftChild;` |'
+  id: totrans-193
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-194
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Here, we begin at the deleted node’s right child, and then move down the tree
     following left children until we can’t go any further. That bottom node is our
     successor node. We also keep track of the successor node’s parent.
+  id: totrans-195
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, in the case that the successor node happens to be the deleted node’s
     right child (which occurs when the deleted node’s right child has no left children),
     we simply plug the successor node into the spot where the deleted node was. If
     this is the case, this is all we need to do. But if the successor node is a left
     child of its parent, we move on.
+  id: totrans-196
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we remove the successor node from its spot:'
+  id: totrans-197
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (successorNode.rightChild) { |'
+- en: '| ​  | `if` (successorNode.rightChild) { |'
+  id: totrans-198
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode.leftChild = successorNode.rightChild; |'
+- en: '| ​  | `parentOfSuccessorNode.leftChild = successorNode.rightChild;` |'
+  id: totrans-199
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-200
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | parentOfSuccessorNode.leftChild = ​**null**​; |'
+- en: '| ​  | `parentOfSuccessorNode.leftChild = null;` |'
+  id: totrans-201
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-202
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Our code deals with two possible cases. The second case (in the else clause)
+- en: Our code deals with two possible cases. The second case (in the `else` clause)
     is the simpler case, which is when the successor node has no children. In that
-    case, we wipe away the successor node by replacing it with null.
+    case, we wipe away the successor node by replacing it with `null`。
+  id: totrans-203
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In the more complex case, where the successor node has a right child, we place
     that right child in the spot where the successor node used to be.
+  id: totrans-204
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We’ve successfully removed the successor node from the tree, but there’s one
     more critical step. Remember we didn’t initially set out to delete the successor
-    node. Our entire goal was to delete the node from higher up in the tree.
+    node. Our entire goal was to delete the `node` from higher up in the tree.
+  id: totrans-205
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To do that, we plug the successor node into the spot of the node we’re deleting:'
+  id: totrans-206
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | node.value = successorNode.value; |'
+- en: '| ​  | `node.value = successorNode.value;` |'
+  id: totrans-207
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Note that we don’t plug in the actual successor node; instead, we simply use
-    its value to overwrite the value of node, effectively deleting node.
+    its value to overwrite the value of `node`，effectively deleting `node`。
+  id: totrans-208
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: And that’s it! It was a journey, but we did it.
+  id: totrans-209
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Efficiency of Binary Search Tree Deletion
+  id: totrans-210
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Like search and insertion, deleting from trees is also typically O(log N). This
+- en: Like search and insertion, deleting from trees is also typically `O(log N)`。This
     is because deletion requires a search plus a few extra steps to deal with any
-    hanging children. Contrast this with deleting a value from an ordered array, which
-    is O(N) due to shifting elements to the left to close the gap of the deleted value.
+    hanging children。Contrast this with deleting a value from an ordered array, which
+    is `O(N)` due to shifting elements to the left to close the gap of the deleted
+    value。
+  id: totrans-211
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

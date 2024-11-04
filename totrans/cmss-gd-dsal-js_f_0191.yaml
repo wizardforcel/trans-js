@@ -1,237 +1,346 @@
 - en: Trade-Offs Between Time and Space
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a function that accepts an array and returns whether it contains any
-    duplicate values (you may recognize this function from Chapter 4, [​*Speeding
-    Up Your Code with Big O*​](f_0040.xhtml#chp.speeding_up):'
+    duplicate values (you may recognize this function from Chapter 4, [`Speeding Up
+    Your Code with Big O`](f_0040.xhtml#chp.speeding_up):'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | `function` hasDuplicateValue(`array`) { |'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+- en: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+- en: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (i !== j && array[i] === array[j]) { |'
+- en: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | `return` `true`; |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | `return` `false`; |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'This algorithm uses nested loops and has a time complexity of O(N²). We’ll
     call this implementation Version #1.'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a second implementation, Version #2, which employs a hash table and
     just a single loop:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | `function` hasDuplicateValue(`array`) { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ existingValues = {}; |'
+- en: '| ​  | `const` `existingValues` = {}; |'
+  id: totrans-16
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!existingValues[value]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | existingValues[value] = ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | `for` (`const` `value` `of` `array`) { |'
+  id: totrans-18
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (!`existingValues[value]`) { |'
+  id: totrans-19
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `existingValues[value]` = `true`; |'
+  id: totrans-20
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` { |'
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `true`; |'
+  id: totrans-22
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Version #2 starts out with an empty hash table called existingValues. We then
-    iterate over each item from the array, and as we encounter each new item, we store
-    it as a key in the existingValues hash table. (We set the value arbitrarily to
-    true.) If, however, we encounter an item that’s already a key in the hash table,
-    we return true, as it means we found a duplicate value.'
+- en: '| ​  | } |'
+  id: totrans-24
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-25
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `false`; |'
+  id: totrans-26
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-27
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 'Version #2 starts out with an empty hash table called `existingValues`. We
+    then iterate over each item from the `array`, and as we encounter each new item,
+    we store it as a key in the `existingValues` hash table. (We set the value arbitrarily
+    to `true`.) If, however, we encounter an item that’s already a key in the hash
+    table, we return `true`, as it means we found a duplicate value.'
+  id: totrans-28
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, which of these two algorithms is more efficient? Well, it all depends
     on whether you consider time or space. As far as time is concerned, Version #2
     is much more efficient, as it’s only O(N), compared with Version #1’s O(N²).'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, when it comes to space, Version #1 is actually more efficient than
-    Version #2\. Version #2 consumes up to O(N) space, as it creates a hash table
-    that may end up containing all N values from the array passed to the function.
-    Version #1, however, doesn’t consume any additional memory beyond the original
-    array and therefore has a space complexity of O(1).'
+    Version #2. Version #2 consumes up to O(N) space, as it creates a hash table that
+    may end up containing all N values from the array passed to the function. Version
+    #1, however, doesn’t consume any additional memory beyond the original array and
+    therefore has a space complexity of O(1).'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s look at the complete contrast between the two versions of hasDuplicateValue:'
+- en: 'Let’s look at the complete contrast between the two versions of `hasDuplicateValue`:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Version | Time Complexity | Space Complexity |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Version #1 | O(N²) | O(1) |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Version #2 | O(N) | O(N) |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We can see that Version #1 more efficient when it comes to memory, but Version
+- en: 'We can see that Version #1 is more efficient when it comes to memory, but Version
     #2 is faster in terms of raw speed. So how do we decide which algorithm to choose?'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The answer, of course, is that it depends on the situation. If we need our
-    application to be blazing fast and we have enough memory to handle it, then Version
-    #2 might be preferable. If, on the other hand, we’re dealing with a hardware/data
-    combination where we need to consume memory sparingly and speed isn’t our biggest
-    need, then Version #1 might be the right choice. Like all technology decisions,
-    when there are trade-offs, we need to look at the big picture.'
+- en: '答案当然是，这要视情况而定。如果我们需要我们的应用程序非常快速，并且有足够的内存来处理，那么 Version #2 可能更可取。另一方面，如果我们处理的是需要节省内存的硬件/数据组合，而速度不是我们最大的需求，那么
+    Version #1 可能是正确的选择。就像所有技术决策一样，当存在权衡时，我们需要看到全局。'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s look at a third version of this same function and see where it falls
-    compared to the first two versions:'
+- en: 让我们看看这个相同函数的第三个版本，看看它与前两个版本的比较：
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | ​`function`​ `hasDuplicateValue(array)` { |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | array.sort((a, b) => a - b); |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length - 1; i += 1) { |'
+- en: '| ​  | ​`for`​ (​`let`​ i = 0; i < array.length - 1; i += 1) { |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array[i] === array[i + 1]) { |'
+- en: '| ​  | ​`if`​ (array[i] === array[i + 1]) { |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | ​`return`​ ​`true`​; |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | ​`return`​ ​`false`​; |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'This implementation, which we’ll call Version #3, begins by sorting the array.
-    It then iterates over each value within the array and checks to see whether it’s
-    the same as the next value. If it is, we’ve found a duplicate value. However,
-    if we get to the end of the array and there are no two consecutive values that
-    are the same, we know that the array contains no duplicates.'
+- en: '这个实现，我们称之为 Version #3，首先对数组进行排序。然后它迭代数组中的每个值，并检查是否与下一个值相同。如果是，我们找到了一个重复值。然而，如果我们到达数组末尾而没有两个连续的值相同，我们就知道数组中没有重复值。'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s analyze the time and space efficiency of Version #3.'
+- en: '让我们分析 Version #3 的时间和空间效率。'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In terms of time complexity, this algorithm is O(N log N). We can assume that
-    JavaScript’s sorting algorithm is one that takes O(N log N), as the fastest known
-    sorting algorithms are known to do. The additional N steps of iterating over the
-    array are trivial beside the sorting steps, so O(N log N) is the grand total when
-    it comes to speed.
+- en: 在时间复杂度方面，这个算法是 O(N log N)。我们可以假设 JavaScript 的排序算法是 O(N log N)，因为已知的最快排序算法都是这样。额外的
+    N 步迭代数组在排序步骤面前是微不足道的，因此 O(N log N) 是整体速度的总和。
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Space is a slightly more complex matter, as various sorting algorithms consume
-    varying amounts of memory. Some of the earliest algorithms we’ve encountered in
-    the book, like Bubble Sort and Selection Sort, consume no extra space because
-    all the sorting happens in place. Interestingly, though, the faster sorts do take
-    up some space for reasons you’ll see shortly. Most implementations of Quicksort
-    actually take up O(log N) space.
+- en: 空间是一个稍微复杂的问题，因为各种排序算法消耗不同数量的内存。我们在书中遇到的一些最早的算法，比如冒泡排序和选择排序，消耗的额外空间为零，因为所有排序都是原地进行的。有趣的是，较快的排序确实会占用一些空间，原因稍后会解释。大多数快速排序的实现实际上占用
+    O(log N) 的空间。
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So let’s see where Version #3 lands in comparison with the previous two versions:'
+- en: '所以让我们看看 Version #3 与前两个版本的比较结果：'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Version | Time Complexity | Space Complexity |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Version #1 | O(N²) | O(1) |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Version #2 | O(N) | O(N) |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Version #3 | O(N log N) | O(log N) |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'It turns out Version #3 strikes an interesting balance between time and space.
-    In terms of time, Version #3 is faster than Version #1 but slower than Version
-    #2\. When it comes to space, it’s more efficient than Version #2 but less efficient
-    than Version #1.'
+- en: '事实证明，Version #3 在时间和空间之间取得了有趣的平衡。在时间上，Version #3 比 Version #1 快，但比 Version
+    #2 慢。在空间上，它比 Version #2 更有效率，但比 Version #1 效率低。'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So when may we want to use Version #3? Well, if we’re concerned about both
-    time and space, this might be our fix.'
+- en: '那么，为什么我们可能想要使用 Version #3 呢？如果我们关心时间和空间，这可能是我们的解决方案。'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Ultimately, in each given situation, we need to know what our minimum acceptable
     speeds and bounds of memory are. Once we understand our constraints, we can then
     pick and choose from various algorithms so that we can eke out acceptable efficiency
     for our speed and memory needs.
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Up until this point, you’ve seen how our algorithms can consume extra space
     when they create additional pieces of data, such as new arrays or hash tables.
     However, it’s possible for an algorithm to consume space even if it’s not doing
     any of those things. And this can come to bite us if we’re not expecting it.
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

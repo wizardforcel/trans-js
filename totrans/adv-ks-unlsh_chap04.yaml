@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 闭包
 - en: Closure is one of the fundamental topics in JavaScript and can be tricky to
     understand for beginners. It is a powerful feature, and developing a good understanding
     of this topic is essential. In this module, we will take a deeper look at what
@@ -12,29 +13,34 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 闭包是 JavaScript 中的基本主题之一，对于初学者来说可能比较难以理解。它是一个强大的特性，深入理解这一主题是至关重要的。在本模块中，我们将更深入地探讨闭包是什么以及它们是如何工作的。
 - en: What is a closure?
   id: totrans-2
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 什么是闭包？
 - en: 'The closure is a combination of the following two things:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 闭包是以下两个事物的组合：
 - en: A `Function`
   id: totrans-4
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 一个 `Function`
 - en: A reference to the environment/scope in which that function is created
   id: totrans-5
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于创建该函数的环境/作用域的引用
 - en: 'In other words, whenever we define a function in JavaScript, that function
     saves a reference to the environment in which it was created. This is what’s referred
     to as a closure: a function along with a reference to the environment in which
@@ -43,12 +49,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 换句话说，每当我们在 JavaScript 中定义一个函数时，该函数会保存一个对其创建环境的引用。这被称为闭包：一个函数以及对其创建环境的引用。
 - en: Closures allow a nested function to access the declarations inside the containing
     function, even after the execution of the containing function has ended.
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 闭包允许嵌套函数访问包含函数内部的声明，即使包含函数的执行已经结束。
 - en: '[PRE0]'
   id: totrans-8
   prefs: []
@@ -59,17 +67,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码的一个 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example1”>`'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example1”>`'
 - en: How does the `innerFn`, function returned by `outerFn`, have access to the `outerVar`
     variable declared in `outerFn` even after the “outerFn” execution is complete?
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 返回的 `innerFn` 函数是如何访问在 `outerFn` 中声明的 `outerVar` 变量的，即使在“outerFn”执行完成后？
 - en: The above code works because JavaScript functions always create closures when
     they are created. In some programming languages, a function’s locally defined
     variables only exist for the duration of that function’s execution; when a function’s
@@ -80,18 +91,22 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码之所以有效，是因为 JavaScript 函数在创建时总是会创建闭包。在某些编程语言中，函数的局部变量仅在该函数执行期间存在；当函数执行结束时，其局部作用域中定义的变量会被销毁。但在
+    JavaScript 中并非如此，这从上面的代码示例中可以明显看出。那么，闭包是如何工作的呢？
 - en: How do closures work?
   id: totrans-13
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 闭包是如何工作的？
 - en: To understand how closures work, we need to understand how JavaScript resolves
     the scope of any identifier.
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要理解闭包是如何工作的，我们需要理解 JavaScript 如何解析任何标识符的作用域。
 - en: 'Although we had a detailed discussion on scope in an earlier module dedicated
     to the topic of scope, let us once again briefly go over how the lexical scope
     is resolved. Consider the following code example:'
@@ -99,6 +114,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管我们在之前的一个模块中详细讨论了作用域，但我们还是简单回顾一下词法作用域是如何解析的。考虑以下代码示例：
 - en: '[PRE1]'
   id: totrans-16
   prefs: []
@@ -109,11 +125,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码的一个 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example2”>`'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example2”>`'
 - en: When the `learnJavaScript` function is invoked to log the value of the `isReading`
     variable, the JavaScript first needs to identify where it is defined. The first
     place where JavaScript will search is the local scope of the `learnJavaScript`
@@ -122,6 +140,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当调用 `learnJavaScript` 函数以记录 `isReading` 变量的值时，JavaScript 首先需要识别该变量的定义位置。JavaScript
+    首先搜索的地方是 `learnJavaScript` 函数的局部作用域，因为在这里找到了对 `isReading` 变量的引用。
 - en: As the `isReading` variable is not defined in the local scope of the `learnJavaScript`
     function, JavaScript will search for this variable in the outer scope, which in
     this case is the global scope. JavaScript will find the declaration of the `isReading`
@@ -131,11 +151,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于 `isReading` 变量没有在 `learnJavaScript` 函数的局部作用域中定义，JavaScript 将在外部作用域中搜索该变量，在此情况下是全局作用域。JavaScript
+    会在全局作用域中找到 `isReading` 变量的声明，因此会获取其值并将其传递给 `console.log` 函数，以便将其记录到控制台。
 - en: 'Let us take a look at another code example that involves a nested function:'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看一个涉及嵌套函数的代码示例：
 - en: '[PRE2]'
   id: totrans-22
   prefs: []
@@ -146,11 +169,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是上述代码的一个 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example3”>`'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example3”>`'
 - en: In this code example, we have a nested function, `stepsToLearnJavaScript`, that
     logs the value of a variable defined in the global scope. If JavaScript hasn’t
     already determined the scope of the `isReading` variable, how will it find its
@@ -159,6 +184,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个代码示例中，我们有一个嵌套函数 `stepsToLearnJavaScript`，它记录了在全局作用域中定义的变量的值。如果 JavaScript
+    还没有确定 `isReading` 变量的作用域，它将如何找到它的声明？回想一下作用域链！
 - en: JavaScript will need to traverse the scope chain to find the declaration of
     the `isReading` variable. As in the earlier example, the declaration is first
     searched in the current scope, which in this case is the local scope of the `stepsToLearnJavaScript`
@@ -173,6 +200,10 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript 将需要遍历作用域链以找到 `isReading` 变量的声明。与之前的示例一样，首先在当前作用域中搜索声明，在本例中是 `stepsToLearnJavaScript`
+    函数的局部作用域。如果当前作用域中没有 JavaScript 正在寻找的声明，搜索将顺序扩展到外部作用域。在我们的示例中，`stepsToLearnJavaScript`
+    函数中没有 `isReading` 变量的声明，因此搜索移向外部作用域，而在本例中是 `learnJavaScript` 函数的局部作用域。这个作用域中也不存在该声明；JavaScript
+    继续向外部作用域遍历，当前外部作用域是全局作用域。
 - en: In the code example above, the variable declaration is found in the global scope,
     so the search for the variable declaration will be stopped when the search reaches
     the global scope. But what will happen if we remove the variable declaration from
@@ -181,6 +212,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上面的代码示例中，变量声明是在全局作用域中找到的，因此当搜索达到全局作用域时，变量声明的搜索将被停止。但是如果我们从上述代码示例中删除变量声明，会发生什么呢？
 - en: '[PRE3]'
   id: totrans-28
   prefs: []
@@ -191,11 +223,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上面代码的 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example4”>`'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example4”>`'
 - en: 'Now, the `stepsToLearnJavaScript` function is logging an undeclared variable.
     Now, what will happen when the search for the variable declaration reaches the
     global scope? At this point, JavaScript will do one of the following two things:'
@@ -203,12 +237,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，`stepsToLearnJavaScript` 函数正在记录一个未声明的变量。那么，当搜索变量声明达到全局作用域时，会发生什么呢？此时，JavaScript
+    将执行以下两件事之一：
 - en: throw an error if the code is in strict mode
   id: totrans-32
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果代码在严格模式下，将抛出错误
 - en: declare a global variable for you in non-strict mode (recall “implicit globals”
     in the scope module)
   id: totrans-33
@@ -216,12 +253,14 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在非严格模式下为您声明一个全局变量（回顾一下作用域模块中的“隐式全局”）
 - en: How are different scopes linked?
   id: totrans-34
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 不同的作用域是如何链接的？
 - en: At this point, we know how the scope is resolved, and the different scopes are
     linked together, forming a chain that is known as the “scope chain.” But have
     you wondered how different scopes are linked? It can’t be magic; some mechanism
@@ -231,11 +270,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，我们知道作用域是如何解析的，不同的作用域是如何连接在一起的，形成了一个称为“作用域链”的链条。但你有没有想过不同的作用域是如何连接的？这不可能是魔法；一定有某种机制将不同的作用域连接在一起。JavaScript
+    如何确定当前作用域的外部作用域？
 - en: 'Let us revisit one of the code examples presented earlier in this lesson:'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们回顾一下本课之前展示的代码示例：
 - en: '[PRE4]'
   id: totrans-37
   prefs: []
@@ -246,11 +288,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上面代码的 Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example5”>`'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/Example5”>`'
 - en: We know that when the `learnJavaScript` function is invoked, the local scope
     of this function is linked to the global scope, but how? The answer is the hidden
     internal slot named `[[[Environment]]]`(https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects).
@@ -262,11 +306,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们知道，当 `learnJavaScript` 函数被调用时，这个函数的局部作用域与全局作用域是连接在一起的，但这是如何实现的呢？答案是一个名为 `[[[Environment]]]`
+    的隐藏内部槽位（[https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects](https://tc39.es/ecma262/#table-internal-slots-of-ecmascript-function-objects)）。这个
+    `[[Environment]]` 内部槽位存在于函数中，并且包含对外部作用域/环境的引用。换句话说，这个内部槽位包含了包含函数“闭合”或形成“闭包”的作用域的引用。
 - en: '`:::info`'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`:::info`'
 - en: 'There are many [hidden internal slots](https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript)
     mentioned in the ECMAScript specification. The specification uses these hidden
     internal slots to define the required behavior. These hidden internal slots, just
@@ -276,11 +324,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '在 ECMAScript 规范中提到了许多 [隐藏内部槽](https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript)。规范利用这些隐藏内部槽来定义所需的行为。这些隐藏内部槽，和抽象操作一样，可能并不是由不同
+    JavaScript 引擎实际实现的东西。  '
 - en: ':::  '
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::  '
 - en: 'In the code example above, when the `learnJavaScript` function is created,
     as it is created in the global scope, a reference to the global environment is
     saved in the internal `[[Environment]]` slot of the function object. Later, when
@@ -294,28 +345,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '在上面的代码示例中，当 `learnJavaScript` 函数被创建时，由于它是在全局作用域中创建的，因此对全局环境的引用被保存在函数对象的内部 `[[Environment]]`
+    槽中。稍后，当函数被调用时，会为函数内部代码的执行创建一个新的环境。这个环境（函数的局部作用域）通过获取保存在 `learnJavaScript` 函数的
+    `[[Environment]]` 槽中的值并将其保存在名为 `[[[OuterEnv]]]` 的内部槽中，从而与全局环境相链接（https://tc39.es/ecma262/#sec-environment-records）。每个环境对象都有一个内部槽，包含对外部环境的引用。  '
 - en: 'The linkage of scopes in the above example can be conceptually visualized in
     the image below:  '
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '上述示例中作用域的链接可以在下面的图像中概念性地可视化：  '
 - en: '![scope linkage](images/missing.png)  '
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![作用域链接](images/missing.png)'
 - en: '`scope linkage`  '
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`作用域链接`  '
 - en: 'Let’s revisit one of the earlier examples from this lesson that involved a
     nested function:  '
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '让我们回顾一下本课中涉及嵌套函数的早期示例：  '
 - en: '[PRE5]'
   id: totrans-49
   prefs: []
@@ -326,22 +384,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '这里是上面代码的 Replit：  '
 - en: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example6”>  '
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example6”>  '
 - en: 'In this code example, we have three different environments:  '
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '在这个代码示例中，我们有三个不同的环境：  '
 - en: 'The global environment  '
   id: totrans-53
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '全球环境  '
 - en: 'The local environment of the `learnJavaScript` function (created when the function
     is invoked)  '
   id: totrans-54
@@ -349,6 +411,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`learnJavaScript` 函数的局部环境（在函数被调用时创建）  '
 - en: 'The local environment of the `stepsToLearnJavaScript` function (created when
     the function is invoked)  '
   id: totrans-55
@@ -356,21 +419,25 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`stepsToLearnJavaScript` 函数的局部环境（在函数被调用时创建）  '
 - en: 'The linkage between different scopes can be visualized in the image below:  '
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '不同作用域之间的链接可以在下面的图像中可视化：  '
 - en: '![scope linkage](images/module_05----lesson_05.01----public----assets----closure-scope-linkage-2.png)  '
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![作用域链接](images/module_05----lesson_05.01----public----assets----closure-scope-linkage-2.png)  '
 - en: '`scope linkage`  '
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`作用域链接`  '
 - en: Hopefully, the above two code examples and images have clarified how different
     scopes are linked together, forming a scope chain. This scope chain is traversed
     by the JavaScript engine, if needed, to resolve the scope of any identifier.
@@ -378,6 +445,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '希望以上两个代码示例和图像能够阐明不同作用域是如何链接在一起，形成作用域链的。这个作用域链在需要时由 JavaScript 引擎遍历，以解析任何标识符的作用域。  '
 - en: 'This linkage between different environments, i.e., the scope chain, is what
     makes closures possible in JavaScript. Due to this scope chain, a nested function
     can still access variables from the outer function even after the execution of
@@ -387,12 +455,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '这种不同环境之间的链接，即作用域链，使得 JavaScript 中的闭包成为可能。由于这个作用域链，嵌套函数即使在外部函数执行结束后，仍然可以访问外部函数的变量。只要内部函数有对外部环境的引用，外部环境就会保留在内存中。  '
 - en: 'Now, let us revisit the first code example in this lesson, which involves invoking
     a nested function from a different scope than the one it is defined in.  '
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '现在，让我们回顾一下本课中的第一个代码示例，该示例涉及从与定义该嵌套函数不同的作用域中调用嵌套函数。  '
 - en: '[PRE6]'
   id: totrans-62
   prefs: []
@@ -403,17 +473,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '这里是上面代码的 Replit：  '
 - en: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example7”>  '
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '<ReplitEmbed src=”https://replit.com/@newlineauthors/Example7”>  '
 - en: 'Hopefully, you can now explain how the nested function has access to the `outerVar`
     variable, even after the completion of the `outerFn` execution.  '
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '希望你现在能够解释为什么嵌套函数在 `outerFn` 执行完成后仍然能够访问 `outerVar` 变量。  '
 - en: The `inner` function has a reference to the local scope of the `outerFn` function,
     saved in its `[[Environment]]` internal slot. When the `inner` function is returned
     from the `outerFn` function, although the `outerFn` execution has ended, the `inner`
@@ -425,6 +498,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`inner`函数对`outerFn`函数的局部作用域有一个引用，保存在其`[[Environment]]`内部槽中。当从`outerFn`函数返回`inner`函数时，尽管`outerFn`的执行已经结束，`inner`函数仍然保留对`outerFn`局部作用域的引用。当调用`inner`函数时，`inner`函数的`[[Environment]]`槽的值会保存在为执行`inner`函数创建的环境的`[[OuterEnv]]`内部槽中。'
 - en: To summarize, every time a JavaScript function is created, a closure is formed,
     which allows that function to access the scope chain that was in effect when that
     function was defined. Each time a function is created, JavaScript saves the reference
@@ -436,12 +510,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总结来说，每当创建一个JavaScript函数时，都会形成一个闭包，这使得该函数可以访问在其定义时有效的作用域链。每次创建函数时，JavaScript都会在函数对象的内部`[[Environment]]`槽中保存对函数周围环境的引用。当调用该函数时，会为该函数调用创建一个新的环境，并且JavaScript会将函数的`[[Environment]]`槽的值保存在环境对象的`[[OuterEnv]]`槽中。
 - en: It is a common misconception among beginners that closures are only formed when
     any function returns a nested function. But that is not the case.
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 初学者常常误以为闭包仅在任何函数返回嵌套函数时才会形成，但事实并非如此。
 - en: Every time a function is created in JavaScript, it forms a closure over the
     environment in which that function was created. Forming a closure is a fancy way
     of saying that when a function is created, it saves a reference to the environment
@@ -450,12 +526,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每次在JavaScript中创建函数时，它都会在创建该函数时形成对环境的闭包。形成闭包是指当函数被创建时，它保存了对创建时环境的引用。
 - en: 'What is the cause of this misconception? It is because of the following two
     reasons:'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种误解的原因是什么？主要有以下两个原因：
 - en: Many online resources introduce the concept of closures with code examples containing
     a function that returns a nested function.
   id: totrans-71
@@ -463,6 +541,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 许多在线资源通过包含返回嵌套函数的函数的代码示例来介绍闭包的概念。
 - en: Closures are only noticeable when a function is invoked from a different scope
     than the one it is defined in.
   id: totrans-72
@@ -470,6 +549,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 只有当函数从与其定义不同的作用域中调用时，闭包才会显而易见。
 - en: Most functions are usually invoked from the same scope in which they are defined.
     This makes the closures go unnoticed. It is only when a function is invoked from
     a different scope than the one it is defined in that closures become noticeable.
@@ -477,12 +557,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 大多数函数通常是在其定义的相同作用域中被调用的。这使得闭包不易察觉。只有当函数从与其定义不同的作用域中被调用时，闭包才会变得显而易见。
 - en: In the following code example, a function is defined and invoked from the global
     scope, so a closure formed by the function is unnoticeable.
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在下面的代码示例中，从全局作用域定义并调用了一个函数，因此由该函数形成的闭包不易察觉。
 - en: '[PRE7]'
   id: totrans-75
   prefs: []
@@ -493,11 +575,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在这个`Replit`中看到上面的代码：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example1”>`'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closure-misconception-example1">`'
 - en: Unlike the code example above, in the following code example, closure is noticeable
     as the nested `greet` function has access to the `greetMsg` parameter of the containing
     `createGreeting` function even after the completion of the `createGreeting` function.
@@ -508,6 +592,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与上面的代码示例不同，在下面的代码示例中，闭包是显而易见的，因为嵌套的`greet`函数在`createGreeting`函数完成后仍然可以访问其`greetMsg`参数。闭包之所以明显，是因为`greet`函数是从与其定义不同的作用域中调用的。`greet`函数在`createGreeting`函数的局部作用域中定义，但它是从全局作用域中调用的。
 - en: '[PRE8]'
   id: totrans-79
   prefs: []
@@ -518,11 +603,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是上面代码的一个`Replit`：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/closure-misconception-example2”>`'
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/closure-misconception-example2">`'
 - en: What output do you expect from the following code example?
   id: totrans-82
   prefs: []

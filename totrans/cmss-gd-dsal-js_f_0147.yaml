@@ -1,211 +1,315 @@
 - en: Insertion
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: As I mentioned earlier, binary search trees are at their best when it comes
     to insertion. Now we’ll see why.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Say we want to insert the number 45 into our example tree. The first thing
     we’d have to do is find the correct node to attach the 45 to. To begin our search,
     we start at the root, as shown in the following illustration:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_6.png](images/binary_trees/bst_6.png)'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Since 45 is less than 50, we drill down to the left child:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_10.png](images/binary_trees/bst_10.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Since 45 is greater than 25, we must inspect the right child:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_11.png](images/binary_trees/bst_11.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Since 45 is greater than 33, we check the 33’s right child:'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_12.png](images/binary_trees/bst_12.png)'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: At this point, we’ve reached a node that has no children, so we have nowhere
     to go. This means we’re ready to perform our insertion.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Since 45 is greater than 40, we insert it as a right child of the 40:'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_13.png](images/binary_trees/bst_13.png)'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: In this example, insertion took five steps, consisting of four search steps
     plus one insertion step. Insertion always takes just one extra step beyond a search,
-    which means insertion takes (log N) + 1 steps. In Big O notation, which ignores
-    constants, this is O(log N).
+    which means insertion takes (`log N`) + 1 steps. In Big O notation, which ignores
+    constants, this is `O(log N)`.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In an ordered array, by contrast, insertion takes O(N), because in addition
+- en: In an ordered array, by contrast, insertion takes `O(N)`, because in addition
     to search, we must shift a lot of data to the right to make room for the value
     we’re inserting.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is what makes binary search trees so efficient. While ordered arrays have
-    O(log N) search and O(N) insertion, binary search trees have O(log N) search and
-    O(log N) insertion. This becomes critical in an application in which you anticipate
-    a lot of changes to your data.
+    `O(log N)` search and `O(N)` insertion, binary search trees have `O(log N)` search
+    and `O(log N)` insertion. This becomes critical in an application in which you
+    anticipate a lot of changes to your data.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Binary Search Tree Insertion'
+  id: totrans-16
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a JavaScript implementation of inserting a new value into a binary search
     tree. Like the search function, it’s recursive:'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ TreeNode ​**from**​ ​*''./tree_node.js''*​; |'
+- en: '| ​  | `import` TreeNode `from` *''./tree_node.js''*; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**function**​ insert(value, node) { |'
+- en: '| ​  | `function` insert(value, node) { |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (value < node.value) { |'
+- en: '| ​  | `if` (value < node.value) { |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!node.leftChild) { |'
+- en: '| ​  | `if` (!node.leftChild) { |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | node.leftChild = ​**new**​ TreeNode(value); |'
+- en: '| ​  | `node.leftChild = new TreeNode(value);` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | insert(value, node.leftChild); |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (value > node.value) { |'
+- en: '| ​  | } `else` `if` (value > node.value) { |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!node.rightChild) { |'
+- en: '| ​  | `if` (!node.rightChild) { |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | node.rightChild = ​**new**​ TreeNode(value); |'
+- en: '| ​  | `node.rightChild = new TreeNode(value);` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | insert(value, node.rightChild); |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: The insert function accepts a value that we’re going to insert and a node that
     serves as the ancestor node for which our value will become a descendant.
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First, we check whether the value is less than the value of the current node:'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (value < node.value) { |'
+- en: '| ​  | `if` (value < node.value) { |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: If the value is less than the node, we know that we need to insert the value
     somewhere among the left descendants of the node.
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We then check to see whether the current node has a left child. If the node
-    doesn’t have a left child, we make the value into the left child, since that’s
-    exactly where the value belongs:'
+- en: 然后我们检查当前节点是否有左子节点。如果节点没有左子节点，我们就将值作为左子节点，因为这正是值应该所在的位置：
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!node.leftChild) { |'
+- en: '| ​  | `if` (!`node.leftChild`) { |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | node.leftChild = ​**new**​ TreeNode(value); |'
+- en: '| ​  | `node.leftChild = new TreeNode(value);` |'
+  id: totrans-41
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: This is the base case, since we don’t need to make any recursive calls.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'However, if the node already has a left child, we can’t place the value there.
-    Instead, we recursively call insert on the left child so that we continue to search
-    for the spot in which we’ll place the value:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | insert(value, node.leftChild); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Eventually, we’ll hit a descendant node that doesn’t have its own child, and
-    that’s where the value is going to go.
+- en: 这是基本情况，因为我们不需要进行任何递归调用。
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rest of the function is the exact inverse; it handles cases where the value
-    is greater than the current node.
+- en: 然而，如果节点已经有左子节点，我们不能将值放在那里。相反，我们对左子节点递归调用`insert`，继续搜索可以放置值的位置：
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The Order of Insertion
+- en: '| ​  | `else` { |'
+  id: totrans-45
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `insert(value, node.leftChild);` |'
+  id: totrans-46
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-47
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 最终，我们会遇到一个没有子节点的后代节点，值将放在那里。
+  id: totrans-48
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 剩余的函数是完全相反的；它处理值大于当前节点的情况。
+  id: totrans-49
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 插入的顺序
+  id: totrans-50
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'It’s important to note that only when creating a tree out of randomly sorted
-    data do trees usually wind up being well-balanced. However, if we insert sorted
-    data into a tree, it can become imbalanced and less efficient. For example, if
-    we were to insert the following data in this order—1, 2, 3, 4, 5—we’d end up with
-    a tree that looks like this:'
+- en: 重要的是要注意，只有在创建随机排序数据的树时，树通常才会最终变得平衡。然而，如果我们将有序数据插入树中，树可能会变得不平衡且效率降低。例如，如果我们按照以下顺序插入数据——1,
+    2, 3, 4, 5——我们会得到如下的树：
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/bst_14.png](images/binary_trees/bst_14.png)'
+- en: '![`images/binary_trees/bst_14.png`](images/binary_trees/bst_14.png)'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: This tree is completely linear, so searching for the 5 within this tree would
-    take O(N).
+- en: 这棵树是完全线性的，因此在这棵树中搜索5将花费`O(N)`。
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'However, if we inserted the same data in the following order—3, 2, 4, 1, 5—the
-    tree would be evenly balanced:'
+- en: 然而，如果我们按以下顺序插入相同的数据——3, 2, 4, 1, 5——树将会均衡：
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/bst_15.png](images/binary_trees/bst_15.png)'
+- en: '![`images/binary_trees/bst_15.png`](images/binary_trees/bst_15.png)'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Only with a balanced tree does search take O(log N).
+- en: 只有平衡的树才能使搜索时间为`O(log N)`。
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Because of this, if you ever want to convert an ordered array into a binary
-    search tree, you’d want to first randomize the order of the data.
+- en: 因此，如果你想将有序数组转换为二叉搜索树，首先要随机化数据的顺序。
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: It emerges that in a worst-case scenario, when a tree is completely imbalanced,
-    search is O(N). In a best-case scenario, when it is perfectly balanced, search
-    is O(log N). In the typical scenario, in which data is inserted in random order,
-    a tree will be pretty well balanced and search will take about O(log N).
+- en: 结果表明，在最坏的情况下，当树完全不平衡时，搜索是`O(N)`。在最佳情况下，当树完全平衡时，搜索是`O(log N)`。在典型情况下，当数据以随机顺序插入时，树会比较平衡，搜索大约需要`O(log
+    N)`。
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

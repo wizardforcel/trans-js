@@ -1,63 +1,87 @@
 - en: Change the Data Structure
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Another helpful optimization technique is to imagine what would happen if we
     stored our given data in an alternative data structure.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For example, we may be working on a problem where the data is given to us in
     the form of an array. However, reimagining that same data stored as a hash table,
     tree, or other data structure can sometimes reveal clever optimization opportunities.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Our use of a hash table for the magical lookup technique earlier is a specific
     example of this. And we’re about to see that changing the data structure can be
     useful for other scenarios as well.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Anagram Checker
+  id: totrans-4
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Here’s one example. Let’s say we’re writing a function that determines whether
     two given strings are anagrams of one another. We encountered an anagram function
-    before in [​*Anagram Generation*​](f_0109.xhtml#sect.anagram-generation), but
+    before in `[*Anagram Generation*](f_0109.xhtml#sect.anagram-generation)`, but
     there we dealt with a function that produced every anagram of a string. Here,
-    we’re just going to compare two strings side by side. We’ll return true if they’re
-    anagrams of each other and false if they’re not.
+    we’re just going to compare two strings side by side. We’ll return `true` if they’re
+    anagrams of each other and `false` if they’re not.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, we could use the anagram-generating function to solve this problem; that
     is, we can produce all the anagrams of the first string and see if the second
-    string matches any of those anagrams. However, since for N characters in the string
-    there will always be N! anagrams, our algorithm will take at least O(N!) time.
-    This is disastrously slow.
+    string matches any of those anagrams. However, since for `N` characters in the
+    string there will always be `N!` anagrams, our algorithm will take at least `O(N!)`
+    time. This is disastrously slow.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: You know the drill. Before we proceed to optimize our code, we need to come
     up with our best-imaginable Big O.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, we certainly need to visit each character from both strings at least once.
     And since the input strings may be of different sizes, touching each character
-    just once would be O(N + M). As I couldn’t imagine a faster speed for the task
+    just once would be `O(N + M)`. As I couldn’t imagine a faster speed for the task
     at hand, this is what we’ll aim for.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In theory, we could put some code at the beginning of the function that immediately
-    returns false if the two strings have different sizes, since it’s impossible for
-    strings of different sizes to be anagrams. In that case, the speed we’d aim for
-    is 2N since the algorithm will only be working with strings that are the same
-    size. This reduces to O(N).
+    returns `false` if the two strings have different sizes, since it’s impossible
+    for strings of different sizes to be anagrams. In that case, the speed we’d aim
+    for is `2N` since the algorithm will only be working with strings that are the
+    same size. This reduces to `O(N)`.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, for the sake of this discussion, we’ll allow someone to input two strings
-    that may be of different sizes, and so we’ll aim for O(N + M).
+    that may be of different sizes, and so we’ll aim for `O(N + M)`.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s work our way there.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A second possible approach to our problem is to run nested loops to compare
     the two strings. Specifically, as an outer loop iterates over each character from
@@ -66,7 +90,9 @@
     here is that if every character from the first string is also present in the second
     string, we’d end up deleting every character from the second string by the time
     we complete our outer loop.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So, if by the time we finish looping, characters still remain from the second
     string, it means the strings aren’t anagrams. Also, if we’re still iterating over
@@ -74,456 +100,708 @@
     the strings aren’t anagrams. But if we make it to the end of the loop and the
     second string has been completely deleted, we can conclude that the two strings
     are indeed anagrams.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a JavaScript implementation of this:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ areAnagrams(firstString, secondString) { |'
+- en: '| ​  | `function` areAnagrams(`firstString`, `secondString`) { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ secondStringArray = [...secondString]; |'
+- en: '| ​  | `const` `secondStringArray` = [...`secondString`]; |'
+  id: totrans-16
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < firstString.length; i += 1) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (secondStringArray.length === 0) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < secondStringArray.length; j += 1) {
-    |'
+- en: '| ​  | `for` (`let` i = 0; i < `firstString`.length; i += 1) { |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (firstString[i] === secondStringArray[j]) { |'
+- en: '| ​  | `if` (`secondStringArray`.length === 0) { |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | secondStringArray.splice(j, 1); |'
+- en: '| ​  | `return` `false`; |'
+  id: totrans-20
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ secondStringArray.length === 0; |'
+- en: '| ​  | `for` (`let` j = 0; j < `secondStringArray`.length; j += 1) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (`firstString`[i] === `secondStringArray`[j]) { |'
+  id: totrans-24
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `secondStringArray`.splice(j, 1); |'
+  id: totrans-25
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `break`; |'
+  id: totrans-26
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-27
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-28
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-29
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-30
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `secondStringArray`.length === 0; |'
+  id: totrans-31
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-32
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Now, it just so happens that deleting items from an array while you’re looping
     through it can be error prone; if you don’t do it right, it’s like sawing off
     the tree branch you’re sitting on. But even though we’ve handled that correctly,
-    our algorithm runs at O(N * M). This is way faster than O(N!) but much slower
-    than the O(N + M) we’re shooting for.
+    our algorithm runs at O(`N` * `M`). This is way faster than O(`N!`) but much slower
+    than the O(`N` + `M`) we’re shooting for.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: An even faster approach would be to sort the two strings. If after sorting the
     two strings they’re exactly the same, it means they’re anagrams; otherwise, they’re
     not.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This approach will take O(N log N) for each string using a fast sorting algorithm
-    like Quicksort. Since we may have two strings of different sizes, this adds up
-    to be O(N log N + M log M). This is a nice improvement over O(N * M), but let’s
-    not stop now—we’re aiming for O(N + M), remember?
+- en: This approach will take O(`N` log `N`) for each string using a fast sorting
+    algorithm like Quicksort. Since we may have two strings of different sizes, this
+    adds up to be O(`N` log `N` + `M` log `M`). This is a nice improvement over O(`N`
+    * `M`), but let’s not stop now—we’re aiming for O(`N` + `M`), remember?
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is where using an alternative data structure can be extremely helpful.
     We’re dealing with strings, but let’s imagine that we’d store the string data
     in other types of data structures.
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We could store a string as an array of single characters. But this doesn’t help
     us.
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s next imagine the string as a hash table. What would that even look like?
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'One possibility is to create a hash table where each character is a key, and
     the value is the number of occurrences of that character within the word. For
-    example, the string "balloon" would look like so:'
+    example, the string `"balloon"` would look like so:'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | {"b": 1, "a": 1, "l": 2, "o": 2, "n": 1} |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This hash table indicates the string has one "b", one "a", two "l"s, two "o"s,
-    and one "n".
+- en: This hash table indicates the string has one `"b"`, one `"a"`, two `"l"`s, two
+    `"o"`s, and one `"n"`.
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, this doesn’t tell us everything about the string. Namely, we couldn’t tell
     from the hash table the order of characters within the string. So there’s a bit
     of data loss in this regard.
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, that data loss is exactly what we need to help us determine whether
     the two strings are anagrams: two strings turn out to be anagrams if they have
     the same number of each character, no matter what the order is.'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Take the words “rattles”, “startle”, and “starlet”. They all have two “t”s,
     one “a”, one “l”, one “e”, and one “s”—and that’s what allows them to be anagrams
     and easily reordered to become each other.
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can now write an algorithm that converts each string into a hash table that
     tallies the count of each type of character. Once we’ve converted the two strings
     into two hash tables, all that’s left is to compare the two hash tables. If they’re
     equal, it means the two strings are anagrams.
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s an implementation:'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ objectsEqual = (o1, o2) => Object.keys(o1).length |'
+- en: '| ​  | `const` objectsEqual = (o1, o2) => Object.keys(o1).length |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | === Object.keys(o2).length && Object.keys(o1).every((p) => o1[p] ===
     o2[p]); |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**function**​ areAnagrams(firstString, secondString) { |'
+- en: '| ​  | `function` areAnagrams(firstString, secondString) { |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ firstWordHashTable = {}; |'
+- en: '| ​  | `const` firstWordHashTable = {}; |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ secondWordHashTable = {}; |'
+- en: '| ​  | `const` secondWordHashTable = {}; |'
+  id: totrans-52
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ firstString) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (firstWordHashTable[​**char**​]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | firstWordHashTable[​**char**​] += 1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | firstWordHashTable[​**char**​] = 1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ secondString) { |'
+- en: '| ​  | `for` (`const` `char` `of` firstString) { |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (secondWordHashTable[​**char**​]) { |'
+- en: '| ​  | `if` (firstWordHashTable[`char`]) { |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | secondWordHashTable[​**char**​] += 1; |'
+- en: '| ​  | firstWordHashTable[`char`] += 1; |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | secondWordHashTable[​**char**​] = 1; |'
+- en: '| ​  | firstWordHashTable[`char`] = 1; |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ objectsEqual(firstWordHashTable, secondWordHashTable);
-    |'
+- en: '| ​  | `for` (`const` `char` `of` secondString) { |'
+  id: totrans-62
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (secondWordHashTable[`char`]) { |'
+  id: totrans-63
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | secondWordHashTable[`char`] += 1; |'
+  id: totrans-64
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` { |'
+  id: totrans-65
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | secondWordHashTable[`char`] = 1; |'
+  id: totrans-66
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-67
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-68
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-69
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` objectsEqual(firstWordHashTable, secondWordHashTable); |'
+  id: totrans-70
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-71
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In this algorithm, we iterate over each character from both strings just once,
-    which is N + M steps.
+    which is `N + M` steps.
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Note that at the beginning of the code, we’ve included a handy objectsEqual
+- en: Note that at the beginning of the code, we’ve included a handy `objectsEqual`
     function that compares two JavaScript objects (hash tables) and tells us whether
-    they’re identical in terms of keys and values. This takes up to another N + M
+    they’re identical in terms of keys and values. This takes up to another `N + M`
     steps, since we iterate over each of the key-value pairs in the hash tables to
     make sure the pairs exist in both hash tables. However, this still totals just
-    2(N + M) steps, which reduces to O(N + M). This is much faster than any of our
-    previous approaches.
+    `2(N + M)` steps, which reduces to `O(N + M)`. This is much faster than any of
+    our previous approaches.
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To be fair, we’re taking up some extra space with the creation of these hash
     tables. Our previous suggestion of sorting the two strings and comparing them
     would take up no extra space if we did the sorting in place. But if speed is what
     we’re after, we can’t beat the hash table approach, as we touch each character
     from the strings just once.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: By converting the strings into another data structure (in this case, hash tables),
     we were able to access the original data in such a way that allowed our algorithm
     to become blazing fast.
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It’s not always obvious what new data structure to use, so it’s good to imagine
     how the current data may look if it were converted into a variety of formats and
     see if that reveals any optimizations. That being said, hash tables turn out very
     often to be a great choice, so that’s a good place to start.
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Group Sorting
+  id: totrans-77
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Here’s another example of how changing the data structure can allow us to optimize
     our code. Let’s say we have an array containing several different values and we
     want to reorder the data so that the same values are grouped together. However,
     we don’t necessarily care what order the groups are in.
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'For example, let’s say we have the following array:'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | ["a", "c", "d", "b", "b", "c", "a", "d", "c", "b", "a", "d"] |'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Our goal is to sort this into groups, like so:'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | ["c", "c", "c", "a", "a", "a", "d", "d", "d", "b", "b", "b"] |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Again, we don’t care about the order of the groups, so these results would
     also be acceptable:'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | ["d", "d", "d", "c", "c", "c", "a", "a", "a", "b", "b", "b"] |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | ["b", "b", "b", "c", "c", "c", "a", "a", "a", "d", "d", "d"] |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Now, any classic sorting algorithm would accomplish our task since we’d end
     up with this:'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | ["a", "a", "a", "b", "b", "b", "c", "c", "c", "d", "d", "d"] |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: As you know, the fastest sorting algorithms clock in at O(N log N). But can
     we do better?
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s begin by coming up with the best-imaginable Big O. Since we know that
     there generally aren’t sorting algorithms faster than O(N log N), it may be difficult
     to imagine how we can sort something in a faster time.
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: But since we’re not doing a precise sort, if someone told me that our task can
     be done in O(N) time, I suppose I’d believe them. We certainly can’t beat O(N),
     since we need to visit each value at least once. So let’s aim for O(N).
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s employ the technique we’ve been discussing and imagine our data in the
     form of another data structure.
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We may as well start with a hash table. What would our array of strings look
     like if it were a hash table?
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If we took a similar approach to what we did with the anagrams, we could represent
     our array in the following way:'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | {​*"a"*​: 3, ​*"c"*​: 3, ​*"d"*​: 3, ​*"b"*​: 3} |'
+- en: '| ​  | {`"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'As with our previous example, there’s some data loss: we couldn’t convert this
     hash table back into our original array, as we wouldn’t know the original order
     of all the strings.'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, for our purposes of grouping, this data loss doesn’t matter. In fact,
     the hash table contains all the data we need to create the grouped array we’re
     looking for.
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Specifically, we can iterate over each key-value pair within the hash table
     and use that data to populate an array with the correct number of each string.
     Here’s the code for this:'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ groupSort(array) { |'
+- en: '| ​  | `function` groupSort(array) { |'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ hashTable = {}; |'
+- en: '| ​  | `const` hashTable = {}; |'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ newArray = []; |'
+- en: '| ​  | `const` newArray = []; |'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
+- en: '| ​  | `for` ( `const` value `of` array) { |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (hashTable[value]) { |'
+- en: '| ​  | `if` (hashTable[value]) { |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | hashTable[value] += 1; |'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | hashTable[value] = 1; |'
+- en: '| ​  | `hashTable[value] = 1;` |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ key ​**of**​ Object.keys(hashTable)) { |'
+- en: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ count = hashTable[key]; |'
+- en: '| ​  | `const` count = `hashTable[key];` |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < count; i += 1) { |'
+- en: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | newArray.push(key); |'
+- en: '| ​  | `newArray.push(key);` |'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ newArray; |'
+- en: '| ​  | `return` `newArray`; |'
+  id: totrans-117
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: Our groupSort function accepts an array and then begins by creating an empty
-    hashTable and an empty newArray.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'We first collect the tallies of each string and store them in the hash table:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (hashTable[value]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | hashTable[value] += 1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | hashTable[value] = 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-118
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: Our `groupSort` function accepts an array and then begins by creating an empty
+    `hashTable` and an empty `newArray`.
+  id: totrans-119
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 'We first collect the tallies of each string and store them in the `hashTable`:'
+  id: totrans-120
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `for` (`const` value `of` `array`) { |'
+  id: totrans-121
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (`hashTable[value]`) { |'
+  id: totrans-122
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `hashTable[value] += 1;` |'
+  id: totrans-123
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` { |'
+  id: totrans-124
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `hashTable[value] = 1;` |'
+  id: totrans-125
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'This creates the hash table that looks like this:'
+- en: '| ​  | } |'
+  id: totrans-127
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 'This creates the `hashTable` that looks like this:'
+  id: totrans-128
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | {​*"a"*​: 3, ​*"c"*​: 3, ​*"d"*​: 3, ​*"b"*​: 3} |'
+- en: '| ​  | `{` `"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Then we proceed to iterate over each key-value pair and use this data to populate
-    the newArray:'
+    the `newArray`:'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ key ​**of**​ Object.keys(hashTable)) { |'
+- en: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ count = hashTable[key]; |'
+- en: '| ​  | `const` count = `hashTable[key];` |'
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < count; i += 1) { |'
+- en: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | newArray.push(key); |'
+- en: '| ​  | `newArray.push(key);` |'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'So when we reach the pair "a": 3, we add three "a"s to the newArray. And when
-    we reach "c": 3, we add three "c"s to the newArray, and so on. By the time we’re
-    done, our newArray will contain all the strings organized in groups.'
+- en: 'So when we reach the pair `"a"`: 3, we add three `"a"`s to the `newArray`.
+    And when we reach `"c"`: 3, we add three `"c"`s to the `newArray`, and so on.
+    By the time we’re done, our `newArray` will contain all the strings organized
+    in groups.'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This algorithm takes just O(N) time, which is a significant optimization over
     the O(N log N) that sorting would have taken. We do use up O(N) space with the
-    extra hash table and newArray, although we could choose to overwrite the original
-    array to save additional memory. That being said, the space taken up by the hash
-    table would still be O(N) in the worst case, where each string in the array is
-    different.
+    extra `hashTable` and `newArray`, although we could choose to overwrite the original
+    array to save additional memory. That being said, the space taken up by the `hashTable`
+    would still be O(N) in the worst case, where each string in the array is different.
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: But again, if speed is our goal, we achieved our best-imaginable Big O, which
     is a fantastic win.
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

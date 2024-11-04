@@ -1,62 +1,81 @@
 - en: Completing Autocomplete
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: We’re finally ready to implement our autocomplete feature. In fact, we’ve pretty
-    much done all the legwork already. All we need to do is put the pieces together.
+- en: 我们终于准备好实现我们的自动补全功能。实际上，我们已经完成了几乎所有的准备工作。我们需要做的就是将这些部分组合在一起。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a basic autocomplete method that we can drop into our Trie class:'
+- en: 这是一个基本的自动补全方法，我们可以将其放入我们的`Trie`类中：
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | autocomplete(prefix) { |'
+- en: '| ​  | `autocomplete`(prefix) { |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ currentNode = ​**this**​.search(prefix); |'
+- en: '| ​  | `const` currentNode = `this`.search(prefix); |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!currentNode) { ​**return**​ ​**null**​; } |'
+- en: '| ​  | `if` (!currentNode) { `return` `null`; } |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.collectAllWords([], currentNode); |'
+- en: '| ​  | `return` `this`.collectAllWords([], currentNode); |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Yes, that’s it. By using our search method and collectAllWords method together,
-    we can autocomplete any prefix. Here’s how this works.
+- en: 是的，就这样。通过将我们的`search`方法和`collectAllWords`方法结合使用，我们可以对任何前缀进行自动补全。以下是它的工作原理。
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The autocomplete method accepts the prefix parameter, which is the string of
-    characters the user begins typing in.
+- en: '`autocomplete`方法接受`prefix`参数，它是用户开始输入的字符字符串。'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: First, we search the trie for the existence of the prefix. If the search method
-    doesn’t find the prefix in the trie, the search method returns null, and so our
-    method does as well.
+- en: 首先，我们在 trie 中搜索前缀是否存在。如果`search`方法在 trie 中找不到前缀，`search`方法将返回`null`，我们的方法也会如此。
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, if the prefix is found in the trie, the search method returns the node
-    in the trie that represents the final character in the prefix. We noted earlier
-    that we could have simply had the search method return true once it finds the
-    word. The reason why we had it return the final node was so that we could use
-    the search method to help us with the autocomplete feature.
+- en: 然而，如果前缀在 trie 中找到，`search`方法将返回表示前缀中最后一个字符的节点。我们之前提到过，我们本可以让`search`方法在找到单词时返回`true`。我们让它返回最后一个节点的原因是为了可以利用`search`方法帮助我们实现自动补全功能。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Our autocomplete method continues by calling the collectAllWords method on the
-    node returned by the search method. This finds and collects all words that stem
-    from that final node, which represents all the complete words that can be appended
-    to the original prefix to form a word.
+- en: 我们的自动补全方法通过在`search`方法返回的节点上调用`collectAllWords`方法继续。这将查找并收集从该最后节点派生的所有单词，代表所有可以附加到原始前缀以形成单词的完整单词。
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Our method finally returns an array of all possible endings to the user’s prefix,
-    which we could then display to the user as possible autocomplete options.
+- en: 我们的方法最终返回一个数组，包含用户前缀的所有可能结尾，我们可以将其显示给用户作为可能的自动补全选项。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,60 +1,82 @@
-- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
-    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
-    [https://doi.org/10.1007/978-3-658-42912-6_14](https://doi.org/10.1007/978-3-658-42912-6_14)
+- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
+    part of Springer Nature 2024 J. L. Zuckarelli Learn coding with Python and JavaScript
+    [`https://doi.org/10.1007/978-3-658-42912-6_14`](https://doi.org/10.1007/978-3-658-42912-6_14)
+  id: totrans-0
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14. How Do I Control the Program Flow and Make the Program React to User Actions
-    and Other Events?
+- en: 14. `How Do I Control the Program Flow and Make the Program React to User Actions
+    and Other Events?`
+  id: totrans-1
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+- en: Joachim L. Zuckarelli^([1](#Aff2) )(1) München, Germany Overview
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Programs must be able to react flexibly to new situations, for example, when
     the user makes an entry or clicks on a button. Depending on the input made or
     which button is clicked, different program instructions are executed. In effect,
     the program branches off into a different path. This form of flow control makes
     programs dynamic.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In this chapter you will learn the following:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How to branch to one or the other program part depending on a condition
+  id: totrans-5
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: How to formulate such conditions and how to check whether they are fulfilled
     or not
+  id: totrans-6
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: How to formulate complex conditions that are composed of several sub-conditions
+  id: totrans-7
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: What possibilities there are to test a whole series of similarly structured
     conditions in a simple and clear way
+  id: totrans-8
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: How you can react to events when you cannot know beforehand exactly when they
     will be triggered in the program flow (for example, the click on a button).
+  id: totrans-9
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 14.1 Why Program Flow Control Is Necessary
+  id: totrans-10
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: In the previous chapters you have seen what you need to receive data from the
     user, to process it, and to output the results of the processing. Nevertheless,
     programs that you write only with tools from that toolbox would be very limited
     in their possibilities, and thus in their usefulness, because the program flow
-    would be completely rigid. It would *always* start with an input, which would
-    then *always be* processed by the program in *exactly the same way*, and whose
-    result would finally *always be* reported back to the user in *the same form.*
+    would be completely rigid. It would `*always*` start with an input, which would
+    then `*always be*` processed by the program in `*exactly the same way*`, and whose
+    result would finally `*always be*` reported back to the user in `*the same form.*`
     In reality, it is unlikely that we would ever accept such inflexible programs.
     Imagine that you enter a new destination into the navigation system of your car.
     The navigation system calculates the optimal route to this destination, but as
@@ -65,679 +87,896 @@
     would seem strange if you set it to avoid toll roads, but the system completely
     ignored this instruction and simply directed you straight onto the first toll
     motorway. You would, quite rightly, think this was a fault in the navigation system.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So, what we need is a program that reacts to events (“driver left suggested
-    route”) and takes conditions into account (“driver wants to avoid toll roads”).
+- en: So, what we need is a program that reacts to events (`“driver left suggested
+    route”`) and takes conditions into account (`“driver wants to avoid toll roads”`).
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In both cases, certain parts of the program are only executed if the corresponding
-    event has occurred, or the corresponding condition has been fulfilled. The program
-    *branches* into different sections of the code, depending on the current situation
-    and other relevant circumstances. This chapter deals with this type of program
-    *flow control*.
+- en: 在这两种情况下，程序的某些部分仅在相应事件发生或相应条件得到满足时执行。程序根据当前情况和其他相关情况`branches`到代码的不同部分。本章将讨论这种类型的程序`flow
+    control`。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.2 Forms of Flow Control
+- en: 14.2 流控制的形式
+  id: totrans-14
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In practice, the flow control of the program is usually realized by using *If-(then-)Else
-    constructs*: *if* a certain condition is met, *then* do this, *otherwise* do something
-    else.'
+- en: 在实践中，程序的流控制通常通过使用`If-(then-)Else constructs`来实现：`if`某个条件满足，`then`执行某个操作，`otherwise`执行其他操作。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The conditions checked can also be *complex conditions* that consist of several
-    sub-conditions. In our navigation system example, such a complex condition could
-    be: “If ‘Avoid toll roads’ is set *AND* the next turn leads onto a toll road,
-    then do not recommend taking this turn under any circumstances”. Another example
-    would be “If the next turnoff is not a toll road *OR* driving on toll roads is
-    allowed, then recommend the next turnoff”. Here, two partial conditions are linked
-    with each other by *AND* or *OR*, both of which are logical operators.'
+- en: 被检查的条件也可以是`复杂条件`，由几个子条件组成。在我们的导航系统示例中，这样的复杂条件可能是：“如果‘避免收费公路’被设置为`true`，并且下一个转弯通往收费公路，则在任何情况下都不推荐走这个转弯。”另一个例子是：“如果下一个出口不是收费公路`OR`允许驶入收费公路，则推荐下一个出口。”在这里，两个部分条件通过`AND`或`OR`连接，这两者都是逻辑运算符。
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Sometimes you have a whole series of similar conditions to check, for example,
-    if the user is to enter a digit and each digit causes a different reaction. The
-    condition is structurally always the same, namely “input equals digit X” while
-    the program code that is executed when a particular one of these conditions is
-    met may be quite different in each case, depending on which digit was entered.
-    Such use cases of conditions can be implemented using If-Else constructs, but
-    these regularly lead to complicated code that is difficult to read (and thus difficult
-    to maintain). Therefore, many programming languages know a *Switch-Case construct,*
-    which can be used to implement the checking of similar conditions in a very simple
-    and clear way.
+- en: 有时你需要检查一系列相似的条件，例如，如果用户输入一个数字，每个数字会引发不同的反应。条件在结构上总是相同的，即“输入等于数字`X`”，而当满足某个特定条件时执行的程序代码可能因输入的数字而大相径庭。此类条件的使用案例可以通过`If-Else`构造来实现，但这通常会导致复杂的代码，难以阅读（因此也难以维护）。因此，许多编程语言知道`Switch-Case
+    construct`，可以用来以非常简单明了的方式实现对相似条件的检查。
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The program flow is not always linear, so that after a well-defined sequence
-    of instructions, you arrive at the point where a condition is checked and then,
-    depending on the result of the check, you branch to one or the other part of the
-    program. The most important cause for non-linear program flows is the user. On
-    a graphical user interface, for example, the user can choose from a number of
-    different program features and can decide relatively freely at which point to
-    use which feature and in which order. This means that the user determines the
-    flow of the program, and the program cannot simply be the stubborn processing
-    of a long sequence of instructions but must somehow be structured more flexibly.
-    This kind of flow control leads us to the concept of *events* and the event-oriented
-    programming paradigm that is used in many programming languages.
+- en: 程序流并不总是线性的，因此在经过一系列明确定义的指令后，你到达一个检查条件的点，然后根据检查结果分支到程序的一个或另一个部分。非线性程序流的最重要原因是用户。例如，在图形用户界面上，用户可以从多个不同的程序功能中选择，并可以相对自由地决定在何时使用哪个功能以及以何种顺序使用。这意味着用户决定了程序的流，而程序不能仅仅是对一长串指令的顽固处理，而必须以某种方式更灵活地结构化。这种流控制引导我们到`events`的概念和在许多编程语言中使用的事件驱动编程范式。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We deal with these elements of flow control, the If-Else constructs, the conditions
-    used in them, the linking of multiple sub-conditions into a more complex overall
-    condition, the Switch-Case constructs, and event control in the remainder of this
-    chapter.
+- en: 我们在本章其余部分将处理这些流控制元素，包括`If-Else`构造、用于它们的条件、多个子条件链接成更复杂的整体条件、`Switch-Case constructs`和事件控制。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.3 If-Else Constructs
+- en: 14.3 `If-Else Constructs`
+  id: totrans-20
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Imagine we were working on software for online banking, the programs that run
     a bank’s online banking website. Here we deal with an account balance query. The
     user should receive a warning if his account is in debit, i.e., the account balance
     is negative.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'A program that does just that might look like this:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'balance = query_balance()**If** balance < 0 **Then** show("Attention: Your
-    account balance is negative!")show("Current balance: $", balance)'
+- en: '`balance = query_balance()` **If** `balance < 0` **Then** `show("Attention:
+    Your account balance is negative!")` `show("Current balance: $", balance)`'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here we first assign the value of the function **query_balance()** to a variable
-    **balance**. We want to assume that this function returns the current account
+- en: 'Here we first assign the value of the function **`query_balance()`** to a variable
+    **`balance`**. We want to assume that this function returns the current account
     balance as a decimal number. After saving the account balance in the variable,
-    we use **If balance < 0** to check whether the account balance is negative. If
-    it is, a warning message is displayed, which we do here with the function **show()**.
-    Then, with **show("Current balance: $", balance),** we output the account balance
-    itself, i.e. the contents of the variable **balance**. Note that this statement
+    we use **`If balance < 0`** to check whether the account balance is negative.
+    If it is, a warning message is displayed, which we do here with the function **`show()`**.
+    Then, with **`show("Current balance: $", balance)`**, we output the account balance
+    itself, i.e., the contents of the variable **`balance`**. Note that this statement
     is always executed, regardless of whether the account is in debit or not. The
     only statement that depends on the condition that the account balance has a negative
-    value is the display of the warning message after the keyword **then**. Everything
+    value is the display of the warning message after the keyword **`then`**. Everything
     that follows will be executed in any case.'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now suppose that the account balance is $1000\. In this case, the output of
-    our program would be:'
+- en: 'Now suppose that the account balance is `$1000`\. In this case, the output
+    of our program would be:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Current balance: $1000'
+- en: 'Current balance: `$1000`'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'However, if the account were in debit, for example, with a balance of -$280,
+- en: 'However, if the account were in debit, for example, with a balance of `-$280`,
     the user would receive the following output:'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Attention: Your account balance is negative!Current balance: $-280'
+- en: '`Attention: Your account balance is negative!` Current balance: `$-280`'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this simple example you can see very clearly how the program branches and
     executes certain parts – in our case the warning – only if a certain condition
     is met.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In the next step, we extend the program so that it also displays how much is
-    left of the overdraft facility, which we want to assume is $500, provided the
+    left of the overdraft facility, which we want to assume is `$500` provided the
     account is in debit. If the account is in credit, i.e., the account balance is
-    greater than 0, no message is to be displayed with regard to the overdraft facility.
+    greater than `0`, no message is to be displayed with regard to the overdraft facility.
     The expansion of our program could look like this:'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'balance = query_balance()**If** balance < 0 **Then****Begin**show("Attention:
-    Your account balance is negative!")overdraftrest = 500 + balanceshow("You still
-    have $", overdraftrest, " left of your overdraft facility.")**End**show("Current
-    balance: $", balance)'
+- en: '`balance = query_balance()` **If** `balance < 0` **Then** **Begin** `show("Attention:
+    Your account balance is negative!")` `overdraftrest = 500 + balance` `show("You
+    still have $", overdraftrest, " left of your overdraft facility.")` **End** `show("Current
+    balance: $", balance)`'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To map the overdraft balance, we create a variable called **overdraftrest**,
-    to which we assign the sum of $500 and **balance.** If the account balance is
-    negative (and only then will this part of the program be run), the sum is just
+- en: To map the overdraft balance, we create a variable called **`overdraftrest`**,
+    to which we assign the sum of `$500` and **`balance`**. If the account balance
+    is negative (and only then will this part of the program be run), the sum is just
     the amount remaining on the overdraft facility.
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Unlike the previous example, here the check to see if the account is in debit
-    is followed by *several* statements enclosed in a code block between the **Start**
-    and **End** keywords. We have already learned about code blocks in connection
-    with functions in ► Sect. [13.​1](474412_1_En_13_Chapter.xhtml#Sec1). All statements
-    in the code block are executed only if the condition **balance < 0** is met. The
-    statement **show("Current balance: $", balance)**, with which we output the current
+    is followed by `several` statements enclosed in a code block between the `Start`
+    and `End` keywords. We have already learned about code blocks in connection with
+    functions in ► Sect. [13.​1](474412_1_En_13_Chapter.xhtml#Sec1). All statements
+    in the code block are executed only if the condition `balance < 0` is met. The
+    statement `show("Current balance: $", balance)`, with which we output the current
     account balance, is not part of the code block and is therefore always executed,
     regardless of whether the account is in debit or credit. In many programming languages,
-    if the code block is only one line, the delimiters **Begin** and **End** in our
-    pseudo-code) can also be omitted, as we did in the examples above.'
+    if the code block is only one line, the delimiters `Begin` and `End` in our pseudo-code)
+    can also be omitted, as we did in the examples above.'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s take our example again with a negative account balance of -$280\. In
+- en: 'Let’s take our example again with a negative account balance of `-$280`. In
     this case, our program now produces the following output:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Attention: Your account balance is negative!You still have $220 left of your
-    overdraft facility.Current balance: $-280'
+- en: '`Attention: Your account balance is negative!` `You still have $220 left of
+    your overdraft facility.` `Current balance: $-280`'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In the case of a positive account balance of $1000, the output is reduced accordingly:'
+- en: 'In the case of a positive account balance of `1000`, the output is reduced
+    accordingly:'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Current balance: $1000'
+- en: '`Current balance: $1000`'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now suppose we also wanted to display something when the account balance is
-    positive (or equal to 0), for example, “Your account is in credit.”
+    positive (or equal to `0`), for example, `Your account is in credit.`
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This can be easily implemented with the means we have learned so far:'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'balance = query_balance()**If** balance < 0 **Then****Begin**show("Attention:
-    Your account balance is negative!")overdraftrest = 500 + balanceshow("You still
-    have $", overdraftrest, " left of your overdraft facility.")**End****If** balance
-    >= 0 **Then****Begin**show("Your account is in credit.")**End**show("Current balance:
-    $", balance)'
+- en: '`balance = query_balance()` `If` `balance < 0` `Then` `Begin` `show("Attention:
+    Your account balance is negative!")` `overdraftrest = 500 + balance` `show("You
+    still have $", overdraftrest, " left of your overdraft facility.")` `End` `If`
+    `balance >= 0` `Then` `Begin` `show("Your account is in credit.")` `End` `show("Current
+    balance: $", balance)`'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, this can be done more easily if we take into account that each of
-    the conditions **balance < 0** and **balance >= 0** is the inverse of the other,
-    i.e., both together cover all possible cases. In this situation we can do without
-    formulating the second condition explicitly:'
+    the conditions `balance < 0` and `balance >= 0` is the inverse of the other, i.e.,
+    both together cover all possible cases. In this situation we can do without formulating
+    the second condition explicitly:'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'balance = query_balance()**If** balance < 0 **Then****Begin**show("Attention:
-    Your account balance is negative!")overdraftrest = 500 + balanceshow("You still
-    have $", overdraftrest, " left of your overdraft facility.")**End****Else****Begin**show("Your
-    account is in credit.")**End**show("Current balance: $", balance)'
+- en: '`balance = query_balance()` `If` `balance < 0` `Then` `Begin` `show("Attention:
+    Your account balance is negative!")` `overdraftrest = 500 + balance` `show("You
+    still have $", overdraftrest, " left of your overdraft facility.")` `End` `Else`
+    `Begin` `show("Your account is in credit.")` `End` `show("Current balance: $",
+    balance)`'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here, the keyword **Else** tells us that now the code block begins which is
-    executed only if the condition above (**balance < 0**) is not met, that is, if
-    the account balance is greater than or equal to 0\. We thus have two blocks of
-    code: The block between **If account < 0 Then** and **End,** and the one between
-    **Else** and **End**. Each time the program is executed, only *one* block is run.
-    So, the program branches at this point. If the condition **If balance < 0** is
-    met, it first continues, shows the warning message, calculates the overdraft balance,
-    and displays this. Then it encounters the **Else.** Since the first condition
-    was already met, the **Else** block is skipped and the execution is continued
-    only with the next statement after the **Else** block, in our case **show("Current
-    balance: $", balance)**.'
+- en: 'Here, the keyword `Else` tells us that now the code block begins which is executed
+    only if the condition above (`balance < 0`) is not met, that is, if the account
+    balance is greater than or equal to 0. We thus have two blocks of code: The block
+    between `If account < 0 Then` and `End`, and the one between `Else` and `End`.
+    Each time the program is executed, only *one* block is run. So, the program branches
+    at this point. If the condition `If balance < 0` is met, it first continues, shows
+    the warning message, calculates the overdraft balance, and displays this. Then
+    it encounters the `Else.` Since the first condition was already met, the `Else`
+    block is skipped and the execution is continued only with the next statement after
+    the `Else` block, in our case `show("Current balance: $", balance)`.'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A schematic representation of the flow of an If-Else construct is shown in ◘
-    Fig. [14.1](#Fig1).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig1_HTML.jpg)
+    Fig. `[14.1](#Fig1)`.![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig1_HTML.jpg)
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A diagram of the if-else construct. Input is provided to the condition, which
-    is classified as either not fulfilled or fulfilled. They are followed by the else
-    and if blocks.
+    is classified as either not fulfilled or fulfilled. They are followed by the `else`
+    and `if` blocks.
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Fig. 14.1
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Flow chart of an If-Else construct
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Most programming languages have such If-Else constructs. The structure of these
     constructs is usually very similar. To illustrate this, let’s take a look at how
     the above problem would be solved in three different programming languages.
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First in C/C++:'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**if**(balance < 0){printf("Attention: Your account balance is negative!");float
-    overdraftrest = 500 + balance;printf("You still have $%f left of your overdraft
-    facility.", overdraftrest);}**else**{printf("Your account is in credit.");}printf("Current
+- en: '`if`(balance < 0){`printf`("Attention: Your account balance is negative!");`float`
+    overdraftrest = 500 + balance;`printf`("You still have $%f left of your overdraft
+    facility.", overdraftrest);} `else`{`printf`("Your account is in credit.");}`printf`("Current
     balance: $%f", balance);'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next in Python:'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**if** balance < 0:print("Attention: Your account balance is negative!")overdraftrest
-    = 500 + balanceprint("You still have ", overdraftrest, " left of your overdraft
-    facility.")**else**:print("Your account is in credit.")print("Current balance:
+- en: '`if` balance < 0:`print`("Attention: Your account balance is negative!")overdraftrest
+    = 500 + balance`print`("You still have ", overdraftrest, " left of your overdraft
+    facility.") `else`:`print`("Your account is in credit.")`print`("Current balance:
     $", balance);'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'And finally, in Visual Basic for Applications (VBA):'
+- en: 'And finally, in `Visual Basic for Applications (VBA)`:'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** balance < 0 **Then**MsgBox ("Attention: Your account balance is negative!")overdraftrest
-    = 500 + balanceMsgBox ("You still have " & overdraftrest & " left of your overdraft
-    facility.")**Else**MsgBox ("Your account is in credit.")**End If**MsgBox ("Current
-    balance: $" & balance)If you compare the three examples, you will first notice
+- en: '`If` balance < 0 `Then` `MsgBox` ("Attention: Your account balance is negative!")overdraftrest
+    = 500 + balance`MsgBox` ("You still have " & overdraftrest & " left of your overdraft
+    facility.") `Else` `MsgBox` ("Your account is in credit.") `End If` `MsgBox` ("Current
+    balance: $" & balance) If you compare the three examples, you will first notice
     the fundamentally similar structure. All three languages have an If-Else construct.
     The implementation differs only in detail:'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Keywords**: In all three languages, the keywords **if** and **else** exist**.**
-    However, an explicit **then** is written only in VBA.'
+- en: '`Keywords`: In all three languages, the keywords `if` and `else` exist. However,
+    an explicit `then` is written only in `VBA`.'
+  id: totrans-55
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Conditions**: C/C++ requires that the condition be written in parentheses,
+- en: '`Conditions`: C/C++ requires that the condition be written in parentheses,
     which the other two languages do not. There, however, parentheses do no harm either;
     we will learn the reason for this below.'
+  id: totrans-56
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Code blocks**: Significant differences exist, however, in how the code blocks
-    that are to be executed when the condition is met (if-case), or when the condition
-    is not met (else-case), are delimited: In C/C++, curly braces are used to mark
-    the beginning *and* end of a code block. In Python, however, code blocks start
-    with a colon and are indented. All statements at the same indentation level are
-    considered part of the code block. Therefore, there is no need for a special keyword
-    at the end of the **else** block anymore. Here you must pay close attention to
-    how the code is formatted; the indentations have a meaning and therefore you can’t
-    just indent as you like. In the VBA example, there are the blocks between the
-    **Then** and the **Else**, and between the **Else** and the **End If**. Note here
-    that, unlike the **End** used above, the **End If** does not mark the end of the
-    **If** block, the part of the code that is executed when the condition **balance
-    < 0** is met. It marks the end of the entire If-Else construct. The if-block simply
-    ends at the **Else**. Only if no **Else** branch exists, the **End If** marks
-    the end of the **If** block. 14.1 [3 min]What does the following pseudo-code program
-    when**a. x = 10****b. x = 11****c. x = 25****d. x = –1**'
+- en: '`Code blocks`: Significant differences exist, however, in how the code blocks
+    that are to be executed when the condition is met (`if-case`), or when the condition
+    is not met (`else-case`), are delimited: In `C/C++`, curly braces are used to
+    mark the beginning `and` end of a code block. In `Python`, however, code blocks
+    start with a colon and are indented. All statements at the same indentation level
+    are considered part of the code block. Therefore, there is no need for a special
+    keyword at the end of the `else` block anymore. Here you must pay close attention
+    to how the code is formatted; the indentations have a meaning and therefore you
+    can’t just indent as you like. In the `VBA` example, there are the blocks between
+    the `Then` and the `Else`, and between the `Else` and the `End If`. Note here
+    that, unlike the `End` used above, the `End If` does not mark the end of the `If`
+    block, the part of the code that is executed when the condition `balance < 0`
+    is met. It marks the end of the entire `If-Else` construct. The `if-block` simply
+    ends at the `Else`. Only if no `Else` branch exists, the `End If` marks the end
+    of the `If` block. 14.1 [3 min] What does the following pseudo-code program when
+    `a. x = 10` `b. x = 11` `c. x = 25` `d. x = –1`?'
+  id: totrans-57
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: is entered?
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'x = enter("Please enter a number: ")**If** x > 10 **Then****Begin****If** x
-    > 20 **Then** show("Result A")show("Result B")**End****Else****Begin****If** x
-    > 0 **Then** show("Result B")**End**14.2 [3 min]'
+- en: '`x = enter("Please enter a number: ")` `If` `x > 10` `Then` `Begin` `If` `x
+    > 20` `Then` `show("Result A")` `show("Result B")` `End` `Else` `Begin` `If` `x
+    > 0` `Then` `show("Result B")` `End` 14.2 [3 min]'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Modify the program section from ► Exercise [14.1](#FPar8) so that **Result B**
-    is only displayed if **x** is greater than 10 and less than or equal to 20.
+- en: Modify the program section from ► Exercise [14.1](#FPar8) so that `Result B`
+    is only displayed if `x` is greater than 10 and less than or equal to 20.
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 14.4 A Closer Look at Conditions
+  id: totrans-61
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: In the previous section, you saw how If-Else constructs can be used to branch
+- en: In the previous section, you saw how `If-Else` constructs can be used to branch
     to different parts of the program depending on whether a particular condition
     is met or not. In the following, we will take a closer look at the conditions
-    that are checked in the If-Else constructs.
+    that are checked in the `If-Else` constructs.
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The great common feature of all conditions is that their result is either *true*
-    or *false*, the condition is satisfied or not. Any logical expression that can
-    be evaluated as true or false is thus suitable to be used as a condition. Often
-    such logical expressions are value comparisons, as we saw in the online banking
-    example of the previous section. There, for example, we checked whether the account
-    balance was less than 0\. Such value comparisons can be easily formulated using
-    the comparison operators known from mathematics, such as **>** (greater than),
-    **<** (less than), and **=** (equal to). Here, **>=** is usually written for “greater
-    than or equal to” and **<=** for “less than or equal to” because the special characters
-    ≤ and ≥ did not exist in the character sets of the early computer age, and today,
-    even though they are theoretically available, they cannot easily be typed directly
-    from the keyboard. Therefore, to facilitate fast typing of programs, the compound
-    notation has been agreed upon. The not-equal character ≠ poses a particular challenge,
-    because there is no natural “translation” into a compound character. And indeed,
-    different programming languages have found different solutions for this. The two
-    most commonly encountered are **<>** (greater than and less than) and **!=** (exclamation
-    mark and equal sign).
+- en: The great common feature of all conditions is that their result is either `true`
+    or `false`，the condition is satisfied or not。 Any logical expression that can
+    be evaluated as true or false is thus suitable to be used as a condition。 Often
+    such logical expressions are value comparisons，as we saw in the online banking
+    example of the previous section。 There，for example，we checked whether the account
+    balance was less than `0`。 Such value comparisons can be easily formulated using
+    the comparison operators known from mathematics，such as `>` (greater than)，`<`
+    (less than)，and `=` (equal to)。 Here，`>=` is usually written for “greater than
+    or equal to” and `<=` for “less than or equal to” because the special characters
+    `≤` and `≥` did not exist in the character sets of the early computer age，and
+    today，even though they are theoretically available，they cannot easily be typed
+    directly from the keyboard。 Therefore，to facilitate fast typing of programs，the
+    compound notation has been agreed upon。 The not-equal character `≠` poses a particular
+    challenge，因为 there is no natural “translation” into a compound character。 And
+    indeed，different programming languages have found different solutions for this。
+    The two most commonly encountered are `<>` (greater than and less than) and `!=`
+    (exclamation mark and equal sign)。
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In the previous section, conditions always consisted of comparing a variable
-    with a value. In fact, any expression that can be true or false is conceivable
-    as a condition. Imagine that we have a function in our online banking example
-    that checks whether the current customer has a positive account balance. The return
-    value of this function can be stored in a variable:'
+- en: In the previous section，conditions always consisted of comparing a variable
+    with a value。 In fact，any expression that can be true or false is conceivable
+    as a condition。 Imagine that we have a function in our online banking example
+    that checks whether the current customer has a positive account balance。 The return
+    value of this function can be stored in a variable：
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: accountcredit = is_balance_positive()
+- en: '`accountcredit = is_balance_positive()`'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So we assign the return value of the function **is_balance_positive()** to
-    the variable **accountcredit**. Accordingly, the value of the **accountcredit**
-    variable is now either **TRUE** or **FALSE**. We can check the content of the
-    variable in a condition:'
+- en: So we assign the return value of the function `is_balance_positive()` to the
+    variable `accountcredit`。 Accordingly, the value of the `accountcredit` variable
+    is now either `TRUE` or `FALSE`。 We can check the content of the variable in a
+    condition：
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** accountcredit = **TRUE Then****Begin**show("Your account is in credit!")**End**'
+- en: '`If accountcredit = TRUE Then Begin show("Your account is in credit!") End`'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Instead of checking the variable **accountcredit**, most programming languages
-    allow you to simply insert the function directly into the condition:'
+- en: Instead of checking the variable `accountcredit`，most programming languages
+    allow you to simply insert the function directly into the condition：
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** is_balance_positive() = **TRUE Then****Begin**show("Your account is
-    in credit!")**End**'
+- en: '`If is_balance_positive() = TRUE Then Begin show("Your account is in credit!")
+    End`'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This procedure is always useful if you do not want to continue working with
-    the return value of the function. However, if you want to access this value again
-    at another point, it makes sense to store the value in a variable for further
-    use. This saves a repeated call of the function and thus computing power and time:
-    If the program code behind the function is very complex, your program will run
+- en: This procedure is always useful if you do not want to continue working with
+    the return value of the function。 However，if you want to access this value again
+    at another point，it makes sense to store the value in a variable for further use。
+    This saves a repeated call of the function and thus computing power and time：
+    If the program code behind the function is very complex，your program will run
     faster if you simply fall back on the value stored in the variable instead of
-    having it recalculated by a function call.'
+    having it recalculated by a function call。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Another simplification that most programming languages allow is to simply drop
-    the explicit comparison with the logical value **TRUE**. So, the assumption is
+    the explicit comparison with the logical value `TRUE` . So, the assumption is
     that whenever a value (either the value of a variable, the return value of a function,
     or the result of an expression computed in whatever way) is used in a condition
     without explicitly comparing it to another value, the comparison should be made
-    to the logical value **TRUE**. In our example, we could write:'
+    to the logical value `TRUE` . In our example, we could write:'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** is_balance_positive() **Then****Begin**show("Your account is in credit!")**End**'
+- en: '`If` `is_balance_positive()` `Then` `Begin` `show("Your account is in credit!")`
+    `End`'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If you have given the function a meaningful name, as we have done here, the
     condition is very easy to read and understand.
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As you can see, even a normal comparison of values is in the end always a comparison
-    with the value **TRUE** and thus a check of a condition according to the common
+    with the value `TRUE` and thus a check of a condition according to the common
     scheme.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For instead of, say
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** balance > 1000000 **Then**'
+- en: '`If` `balance > 1000000` `Then`'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'you could also write:'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** (balance > 1000000) = **TRUE Then**'
+- en: '`If` (`balance > 1000000`) = `TRUE` `Then`'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Then the expression on the left would be evaluated first. If the account balance
-    were now greater than one million, the expression would take the value **TRUE**
+    were now greater than one million, the expression would take the value `TRUE`
     and the condition would be fulfilled. Conditions are therefore ultimately always
-    comparisons with the value **TRUE**.
+    comparisons with the value `TRUE` .
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.5 Complex Conditions with Logical Operators (AND, OR, NOT)
+- en: '`14.5 Complex Conditions with Logical Operators (AND, OR, NOT)`'
+  id: totrans-80
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: In the examples of the previous sections, it was always a single elementary
     condition in an if-then block that decided whether a program part is executed
     or not. Of course, the condition in an if-then block can also be a condition composed
     of several sub-conditions.
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s assume, for example, that in our online banking example we only want to
-    allow a transfer if the account is not blocked *and* the sum of the account balance
+    allow a transfer if the account is not blocked `and` the sum of the account balance
     (which can also be negative) and the overdraft facility is at least as high as
-    the amount to be transferred. If, for example, the account balance were $–150,
-    the overdraft facility $500 and the user of our online banking wanted to transfer
-    an amount of $50, the online banking should allow this, because the sum of the
-    account balance and the overdraft facility, and thus the amount available for
-    the online banking customer, would amount to $350, i.e. more than is actually
-    to be transferred. If, on the other hand, the customer wanted to transfer $400,
-    our online banking application should reject this transaction request, because
+    the amount to be transferred. If, for example, the account balance were `$–150`
+    , the overdraft facility `$500` and the user of our online banking wanted to transfer
+    an amount of `$50` , the online banking should allow this, because the sum of
+    the account balance and the overdraft facility, and thus the amount available
+    for the online banking customer, would amount to `$350` , i.e. more than is actually
+    to be transferred. If, on the other hand, the customer wanted to transfer `$400`
+    , our online banking application should reject this transaction request, because
     the amount to be transferred would exceed the available sum from the account balance
-    and overdraft facility by $50.
+    and overdraft facility by `$50` .
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To make life easy for ourselves, let’s assume that we have an **is_account_locked()**
-    function available that returns **TRUE** if the account is locked and **FALSE**
-    if it is not. Then the condition that checks whether the customer is allowed to
-    make a transfer of **amount** dollars or not would look like this in an if-then
-    block:'
+- en: 'To make life easy for ourselves, let’s assume that we have an `is_account_locked()`
+    function available that returns `TRUE` if the account is locked and `FALSE` if
+    it is not. Then the condition that checks whether the customer is allowed to make
+    a transfer of `amount` dollars or not would look like this in an if-then block:'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** is_account_locked() = **FALSE****AND** balance + overdraftrest >= amount
-    **Then****Begin**…**End**'
+- en: '`If` `is_account_locked()` = `FALSE` `AND` `balance + overdraftrest >= amount`
+    `Then` `Begin` `…` `End`'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here you can see that we link two (partial) conditions with a logical **AND**.
     The total condition of the if-then block is therefore only fulfilled if *both*
     the one *and* the other partial conditions are fulfilled.
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In addition to the AND, there are other logical operators that you can use
-    to combine more complex conditions. For example, the logical OR, which links two
-    (partial) conditions in such a way that the total condition is fulfilled exactly
+- en: 'In addition to the `AND`, there are other logical operators that you can use
+    to combine more complex conditions. For example, the logical `OR`, which links
+    two (partial) conditions in such a way that the total condition is fulfilled exactly
     when one, the other, or both partial conditions are fulfilled. The meaning of
-    the logical OR is therefore different from that of the “or” in everyday language,
-    in which an *exclusive* OR is often meant: *either* one *or* the other, but not
-    both together.'
+    the logical `OR` is therefore different from that of the “or” in everyday language,
+    in which an *exclusive* `OR` is often meant: *either* one *or* the other, but
+    not both together.'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As you can easily see, logical operators work just like the ones you know from
-    mathematics. Accordingly, programming languages also know an exclusive OR (often
-    called XOR), which corresponds to the colloquial “or”.
+    mathematics. Accordingly, programming languages also know an exclusive `OR` (often
+    called `XOR`), which corresponds to the colloquial “or”.
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Another important logical operator is the logical NOT, which reverses the logical
-    truth content of a statement. The inverse of the truth content of the statement
-    “The account is locked” is obviously “The account is not locked”. In programming,
-    unfortunately, we usually cannot put the NOT so elegantly between the “words”
-    of our “sentence”. Therefore, in the program code, it tends to result in something
-    like “NOT the account is locked”. So instead of the above condition, we could
-    also write:'
+- en: 'Another important logical operator is the logical `NOT`, which reverses the
+    logical truth content of a statement. The inverse of the truth content of the
+    statement “The account is locked” is obviously “The account is not locked”. In
+    programming, unfortunately, we usually cannot put the `NOT` so elegantly between
+    the “words” of our “sentence”. Therefore, in the program code, it tends to result
+    in something like “`NOT` the account is locked”. So instead of the above condition,
+    we could also write:'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If NOT** is_account_locked**AND** balance + overdraftrest >= amount**Then****Begin**…**End**'
+- en: '**If NOT** `is_account_locked` **AND** `balance + overdraftrest >= amount`
+    **Then** **Begin**… **End**'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As you recall from the previous section, **is_account_locked()** is a shorthand
-    notation for **is_account_locked() = TRUE**, so if you want to check for the value
-    **TRUE,** you can simply omit the explicit comparison to that value, because that
+- en: As you recall from the previous section, `is_account_locked()` is a shorthand
+    notation for `is_account_locked() = TRUE`, so if you want to check for the value
+    **TRUE**, you can simply omit the explicit comparison to that value, because that
     is what is checked for by default if you do not specify a different comparison
     value.
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The condition designed in this way thus first determines the value of the function
-    **is_account_locked()**. With the help of the NOT operator, this truth value is
-    then simply reversed. So, if the account is unlocked, **is_account_locked()**
-    returns the value **FALSE**, the logical NOT reverses the value to **TRUE**. Thus,
-    the condition shortens to **If TRUE AND balance + overdraft >= amount**. The truth
+    `is_account_locked()`. With the help of the `NOT` operator, this truth value is
+    then simply reversed. So, if the account is unlocked, `is_account_locked()` returns
+    the value **FALSE**, the logical `NOT` reverses the value to **TRUE**. Thus, the
+    condition shortens to **If TRUE AND `balance + overdraft >= amount`**. The truth
     value of the total condition then depends on whether the second sub-condition
     is fulfilled or not.
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Of course, logical expressions like the above can also be nested with brackets
     in any complexity. The parentheses ensure that the contents of the parentheses
     are evaluated first, before the value thus determined is logically linked with
     other expressions.
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a simple example:'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If NOT** is_account_locked()**AND** (balance + overdraftrest >= amountOR
-    is_customerhistory_positive()) **Then****Begin**…**End**'
+- en: '**If NOT** `is_account_locked()` **AND** (`balance + overdraftrest >= amount`
+    OR `is_customerhistory_positive()`) **Then** **Begin**… **End**'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The second sub-condition evaluates whether the amount to be transferred meets
     the usual requirement or whether the customer has such a positive history (for
     example, consisting of regular receipts on the account, no significant overdrafts,
-    etc.), determined with the help of a function **is_customerhistory_positive()**.
+    etc.), determined with the help of a function `is_customerhistory_positive()`.
     Thus, if the customer had exhibited exemplary behavior to date, the transaction
     would be allowed even if it exceeded the overdraft limit. The parentheses ensure
     that the first step is to determine whether the transaction should be allowed
     based on the sufficiently small transfer amount or based on the customer’s past
-    behavior. For this purpose, two sub-conditions are linked with logical OR. This
+    behavior. For this purpose, two sub-conditions are linked with logical `OR`. This
     results in a logical value, which is then linked in the second step with the logical
-    value from the check whether the customer account is blocked with logical AND.
+    value from the check whether the customer account is blocked with logical `AND`.
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'As you might have guessed, logical operators have different names in different
     programming languages. Often, it remains with the English keywords **AND**, **OR**,
     **XOR**, **NOT**, from which the meaning of the operator is immediately apparent.
-    However, some languages like C, C++, Java or R use special characters instead
-    of the written form: The ampersand (**&**) for the logical AND, the pipe (**|**)
-    for the logical OR, and the exclamation mark (**!**) for the logical NOT. By the
-    way, now you can easily see why inequality is represented by **!=** in these languages.
-    It simply means “NOT equal”.'
+    However, some languages like `C`, `C++`, `Java` or `R` use special characters
+    instead of the written form: The ampersand (`&`) for the logical `AND`, the pipe
+    (`|`) for the logical `OR`, and the exclamation mark (`!`) for the logical `NOT`.
+    By the way, now you can easily see why inequality is represented by `!=` in these
+    languages. It simply means “NOT equal”.'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In C, C++, Java, or R, the if-then block above would read like this:'
+- en: 'In `C`, `C++`, `Java`, or `R`, the if-then block above would read like this:'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**if**(!is_account_locked()& (balance + overdraft >= amount| is_customerhistory_positive()))
-    {...}'
+- en: '**if** `(!is_account_locked() & (balance + overdraft >= amount | is_customerhistory_positive()))
+    {...}`'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In the Visual Basic for Applications (VBA) macro language, which allows you
     to automate the Microsoft Office suite of applications, you would write this if-then
     block using descriptive identifiers for the logical operators:'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If Not** is_account_locked()**And** (balance + overdraftrest >= amount**Or**
-    is_customerhistory_positive()) **then**…**End If**[10 min]'
+- en: '**If Not** `is_account_locked()` **And** (`balance + overdraftrest >= amount`
+    **Or** `is_customerhistory_positive()`) **then**…**End If**[10 min]'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Consider the following program excerpt:'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'x = input("Please enter a number: ")**If** x > 100 **Then** show ("x greater
-    than 100!")**If** x > 50 **Then** show ("x greater than 50!")**If** x > 10 **Then**
-    show ("x greater than 10!")**If** x < 0 **Then** show ("x less than 0!")**If**
-    x >= 0 **And** x <= 10 **Then** show("x between 0 and 10!")'
+- en: '`x = input("Please enter a number: ")`**If** `x > 100` **Then** `show("x greater
+    than 100!")`**If** `x > 50` **Then** `show("x greater than 50!")`**If** `x > 10`
+    **Then** `show("x greater than 10!")`**If** `x < 0` **Then** `show("x less than
+    0!")`**If** `x >= 0` **And** `x <= 10` **Then** `show("x between 0 and 10!")`'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: (a)
+  id: totrans-103
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: How many conditions are checked when the user enters a value for **x**?
+- en: How many conditions are checked when the user enters a value for `x`?
+  id: totrans-104
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: (b)
+  id: totrans-105
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Modify the algorithm so that only one condition is checked in the best case
     and all conditions are checked only in the worst case.
+  id: totrans-106
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: '[3 min]'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Where is the error in the following program excerpt?
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'x = input("Please enter a number: ")'
+- en: '`x = input("Please enter a number: ")`'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** x > 100 **Then** show("x greater than 100!")'
+- en: '**If** `x > 100` **Then** `show("x greater than 100!")`'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '**Else**'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '**Begin**'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** x >= 110 **Then** show("x greater than 110!")'
+- en: '**If** `x >= 110` **Then** `show("x greater than 110!")`'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Else** show("x less than or equal to 100!")'
+- en: '**Else** `show("x less than or equal to 100!")`'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '**End**'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.6 Checking Similar Conditions Efficiently with Switch-Case Constructs (Switch/Select…Case)
+- en: 14.6 Checking Similar Conditions Efficiently with `Switch-Case` Constructs (`Switch/Select…Case`)
+  id: totrans-116
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Sometimes you want to check many similar conditions at once. Imagine we wanted
     to classify the customers of our online banking according to how much money is
     received in their account each month, in order to be able to offer special services
-    to particularly “good” customers. We want to assume that we have a function **received_3months()**
+    to particularly “good” customers. We want to assume that we have a function `received_3months()`
     available to query the average amount of money received over the last three months.
     In our pseudo-code language, the classification of the customers could be done
     like this:'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**If** received_3months() < 1000 **Then****Begin**category="D"**End****Else****Begin****If**
-    received_3months() < 2000 **Then****Begin**category="C"**End****Else****Begin****If**
-    received_3months() < 4000 **Then****Begin**category="B"**End****Else****Begin**category="A"**End****End****End**'
+- en: '`If received_3months() < 1000 Then Begin category="D" End Else Begin If received_3months()
+    < 2000 Then Begin category="C" End Else Begin If received_3months() < 4000 Then
+    Begin category="B" End Else Begin category="A" End End End`'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here, the different thresholds for the average monthly cash inflow are checked
-    in a nested If-Else construct. However, this is relatively difficult to read.
+    in a nested `If-Else` construct. However, this is relatively difficult to read.
     Many programming languages know a construct that allows you to write the check
     of several similar conditions more elegantly. In our example, the formulation
     could be written as follows:'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Switch** received_3months()**Begin**Case < 1000: category="D"Case < 2000:
-    category="C"Case < 4000: category="B"**Else:** category="A"**End**'
+- en: '`Switch received_3months() Begin Case < 1000: category="D" Case < 2000: category="C"
+    Case < 4000: category="B" Else: category="A" End`'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This notation is much clearer and therefore both more readable and easier to
-    program. Behind the keyword **Switch** is first the variable that is subject to
-    the check. In our case it is simply the return value of our function **received_3months()**.
-    **Case** is used to introduce a condition to be checked, for example **<1000**.
-    The colon is then followed by what is to be done in this case, in our example
-    the setting of the customer category. The special keyword **Else** can be used
-    to catch all other cases that have not been explicitly checked with specific conditions.
+    program. Behind the keyword `Switch` is first the variable that is subject to
+    the check. In our case it is simply the return value of our function `received_3months()`.
+    `Case` is used to introduce a condition to be checked, for example `< 1000`. The
+    colon is then followed by what is to be done in this case, in our example the
+    setting of the customer category. The special keyword `Else` can be used to catch
+    all other cases that have not been explicitly checked with specific conditions.
     This statement is only triggered if none of the other conditions apply. If, however,
     one of the other conditions does apply, the statements assigned to this case (in
     our example only one, but there could be several) are executed. After that, the
     entire construct is exited, that is, none of the other conditions are checked.
-    Instead, the execution of the program continues after **End**.
+    Instead, the execution of the program continues after `End`.
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The schematic representation of the sequence of a Switch-Case construct is shown
-    in ◘ Fig. [14.2](#Fig2).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig2_HTML.jpg)
+- en: The schematic representation of the sequence of a `Switch-Case` construct is
+    shown in ◘ Fig. [14.2](#Fig2).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig2_HTML.jpg)
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A flowchart of the switch case construct. Input is given to the expression,
     expression blocks through values, and else block of expression, and ends.
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Fig. 14.2
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Flow chart of a Switch-Case construct
+- en: Flow chart of a `Switch-Case` construct
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Many programming languages allow for this elegant approach of checking multiple
-    similar conditions. Typically, such constructs are called *Switch-Case* or *Select-Case
-    constructs*, after the two central keywords **switch** or **select** and **case**,
-    which are commonly used in most languages that have such a construct. Confusingly,
-    some languages use the keyword **case** instead of **switch** or **select**, but
-    we won’t concern ourselves with that here.
+    similar conditions. Typically, such constructs are called `Switch-Case` or `Select-Case
+    constructs`，after the two central keywords `switch` or `select` and `case`，which
+    are commonly used in most languages that have such a construct. Confusingly, some
+    languages use the keyword `case` instead of `switch` or `select`，but we won’t
+    concern ourselves with that here.
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'For example, in C, a language that supports Switch-Case constructs**,** the
-    above check of the client category would then read like this:'
+- en: 'For example, in `C`，a language that supports `Switch-Case constructs`，the above
+    check of the client category would then read like this:'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**switch**(received_3months()){**case** < 1000:category="D";**break**;**case**
-    < 2000:category="C";**break**;**case** < 4000:category="B";**break**;**default**:category="A";**break**;}'
+- en: '`switch`(`received_3months()`){`case` < 1000:`category`="D";`break`;`case`
+    < 2000:`category`="C";`break`;`case` < 4000:`category`="B";`break`;`default`:`category`="A";`break`;}'
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 14.7 Events
+  id: totrans-129
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: In addition to classical if-conditions (including their special version as Switch-Case
-    constructs), there is yet another important way to branch to different parts of
-    the program while it is running, and that is through what are called *events*.
+- en: In addition to classical `if`-conditions (including their special version as
+    `Switch-Case constructs`)，there is yet another important way to branch to different
+    parts of the program while it is running, and that is through what are called
+    `events`.
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Classical conditions are executed when the program has reached the corresponding
     position where the branch condition is located. The program therefore runs completely
-    *sequentially*. Sometimes, however, you do not know in advance exactly when in
+    `sequentially`。Sometimes, however, you do not know in advance exactly when in
     the program flow you want to branch. In this case, events can help.
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Imagine that in our online banking example there are three buttons on the banking
     website, “New transfer”, “Export transaction as text file” and “Logout”, which
     the user can click at any time. Behind each of these buttons are different program
     instructions, but we do not know in advance when – and if at all – the user will
     trigger the corresponding functions.
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'There are basically two ways to deal with this problem:'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Either the program runs in a virtually infinite loop and actively observes the
     user’s behavior at all times, that is, it checks whether the user has clicked
@@ -747,71 +986,61 @@
     as the user clicks on one of the buttons, the program executes the program code
     behind the button and then returns to the infinite loop in which it constantly
     monitors the user’s actions.
+  id: totrans-134
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: The second possibility is that the program does not wait in an infinite loop
     for the user but does whatever it is supposed to do. However, when it learns from
     the outside that the user has clicked one of the buttons, it immediately jumps
     into a function that then executes the instructions behind the button.
+  id: totrans-135
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: The difference between the two approaches is that in the first case, waiting
-    for the user and monitoring their activities practically blocks the program. It
-    is always in an *active monitoring state* and constantly checks whether one of
-    the buttons has just been clicked. In the second case, the program learns from
-    *the outside* that a certain *event* has occurred. As soon as this happens, a
-    function associated with this event is executed. Such functions are also called
-    *event handlers* because they describe how the event is handled.
+- en: 这两种方法的区别在于，在第一种情况下，等待用户并监控他们的活动几乎会阻塞程序。它始终处于`active monitoring state`，不断检查某个按钮是否被点击。在第二种情况下，程序从`the
+    outside`得知某个`event`已发生。一旦发生这种情况，与该事件关联的函数将被执行。这类函数也被称为`event handlers`，因为它们描述了如何处理事件。
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This approach saves computing power, because the active observing that the first
-    approach requires is like active listening. It means signals must be constantly
-    processed, whereas with event control, something else, such as the operating system
-    or interpreter, simply lets you know when an event has occurred. This allows the
-    program to do other things in the meantime, and still react to an event when it
-    occurs.
+- en: 这种方法节省了计算能力，因为第一种方法所需的主动观察就像主动倾听。它意味着信号必须不断处理，而通过事件控制，其他东西，如操作系统或解释器，会简单地通知您事件已发生。这使得程序可以在此期间做其他事情，并在事件发生时仍能作出反应。
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The way it works is similar to that of an oven which you have to preheat to
-    a certain temperature in order to bake a pizza, for example. Only when the preheating
-    temperature is reached can the pizza be put into the oven. You could go to the
-    oven every few minutes to see if the preheat temperature has already been reached.
-    Or you could have an oven that independently gives an acoustical signal when it
-    is ready. In the first case, we are in the infinite loop and check again and again
-    whether the oven has already reached the preheating temperature. In the second
-    case, someone else (in this case, the oven itself) informs us that the “preheat
-    temperature has been reached” event has occurred. As long as this has not happened,
-    we can simply do something else, because we know that the oven will report when
-    the time comes.
+- en: 它的工作方式类似于烤箱，您必须将其预热到某个温度才能烤制比萨饼。例如，只有当预热温度达到时，才能将比萨放入烤箱。您可以每隔几分钟去烤箱查看预热温度是否已经达到。或者，您可以有一个独立发出声响的烤箱，当它准备好时会发出信号。在第一种情况下，我们处于无限循环中，一遍又一遍地检查烤箱是否已经达到预热温度。在第二种情况下，其他人（在这种情况下是烤箱本身）通知我们“预热温度已达到”事件已经发生。只要这还没有发生，我们可以做其他事情，因为我们知道烤箱会在适当的时候报告。
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Many programming languages support the use of events. Because it changes the
-    way the program is structured, we speak of the *event-oriented programming paradigm*
-    in this context. Languages that support the processing of events are languages
-    such as JavaScript, which are used to develop graphical user interfaces where
-    you do not have a completely sequential program flow, and do not know in advance
-    exactly which program part must be executed next, due to the unpredictable behavior
-    of the user. In general, graphical user interfaces, as we learned about in ► Sect.
-    [12.​2.​1](474412_1_En_12_Chapter.xhtml#Sec3), are the prototypical application
-    of an event-oriented approach.
+- en: 许多编程语言支持事件的使用。由于这改变了程序的结构，我们在此上下文中称之为`event-oriented programming paradigm`。支持事件处理的语言，如JavaScript，通常用于开发图形用户界面，在这些界面中，程序流并不是完全顺序的，您也无法预先确切知道哪个程序部分必须执行，因为用户的行为是不可预测的。一般来说，图形用户界面，如我们在►`Sect.
+    [12.​2.​1](474412_1_En_12_Chapter.xhtml#Sec3)`中了解到的，是事件导向方法的典型应用。
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The schematic representation of an event-controlled program is shown in ◘ Fig.
-    [14.3](#Fig3).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig3_HTML.jpg)
+- en: 事件控制程序的示意图如◘`Fig. [14.3](#Fig3)`所示。![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig3_HTML.jpg)
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A flow diagram of the event-controlled program. Event 1 consists of the event
-    loop of events from 1 to 3\. The event 1 is connected with the event handler 1
-    and back to the event loop.
+- en: 事件控制程序的流程图。事件1由事件循环的事件1到3组成。事件1与事件处理程序1连接，并返回事件循环。
+  id: totrans-141
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Fig. 14.3
+- en: '`Fig. 14.3`'
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Flow chart of an event-controlled program
+- en: 事件控制程序的流程图
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: By the way, not only the user can trigger events. The operating system or connected
     devices can also trigger events to which the programs can then react. For example,
@@ -819,272 +1048,368 @@
     that have an event handler the opportunity to react, and save the current state
     of the program before the program is closed. Similarly, devices can trigger events,
     such as a printer or hard disk drive.
+  id: totrans-144
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So far we have dealt with the basic functionality of event handlers, but what
     do such functions look like now? Here is an excerpt from the example outlined
     above (as always, in our pseudo-code language):'
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Function** event_transfer(e)**Begin**create_transfer()**End****Function**
-    event_logout(e)**Begin**logout()**End**'
+- en: '`Function` `event_transfer(e)` `Begin` `create_transfer()` `End` `Function`
+    `event_logout(e)` `Begin` `logout()` `End`'
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here we define two event handlers, one for the event where the user clicked
     on the “New transfer” button, and one for the event where the user wants to log
     out. As you can see here, the event handlers are just normal functions. In some
     languages, event handlers are passed a special object as a function argument (above,
-    the argument **e** of type **event**) that describes the event in more detail.
-    For example, for an event that fires whenever the user moves the mouse, the current
+    the argument `e` of type `event`) that describes the event in more detail. For
+    example, for an event that fires whenever the user moves the mouse, the current
     “coordinates” of the mouse pointer could be passed as properties of the object.
     The event handler function can then retrieve these coordinates from the object
     and react accordingly.
+  id: totrans-147
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The only difference between these functions and the ones we learned about in
-    ► Chap. [13](474412_1_En_13_Chapter.xhtml) is that they are not called by us,
+    ► Chap. `[13](474412_1_En_13_Chapter.xhtml)` is that they are not called by us,
     the programmers, but “from outside”. The interpreter or the operating system notifies
     us when our event has occurred, and they do this by calling our event handler,
-    giving it the event object **e** as additional information. So, in the end, event
+    giving it the event object `e` as additional information. So, in the end, event
     handlers are simply functions that we develop but don’t call ourselves; we just
     provide them for whoever signals us that the event has occurred.
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The above examples would look like this in JavaScript:'
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**function** event_transfer() {create_tranfer();}**function** event_logout()
-    {logout();}'
+- en: '`function` `event_transfer() {create_transfer();}` `function` `event_logout()
+    {logout();}`'
+  id: totrans-150
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In order for the interpreter to know which event handler to call for each event,
     the button definitions in the HTML source code of the website would need to be
     as follows:'
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**<button** onclick="event_transfer()"**>**New transfer**</button>****<button**
-    onclick="event_logout()"**>**Log out**</button>**'
+- en: '`<button onclick="event_transfer()">New transfer</button><button onclick="event_logout()">Log
+    out</button>`'
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This way, two buttons are created and their (standard) **onclick** events, which
+- en: This way, two buttons are created and their (standard) `onclick` events, which
     are triggered whenever someone clicks on the button, is linked to our respective
     event handlers.
+  id: totrans-153
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In Delphi, our event handlers would look like this:'
+  id: totrans-154
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**procedure** BankingForm.LogoutButtonClick(Sender: TObject);**begin**create_transfer();**end**;**procedure**
-    BankingForm.NewTransferButtonClick(Sender: TObject);**begin**logout();**end**;'
+- en: '`procedure` `BankingForm.LogoutButtonClick(Sender: TObject);` `begin` `create_transfer();`
+    `end`; `procedure` `BankingForm.NewTransferButtonClick(Sender: TObject);` `begin`
+    `logout();` `end`;'
+  id: totrans-155
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Here we would have defined a window (a “form”) called **BankingForm**, on which
-    we would place the buttons with the names **NewTransferButton** and **LogoutButton.**
-    The event handlers not only carry the name of the respective button, but also,
-    with “Click”, the name of the event they cover. This way Delphi understands which
-    event it is and which element of the user interface it refers to. The event handlers
-    are also given the respective button that was clicked with the argument **Sender**,
-    which becomes interesting if you use the same event handler for several user interface
+- en: Here we would have defined a window (a “form”) called `BankingForm`，on which
+    we would place the buttons with the names `NewTransferButton` and `LogoutButton`。The
+    event handlers not only carry the name of the respective button, but also, with
+    “Click”, the name of the event they cover. This way Delphi understands which event
+    it is and which element of the user interface it refers to. The event handlers
+    are also given the respective button that was clicked with the argument `Sender`，which
+    becomes interesting if you use the same event handler for several user interface
     elements, and you have to distinguish between the different elements that may
     have triggered the event within the event handler function.
+  id: totrans-156
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.5 [3 min]
+- en: '`14.5` [3 min]'
+  id: totrans-157
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How does a program that follows the event-oriented programming paradigm differ
     from completely linear programs?
+  id: totrans-158
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.6 [3 min]
+- en: '`14.6` [3 min]'
+  id: totrans-159
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Why is event control particularly well suited for graphical user interfaces?
+  id: totrans-160
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.8 Your Roadmap to Learning a New Programming Language
+- en: '`14.8` Your Roadmap to Learning a New Programming Language'
+  id: totrans-161
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: If you are learning a new programming language….
+  id: totrans-162
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'you’ll discover:'
+  id: totrans-163
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: how If-Else constructs are formulated in the language (key words used for this
-    in many languages are **if**, **then**, **else**),
+- en: how `If-Else` constructs are formulated in the language (key words used for
+    this in many languages are `if`，`then`，`else`)，
+  id: totrans-164
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: how to write the comparison operators used to formulate conditions,
+  id: totrans-165
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: how to write the logical operators that are used to combine several elementary
     conditions into one overall condition,
+  id: totrans-166
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: whether the language has a Switch-Case construct and, if so, how it is formulated
-    (keywords used for this in many languages are **switch**, **select**, **case**),
+- en: whether the language has a `Switch-Case` construct and, if so, how it is formulated
+    (keywords used for this in many languages are `switch`，`select`，`case`)，
+  id: totrans-167
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: how code blocks are delimited (i.e., opened and closed) in the language, and
     whether these delimiters can be omitted if the code block contains only a single
     statement,
+  id: totrans-168
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: whether the language supports events, and if so, how to define event handlers
     (including which arguments to pass to event handlers, if any), and how to link
     event handlers to the events on whose occurrence they are to be called.
+  id: totrans-169
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: An overview of the considered constructs for sequence control can be seen in
-    ◘ Fig. [14.4](#Fig4).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig4_HTML.jpg)
+    ◘ Fig. [`14.4`](#Fig4).![](../images/474412_1_En_14_Chapter/474412_1_En_14_Fig4_HTML.jpg)
+  id: totrans-170
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A table illustrates the conditions and events. Row 1 consists of elementary
     and complex conditions. Row 2 consists of 3 columns of if-else constructs, switch
     case constructs, and event handler functions.
+  id: totrans-171
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Fig. 14.4
+- en: Fig. `14.4`
+  id: totrans-172
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Conditions and events for sequence control
+  id: totrans-173
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 14.9 Solutions to the Exercises
+- en: '`14.9` Solutions to the Exercises'
+  id: totrans-174
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Exercise 14.1
+- en: Exercise `14.1`
+  id: totrans-175
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: (a)
+- en: '`(a)`'
+  id: totrans-176
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Output: **Result C**'
+- en: 'Output: `Result C`'
+  id: totrans-177
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: (b)
+- en: '`(b)`'
+  id: totrans-178
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Output: **Result B**'
+- en: 'Output: `Result B`'
+  id: totrans-179
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: (c)
+- en: '`(c)`'
+  id: totrans-180
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Output: **Result A**, **Result B**'
+- en: 'Output: `Result A`，`Result B`'
+  id: totrans-181
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: (d)
+- en: '`(d)`'
+  id: totrans-182
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: No output (none of the conditions covers the case where **x** is negative)
+- en: No output (none of the conditions covers the case where `x` is negative)
+  id: totrans-183
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Exercise 14.2x = input("Please enter a number: ")**If** x > 10 **Then****If**
-    x > 20 **Then** show("Result A")**Else** show("Result B")**Else****If** x > 0
-    **Then** show("Result B")**End**'
+- en: 'Exercise `14.2` x = input("Please enter a number: ") `If` x > 10 `Then` `If`
+    x > 20 `Then` show("Result A") `Else` show("Result B") `Else` `If` x > 0 `Then`
+    show("Result B") `End`'
+  id: totrans-184
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Within the code block **If x > 10,** we first check for **x > 20**. If this
-    condition does not apply, we know that **x** must be greater than 10 (otherwise
-    the program would not have entered this code block at all), but less than or equal
-    to 20\. Therefore, it is sufficient to place the keyword **Else** in front of
-    the output of **Result B**.
+- en: Within the code block `If x > 10`, we first check for `x > 20`. If this condition
+    does not apply, we know that `x` must be greater than `10` (otherwise the program
+    would not have entered this code block at all), but less than or equal to `20`.
+    Therefore, it is sufficient to place the keyword `Else` in front of the output
+    of `Result B`.
+  id: totrans-185
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Exercise 14.3
+- en: '`Exercise 14.3`'
+  id: totrans-186
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: (a)
+- en: '`(a)`'
+  id: totrans-187
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Five times. Each condition is checked, regardless of the previous result of
     the conditions.
+  id: totrans-188
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: (b)
+- en: '`(b)`'
+  id: totrans-189
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: By clever nesting of If-Else constructs, the number of checks of conditions
-    can be reduced. If **x** is less than 0, only one condition is checked. The remaining
-    conditions are then not checked at all since they are in the **else** branch to
-    the condition **x < 0**. Only if **x** is greater than or equal to 0 and at the
-    same time less than or equal to 10, the program passes through all conditions.
+- en: By clever nesting of `If-Else` constructs, the number of checks of conditions
+    can be reduced. If `x` is less than `0`, only one condition is checked. The remaining
+    conditions are then not checked at all since they are in the `else` branch to
+    the condition `x < 0`. Only if `x` is greater than or equal to `0` and at the
+    same time less than or equal to `10`, the program passes through all conditions.
+  id: totrans-190
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
 - en: The trick here is to arrange the conditions in such a way that each condition
-    can at least theoretically be achieved. For example, if we had used **x > 10**
-    as the top/outermost condition, conditions such as **x > 50** would no longer
-    be checked at all, because **x > 10** has already been evaluated as true, and
-    everything that lies in the **else** branch to **x > 10** condition is no longer
-    passed through.
+    can at least theoretically be achieved. For example, if we had used `x > 10` as
+    the top/outermost condition, conditions such as `x > 50` would no longer be checked
+    at all, because `x > 10` has already been evaluated as true, and everything that
+    lies in the `else` branch to `x > 10` condition is no longer passed through.
+  id: totrans-191
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Of course, a formulation with a Switch-Case construct (► Sect. [14.6](#Sec6))
+- en: Of course, a formulation with a `Switch-Case` construct (► Sect. `[14.6](#Sec6)`)
     would be a much more elegant and readable solution.
+  id: totrans-192
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'x = input("Please enter a number: ")**If** x < 0 **Then** show("x less than
-    0!")**Else****If** x > 100 **Then** show("x greater than 100!")**Els****e****If**
-    x > 50 **Then** show("x greater than 50!")**Else****If** x > 10 **Then** show("x
-    greater than 10!")**Else****If** x >= 0 **AND** x <= 10 **Then**show("x between
-    0 and 10!")**End****End****End****End****End**Exercise 14.4'
+- en: '`x = input("Please enter a number: ") If x < 0 Then show("x less than 0!")
+    Else If x > 100 Then show("x greater than 100!") Else If x > 50 Then show("x greater
+    than 50!") Else If x > 10 Then show("x greater than 10!") Else If x >= 0 AND x
+    <= 10 Then show("x between 0 and 10!") End End End End End` `Exercise 14.4`'
+  id: totrans-193
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The problem with this nested If-Else construct is that the condition that checks
-    **x** in the inner If-Else construct to see if it has a value greater than or
-    equal to 110 can never come to a positive result. If **x** is indeed greater than
-    110, the outer condition **x > 100** is already true, and its associated code
-    block (here consisting of only a single statement) is then executed. The **else**-block,
-    on the other hand, is only executed if **x** is less than or equal to 100, but
-    then the condition of the inner If-Then-construct (**x >= 110**) can never be
-    true. The output statement for **x** greater than 110 is isolated, so to speak.
+- en: The problem with this nested `If-Else` construct is that the condition that
+    checks `x` in the inner `If-Else` construct to see if it has a value greater than
+    or equal to `110` can never come to a positive result. If `x` is indeed greater
+    than `110`, the outer condition `x > 100` is already true, and its associated
+    code block (here consisting of only a single statement) is then executed. The
+    `else`-block, on the other hand, is only executed if `x` is less than or equal
+    to `100`, but then the condition of the inner `If-Then` construct (`x >= 110`)
+    can never be true. The output statement for `x` greater than `110` is isolated,
+    so to speak.
+  id: totrans-194
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Exercise 14.5
+- en: '`Exercise 14.5`'
+  id: totrans-195
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Unlike a linear program, a program that follows the event-oriented programming
-    paradigm can react to events (for example, the user’s click on a button) by jumping
-    to a place in the code that was developed precisely for this type of event. If
-    there is no event to be processed at the moment, the program observes its environment
-    attentively and waits to become active again. While a linear program is a long
-    sequence of instructions that are executed step by step from beginning to end,
-    an event-oriented program consists of a collection of event handlers, i.e., functions
-    that are activated whenever the event that the respective function processes has
-    occurred. The event handlers themselves are sequences of instructions, but instead
-    of executing a linear flow control, the program jumps back and forth between the
-    event handlers, depending on which event it is currently processing.
+- en: 与线性程序不同，遵循事件导向编程范式的程序可以通过跳转到为此类事件精心开发的代码位置来响应事件（例如，用户点击按钮）。如果此刻没有事件需要处理，程序会仔细观察其环境，等待再次激活。当线性程序是从头到尾逐步执行的一长串指令时，事件导向程序由一组事件处理程序组成，即在相应事件发生时激活的函数。事件处理程序本身是指令序列，但程序不是执行线性控制流，而是根据当前处理的事件在事件处理程序之间来回跳转。
+  id: totrans-196
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Exercise 14.6
+- en: '`Exercise 14.6`'
+  id: totrans-197
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Graphical user interfaces usually give the user a lot of freedom to decide which
-    functions to invoke. The user is often not tightly guided but chooses from a palette
-    of options that are regularly reflected in menus, toolbars, buttons, tabs, and
-    other controls. This is where event-based control comes in handy, simply calling
-    the event handler associated with that control that the user has triggered/activated.
+- en: 图形用户界面通常给予用户很大的自由来决定调用哪些功能。用户往往不是被紧密引导的，而是从一系列选项中选择，这些选项通常反映在菜单、工具栏、按钮、标签和其他控件中。这就是事件驱动控制派上用场的地方，简单地调用与用户触发/激活的控件相关联的事件处理程序。
+  id: totrans-198
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

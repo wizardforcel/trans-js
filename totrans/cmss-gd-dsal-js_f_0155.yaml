@@ -1,130 +1,192 @@
 - en: Heaps
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Heaps are of several different types, but we’re going to focus on the binary
     heap.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The binary heap is a specific kind of binary tree. As a reminder, a binary tree
     is a tree where each node has a maximum of two child nodes. (The binary search
     tree from the last chapter was one specific type of binary tree.)
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now, even binary heaps come in two flavors: the max-heap and the min-heap.
-    We’re going to work with the max-heap for now, but as you’ll see later, the difference
-    between the two is trivial.'
+- en: 'Now, even binary heaps come in two flavors: the `max-heap` and the `min-heap`.
+    We’re going to work with the `max-heap` for now, but as you’ll see later, the
+    difference between the two is trivial.'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Going forward, I’m going to refer to this data structure simply as a heap, even
-    though we’re specifically working with a binary max-heap.
+    though we’re specifically working with a binary `max-heap`.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The heap is a binary tree that maintains the following conditions:'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The value of each node must be greater than each of its descendant nodes. This
     rule is known as the heap condition.
+  id: totrans-6
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: The tree must be complete. (I’ll explain the meaning of this shortly.)
+  id: totrans-7
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s break down both of these conditions, starting with the heap condition.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Heap Condition
+  id: totrans-9
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: The heap condition says that each node’s value must be greater than each and
     every one of its descendants.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For example, the following tree meets the heap condition since each node is
-    greater than any of its descendants, as shown in the [diagram](#fig.ch16.basic_heap).
+    greater than any of its descendants, as shown in the `[diagram](#fig.ch16.basic_heap)`.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/basic_heap.png](images/heaps/basic_heap.png)'
+- en: '![`images/heaps/basic_heap.png`](images/heaps/basic_heap.png)'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: In this example, the root node of 100 has no descendant that is greater than
-    it. Similarly, the 88 is greater than both of its children, and so is the 25.
+- en: In this example, the root node of `100` has no descendant that is greater than
+    it. Similarly, the `88` is greater than both of its children, and so is the `25`.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following tree isn’t a valid heap, because it doesn’t meet the heap condition:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/heaps/invalid_heap.png](images/heaps/invalid_heap.png)'
+- en: '![`images/heaps/invalid_heap.png`](images/heaps/invalid_heap.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: As you can see, the 92 is greater than its parent of 88\. This violates the
-    heap condition.
+- en: As you can see, the `92` is greater than its parent of `88`\. This violates
+    the heap condition.
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Note how the heap is structured very differently than the binary search tree.
     In a binary search tree, each node’s right child is greater than it. In a heap,
     however, a node never has any descendant that is greater than it. As they say,
     “A binary search tree doth not a heap make.” (Or something like that.)
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can also construct a heap that has the opposite heap condition, which is
     each node must contain a smaller value than any of its descendants. Such a heap
-    is known as the min-heap, which I mentioned earlier. We’re going to continue to
-    focus on the max-heap, where each node must be greater than all of its descendants.
-    Ultimately, whether a heap is a max-heap or a min-heap is trivial, as everything
+    is known as the `min-heap`, which I mentioned earlier. We’re going to continue
+    to focus on the `max-heap`, where each node must be greater than all of its descendants.
+    Ultimately, whether a heap is a `max-heap` or a `min-heap` is trivial, as everything
     else about both heaps is identical; they only have reversed heap conditions. Otherwise,
     the fundamental idea is the same.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Complete Trees
+  id: totrans-19
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, let’s get to the second rule of heaps—that the tree needs to be complete.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A complete tree is a tree that is completely filled with nodes; no nodes are
     missing. So if you read each level of the tree from left to right, all of the
     nodes are there. However, the bottom row can have empty positions, as long as
     there aren’t any nodes to the right of these empty positions. This is best demonstrated
     with examples.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following tree is complete since each level (meaning, each row) of the
     tree is completely filled in with nodes:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/complete_tree.png](images/heaps/complete_tree.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'The following tree is not complete, since there’s an empty position on the
     third level (and other nodes exist on the third level to the right of that empty
     position):'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/incomplete_tree.png](images/heaps/incomplete_tree.png)'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Now, the next tree is actually considered complete since its empty positions
     are limited to the bottom row and there aren’t any nodes found to the right of
     the empty positions:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/also_complete_tree.png](images/heaps/also_complete_tree.png)'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'A heap, then, is a tree that meets the heap condition and is also complete.
     Here’s one more example of a heap:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/foundational_heap.png](images/heaps/foundational_heap.png)'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: This is a valid heap since each node is greater than any of its descendants
     and the tree is also complete. While it does have some gaps in the bottom row,
     these gaps are limited to the very right of the tree.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

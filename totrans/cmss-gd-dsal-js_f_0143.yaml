@@ -1,50 +1,52 @@
-- en: Chapter 15
+- en: '`Chapter 15`'
+  id: totrans-0
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: Speeding Up All the Things with Binary Search Trees
+- en: 使用二叉搜索树加速所有事务。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Sometimes, we may want to arrange our data in a specific order. For example,
-    we may want an alphabetized list of names or a list of products in order of lowest
-    price to highest.
+- en: 有时，我们可能希望以特定的顺序排列数据。例如，我们可能想要一个按字母顺序排列的姓名列表或按最低到最高价格排列的产品列表。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: While we can use a sorting algorithm such as Quicksort to arrange our data into
-    perfect ascending order, it comes at a cost. As we’ve seen, even the fastest algorithms
-    take O(N log N) time. So if we’re going to want our data sorted often, it would
-    be sensible to always keep our data in sorted order in the first place so that
-    we never need to re-sort it.
+- en: 虽然我们可以使用诸如`Quicksort`这样的排序算法将数据排列成完美的升序，但这是有代价的。正如我们所见，即使是最快的算法也需要`O(N log N)`时间。因此，如果我们希望我们的数据经常排序，保持数据始终有序是明智的，这样我们就不需要重新排序。
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: An ordered array is a simple but effective tool for keeping data in order. It’s
-    also fast for certain operations, as it has O(1) reads and O(log N) search (when
-    using binary search).
+- en: 有序数组是一个简单但有效的工具，用于保持数据的顺序。它在某些操作中也很快，因为它具有`O(1)`读取和`O(log N)`搜索（使用二分查找时）。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, ordered arrays have a drawback.
+- en: 然而，有序数组有一个缺点。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When it comes to insertions and deletions, ordered arrays are relatively slow.
-    Whenever a value is inserted into an ordered array, we first shift all greater
-    values one cell to the right. And when a value is deleted from an ordered array,
-    we shift all greater values one cell to the left. This takes N steps in a worst-case
-    scenario (inserting into or deleting from the first cell of the array), and N
-    / 2 steps on average. Either way, it’s O(N), and O(N) is relatively slow for a
-    simple insertion or deletion.
+- en: 在插入和删除时，有序数组相对较慢。每当一个值被插入到有序数组中时，我们首先将所有更大的值向右移动一个单元。当一个值从有序数组中删除时，我们将所有更大的值向左移动一个单元。在最坏情况下，这需要`N`步（在数组的第一个单元插入或删除），平均需要`N
+    / 2`步。无论如何，这都是`O(N)`，而`O(N)`对于简单的插入或删除来说相对较慢。
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, if we were looking for a data structure that delivers all-around amazing
-    speed, a hash table is a great choice. Hash tables are O(1) for search, insertion,
-    and deletion. However, they don’t maintain order, and order is what we need for
-    our alphabetized-list application.
+- en: 现在，如果我们在寻找一个能够提供全面惊人速度的数据结构，哈希表是一个很好的选择。哈希表在搜索、插入和删除时都是`O(1)`。然而，它们不保持顺序，而顺序正是我们在字母顺序列表应用中所需要的。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So what do we do if we want a data structure that maintains order yet also has
-    fast search, insertion, and deletion? Neither an ordered array nor a hash table
-    is ideal.
+- en: 那么如果我们想要一个既能保持顺序又具备快速搜索、插入和删除的数据结构，我们该怎么办呢？既有序数组也没有哈希表是理想选择。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Enter the binary search tree.
+- en: 引入二叉搜索树。
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

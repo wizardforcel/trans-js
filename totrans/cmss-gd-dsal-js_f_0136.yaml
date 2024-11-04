@@ -1,190 +1,289 @@
-- en: Deletion
+- en: '`Deletion`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Linked lists also shine when it comes to deletion, especially when deleting
     from the beginning of the list.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To delete a node from the beginning of a linked list, all we need to do is
-    perform one step: we change the firstNode of the linked list to now point to the
-    second node.'
+    perform one step: we change the `firstNode` of the linked list to now point to
+    the second node.'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s return to our example of the linked list containing the values "once",
-    "upon", "a", and "time". If we want to delete the value "once", we could simply
-    change the linked list to begin at "upon":'
+- en: Let’s return to our example of the linked list containing the values `"once"`,
+    `"upon"`, `"a"`， and `"time"`。If we want to delete the value `"once"`，we could
+    simply change the linked list to begin at `"upon"`：
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | list.firstNode = node2; |'
+- en: '| ​  | `list`.firstNode = `node2`; |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Contrast this with an array, in which deleting the first element means shifting
-    all remaining data one cell to the left, which takes O(N) time.
+    all remaining data one cell to the left, which takes `O(N)` time.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When it comes to deleting the final node of a linked list, the actual deletion
     takes one step—we just take the second-to-last node and make its link null. However,
-    it takes N steps to even access the second-to-last node in the first place, since
-    we need to start at the beginning of the list and follow the links until we reach
-    it.
+    it takes `N` steps to even access the second-to-last node in the first place,
+    since we need to start at the beginning of the list and follow the links until
+    we reach it.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The following table contrasts the various scenarios of deletion for both arrays
     and linked lists. Note how it’s identical to insertion:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Situation | Array | Linked List |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Delete at beginning | Worst case | Best case |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Delete at middle | Average case | Average case |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Delete at end | Best case | Worst case |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: While deleting from the beginning or end of a linked list is straightforward,
     deleting from anywhere in the middle is slightly more involved.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Say we want to delete the value at index 2 ("purple") from our example linked
+- en: 'Say we want to delete the value at index 2 (`"purple"`) from our example linked
     list of colors, as shown in the following diagram:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/list_of_colors.png](images/pitting_linked_lists_against_arrays/list_of_colors.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: To accomplish this, we need to first access the node immediately preceding the
-    one we’re deleting ("blue”). Then we change its link to point to the node that
-    is immediately after the node we’re deleting ("green").
+    one we’re deleting (`"blue"`）。Then we change its link to point to the node that
+    is immediately after the node we’re deleting (`"green"`).
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following visualization demonstrates us changing the link of the "blue"
-    node from "purple" to "green":'
+- en: The following visualization demonstrates us changing the link of the `"blue"`
+    node from `"purple"` to `"green"`：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_6.png](images/pitting_linked_lists_against_arrays/linked_list_6.png)'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: It’s interesting to note that whenever we delete a node from our linked list,
     the node still exists in memory somewhere. We’re just removing the node from our
     list by ensuring that no other node from the list links to it. This has the effect
     of deleting the node from our list, even if the node still exists in memory.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: (Different programming languages handle these deleted nodes in various ways.
     Some will automatically detect that they’re not being used and will “garbage collect”
     them, freeing up memory.)
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Code Implementation: Linked List Deletion'
+- en: '`Code Implementation`: `Linked List Deletion`'
+  id: totrans-21
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s what the delete operation might look like in our LinkedList class. It’s
-    called delete, and we pass in the index we’re going to delete:'
+- en: 'Here’s what the delete operation might look like in our `LinkedList` class.
+    It’s called `delete`， and we pass in the index we’re going to delete:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**delete**​(index) { |'
+- en: '| ​  | ​`delete`(index) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (index === 0) { |'
+- en: '| ​  | ​`if` (index === 0) { |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.firstNode = ​**this**​.firstNode.nextNode; |'
+- en: '| ​  | ​`this`.firstNode = `this`.firstNode.nextNode; |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | `return`; |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+- en: '| ​  | `let` currentNode = `this`.firstNode; |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentIndex = 0; |'
+- en: '| ​  | `let` currentIndex = 0; |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (currentIndex < (index - 1)) { |'
+- en: '| ​  | `while` (currentIndex < (index - 1)) { |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | currentNode = currentNode.nextNode; |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | currentIndex += 1; |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+- en: '| ​  | `const` nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | currentNode.nextNode = nodeAfterDeletedNode; |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This method is pretty similar to the insert method we saw earlier. Let’s highlight
-    some of the novel points.
+- en: 这个方法与我们之前看到的插入方法非常相似。让我们突出一些新颖之处。
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The method first deals with a case in which index is 0, meaning we intend to
-    delete the first node of the list. The code for this is ridiculously simple:'
+- en: 该方法首先处理一个索引为0的情况，意味着我们打算删除列表的第一个节点。对此的代码简单得离谱：
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (index === 0) { |'
+- en: '| ​  | `if` (index === 0) { |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.firstNode = ​**this**​.firstNode.nextNode; |'
+- en: '| ​  | `this`.firstNode = `this`.firstNode.nextNode; |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | `return`; |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: All we do is change our list’s firstNode to point to what is currently the second
-    node, and we’re done!
+- en: 我们所做的就是将列表的`firstNode`指向当前的第二个节点，然后完成！
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rest of the method handles deletions anywhere else from the list. To do
-    this, we use a while loop to access the node immediately preceding the one we
-    want to delete. This becomes our currentNode.
+- en: 剩下的方法处理从列表中其他位置的删除。为此，我们使用一个`while`循环来访问我们想要删除的节点之前的节点。这成为我们的`currentNode`。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We then grab the node that comes immediately after the node we’re going to
-    delete and store it in a variable called nodeAfterDeletedNode:'
+- en: 我们然后获取紧跟在我们要删除的节点之后的节点，并将其存储在名为`nodeAfterDeletedNode`的变量中：
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+- en: '| ​  | `const` nodeAfterDeletedNode = currentNode.nextNode.nextNode; |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Notice our little trick in accessing that node. It’s simply the node that comes
-    two nodes after the currentNode!
+- en: 请注意我们访问那个节点的小技巧。它只是紧跟在`currentNode`之后的两个节点！
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Then we modify the link of the currentNode to point to the nodeAfterDeletedNode:'
+- en: 然后我们修改`currentNode`的链接，使其指向`nodeAfterDeletedNode`：
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | currentNode.nextNode = nodeAfterDeletedNode; |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB

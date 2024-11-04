@@ -1,170 +1,251 @@
-- en: Trie Search
+- en: Trie `Search`
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The most classic trie operation is search—namely, determining whether a string
-    is found in the trie. Search has two flavors: we can search to see whether the
+- en: 'The most classic trie operation is `search`—namely, determining whether a string
+    is found in the trie. `Search` has two flavors: we can search to see whether the
     string is a complete word, or we can search to see whether the string is at least
     a word prefix (that is, the beginning of a word). These two versions are similar,
-    but we’ll implement the latter one, where our search will look for prefixes. This
-    search will end up finding complete words as well since a complete word is at
-    least as good as a prefix.'
+    but we’ll implement the latter one, where our `search` will look for prefixes.
+    This `search` will end up finding complete words as well since a complete word
+    is at least as good as a prefix.'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The algorithm for prefix search performs the following steps (they’ll become
-    clearer when we walk though an example that follows):'
+- en: 'The algorithm for prefix `search` performs the following steps (they’ll become
+    clearer when we walk through an example that follows):'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We establish a variable called currentNode. At the beginning of our algorithm,
+- en: We establish a variable called `currentNode`. At the beginning of our algorithm,
     this points to the root node.
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: We iterate over each character of our search string.
+  id: totrans-4
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: As we point to each character of our search string, we look to see if the currentNode
+- en: As we point to each character of our search string, we look to see if the `currentNode`
     has a child with that character as a key.
+  id: totrans-5
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: If it does not, we return null, as it means our search string does not exist
+- en: If it does not, we return `null`, as it means our search string does not exist
     in the trie.
+  id: totrans-6
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the currentNode does have a child with the current character as the key,
-    we update the currentNode to become that child. We then go back to Step 2, continuing
+- en: If the `currentNode` does have a child with the current character as the key,
+    we update the `currentNode` to become that child. We then go back to Step 2, continuing
     to iterate over each character in our search string.
+  id: totrans-7
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: If we get to the end of our search string, it means we’ve found our search string.
+  id: totrans-8
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s see this in action by searching for the string "cat" in our trie from
+- en: Let’s see this in action by searching for the string `"cat"` in our trie from
     earlier.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Setup: We set the currentNode to be the root node. (The currentNode is indicated
-    in bold in the diagrams on the following pages.) We also point to the first character
-    of our string, which is the "c", as shown in the top [diagram](#fig.ch17.point_to_c).'
+- en: 'Setup: We set the `currentNode` to be the root node. (The `currentNode` is
+    indicated in bold in the diagrams on the following pages.) We also point to the
+    first character of our string, which is the `"c"` as shown in the top [diagram](#fig.ch17.point_to_c).'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/point_to_c.png](images/tries/point_to_c.png)'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 1: Since the root node has "c" as a child key, we update the currentNode
+- en: 'Step 1: Since the root node has `"c"` as a child key, we update the `currentNode`
     to become that key’s value. We also continue iterating through the characters
-    in our search string, so we point to the next character, which is the "a", as
+    in our search string, so we point to the next character, which is the `"a"` as
     shown in the bottom [diagram](#fig.ch17.point_to_a).'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/point_to_a.png](images/tries/point_to_a.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 2: We inspect the currentNode for a child with the key of "a". It has
-    one, so we make that child the new currentNode. We then proceed to search for
-    the next character in our string, which is the "t":'
+- en: 'Step 2: We inspect the `currentNode` for a child with the key of `"a"`. It
+    has one, so we make that child the new `currentNode`. We then proceed to search
+    for the next character in our string, which is the `"t"`:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/point_to_t.png](images/tries/point_to_t.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 3: We’re now pointing to the "t" of our search string. Since the currentNode
-    has a "t" child, we follow it, as shown in the [diagram](#fig.ch17.follow_the_t).
-    Since we’ve reached the end of our search string, it means we’ve found "cat" in
-    our trie.'
+- en: 'Step 3: We’re now pointing to the `"t"` of our search string. Since the `currentNode`
+    has a `"t"` child, we follow it, as shown in the [diagram](#fig.ch17.follow_the_t).
+    Since we’ve reached the end of our search string, it means we’ve found `"cat"`
+    in our trie.'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/follow_the_t.png](images/tries/follow_the_t.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Code Implementation: Trie Search'
+- en: 'Code Implementation: Trie `Search`'
+  id: totrans-18
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s implement trie search by adding a search method to our Trie class:'
+- en: 'Let’s implement trie `search` by adding a `search` method to our `Trie` class:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | search(word) { |'
+- en: '| ​  | `search(word)` { |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+- en: '| ​  | ​`let`​ `currentNode` = `this`.root; |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+- en: '| ​  | ​`for`​ (`const` `char` `of` `word`) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+- en: '| ​  | ​`if`​ (`currentNode.children[`**char**`]) { |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+- en: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | `return` `null`; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ currentNode; |'
+- en: '| ​  | `return` currentNode; |'
+  id: totrans-31
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: Our search method accepts a string that represents the word (or prefix) we’re
-    searching for.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'First, we establish the root node as our currentNode:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
-  prefs: []
-  type: TYPE_TB
-- en: 'Then we iterate over each character of our search word:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
-  prefs: []
-  type: TYPE_TB
-- en: 'Within each round of the loop, we check whether the current node has any children
-    with the current character as the key. If there is such a child, we update the
-    current node to be the child node:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: If there is no such child, we return null, as it means we’ve hit a dead end
-    and our search word isn’t contained in the trie.
+- en: 我们的搜索方法接受一个表示要搜索的单词（或前缀）的字符串。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we get past the end of the loop, it means we’ve found the entire word in
-    our trie. In this case, we return the currentNode. The reason we return the current
-    node, as opposed to just returning true, is to help us with the autocomplete feature,
-    as I’ll explain when we get there.
+- en: 首先，我们将根节点设为`currentNode`：
+  id: totrans-34
   prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `let` currentNode = `this`.root; |'
+  id: totrans-35
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 然后我们遍历搜索单词的每个字符：
+  id: totrans-36
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `for` (`const` `char` `of` word) { |'
+  id: totrans-37
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 在每一轮循环中，我们检查当前节点是否有任何子节点，其当前字符作为键。如果存在这样的子节点，我们更新当前节点为子节点：
+  id: totrans-38
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `if` (`currentNode`.children[`char`]) { |'
+  id: totrans-39
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
+  id: totrans-40
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-41
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 如果没有这样的子节点，我们返回`null`，因为这意味着我们遇到了死胡同，搜索的单词不在`trie`中。
+  id: totrans-42
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 如果我们通过了循环的结束，这意味着我们在`trie`中找到了整个单词。在这种情况下，我们返回`currentNode`。我们返回当前节点的原因，而不是仅仅返回`true`，是为了帮助我们实现自动补全功能，稍后我会解释。
+  id: totrans-43
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL

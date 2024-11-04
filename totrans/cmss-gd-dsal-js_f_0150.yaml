@@ -1,195 +1,272 @@
 - en: Binary Search Tree Traversal
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, we’ve already seen how to search, insert, and delete data from a binary
     search tree. I mentioned, though, that we also want to be able to print the entire
-    list of book titles in alphabetical order. How can we do that?
+    list of book titles in alphabetical order. How can we do that？
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: First, we need the ability to visit every single node in the tree. Visiting
     nodes is another term for accessing them. The process of visiting every node in
     a data structure is known as traversing the data structure.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Second, we need to make sure we traverse the tree in alphabetically ascending
     order so that we can print the list in that order. You can traverse a tree in
     multiple ways, but for this application, we’ll perform what is known as inorder
     traversal, so that we can print each title in alphabetical order.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Recursion is a great tool for performing traversal. We’ll create a recursive
-    function called traverse that can be called on a particular node. The function
-    then performs the following steps:'
+- en: Recursion is a great tool for performing traversal. We’ll create a recursive
+    function called `traverse` that can be called on a particular node. The function
+    then performs the following steps：
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Call itself (traverse) recursively on the node’s left child. The function will
-    keep getting called until we hit a node that does not have a left child.
+- en: Call itself (`traverse`) recursively on the node’s left child. The function
+    will keep getting called until we hit a node that does not have a left child.
+  id: totrans-5
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Visit the node. (For our book title app, we print the value of the node at this
     step.)
+  id: totrans-6
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Call itself (traverse) recursively on the node’s right child. The function will
-    keep getting called until we hit a node that does not have a right child.
+- en: Call itself (`traverse`) recursively on the node’s right child. The function
+    will keep getting called until we hit a node that does not have a right child.
+  id: totrans-7
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: For this recursive algorithm, the base case is when we call traverse on a child
-    that does not exist, in which case we return without doing anything further.
+- en: For this recursive algorithm, the base case is when we call `traverse` on a
+    child that does not exist, in which case we return without doing anything further.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a JavaScript traverseAndPrint function that works for our list of book
-    titles. Note how concise it is:'
+- en: Here’s a JavaScript `traverseAndPrint` function that works for our list of book
+    titles. Note how concise it is：
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ traverseAndPrint(node) { |'
+- en: '| ​  | ​`function`​ `traverseAndPrint(node)` { |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!node) { ​**return**​; } |'
+- en: '| ​  | ​`if`​ (!node) { ​`return`​; } |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | traverseAndPrint(node.leftChild); |'
+- en: '| ​  | `traverseAndPrint(node.leftChild);` |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(node.value); |'
+- en: '| ​  | `console.log(node.value);` |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | traverseAndPrint(node.rightChild); |'
+- en: '| ​  | `traverseAndPrint(node.rightChild);` |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s walk through the inorder traversal step by step.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We first call traverseAndPrint on “Moby Dick”. This, in turn, calls traverseAndPrint
-    on the left child of “Moby Dick”, which is “Great Expectations”:'
+- en: We first call `traverseAndPrint` on “Moby Dick”。这将反过来调用`traverseAndPrint`在“Moby
+    Dick”的左子节点上，左子节点是“Great Expectations”：
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | traverseAndPrint(node.leftChild); |'
+- en: '| ​  | `traverseAndPrint(node.leftChild);` |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Before we move on to that, though, we’re going to add to the call stack the
+- en: Before we move on to that, though, we’re going to add to the call stack the
     fact that we’re in the middle of the function in “Moby Dick” and the fact that
-    we’re in the middle of traversing its left child:'
+    we’re in the middle of traversing its left child：
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/call_stack_1.png](images/binary_trees/call_stack_1.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We then proceed with traverseAndPrint("Great Expectations"), which calls traverse_and_print
-    on the left child of “Great Expectations”, which is “Alice in Wonderland”.
+- en: We then proceed with `traverseAndPrint("Great Expectations")`，这将调用`traverse_and_print`在“Great
+    Expectations”的左子节点上，左子节点是“Alice in Wonderland”。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s add traverseAndPrint("Great Expectations") to the call stack before moving
-    on:'
+- en: Let’s add `traverseAndPrint("Great Expectations")` to the call stack before
+    moving on：
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/call_stack_2.png](images/binary_trees/call_stack_2.png)'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'The traverseAndPrint("Alice in Wonderland") calls traverseAndPrint on the left
-    child of “Alice in Wonderland”. However, there isn’t any left child (the base
-    case), so nothing happens. The next line of traverseAndPrint is the following:'
+- en: The `traverseAndPrint("Alice in Wonderland")` calls `traverseAndPrint` on the
+    left child of “Alice in Wonderland”。然而，那里没有左子节点（基准情况），所以什么也不会发生。`traverseAndPrint`的下一行是：
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | console.log(node.value); |'
+- en: '| ​  | `console.log(node.value);` |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This line prints "Alice in Wonderland".
+- en: 这一行打印“Alice in Wonderland”。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Next, the function attempts to traverseAndPrint the right child of “Alice in
-    Wonderland”:'
+- en: 接下来，函数尝试对“Alice in Wonderland”的右子节点进行`traverseAndPrint`：
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | traverseAndPrint(node.rightChild); |'
+- en: '| ​  | `traverseAndPrint(node.rightChild);` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: However, there’s no right child (the base case), so the function returns without
-    doing anything further.
+- en: 然而，没有右子节点（基本情况），因此函数返回而不再执行其他操作。
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Since we’ve completed the function traverseAndPrint("Alice in Wonderland"),
-    we check the call stack to see where we’re up to in this recursive soup:'
+- en: 由于我们已经完成了`traverseAndPrint("Alice in Wonderland")`函数，我们检查调用栈，以查看我们在这个递归状态中的进展：
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_3.png](images/binary_trees/call_stack_3.png)'
+- en: '![`images/binary_trees/call_stack_3.png`](images/binary_trees/call_stack_3.png)'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Ah, that’s right. We were in the middle of traverseAndPrint("Great Expectations"),
-    and we had just completed calling traverseAndPrint on its left child. Let’s pop
-    this from the call stack:'
+- en: 啊，对了。我们正处于`traverseAndPrint("Great Expectations")`的中间，刚完成了对它的左子节点的`traverseAndPrint`调用。让我们将其从调用栈中弹出：
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_4.png](images/binary_trees/call_stack_4.png)'
+- en: '![`images/binary_trees/call_stack_4.png`](images/binary_trees/call_stack_4.png)'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'And let’s continue. The function next prints "Great Expectations" and then
-    calls traverseAndPrint on the right child, which is “Lord of the Flies”. Before
-    moving on to that, though, let’s hold our place within this function in the call
-    stack:'
+- en: 让我们继续。这个函数接下来打印“Great Expectations”，然后调用`traverseAndPrint`对右子节点进行操作，即“Lord of
+    the Flies”。不过在继续之前，让我们在调用栈中保持这个函数的位置：
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_5.png](images/binary_trees/call_stack_5.png)'
+- en: '![`images/binary_trees/call_stack_5.png`](images/binary_trees/call_stack_5.png)'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We now execute traverseAndPrint("Lord of the Flies"). First, we call traverseAndPrint
-    on its left child, but it doesn’t have one. Next, we print “Lord of the Flies”.
-    Finally, we call traverseAndPrint on its right child, but that doesn’t exist either,
-    so the function is now done.
+- en: 我们现在执行`traverseAndPrint("Lord of the Flies")`。首先，我们对它的左子节点调用`traverseAndPrint`，但它没有左子节点。接着，我们打印“Lord
+    of the Flies”。最后，我们对它的右子节点调用`traverseAndPrint`，但也没有，所以这个函数现在完成了。
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We look at our call stack and see that we were in the process of executing traverseAndPrint
-    on the right child of “Great Expectations”. We can pop that from the stack and
-    continue, as shown in the [diagram](#fig.ch15.call_stack_6).
+- en: 我们查看调用栈，发现我们正在对“Great Expectations”的右子节点执行`traverseAndPrint`。我们可以将其从栈中弹出并继续，如[图示](#fig.ch15.call_stack_6)所示。
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_6.png](images/binary_trees/call_stack_6.png)'
+- en: '![`images/binary_trees/call_stack_6.png`](images/binary_trees/call_stack_6.png)'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Now, it just so happens that we’ve also now completed everything we have to
-    do in traverseAndPrint("Great Expectations"), so we can go back to the call stack
-    to see what to do next:'
+- en: 现在，恰好我们已经完成了在`traverseAndPrint("Great Expectations")`中的所有操作，所以我们可以返回到调用栈查看接下来要做什么：
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_7.png](images/binary_trees/call_stack_7.png)'
+- en: '![`images/binary_trees/call_stack_7.png`](images/binary_trees/call_stack_7.png)'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We can see that we were in the middle of traverseAndPrint of the left child
-    of “Moby Dick”. We can pop that from the call stack (which leaves the stack empty
-    for now) and continue with the next step within traverseAndPrint("Moby Dick"),
-    which is to print “Moby Dick”.
+- en: 我们可以看到，我们正处于对“Moby Dick”的左子节点进行`traverseAndPrint`的中间。我们可以将其从调用栈中弹出（这使得栈现在为空），并继续进行`traverseAndPrint("Moby
+    Dick")`中的下一步，即打印“Moby Dick”。
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Then, we call traverseAndPrint on the right child of “Moby Dick”. We’ll add
-    this to the call stack:'
+- en: 然后，我们对“Moby Dick”的右子节点调用`traverseAndPrint`。我们将其添加到调用栈中：
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/call_stack_8.png](images/binary_trees/call_stack_8.png)'
+- en: '![`images/binary_trees/call_stack_8.png`](images/binary_trees/call_stack_8.png)'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: For the sake of brevity (although it’s probably too late for that), I’ll let
-    you walk through the rest of the traverseAndPrint function from here.
+- en: 为了简洁起见（尽管可能已经太晚了），我将让你从这里继续走完剩下的`traverseAndPrint`函数。
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'By the time our function has finished executing, we’ll have printed the nodes
-    in this order:'
+- en: 到我们函数执行完毕时，我们将以如下顺序打印节点：
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_trees/bst_27.png](images/binary_trees/bst_27.png)'
+- en: '![`images/binary_trees/bst_27.png`](images/binary_trees/bst_27.png)'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: And that’s how we achieve our goal of printing the book titles in alphabetical
-    order. Note that tree traversal is O(N), since by definition, traversal visits
-    all N nodes of the tree.
+- en: 这就是我们以字母顺序打印书名的目标。请注意，树遍历是O(N)的，因为按定义，遍历会访问树的所有N个节点。
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

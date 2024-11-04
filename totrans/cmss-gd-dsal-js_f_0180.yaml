@@ -1,149 +1,204 @@
-- en: Object-Oriented Graph Implementation
+- en: 面向对象的图实现
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: I demonstrated how a hash table can be used to implement a graph, but going
-    forward, we’ll work with an object-oriented approach.
+- en: 我展示了如何使用哈希表来实现一个图，但在接下来的工作中，我们将采用面向对象的方法。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s the beginning of an object-oriented graph implementation, using JavaScript:'
+- en: 这是使用 JavaScript 开始的一个面向对象的图实现：
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ Vertex { |'
+- en: '| ​  | `class` Vertex { |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(value) { |'
+- en: '| ​  | `constructor`(value) { |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.value = value; |'
+- en: '| ​  | `this.value = value;` |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.adjacentVertices = []; |'
+- en: '| ​  | `this.adjacentVertices = [];` |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | addAdjacentVertex(vertex) { |'
+- en: '| ​  | `addAdjacentVertex(vertex) {` |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.adjacentVertices.push(vertex); |'
+- en: '| ​  | `this.adjacentVertices.push(vertex);` |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**export**​ ​**default**​ Vertex; |'
+- en: '| ​  | `export` `default` Vertex; |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The Vertex class has two primary attributes, the value and an array of adjacentVertices.
-    In our social network example, each vertex represents a person, and the value
-    might be a string containing the person’s name. With a more complex application,
-    we’d probably want to store multiple pieces of data inside a vertex, such as the
-    person’s additional profile information.
+- en: '`Vertex`类有两个主要属性，`value`和一个`adjacentVertices`数组。在我们的社交网络示例中，每个顶点代表一个人，而`value`可能是一个包含该人姓名的字符串。在更复杂的应用中，我们可能希望在顶点内部存储多个数据片段，例如该人的附加个人信息。'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The adjacentVertices array contains all the vertices this vertex connects to.
-    We can add a new adjacent vertex to a given vertex using the addAdjacentVertex
-    method.
+- en: '`adjacentVertices`数组包含了此顶点连接的所有顶点。我们可以使用`addAdjacentVertex`方法向给定顶点添加一个新的相邻顶点。'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s how we can use this class to build a directed graph representing who
-    follows whom in this image:'
+- en: 这是我们如何使用这个类来构建一个有向图，表示这个图中谁跟随谁：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/graph_2.png](images/graphs/graph_2.png)'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: '| ​  | ​**let**​ alice = ​**new**​ Vertex(​*''alice''*​); |'
+- en: '| ​  | `let` alice = `new` Vertex(`''alice''`); |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ bob = ​**new**​ Vertex(​*''bob''*​); |'
+- en: '| ​  | `let` bob = `new` Vertex(`''bob''`); |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ cynthia = ​**new**​ Vertex(​*''cynthia''*​); |'
+- en: '| ​  | `let` cynthia = `new` Vertex(`''cynthia''`); |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | alice.addAdjacentVertex(bob); |'
+- en: '| ​  | `alice.addAdjacentVertex(bob);` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | alice.addAdjacentVertex(cynthia); |'
+- en: '| ​  | `alice.addAdjacentVertex(cynthia);` |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | bob.addAdjacentVertex(cynthia); |'
+- en: '| ​  | `bob.addAdjacentVertex(cynthia);` |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | cynthia.addAdjacentVertex(bob); |'
+- en: '| ​  | `cynthia.addAdjacentVertex(bob);` |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Now, if we were building an undirected graph for the social network (where all
-    friendships are mutual), it would make sense if we add Bob to Alice’s list of
-    friends, we should automatically add Alice to Bob’s list of friends as well.
+- en: 现在，如果我们为社交网络构建一个无向图（所有友谊都是相互的），那么如果我们将 Bob 添加到 Alice 的朋友列表中，理应自动将 Alice 添加到
+    Bob 的朋友列表中。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To do this, we can modify our addAdjacentVertex method as follows:'
+- en: 为此，我们可以按如下方式修改我们的`addAdjacentVertex`方法：
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | addAdjacentVertex(vertex) { |'
+- en: '| ​  | `addAdjacentVertex(vertex) {` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.adjacentVertices.push(vertex); |'
+- en: '| ​  | `this.adjacentVertices.push(vertex);` |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | vertex.adjacentVertices.push(​**this**​); |'
+- en: '| ​  | `vertex.adjacentVertices.push(this);` |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Let’s say we’re calling this method on Alice and adding Bob to her list of friends.
-    As with the previous version, we use this.adjacentVertices.push(vertex) to add
-    Bob to Alice’s list of adjacentVertices. However, we also call this very method
-    on Bob’s vertex, with vertex.adjacentVertices.push(this). This adds Alice to Bob’s
-    list of friends as well.
+- en: 假设我们正在对 Alice 调用此方法并将 Bob 添加到她的朋友列表中。与之前的版本一样，我们使用`this.adjacentVertices.push(vertex)`将
+    Bob 添加到 Alice 的相邻顶点列表中。然而，我们还在 Bob 的顶点上调用此方法，使用`vertex.adjacentVertices.push(this)`。这将
+    Alice 也添加到 Bob 的朋友列表中。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To keep things simple going forward, we’re going to work with graphs that are
-    connected (again, meaning all vertices are connected to each other in some way).
-    With such graphs, we can use this one Vertex class to achieve all the algorithms
-    going forward. The general idea is if we have access to just one vertex, we can
-    find all other vertices from there since all the vertices are connected.
+- en: 为了简化后续操作，我们将处理连接的图（再次强调，意味着所有顶点以某种方式互相连接）。对于这样的图，我们可以使用一个`Vertex`类来实现后续所有的算法。一般来说，如果我们仅访问一个顶点，我们可以从那里找到所有其他顶点，因为所有顶点都是连接的。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, it’s important to point out that if we’re dealing with a disconnected
-    graph, it may be impossible to discover all the vertices just from one vertex.
-    In this case, we may need to store all the graph vertices in some additional data
-    structure, such as an array, so that we have access to all of them. (It’s common
-    to see graph implementations use a separate Graph class to contain this array.)
+- en: 然而，需要指出的是，如果我们处理的是一个不连通的图，从一个顶点可能无法发现所有顶点。在这种情况下，我们可能需要将所有图的顶点存储在一些额外的数据结构中，例如一个数组，以便我们可以访问它们。（常见的做法是看到图的实现使用一个单独的`Graph`类来包含这个数组。）
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Adjacency List vs. Adjacency Matrix
+- en: '`Adjacency List` vs. `Adjacency Matrix`'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Our implementation of the graph uses a simple list (in the form of an array)
-    to store a vertex’s adjacent vertices. This approach is known as the adjacency
-    list implementation.
+- en: 我们的图的实现使用一个简单的列表（以数组的形式）来存储一个顶点的相邻顶点。这种方法被称为`adjacency list implementation`。
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, it’s good to know that there’s another implementation that uses two-dimensional
-    arrays instead of lists. This alternative approach is known as the adjacency matrix,
-    and it can provide advantages in specific situations.
+- en: 然而，值得知道的是，还有另一种实现，它使用二维数组而不是列表。这种替代方法被称为`adjacency matrix`，在特定情况下可以提供优势。
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Both approaches are popular, and I’ve decided to stick with the adjacency list
-    because I find it to be more intuitive. But I recommend you research the adjacency
-    matrix as well, as it can be useful and is particularly interesting.
+- en: 两种方法都很流行，我决定坚持使用`adjacency list`，因为我觉得它更直观。但是我建议你也研究一下`adjacency matrix`，因为它可以很有用且特别有趣。
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,370 +1,576 @@
 - en: Partitioning
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: To partition an array is to take a random value from the array—which is then
     called the pivot—and make sure every number that is less than the pivot ends up
     to the left of the pivot and every number greater than the pivot ends up to the
     right of the pivot. We accomplish partitioning through a simple algorithm that
     will be described in the following example.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s say we have the following array:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png)'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'For consistency’s sake, we’ll always select the rightmost value to be our pivot
-    (although we can technically choose other values). In this case, the number 3
+    (although we can technically choose other values). In this case, the number `3`
     is our pivot. We indicate this by circling it:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'We then assign pointers—one to the leftmost value of the array, and one to
     the rightmost value of the array, excluding the pivot itself:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We’re now ready to begin the actual partition, which follows these steps. Don’t
     worry—the steps will become clearer shortly, when we walk through our example.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The left pointer continuously moves one cell to the right until it reaches a
     value that is greater than or equal to the pivot and then stops.
+  id: totrans-9
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Then the right pointer continuously moves one cell to the left until it reaches
     a value that is less than or equal to the pivot and then stops. The right pointer
     will also stop if it reaches the beginning of the array.
+  id: totrans-10
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Once the right pointer has stopped, we reach a crossroads. If the left pointer
-    has reached (or gone beyond) the right pointer, we move on to Step 4\. Otherwise,
+    has reached (or gone beyond) the right pointer, we move on to Step 4. Otherwise,
     we swap the values that the left and right pointers are pointing to, and then
     we go back to repeat Steps 1, 2, and 3 again.
+  id: totrans-11
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Finally, we swap the pivot with the value that the left pointer is currently
     pointing to.
+  id: totrans-12
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: When we’re done with a partition, we are now assured that all values to the
     left of the pivot are less than the pivot, and all values to the right of the
     pivot are greater than it. And that means the pivot itself is now in its correct
     place within the array, although the other values are not yet necessarily completely
     sorted.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s apply this to our example:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 1: Compare the left pointer (now pointing to 0) to our pivot (the value
-    3):'
+- en: 'Step 1: Compare the left pointer (now pointing to `0`) to our pivot (the value
+    `3`):'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Since 0 is less than the pivot, the left pointer moves on in the next step.
+- en: Since `0` is less than the pivot, the left pointer moves on in the next step.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 2: The left pointer moves on:'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We compare the left pointer (the 5) to our pivot. Is the 5 lower than the pivot?
-    It’s not, so the left pointer stops, and we activate the right pointer in our
-    next step.
+- en: We compare the left pointer (the `5`) to our pivot. Is the `5` lower than the
+    pivot? It’s not, so the left pointer stops, and we activate the right pointer
+    in our next step.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 3: Compare the right pointer (6) to our pivot. Is the value greater than
-    the pivot? It is, so our pointer will move on in the next step.'
+- en: 'Step 3: Compare the right pointer (`6`) to our pivot. Is the value greater
+    than the pivot? It is, so our pointer will move on in the next step.'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 4: The right pointer moves on:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We compare the right pointer (1) to our pivot. Is the value greater than the
+- en: We compare the right pointer (`1`) to our pivot. Is the value greater than the
     pivot? It’s not, so our right pointer stops.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 5: Since both pointers have stopped, we swap the values of the two pointers:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png)'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We then activate our left pointer again in the next step.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 6: The left pointer moves on:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png)'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We compare the left pointer (2) to our pivot. Is the value less than the pivot?
+- en: We compare the left pointer (`2`) to our pivot. Is the value less than the pivot?
     It is, so the left pointer moves on.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 7: The left pointer moves on to the next cell. Note that at this point,
     both the left and right pointers are pointing to the same value:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png)'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We compare the left pointer to our pivot. Because our left pointer is pointing
     to a value that is greater than our pivot, it stops. At this point, since our
     left pointer has reached our right pointer, we’re done with moving pointers.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 8: For our final step of the partition, we swap the value that the left
     pointer is pointing to with the pivot:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png)'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Although our array isn’t completely sorted, we’ve successfully completed a partition;
-    that is, since our pivot was the number 3, all numbers that are less than 3 are
-    to its left, while all numbers greater than 3 are to its right. This also means,
-    by definition, that the 3 is now in its correct place within the array.
+    that is, since our pivot was the number `3`, all numbers that are less than `3`
+    are to its left, while all numbers greater than `3` are to its right. This also
+    means, by definition, that the `3` is now in its correct place within the array.
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Partitioning'
+  id: totrans-37
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Following is an implementation of a SortableArray class in JavaScript that
-    includes a partition method that partitions the array as we’ve described:'
+- en: 'Following is an implementation of a `SortableArray` class in JavaScript that
+    includes a `partition` method that partitions the array as we’ve described:'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ SortableArray { |'
+- en: '| ​  | `class` SortableArray { |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(array) { |'
+- en: '| ​  | `constructor`(`array`) { |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.array = array; |'
+- en: '| ​  | `this`.array = `array`; |'
+  id: totrans-41
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | partition(leftPointer, rightPointer) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ pivotIndex = rightPointer; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ pivot = ​**this**​.array[pivotIndex]; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | rightPointer -= 1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**true**​) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.array[leftPointer] < pivot) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | leftPointer += 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.array[rightPointer] > pivot) { |'
+- en: '| ​  | `partition(leftPointer, rightPointer) {` |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | rightPointer -= 1; |'
+- en: '| ​  | `const` pivotIndex = `rightPointer`; |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `const` pivot = `this`.array[pivotIndex]; |'
+  id: totrans-46
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (leftPointer >= rightPointer) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[rightPointer]] = |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | [​**this**​.array[rightPointer], ​**this**​.array[leftPointer]]; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | leftPointer += 1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[pivotIndex]] = |'
+- en: '| ​  | `rightPointer -= 1;` |'
+  id: totrans-48
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | [​**this**​.array[pivotIndex], ​**this**​.array[leftPointer]]; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ leftPointer; |'
+- en: '| ​  | `while` (`true`) { |'
+  id: totrans-50
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `while` (`this`.array[`leftPointer`] < `pivot`) { |'
+  id: totrans-51
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `leftPointer += 1;` |'
+  id: totrans-52
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  |  |'
+  id: totrans-54
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
+  id: totrans-55
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `rightPointer -= 1；` |'
+  id: totrans-56
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-57
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-58
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if (leftPointer >= rightPointer) {` |'
+  id: totrans-59
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `break`；|'
+  id: totrans-60
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `} else {` |'
+  id: totrans-61
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
+  id: totrans-62
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
+  id: totrans-63
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `leftPointer += 1；` |'
+  id: totrans-64
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-65
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-66
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-67
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `[this].array[leftPointer], [this].array[pivotIndex]` = |'
+  id: totrans-68
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `[this].array[pivotIndex], [this].array[leftPointer]`；|'
+  id: totrans-69
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-70
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return leftPointer；` |'
+  id: totrans-71
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-72
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-73
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s break this code down a bit.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The partition method accepts the starting points of the left and right pointers
-    as parameters:'
+- en: 'The `partition` method accepts the starting points of the `left` and `right`
+    pointers as parameters:'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | partition(leftPointer, rightPointer) { |'
+- en: '| ​  | `partition(leftPointer, rightPointer) {` |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: When this method is first called on an array, these pointers will point to the
     left and right ends of the array, respectively. However, we’ll see that Quicksort
     will call this method on subsections of the array as well. Because of this, we
-    can’t always assume the left and right pointers are always the two extremities
+    can’t always assume the `left` and `right` pointers are always the two extremities
     of the array, so they need to become method arguments. This point will be clearer
     when I explain the complete Quicksort algorithm.
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we select our pivot, which is always the rightmost element in the range
     we’re dealing with:'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ pivotIndex = rightPointer; |'
+- en: '| ​  | `const pivotIndex = rightPointer；` |'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ pivot = ​**this**​.array[pivotIndex]; |'
+- en: '| ​  | `const pivot = [this].array[pivotIndex]；` |'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Once our pivot has been identified, we move the rightPointer to the item immediately
-    left of the pivot:'
+- en: 'Once our pivot has been identified, we move the `rightPointer` to the item
+    immediately left of the pivot:'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | rightPointer -= 1; |'
+- en: '| ​  | `rightPointer -= 1；` |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then begin a loop (while (true)) that will seem to run indefinitely. However,
-    later within the loop is a break statement that will terminate the loop as soon
-    as the leftPointer and rightPointer cross paths. Within this loop, we use another
-    loop to keep moving the leftPointer to the right until it reaches an item that
-    is greater than or equal to the pivot:'
+- en: 'We then begin a loop (`while (true)`) that will seem to run indefinitely. However,
+    later within the loop is a `break` statement that will terminate the loop as soon
+    as the `leftPointer` and `rightPointer` cross paths. Within this loop, we use
+    another loop to keep moving the `leftPointer` to the right until it reaches an
+    item that is greater than or equal to the pivot:'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (​**this**​.array[leftPointer] < pivot) { |'
+- en: '| ​  | `while ([this].array[leftPointer] < pivot) {` |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | leftPointer += 1; |'
+- en: '| ​  | `leftPointer += 1；` |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Similarly, we move the rightPointer to the left until it hits an item that
+- en: 'Similarly, we move the `rightPointer` to the left until it hits an item that
     is less than or equal to the pivot:'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (​**this**​.array[rightPointer] > pivot) { |'
+- en: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | rightPointer -= 1; |'
+- en: '| ​  | `rightPointer -= 1；` |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Once the leftPointer and rightPointer have stopped moving, we check whether
+- en: 'Once the `leftPointer` and `rightPointer` have stopped moving, we check whether
     the two pointers have met:'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (leftPointer >= rightPointer) { |'
+- en: '| ​  | `if (leftPointer >= rightPointer) {` |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
+- en: '| ​  | `break`；|'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'If they have, we exit the loop and get ready to swap out the pivot, which we’ll
     get to momentarily. However, if the two pointers have stopped but not yet met
     each other, we swap the values at the two pointers:'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[rightPointer]] = |'
+- en: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.array[rightPointer], ​**this**​.array[leftPointer]]; |'
+- en: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then move the leftPointer to get ready for the next round of left- and right-pointer
-    movements:'
+- en: 'We then move the `leftPointer` to get ready for the next round of left- and
+    right-pointer movements:'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | leftPointer += 1; |'
+- en: '| ​  | `leftPointer += 1；` |'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Finally, once the two pointers have met, we swap the pivot with the value at
-    the leftPointer:'
+- en: 最后，一旦两个指针相遇，我们将`pivot`与`leftPointer`处的值交换：
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [​**this**​.array[leftPointer], ​**this**​.array[pivotIndex]] = |'
+- en: '| ​  | [`this`.array[`leftPointer`], `this`.array[`pivotIndex`]] = |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.array[pivotIndex], ​**this**​.array[leftPointer]]; |'
+- en: '| ​  | [`this`.array[`pivotIndex`], `this`.array[`leftPointer`]]; |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The method concludes by returning the leftPointer, as this will be needed by
-    the Quicksort algorithm (which I’ll explain shortly).
+- en: 该方法通过返回`leftPointer`结束，因为这将被`Quicksort`算法所需（我将很快解释）。
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

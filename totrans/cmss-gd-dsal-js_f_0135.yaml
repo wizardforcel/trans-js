@@ -1,299 +1,448 @@
-- en: Insertion
+- en: 插入
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Admittedly, linked lists have yet to impress us from a performance standpoint.
-    They’re no better than arrays at search, and much worse at reading. But not to
-    worry—linked lists will have their moment. In fact, that moment is now.
+- en: 不可否认的是，从性能的角度来看，链表尚未给我们留下深刻印象。它们在搜索方面不比数组好，在读取方面更糟。但不用担心——链表将有它们的时刻。实际上，那一刻就是现在。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Insertion is one operation in which linked lists have a distinct advantage over
-    arrays in certain situations.
+- en: 插入是链表在某些情况下相对于数组具有明显优势的一项操作。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recall that the worst-case scenario for insertion into an array is when the
-    program inserts data into index 0, because it first has to shift the rest of the data
-    one cell to the right, which ends up yielding an efficiency of O(N). With linked
-    lists, however, insertion at the beginning of the list takes just one step—which
-    is O(1). Let’s see why.
+- en: 回想一下，插入数组的最坏情况是程序在索引`0`插入数据，因为它首先必须将其余数据向右移动一个单元，这最终导致效率为`O(N)`。然而，在链表中，在列表的开头插入只需一步——即`O(1)`。让我们看看为什么。
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Say we have the following linked list:'
+- en: 假设我们有以下链表：
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_2.png](images/pitting_linked_lists_against_arrays/linked_list_2.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'If we want to add "yellow" to the beginning of the list, all we have to do
-    is create a new node and have its link point to the node containing "blue":'
+- en: 如果我们想将`"yellow"`添加到列表的开头，我们所要做的就是创建一个新节点，并使其链接指向包含`"blue"`的节点：
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/insert_yellow_node.png](images/pitting_linked_lists_against_arrays/insert_yellow_node.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: (In our code, we’d also need to update the LinkedList instance so that its firstNode
-    attribute now points to this "yellow" node.)
+- en: （在我们的代码中，我们还需要更新`LinkedList`实例，以便其`firstNode`属性现在指向这个`"yellow"`节点。）
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In contrast with an array, the linked list provides the flexibility of inserting
-    data to the front of the list without requiring the shifting of any data. How
-    sweet is that?
+- en: 与数组相比，链表提供了在不需要移动任何数据的情况下向列表前面插入数据的灵活性。这多么甜美啊？
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The truth is that, theoretically, inserting data anywhere within a linked list
-    takes just one step, but there’s one gotcha. Let’s continue with our example.
+- en: 事实是，从理论上讲，在链表中任何位置插入数据只需一步，但有一个小问题。让我们继续我们的例子。
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s our linked list now:'
+- en: 这是我们现在的链表：
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_3.png](images/pitting_linked_lists_against_arrays/linked_list_3.png)'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Say we now want to insert "purple" at index 2 (which would be between "blue"
-    and "green"). The actual insertion takes just one step; that is, we can create
-    the new purple node and simply change the blue node’s link to point to the purple
-    node, as shown here:'
+- en: 假设我们现在想在索引`2`插入`"purple"`（这将位于`"blue"`和`"green"`之间）。实际插入只需一步；也就是说，我们可以创建新的`"purple"`节点，并简单地将`"blue"`节点的链接指向`"purple"`节点，如下所示：
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/insert_purple_node.png](images/pitting_linked_lists_against_arrays/insert_purple_node.png)'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: However, for the computer to do this, it first needs to get to the node at index
-    1 ("blue") so that it can modify its link to point to the newly created node.
-    As we’ve seen, though, reading—which is accessing an item at a given index—from
-    a linked list already takes O(N). Let’s see this in action.
+- en: 但是，为了让计算机做到这一点，它首先需要到达索引`1`的节点（`"blue"`），以便它可以修改其链接指向新创建的节点。如我们所见，从链表中读取——即访问给定索引处的项——已经需要`O(N)`。让我们看看这个过程。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We know that we want to add a new node after index 1\. So the computer needs
-    to get to index 1 of the list. To do this, we must start at the beginning of the
-    list:'
+- en: 我们知道我们想在索引`1`之后添加一个新节点。因此，计算机需要到达列表的索引`1`。为此，我们必须从列表的开头开始：
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_4.png](images/pitting_linked_lists_against_arrays/linked_list_4.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We then access the next node by following the first link:'
+- en: 然后通过跟随第一个链接访问下一个节点：
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_5.png](images/pitting_linked_lists_against_arrays/linked_list_5.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Now that we’ve found index 1, we can finally add the new node:'
+- en: 现在我们已经找到了索引`1`，我们终于可以添加新节点：
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/insert_purple_node.png](images/pitting_linked_lists_against_arrays/insert_purple_node.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'In this case, adding "purple" took three steps. If we were to add it to the
     end of our list, it would take five steps: four steps to access index 3 and one
     step to insert the new node.'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Practically speaking, then, inserting into a linked list is O(N), as the worst-case
     scenario of inserting at the end of the list will take N + 1 steps.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, we’ve seen that the best-case scenario of inserting at the beginning
     of the list is only O(1).
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Interestingly, our analysis shows that the best- and worst-case scenarios for
     arrays and linked lists are the opposite of one another. The following table breaks
     this all down:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| Scenario | Array | Linked List |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Insert at beginning | Worst case | Best case |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Insert at middle | Average case | Average case |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Insert at end | Best case | Worst case |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: As you can see, arrays favor insertions at the end, while linked lists favor
     insertions at the beginning.
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We’ve now found one thing that linked lists are great at—inserting things at
     the beginning of the list. Later in this chapter, we’ll see a great practical
     example of where we can take advantage of this.
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Linked List Insertion'
+  id: totrans-33
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s add an insertion method to our LinkedList class. We’ll call it insert:'
+- en: 'Let’s add an insertion method to our `LinkedList` class. We’ll call it `insert`:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | insert(index, value) { |'
+- en: '| ​  | `insert(index, value)` { |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ newNode = ​**new**​ Node(value); |'
+- en: '| ​  | `const` newNode = `new` `Node`(value); |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (index === 0) { |'
+- en: '| ​  | `if` (index === 0) { |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | newNode.nextNode = ​**this**​.firstNode; |'
+- en: '| ​  | `newNode.nextNode` = `this`.firstNode; |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.firstNode = newNode; |'
+- en: '| ​  | `this`.firstNode = `newNode`; |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | `return`; |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+- en: '| ​  | `let` currentNode = `this`.firstNode; |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentIndex = 0; |'
+- en: '| ​  | `let` currentIndex = 0; |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (currentIndex < (index - 1)) { |'
+- en: '| ​  | `while` (currentIndex < (index - 1)) { |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.nextNode; |'
+- en: '| ​  | `currentNode` = `currentNode.nextNode`; |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentIndex += 1; |'
+- en: '| ​  | `currentIndex` += 1; |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | newNode.nextNode = currentNode.nextNode; |'
+- en: '| ​  | `newNode.nextNode` = `currentNode.nextNode`; |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode.nextNode = newNode; |'
+- en: '| ​  | `currentNode.nextNode` = `newNode`; |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: To use the method, we pass in both the new value as well as the index of where
     we want to insert it.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'For example, to insert "purple" at index 2, we’d say this:'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | list.insert(2, ​*"purple"*​); |'
+- en: '| ​  | `list.insert(2, "purple");` |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s break this insert method down.
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'First, we create a new Node instance with the value provided to our method:'
+- en: 'First, we create a new `Node` instance with the value provided to our method:'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ newNode = ​**new**​ Node(value); |'
+- en: '| ​  | `const` newNode = `new` `Node`(value); |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: (Here, the node from node.Node refers to the node module we imported at the
-    beginning of the file, as we placed the Node class in a separate file from the
-    LinkedList class.)
+- en: (Here, the node from `node.Node` refers to the node module we imported at the
+    beginning of the file, as we placed the `Node` class in a separate file from the
+    `LinkedList` class.)
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, we deal with the case where we’re inserting into index 0—that is, at the
     beginning of our list. The algorithm for this case is different than if we insert
     elsewhere into the list, so we deal with this case separately.
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To insert at the beginning of the list, we simply have our newNode link to
-    the first node of the list and declare our newNode to be the first node going
+- en: 'To insert at the beginning of the list, we simply have our `newNode` link to
+    the first node of the list and declare our `newNode` to be the first node going
     forward:'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (index === 0) { |'
+- en: '| ​  | `if` (index === 0) { |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | newNode.nextNode = ​**this**​.firstNode; |'
+- en: '| ​  | `newNode.nextNode` = `this`.firstNode; |'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.firstNode = newNode; |'
+- en: '| ​  | `this`.firstNode = `newNode`; |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | `return`; |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The return keyword ends the method early, as there’s nothing left to do.
+- en: '`return`关键字提前结束方法，因为没有其他事情需要做。'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rest of the code deals with a case in which we’re inserting anywhere other
-    than at the beginning.
+- en: 其余的代码处理的是在开头以外的任何地方插入的情况。
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As with reading and searching, we start off by accessing the head of the list:'
+- en: 与读取和搜索一样，我们首先访问列表的头：
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+- en: '| ​  | `let` currentNode = `this`.firstNode; |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentIndex = 0; |'
+- en: '| ​  | `let` currentIndex = 0; |'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then use a while loop to access the node just before the spot where we want
-    to insert our newNode:'
+- en: 我们然后使用`while`循环访问我们想要插入`newNode`的前一个节点：
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (currentIndex < (index - 1)) { |'
+- en: '| ​  | `while` (currentIndex < (index - 1)) { |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.nextNode; |'
+- en: '| ​  | `currentNode` = `currentNode.nextNode`; |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentIndex += 1; |'
+- en: '| ​  | `currentIndex` += 1; |'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: At this point, the currentNode is the node that’ll immediately precede our newNode.
+- en: 此时，`currentNode`是将立即位于我们`newNode`之前的节点。
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Next, we set the link of our newNode to point to the node after the currentNode:'
+- en: 接下来，我们将`newNode`的链接设置为指向`currentNode`后面的节点：
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | newNode.nextNode = currentNode.nextNode; |'
+- en: '| ​  | `newNode.nextNode` = `currentNode.nextNode`; |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Finally, we change the link of the currentNode (which, again, is to be the
-    node that precedes our newNode) to point to our newNode:'
+- en: 最后，我们将`currentNode`（再次强调，它是将位于`newNode`之前的节点）的链接更改为指向我们的`newNode`：
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | currentNode.nextNode = newNode; |'
+- en: '| ​  | `currentNode.nextNode` = `newNode`; |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: And we’re done!
+- en: 并且我们完成了！
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

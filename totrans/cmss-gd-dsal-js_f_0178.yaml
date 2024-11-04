@@ -1,131 +1,194 @@
 - en: Graphs
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: A graph is a data structure that specializes in relationships, as it easily
     conveys how data is connected.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a visualization of our social network, displayed as a graph:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/graph_1.png](images/graphs/graph_1.png)'
+- en: '`![images/graphs/graph_1.png](images/graphs/graph_1.png)`'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Each person is represented by a node, and each line indicates a friendship with
-    another person. If you look at Alice, for example, you can see that she is friends
-    with Bob, Diana, and Fred since her node has lines that connect to their nodes.
+    another person. If you look at `Alice`, for example, you can see that she is friends
+    with `Bob`, `Diana`, and `Fred` since her node has lines that connect to their
+    nodes.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Graphs vs. Trees
+  id: totrans-5
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: You might have noticed that graphs look similar to trees, which we’ve dealt
     with in the past few chapters. Indeed, trees are a type of graph. Both data structures
     consist of nodes connected to each other.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So what’s the difference between a graph and a tree?
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s the deal: while all trees are graphs, not all graphs are trees.'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Specifically, for a graph to be considered a tree, it cannot have cycles, and
     all nodes must be connected. Let’s see what that means.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A graph may have nodes that form what is known as a cycle—that is, nodes that
-    reference each other circularly. In the previous example, Alice is friends with
-    Diana, and Diana is connected to Bob, and Bob is connected…to Alice. These three
-    nodes form a cycle.
+    reference each other circularly. In the previous example, `Alice` is friends with
+    `Diana`, and `Diana` is connected to `Bob`, and `Bob` is connected…to `Alice`.
+    These three nodes form a cycle.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Trees, on the other hand, are not “allowed” to have cycles. If a graph has a
     cycle, then it’s not a tree.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Another characteristic specific to trees is that every node is somehow connected
     to every other node, even if the connections are indirect. However, it’s possible
     for a graph to not be fully connected.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'See the following graph:'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/disconnected_graph.png](images/graphs/disconnected_graph.png)'
+- en: '`![images/graphs/disconnected_graph.png](images/graphs/disconnected_graph.png)`'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: In this social network, we have two pairs of friends. However, no one from either
     pair is friends with anyone from the other pair. Additionally, we can see that
-    Vicky has no friends yet, as perhaps she signed up for this social network just
+    `Vicky` has no friends yet, as perhaps she signed up for this social network just
     minutes ago. With trees, however, there’s never a node that’s disconnected from
     the rest of the tree.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Graph Jargon
+  id: totrans-16
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Graphs have a bit of their own technical jargon. We’re used to calling each
-    piece of data a node, but in “graph-speak,” each node is called a vertex. The
-    lines between nodes, um—vertices, have their own name as well and are called edges.
-    And vertices that are connected by an edge are said to be adjacent to each other.
-    Some computer scientists also refer to adjacent vertices as neighbors.
+    piece of data a node, but in “graph-speak,” each node is called a `vertex`. The
+    lines between nodes, um—`vertices`, have their own name as well and are called
+    `edges`. And `vertices` that are connected by an `edge` are said to be adjacent
+    to each other. Some computer scientists also refer to adjacent `vertices` as `neighbors`.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In our first graph, then, the vertices of Alice and Bob are adjacent to each
-    other since they share an edge.
+- en: In our first graph, then, the vertices of `Alice` and `Bob` are adjacent to
+    each other since they share an edge.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: I mentioned earlier that it’s possible for a graph to have a vertex that isn’t
-    connected at all to other vertices. However, a graph where all the vertices are
-    connected in some way is said to be a connected graph.
+- en: I mentioned earlier that it’s possible for a graph to have a `vertex` that isn’t
+    connected at all to other `vertices`. However, a graph where all the `vertices`
+    are connected in some way is said to be a connected graph.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Bare-Bones Graph Implementation
+  id: totrans-20
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'For the sake of code organization, we’re going to use object-oriented classes
-    to represent our graphs, but it’s worth noting that we can also use a basic hash
-    table (see Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes)
-    ) to represent a rudimentary graph. Here’s a bare-bones implementation of our
-    social network using a hash table:'
+- en: 为了代码组织的考虑，我们将使用面向对象的类来表示我们的图，但值得注意的是，我们也可以使用基本的哈希表（参见第 8 章，[`“Blazing Fast Lookup
+    with Hash Tables”`](f_0076.xhtml#chp.hashes)）来表示一个初步的图。以下是使用哈希表的社交网络的基本实现：
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | friends = { |'
+- en: '| ​  | `friends = {` |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Alice"*​: [​*"Bob"*​, ​*"Diana"*​, ​*"Fred"*​], |'
+- en: '| ​  | `“Alice”`: [`“Bob”`, `“Diana”`, `“Fred”`], |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Bob"*​: [​*"Alice"*​, ​*"Cynthia"*​, ​*"Diana"*​], |'
+- en: '| ​  | `“Bob”`: [`“Alice”`, `“Cynthia”`, `“Diana”`], |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Cynthia"*​: [​*"Bob"*​], |'
+- en: '| ​  | `“Cynthia”`: [`“Bob”`], |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Diana"*​: [​*"Alice"*​, ​*"Bob"*​, ​*"Fred"*​], |'
+- en: '| ​  | `“Diana”`: [`“Alice”`, `“Bob”`, `“Fred”`], |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Elise"*​: [​*"Fred"*​], |'
+- en: '| ​  | `“Elise”`: [`“Fred”`], |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"Fred"*​: [​*"Alice"*​, ​*"Diana"*​, ​*"Elise"*​] |'
+- en: '| ​  | `“Fred”`: [`“Alice”`, `“Diana”`, `“Elise”`] |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'With a graph, we can look up Alice’s friends in O(1) because we can look up
-    the value of any key in the hash table with one step:'
+- en: 有了图，我们可以在 O(1) 中查找 Alice 的朋友，因为我们可以在哈希表中用一步查找任何键的值：
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | friends[​*"Alice"*​] |'
+- en: '| ​  | `friends["Alice"]` |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This immediately returns the array containing all of Alice’s friends.
+- en: 这立即返回包含所有 Alice 的朋友的数组。
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

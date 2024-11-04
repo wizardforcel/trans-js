@@ -1,235 +1,342 @@
-- en: Unnecessary Recursive Calls
+- en: 不必要的递归调用
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a recursive function that finds the greatest number from an array:'
+- en: 这是一个递归函数，用于从数组中找到最大数：
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ max(array) { |'
+- en: '| ​  | `function` max(array) { |'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+- en: '| ​  | `if` (array.length === 0) { `return` `null`; } |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 1) { ​**return**​ array[0]; } |'
+- en: '| ​  | `if` (array.length === 1) { `return` array[0]; } |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array[0] > max(array.slice(1))) { |'
+- en: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0]; |'
+- en: '| ​  | `return` array[0]; |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ max(array.slice(1)); |'
+- en: '| ​  | `return` `max`(array.slice(1)); |'
+  id: totrans-10
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: The essence of each recursive call is the comparison of a single number (array[0])
-    to the maximum number from the remainder of the array. (To calculate the maximum
-    number from the remainder of the array, we call the very max function we’re in,
-    which is what makes the function recursive.)
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'We achieve the comparison with a conditional statement. The first half of the
-    conditional statement is as follows:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (array[0] > max(array.slice(1))) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0]; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-11
   prefs: []
-  type: TYPE_TB
-- en: This snippet says that if the single number (array[0]) is greater than what
-    has already been determined to be the maximum number of the rest of the array
-    (max(array.slice(1))), then by definition, array[0] must be the greatest number,
-    so we return it.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Here is the second half of the conditional statement:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ max(array.slice(1)); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This second snippet says that if array[0] is not greater than the greatest number
-    from the rest of the array, then the greatest number from the rest of the array
-    must be the greatest number overall, and we return it.
+- en: 每个递归调用的本质是将单个数字（`array[0]`）与剩余数组中的最大数字进行比较。（为了计算剩余数组中的最大数，我们调用了当前函数`max`，这就是使函数递归的原因。）
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: While this code works, it contains a hidden inefficiency. If you look carefully,
-    you’ll note that our code contains the phrase, max(array.slice(1)) twice, once
-    in each half of the conditional statement.
+- en: 我们通过条件语句实现比较。条件语句的前半部分如下：
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The problem with this is that each time we mention max(array.slice(1)), we trigger
-    an entire avalanche of recursive calls.
+- en: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
+  id: totrans-15
   prefs: []
-  type: TYPE_NORMAL
-- en: Let’s break this down for an example array of [1, 2, 3, 4].
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` array[0]; |'
+  id: totrans-16
   prefs: []
-  type: TYPE_NORMAL
-- en: We know that we’re going to start by comparing the 1 with the maximum number
-    of the remaining array, [2, 3, 4]. That, in turn, will compare the 2 against the
-    max of the remaining [3, 4], which in turn will compare the 3 against the [4].
-    This, too, triggers one more recursive call on the [4] itself, which is the base
-    case.
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-17
   prefs: []
-  type: TYPE_NORMAL
-- en: However, to really see how our code plays out, we’re going to start by analyzing
-    the bottom call and working our way up the call chain.
+  stylish: true
+  type: TYPE_TB
+- en: 这段代码表示，如果单个数字（`array[0]`）大于已经确定为剩余数组的最大数（`max(array.slice(1))`），那么根据定义，`array[0]`必须是最大数，因此我们返回它。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s begin.
+- en: 这是条件语句的后半部分：
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Max Recursive Walk-Through
+- en: '| ​  | `else` { |'
+  id: totrans-20
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `max`(array.slice(1)); |'
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-22
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 这个第二段代码表示，如果`array[0]`不大于剩余数组中的最大数，那么剩余数组中的最大数一定是总体的最大数，我们返回它。
+  id: totrans-23
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 虽然这段代码有效，但它包含了一个隐藏的低效。如果仔细观察，您会注意到我们的代码中有两次出现了`max(array.slice(1))`，分别在条件语句的两半中。
+  id: totrans-24
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 问题在于每次提到`max(array.slice(1))`时，我们都会触发一连串的递归调用。
+  id: totrans-25
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们用数组`[1, 2, 3, 4]`来分解这个例子。
+  id: totrans-26
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 我们知道，我们将开始比较`1`与剩余数组`[2, 3, 4]`的最大数。这将进一步比较`2`与剩余数组`[3, 4]`的最大值，而后又比较`3`与`[4]`。这也会触发对`[4]`本身的一个递归调用，这是基线情况。
+  id: totrans-27
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 然而，为了真正了解我们的代码如何执行，我们将从分析底部调用开始，并逐步向上工作调用链。
+  id: totrans-28
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们开始吧。
+  id: totrans-29
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 最大递归遍历
+  id: totrans-30
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'When we call max([4]), the function simply returns the number 4\. Again, this
-    is because our base case is when the array only contains one element, as dictated
-    by the following line of code:'
+- en: 当我们调用`max([4])`时，函数简单地返回数字`4`。这再次是因为我们的基线情况是数组只包含一个元素，如下面这行代码所规定的：
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (array.length === 1) { |'
+- en: '| ​  | `if` (array.length === 1) { |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0]; |'
+- en: '| ​  | `return` array[0]; |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'This is pretty straightforward—it’s a single function call:'
+- en: 这非常简单——这是一个单独的函数调用：
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/single_function_call.png](images/dynamic_programming/single_function_call.png)'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Moving up the call chain, let’s see what happens when we call max([3, 4]).
-    In the first half of the conditional statement (if (array[0] > max(array.slice(1)))),
-    we compare the 3 to max([4]). But calling max([4]) is itself a recursive call.
-    The following diagram depicts max([3, 4]) calling max([4]):'
+- en: 'Moving up the call chain, let’s see what happens when we call `max([3, 4])`.
+    In the first half of the conditional statement (`if (array[0] > max(array.slice(1)))`),
+    we compare the 3 to `max([4])`. But calling `max([4])` is itself a recursive call.
+    The following diagram depicts `max([3, 4])` calling `max([4])`:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/first_recursive_call.png](images/dynamic_programming/first_recursive_call.png)'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Note that next to the arrow, we put the label “1st” to indicate that this recursive
-    call was triggered by the first half of the conditional statement within max([3,
-    4]).
+    call was triggered by the first half of the conditional statement within `max([3,
+    4])`.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: After this step has been completed, our code can now compare the 3 with the
-    result of max([4]). Since the 3 is not greater than that result (4), we trigger
-    the second half of the conditional. (This is the code, return max(array.slice(1)).)
-    In this case, we return max([4]).
+    result of `max([4])`. Since the 3 is not greater than that result (4), we trigger
+    the second half of the conditional. (This is the code, `return max(array.slice(1)).`)
+    In this case, we return `max([4])`.
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'But when our code returns max([4]), it triggers the actual function call of
-    max([4]). This is now the second time we’ve triggered the max([4]) call:'
+- en: 'But when our code returns `max([4])`, it triggers the actual function call
+    of `max([4])`. This is now the second time we’ve triggered the `max([4])` call:'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: As you can see, the function, max([3, 4]) ends up calling max([4]) twice. Of
-    course, we’d rather try to avoid doing this if we don’t have to. If we’ve already
-    computed the result of max([4]) once, why should we call the same function again
+- en: As you can see, the function, `max([3, 4])` ends up calling `max([4])` twice.
+    Of course, we’d rather try to avoid doing this if we don’t have to. If we’ve already
+    computed the result of `max([4])` once, why should we call the same function again
     just to get the same result?
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This problem gets a lot worse when we move just one level up the call chain.
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Here’s what happens when we call max([2, 3, 4]).
+- en: Here’s what happens when we call `max([2, 3, 4])`.
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'During the first half of the conditional, we compare the 2 against max([3,
-    4]), which we’ve already determined looks like this:'
+- en: 'During the first half of the conditional, we compare the 2 against `max([3,
+    4])`, which we’ve already determined looks like this:'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'So max([2, 3, 4]) calling max([3, 4]) then, would look like this:'
+- en: 'So `max([2, 3, 4])` calling `max([3, 4])` then, would look like this:'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/max_2_3_4_first.png](images/dynamic_programming/max_2_3_4_first.png)'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'But here’s the kicker. This is just for the first half of the conditional of
-    max([2, 3, 4]). For the second half of the conditional, we end up calling max([3,
-    4]) again:'
+    `max([2, 3, 4])`. For the second half of the conditional, we end up calling `max([3,
+    4])` again:'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/max_2_3_4_second.png](images/dynamic_programming/max_2_3_4_second.png)'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Yikes!
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s dare to move to the top of the call chain, calling max([1, 2, 3, 4]).
-    When all is said and done, after we call max for both halves of the conditional,
+- en: Let’s dare to move to the top of the call chain, calling `max([1, 2, 3, 4])`.
+    When all is said and done, after we call `max` for both halves of the conditional,
     we get what is shown in the [diagram](#fig.ch12.max_1_2_3_4).
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/max_1_2_3_4.png](images/dynamic_programming/max_1_2_3_4.png)'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: So when we call max([1, 2, 3, 4]), we actually end up triggering the max function
-    fifteen times.
+- en: So when we call `max([1, 2, 3, 4])`, we actually end up triggering the `max`
+    function fifteen times.
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We can see this visually by adding the statement, console.log(’RECURSION’)
+- en: 'We can see this visually by adding the statement, `console.log(''RECURSION'')`
     to the beginning of our function:'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ max(array) { |'
+- en: '| ​  | **function**​ `max(array)` { |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(​*''RECURSION''*​); |'
+- en: '| ​  | `console.log(''RECURSION'');` |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// remaining code omitted for brevity*​ |'
+- en: '| ​  | `// remaining code omitted for brevity` |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: When we then run our code, we’ll see the word RECURSION printed to our terminal
+- en: When we then run our code, we’ll see the word `RECURSION` printed to our terminal
     fifteen times.
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, we do need some of those calls, but not all of them. We do need to calculate
-    max([4]), for example, but one such function call is enough to get the computed
-    result. But here, we call that function eight times.
+- en: 现在，我们确实需要其中一些调用，但并不是所有的调用。例如，我们确实需要计算`max([4])`，但一个这样的函数调用就足以得到计算结果。但是在这里，我们调用了该函数八次。
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,162 +1,260 @@
 - en: Queues in Action
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Queues are common in many applications, ranging from printing jobs to background
     workers in web applications.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say we’re programming a simple JavaScript interface for a printer that
     can accept printing jobs from various computers across a network. We want to make
     sure we print each document in the order in which it was received.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This code uses our implementation of the Queue class from earlier:'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ Queue ​**from**​ ​*''./queue.js''*​; |'
+- en: '| ​  | `import` Queue `from` `(''./queue.js'')`; |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**class**​ PrintManager { |'
+- en: '| ​  | `class` PrintManager { |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​() { |'
+- en: '| ​  | `constructor`() { |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.queue = ​**new**​ Queue(); |'
+- en: '| ​  | `this`.queue = `new` Queue(); |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-9
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | queuePrintJob(document) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.queue.enqueue(document); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | run() { |'
+- en: '| ​  | `queuePrintJob(document) {` |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.queue.read()) { |'
+- en: '| ​  | `this`.queue.enqueue(document); |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.printDocument(​**this**​.queue.dequeue()); |'
+- en: '| ​  | `}` |'
+  id: totrans-13
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printDocument(document) { |'
+- en: '| ​  | `run() {` |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Code to run the actual printer goes here.*​ |'
+- en: '| ​  | `while` (`this`.queue.read()) { |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// For demo purposes, we''ll print to the terminal:*​ |'
+- en: '| ​  | `this`.printDocument(`this`.queue.dequeue()); |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(document); |'
+- en: '| ​  | `}` |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  |  |'
+  id: totrans-20
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `printDocument(document) {` |'
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// Code to run the actual printer goes here.` |'
+  id: totrans-22
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// For demo purposes, we''ll print to the terminal:` |'
+  id: totrans-23
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `console.log(document);` |'
+  id: totrans-24
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-25
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-26
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We can then utilize this class as follows:'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ printManager = ​**new**​ PrintManager(); |'
+- en: '| ​  | `const` printManager = `new` PrintManager(); |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printManager.queuePrintJob(​*''First Document''*​); |'
+- en: '| ​  | printManager.queuePrintJob(`''First Document''`); |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printManager.queuePrintJob(​*''Second Document''*​); |'
+- en: '| ​  | printManager.queuePrintJob(`''Second Document''`); |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printManager.queuePrintJob(​*''Third Document''*​); |'
+- en: '| ​  | printManager.queuePrintJob(`''Third Document''`); |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | printManager.run(); |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Each time we call queuePrintJob, we add the document (represented by a string
+- en: 'Each time we call `queuePrintJob`，we add the document (represented by a string
     in this example) to the queue:'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | queuePrintJob(document) { |'
+- en: '| ​  | `queuePrintJob(document) {` |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.queue.enqueue(document); |'
+- en: '| ​  | `this`.queue.enqueue(document); |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'When we call run, we “print” each document by processing it in the order in
+- en: 'When we call `run`，we “print” each document by processing it in the order in
     which it was received. That is, we dequeue each document from the queue and print
     it:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | run() { |'
+- en: '| ​  | `run() {` |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.queue.read()) { |'
+- en: '| ​  | `while` (`this`.queue.read()) { |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.printDocument(​**this**​.queue.dequeue()); |'
+- en: '| ​  | `this`.printDocument(`this`.queue.dequeue()); |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'When we run the previous code, the program will output the three documents
     in the same order in which they were received:'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | First Document |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | Second Document |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | Third Document |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: While this example is simplified and abstracts away some of the nitty-gritty
     details that a real live printing system may have to deal with, the fundamental
     use of a queue for such an application is very real and serves as the foundation
     for building such a system.
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Queues are also the perfect tool for handling asynchronous requests—they ensure
     that the requests are processed in the order in which they were received. They’re
     also commonly used to model real-world scenarios where events need to occur in
     a certain order, such as airplanes waiting for takeoff and patients waiting for
     their doctor.
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

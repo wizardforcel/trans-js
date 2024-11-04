@@ -1,146 +1,204 @@
 - en: The Hidden Cost of Recursion
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We’ve dealt quite a bit with recursive algorithms in this book. Let’s look
     at a simple recursive function:'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ recurse(n) { |'
+- en: '|   | `function recurse(n) {` |'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n < 0) { ​**return**​; } |'
+- en: '|   | `if (n < 0) { return; }` |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  |  |'
+- en: '|   |  |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(n); |'
+- en: '|   | `console.log(n);` |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | recurse(n - 1); |'
+- en: '|   | `recurse(n - 1);` |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '|   | } |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This function accepts a number n and counts down to 0, printing each decrementing
+- en: This function accepts a number `n` and counts down to 0, printing each decrementing
     number along the way.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: It’s a straightforward bit of recursion and seems harmless. Its speed is O(N),
-    as the function will run as many times as the argument n. And it doesn’t create
+- en: It’s a straightforward bit of recursion and seems harmless. Its speed is `O(N)`,
+    as the function will run as many times as the argument `n`. And it doesn’t create
     any new data structures, so it doesn’t seem to take up any additional space.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Or does it?
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: I explained how recursion works under the hood back in Chapter 10, [​*Recursively
-    Recurse with Recursion*​](f_0096.xhtml#chp.recursion). You learned that each time
+- en: I explained how recursion works under the hood back in Chapter 10, [`Recursively
+    Recurse with Recursion`](f_0096.xhtml#chp.recursion). You learned that each time
     a function recursively calls itself, an item is added to the call stack so that
     the computer can come back to the outer function once the inner function is complete.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we pass the number 100 into our recurse function, it would add recurse(100)
-    before proceeding to execute recurse(99). And it would then add recurse(99) to
-    the call stack before executing recurse(98).
+- en: If we pass the number 100 into our `recurse` function, it would add `recurse(100)`
+    before proceeding to execute `recurse(99)`. And it would then add `recurse(99)`
+    to the call stack before executing `recurse(98)`.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The call stack would be at its peak when recurse(-1) is called, and there would
-    be 101 items in the call stack, from recurse(100) down to recurse(0).
+- en: The call stack would be at its peak when `recurse(-1)` is called, and there
+    would be 101 items in the call stack, from `recurse(100)` down to `recurse(0)`.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, even though the call stack will eventually get unwound, we do need enough
     memory to store these 101 items for at least some period of time. It emerges,
-    then, that our recursive function takes up O(N) space. In this case, N is the
-    number passed into the function; if we pass in the number 100, we need to temporarily
-    store about 100 function calls in the call stack.
+    then, that our recursive function takes up `O(N)` space. In this case, `N` is
+    the number passed into the function; if we pass in the number 100, we need to
+    temporarily store about 100 function calls in the call stack.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'An important principle emerges from all of this: a recursive function takes
     up a unit of space for each recursive call it makes. This is the sneaky way recursion
     can gobble up memory; even if our function doesn’t explicitly create new data,
     the recursion itself adds data to the call stack.'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To properly calculate how much space a recursive function takes, we always need
     to figure out how big the call stack would be at its peak.
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For our recurse function, the call stack will be about as large as whatever
-    number n is.
+- en: For our `recurse` function, the call stack will be about as large as whatever
+    number `n` is.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: At first, this may seem a bit trivial. After all, our modern computers can handle
     a few items on the call stack, right? Well, let’s see.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'When I pass in the number 20,000 into the recurse function on my sleek, up-to-date
+- en: 'When I pass in the number 20,000 into the `recurse` function on my sleek, up-to-date
     laptop, my computer cannot process it. Now, 20,000 doesn’t seem like a very large
-    number. But this is what happens when I run recurse(20000):'
+    number. But this is what happens when I run `recurse(20000)`:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'My computer prints the numbers from 20000 until 9120 and then terminates with
     this message:'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | RangeError: Maximum call stack size exceeded |'
+- en: '|   | `RangeError: Maximum call stack size exceeded` |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Because the recursion lasted from 20000 until about 9000 (I’m rounding 9120
-    down), we can figure out that the call stack reached a size of about 11,000 when
-    the computer ran out of memory. It turns out my computer will not tolerate a call
-    stack that contains more than 11,000 items.
+- en: 由于递归从20000持续到大约9000（我将9120向下舍入），我们可以推测，当计算机内存耗尽时，调用栈的大小达到了约11,000。事实证明，我的计算机无法容忍包含超过11,000项的调用栈。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This is a huge limitation on recursion, as I can’t use my beautiful recurse
-    function on a number greater than 11,000!
+- en: 这是递归的一个巨大限制，因为我无法在一个大于11,000的数字上使用我美丽的`recurse`函数！
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s contrast this to a simple loop approach:'
+- en: 让我们将其与简单的循环方法进行对比：
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ loop(n) { |'
+- en: '|   | `function` loop(n) { |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (n >= 0) { |'
+- en: '|   | `while` (n >= 0) { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(n); |'
+- en: '|   | `console.log(n);` |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | n -= 1; |'
+- en: '|   | n -= 1; |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '|   | } |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '|   | } |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This function accomplishes the same goal using a basic loop instead of recursion.
+- en: 这个函数使用基本的循环而不是递归来实现相同的目标。
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Because this function doesn’t use recursion, and doesn’t take up any additional
-    memory, it can process a huge number without ever causing the computer to run
-    out of space. The function may take some time on huge numbers, but it’ll get the
-    job done without giving up prematurely as the recursive function did.
+- en: 因为这个函数不使用递归，也不占用任何额外的内存，它可以处理大量数字，而不会导致计算机耗尽空间。这个函数在处理巨大数字时可能需要一些时间，但它能够完成任务，而不会像递归函数那样提前放弃。
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With this in mind, we can now understand why Quicksort is said to take up O(log
-    N) space. Quicksort makes O(log N) recursive calls, so at its peak has a call
-    stack that is the size of log(N).
+- en: 考虑到这一点，我们现在可以理解为什么快速排序被认为占用O(log N)的空间。快速排序进行O(log N)次递归调用，因此在其峰值时调用栈的大小为log(N)。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When we can implement a function using recursion, then, we need to weigh recursion’s
-    benefits against its drawbacks. Recursion allows us to use the “magical” top-down
-    mindset, as you looked at in Chapter 11, [​*Learning to Write in Recursive*​](f_0104.xhtml#chp.learning_to_write_in_recursive),
-    but we also need our function to get the job done. And if we’re processing a lot
-    of data, or even just a number like 11,000, recursion may not cut it.
+- en: 当我们可以使用递归来实现一个函数时，我们需要权衡递归的优点与缺点。递归让我们可以使用“神奇”的自上而下的思维方式，正如你在第11章[​*学习递归编程*​](f_0104.xhtml#chp.learning_to_write_in_recursive)中看到的，但我们也需要我们的函数完成任务。如果我们在处理大量数据，或者即使是像11,000这样的数字，递归可能并不合适。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Again, this isn’t to discredit recursion. It just means we need to weigh all
-    the pros and cons of each algorithm in every situation.
+- en: 再次强调，这并不是要贬低递归。这只是意味着我们需要在每种情况下权衡每个算法的所有优缺点。
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

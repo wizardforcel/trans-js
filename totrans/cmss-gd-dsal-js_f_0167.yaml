@@ -1,138 +1,183 @@
-- en: Tries
+- en: '-   字典树'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: The trie is a kind of tree that’s ideal for text-based features such as autocomplete.
-    Before we get into how the trie works, though, let’s first address its pronunciation.
+- en: '-   字典树是一种理想用于基于文本的功能（如自动补全）的树。在我们深入了解字典树的工作原理之前，先让我们讨论一下它的发音。'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In my (unasked for) opinion, the trie is one of the most unfortunately named
-    data structures out there. The word trie is derived from the word retrieval. So
-    technically, it should be pronounced “tree.” But since that would be confused
-    with the word tree, which is the general term for all tree-based data structures,
-    most people pronounce trie as “try.” Some resources refer to this same data structure
-    as the prefix tree or the digital tree, but trie, amazingly, remains the most
-    popular name. So there you have it.
+- en: '-   在我（未被要求的）意见中，字典树是命名最不幸的数据结构之一。字典树一词源于单词“retrieval”。因此，从技术上讲，它应该发音为“tree”。但由于那会与“tree”这个词混淆（“tree”是所有基于树的数据结构的通用术语），大多数人将“trie”发音为“try”。一些资源将这种数据结构称为前缀树或数字树，但不可思议的是，字典树仍然是最受欢迎的名称。所以，你看到了。'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Here’s one last comment before we dive into the details. The trie is not as
-    well documented as the other data structures in this book, and many different
-    resources implement the trie in slightly different ways. I’ve chosen a particular
-    implementation that I find to be the most straightforward and understandable,
-    but you’ll find other implementations out there. In any case, the general ideas
-    behind most of the implementations remain the same.
+- en: '-   在深入细节之前，这是最后一条评论。字典树的文档不像本书中的其他数据结构那样完善，许多不同资源以略微不同的方式实现字典树。我选择了一种我认为最简单易懂的特定实现，但你会发现其他实现。无论如何，大多数实现背后的基本思想仍然是相同的。'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The Trie Node
+- en: '-   字典树节点'
+  id: totrans-4
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Like most other trees, the trie is a collection of nodes that point to other
-    nodes. However, the trie is not a binary tree. Whereas a binary tree doesn’t allow
-    any node to have more than two child nodes, a trie node can have any number of
-    child nodes.
+- en: '-   像大多数其他树一样，字典树是一个指向其他节点的节点集合。然而，字典树并不是一个二叉树。虽然二叉树不允许任何节点有超过两个子节点，但字典树节点可以有任意数量的子节点。'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In our implementation, each trie node contains a hash table, where the keys
-    are English characters and the values are other nodes of the trie. Take a look
-    at the following diagram:'
+- en: '-   在我们的实现中，每个字典树节点包含一个哈希表，其中键是英文字母，值是字典树的其他节点。请看下面的图示：'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/abc_trie.png](images/tries/abc_trie.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Here, the root node contains a hash table with the keys "a", "b", and "c". The
-    values are other trie nodes, which are the children of this node. These children
-    also contain hash tables, which will in turn point to their children. (For now,
-    we left the children’s hash tables empty, but they’ll contain data in future diagrams.)
+- en: '-   在这里，根节点包含一个哈希表，键为"a"、"b"和"c"。这些值是其他字典树节点，作为该节点的子节点。这些子节点也包含哈希表，最终将指向它们的子节点。（目前，我们将子节点的哈希表留空，但将来它们会包含数据。）'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The implementation of the actual trie node itself is very simple. Here is our
-    JavaScript version of the TrieNode class:'
+- en: '-   实际字典树节点的实现非常简单。以下是我们`TrieNode`类的JavaScript版本：'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ TrieNode { |'
+- en: '| ​  | ​`class`​ `TrieNode` { |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​() { |'
+- en: '| ​  | ​`constructor`​() { |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.children = {}; |'
+- en: '| ​  | ​`this`​.children = {}; |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**export**​ ​**default**​ TrieNode; |'
+- en: '| ​  | ​`export` ​`default` ​`TrieNode`; |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: As you can see, the TrieNode just contains a hash table.
+- en: '-   如你所见，`TrieNode`仅包含一个哈希表。'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we print (to the console) the data from our root node in the previous example,
-    we’ll get something along these lines:'
+- en: '-   如果我们在控制台打印之前示例中的根节点数据，我们将得到类似这样的内容：'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | { |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | a: TrieNode { }, |'
+- en: '| ​  | `a: TrieNode { }`, |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | b: TrieNode { }, |'
+- en: '| ​  | `b: TrieNode { }`, |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | c: TrieNode { } |'
+- en: '| ​  | `c: TrieNode { }` |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Again, in this hash table, the keys are individual character strings, and the
-    values are instances of other TrieNodes.
+- en: '-   再次，在这个哈希表中，键是单个字符字符串，值是其他`TrieNodes`的实例。'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The Trie Class
+- en: '-   字典树类'
+  id: totrans-25
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To fully create our trie, we’ll also need a separate Trie class, which will
-    keep track of the root node:'
+- en: '-   为了完整创建我们的字典树，我们还需要一个单独的`Trie`类，以跟踪根节点：'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ TrieNode ​**from**​ ​*''./trie_node.js''*​; |'
+- en: '| ​  | ​`import` ​`TrieNode` ​`from` ​*''./trie_node.js''*​; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**class**​ Trie { |'
+- en: '| ​  | ​`class`​ `Trie` { |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​() { |'
+- en: '| ​  | ​`constructor`​() { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.root = ​**new**​ TrieNode(); |'
+- en: '| ​  | ​`this`​.root = ​`new`​ `TrieNode()`; |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This class keeps track of a this.root variable that points to the root node.
-    In this implementation, when we create a new Trie, it begins with an empty TrieNode
-    as its root.
+- en: 这个类跟踪一个`this.root`变量，指向根节点。在这个实现中，当我们创建一个新的`Trie`时，它以一个空的`TrieNode`作为根节点开始。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As we progress through this chapter, we’re going to add our trie operation methods
-    to this Trie class as well.
+- en: 随着我们在本章中的进展，我们将向这个`Trie`类添加我们的字典树操作方法。
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

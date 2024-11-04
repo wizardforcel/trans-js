@@ -1,255 +1,385 @@
-- en: The Efficiency of Quicksort
+- en: The Efficiency of `Quicksort`
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: To figure out the efficiency of Quicksort, let’s first determine the efficiency
+- en: To figure out the efficiency of `Quicksort`, let’s first determine the efficiency
     of a single partition.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'When we break down the steps of a partition, we’ll note that a partition involves
     two primary types of steps:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Comparisons: We compare each of the values at hand to the pivot.'
+- en: 'Comparisons: We compare each of the values at hand to the `pivot`.'
+  id: totrans-3
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Swaps: When appropriate, we swap the values being pointed to by the left and
     right pointers.'
+  id: totrans-4
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Each partition has at least N comparisons—that is, we compare each element of
-    the array with the pivot. This is true because a partition always has the left
-    and right pointers move through each cell until the left and right pointers reach
-    each other.
+- en: Each partition has at least `N` comparisons—that is, we compare each element
+    of the array with the `pivot`. This is true because a partition always has the
+    left and right pointers move through each cell until the left and right pointers
+    reach each other.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The number of swaps, however, will depend upon how the data is sorted. A single
-    partition can have, at most, N / 2 swaps, as even if we’d swap values at every
+    partition can have, at most, `N / 2` swaps, as even if we’d swap values at every
     opportunity, each swap takes care of two values. As you can see in the following
     diagram, we partition six elements in just three swaps:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/three_swaps.png](images/divide_and_conquer_code_in_turbo_mode/three_swaps.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/three_swaps.png`](images/divide_and_conquer_code_in_turbo_mode/three_swaps.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Now, in most cases, we’re not making a swap every step of the way. For randomly
     sorted data, we generally swap about half of the values. On average, then, we’re
-    making about N / 4 swaps.
+    making about `N / 4` swaps.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So on average, we make about N comparisons and N / 4 swaps. We can say, then,
-    that there are about 1.25N steps for N data elements. In Big O notation, we ignore
-    constants, so we’d say that a partition runs in O(N) time.
+- en: So on average, we make about `N` comparisons and `N / 4` swaps. We can say,
+    then, that there are about `1.25N` steps for `N` data elements. In `Big O` notation,
+    we ignore constants, so we’d say that a partition runs in `O(N)` time.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, that’s the efficiency of a single partition. But Quicksort involves many
+- en: Now, that’s the efficiency of a single partition. But `Quicksort` involves many
     partitions, so we need to conduct further analysis to determine the efficiency
-    of Quicksort.
+    of `Quicksort`.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Quicksort from a Bird’s-Eye View
+- en: '`Quicksort` from a Bird’s-Eye View'
+  id: totrans-11
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: To visualize this more easily, see the [diagram](#fig.ch13.partition_numbers),
-    depicting a typical Quicksort on an array of eight elements from a bird’s-eye
+    depicting a typical `Quicksort` on an array of eight elements from a bird’s-eye
     view. In particular, the diagram shows how many elements each partition acts upon.
     We have left out the actual numbers from the array since the exact values don’t
     matter. Note that in the diagram, the active subarray is the group of cells that’s
     not grayed out.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png](images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png`](images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We can see that we have eight partitions, but each partition takes place on
     subarrays of various sizes. We perform a partition on the original array of eight
-    elements but also perform partitions on subarrays of sizes 4, 3, and 2, and another
-    four partitions on arrays of size 1.
+    elements but also perform partitions on subarrays of sizes `4`, `3`, and `2`,
+    and another four partitions on arrays of size `1`.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Since Quicksort is essentially comprised of this series of partitions, and
-    each partition takes about N steps for N elements of each subarray, if we add
-    the sizes of all the subarrays together, we’ll get the total number of steps Quicksort
-    takes:'
+- en: 'Since `Quicksort` is essentially comprised of this series of partitions, and
+    each partition takes about `N` steps for `N` elements of each subarray, if we
+    add the sizes of all the subarrays together, we’ll get the total number of steps
+    `Quicksort` takes:'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | 8 elements |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 3 elements |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 1 element |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 1 element |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 4 elements |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 2 elements |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 1 element |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | + 1 element |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | __________ |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | Total = About 21 steps |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We see that where the original array has 8 elements, Quicksort takes about 21
-    steps. This assumes a best- or average-case scenario, where the pivot ends up
-    roughly in the middle of the subarray after each partition.
+- en: We see that where the original array has 8 elements, `Quicksort` takes about
+    21 steps. This assumes a best- or average-case scenario, where the pivot ends
+    up roughly in the middle of the subarray after each partition.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'For an array of 16 elements, Quicksort takes about 64 steps, and for an array
-    of 32 elements, Quicksort takes about 160 steps. Take a look at this table:'
+- en: 'For an array of 16 elements, `Quicksort` takes about 64 steps, and for an array
+    of 32 elements, `Quicksort` takes about 160 steps. Take a look at this table:'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| N | Quicksort Steps (approx.) |'
+- en: '| `N` | `Quicksort Steps (approx.)` |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 4 | 8 |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 8 | 24 |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 16 | 64 |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 32 | 160 |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: (While in our example earlier, the number of Quicksort steps for an array of
-    size 8 was 21, I put 24 in this table. The exact number can vary from case to case,
-    and 24 is also a reasonable approximation. I specifically made it 24 to make the
-    following explanation a little clearer.)
+- en: (While in our example earlier, the number of `Quicksort` steps for an array
+    of size 8 was 21, I put 24 in this table. The exact number can vary from case
+    to case, and 24 is also a reasonable approximation. I specifically made it 24
+    to make the following explanation a little clearer.)
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The Big O of Quicksort
+- en: The Big O of `Quicksort`
+  id: totrans-43
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: How do we categorize Quicksort in terms of Big O notation?
+- en: How do we categorize `Quicksort` in terms of Big O notation?
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we look at the pattern shown earlier, we’ll note that the number of Quicksort
-    steps for N elements in the array is about N multiplied by log N, as shown in
-    the following table:'
+- en: 'If we look at the pattern shown earlier, we’ll note that the number of `Quicksort`
+    steps for `N` elements in the array is about `N` multiplied by `log N`, as shown
+    in the following table:'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| N | log N | N * log N | Quicksort Steps (approx.) |'
+- en: '| `N` | `log N` | `N * log N` | `Quicksort Steps (approx.)` |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- | --- |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 4 | 2 | 8 | 8 |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 8 | 3 | 24 | 24 |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 16 | 4 | 64 | 64 |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 32 | 5 | 160 | 160 |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: In fact, this is exactly how to express the efficiency of Quicksort. It’s an
-    algorithm of O(N log N). We’ve discovered a new category of Big O!
+- en: In fact, this is exactly how to express the efficiency of `Quicksort`. It’s
+    an algorithm of `O(N log N)`. We’ve discovered a new category of Big O!
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The [graph](#fig.ch13.big_o_graph) shows how O(N log N) looks beside other categories
-    of Big O.
+- en: The [`graph`](#fig.ch13.big_o_graph) shows how `O(N log N)` looks beside other
+    categories of Big O.
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png](images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png)'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Now, it’s not a coincidence that the number of steps in Quicksort just happens
-    to align with N * log N. If we think about Quicksort more broadly, we can see
-    why it’s this way.
+- en: Now, it’s not a coincidence that the number of steps in `Quicksort` just happens
+    to align with `N * log N`. If we think about `Quicksort` more broadly, we can
+    see why it’s this way.
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Each time we partition the array, we end up breaking it down into two subarrays.
     Assuming the pivot ends up somewhere in the middle of the array—which is what
     happens in the average case—these two subarrays are of roughly equal sizes.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'How many times can we break an array into halves until we’ve broken it completely
-    down to the point where each subarray is of size 1? For an array of size N, this
-    will take us log N times. Take a look at the following diagram:'
+    down to the point where each subarray is of size 1? For an array of size `N`,
+    this will take us `log N` times. Take a look at the following diagram:'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/halvings.png](images/divide_and_conquer_code_in_turbo_mode/halvings.png)'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: As you can see, for an array of size 8, it takes us three halvings until we’ve
-    reduced the array into eight individual elements. This is log N, and fits with
-    our definition of log N as being the number of times it takes to halve something
+    reduced the array into eight individual elements. This is `log N`, and fits with
+    our definition of `log N` as being the number of times it takes to halve something
     until we reach 1.
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So this is why Quicksort takes N * log N steps. We have log N halvings, and
-    for each halving, we perform a partition on all the subarrays whose elements add
-    up to N. (They add up to N because all the subarrays are simply pieces of the
-    original array of N elements.)
+- en: So this is why `Quicksort` takes `N * log N` steps. We have `log N` halvings,
+    and for each halving, we perform a partition on all the subarrays whose elements
+    add up to `N`. (They add up to `N` because all the subarrays are simply pieces
+    of the original array of `N` elements.)
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is illustrated in the previous diagram. At the top of the diagram, for
     example, we partition the original array of eight elements, creating two subarrays
-    of size 4\. We then partition both subarrays of size 4, which means that we’re
+    of size `4`。 We then partition both subarrays of size `4`，which means that we’re
     again partitioning eight elements.
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Bear in mind that O(N * log N) is just an approximation. In reality, we first
-    perform an extra O(N) partition on the original array as well. Additionally, an
-    array doesn’t cleanly break into two even halves, since the pivot is not part
+- en: Bear in mind that `O(N * log N)` is just an approximation. In reality, we first
+    perform an extra `O(N)` partition on the original array as well. Additionally,
+    an array doesn’t cleanly break into two even halves, since the pivot is not part
     of the halving.
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s what a more realistic example looks like, where we ignore the pivot
     after each partition:'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/realistic.png](images/divide_and_conquer_code_in_turbo_mode/realistic.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/realistic.png`](images/divide_and_conquer_code_in_turbo_mode/realistic.png)'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_IMG

@@ -1,86 +1,127 @@
 - en: Hash Tables for Speed
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: While hash tables are a perfect fit for paired data, they can also be used to
     make your code faster—even if your data doesn’t exist as pairs. And this is where
     things get exciting.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a simple array:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | const array = [61, 30, 91, 11, 54, 38, 72]; |'
+- en: '| ​  | `const array = [61, 30, 91, 11, 54, 38, 72];` |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: If you want to search for a number in this array, how many steps would it take?
+- en: If you want to search for a number in this array, how many steps would it take?
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because the array is unordered, you’d have to perform a linear search, which
-    would take N steps—you learned this back at the beginning of the book.
+    would take `N` steps—you learned this back at the beginning of the book.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, what would happen if we ran some code that would convert these numbers
     into a hash table that looked like this?
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ hashTable = {61: ​**true**​, 30: ​**true**​, 91: ​**true**​,
-    |'
+- en: '| ​  | `const` hashTable = {61: `true`, 30: `true`, 91: `true`, |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 11: ​**true**​, 54: ​**true**​, 38: ​**true**​, 72: ​**true**​} |'
+- en: '| ​  | 11: `true`, 54: `true`, 38: `true`, 72: `true`} |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Here, we’ve stored each number as a key and assigned the Boolean true as the
+- en: Here, we’ve stored each number as a key and assigned the Boolean `true` as the
     associated value for each number.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, if I asked you to search this hash table for a certain number as a key,
     how many steps would it take?
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Well, I could use this simple code:'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | hashTable[72] |'
+- en: '| ​  | `hashTable[72]` |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: And I could look up the number 72 in a single step.
+- en: And I could look up the number `72` in a single step.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In other words, by doing a hash table lookup using 72 as the key, I can determine
-    in one step whether the 72 is present in the hash table. The reasoning is straightforward:
-    if 72 is a key in the hash table, I’d get back true, since the 72 has true as
-    its value. On the other hand, if the 72 is not a key in the hash table, I’d get
-    back undefined.'
+- en: 'In other words, by doing a hash table lookup using `72` as the key, I can determine
+    in one step whether `72` is present in the hash table. The reasoning is straightforward:
+    if `72` is a key in the hash table, I’d get back `true`, since `72` has `true`
+    as its value. On the other hand, if `72` is not a key in the hash table, I’d get
+    back `undefined`.'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Since doing a hash table lookup takes just one step, I can therefore find any
     number in the hash table (as a key) in one step.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Can you see the magic?
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: By converting an array into a hash table in this way, we can go from O(N) searches
-    to O(1) searches.
+- en: By converting an array into a hash table in this way, we can go from `O(N)`
+    searches to `O(1)` searches.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here’s what’s interesting about using a hash table in this way. Even though
     hash tables are often used for naturally paired data, our data here is not paired.
     We just care about a list of single numbers.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While we did assign a value to each key, it doesn’t really matter what the value
-    is. We used true as the value for each key, but any arbitrary value (that is “truthy”)
-    would achieve the same results.
+    is. We used `true` as the value for each key, but any arbitrary value (that is
+    “truthy”) would achieve the same results.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The trick here is that by placing each number in the hash table as a key, we
     can later look up each of those keys in one step. If our lookup returns any value,
-    it means the key itself must be in the hash table. If we get back undefined, then
-    the key must not be in the hash table.
+    it means the key itself must be in the hash table. If we get back `undefined`,
+    then the key must not be in the hash table.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: I refer to using a hash table in this way as “using it as an index.” (It’s my
     own term.) An index at the back of a book tells you whether the topic can be found
@@ -88,354 +129,529 @@
     as well, we created the hash table to serve as a kind of index; in our case, it’s
     an index that tells us whether a specific item is contained within the original
     array.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s use this technique to boost the speed of a very practical algorithm.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Array Subset
+  id: totrans-23
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s say we need to determine whether one array is a subset of another array.
-    Take these two arrays, for example:'
+- en: 假设我们需要确定一个数组是否是另一个数组的子集。以这两个数组为例：
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [​*"a"*​, ​*"b"*​, ​*"c"*​, ​*"d"*​, ​*"e"*​, ​*"f"*​] |'
+- en: '| ​  | [`"a"`, `"b"`, `"c"`, `"d"`, `"e"`, `"f"`] |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​*"b"*​, ​*"d"*​, ​*"f"*​] |'
+- en: '| ​  | [`"b"`, `"d"`, `"f"`] |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The second array, ["b", "d", "f"], is a subset of the first array, ["a", "b",
-    "c", "d", "e", "f"], because every value of the second array is contained within
-    the first array.
+- en: 第二个数组`["b", "d", "f"]`是第一个数组`["a", "b", "c", "d", "e", "f"]`的子集，因为第二个数组的每个值都包含在第一个数组中。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'However, say our arrays were these:'
+- en: 不过，假设我们的数组是这样的：
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [​*"a"*​, ​*"b"*​, ​*"c"*​, ​*"d"*​, ​*"e"*​, ​*"f"*​] |'
+- en: '| ​  | [`"a"`, `"b"`, `"c"`, `"d"`, `"e"`, `"f"`] |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​*"b"*​, ​*"d"*​, ​*"f"*​, ​*"h"*​] |'
+- en: '| ​  | [`"b"`, `"d"`, `"f"`, `"h"`] |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The second array is not a subset of the first array, because the second array
-    contains the value "h", which does not exist within the first array.
+- en: 第二个数组不是第一个数组的子集，因为第二个数组包含值`"h"`，而这个值在第一个数组中不存在。
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: How would we write a function that compares two arrays and lets us know if one
-    is a subset of the other?
+- en: 如何编写一个比较两个数组的函数，以便告知我们一个数组是否是另一个数组的子集？
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: One way we can do this is by using nested loops. Essentially, we’d iterate through
-    every element of the smaller array, and for each element in the smaller array,
-    we’d then begin a second loop that iterates through each element of the larger
-    array. If we ever find an element in the smaller array that isn’t contained within
-    the larger array, our function will return false. If the code gets past the loops,
-    it means it never encountered a value in the smaller array that wasn’t contained
-    within the larger array, so it returns true.
+- en: 我们可以通过使用嵌套循环来实现这一点。本质上，我们将遍历较小数组的每个元素，并对较小数组中的每个元素开始第二个循环，遍历较大数组的每个元素。如果我们发现较小数组中的某个元素不在较大数组中，则我们的函数将返回`false`。如果代码通过了循环，意味着它从未遇到较小数组中不在较大数组中的值，因此返回`true`。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a JavaScript implementation of this approach:'
+- en: 这里是这个方法的 JavaScript 实现：
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ isSubset(array1, array2) { |'
+- en: '| ​  | `function` isSubset(array1, array2) { |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ foundMatch; |'
+- en: '| ​  | `let` foundMatch; |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ largerArray; |'
+- en: '| ​  | `let` largerArray; |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ smallerArray; |'
+- en: '| ​  | `let` smallerArray; |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Determine which array is smaller:*​ |'
+- en: '| ​  | `// Determine which array is smaller:` |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array1.length > array2.length) { |'
+- en: '| ​  | `if` (array1.length > array2.length) { |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | largerArray = array1; |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | smallerArray = array2; |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-44
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | largerArray = array2; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | smallerArray = array1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// Iterate through smaller array:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ smallerArray) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// Assume temporarily that the current value from*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// smaller array is not found in larger array:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | foundMatch = ​**false**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// For each value in smaller array, iterate through*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// larger array:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ largerArray) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// If the two values are equal, it means the current*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// value in smaller array is present in the larger array:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (i === j) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | foundMatch = ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**break**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// If the current value in smaller array doesn''t exist*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// in larger array, return false:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!foundMatch) { ​**return**​ ​**false**​; } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// If we get to the end of the loops, it means that all*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// values from smaller array are present in larger array:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: When we analyze the efficiency of this algorithm, we find that it’s O(N * M)
-    since it runs for the number of items in the first array multiplied by the number
-    of items in the second array.
-  prefs: []
-  type: TYPE_NORMAL
-- en: Now, let’s harness the power of a hash table to dramatically improve the efficiency
-    of our algorithm. Let’s ditch our original approach and start again from scratch.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'In our new approach, after we’ve determined which array is larger and which
-    is smaller, we’re going to run a single loop through the larger array and store
-    each value inside of a hash table:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ hashTable = {}; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ largerArray) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | hashTable[value] = ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: In this code snippet, we create an empty hash table inside the hashTable variable.
-    Then we iterate through each value in the largerArray and add the item from the
-    array to the hash table. We add the item itself as a key, and true as the value.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'For the earlier example, ["a", "b", "c", "d", "e", "f"], once we’ve run it
-    through this loop, we end up with a hash table that looks like this:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | {​*"a"*​: ​**true**​, ​*"b"*​: ​**true**​, ​*"c"*​: ​**true**​, ​*"d"*​:
-    ​**true**​, ​*"e"*​: ​**true**​, ​*"f"*​: ​**true**​} |'
-  prefs: []
-  type: TYPE_TB
-- en: This becomes our “index” that will allow us to conduct O(1) lookups of these
-    items later on.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Now, here’s the brilliant part. Once the first loop is complete and we have
-    this hash table to work with, we can then begin a second (non-nested) loop that
-    iterates through the smaller array:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ smallerArray) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!hashTable[value]) { ​**return**​ ​**false**​; } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: This loop looks at each item in the smallerArray and checks to see whether it
-    exists as a key inside the hashTable. Remember, the hashTable stores all the items
-    from largerArray as its keys. So if we find an item in hashTable, it means the
-    item is also in largerArray. And if we don’t find an item in hashTable, it means
-    it’s also not inside the largerArray.
-  prefs: []
-  type: TYPE_NORMAL
-- en: So for each item in smaller_array, we check whether it’s a key in hashTable.
-    If it’s not, that means the item isn’t contained within the largerArray, and the
-    smallerArray is therefore not a subset of the larger array, and we return false.
-    (However, if we get past this loop, it means the smaller array is a subset of
-    the larger one.)
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Let’s put this all together in one complete function:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ isSubset(array1, array2) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ hashTable = {}; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ largerArray; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ smallerArray; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​*// Determine which array is smaller:*​ |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (array1.length > array2.length) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | largerArray = array1; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | smallerArray = array2; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | largerArray = array2; |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | smallerArray = array1; |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ largerArray) { |'
+- en: '| ​  | `// Iterate through smaller array:` |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | hashTable[value] = ​**true**​; |'
+- en: '| ​  | `for` ( `const` i `of` smallerArray) { |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `// Assume temporarily that the current value from` |'
+  id: totrans-51
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// smaller array is not found in larger array:` |'
+  id: totrans-52
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | foundMatch = `false`; |'
+  id: totrans-53
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ smallerArray) { |'
+- en: '| ​  | `// For each value in smaller array, iterate through` |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!hashTable[value]) { ​**return**​ ​**false**​; } |'
+- en: '| ​  | `// larger array:` |'
+  id: totrans-56
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `for` ( `const` j `of` largerArray) { |'
+  id: totrans-57
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// If the two values are equal, it means the current` |'
+  id: totrans-58
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// value in smaller array is present in the larger array:` |'
+  id: totrans-59
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (i === j) { |'
+  id: totrans-60
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | foundMatch = `true`; |'
+  id: totrans-61
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `break`; |'
+  id: totrans-62
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-63
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-64
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | `// If the current value in smaller array doesn''t exist` |'
+  id: totrans-66
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// in larger array, return false:` |'
+  id: totrans-67
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (!foundMatch) { `return` `false`; } |'
+  id: totrans-68
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-69
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// If we get to the end of the loops, it means that all` |'
+  id: totrans-70
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `// values from smaller array are present in larger array:` |'
+  id: totrans-71
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `true`; |'
+  id: totrans-72
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-73
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 当我们分析这个算法的效率时，我们发现它是 O(N * M)，因为它的运行次数是第一个数组中的项数乘以第二个数组中的项数。
+  id: totrans-74
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 现在，让我们利用哈希表的力量，显著提高我们算法的效率。让我们抛弃最初的方法，从头开始。
+  id: totrans-75
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 在我们新的方法中，在确定哪个数组更大、哪个更小之后，我们将运行一个单独的循环遍历`largerArray`，并将每个值存储在一个哈希表中：
+  id: totrans-76
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | ​`const`​ `hashTable` = {}; |'
+  id: totrans-77
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-78
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`for`​ (​`const`​ `value` ​`of`​ `largerArray`) { |'
+  id: totrans-79
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `hashTable`[`value`] = ​`true`​; |'
+  id: totrans-80
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-81
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 在这个代码片段中，我们在`hashTable`变量内创建了一个空的哈希表。然后我们迭代`largerArray`中的每个值，并将数组中的项添加到哈希表中。我们将项本身作为键，`true`作为值。
+  id: totrans-82
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 对于早期的示例`["a", "b", "c", "d", "e", "f"]`，一旦我们将其通过这个循环处理后，得到的哈希表看起来是这样的：
+  id: totrans-83
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | {​*"a"*​: ​`true`​, ​*"b"*​: ​`true`​, ​*"c"*​: ​`true`​, ​*"d"*​: ​`true`​,
+    ​*"e"*​: ​`true`​, ​*"f"*​: ​`true`​} |'
+  id: totrans-84
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 这成为我们的“索引”，将使我们能够在后续查找这些项时实现 O(1) 的效率。
+  id: totrans-85
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 现在，这里是精彩的部分。一旦第一个循环完成，我们有了这个可以使用的哈希表，我们就可以开始第二个（非嵌套的）循环，迭代`smallerArray`：
+  id: totrans-86
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | ​`for`​ (​`const`​ `value` ​`of`​ `smallerArray`) { |'
+  id: totrans-87
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`if`​ (!`hashTable`[`value`]) { ​`return`​ ​`false`​; } |'
+  id: totrans-88
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-89
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 这个循环检查`smallerArray`中的每个项，看看它是否作为一个键存在于`hashTable`中。记住，`hashTable`存储了来自`largerArray`的所有项作为它的键。因此，如果我们在`hashTable`中找到一个项，这意味着该项也在`largerArray`中。如果我们在`hashTable`中找不到一个项，这意味着它也不在`largerArray`中。
+  id: totrans-90
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 因此，对于`smaller_array`中的每个项，我们检查它是否是`hashTable`中的一个键。如果不是，这意味着该项不包含在`largerArray`中，因此`smallerArray`不是`largerArray`的子集，我们返回`false`。（然而，如果我们能够通过这个循环，这意味着`smallerArray`是`largerArray`的一个子集。）
+  id: totrans-91
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们把这一切放在一个完整的函数中：
+  id: totrans-92
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | ​`function`​ `isSubset`(`array1`, `array2`) { |'
+  id: totrans-93
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`const`​ `hashTable` = {}; |'
+  id: totrans-94
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`let`​ `largerArray`; |'
+  id: totrans-95
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`let`​ `smallerArray`; |'
+  id: totrans-96
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-97
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​*// 确定哪个数组更小:*​ |'
+  id: totrans-98
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`if`​ (`array1`.length > `array2`.length) { |'
+  id: totrans-99
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `largerArray` = `array1`; |'
+  id: totrans-100
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `smallerArray` = `array2`; |'
+  id: totrans-101
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } ​`else`​ { |'
+  id: totrans-102
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `largerArray` = `array2`; |'
+  id: totrans-103
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `smallerArray` = `array1`; |'
+  id: totrans-104
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-105
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-106
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`for`​ (​`const`​ `value` ​`of`​ `largerArray`) { |'
+  id: totrans-107
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `hashTable`[`value`] = ​`true`​; |'
+  id: totrans-108
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-109
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-110
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `for` (`const` `value` `of` `smallerArray`) { |'
+  id: totrans-111
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (!`hashTable`[`value`]) { `return` `false`; } |'
+  id: totrans-112
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-113
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-114
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `true`; |'
+  id: totrans-115
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-116
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Now, how many steps did this algorithm take? We iterated through each item of
     the larger array once to build the hash table.
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: And we iterated through each item of the smaller array, taking just one step
     per item to look up the item in the hash table. Remember, a hash table lookup
     takes just one step.
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we say that N is the total number of items of both arrays combined, our algorithm
-    is O(N), since we touched each item just once. We spent one step on each item
-    from the larger array, followed by one step on each item from the smaller array.
+- en: If we say that `N` is the total number of items of both arrays combined, our
+    algorithm is `O(N)`，since we touched each item just once. We spent one step on
+    each item from the larger array, followed by one step on each item from the smaller
+    array.
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: That’s a huge win over our first algorithm, which was O(N * M).
+- en: That’s a huge win over our first algorithm, which was `O(N * M)`.
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This technique of using a hash table as an “index” comes up frequently in algorithms
+- en: This technique of using a hash table as an `index` comes up frequently in algorithms
     that require multiple searches within an array; that is, if your algorithm will
     need to keep searching for values inside an array, each search would itself take
-    up to N steps. By creating a hash table “index” of the array, we reduce each search
-    to only one step.
+    up to `N` steps. By creating a hash table `index` of the array, we reduce each
+    search to only one step.
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: As I pointed out, what makes this technique particularly interesting is that
-    when using a hash table as an “index,” we aren’t even dealing with naturally paired
-    data. Instead, we just want to know whether the key itself is in the hash table.
-    When we use the key to perform a lookup in the hash table and receive any value
-    (no matter how arbitrary it is), it means the key must be present in the hash
+    when using a hash table as an `index`，we aren’t even dealing with naturally paired
+    data. Instead, we just want to know whether the `key` itself is in the hash table.
+    When we use the `key` to perform a lookup in the hash table and receive any value
+    (no matter how arbitrary it is), it means the `key` must be present in the hash
     table.
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

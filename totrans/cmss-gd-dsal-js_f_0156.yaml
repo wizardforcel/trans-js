@@ -1,61 +1,66 @@
-- en: Heap Properties
+- en: 堆属性
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that you know what a heap is, let’s examine some of its interesting properties.
+- en: 现在你知道堆是什么了，让我们看看它的一些有趣属性。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: While the heap condition dictates that the heap be ordered a certain way, this
-    ordering is still useless when it comes to searching for a value within the heap.
+- en: 虽然堆条件规定了堆应以某种方式排序，但在堆内搜索值时，这种排序仍然是无用的。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For example, let’s say that in the above heap, we want to search for the value
-    3\. If we start at the root node of 100, should we search among its left or right
-    descendants? In a binary search tree, we’d know that the 3 must be among the 100’s
-    left descendants. In a heap, however, all we know is that the 3 has to be a descendant
-    of the 100 and can’t be its ancestor. But we’d have no idea as to which child
-    node to search next. Indeed, the 3 happens to be among the 100’s right descendants,
-    but it could have also easily been among its left descendants.
+- en: 例如，假设在上面的堆中，我们想搜索值`3`。如果我们从根节点`100`开始，我们应该在它的左子代或右子代中搜索？在二叉搜索树中，我们知道`3`必须在`100`的左子代中。然而在堆中，我们只知道`3`必须是`100`的后代，而不能是其祖先。但我们对下一个应该搜索哪个子节点毫无头绪。确实，`3`恰好是`100`的右子代，但它也可能轻松地在其左子代中。
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Because of this, heaps are said to be weakly ordered as compared to binary search
-    trees. While heaps have some order, as descendants cannot be greater than their
-    ancestors, this isn’t enough order to make heaps worth searching through.
+- en: 因此，堆被认为是与二叉搜索树相比的弱排序。虽然堆具有某种顺序，因为后代不能大于它们的祖先，但这种顺序不足以使堆值得搜索。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Another property of heaps, that may be obvious by now but is worth calling attention
-    to, is in a heap, the root node will always have the greatest value. (In a min-heap,
-    the root will contain the smallest value.) This will be the key as to why the
-    heap is a great tool for implementing priority queues. In the priority queue,
-    we always want to access the value with the greatest priority. With a heap, we
-    always know that we can find this in the root node. Thus, the root node will represent
-    the item with the highest priority.
+- en: 堆的另一个属性，虽然现在可能很明显，但值得关注的是，在堆中，根节点总是具有最大的值。（在最小堆中，根节点将包含最小值。）这将是堆成为实现优先级队列的一个重要原因。在优先级队列中，我们总是希望访问具有最高优先级的值。使用堆，我们总是知道可以在根节点找到这个值。因此，根节点将代表具有最高优先级的项目。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The heap has two primary operations: inserting and deleting. As we noted, searching
-    within a heap would require us to inspect each node, so search isn’t an operation
-    usually implemented in the context of heaps. (A heap can also have an optional
-    read operation, which would simply look at the value of the root node.)'
+- en: 堆有两个主要操作：插入和删除。正如我们所指出的，在堆中搜索需要检查每个节点，因此搜索通常不是在堆的上下文中实现的操作。（堆还可以有一个可选的读取操作，它只是查看根节点的值。）
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Before we move on to how the heap’s primary operations work, let me define one
-    more term, since it’ll be used heavily in the upcoming algorithms.
+- en: 在我们继续讲解堆的主要操作是如何工作的之前，让我定义一个更多的术语，因为它将在接下来的算法中被大量使用。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The heap has something called a last node. A heap’s last node is the rightmost
-    node in its bottom level.
+- en: 堆有一个被称为最后节点的东西。堆的最后节点是其底层的最右节点。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Take a look at the [heap](#fig.ch16.lastNode).
+- en: 请查看[heap](#fig.ch16.lastNode)。
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/last_node.png](images/heaps/last_node.png)'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: In this heap, the 3 is the last node since it’s the rightmost node in the bottom
-    row.
+- en: 在这个堆中，`3`是最后节点，因为它是底行的最右节点。
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Next, let’s get into the heap’s primary operations.
+- en: 接下来，让我们深入堆的主要操作。
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

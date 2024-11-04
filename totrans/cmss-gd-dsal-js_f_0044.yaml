@@ -1,152 +1,220 @@
 - en: A Quadratic Problem
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Here’s a practical example of where we can replace a slow O(N²) algorithm with
-    a speedy O(N) one.
+- en: Here’s a practical example of where we can replace a slow `O(N²)` algorithm
+    with a speedy `O(N)` one.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say you’re working on a JavaScript application that analyzes the ratings
-    people give to products, where users leave ratings from 0 to 10\. Specifically,
+    people give to products, where users leave ratings from `0` to `10`. Specifically,
     you’re writing a function that checks whether an array of ratings contains any
     duplicate numbers. This will be used in more complex calculations in other parts
     of the software.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For example, the array [1, 5, 3, 9, 1, 4] has two instances of the number 1,
-    so we’d return true to indicate that the array has a case of duplicate numbers.
+- en: For example, the array `[1, 5, 3, 9, 1, 4]` has two instances of the number
+    `1`, so we’d return `true` to indicate that the array has a case of duplicate
+    numbers.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'One of the first approaches that may come to mind is the use of nested loops,
     as follows:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | `function` hasDuplicateValue(`array`) { |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+- en: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+- en: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (i !== j && array[i] === array[j]) { ​**return**​ ​**true**​;
-    } |'
+- en: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { `return` `true`; } |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | `return` `false`; |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In this function, we iterate through each value of the array using the variable
-    i. As we focus on each value in i, we then run a second loop that looks through
-    all the values in the array—using j—and checks if the values at positions i and
-    j are the same. If they are, it means we’ve encountered duplicate values and we
-    return true. If we get through all of the looping and we haven’t encountered any
-    duplicates, we return false since we know that there are no duplicates in the
-    array.
+    `i`. As we focus on each value in `i`, we then run a second loop that looks through
+    all the values in the array—using `j`—and checks if the values at positions `i`
+    and `j` are the same. If they are, it means we’ve encountered duplicate values
+    and we return `true`. If we get through all of the looping and we haven’t encountered
+    any duplicates, we return `false` since we know that there are no duplicates in
+    the array.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While this certainly works, is it efficient? Now that we know a bit about Big
     O notation, let’s take a step back and see what Big O would say about this function.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Remember that Big O expresses how many steps the algorithm takes relative to
-    N data values. To apply this to our situation, we’d ask ourselves: for N values
-    in the array provided to our hasDuplicateValue function, how many steps would
+    `N` data values. To apply this to our situation, we’d ask ourselves: for `N` values
+    in the array provided to our `hasDuplicateValue` function, how many steps would
     our algorithm take in a worst-case scenario?'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To answer the preceding question, we need to analyze what steps our function
     takes as well as what the worst-case scenario would be.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The preceding function has one type of step, namely comparisons. It repeatedly
-    compares array[i] and array[j] to see if they are equal and therefore represent
+    compares `array[i]` and `array[j]` to see if they are equal and therefore represent
     a duplicate pair. In a worst-case scenario, the array contains no duplicates,
     which would force our code to complete all of the loops and exhaust every possible
-    comparison before returning false.
+    comparison before returning `false`.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Based on this, we can conclude that for N values in the array, our function
-    would perform N² comparisons. This is because we perform an outer loop that must
-    iterate N times to get through the entire array, and for each iteration, we must
-    iterate another N times with our inner loop. That’s N steps * N steps, which is
-    N² steps, leaving us with an algorithm of O(N²).
+- en: Based on this, we can conclude that for `N` values in the array, our function
+    would perform `N²` comparisons. This is because we perform an outer loop that
+    must iterate `N` times to get through the entire array, and for each iteration,
+    we must iterate another `N` times with our inner loop. That’s `N` steps * `N`
+    steps, which is `N²` steps, leaving us with an algorithm of `O(N²)`.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We can actually prove that our function takes N² steps by adding some code
+- en: 'We can actually prove that our function takes `N²` steps by adding some code
     to our function that tracks the algorithm’s number of steps:'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | `function` hasDuplicateValue(`array`) { |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ steps = 0; ​*// count of steps*​ |'
+- en: '| ​  | `let` steps = 0; `// count of steps` |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+- en: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+- en: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | steps += 1; ​*// increment number of steps*​ |'
+- en: '| ​  | `steps += 1;` `// increment number of steps` |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (i !== j && array[i] === array[j]) { |'
+- en: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | `return`​ `true`; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(steps); ​*// print number of steps if no duplicates*​ |'
+- en: '| ​  | `console.log(steps);` `// print number of steps if no duplicates` |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | `return`​ `false`; |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This added code will print the number of steps taken when there are no duplicates.
-    If we run hasDuplicateValue([1, 4, 5, 2, 9]), for example, we’ll see an output
-    of 25 in the JavaScript console, indicating that there were twenty-five comparisons
-    for the five elements in the array. If we test this for other values, we’ll see
-    that the output is always the size of the array squared. This is classic O(N²).
+- en: 这段新增的代码将在没有重复项时打印出所用的步骤数。例如，如果我们运行`hasDuplicateValue([1, 4, 5, 2, 9])`，我们将在JavaScript控制台看到输出为25，这表明对数组中的五个元素进行了二十五次比较。如果我们对其他值进行测试，我们会看到输出始终是数组大小的平方。这是经典的
+    O(N²)。
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Very often (but not always), when an algorithm nests one loop inside another,
-    the algorithm is O(N²). So whenever you see a nested loop, O(N²) alarm bells should
-    go off in your head.
+- en: 通常（但并不总是），当一个算法将一个循环嵌套在另一个循环中时，该算法是 O(N²)。因此，每当你看到一个嵌套循环时，O(N²)的警报应该在你的脑海中响起。
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, the fact that our function is O(N²) should give us pause. This is because
-    O(N²) is considered a relatively slow algorithm. Whenever you encounter a slow
-    algorithm, it’s worth spending some time to consider whether there are any faster
-    alternatives. There may not be any better alternatives, but let’s first make sure.
+- en: 现在，我们的函数是 O(N²) 这一事实应该让我们警觉。这是因为 O(N²) 被认为是相对较慢的算法。每当你遇到一个慢算法时，花点时间考虑是否有更快的替代方案是值得的。可能没有更好的替代方案，但让我们首先确认一下。
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

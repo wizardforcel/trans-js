@@ -1,131 +1,185 @@
 - en: Making an Efficient Hash Table
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Ultimately, a hash table’s efficiency depends on three factors:'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How much data we’re storing in the hash table
+  id: totrans-2
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: How many cells are available in the hash table
+  id: totrans-3
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Which hash function we’re using
+  id: totrans-4
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: It makes sense why the first two factors are important. If you have a lot of
     data and only a few cells, there will be many collisions and the hash table will
     lose its efficiency. Let’s explore, however, why the hash function itself is important
     for efficiency.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say we’re using a hash function that always produces a value that falls
-    in the range from 1 to 9\. An example of this is a hash function that converts
+    in the range from `1` to `9`。An example of this is a hash function that converts
     letters into their corresponding numbers and keeps adding the resulting digits
     together until it ends up with a single digit.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Take this example:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: PUT = 16 + 21 + 20 = 57
+- en: '`PUT = 16 + 21 + 20 = 57`'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Because 57 contains more than one digit, the hash function breaks up the 57
-    into 5 + 7:'
+- en: 'Because `57` contains more than one digit, the hash function breaks up the
+    `57` into `5 + 7`:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 5 + 7 = 12
+- en: '`5 + 7 = 12`'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '12 also contains more than one digit, so it breaks up the 12 into 1 + 2:'
+- en: '`12` also contains more than one digit, so it breaks up the `12` into `1 +
+    2`:'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 1 + 2 = 3
+- en: '`1 + 2 = 3`'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the end, PUT hashes into 3.
+- en: In the end, `PUT` hashes into `3`。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This hash function by its very nature will always return a number 1 through
-    9.
+- en: This hash function by its very nature will always return a number `1` through
+    `9`。
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s return to our example hash table:'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: With this hash function, the computer would never even use cells 10 through
-    16 even though they exist. All data would be stuffed into cells 1 through 9.
+- en: With this hash function, the computer would never even use cells `10` through
+    `16` even though they exist. All data would be stuffed into cells `1` through
+    `9`。
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: A good hash function, therefore, is one that distributes its data across all
     available cells. The more we can spread out our data, the fewer collisions we’ll
     have.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Great Balancing Act
+  id: totrans-19
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: You learned that a hash table’s efficiency goes up as its number of collisions
     goes down. In theory, then, the best way to avoid collisions would be to have
     a hash table with a large number of cells. Imagine we want to store just five
     items in our hash table. A hash table with 1,000 cells would seem to be wonderful
     for our case, since odds are there would be no collisions.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, while avoiding collisions is important, we have to balance that with
     avoiding memory hogging as well.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Although a hash table with 1,000 cells for our five pieces of data is great
-    for avoiding collisions, we’d be using up 1,000 cells to store just five pieces
+- en: Although a hash table with `1,000` cells for our `five` pieces of data is great
+    for avoiding collisions, we’d be using up `1,000` cells to store just `five` pieces
     of data, and that’s a poor use of memory.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is the balancing act that a hash table must perform. A good hash table
     strikes a balance of avoiding collisions while not consuming lots of memory.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To accomplish this, computer scientists have developed the following rule of
-    thumb: for every seven data elements stored in a hash table, it should have ten
-    cells.'
+    thumb: for every `seven` data elements stored in a hash table, it should have
+    `ten` cells.'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So if you’re planning on storing fourteen elements, you’d want to have twenty
+- en: So if you’re planning on storing `fourteen` elements, you’d want to have `twenty`
     available cells, and so on.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This ratio of data to cells is called the load factor. Using this terminology,
-    we’d say that the ideal load factor is 0.7 (7 elements / 10 cells).
+    we’d say that the ideal load factor is `0.7` (`7` elements / `10` cells).
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If you initially stored seven pieces of data in a hash table, the computer might
-    allocate a hash table with ten cells. When you begin to add more data, though,
-    the computer will expand the hash table by adding more cells and changing the
-    hash function so that the new data will be distributed evenly across the new cells.
+- en: 如果您最初在哈希表中存储了七条数据，计算机可能会分配一个包含十个单元的哈希表。然而，当您开始添加更多数据时，计算机会通过添加更多单元和更改哈希函数来扩展哈希表，以便新数据能够均匀分布到新的单元中。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Again, most of the internals of a hash table are managed by the computer language
-    you’re using. It decides how big the hash table needs to be, what hash function
-    to use, and when it’s time to expand the hash table. You have the right to assume
-    that your programming language has implemented its hash table to allow for peak
-    performance.
+- en: 再次强调，哈希表的大部分内部管理由您使用的计算机语言负责。它决定哈希表的大小、使用哪个哈希函数，以及何时扩展哈希表。您可以合理地假设您的编程语言已经实现了其哈希表，以实现最佳性能。
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we’ve seen how hashes work, it’s clear that they have a superior lookup
-    efficiency of O(1). We’re going to use this knowledge shortly to optimize our
-    code for speed.
+- en: 现在我们已经看到哈希的工作原理，很明显它们具有 O(1) 的卓越查找效率。我们将很快利用这一知识来优化我们的代码以提高速度。
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: But let’s first take a quick tour of the many different use cases for hash tables
-    when it comes to simple data organization.
+- en: 但让我们首先快速浏览哈希表在简单数据组织中的许多不同用例。
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

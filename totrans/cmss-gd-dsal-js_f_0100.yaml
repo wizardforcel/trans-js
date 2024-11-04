@@ -1,171 +1,220 @@
 - en: Recursion in the Eyes of the Computer
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: To complete your understanding of recursion, we need to see how the computer
-    itself processes a recursive function. It’s one thing for humans to reason about
-    recursion using the earlier “napkin” method. However, the computer has to do the
-    tricky work of calling a function from within the function itself. So let’s break
-    down the process of how the computer executes a recursive function.
+- en: To complete your understanding of recursion，we need to see how the computer
+    itself processes a recursive function。It’s one thing for humans to reason about
+    recursion using the earlier “napkin” method。However，the computer has to do the
+    tricky work of calling a function from within the function itself。So let’s break
+    down the process of how the computer executes a recursive function。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Say that we call factorial(3). Since 3 isn’t the base case, the computer reaches
-    this line:'
+- en: Say that we call `factorial(3)`。Since `3` isn’t the base case，the computer reaches
+    this line：
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ number * factorial(number - 1); |'
+- en: '| ​  | ​`return`​ `number * factorial(number - 1)`; |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This then launches the function factorial(2).
+- en: This then launches the function `factorial(2)`。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: But there’s a catch. When the computer begins to run factorial(2), did the computer
-    yet complete running factorial(3)?
+- en: But there’s a catch。当 the computer begins to run `factorial(2)`，did the computer
+    yet complete running `factorial(3)`？
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This is what makes recursion tricky for the computer. Until the computer reaches
-    the end keyword of factorial(3), it’s not done with factorial(3). So we enter
-    into a weird situation. The computer didn’t yet complete executing factorial(3),
-    yet it’s starting to run factorial(2) while still in the middle of factorial(3).
+- en: This is what makes recursion tricky for the computer。Until the computer reaches
+    the end keyword of `factorial(3)`，it’s not done with `factorial(3)`。So we enter
+    into a weird situation。The computer didn’t yet complete executing `factorial(3)`，yet
+    it’s starting to run `factorial(2)` while still in the middle of `factorial(3)`。
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'And factorial(2) isn’t the end of the story, because factorial(2) triggers
-    factorial(1). So it’s a crazy thing: while still in the middle of running factorial(3),
-    the computer calls factorial(2). And while running factorial(2), the computer
-    runs factorial(1). It turns out, then, that factorial(1) runs in the middle of
-    both factorial(2) and factorial(3).'
+- en: And `factorial(2)` isn’t the end of the story，because `factorial(2)` triggers
+    `factorial(1)`。So it’s a crazy thing：while still in the middle of running `factorial(3)`，the
+    computer calls `factorial(2)`。And while running `factorial(2)`，the computer runs
+    `factorial(1)`。It turns out，then，that `factorial(1)` runs in the middle of both
+    `factorial(2)` and `factorial(3)`。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How does the computer keep track of all of this? It needs some way to remember
-    that after it finishes factorial(1), it needs to go back and finish running factorial(2).
-    And then it needs to remember to complete factorial(3) once it completes factorial(2).
+    that after it finishes `factorial(1)`，it needs to go back and finish running `factorial(2)`。And
+    then it needs to remember to complete `factorial(3)` once it completes `factorial(2)`。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Call Stack
+  id: totrans-9
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Luckily, you recently learned about stacks in Chapter 9, [​*Crafting Elegant
-    Code with Stacks and Queues*​](f_0087.xhtml#chp.stacks_queues). The computer uses
-    a stack to keep track of which functions it’s in the middle of calling. This stack
-    is known, appropriately enough, as the call stack.
+- en: Luckily，you recently learned about stacks in Chapter 9，[`*Crafting Elegant Code
+    with Stacks and Queues*`](f_0087.xhtml#chp.stacks_queues)。The computer uses a
+    stack to keep track of which functions it’s in the middle of calling。This stack
+    is known，appropriately enough，as the call stack。
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Here’s how the call stack works in the context of our factorial example.
+- en: Here’s how the call stack works in the context of our factorial example。
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The computer begins by calling factorial(3). Before the method completes executing,
-    however, factorial(2) gets called. To track that the computer is still in the
-    middle of factorial(3), the computer pushes that information onto a call stack:'
+- en: The computer begins by calling `factorial(3)`。Before the method completes executing，however，`factorial(2)`
+    gets called。To track that the computer is still in the middle of `factorial(3)`，the
+    computer pushes that information onto a call stack：
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/recursively_recurse_with_recursion/call_stack_push_factorial_3.png](images/recursively_recurse_with_recursion/call_stack_push_factorial_3.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: This indicates that the computer is in the middle of factorial(3). (Really,
-    the computer also needs to save which line it’s in the middle of, and some other
-    things like variable values, but I’m keeping the diagrams simple.)
+- en: This indicates that the computer is in the middle of `factorial(3)`。(Really，the
+    computer also needs to save which line it’s in the middle of，and some other things
+    like variable values，but I’m keeping the diagrams simple。)
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The computer then proceeds to execute factorial(2). Now, factorial(2), in turn,
-    calls factorial(1). Before the computer dives into factorial(1), though, the computer
-    needs to remember that it’s still in the middle of factorial(2), so it pushes
-    that onto the call stack as well:'
+- en: The computer then proceeds to execute `factorial(2)`。Now, `factorial(2)`，in
+    turn, calls `factorial(1)`。Before the computer dives into `factorial(1)`，though，the
+    computer needs to remember that it’s still in the middle of `factorial(2)`，so
+    it pushes that onto the call stack as well：
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/recursively_recurse_with_recursion/call_stack_push_factorial_2.png](images/recursively_recurse_with_recursion/call_stack_push_factorial_2.png)'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: The computer then executes factorial(1). Since 1 is the base case, factorial(1)
-    completes without calling the factorial method again.
+- en: 计算机接着执行`factorial(1)`。由于`1`是基本情况，`factorial(1)`在没有再次调用`factorial`方法的情况下完成。
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: After the computer completes factorial(1), it checks the call stack to see whether
-    it’s in the middle of any other functions. If there’s something in the call stack,
-    it means that the computer still has work to do—namely, wrap up some other functions
-    it was in the middle of.
+- en: 在计算机完成`factorial(1)`后，它检查调用栈以查看是否在其他函数中。如果调用栈中还有东西，意味着计算机仍然有工作要做——也就是说，需要结束它正在处理的其他函数。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If you recall, stacks are restricted in that we can only pop its top element.
-    This is ideal for recursion, since the top element will be the most recently called
-    function, which is what the computer needs to wrap up next. It’s a LIFO situation:
-    the function that was called last (that is, most recently) is the function we
-    need to complete first.'
+- en: 如果你还记得，栈是有限制的，我们只能弹出其顶部元素。这对递归来说是理想的，因为顶部元素将是最近调用的函数，而这正是计算机需要接下来结束的函数。这是一个后进先出（LIFO）情况：最后被调用的函数（即最近调用的）是我们需要首先完成的函数。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The next thing the computer does is pop the top element of the call stack,
-    which currently is factorial(2):'
+- en: 计算机接下来的操作是弹出调用栈的顶部元素，当前是`factorial(2)`：
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/recursively_recurse_with_recursion/call_stack_pop_factorial_2.png](images/recursively_recurse_with_recursion/call_stack_pop_factorial_2.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: The computer then completes its execution of factorial(2).
+- en: 计算机接着完成`factorial(2)`的执行。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, the computer pops the next item from the stack. By this time, only factorial(3)
-    is left on the stack, so the computer pops it and therefore completes running
-    factorial(3).
+- en: 现在，计算机从栈中弹出下一个项目。这时，栈中只剩下`factorial(3)`，因此计算机弹出它，从而完成运行`factorial(3)`。
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: At this point, the stack is empty, so the computer knows it’s done executing
-    all of the methods, and the recursion is complete.
+- en: 此时，栈为空，因此计算机知道它已经完成所有方法的执行，递归完成。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Looking back at this example from a bird’s-eye view, you’ll see that the order
-    in which the computer calculates the factorial of 3 is as follows:'
+- en: 从鸟瞰的角度回顾这个例子，你会看到计算机计算`factorial(3)`的顺序如下：
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: factorial(3) is called first. Before it’s done…
+- en: '`factorial(3)`被第一次调用。在它完成之前……'
+  id: totrans-26
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: factorial(2) is called second. Before it’s done…
+- en: '`factorial(2)`被第二次调用。在它完成之前……'
+  id: totrans-27
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: factorial(1) is called third.
+- en: '`factorial(1)`被第三次调用。'
+  id: totrans-28
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: factorial(1) is completed first.
+- en: '`factorial(1)`首先完成。'
+  id: totrans-29
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: factorial(2) is completed based on the result of factorial(1).
+- en: '`factorial(2)`基于`factorial(1)`的结果完成。'
+  id: totrans-30
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Finally, factorial(3) is completed based on the result of factorial(2).
+- en: 最后，`factorial(3)`基于`factorial(2)`的结果完成。
+  id: totrans-31
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: The factorial function is a calculation made based on recursion. The calculation
-    is ultimately made by factorial(1) passing its result (which is 1) to factorial(2).
-    Then factorial(2) multiplies this 1 by 2, yielding 2, and passes this result to
-    factorial(3). Finally, factorial(3) takes this result and multiplies it by 3,
-    computing the result of 6.
+- en: '`factorial`函数是基于递归的计算。最终的计算是由`factorial(1)`将其结果（即`1`）传递给`factorial(2)`。然后`factorial(2)`将这个`1`乘以`2`，得到`2`，并将这个结果传递给`factorial(3)`。最后，`factorial(3)`将这个结果乘以`3`，计算出结果`6`。'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Some refer to this idea as passing a value up through the call stack; that is,
-    each recursive function returns its computed value to its “parent” function. Eventually,
-    the function that was initially called first computes the final value.
+- en: 有人将这个概念称为将值通过调用栈向上传递；也就是说，每个递归函数将其计算值返回给其“父”函数。最终，最初被调用的函数计算出最终值。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Stack Overflow
+- en: '`Stack Overflow`'
+  id: totrans-34
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s take a look back at the infinite recursion example from the beginning
-    of the chapter. Recall that blah() called itself ad infinitum. What do you think
-    will happen to the call stack?
+- en: 让我们回顾一下本章开头的无限递归示例。记得`blah()`无限调用自身吗？你认为调用栈会发生什么？
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the case of infinite recursion, the computer keeps pushing the same function
-    again and again onto the call stack. The call stack grows and grows until, eventually,
-    the computer reaches a point where there’s simply no more room in its short-term
-    memory to hold all this data. This causes an error known as stack overflow—the
-    computer just shuts down the recursion and says, "I refuse to call the function
-    again, because I’m running out of memory!"
+- en: 在无限递归的情况下，计算机不断将相同的`function`重复推入调用栈。调用栈不断增长，直到最终，计算机达到一个点，此时其短期内存中根本没有足够的空间来容纳所有这些数据。这会导致一个错误，称为`stack
+    overflow`——计算机会直接停止递归并说：“我拒绝再次调用这个`function`，因为我快没内存了！”
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

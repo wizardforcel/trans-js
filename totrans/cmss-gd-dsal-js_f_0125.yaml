@@ -1,79 +1,90 @@
-- en: Quicksort in the Worst-Case Scenario
+- en: '`Quicksort`的最坏情况'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: For many other algorithms we’ve encountered, the best case was one where the
-    array was already sorted. When it comes to Quicksort, however, the best-case scenario
-    is one in which the pivot always ends up smack in the middle of the subarray after
-    the partition. Interestingly, this generally occurs when the values in the array
-    are mixed up pretty well.
+- en: 对于我们遇到的许多其他算法，最佳情况是数组已经排序。而对于`Quicksort`来说，最佳情况是主元（pivot）总是落在分区的中间。有趣的是，这种情况通常发生在数组中的值混合得相当好。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The worst-case scenario for Quicksort is one in which the pivot always ends
-    up on one side of the subarray instead of in the middle. This can happen where
-    the array is in perfect ascending or descending order. The visualization for this
-    process is shown here:'
+- en: '`Quicksort`的最坏情况是主元总是位于子数组的一侧，而不是在中间。这种情况可能发生在数组完全按升序或降序排列时。这个过程的可视化在这里展示：'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/visualization.png](images/divide_and_conquer_code_in_turbo_mode/visualization.png)'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: In this diagram you can see that the pivot always ends up on the left end of
-    each subarray.
+- en: 在这个图表中，你可以看到主元总是位于每个子数组的左端。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: While in this case each partition still involves only one swap, we lose out
-    because of the increased number of comparisons. In the first example, when the
-    pivot always ended up toward the middle, each partition after the first one was
-    conducted on relatively small subarrays (the largest subarray had a size of 4).
-    In this example, however, the first five partitions take place on subarrays of
-    size 4 or greater. And each of these partitions has as many comparisons as there
-    are elements in the subarray.
+- en: 虽然在这种情况下每个分区仍然只涉及一次交换，但由于比较次数的增加，我们会失去效率。在第一个例子中，当主元总是接近中间时，每个分区后的子数组相对较小（最大的子数组大小为`4`）。而在这个例子中，前五个分区发生在大小为`4`或更大的子数组上。每个分区的比较次数与子数组中的元素数量相同。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So in this worst-case scenario, we have partitions of 8 + 7 + 6 + 5 + 4 + 3
-    + 2 + 1 elements, which yields a total of 36 comparisons.
+- en: 所以在这个最坏情况下，我们有`8 + 7 + 6 + 5 + 4 + 3 + 2 + 1`个元素的分区，这导致总共`36`次比较。
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To put this a little more formulaically, we’d say that for N elements, there
-    are N + (N - 1) + (N - 2) + (N - 3) … + 1 steps. We saw in our discussion of [​*Get
-    All the Products*​](f_0072.xhtml#sect.get-all-the-products), that this computes
-    to N² / 2 steps, which for the purposes of Big O is O(N²).
+- en: 用公式化的语言来说，我们可以说，对于`N`个元素，有`N + (N - 1) + (N - 2) + (N - 3) … + 1`步。我们在讨论[*Get
+    All the Products*](f_0072.xhtml#sect.get-all-the-products)时看到，这计算为`N² / 2`步，对于大O的目的来说是`O(N²)`。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So in a worst-case scenario, Quicksort has an efficiency of O(N²).
+- en: 所以在最坏情况下，`Quicksort`的效率为`O(N²)`。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Quicksort vs. Insertion Sort
+- en: '`Quicksort`与`Insertion Sort`'
+  id: totrans-9
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now that we’ve got Quicksort down, let’s compare it with one of the simpler
-    sorting algorithms, such as Insertion Sort:'
+- en: 现在我们已经掌握了`Quicksort`，让我们将其与一种较简单的排序算法进行比较，比如`Insertion Sort`：
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '|  | Best Case | Average Case | Worst Case |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- | --- | --- |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Insertion Sort | O(N) | O(N²) | O(N²) |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| Quicksort | O(N log N) | O(N log N) | O(N²) |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We can see they have identical worst-case scenarios and that Insertion Sort
-    is faster than Quicksort in a best-case scenario. However, the reason Quicksort
-    is superior to Insertion Sort is because of the average scenario—which, again,
-    is what happens most of the time. For average cases, Insertion Sort takes a whopping
-    O(N²), while Quicksort is much faster at O(N log N).
+- en: 我们可以看到它们的最坏情况是相同的，并且在最佳情况下`Insertion Sort`比`Quicksort`更快。然而，`Quicksort`之所以优于`Insertion
+    Sort`，是因为在平均情况下的表现——这也是大多数情况下的表现。对于平均情况，`Insertion Sort`的复杂度高达`O(N²)`，而`Quicksort`则更快，复杂度为`O(N
+    log N)`。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Because of Quicksort’s superiority in average circumstances, many programming
-    languages use Quicksort under the hood of their built-in sorting functions. So
-    it’s unlikely you’ll be implementing Quicksort yourself. However, a very similar
-    algorithm can come in handy for practical cases—and it’s called Quickselect.
+- en: 由于`Quicksort`在平均情况下的优越性，许多编程语言在其内置排序函数的底层使用`Quicksort`。所以你不太可能自己实现`Quicksort`。然而，一种非常相似的算法在实际案例中可以派上用场——它被称为`Quickselect`。
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

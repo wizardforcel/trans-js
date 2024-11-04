@@ -1,98 +1,140 @@
 - en: Storing Words
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, the point of our trie is to store words. Let’s see how the following trie
-    stores the words, “ace”, “bad”, and “cat”, as shown in the [diagram](#fig.ch17.ace_bad_cat).
+    stores the words, `"ace"`, `"bad"`, and `"cat"` as shown in the `[diagram](#fig.ch17.ace_bad_cat)`.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/ace_bad_cat.png](images/tries/ace_bad_cat.png)'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: This trie stores the three words by turning each character of each word into
-    its own trie node. If you start with the root node and follow its "a" key, for
-    example, it points to a child node containing a key of "c". The "c" key, in turn,
-    points to a node that contains a key of "e". When we string these three characters
-    together, we get the word "ace".
+    its own trie node. If you start with the root node and follow its `"a"` key, for
+    example, it points to a child node containing a key of `"c"`. The `"c"` key, in
+    turn, points to a node that contains a key of `"e"`. When we string these three
+    characters together, we get the word `"ace"`.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With this pattern, you can see how the trie also stores the words "bad" and
-    "cat".
+- en: With this pattern, you can see how the trie also stores the words `"bad"` and
+    `"cat"`.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: You’ll note that the final characters in these words have children nodes of
-    their own. If you look at the "e" node from the word "ace", for example, you can
-    see that the "e" points to a child node that contains a hash table with a key
-    of "*", an asterisk. (The value doesn’t actually matter, so it can simply be null.)
-    This indicates we’ve reached the end of a word, and that "ace", therefore, is
-    a complete word. The need for this "*" key will become more apparent shortly.
+    their own. If you look at the `"e"` node from the word `"ace"`, for example, you
+    can see that the `"e"` points to a child node that contains a hash table with
+    a key of `"*"`, an asterisk. (The value doesn’t actually matter, so it can simply
+    be null.) This indicates we’ve reached the end of a word, and that `"ace"`, therefore,
+    is a complete word. The need for this `"*"` key will become more apparent shortly.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, here’s where tries become even more interesting. Let’s say we want to
-    also store the word “act”. To do this, we keep the existing "a" and "c" keys,
-    but we add one new node containing the key of "t". Look at the following diagram:'
+    also store the word `"act"`. To do this, we keep the existing `"a"` and `"c"`
+    keys, but we add one new node containing the key of `"t"`. Look at the following
+    diagram:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/add_act.png](images/tries/add_act.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: As you can see, the bolded node’s hash table now contains two children nodes,
-    an "e" and a "t". By doing this, we indicate that both "ace" and "act" are valid
-    dictionary words.
+    an `"e"` and a `"t"`. By doing this, we indicate that both `"ace"` and `"act"`
+    are valid dictionary words.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'To make things easier to visualize going forward, we’re going to represent
     our tries using a simpler diagram. Here’s the same trie using this new format:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/no_hash.png](images/tries/no_hash.png)'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: In this diagram style, we place each hash table key next to an arrow pointing
     to its child node.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Need for the Asterisk
+  id: totrans-12
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s say we want to store the words “bat” and “batter” in a trie. This is
-    an interesting case since the word “batter” actually contains the word “bat”.
+- en: 'Let’s say we want to store the words `"bat"` and `"batter"` in a trie. This
+    is an interesting case since the word `"batter"` actually contains the word `"bat"`.
     Here’s how we handle this:'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/bat_and_batter.png](images/tries/bat_and_batter.png)'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: The first "t" points to a node that has two keys. One key is an "*" key (with
-    a null value), while the other is a "t" whose value points to another node. This
-    indicates that "bat" is itself a word even though it’s also a prefix of the longer
-    word "batter".
+- en: The first `"t"` points to a node that has two keys. One key is an `"*"` key
+    (with a null value), while the other is a `"t"` whose value points to another
+    node. This indicates that `"bat"` is itself a word even though it’s also a prefix
+    of the longer word `"batter"`.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Note that in this diagram, we’re not using classic hash table syntax anymore
     but instead using a condensed syntax to save space. We’ve used curly braces to
-    indicate that the node contains a hash table. However, the {*, "t"} is not a key-value
-    pair but simply two keys. The "*" key has a null value, and the "t" key has the
-    next node as its value.
+    indicate that the node contains a hash table. However, the `{"*", "t"}` is not
+    a key-value pair but simply two keys. The `"*"` key has a null value, and the
+    `"t"` key has the next node as its value.
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This is why those "*"s are critical. We need them to indicate when parts of
+- en: This is why those `"*"`s are critical. We need them to indicate when parts of
     a word are also words themselves.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s bring this all together with a more complex example. Here’s a trie that
-    contains the words “ace”, “act”, “bad”, “bake”, “bat”, “batter”, “cab”, “cat”,
-    “catnap”, and “catnip”:'
+- en: 让我们用一个更复杂的例子将这一切结合起来。这里有一个包含单词`"ace"`、`"act"`、`"bad"`、`"bake"`、`"bat"`、`"batter"`、`"cab"`、`"cat"`、`"catnap"`和`"catnip"`的字典树：
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/tries/foundational_trie.png](images/tries/foundational_trie.png)'
+- en: '![`images/tries/foundational_trie.png`](images/tries/foundational_trie.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Tries used in real applications may contain thousands of words. If they don’t
-    contain the entire English language, they at least contain the most common words.
+- en: 在实际应用中使用的字典树可能包含成千上万的单词。如果它们不包含整个英语语言，至少也包含最常用的单词。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To build our autocomplete feature, let’s first analyze the basic trie operations.
+- en: 为了构建我们的自动完成功能，让我们首先分析基本的字典树操作。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

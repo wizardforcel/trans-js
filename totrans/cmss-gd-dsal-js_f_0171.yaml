@@ -1,170 +1,257 @@
 - en: Trie Insertion
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Inserting a new word into a trie is similar to searching for an existing word.
     We first search to see if the word already exists in the trie. If it doesn’t,
     we insert the new word.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s how the algorithm goes:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We establish a variable called currentNode. At the beginning of our algorithm,
+- en: We establish a variable called `currentNode`. At the beginning of our algorithm,
     this points to the root node.
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: We iterate over each character of our search string. Here, our search string
     represents the new word we’re inserting. We call it a search string since we’re
     also searching whether the string already exists in the trie.
+  id: totrans-4
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: As we point to each character of our search string, we look to see if the currentNode
+- en: As we point to each character of our search string, we look to see if the `currentNode`
     has a child with that character as a key.
+  id: totrans-5
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: If it does, we update the currentNode to become that child node, and we go back
-    to Step 2, moving on to the next character of our search string.
+- en: If it does, we update the `currentNode` to become that child node, and we go
+    back to Step 2, moving on to the next character of our search string.
+  id: totrans-6
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the currentNode does not have a child node that matches the current character,
-    we create such a child node and update the currentNode to be this new node. We
-    then go back to Step 2, moving on to the next character of our search string.
+- en: If the `currentNode` does not have a child node that matches the current character,
+    we create such a child node and update the `currentNode` to be this new node.
+    We then go back to Step 2, moving on to the next character of our search string.
+  id: totrans-7
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: After we insert the final character of our new word, we add an "*" child to
+- en: After we insert the final character of our new word, we add an `"*"` child to
     the last node to indicate the word is complete.
+  id: totrans-8
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s see this in action by inserting the word “can” into our earlier example trie.
+- en: Let’s see this in action by inserting the word `"can"` into our earlier example
+    trie.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Setup: We set the currentNode to be the root node. We also point to the first
-    character of our string, which is the "c", as shown in the top [diagram](#fig.ch17.insert_point_to_c).'
+- en: 'Setup: We set the `currentNode` to be the root node. We also point to the first
+    character of our string, which is the `"c"`, as shown in the top [diagram](#fig.ch17.insert_point_to_c).'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/insert_point_to_c.png](images/tries/insert_point_to_c.png)'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 1: The root node has a "c" child key, so we turn that key’s value into
-    the currentNode. We also point to the next character of our new word, the "a",
+- en: 'Step 1: The root node has a `"c"` child key, so we turn that key’s value into
+    the `currentNode`. We also point to the next character of our new word, the `"a"`,
     as shown in the bottom [diagram](#fig.ch17.insert_point_to_a).'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/insert_point_to_a.png](images/tries/insert_point_to_a.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 2: We inspect the currentNode for a child with the key of "a". There is
-    one, so we make that the currentNode and point to the next character of our string,
-    which is the "n", as shown in the top [diagram](#fig.ch17.insert_point_to_n).'
+- en: 'Step 2: We inspect the `currentNode` for a child with the key of `"a"`. There
+    is one, so we make that the `currentNode` and point to the next character of our
+    string, which is the `"n"`, as shown in the top [diagram](#fig.ch17.insert_point_to_n).'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/insert_point_to_n.png](images/tries/insert_point_to_n.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 3: The currentNode does not have an "n", so we need to create that child,
-    as shown in the bottom [diagram](#fig.ch17.insert_n).'
+- en: 'Step 3: The `currentNode` does not have an `"n"` so we need to create that
+    child, as shown in the bottom [diagram](#fig.ch17.insert_n).'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/insert_n.png](images/tries/insert_n.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 4: We’re done inserting "can" into our trie, so we cap it off with a child
-    of "*":'
+- en: 'Step 4: We’re done inserting `"can"` into our trie, so we cap it off with a
+    child of `"*"`:'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/cap_off.png](images/tries/cap_off.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: And we’re done!
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Trie Insertion'
+  id: totrans-21
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s the insert method for our Trie class. You’ll note that most of it looks
-    the same as the earlier search method:'
+- en: 'Here’s the insert method for our `Trie` class. You’ll note that most of it
+    looks the same as the earlier search method:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | insert(word) { |'
+- en: '| ​  | `insert`(word) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+- en: '| ​  | `let` `currentNode` = `this`.root; |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+- en: '| ​  | `for` (`const` `char` `of` word) { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+- en: '| ​  | `if` (`currentNode.children[` `char` `]) { |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+- en: '| ​  | `currentNode` = `currentNode.children[` `char` `]; |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ newNode = ​**new**​ TrieNode(); |'
+- en: '| ​  | `const` newNode = `new` TrieNode(); |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode.children[​**char**​] = newNode; |'
+- en: '| ​  | `currentNode.children[''char''] = newNode;` |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = newNode; |'
+- en: '| ​  | `currentNode = newNode;` |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode.children[​*''*''*​] = ​**null**​; |'
+- en: '| ​  | `currentNode.children[''*''] = null;` |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'The first part of this method is the same as search. It diverges when the currentNode
-    doesn’t have the child that matches the current character. When this is the case,
-    we add a new key-value pair to the currentNode’s hash table, with the key being
-    the current character and the value being a new TrieNode:'
+- en: 该方法的第一部分与搜索相同。当`currentNode`没有匹配当前字符的子节点时，它分叉。在这种情况下，我们向`currentNode`的哈希表中添加一个新的键值对，键为当前字符，值为一个新的`TrieNode`：
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ newNode = ​**new**​ TrieNode(); |'
+- en: '| ​  | `const newNode = new TrieNode();` |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode.children[​**char**​] = newNode; |'
+- en: '| ​  | `currentNode.children[''char''] = newNode;` |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then update the currentNode to be this new node:'
+- en: 我们然后更新`currentNode`为这个新节点：
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | currentNode = newNode; |'
+- en: '| ​  | `currentNode = newNode;` |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then repeat the loop until we’re done inserting our new word. Once we’re
-    done, we add an "*" key to the final node’s hash table, with the value as null:'
+- en: 我们然后重复这个循环，直到插入新单词完成。一旦完成，我们向最终节点的哈希表中添加一个`"*"`键，值为`null`：
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | currentNode.children[​*''*''*​] = ​**null**​; |'
+- en: '| ​  | `currentNode.children[''*''] = null;` |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Like search, trie insertion takes about O(K) steps. If we count the adding of
-    the "*" at the end, it’s technically K + 1 steps, but because we drop the constants,
-    we express the speed as O(K).
+- en: 与搜索一样，字典树插入大约需要`O(K)`步。如果算上最后添加`"*"`，技术上是`K + 1`步，但因为我们省略常数，所以速度表示为`O(K)`。
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -4,18 +4,21 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`提升`'
 - en: In JavaScript, variables and functions can be accessed `before` their actual
     declaration, and the term used to describe this in JavaScript is `Hoisting`.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在JavaScript中，变量和函数可以在实际声明之前被访问，而在JavaScript中描述这种情况的术语是`提升`。
 - en: '`var` declarations'
   id: totrans-2
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`var`声明'
 - en: The term “hoisting” is mostly associated with function declarations and variables
     declared with the `var` keyword. Let’s take a look at how `hoisting` is associated
     with the `var` variables.
@@ -23,11 +26,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: “提升”这个术语通常与函数声明和使用`var`关键字声明的变量相关。让我们看看`提升`是如何与`var`变量相关的。
 - en: 'Consider the following code example:'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑以下代码示例：
 - en: '[PRE0]'
   id: totrans-5
   prefs: []
@@ -38,11 +43,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的`Replit`中运行上述代码：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example1" />`'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example1" />`'
 - en: The output of the above code shows `hoisting` in action. The first line in the
     above code outputs `undefined` on the console, but how is this possible? How are
     we able to access the `result` variable `before` it is actually declared on the
@@ -51,6 +58,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码的输出显示了`提升`的实际效果。上述代码的第一行在控制台输出`undefined`，但这怎么可能呢？我们如何能够在第二行实际声明之前访问`result`变量？
 - en: 'This is made possible because of the `parsing` step before the code is executed.
     The preprocessing of the JavaScript code before its execution allows the JavaScript
     engine to detect some errors early before any code is executed. The following
@@ -59,6 +67,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是由于在代码执行之前的`解析`步骤使其成为可能。JavaScript代码在执行前的预处理允许JavaScript引擎提前检测到一些错误，而无需执行任何代码。以下代码示例展示了这一过程：
 - en: '[PRE1]'
   id: totrans-10
   prefs: []
@@ -69,11 +78,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是运行上述代码的`Replit`：
 - en: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example2" />`'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example2" />`'
 - en: Without any preprocessing of the code, the JavaScript engine cannot detect the
     syntax error inside the `print` function unless the function is invoked or called,
     and the above code should log `hello world` on the console without throwing any
@@ -84,6 +95,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果没有对代码进行任何预处理，JavaScript引擎在函数被调用或调用之前无法检测到`print`函数中的语法错误，而上述代码应该在控制台上记录`hello
+    world`，且不会抛出任何错误，因为包含语法错误的函数尚未被调用。但是上述代码却抛出了错误，而不是在控制台上记录`hello world`。这是为什么呢？答案在于代码执行前的处理步骤。
 - en: The JavaScript engine scans the code before executing it, allowing it to detect
     some errors before any code is executed. This also enables the engine to handle
     variable declarations by registering the variables declared in the current scope.
@@ -96,11 +109,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript引擎在执行代码之前会扫描代码，这使它能够在执行任何代码之前检测到一些错误。这也使引擎能够通过注册当前作用域中声明的变量来处理变量声明。在任何作用域开始之前，该作用域中声明的所有变量都会被注册。换句话说，在该作用域中的代码执行之前，所有在该作用域中声明的变量都为该作用域保留。这种代码执行前的预处理使得`提升`成为可能。这使我们能够在`var`变量实际声明之前引用它们。
 - en: Let us revisit the code example given above that logs `undefined` to the console.
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们重新审视上面那个将`undefined`记录到控制台的代码示例。
 - en: '[PRE2]'
   id: totrans-16
   prefs: []
@@ -113,6 +128,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果`var`变量是`提升`的，并且我们可以在声明之前引用它们，那么为什么在控制台上记录的是`undefined`而不是`result`变量的实际值，后者应该是`15`呢？
 - en: The thing with the hoisting of the `var` variables is that only their `declaration`
     is hoisted, not their values. These variables are assigned the value of `undefined`,
     and the actual value, `15` in the above code example, is assigned when their declaration
@@ -121,12 +137,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`var`变量的提升问题在于只有它们的`声明`被提升，而不是它们的值。这些变量被赋值为`undefined`，而实际值`15`在代码逐步执行的声明阶段被赋值。'
 - en: '`Function` declarations'
   id: totrans-19
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`函数`声明'
 - en: 'Function declarations, just like variables declared using the `var` keyword,
     are also hoisted. The following code example shows the hoisting of a function
     declaration in action:'
@@ -134,6 +152,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 函数声明与使用`var`关键字声明的变量一样，也会被提升。以下代码示例展示了函数声明提升的实际情况：
 - en: '[PRE3]'
   id: totrans-21
   prefs: []
@@ -144,11 +163,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是运行上述代码的Replit：
 - en: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/hoisting-example4” />`'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`<ReplitEmbed src=”https://replit.com/@newlineauthors/hoisting-example4” />`'
 - en: If `var` variables are assigned a value of `undefined` before their declaration
     is executed, how are we able to call the function `before` its declaration? How
     is the hoisting of function declarations different from the hoisting of variables
@@ -159,6 +180,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果在变量声明执行之前`var`变量被赋值为`undefined`，我们如何能够在其声明之前调用函数？函数声明的提升与使用`var`关键字声明的变量的提升有什么不同？不同之处在于，函数声明的情况下，函数的名称作为变量在包含函数声明的作用域中被注册，并用函数本身进行初始化。
 - en: In the above code example, the `startCar` is registered as a variable in the
     global scope, and it is assigned the function. Unlike the `var` variables, there
     is no initialization with the `undefined` value in the case of function declarations.
@@ -166,6 +188,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上述代码示例中，`startCar`作为变量在全局作用域中注册，并赋值为该函数。与`var`变量不同，函数声明的情况下没有用`undefined`值进行初始化。
 - en: It is hard to see how hoisting can be a useful feature for a programming language
     until we see the hoisting of function declarations. To be able to call a function
     `before` or `after` the function declaration is really useful and frees the developer
@@ -177,12 +200,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在看到函数声明的提升之前，很难想象提升会是编程语言的一个有用特性。能够在函数声明`before`或`after`调用函数确实很有用，解放了开发者使代码安排成每个函数声明都在调用之前的方式。这有助于代码组织，因为我们可以在代码文件的顶部或底部一起声明函数，并从文件中的任何位置调用它们。
 - en: Function declarations inside blocks
   id: totrans-27
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 块内的函数声明
 - en: For a long time, function declarations inside blocks weren’t part of the ECMAScript
     specification, but that changed with the introduction of ES2015. Since the function
     declarations weren’t part of the specification before 2015 and were allowed in
@@ -192,18 +217,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 很长一段时间内，块内的函数声明并不属于ECMAScript规范，但在ES2015引入后情况发生了变化。由于在2015年前函数声明不属于规范，并且在JavaScript引擎中被允许，因此不同的引擎处理的方式有所不同。
 - en: In ES2015, the ECMAScript specification defined `standard` and `legacy` rules
     for handling function declarations.
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在ES2015中，ECMAScript规范定义了处理函数声明的`standard`和`legacy`规则。
 - en: Standard rules
   id: totrans-30
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 标准规则
 - en: According to the standard rules, the function declarations inside blocks are
     `hoisted` to the top of the block, converted into a function expression, and assigned
     to a variable declared with the `let` keyword.
@@ -211,34 +239,40 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 根据标准规则，块内的函数声明会被`hoisted`到块的顶部，转换为函数表达式，并分配给使用`let`关键字声明的变量。
 - en: The function hoisted inside the block is limited to the containing block and
     cannot be accessed by code outside the block containing the function.
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在块内提升的函数仅限于包含块，无法被包含该函数的块外的代码访问。
 - en: :::note
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::note
 - en: It is important to note that the standard rules only come into effect in [`strict
     mode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重要的是要注意，标准规则仅在[`strict mode`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode)中生效。
 - en: ':::'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: 'The following code example will help you better understand the standard rules
     for function declarations inside blocks:'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下代码示例将帮助你更好地理解块内函数声明的标准规则：
 - en: '[PRE4]'
   id: totrans-37
   prefs: []
@@ -250,6 +284,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 根据标准规则，`if`块内的函数应如下所示：
 - en: '[PRE5]'
   id: totrans-39
   prefs: []
@@ -261,12 +296,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码中的`fnInsideBlock`函数只能在`if`块内被调用。
 - en: Legacy rules
   id: totrans-41
   prefs:
   - PREF_H4
   stylish: true
   type: TYPE_NORMAL
+  zh: 旧规则
 - en: The [legacy rules](https://262.ecma-international.org/13.0/#sec-block-level-function-declarations-web-legacy-compatibility-semantics)
     are applied to the non-strict code in web browsers. According to the legacy rules,
     apart from a `let` variable for a function declaration inside a block, there is
@@ -275,12 +312,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '[遗留规则](https://262.ecma-international.org/13.0/#sec-block-level-function-declarations-web-legacy-compatibility-semantics)适用于
+    Web 浏览器中的非严格代码。根据遗留规则，除了块内函数声明的`let`变量外，包含函数作用域中还存在一个`var`变量。'
 - en: 'Let us take the code example given in the above section and add the function
     calls:'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们以上节中的代码示例为例，添加函数调用：
 - en: '[PRE6]'
   id: totrans-44
   prefs: []
@@ -291,11 +331,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可以在下面的 Replit 中运行上述代码：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example7" />
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example7" />
 - en: As the above code is executed in strict mode, the standard rules apply; as a
     result, the above code throws an error because, as explained in the above section,
     the function inside the block is hoisted to the top of the containing scope and
@@ -305,6 +347,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当上述代码在严格模式下执行时，标准规则适用；因此，上述代码抛出一个错误，因为如上节所解释的，块内的函数被提升到包含作用域的顶部，并且只能在该块内访问。因此，`if`块外的函数调用会抛出错误。
 - en: If the `"use strict"` directive is removed from the above code, it will execute
     without any error. Why is that? This is because, in non-strict mode, the legacy
     rules for function declarations in a block apply, and according to the legacy
@@ -314,12 +357,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果上面的代码中移除了`"use strict"`指令，它将会正常执行而不会产生任何错误。这是因为在非严格模式下，块内的函数声明适用遗留规则，而根据遗留规则，块内的提升函数被赋值给在包含函数作用域中声明的`var`变量。
 - en: 'The above code, when executed in non-strict mode, is treated by the JavaScript
     engines as shown below:'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码在非严格模式下执行时，JavaScript 引擎的处理如下所示：
 - en: '[PRE7]'
   id: totrans-50
   prefs: []
@@ -330,16 +375,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个演示上述代码的 Replit：
 - en: <ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example8" />
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: <ReplitEmbed src="https://replit.com/@newlineauthors/hoisting-example8" />
 - en: :::note
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::note
 - en: In the transformed code above, `fnInsideBlockVar` and `fnInsideBlock` are the
     same variables handled behind the scenes by the JavaScript engines. The names
     are shown to be different just for the sake of explaining how the function declarations
@@ -348,11 +396,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在上面的转换代码中，`fnInsideBlockVar` 和 `fnInsideBlock` 是 JavaScript 引擎背后处理的相同变量。为了说明根据遗留规则块内的函数声明是如何处理的，这些名称看似不同。
 - en: ':::'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: Now, it should be clear why removing the `"use strict"` directive allows the
     code to be executed without any error. The hoisted function inside the block is
     assigned to a `var` variable defined in the function scope. As a result, the function
@@ -361,11 +411,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，应该清楚为什么移除`"use strict"`指令允许代码在没有任何错误的情况下执行。块内的提升函数被赋值给在函数作用域中定义的`var`变量。因此，块内的函数在包含的`if`块外是可访问的。
 - en: :::tip
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: :::tip
 - en: The legacy rules are complicated and confusing; as a result, we shouldn’t rely
     on code that depends on the legacy rules for function declarations inside blocks.
     We should write code in strict mode to keep confusing complexities from entering
@@ -374,17 +426,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 遗留规则复杂且令人困惑；因此，我们不应该依赖于依赖遗留规则的代码来进行块内的函数声明。我们应该在严格模式下编写代码，以防混乱的复杂性进入我们的代码。
 - en: ':::'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: ':::'
 - en: Further reading
   id: totrans-60
   prefs:
   - PREF_H5
   stylish: true
   type: TYPE_NORMAL
+  zh: 深入阅读
 - en: '[What are the precise semantics of block-level functions in ES6? - (stackoverflow
     post)](https://stackoverflow.com/questions/31419897/what-are-the-precise-semantics-of-block-level-functions-in-es6)'
   id: totrans-61
@@ -392,12 +447,14 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[ES6 中块级函数的精确语义是什么？ - (stackoverflow 帖子)](https://stackoverflow.com/questions/31419897/what-are-the-precise-semantics-of-block-level-functions-in-es6)'
 - en: '[Why does block assigned value change global variable? - (stackoverflow post)](https://stackoverflow.com/questions/61191014/why-does-block-assigned-value-change-global-variable)'
   id: totrans-62
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[为什么块内赋值会改变全局变量？ - (stackoverflow 帖子)](https://stackoverflow.com/questions/61191014/why-does-block-assigned-value-change-global-variable)'
 - en: '[Function declaration in block moving temporary value outside of block? - (stackoverflow
     post)](https://stackoverflow.com/questions/58619924/function-declaration-in-block-moving-temporary-value-outside-of-block)'
   id: totrans-63
@@ -405,6 +462,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: '[块内函数声明如何将临时值移出块？ - (stackoverflow 帖子)](https://stackoverflow.com/questions/58619924/function-declaration-in-block-moving-temporary-value-outside-of-block)'
 - en: Class declarations
   id: totrans-64
   prefs:

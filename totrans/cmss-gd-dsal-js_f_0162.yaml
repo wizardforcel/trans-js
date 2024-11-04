@@ -1,107 +1,158 @@
 - en: Arrays as Heaps
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Because finding the last node is so critical to the heap’s operations, and because
     we want to make sure that finding the last node is efficient, heaps are usually
     implemented using arrays.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While until now we always assumed that every tree consists of independent nodes
     connected to each other with links (just like a linked list), you’ll now see that
     we can also use an array to implement a heap. The heap itself can be an abstract
     data type that really uses an array under the hood.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The [diagram](#fig.ch16.heap_as_array) shows how an array is used to store the
-    values of a heap.
+    values of a heap.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The way this works is that we assign each node to an index within the array.
     In this diagram, the index of each node is found in a square below the node. If
     you look carefully, you’ll see that we assign the index of each node according
     to a specific pattern.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/heaps/heap_as_array.png](images/heaps/heap_as_array.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: The root node is always stored at index 0\. We then move down a level and go
+- en: The root node is always stored at index `0`。We then move down a level and go
     from left to right, assigning each node to the next available index in the array.
-    So on the second level, the left node (88) becomes index 1, and the right node
-    (25) becomes index 2\. When we reach the end of a level, we move down to the next
-    level and repeat this pattern.
+    So on the second level, the left node (`88`) becomes index `1`，and the right node
+    (`25`) becomes index `2`。When we reach the end of a level, we move down to the
+    next level and repeat this pattern.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, the reason why we’re using an array to implement the heap is because it
     solves the problem of the last node. How?
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When we implement the heap in this fashion, the last node will always be the
     final element of the array. Since we move top-down and left to right when assigning
     each value to the array, the last node will always be the final value in the array.
-    In the previous example, you can see that the 3, which is the last node, is the
-    last value in the array.
+    In the previous example, you can see that the `3`，which is the last node，是最后一个值在数组中。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Because the last node will always be found at the end of the array, it becomes
     trivial to find the last node: we just need to access the final element. Additionally,
     when we insert a new node into the heap, we do so at the end of the array to make
     it the last node.'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Before we get into the other details of how an array-based heap works, we can
     already begin to code its basic structure. Here’s the beginning of our heap implementation
     in JavaScript:'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ Heap { |'
+- en: '| ​  | ​`class`​ `Heap` { |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​() { |'
+- en: '| ​  | ​`constructor`​() { |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data = []; |'
+- en: '| ​  | ​`this`.data = []; |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | rootNode() { |'
+- en: '| ​  | `rootNode()` { |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.data[0]; |'
+- en: '| ​  | ​`return` ​`this`.data[0]; |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | lastNode() { |'
+- en: '| ​  | `lastNode()` { |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.data[​**this**​.data.length - 1]; |'
+- en: '| ​  | ​`return` ​`this`.data[​`this`.data.length - 1]; |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: As you can see, we initialize the heap as an empty array. We have a rootNode
-    method, which returns the first item of this array, and we also have a lastNode
+- en: As you can see, we initialize the heap as an empty array. We have a `rootNode`
+    method, which returns the first item of this array, and we also have a `lastNode`
     method that returns the last value of this array.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Traversing an Array-Based Heap
+  id: totrans-25
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: As you’ve seen, the heap’s insertion and deletion algorithms require us to be
     able to trickle our way through the heap. Trickling, in turn, requires us to be
@@ -110,476 +161,747 @@
     a heap would have been straightforward if we could have simply followed each node’s
     links. But now that the heap is an array under the hood, how do we know which
     nodes are connected to each other?
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This has an interesting solution. It turns out that when we assign the indexes
     of the heap’s nodes according to the pattern described earlier, the following
     traits of a heap are always true:'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To find the left child of any node, we can use the formula (index * 2) + 1.
+- en: To find the left child of any node, we can use the formula (`index` * 2) + 1.
+  id: totrans-28
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: To find the right child of any node, we can use the formula (index * 2) + 2.
+- en: To find the right child of any node, we can use the formula (`index` * 2) +
+    2.
+  id: totrans-29
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Take another look at the previous diagram and focus on the 16, which is at index
-    4\. To find its left child, we multiply its index (4) by 2 and add 1, which yields
-    9\. This means that index 9 is the left child of the node at index 4.
+    4. To find its left child, we multiply its index (4) by 2 and add 1, which yields
+    9. This means that index 9 is the left child of the node at index 4.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Similarly, to find the right child of index 4, we multiply the 4 by 2 and add
-    2, which yields 10\. This means that index 10 is the right child of index 4.
+    2, which yields 10. This means that index 10 is the right child of index 4.
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because these formulas always work, we’re able to treat our array as a tree.
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s add these two methods to our Heap class:'
+- en: 'Let’s add these two methods to our `Heap` class:'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | leftChildIndex(index) { |'
+- en: '| ​  | `leftChildIndex`(`index`) { |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ (index * 2) + 1; |'
+- en: '| ​  | ​`return` (`index` * 2) + 1; |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | rightChildIndex(index) { |'
+- en: '| ​  | `rightChildIndex`(`index`) { |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ (index * 2) + 2; |'
+- en: '| ​  | ​`return` (`index` * 2) + 2; |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Each of these methods accepts an index within the array and returns the left
     or right child index, respectively.
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s another important trait of array-based heaps:'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To find a node’s parent, we can use the formula Math.floor((index - 1) / 2).
+- en: To find a node’s parent, we can use the formula `Math.floor((index - 1) / 2)`.
+  id: totrans-43
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Note that this formula uses floor division, meaning we throw away any numbers
-    beyond the decimal point. For example, Math.floor(3 / 2) returns 1, rather than
+    beyond the decimal point. For example, `Math.floor(3 / 2)` returns 1, rather than
     the more accurate 1.5.
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Again, in our example heap, focus on index 4\. If we take that index, subtract
-    1, and then divide by 2, we get 1\. And as you can see in the diagram, the parent
+- en: Again, in our example heap, focus on index 4. If we take that index, subtract
+    1, and then divide by 2, we get 1. And as you can see in the diagram, the parent
     of the node at index 4 is found at index 1.
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So now we can add another method to our Heap class:'
+- en: 'So now we can add another method to our `Heap` class:'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | parentIndex(index) { |'
+- en: '| ​  | `parentIndex`(`index`) { |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ Math.floor((index - 1) / 2); |'
+- en: '| ​  | ​`return` `Math.floor((index - 1) / 2);` |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This method accepts an index and calculates the index of its parent node.
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Code Implementation: Heap Insertion'
+- en: 'Code Implementation: `Heap` Insertion'
+  id: totrans-51
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now that we have the essential elements of our Heap in place, let’s implement
+- en: 'Now that we have the essential elements of our `Heap` in place, let’s implement
     the insertion algorithm:'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | insert(value) { |'
+- en: '| ​  | `insert`(`value`) { |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data.push(value); |'
+- en: '| ​  | ​`this`.data.push(value); |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ newNodeIndex = ​**this**​.data.length - 1; |'
+- en: '| ​  | ​`let` newNodeIndex = `this`.data.length - 1; |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (newNodeIndex > 0 |'
+- en: '| ​  | ​`while` (newNodeIndex > 0 |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | && (​**this**​.data[newNodeIndex] > ​**this**​.data[​**this**​.parentIndex(newNodeIndex)]))
+- en: '| ​  | && (`this`.data[`newNodeIndex`] > `this`.data[`this`.parentIndex(`newNodeIndex`)]))
     { |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ parentIndex = ​**this**​.parentIndex(newNodeIndex); |'
+- en: '| ​  | ​`const` parentIndex = `this`.parentIndex(newNodeIndex); |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[parentIndex], ​**this**​.data[newNodeIndex]] = |'
+- en: '| ​  | [`this`.data[parentIndex], `this`.data[newNodeIndex]] = |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[newNodeIndex], ​**this**​.data[parentIndex]]; |'
+- en: '| ​  | [`this`.data[newNodeIndex], `this`.data[parentIndex]]; |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | newNodeIndex = parentIndex; |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: As usual, let’s break this thing down.
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Our insert method accepts the value we’re inserting into our heap. The first
+- en: 'Our `insert` method accepts the value we’re inserting into our heap. The first
     thing we do is make this new value the last node by adding it to the very end
     of the array:'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**this**​.data.push(value); |'
+- en: '| ​  | `this`.data.push(value); |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Next, we keep track of the index of the new node, as we’ll need it later. Right
     now, the index is the last index in the array:'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ newNodeIndex = ​**this**​.data.length - 1; |'
+- en: '| ​  | `let` newNodeIndex = `this`.data.length - 1; |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Next, we trickle up the new node to its proper place using a while loop:'
+- en: 'Next, we trickle up the new node to its proper place using a `while` loop:'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (newNodeIndex > 0 |'
+- en: '| ​  | `while` (newNodeIndex > 0 |'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | && (​**this**​.data[newNodeIndex] > ​**this**​.data[​**this**​.parentIndex(newNodeIndex)]))
+- en: '| ​  | && (`this`.data[newNodeIndex] > `this`.data[`this`.parentIndex(newNodeIndex)])
     { |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This loop runs as long as two conditions are met. The main condition is that
     the new node is greater than its parent node. We also make a condition that the
     new node must have an index greater than 0, as funny things can happen if we try
     to compare the root node with its nonexistent parent.
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Each time this loop runs, we swap the new node with its parent node since the
     new node is currently greater than the parent:'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ parentIndex = ​**this**​.parentIndex(newNodeIndex); |'
+- en: '| ​  | `const` parentIndex = `this`.parentIndex(newNodeIndex); |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[parentIndex], ​**this**​.data[newNodeIndex]] = |'
+- en: '| ​  | [`this`.data[parentIndex], `this`.data[newNodeIndex]] = |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[newNodeIndex], ​**this**​.data[parentIndex]]; |'
+- en: '| ​  | [`this`.data[newNodeIndex], `this`.data[parentIndex]]; |'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We also then update the index of the new node appropriately:'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | newNodeIndex = parentIndex; |'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Since this loop only runs while the new node is greater than its parent, the
     loop ends once the new node is in its proper place.
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Heap Deletion'
+  id: totrans-82
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: We’ll next look at an implementation of deleting an item from a heap. We named
-    the method pop since the term pop implies a focus on returning the deleted value
-    to be used by other code, such as in a priority queue (as we’ll see soon). We’re
-    not merely trying to eliminate the root value; we also want to pass that value
-    along to other code to be processed.
+    the method `pop` since the term `pop` implies a focus on returning the deleted
+    value to be used by other code, such as in a priority queue (as we’ll see soon).
+    We’re not merely trying to eliminate the root value; we also want to pass that
+    value along to other code to be processed.
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The main method is the pop method, but to make the code simpler, we’ve created
-    two helper methods, hasGreaterChild and findLargerChildIndex.
+- en: The main method is the `pop` method, but to make the code simpler, we’ve created
+    two helper methods, `hasGreaterChild` and `findLargerChildIndex`.
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here goes:'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | pop() { |'
+- en: '| ​  | `pop()` { |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (​**this**​.data.length === 1) { |'
+- en: '| ​  | `if` (`this`.data.length === 1) { |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ valueToDelete = ​**this**​.rootNode(); |'
+- en: '| ​  | `const` valueToDelete = `this`.rootNode(); |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data = []; |'
+- en: '| ​  | `this`.data = []; |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ valueToDelete; |'
+- en: '| ​  | `return` valueToDelete; |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ valueToDelete = ​**this**​.rootNode(); |'
+- en: '| ​  | `const` valueToDelete = `this`.rootNode(); |'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data[0] = ​**this**​.data.pop(); |'
+- en: '| ​  | `this`.data[0] = `this`.data.pop(); |'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ trickleNodeIndex = 0; |'
+- en: '| ​  | `let` trickleNodeIndex = 0; |'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.hasGreaterChild(trickleNodeIndex)) { |'
+- en: '| ​  | `while` (`this`.hasGreaterChild(trickleNodeIndex)) { |'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ largerChildIndex = ​**this**​.findLargerChildIndex(trickleNodeIndex);
+- en: '| ​  | `const` largerChildIndex = `this`.findLargerChildIndex(trickleNodeIndex);
     |'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[trickleNodeIndex], ​**this**​.data[largerChildIndex]]
-    = |'
+- en: '| ​  | [`this`.data[trickleNodeIndex], `this`.data[largerChildIndex]] = |'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[largerChildIndex], ​**this**​.data[trickleNodeIndex]];
-    |'
+- en: '| ​  | [`this`.data[largerChildIndex], `this`.data[trickleNodeIndex]]; |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | trickleNodeIndex = largerChildIndex; |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ valueToDelete; |'
+- en: '| ​  | ​`return`​ `valueToDelete`; |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | hasGreaterChild(index) { |'
+- en: '| ​  | `hasGreaterChild`(`index`) { |'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ((​**this**​.leftChildIndex(index) < ​**this**​.data.length
+- en: '| ​  | ​`return`​ ((​`this`​.leftChildIndex(`index`) < ​`this`​.data.length
     |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | && ​**this**​.data[​**this**​.leftChildIndex(index)] > ​**this**​.data[index])
+- en: '| ​  | && ​`this`​.data[​`this`​.leftChildIndex(`index`)] > ​`this`​.data[`index`]
     |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | &#124;&#124; (​**this**​.rightChildIndex(index) < ​**this**​.data.length
+- en: '| ​  | &#124;&#124; (​`this`​.rightChildIndex(`index`) < ​`this`​.data.length
     |'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | && ​**this**​.data[​**this**​.rightChildIndex(index)] > ​**this**​.data[index]));
+- en: '| ​  | && ​`this`​.data[​`this`​.rightChildIndex(`index`)] > ​`this`​.data[`index`]));
     |'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | findLargerChildIndex(index) { |'
+- en: '| ​  | `findLargerChildIndex`(`index`) { |'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!​**this**​.data[​**this**​.rightChildIndex(index)]) { |'
+- en: '| ​  | ​`if`​ (!​`this`​.data[​`this`​.rightChildIndex(`index`)]) { |'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.leftChildIndex(index); |'
+- en: '| ​  | ​`return`​ ​`this`​.leftChildIndex(`index`); |'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (​**this**​.data[​**this**​.rightChildIndex(index)] > |'
+- en: '| ​  | ​`if`​ (​`this`​.data[​`this`​.rightChildIndex(`index`)] > |'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data[​**this**​.leftChildIndex(index)]) { |'
+- en: '| ​  | ​`this`​.data[​`this`​.leftChildIndex(`index`)] { |'
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.rightChildIndex(index); |'
+- en: '| ​  | ​`return`​ ​`this`​.rightChildIndex(`index`); |'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } ​`else`​ { |'
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.leftChildIndex(index); |'
+- en: '| ​  | ​`return`​ ​`this`​.leftChildIndex(`index`); |'
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Let’s first dive into the pop method.
+- en: Let’s first dive into the `pop` method.
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The pop method doesn’t accept any arguments, since the only node we ever delete
+- en: The `pop` method doesn’t accept any arguments, since the only node we ever delete
     is the root node. Here’s how the method works.
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First, we handle the case where the heap only contains one element:'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (​**this**​.data.length === 1) { |'
+- en: '| ​  | ​`if`​ (​`this`​.data.length === `1`) { |'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ valueToDelete = ​**this**​.rootNode(); |'
+- en: '| ​  | ​`const`​ `valueToDelete` = ​`this`​.rootNode(); |'
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data = []; |'
+- en: '| ​  | ​`this`​.data = []; |'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ valueToDelete; |'
+- en: '| ​  | ​`return`​ `valueToDelete`; |'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Since there only is a root node, that becomes the value we’ll be deleting, which
-    we store in a variable appropriately named valueToDelete. We wipe this.data clean
-    by making it point to an empty array, and we return the valueToDelete.
+    we store in a variable appropriately named `valueToDelete`. We wipe `this.data`
+    clean by making it point to an empty array, and we return the `valueToDelete`.
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The rest of the pop method handles cases where the heap contains more than one
-    element.
+- en: The rest of the `pop` method handles cases where the heap contains more than
+    one element.
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First, we save the value we’re going to delete so we can return it at the end
     of the method:'
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ valueToDelete = ​**this**​.rootNode(); |'
+- en: '| ​  | ​`const`​ `valueToDelete` = ​`this`​.rootNode(); |'
+  id: totrans-139
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Next, we remove the last value from the array and make it the first value:'
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**this**​.data[0] = ​**this**​.data.pop(); |'
+- en: '| ​  | ​`this`​.data[`0`] = ​`this`​.data.pop(); |'
+  id: totrans-141
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This simple line effectively deletes the original root node, as we’re overwriting
     the root node’s value with the last node’s value.
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, we need to trickle the new root node down to its proper place. We called
     this the trickle node earlier, and our code reflects this.
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Before we start the actual trickling, we keep track of the trickle node’s index,
-    as we’ll need it later. Currently, the trickle node is at index 0:'
+    as we’ll need it later. Currently, the trickle node is at index `0`:'
+  id: totrans-144
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ trickleNodeIndex = 0; |'
+- en: '| ​  | ​`let`​ `trickleNodeIndex` = `0`; |'
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We then use a while loop to execute the trickle-down algorithm. The loop runs
     as long as the trickle node has any children that are greater than it:'
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (​**this**​.hasGreaterChild(trickleNodeIndex)) { |'
+- en: '| ​  | ​`while`​ (​`this`​.hasGreaterChild(`trickleNodeIndex`)) { |'
+  id: totrans-147
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This line uses the hasGreaterChild method, which returns whether a given node
+- en: This line uses the `hasGreaterChild` method, which returns whether a given node
     has any children who are greater than that node.
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Within this loop, we first find the index of the greater of the trickle node’s
     children:'
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ largerChildIndex = ​**this**​.findLargerChildIndex(trickleNodeIndex);
+- en: '| ​  | ​`const`​ `largerChildIndex` = ​`this`​.findLargerChildIndex(`trickleNodeIndex`);
     |'
+  id: totrans-150
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This line uses the method findLargerChildIndex, which returns the index of the
-    trickle node’s greater child. We store this index in a variable called largerChildIndex.
+- en: This line uses the method `findLargerChildIndex`，which returns the index of
+    the trickle node’s greater child. We store this index in a variable called `largerChildIndex`.
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we swap the trickle node with its greater child:'
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [​**this**​.data[trickleNodeIndex], ​**this**​.data[largerChildIndex]]
-    = |'
+- en: '|  | [`this`.data[trickleNodeIndex], `this`.data[largerChildIndex]] = |'
+  id: totrans-153
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [​**this**​.data[largerChildIndex], ​**this**​.data[trickleNodeIndex]];
-    |'
+- en: '|  | [`this`.data[largerChildIndex], `this`.data[trickleNodeIndex]]; |'
+  id: totrans-154
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We update the index of the trickle node, which will be the index it was just
     swapped with:'
+  id: totrans-155
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | trickleNodeIndex = largerChildIndex; |'
+- en: '|  | `trickleNodeIndex` = `largerChildIndex`; |'
+  id: totrans-156
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Finally, we return the value of the node we deleted from the heap:'
+  id: totrans-157
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ valueToDelete; |'
+- en: '|  | `return` valueToDelete; |'
+  id: totrans-158
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Alternate Heap Implementations
+  id: totrans-159
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Our heap implementation is now complete. It’s worth noting that while we did
     use an array to implement the heap under the hood, it is possible to implement
     a heap using linked nodes as well. (This alternative implementation uses a different
     trick to solve the problem of the last node, one that involves binary numbers.)
+  id: totrans-160
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, the array implementation is the more common approach, so that’s what
     I presented here. It’s also interesting to see how an array can be used to implement
     a tree.
+  id: totrans-161
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Indeed, it’s possible to use an array to implement any sort of binary tree,
     such as the binary search tree from the previous chapter. However, the heap is
     the first case of a binary tree where an array implementation provides an advantage,
     as it helps us find the last node easily.
+  id: totrans-162
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

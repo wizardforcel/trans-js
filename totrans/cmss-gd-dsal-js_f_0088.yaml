@@ -1,111 +1,154 @@
-- en: Stacks
+- en: 栈
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'A stack stores data in the same way arrays do—it’s simply a list of elements.
-    The one catch is that stacks have the following three constraints:'
+- en: 栈以与数组相同的方式存储数据——它仅仅是一个元素列表。唯一的限制是栈有以下三个约束：
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Data can be inserted only at the end of a stack.
+- en: 数据只能在栈的末尾插入。
+  id: totrans-2
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Data can be deleted only from the end of a stack.
+- en: 数据只能从栈的末尾删除。
+  id: totrans-3
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Only the last element of a stack can be read.
+- en: 只有栈的最后一个元素可以被读取。
+  id: totrans-4
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: You can think of a stack as an actual stack of dishes; you can’t look at the
-    face of any dish other than the one at the top. Similarly, you can’t add any dish
-    except to the top of the stack, nor can you remove any dish besides the one at
-    the top. (At least, you shouldn’t.) In fact, most computer science literature
-    refers to the end of the stack as its top and the beginning of the stack as its
-    bottom.
+- en: 你可以把栈想象成一堆实际的盘子；你无法查看除了顶部盘子以外的任何盘子。同样，你不能将任何盘子添加到栈的顶部以外的地方，也不能移除除顶部盘子以外的任何盘子。（至少，你不应该这样做。）实际上，大多数计算机科学文献将栈的末尾称为顶部，而将栈的开头称为底部。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Our diagrams will reflect this terminology by viewing stacks as vertical arrays,
-    like so:'
+- en: 我们的图示将通过将栈视为垂直数组来反映这一术语，如下所示：
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/going_vertical.png](images/stacks_and_queues/going_vertical.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: As you can see, the first item in the array becomes the bottom of the stack,
-    while the last item becomes the stack’s top.
+- en: 如你所见，数组中的第一个项成为栈的底部，而最后一个项成为栈的顶部。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: While the restrictions of a stack seem—well—restrictive, we’ll see shortly how
-    they’re to our benefit.
+- en: 尽管栈的限制似乎——好吧——有些限制，但我们很快会看到这对我们是有好处的。
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To see a stack in action, let’s start with an empty stack.
+- en: 要观察栈的实际操作，让我们从一个空栈开始。
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Inserting a new value into a stack is also called pushing onto the stack. Think
-    of it as adding a dish onto the top of the dish stack.
+- en: 向栈中插入新值也称为将其推入栈中。可以把它想象成在盘子堆的顶部添加一道菜。
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s push a 5 onto the stack:'
+- en: 让我们将`5`推入栈中：
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/push_5.png](images/stacks_and_queues/push_5.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Again, there’s nothing fancy going on here. All we’re really doing is just inserting
-    a data element into the end of an array.
+- en: 再次说明，这里没有什么复杂的。我们实际上只是将一个数据元素插入数组的末尾。
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now let’s push a 3 onto the stack:'
+- en: 现在让我们将`3`推入栈中：
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/push_3.png](images/stacks_and_queues/push_3.png)'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Next, let’s push a 0 onto the stack:'
+- en: 接下来，让我们将`0`推入栈中：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/push_0.png](images/stacks_and_queues/push_0.png)'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Note that we’re always adding data to the top (that is, the end) of the stack.
-    If we wanted to insert the 0 into the bottom or middle of the stack, we couldn’t,
-    because that’s the nature of a stack: data can only be added to the top.'
+- en: 请注意，我们总是将数据添加到栈的顶部（也就是末尾）。如果我们想在栈的底部或中间插入`0`，我们是不能的，因为这就是栈的特性：数据只能添加到顶部。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Removing elements from the top of the stack is called popping from the stack.
-    Because of a stack’s restrictions, we can only pop data from the top.
+- en: 从栈的顶部删除元素称为从栈中弹出。由于栈的限制，我们只能从顶部弹出数据。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s pop some elements from our example stack.
+- en: 让我们从示例栈中弹出一些元素。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'First, we pop the 0:'
+- en: 首先，我们弹出`0`：
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/pop_0.png](images/stacks_and_queues/pop_0.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Our stack now contains only two elements: the 5 and the 3.'
+- en: 我们的栈现在仅包含两个元素：`5`和`3`。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Next, we pop the 3:'
+- en: 接下来，我们弹出`3`：
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/pop_3.png](images/stacks_and_queues/pop_3.png)'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Our stack now only contains the 5:'
+- en: 我们的栈现在只包含`5`：
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/stacks_and_queues/only_5.png](images/stacks_and_queues/only_5.png)'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: A handy acronym used to describe stack operations is LIFO, which stands for
-    last in, first out. All this means is the last item pushed onto a stack is always
-    the first item popped from it. It’s sort of like students who slack off—they’re
-    always the last to arrive to class but the first to leave.
+- en: 一个用于描述栈操作的方便缩写是`LIFO`，表示后进先出。这意味着最后推入栈的项总是第一个被弹出的。这有点像那些懒惰的学生——他们总是最后到达教室，但却是第一个离开的。
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,569 +1,836 @@
 - en: Magical Lookups
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: One of my favorite go-to optimization techniques is to ask myself, “If I could
-    magically find a desired piece of information in O(1) time, can I make my algorithm
+    magically find a desired piece of information in `O(1)` time, can I make my algorithm
     faster?” If the answer to this is yes, I then use a data structure (often a hash
     table) to make that magic happen. I call this technique “magical lookups.”
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let me clarify this technique with an example.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Magically Looking Up Authors
+  id: totrans-3
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say we’re writing library software and we have data about books and their
     authors contained in two separate arrays.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Specifically, the array of authors looks like this:'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ authors = [ |'
+- en: '| ​  | `const` authors = [ |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 1, name: ​*''Virginia Woolf''*​ }, |'
+- en: '| ​  | `{ authorId: 1, name: ''Virginia Woolf'' }, |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 2, name: ​*''Leo Tolstoy''*​ }, |'
+- en: '| ​  | `{ authorId: 2, name: ''Leo Tolstoy'' }, |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 3, name: ​*''Dr. Seuss''*​ }, |'
+- en: '| ​  | `{ authorId: 3, name: ''Dr. Seuss'' }, |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 4, name: ​*''J. K. Rowling''*​ }, |'
+- en: '| ​  | `{ authorId: 4, name: ''J. K. Rowling'' }, |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 5, name: ​*''Mark Twain''*​ }, |'
+- en: '| ​  | `{ authorId: 5, name: ''Mark Twain'' }, |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ]; |'
+- en: '| ​  | `]; |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: As you can see, it’s an array of hash tables, with each hash table containing
     an author’s name and ID.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We also have a separate array containing data about books:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ books = [ |'
+- en: '| ​  | `const` books = [ |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 3, title: ​*''Hop on Pop''*​ }, |'
+- en: '| ​  | `{ authorId: 3, title: ''Hop on Pop'' }, |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 1, title: ​*''Mrs. Dalloway''*​ }, |'
+- en: '| ​  | `{ authorId: 1, title: ''Mrs. Dalloway'' }, |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 4, title: ​*''Harry Potter and the Sorcerers Stone''*​ },
-    |'
+- en: '| ​  | `{ authorId: 4, title: ''Harry Potter and the Sorcerers Stone'' }, |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 1, title: ​*''To the Lighthouse''*​ }, |'
+- en: '| ​  | `{ authorId: 1, title: ''To the Lighthouse'' }, |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 2, title: ​*''Anna Karenina''*​ }, |'
+- en: '| ​  | `{ authorId: 2, title: ''Anna Karenina'' }, |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 5, title: ​*''The Adventures of Tom Sawyer''*​ }, |'
+- en: '| ​  | `{ authorId: 5, title: ''The Adventures of Tom Sawyer'' }, |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 3, title: ​*''The Cat in the Hat''*​ }, |'
+- en: '| ​  | `{ authorId: 3, title: ''The Cat in the Hat'' }, |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 2, title: ​*''War and Peace''*​ }, |'
+- en: '| ​  | `{ authorId: 2, title: ''War and Peace'' }, |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 3, title: ​*''Green Eggs and Ham''*​ }, |'
+- en: '| ​  | `{ authorId: 3, title: ''Green Eggs and Ham'' }, |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { authorId: 5, title: ​*''The Adventures of Huckleberry Finn''*​ },
-    |'
+- en: '| ​  | `{ authorId: 5, title: ''The Adventures of Huckleberry Finn'' }, |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ]; |'
+- en: '| ​  | `]; |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Like the authors array, the books array contains a number of hash tables. Each
-    hash table contains a book’s title and the authorId, which can allow us to determine
+    hash table contains a book’s title and the `authorId`, which can allow us to determine
     the book’s author using the data from the authors array. “Hop on Pop”, for example,
-    has the authorId of 3\. This means the author of “Hop on Pop” is Dr. Seuss since
-    he’s the author whose ID is 3, as indicated in the authors array.
+    has the `authorId` of 3. This means the author of “Hop on Pop” is `Dr. Seuss`
+    since he’s the author whose ID is 3, as indicated in the authors array.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, let’s say we want to write code that combined this information together
     to create an array in the following format:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ booksWithAuthors = [ |'
+- en: '| ​  | `const` booksWithAuthors = [ |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''Hop on Pop''*​ }, |'
+- en: '| ​  | `{ author: ''Dr. Seuss'', title: ''Hop on Pop'' }, |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Virginia Woolf''*​, title: ​*''Mrs. Dalloway''*​ }, |'
+- en: '| ​  | `{ author: ''Virginia Woolf'', title: ''Mrs. Dalloway'' }, |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''J. K. Rowling''*​, title: ​*''Harry Potter and the Sorcerers
-    Stone''*​ }, |'
+- en: '| ​  | `{ author: ''J. K. Rowling'', title: ''Harry Potter and the Sorcerers
+    Stone'' }, |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Virginia Woolf''*​, title: ​*''To the Lighthouse''*​ },
+- en: '| ​  | `{ author: ''Virginia Woolf'', title: ''To the Lighthouse'' }, |'
+  id: totrans-33
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `{ author: ''Leo Tolstoy'', title: ''Anna Karenina'' }, |'
+  id: totrans-34
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `{ author: ''Mark Twain'', title: ''The Adventures of Tom Sawyer'' },
     |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Leo Tolstoy''*​, title: ​*''Anna Karenina''*​ }, |'
+- en: '| ​  | `{ author: ''Dr. Seuss'', title: ''The Cat in the Hat'' }, |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Mark Twain''*​, title: ​*''The Adventures of Tom Sawyer''*​
-    }, |'
+- en: '| ​  | `{ author: ''Leo Tolstoy'', title: ''War and Peace'' }, |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''The Cat in the Hat''*​ }, |'
+- en: '| ​  | `{ author: ''Dr. Seuss'', title: ''Green Eggs and Ham'' }, |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | { author: ​*''Leo Tolstoy''*​, title: ​*''War and Peace''*​ }, |'
+- en: '| ​  | { author: `''Mark Twain''`, title: `''The Adventures of Huckleberry
+    Finn'' }, |'
+  id: totrans-39
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | { author: ​*''Dr. Seuss''*​, title: ​*''Green Eggs and Ham''*​ }, |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | { author: ​*''Mark Twain''*​, title: ​*''The Adventures of Huckleberry
-    Finn''*​ }, |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | ]; |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: To do this, we’d probably need to iterate through the array of books and connect
-    each book to its respective author. How would we go about this specifically?
+- en: '-   为此，我们可能需要遍历书籍数组，并将每本书连接到其相应的作者。我们具体该如何进行呢？'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'One solution may be to use nested loops. The outer loop would iterate over
-    each book, and for each book, we’d run an inner loop that would check each author
-    until it found the one with the connecting ID. Here’s an implementation of this
-    approach:'
+- en: '-   一个解决方案可能是使用嵌套循环。外循环将遍历每本书，对于每本书，我们将运行一个内循环，检查每个作者，直到找到连接 ID 的那个。以下是这种方法的实现：'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ connectBooksWithAuthors(books, authors) { |'
+- en: '| ​  | `function` connectBooksWithAuthors(books, authors) { |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ booksWithAuthors = []; |'
+- en: '| ​  | `const` booksWithAuthors = []; |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ book ​**of**​ books) { |'
+- en: '| ​  | `for` (`const` book `of` books) { |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ author ​**of**​ authors) { |'
+- en: '| ​  | `for` (`const` author `of` authors) { |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (book.authorId === author.authorId) { |'
+- en: '| ​  | `if` (book.authorId === author.authorId) { |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | booksWithAuthors.push({ title: book.title, author: author.name }); |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ booksWithAuthors; |'
+- en: '| ​  | `return` booksWithAuthors; |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Before we can optimize our code, we need to fulfill our prereq and determine
-    our current algorithm’s Big O.
+- en: '-   在我们能够优化代码之前，我们需要满足我们的前提条件，并确定当前算法的 Big O。'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This algorithm has a time complexity of O(N * M) since for each of the N books
-    we need to loop through M authors to find the book’s author.
+- en: '-   这个算法的时间复杂度是 O(N * M)，因为对于每本 N 本书，我们需要遍历 M 个作者以找到书的作者。'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, let’s see if we can do better.
+- en: '-   现在，让我们看看是否能做得更好。'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Again, the first thing we need to do is come up with the best-imaginable Big
-    O. In this case, we definitely need to iterate over all N books, so it would seem
-    impossible to beat O(N). Since O(N) is the fastest speed I can think of that isn’t
-    downright impossible, we’ll say that O(N) is our best-imaginable Big O.
+- en: '-   首先我们需要做的就是想出最佳的 Big O。在这种情况下，我们绝对需要遍历所有 N 本书，因此似乎不可能超越 O(N)。由于 O(N) 是我能想到的最快速度，而且并不完全不可能，我们可以说
+    O(N) 是我们设想的最佳 Big O。'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We’re now ready to use the new magical lookups technique. To do this, I’ll
-    ask myself the question mentioned at the start of this section: “If I could magically
-    find a desired piece of information in O(1) time, can I make my algorithm faster?”'
+- en: '-   我们现在准备使用新的神奇查找技巧。为此，我会问自己本节开头提到的问题：“如果我能以 O(1) 的时间神奇地找到所需的信息，我能否让我的算法更快？”'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s apply this to our scenario. We currently run an outer loop that iterates
-    over all the books. Currently, for each book, we run an inner loop that tries
-    to find the book’s authorId in the authors array.
+- en: '-   让我们将其应用到我们的场景中。我们当前运行一个外循环，遍历所有书籍。目前，对于每本书，我们运行一个内循环，尝试在作者数组中找到该书的 authorId。'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: But what if we had the magical ability to find an author in just O(1) time?
-    What if we didn’t have to loop through all the authors each time we wanted to
-    look one up and we could instead find the author immediately? That would bring
-    a huge speed boost to our algorithm, as we could potentially eliminate our inner
-    loop and bring our code’s speed up to the vaunted O(N).
+- en: '-   但如果我们拥有以 O(1) 的时间找到作者的魔法能力会怎样？如果我们每次想查找一个作者时，不必遍历所有作者，而是能够立即找到该作者？那将为我们的算法带来巨大的速度提升，因为我们可能会消除内循环，并将代码的速度提升到令人称道的
+    O(N)。'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we’ve determined that this magical finding ability could help us, the
-    next step is to try to make this magic come alive.
+- en: '-   现在我们已经确定这个神奇的查找能力可以帮助我们，下一步是尝试让这项魔法活起来。'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Bringing in the Extra Data Structure
+- en: '-   引入额外的数据结构'
+  id: totrans-64
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: One of the easiest ways we can achieve this magical lookup ability is to bring
-    an additional data structure into our code. We’ll use this data structure to specifically
-    store data in such a way that allows us to look that data up quickly. In many
-    cases, the hash table is the perfect data structure for this since it has O(1)
-    lookups, as you learned in Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes).
+- en: '-   我们可以实现这种神奇查找能力的最简单方法之一是将额外的数据结构引入我们的代码。我们将使用这个数据结构以特定方式存储数据，从而使我们能够快速查找该数据。在许多情况下，哈希表是完美的数据结构，因为它具有
+    O(1) 的查找速度，正如你在第 8 章中学到的，[*Blazing Fast Lookup with Hash Tables*](f_0076.xhtml#chp.hashes)。'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Right now, because the author hash tables are stored in an array, it will always
-    take us O(M) steps (M being the number of authors) to find any given authorId
+    take us `O(M)` steps (`M` being the number of authors) to find any given `authorId`
     within that array. But if we store that same information in a hash table, we now
-    gain our magical ability to find each author in just O(1) time.
+    gain our magical ability to find each author in just `O(1)` time.
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s one possibility of what this hash table could look like:'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | authorHashTable = |'
+- en: '| ​  | `authorHashTable =` |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | {1: ​*''Virginia Woolf''*​, 2: ​*''Leo Tolstoy''*​, 3: ​*''Dr. Seuss''*​,
-    |'
+- en: '| ​  | `{1: ''Virginia Woolf'', 2: ''Leo Tolstoy'', 3: ''Dr. Seuss'',` |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 4: ​*''J. K. Rowling''*​, 5: ​*''Mark Twain''*​} |'
+- en: '| ​  | `4: ''J. K. Rowling'', 5: ''Mark Twain''}` |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In this hash table, each key is the author’s ID, and the value of each key is
     the author’s name.
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'So let’s optimize our algorithm by first moving the authors data into this
     hash table and only then run our loop through the books:'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ connectBooksWithAuthors(books, authors) { |'
+- en: '| ​  | `function connectBooksWithAuthors(books, authors) {` |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ booksWithAuthors = []; |'
+- en: '| ​  | `const booksWithAuthors = [];` |'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ authorHashTable = {}; |'
+- en: '| ​  | `const authorHashTable = {};` |'
+  id: totrans-75
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ author ​**of**​ authors) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | authorHashTable[author.authorId] = author.name; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ book ​**of**​ books) { |'
+- en: '| ​  | `for (const author of authors) {` |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | booksWithAuthors.push({ |'
+- en: '| ​  | `authorHashTable[author.authorId] = author.name;` |'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | title: book.title, |'
+- en: '| ​  | `}` |'
+  id: totrans-79
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | author: authorHashTable[book.authorId] |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | }); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ booksWithAuthors; |'
+- en: '| ​  | `for (const book of books) {` |'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `booksWithAuthors.push({` |'
+  id: totrans-82
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `title: book.title,` |'
+  id: totrans-83
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `author: authorHashTable[book.authorId]` |'
+  id: totrans-84
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `});` |'
+  id: totrans-85
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-86
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-87
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return booksWithAuthors;` |'
+  id: totrans-88
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-89
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In this version, we first iterate through the authors array and use that data
-    to create the authorHashTable. This takes M steps, with M being the number of
-    authors.
+    to create the `authorHashTable`. This takes `M` steps, with `M` being the number
+    of authors.
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We then iterate through the list of books and use the authorHashTable to “magically”
-    find each author in a single step. This loop takes N steps, with N being the number
-    of books.
+- en: We then iterate through the list of books and use the `authorHashTable` to “magically”
+    find each author in a single step. This loop takes `N` steps, with `N` being the
+    number of books.
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This optimized algorithm takes a grand total of O(N + M) steps, since we run
-    a single loop through the N books and a single loop through the M authors. This
-    is drastically faster than our original algorithm, which took O(N * M).
+- en: This optimized algorithm takes a grand total of `O(N + M)` steps, since we run
+    a single loop through the `N` books and a single loop through the `M` authors.
+    This is drastically faster than our original algorithm, which took `O(N * M)`.
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It’s worth noting that by creating the extra hash table, we’re using up an additional
-    O(M) space, whereas our initial algorithm didn’t take up any extra space at all.
-    However, this is great optimization if we’re willing to sacrifice the memory for
-    the sake of speed.
+    `O(M)` space, whereas our initial algorithm didn’t take up any extra space at
+    all. However, this is great optimization if we’re willing to sacrifice the memory
+    for the sake of speed.
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We made this magic happen by first dreaming what magical O(1) lookups could
+- en: We made this magic happen by first dreaming what magical `O(1)` lookups could
     do for us, and we then granted ourselves our own wish by using a hash table to
     store our data in an easy-to-find way.
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The fact that we can look up hash table data in O(1) time isn’t new, as we looked
-    at this back in Chapter 8, [​*Blazing Fast Lookup with Hash Tables*​](f_0076.xhtml#chp.hashes).
+- en: The fact that we can look up hash table data in `O(1)` time isn’t new, as we
+    looked at this back in Chapter 8, [*Blazing Fast Lookup with Hash Tables*](f_0076.xhtml#chp.hashes).
     The specific tip I’m sharing here, though, is to constantly imagine that you can
-    perform O(1) lookups on any kind of data and notice whether that would speed up
-    your code. Once you have the vision of how O(1) lookups would help you, you can
-    then try to use a hash table or other data structure to turn that dream into reality.
+    perform `O(1)` lookups on any kind of data and notice whether that would speed
+    up your code. Once you have the vision of how `O(1)` lookups would help you, you
+    can then try to use a hash table or other data structure to turn that dream into
+    reality.
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Two Sum Problem
+  id: totrans-96
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s look at another scenario in which we can benefit from magical lookups.
-    This is one my favorite optimization examples.
+    This is one of my favorite optimization examples.
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The two sum problem is a well-known coding exercise. The task is to write a
-    function that accepts an array of numbers and returns true or false depending
-    on whether there are any two numbers in the array that add up to 10 (or another
-    given number). For simplicity, let’s assume there will never be duplicate numbers
-    in the array.
+- en: The `two sum` problem is a well-known coding exercise. The task is to write
+    a `function` that accepts an `array` of numbers and returns `true` or `false`
+    depending on whether there are any two numbers in the `array` that add up to `10`
+    (or another given number). For simplicity, let’s assume there will never be duplicate
+    numbers in the `array`.
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s say this is our array:'
+- en: 'Let’s say this is our `array`:'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | [2, 0, 4, 1, 7, 9] |'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Our function would return true, since the 1 and 9 add up to 10.
+- en: Our `function` would return `true`, since the `1` and `9` add up to `10`.
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'But let’s look at the following array:'
+- en: 'But let’s look at the following `array`:'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | [2, 0, 4, 5, 3, 9] |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: In this case, we return false. Even though the three numbers 2, 5, and 3 add
-    up to 10, we specifically need two numbers to add up to 10.
+- en: In this case, we return `false`. Even though the three numbers `2`, `5`, and
+    `3` add up to `10`, we specifically need two numbers to add up to `10`.
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The first solution that comes to mind is to use nested loops to compare each
-    number to every other number and see if they add up to 10\. Here’s a JavaScript
+    number to every other number and see if they add up to `10`. Here’s a JavaScript
     implementation:'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ twoSum(array) { |'
+- en: '| ​  | ​`function`​ `twoSum`(`array`) { |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 0; i < array.length; i += 1) { |'
+- en: '| ​  | ​`for`​ (`let` i = 0; i < `array.length`; i += 1) { |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ j = 0; j < array.length; j += 1) { |'
+- en: '| ​  | ​`for`​ (`let` j = 0; j < `array.length`; j += 1) { |'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (i !== j && array[i] + array[j] === 10) { |'
+- en: '| ​  | ​`if`​ (i !== j && `array[i]` + `array[j]` === `10`) { |'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | ​`return`​ ​`true`; |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | ​`return`​ ​`false`; |'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: As always, before attempting an optimization, we need to satisfy our prereq
-    and figure out the current Big O of our code.
+    and figure out the current `Big O` of our code.
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As is typical in a nested-loop algorithm, this function has a runtime of O(N²).
+- en: As is typical in a nested-loop algorithm, this `function` has a runtime of `O(N²)`.
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, to see if our algorithm is worth optimizing, we need to see if the best-imaginable
-    Big O would be any better.
+    `Big O` would be any better.
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this case, it would seem that we absolutely have to visit each number in
-    the array at least once. So, we couldn’t beat O(N). And if someone told me that
-    there’s an O(N) solution to this problem, I suppose I’d believe them. So let’s
-    make O(N) our best-imaginable Big O.
+    the `array` at least once. So, we couldn’t beat `O(N)`. And if someone told me
+    that there’s an `O(N)` solution to this problem, I suppose I’d believe them. So
+    let’s make `O(N)` our best-imaginable `Big O`.
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, let’s ask ourselves the magical lookup question: “If I could magically
-    find a desired piece of information in O(1) time, can I make my algorithm faster?”'
+    find a desired piece of information in `O(1)` time, can I make my algorithm faster?”'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Sometimes it helps to begin walking through our current implementation while
     asking this question along the way, so let’s do that.
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s mentally walk through our outer loop with the example array of [2, 0,
-    4, 1, 7, 9]. This loop begins with the first number, which is the number 2.
+- en: Let’s mentally walk through our outer loop with the example `array` of `[2,
+    0, 4, 1, 7, 9]`. This loop begins with the first number, which is the number `2`.
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, what piece of information might we desire to look up while we’re looking
-    at the 2? Again, we want to know if this 2 could be added to another number in
-    the array to provide a sum of 10.
+    at the `2`? Again, we want to know if this `2` could be added to another number
+    in the `array` to provide a sum of `10`.
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Thinking about it further, while looking at the 2, I’d want to know whether
-    there’s an 8 somewhere in this array. If we could, magically, do an O(1) lookup
-    and know that there’s an 8 in the array, we could immediately return true. Let’s
-    call the 8 the 2’s counterpart, since the two numbers add up to 10.
+- en: Thinking about it further, while looking at the `2`, I’d want to know whether
+    there’s an `8` somewhere in this array. If we could, magically, do an `O(1)` lookup
+    and know that there’s an `8` in the array, we could immediately return `true`.
+    Let’s call the `8` the `2`’s counterpart, since the two numbers add up to `10`.
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Similarly, when we move on to the 0, we’d want to do an O(1) lookup to find
-    its counterpart—a 10—in the array, and so on.
+- en: Similarly, when we move on to the `0`, we’d want to do an `O(1)` lookup to find
+    its counterpart—a `10`—in the array, and so on.
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With this approach, we can iterate through the array just once and do magical
-    O(1) lookups along the way to see whether each number’s counterpart exists in
-    the array. As soon as we find any number’s counterpart, we return true, but if
-    we get to the end of the array without finding any numerical counterparts, we
-    return false.
+- en: 通过这种方法，我们可以仅遍历一次数组，并在此过程中进行神奇的`O(1)`查找，以查看每个数字的对应数是否存在于数组中。只要我们找到任何数字的对应数，就返回`true`，但如果我们到达数组的末尾而没有找到任何数字对应数，则返回`false`。
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we’ve determined we’d benefit from these magical O(1) lookups, let’s
-    try to pull off our magic trick by bringing in an extra data structure. Again,
-    the hash table is usually the default option for magical lookups because of its
-    O(1) reads. (It’s uncanny how often hash tables can be used to speed up algorithms.)
+- en: 现在我们已经确定这些神奇的`O(1)`查找会带来好处，让我们试着通过引入一个额外的数据结构来施展我们的魔法。再次强调，哈希表通常是进行魔法查找的默认选项，因为它的读取时间是`O(1)`。（哈希表加速算法的效果简直让人惊讶。）
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Since we want to be able to look up any number from the array in O(1) time,
-    we’ll store those numbers as keys in a hash table. The hash table may look like
-    this:'
+- en: 由于我们希望能够在`O(1)`时间内查找数组中的任何数字，因此我们将这些数字作为键存储在哈希表中。哈希表可能如下所示：
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | {2: true, 0: true, 4: true, 1: true, 7: true, 9: true} |'
+- en: '| ​  | `{2: true, 0: true, 4: true, 1: true, 7: true, 9: true}` |'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We can use any arbitrary item to serve as the values; let’s decide to use true.
+- en: 我们可以使用任何任意项作为值；让我们决定使用`true`。
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now that we can look up any number in O(1) time, how do we look up a number’s
-    counterpart? Well, we noticed that when we iterated over the 2, we knew that the
-    counterpart should be 8\. We knew this because we know intuitively that 2 + 8
-    = 10.
+- en: 现在我们可以在`O(1)`时间内查找任何数字，我们如何查找数字的对应数？我们注意到，当我们迭代`2`时，我们知道对应数应该是`8`。我们之所以知道这一点，是因为我们直觉上知道`2
+    + 8 = 10`。
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Essentially, then, we can calculate any number’s counterpart by subtracting
-    it from 10\. Because 10 - 2 = 8, that means 8 is the 2’s counterpart.
+- en: 实质上，我们可以通过将某个数字从10中减去来计算它的对应数。因为`10 - 2 = 8`，这意味着`8`是`2`的对应数。
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We now have all the ingredients to create a really fast algorithm:'
+- en: 我们现在拥有创建一个非常快速的算法所需的所有元素：
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ twoSum(array) { |'
+- en: '| ​  | ​`function`​ `twoSum(array)` { |'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ hashTable = {}; |'
+- en: '| ​  | ​`const`​ `hashTable` = {}; |'
+  id: totrans-136
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (hashTable[10 - value]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | hashTable[value] = ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | ​`for`​ (`​`​`const`​ `value` ​`of`​ `array`) { |'
+  id: totrans-138
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`if`​ (`hashTable[10 - value]`) { |'
+  id: totrans-139
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ ​`true`; |'
+  id: totrans-140
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } ​`else`​ { |'
+  id: totrans-141
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `hashTable[value]` = ​`true`; |'
+  id: totrans-142
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-143
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This algorithm iterates once through each number in the array.
+- en: '| ​  | } |'
+  id: totrans-144
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-145
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ ​`false`; |'
+  id: totrans-146
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-147
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 该算法仅遍历数组中的每个数字一次。
+  id: totrans-148
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As we visit each number, we check whether the hash table contains a key that
-    is the counterpart of the current number. We calculate this as 10 - value. (For
-    example, if value is 3, the counterpart would be 7 since 10 - 3 = 7.)
+- en: 当我们访问每个数字时，我们检查哈希表中是否包含当前数字的对应数作为键。我们将其计算为`10 - value`。（例如，如果`value`是`3`，对应数将是`7`，因为`10
+    - 3 = 7`。）
+  id: totrans-149
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we find any number’s counterpart, we immediately return true, as that means
-    we’ve found two numbers that add up to 10.
+- en: 如果我们找到任何数字的对应数，我们立即返回`true`，这意味着我们找到了两个加起来等于10的数字。
+  id: totrans-150
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Additionally, as we iterate over each number, we insert the number as a key
-    into the hash table. This is how we populate the hash table with the numbers as
-    we proceed through the array.
+- en: 此外，当我们遍历每个数字时，我们将数字作为键插入哈希表。这就是我们在遍历数组时填充哈希表的方法。
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With this approach, we drastically increased the algorithm’s speed to O(N).
-    We pulled this off by storing all of the data elements in a hash table for the
-    express purpose of being able to perform O(1) lookups throughout the loop.
+- en: With this approach, we drastically increased the algorithm’s speed to `O(N)`。我们通过将所有数据元素存储在一个哈希表中来实现这一点，目的是在循环中能够执行`O(1)`查找。
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Consider the hash table your magical wand, and become the programming wizard
-    you were destined to be. (Okay, enough of that.)
+- en: 把哈希表视为你的魔法棒，成为你注定要成为的编程巫师。（好吧，够了。）
+  id: totrans-153
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,319 +1,473 @@
 - en: The Staircase Problem
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: You’ve now learned to use a new mental strategy for solving certain computational
     problems using top-down recursion. However, you may still be skeptical and ask,
     “Why do we need this new mental strategy anyway? I’ve been able to solve these
     problems with loops just fine until now.”
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Indeed, you may not need a new mental strategy for simpler computations. But
     when it comes to more complex functions, you may find that the recursive mindset
     makes the writing of code much easier. It certainly does for me!
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s one of my favorite examples. A famous question—known as the staircase
     problem—goes like this:'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s say we have a staircase of N steps, and a person has the ability to climb
-    one, two, or three steps at a time. How many different possible “paths” can someone
-    take to reach the top? Write a function that will calculate this for N steps.
-    The following image displays three possible paths of jumping up a five-step staircase.
+- en: Let’s say we have a staircase of `N` steps, and a person has the ability to
+    climb one, two, or three steps at a time. How many different possible “paths”
+    can someone take to reach the top? Write a function that will calculate this for
+    `N` steps. The following image displays three possible paths of jumping up a five-step
+    staircase.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/learning_to_write_in_recursive/staircase.png](images/learning_to_write_in_recursive/staircase.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: These are just three of many possible paths.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s first explore this problem with a bottom-up approach. That is, we’ll work
     our way up from the simplest cases to the more complex ones.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Obviously, if there’s only one step, there’s only one possible path.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'With two steps, there are two paths. The person can climb one step twice, or
     the person can jump up two steps at once. I’ll write this like so:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | 1, 1 |'
+- en: '| ​  | `1, 1` |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 2 |'
+- en: '| ​  | `2` |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'With a staircase of three steps, someone could take one of four possible paths:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | 1, 1, 1 |'
+- en: '| ​  | `1, 1, 1` |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 1, 2 |'
+- en: '| ​  | `1, 2` |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 2, 1 |'
+- en: '| ​  | `2, 1` |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 3 |'
+- en: '| ​  | `3` |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'With four steps, there are seven options:'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | 1, 1, 1, 1 |'
+- en: '| ​  | `1, 1, 1, 1` |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 1, 1, 2 |'
+- en: '| ​  | `1, 1, 2` |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 1, 2, 1 |'
+- en: '| ​  | `1, 2, 1` |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 1, 3 |'
+- en: '| ​  | `1, 3` |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 2, 1, 1 |'
+- en: '| ​  | `2, 1, 1` |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 2, 2 |'
+- en: '| ​  | `2, 2` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 3, 1 |'
+- en: '| ​  | `3, 1` |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Go ahead and try to draw up all the combinations for a five-step staircase.
     It’s not that easy! And this is just five steps. Imagine how many combinations
     there are for, say, eleven steps.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, let’s get to the question at hand: how would we write the code to count
     all the paths?'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Without the recursive mindset, it can be difficult to wrap one’s mind around
     the algorithm for making this calculation. However, with the top-down way of thinking,
     the problem can become surprisingly easy.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For an eleven-step staircase, the first subproblem that comes to mind is a ten-step
     staircase. Let’s go with that for now. If we knew how many possible paths there
     are to climb a ten-step staircase, can we use that as a base for calculating the
     paths for an eleven-step staircase?
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For starters, we do know that climbing an eleven-step staircase will take at
     least as many steps as climbing a ten-step staircase. That is, we have all the
-    paths to get to stair number 10, and from there, one can climb one more step to
-    get to the top.
+    paths to get to stair number `10`, and from there, one can climb one more step
+    to get to the top.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, this can’t be the complete solution, since we know that someone can
-    also jump to the top from stair numbers 9 and 8 as well.
+    also jump to the top from stair numbers `9` and `8` as well.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If we think about it further, we’ll realize that if you’re taking any path that
-    includes going from stair 10 to stair 11, you’re not taking any of the paths that
-    include jumping from stair 9 to stair 11\. Conversely, if you jump from stair
-    9 to stair 11, you’re not taking any of the paths that include stepping on stair
-    10.
+- en: 如果我们进一步思考，就会意识到，如果你走的路径包含从楼梯10到楼梯11的移动，那么你就不会走包含从楼梯9到楼梯11的路径。反之亦然，如果你从楼梯9跳到楼梯11，你就不会走包含踩踏楼梯10的路径。
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So we know that the number of paths to the top will include at least the number
-    of paths to stair 10 plus the number of paths to stair 9.
+- en: 因此我们知道到达顶部的路径数量至少包括到达楼梯10和楼梯9的路径数量。
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: And since it’s possible to also jump from stair 8 to stair 11, as one can jump
-    three steps at a time, we need to include the count of those paths as well.
+- en: 由于可以从楼梯8跳到楼梯11，因为人可以一次跳三步，我们还需要包括这些路径的数量。
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We’ve determined, then, that the number of steps to the top is at least the
-    sum of all the paths to stairs 10, 9, and 8.
+- en: 我们已经确定，到达顶部的步骤至少是楼梯10、9和8的所有路径数量之和。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'However, in thinking about it even further, it’s evident there aren’t any other
-    possible paths to the top beyond these. After all, one can’t jump from stair 7
-    to stair 11\. So we can conclude that for N steps, the number of paths is the
-    following:'
+- en: 然而，进一步思考后，很明显没有其他可能的路径到达顶部。毕竟，人不能从楼梯7跳到楼梯11。因此，我们可以得出结论，对于N步，路径的数量如下：
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | numberOfPaths(n - 1) + numberOfPaths(n - 2) + numberOfPaths(n - 3) |'
+- en: '| ​  | `numberOfPaths(n - 1) + numberOfPaths(n - 2) + numberOfPaths(n - 3)`
+    |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Other than the base case, this will be the code for our function!
+- en: 除了基本情况，这将是我们函数的代码！
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+- en: '| ​  | `function` numberOfPaths(n) { |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+- en: '| ​  | `return` (`numberOfPaths(n - 1)` |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 2) |'
+- en: '| ​  | + `numberOfPaths(n - 2)` |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 3)); |'
+- en: '| ​  | + `numberOfPaths(n - 3)`); |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: It seems too good to be true that this is almost all the code we need. But it
-    is true. All that’s left to deal with is the base case.
+- en: 看起来这几乎是我们所需的所有代码，但这是真的。剩下的就是处理基本情况。
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Staircase Problem Base Case
+- en: 楼梯问题基本情况
+  id: totrans-44
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Determining the base case for this problem is slightly tricky. That’s because
-    when this function gets to an n of 3, 2, or 1, the function will call itself on
-    n of 0 or below. For example, numberOfPaths(2) calls itself for numberOfPaths(1),
-    numberOfPaths(0), and numberOfPaths(-1).
+- en: 确定这个问题的基本情况有点棘手。这是因为当这个函数达到n为3、2或1时，函数将会在n为0或以下时调用自己。例如，`numberOfPaths(2)`会调用自己`numberOfPaths(1)`、`numberOfPaths(0)`和`numberOfPaths(-1)`。
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'One way we can deal with this is by hardcoding all the bottom cases:'
+- en: 我们可以通过硬编码所有底部情况来处理这个问题：
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+- en: '| ​  | `function` numberOfPaths(n) { |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n <= 0) { |'
+- en: '| ​  | `if` (n <= 0) { |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 0; |'
+- en: '| ​  | `return` 0; |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (n === 1) { |'
+- en: '| ​  | } `else` `if` (n === 1) { |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
+- en: '| ​  | `return` 1; |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (n === 2) { |'
+- en: '| ​  | } `else` `if` (n === 2) { |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 2; |'
+- en: '| ​  | `return` 2; |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (n === 3) { |'
+- en: '| ​  | } `else` `if` (n === 3) { |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 4; |'
+- en: '| ​  | `return` 4; |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+- en: '| ​  | `return` (`numberOfPaths(n - 1)` |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 2) |'
+- en: '| ​  | + `numberOfPaths(n - 2)` |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 3)); |'
+- en: '| ​  | + `numberOfPaths(n - 3)`); |'
+  id: totrans-60
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: Another way to devise the base cases here is to cleverly rig the system by using
-    strange but effective base cases that just happen to compute the right numbers.
-    Let me show you what I mean.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'We know that we definitely want the result of numberOfPaths(1) to be 1, so
-    we’ll start with the following base case:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (n === 1) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Now, we that know we want numberOfPaths(2) to return 2, but we do not have to
-    create that base case explicitly. Instead, we can take advantage of the fact that
-    numberOfPaths(2) will compute as numberOfPaths(1) + numberOfPaths(0) + numberOfPaths(-1).
-    Since numberOfPaths(1) returns 1, if we made numberOfPaths(0) also return 1, and
-    numberOfPaths(-1) return 0, we’d end up with a sum of 2, which is what we want.
+- en: 另一种设计基本情况的方法是通过使用奇怪但有效的基本情况巧妙地调整系统，这些情况恰好能够计算出正确的数字。让我来给你展示我所指的。
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So we can add the following base cases:'
+- en: 我们知道我们确实想要`numberOfPaths(1)`的结果为1，因此我们将从以下基本情况开始：
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (n < 0) { |'
+- en: '| ​  | `if` (n === 1) { |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 0; |'
+- en: '| ​  | `return` 1; |'
+  id: totrans-65
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Let’s move on to numberOfPaths(3), which will return the sum of numberOfPaths(2)
-    + numberOfPaths(1) + numberOfPaths(0). We know we want the result to be 4, so
-    let’s see if the math works out. We already rigged numberOfPaths(2) to return
-    2\. numberOfPaths(1) will return 1, and numberOfPaths(0) will also return 1, so
-    we end up getting the sum of 4, which is just what we need.
+- en: 现在，我们知道我们想要`numberOfPaths(2)`返回2，但我们不需要明确创建那个基本情况。相反，我们可以利用`numberOfPaths(2)`将计算为`numberOfPaths(1)
+    + numberOfPaths(0) + numberOfPaths(-1)`的事实。由于`numberOfPaths(1)`返回1，如果我们让`numberOfPaths(0)`也返回1，而`numberOfPaths(-1)`返回0，那么我们将得到和为2，这正是我们想要的。
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Our complete function can also be written like so:'
+- en: 所以我们可以添加以下基本情况：
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ numberOfPaths(n) { |'
+- en: '| ​  | `if` (n < 0) { |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n < 0) { |'
+- en: '| ​  | `return` 0; |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 0; |'
+- en: '| ​  | } `else` `if` (n === 0 || n === 1) { |'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
+- en: '| ​  | `return` 1; |'
+  id: totrans-72
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-73
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 让我们继续讨论`numberOfPaths(3)`，它将返回`numberOfPaths(2) + numberOfPaths(1) + numberOfPaths(0)`的和。我们知道我们想要的结果是4，所以让我们看看这个计算是否正确。我们已经让`numberOfPaths(2)`返回2。`numberOfPaths(1)`将返回1，而`numberOfPaths(0)`也将返回1，所以我们最终得到了4的和，这正是我们所需要的。
+  id: totrans-74
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 我们的完整函数也可以这样写：
+  id: totrans-75
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `function` `numberOfPaths`(n) { |'
+  id: totrans-76
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (n < 0) { |'
+  id: totrans-77
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` 0; |'
+  id: totrans-78
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` `if` (n === 0 || n === 1) { |'
+  id: totrans-79
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` 1; |'
+  id: totrans-80
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-81
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ (numberOfPaths(n - 1) |'
+- en: '| ​  | `return` (`numberOfPaths(n - 1)` |'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 2) |'
+- en: '| ​  | + `numberOfPaths(n - 2)` |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + numberOfPaths(n - 3)); |'
+- en: '| ​  | + `numberOfPaths(n - 3));` |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: While this is less intuitive than our previous version, we cover all the base
-    cases with just two lines of code.
+- en: 虽然这比我们之前的版本不太直观，但我们只用两行代码就覆盖了所有基本情况。
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As you can see, the top-down recursive approach made solving this problem much
-    easier than it might have been otherwise.
+- en: 正如你所看到的，自上而下的递归方法使得解决这个问题变得比其他方法简单得多。
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

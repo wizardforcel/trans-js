@@ -1,287 +1,373 @@
 - en: Building Autocomplete
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: We’re just about ready to build a real autocomplete feature. To make this a
     tad easier, let’s first build a slightly simpler function that we’ll use to help
     us with this feature.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Collecting All the Words
+  id: totrans-2
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: The next method we’re going to add to our Trie class is a method that returns
+- en: The next method we’re going to add to our `Trie` class is a method that returns
     an array of all the words in the trie. Now, it’s rare that we’d actually want
     to list the entire dictionary. However, we’re going to allow this method to accept
     any node of the trie as an argument so that it can list all the words that start
     from that node.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The following method, called collectAllWords, collects a list of all the trie’s
-    words starting from a particular node:'
+- en: 'The following method, called `collectAllWords`, collects a list of all the
+    trie’s words starting from a particular node:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | collectAllWords(words, node=​**null**​, word=​*''''*​) { |'
+- en: '| ​  | `collectAllWords(words, node=` `null` `, word=` `''''` `) { |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ currentNode = node &#124;&#124; ​**this**​.root; |'
+- en: '| ​  | `const` currentNode = `node` `||` `this`.root; |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ [key, childNode] ​**of**​ Object.entries(currentNode.children))
+- en: '| ​  | `for` (`const` [key, childNode] `of` `Object.entries(currentNode.children))
     { |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (key === ​*''*''*​) { |'
+- en: '| ​  | `if` (key === `''*''`) { |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | words.push(word); |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.collectAllWords(words, childNode, word + key); |'
+- en: '| ​  | `this`.collectAllWords(words, childNode, word + key); |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ words; |'
+- en: '| ​  | `return` words; |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This method relies heavily on recursion, so let’s break it down carefully.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The method accepts three primary arguments: words, node, and word.'
+- en: 'The method accepts three primary arguments: `words`, `node`, and `word`.'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When we first call this method, we must pass in words as an empty array. As
+- en: When we first call this method, we must pass in `words` as an empty array. As
     the method proceeds, it will fill this array with words from the trie. The method
     eventually returns this array once we’ve filled it with all the desired words.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The node argument allows us to specify which node in the trie to start collecting
     the words from. If we don’t pass in this argument, our method will start from
     the root node, collecting every word in the entire trie.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The word argument defaults to an empty string. As we move through the trie,
-    we add characters to this word. When we reach an "*", the word is considered complete
-    and we add it to the words array.
+- en: The `word` argument defaults to an empty string. As we move through the trie,
+    we add characters to this word. When we reach an `"*"`, the word is considered
+    complete and we add it to the `words` array.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s now break down each line of code.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The first thing we do is set the currentNode:'
+- en: 'The first thing we do is set the `currentNode`:'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ currentNode = node &#124;&#124; ​**this**​.root; |'
+- en: '| ​  | `const` currentNode = `node` `||` `this`.root; |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: By default, the currentNode will be the root node, unless we passed in some
-    other node as the method’s first parameter. Let’s assume for now that the currentNode
+- en: By default, the `currentNode` will be the root node, unless we passed in some
+    other node as the method’s first parameter. Let’s assume for now that the `currentNode`
     is indeed the root node.
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Next, we begin a loop that iterates over all the key-value pairs in the currentNode’s
+- en: 'Next, we begin a loop that iterates over all the key-value pairs in the `currentNode`’s
     children hash table:'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ [key, childNode] ​**of**​ Object.entries(currentNode.children))
+- en: '| ​  | `for` (`const` [key, childNode] `of` `Object.entries(currentNode.children))
     { |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The JavaScript syntax Object.entries allows us to iterate over the hash table
+- en: The JavaScript syntax `Object.entries` allows us to iterate over the hash table
     and access each key and associated value together at once.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In each iteration of the loop, the key is always a single-character string,
-    and the value, childNode, is another instance of TrieNode.
+    and the value, `childNode`, is another instance of `TrieNode`.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s skip to the else clause, as this is where the magic happens:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**this**​.collectAllWords(words, childNode, word + key); |'
+- en: '| ​  | `this`.collectAllWords(words, childNode, word + key); |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This line recursively calls the collectAllWords function.
+- en: This line recursively calls the `collectAllWords` function.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The first argument is the words array. By passing this array along in each recursive
-    call, we’re able to fill it with complete words, effectively building this list
-    as we traverse the trie.
+- en: 第一个参数是`words`数组。通过在每次递归调用中传递这个数组，我们能够填充完整的单词，有效地在遍历trie时构建这个列表。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The second argument is the childNode. This allows us to recursively call the
-    collectAllWords method on the child node, continuing to collect all the words
-    from the child node and on.
+- en: 第二个参数是`childNode`。这使我们能够在子节点上递归调用`collectAllWords`方法，继续从子节点及其后收集所有单词。
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The third argument is word + key, making it so that as we move through each
-    node of the trie, we add the key to the current word, building up the word as
-    we go.
+- en: 第三个参数是`word + key`，这样当我们在trie的每个节点上移动时，我们将`key`添加到当前单词中，逐步构建单词。
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The base case is when we reach an "*" key, indicating we’ve completed a word.
-    At this point, we can add the word to the words array:'
+- en: 基础情况是当我们到达`"*"`键时，表示我们已完成一个单词。此时，我们可以将单词添加到`words`数组中：
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (key === ​*''*''*​) { |'
+- en: '| ​  | `if` (key === `''*''`) { |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | words.push(word); |'
+- en: '| ​  | `words.push(word);` |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: At the end of the function, we return the words array. If we called this function
-    without passing in a specific node, this will return the complete list of words
-    in the trie.
+- en: 在函数结束时，我们返回`words`数组。如果我们在没有传递特定节点的情况下调用此函数，它将返回trie中的完整单词列表。
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recursion Walk-Through
+- en: 递归过程演示
+  id: totrans-42
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s run through a quick visual example of this using a simple trie. This
-    trie holds two words, “can” and “cat”:'
+- en: 让我们通过一个简单的trie快速演示一下。这棵trie包含两个单词，`"can"`和`"cat"`：
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/simple_trie.png](images/tries/simple_trie.png)'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 1: In the very first call of collectAllWords, the currentNode starts out
-    at the root, word is an empty string, and the words array is empty:'
+- en: 调用1：在`collectAllWords`的第一次调用中，`currentNode`开始于根节点，`word`是一个空字符串，`words`数组是空的：
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/simple_trie_setup.png](images/tries/simple_trie_setup.png)'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We iterate over the root node’s children. The root node happens to only have
-    one child key, the "c", which points to a child node. Before we recursively call
-    collectAllWords on this child node, we need to add the current call to the call
-    stack.
+- en: 我们遍历根节点的子节点。根节点只有一个子键`"c"`，它指向一个子节点。在我们递归调用`collectAllWords`在这个子节点上之前，我们需要将当前调用添加到调用栈中。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We then recursively call collectAllWords on the "c" child node. We also pass
-    in word + key as the word argument. word + key is the string "c" since word was
-    empty and the key is "c". And we also pass in the words array, which is still
-    empty. The next image shows where we are once we make this recursive call:'
+- en: 然后我们在`"c"`子节点上递归调用`collectAllWords`。我们还将`word + key`作为单词参数传递。`word + key`是字符串`"c"`，因为`word`是空的，`key`是`"c"`。我们还将仍然为空的`words`数组传递进去。下一张图片显示了我们在进行这个递归调用时的位置：
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/simple_trie_c.png](images/tries/simple_trie_c.png)'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 2: We iterate over the current node’s children. It has just one child
-    key, the "a". Before recursively calling collectAllWords on the respective child
-    node, we’ll add the current call to the call stack. In the diagram that follows,
-    we call this current node the "a" node, meaning it’s the node that has "a" as
-    a child.'
+- en: 调用2：我们遍历当前节点的子节点。它只有一个子键，`"a"`。在递归调用`collectAllWords`之前，我们将当前调用添加到调用栈中。在接下来的图示中，我们称这个当前节点为`"a"`节点，意思是它有`"a"`作为子节点。
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We then recursively call collectAllWords. We pass in the child node, "ca" (which
-    is word + key), and the still-empty words array:'
+- en: 然后我们递归调用`collectAllWords`。我们传入子节点`"ca"`（即`word + key`）和仍然为空的`words`数组：
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/simple_trie_ca.png](images/tries/simple_trie_ca.png)'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 3: We iterate over the current node’s children, which are "n" and "t".
-    We’ll start with the "n". Before making any recursive calls, though, we need to
-    first add the current call to our call stack. In the diagram that follows, we
-    call this current node the "n/t" node, meaning it’s the node that has both "n"
-    and "t" as children.'
+- en: 调用3：我们遍历当前节点的子节点，分别是`"n"`和`"t"`。我们将首先处理`"n"`。不过，在进行任何递归调用之前，我们需要先将当前调用添加到我们的调用栈中。在接下来的图示中，我们称这个当前节点为`"n/t"`节点，意思是它的子节点有`"n"`和`"t"`。
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'When we then call collectAllWords on the "n" child, we also pass in "can" as
-    the word argument as well as the empty words array:'
+- en: 当我们在`"n"`子节点上调用`collectAllWords`时，我们还将`"can"`作为单词参数传递，以及空的`words`数组：
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/move_to_n.png](images/tries/move_to_n.png)'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 4: We iterate over the current node’s children. In this case, it has only
-    one child, which is the "*". This is our base case. We add the current word, which
-    is "can", to the words array:'
+- en: '`Call 4`：我们遍历当前节点的子节点。在这种情况下，它只有一个子节点，即`"*"`。这是我们的基本情况。我们将当前单词，即`"can"`，添加到`words`数组中：'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/can_in_array.png](images/tries/can_in_array.png)'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 5: We now pop the top call from our call stack, which was the call of
-    collectAllWords on the node with the children keys of "n" and "t", and where word
-    was "ca". This means we now return to that call (as we return to whatever call
-    we pop from the call stack):'
+- en: '`Call 5`：我们现在从调用栈中弹出顶部调用，即对节点进行的`collectAllWords`调用，该节点的子键为`"n"`和`"t"`，而`word`是`"ca"`。这意味着我们现在返回到该调用（因为我们返回到我们从调用栈中弹出的任何调用）：'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/pop_n_t.png](images/tries/pop_n_t.png)'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Here we can make a subtle but important point. In the current call, word is
-    back to "ca" since that was the word argument when we first initiated this call.
-    However, the words array now contains the word "can" even though the array was
-    empty when we originally made this call.
+- en: 在这里我们可以提出一个微妙但重要的观点。在当前调用中，`word`又回到了`"ca"`，因为那是我们第一次启动这个调用时的单词参数。然而，`words`数组现在包含单词`"can"`，即使在我们最初进行此调用时数组是空的。
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Here’s the reason why this works. In many programming languages, an array can
-    be passed up and down a call stack because the array remains the same object in
-    memory even when we add new values to it. The same concept applies to hash tables
-    as well, which was how we were able to pass it along as part of the memoization
-    technique we looked at in [​*Dynamic Programming Through Memoization*​](f_0117.xhtml#dynamic.memoization).
+- en: 这就是为什么这有效的原因。在许多编程语言中，数组可以在调用栈中上下传递，因为即使我们向其中添加新值，数组在内存中仍然是相同的对象。这一概念同样适用于哈希表，这也是我们能够将其作为我们在[​*动态编程通过记忆化*​](f_0117.xhtml#dynamic.memoization)中探讨的记忆化技术的一部分传递的原因。
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: When a string is modified, on the other hand, the computer creates a new string
-    instead of truly modifying the original string object. Therefore, when we updated
-    word by changing it from "ca" to "can", the previous call still only has access
-    to the original string, "ca". (In some languages, this may work slightly differently.
-    For our purposes, though, this is the general idea.)
+- en: 另一方面，当字符串被修改时，计算机会创建一个新字符串，而不是实际上修改原始字符串对象。因此，当我们通过将`word`从`"ca"`更改为`"can"`来更新`word`时，先前的调用仍然只能访问原始字符串`"ca"`。（在某些语言中，这可能略有不同。不过对于我们的目的来说，这就是一般思路。）
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In any case, we’re in the middle of a call where words contains the word "can",
-    and word is "ca".
+- en: 在任何情况下，我们正在进行一次调用，其中`words`包含单词`"can"`，而`word`是`"ca"`。
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Call 6: At this point, we’ve already iterated over the "n" key, so the loop
-    is now up to the "t" key. Before recursively calling collectAllWords on the "t"
-    child node, we need to add the current call to the call stack again. (This will
-    be the second time we add this call to the call stack. We previously popped it
-    off, but now we’re going to add it again.)'
+- en: '`Call 6`：此时，我们已经遍历过`"n"`键，因此循环现在到了`"t"`键。在递归调用`collectAllWords`到`"t"`子节点之前，我们需要再次将当前调用添加到调用栈中。（这将是我们第二次将此调用添加到调用栈中。我们之前已经将其弹出，但现在我们要再次添加它。）'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'When we call collectAllWords on the "t" child, we pass in "cat" as the word
-    argument (since that is word + key) and the words array:'
+- en: 当我们在`"t"`子节点上调用`collectAllWords`时，我们将`"cat"`作为单词参数传入（因为这就是`word + key`）和`words`数组：
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/move_to_t.png](images/tries/move_to_t.png)'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Call 7: We iterate over the current node’s children. The only child here is
-    "*", so we add the current word of "cat" to our words array:'
+- en: '`Call 7`：我们遍历当前节点的子节点。这里唯一的子节点是`"*"`，因此我们将当前单词`"cat"`添加到我们的`words`数组中：'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/add_cat_to_array.png](images/tries/add_cat_to_array.png)'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: At this point, we can unwind the call stack, popping off each call and completing
-    its execution, each of which ends by returning the words array. The final call
-    we complete—which was the first call to kick this all off—returns words as well.
-    Because this contains the strings "can" and "cat", we’ve successfully returned
-    the trie’s entire word list.
+- en: 此时，我们可以展开调用栈，逐个弹出每个调用并完成其执行，每个调用都以返回`words`数组结束。我们完成的最后一个调用——即第一次启动这一切的调用——也返回`words`。因为它包含字符串`"can"`和`"cat"`，我们成功返回了字典树的整个单词列表。
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

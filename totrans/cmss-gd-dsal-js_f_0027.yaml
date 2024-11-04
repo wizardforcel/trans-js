@@ -1,256 +1,392 @@
 - en: Binary Search
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'You’ve probably played this guessing game as a child: I’m thinking of a number
-    between 1 and 100\. Keep guessing which number I’m thinking of, and I’ll let you
-    know whether you need to guess higher or lower.'
+    between `1` and `100`。Keep guessing which number I’m thinking of, and I’ll let
+    you know whether you need to guess higher or lower.'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: You may know intuitively how to play this game. You wouldn’t begin by guessing
-    number 1\. Instead, you’d probably start with 50, which is smack in the middle.
-    Why? Because by selecting 50, no matter whether I tell you to guess higher or
+    number `1`。Instead, you’d probably start with `50`，which is smack in the middle.
+    Why? Because by selecting `50`，no matter whether I tell you to guess higher or
     lower, you’ve automatically eliminated half the possible numbers!
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If you guess 50 and I tell you to guess higher, you’d then pick 75, to eliminate
-    half of the remaining numbers. If after guessing 75, I told you to guess lower,
-    you’d pick 62 or 63\. You’d keep on choosing the halfway mark to keep eliminating
+- en: If you guess `50` and I tell you to guess higher, you’d then pick `75`，to eliminate
+    half of the remaining numbers. If after guessing `75`，I told you to guess lower,
+    you’d pick `62` or `63`。You’d keep on choosing the halfway mark to keep eliminating
     half of the remaining numbers.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s visualize this process where we’re told to guess a number between 1 and
-    10, as shown in the [image](#fig.ch2.conversation).
+- en: Let’s visualize this process where we’re told to guess a number between `1`
+    and `10`，as shown in the [image](#fig.ch2.conversation).
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/conversation.png](images/binary_search/conversation.png)'
+- en: '![`images/binary_search/conversation.png`](images/binary_search/conversation.png)'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: This, in a nutshell, is binary search.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s see how binary search is applied to an ordered array. Say we have an
     ordered array containing nine elements. The computer doesn’t know offhand what
     value each cell contains, so we’ll portray the array like this:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_11.png](images/binary_search/binary_search_11.png)'
+- en: '![`images/binary_search/binary_search_11.png`](images/binary_search/binary_search_11.png)'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Say we’d like to search for the value 7 inside this ordered array. Here’s how
-    binary search would work:'
+- en: 'Say we’d like to search for the value `7` inside this ordered array. Here’s
+    how binary search would work:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 1: We begin our search from the central cell. We can immediately jump
     to this cell, since we can calculate its index by taking the array’s length and
-    dividing it by 2\. We check the value at this cell:'
+    dividing it by `2`。We check the value at this cell:'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_12.png](images/binary_search/binary_search_12.png)'
+- en: '![`images/binary_search/binary_search_12.png`](images/binary_search/binary_search_12.png)'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Because the value uncovered is a 9, we can conclude that the 7 is somewhere
+- en: 'Because the value uncovered is a `9`，we can conclude that the `7` is somewhere
     to its left. We’ve just successfully eliminated half of the array’s cells—that
-    is, all the cells to the right of the 9 (and the 9 itself):'
+    is, all the cells to the right of the `9` (and the `9` itself):'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_13.png](images/binary_search/binary_search_13.png)'
+- en: '![`images/binary_search/binary_search_13.png`](images/binary_search/binary_search_13.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 2: Among the cells to the left of the 9, we inspect the middlemost value.
+- en: 'Step 2: Among the cells to the left of the `9`，we inspect the middlemost value.
     There are two middlemost values, so we arbitrarily choose the left one:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_14.png](images/binary_search/binary_search_14.png)'
+- en: '![`images/binary_search/binary_search_14.png`](images/binary_search/binary_search_14.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'It’s a 4, so the 7 must be somewhere to its right. We can eliminate the 4 and
-    the cell to its left:'
+- en: 'It’s a `4`，so the `7` must be somewhere to its right. We can eliminate the
+    `4` and the cell to its left:'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_15.png](images/binary_search/binary_search_15.png)'
+- en: '![`images/binary_search/binary_search_15.png`](images/binary_search/binary_search_15.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 3: There are two more cells where the 7 can be. We arbitrarily choose
+- en: 'Step 3: There are two more cells where the `7` can be. We arbitrarily choose
     the left one, as shown in the [image](#fig.ch2.binary_search_16).'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_16.png](images/binary_search/binary_search_16.png)'
+- en: '![`images/binary_search/binary_search_16.png`](images/binary_search/binary_search_16.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 4: We inspect the final remaining cell. (If it’s not there, that means
-    there is no 7 within this ordered array.)'
+    there is no `7` within this ordered array.)'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/binary_search/binary_search_17.png](images/binary_search/binary_search_17.png)'
+- en: '![`images/binary_search/binary_search_17.png`](images/binary_search/binary_search_17.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We found the 7 in four steps. In this example this is the same number of steps
     linear search would have taken, but we’ll take a look shortly at another example
     to see the power of binary search.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Note that binary search is only possible within an ordered array. With a classic
     array, values can be in any order and we’d never know whether to look to the left
     or right of any given value. This is one of the advantages of ordered arrays:
     we have the option of binary search.'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Binary Search'
+  id: totrans-24
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s an implementation of binary search in JavaScript:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ binarySearch(array, searchValue) { |'
+- en: '| ​  | `function` binarySearch(array, searchValue) { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ lowerBound = 0; |'
+- en: '| ​  | `let` lowerBound = 0; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ upperBound = array.length - 1; |'
+- en: '| ​  | `let` upperBound = array.length - 1; |'
+  id: totrans-28
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**while**​ (lowerBound <= upperBound) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ midpoint = Math.floor((upperBound + lowerBound) / 2); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ valueAtMidpoint = array[midpoint]; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (searchValue === valueAtMidpoint) { |'
+- en: '| ​  | `while` (lowerBound <= upperBound) { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ midpoint; |'
+- en: '| ​  | `const` midpoint = Math.floor((upperBound + lowerBound) / 2); |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (searchValue < valueAtMidpoint) { |'
+- en: '| ​  | `const` valueAtMidpoint = array[midpoint]; |'
+  id: totrans-32
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-33
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (searchValue === valueAtMidpoint) { |'
+  id: totrans-34
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` midpoint; |'
+  id: totrans-35
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` `if` (searchValue < valueAtMidpoint) { |'
+  id: totrans-36
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | upperBound = midpoint - 1; |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (searchValue > valueAtMidpoint) { |'
+- en: '| ​  | } `else` `if` (searchValue > valueAtMidpoint) { |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | lowerBound = midpoint + 1; |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | `return` `null`; |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Let’s break this down. As with the linearSearch method, binarySearch accepts
-    the array and the searchValue as arguments.
+- en: Let’s break this down. As with the `linearSearch` method, `binarySearch` accepts
+    the array and the `searchValue` as arguments.
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s an example of how to call this method:'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | console.log(binarySearch([3, 17, 75, 80, 202], 22)) |'
+- en: '| ​  | `console.log(binarySearch([3, 17, 75, 80, 202], 22))` |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'The method first establishes the range of indexes in which the searchValue
+- en: 'The method first establishes the range of indexes in which the `searchValue`
     might be found. We do this with the following code:'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ lowerBound = 0; |'
+- en: '| ​  | `let` lowerBound = 0; |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ upperBound = array.length - 1; |'
+- en: '| ​  | `let` upperBound = array.length - 1; |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Because when starting our search the searchValue might be found anywhere within
-    the entire array, we establish the lowerBound as the first index and the upperBound
+- en: Because when starting our search the `searchValue` might be found anywhere within
+    the entire array, we establish the `lowerBound` as the first index and the `upperBound`
     as the last index.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The essence of the search takes place within the while loop:'
+- en: 'The essence of the search takes place within the `while` loop:'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (lowerBound <= upperBound) { |'
+- en: '| ​  | `while` (lowerBound <= upperBound) { |'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This loop runs while we still have a range of elements in which the searchValue
+- en: This loop runs while we still have a range of elements in which the `searchValue`
     may lie. As we’ll see shortly, our algorithm will keep narrowing this range as
-    we go. The clause lowerBound <= upperBound will no longer hold true once there’s
-    no more range left, and we can conclude that the searchValue is not present in
-    the array.
+    we go. The clause `lowerBound <= upperBound` will no longer hold true once there’s
+    no more range left, and we can conclude that the `searchValue` is not present
+    in the array.
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Within the loop, our code inspects the value at the midpoint of the range.
     The following code accomplishes this:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ midpoint = Math.floor((upperBound + lowerBound) / 2); |'
+- en: '| ​  | `const` midpoint = Math.floor((upperBound + lowerBound) / 2); |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ valueAtMidpoint = array[midpoint]; |'
+- en: '| ​  | `const` valueAtMidpoint = array[midpoint]; |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The valueAtMidpoint is the item found at the center of the range.
+- en: The `valueAtMidpoint` is the item found at the center of the range.
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now, if the valueAtMidpoint is the searchValue we’re looking for, we’ve struck
-    gold and can return the index in which the searchValue is found:'
+- en: 'Now, if the `valueAtMidpoint` is the `searchValue` we’re looking for, we’ve
+    struck gold and can return the index in which the `searchValue` is found:'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (searchValue === valueAtMidpoint) { |'
+- en: '| ​  | `if` (searchValue === valueAtMidpoint) { |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ midpoint; |'
+- en: '| ​  | `return` midpoint; |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'If the searchValue is less than the valueAtMidpoint, it means the searchValue
-    must be found somewhere earlier in the array. We can then narrow the range of
-    our search by making the upperBound the index to the left of the midpoint, since
-    the searchValue cannot possibly be found anywhere further than that:'
+- en: 如果`searchValue`小于`valueAtMidpoint`，这意味着`searchValue`必须在数组的某个更早的位置被找到。然后，我们可以通过将`upperBound`设为`midpoint`左侧的索引来缩小搜索范围，因为`searchValue`不可能在更远的位置找到：
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | } ​**else**​ ​**if**​ (searchValue < valueAtMidpoint) { |'
+- en: '| ​  | } ​`else`​ ​`if`​ (`searchValue < valueAtMidpoint`) { |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | upperBound = midpoint - 1; |'
+- en: '| ​  | `upperBound = midpoint - 1;` |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Conversely, if the searchValue is greater than the valueAtMidpoint, it means
-    the searchValue can only be found somewhere to the right of the midpoint, so we
-    raise the lowerBound appropriately:'
+- en: 相反，如果`searchValue`大于`valueAtMidpoint`，这意味着`searchValue`只能在`midpoint`的右侧找到，因此我们适当地提高`lowerBound`：
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | } ​**else**​ ​**if**​ (searchValue > valueAtMidpoint) { |'
+- en: '| ​  | } ​`else`​ ​`if`​ (`searchValue > valueAtMidpoint`) { |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | lowerBound = midpoint + 1; |'
+- en: '| ​  | `lowerBound = midpoint + 1;` |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We return null once the range has been narrowed down to 0 elements, and we know
-    with certainty that the searchValue doesn’t exist within the array.
+- en: 一旦范围缩小到0个元素，我们就返回`null`，并且我们可以确定`searchValue`在数组中不存在。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

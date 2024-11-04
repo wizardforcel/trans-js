@@ -1,381 +1,580 @@
 - en: 'Recursive Category: Repeatedly Execute'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Over the course of tackling various recursive problems, I began to find that
     there are various categories of problems. Once I learned an effective technique
     for a certain category, when I found another problem that belonged to the same
     category, I was able to apply the same technique to solve it.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The category that I found to be the easiest was one in which the goal of the
     algorithm was to repeatedly execute a task.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The NASA spacecraft countdown algorithm from the previous chapter is a great
     example. The code prints a number such as 10, and then 9, then 8, all the way
-    down to 0\. While the number the function prints is different each time, we boil
+    down to 0. While the number the function prints is different each time, we boil
     down the code’s essence to the fact that it is repeatedly executing a task—namely,
     the printing of a number.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This was our implementation of that algorithm:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ countdown(number) { |'
+- en: '| ​  | `function` countdown(number) { |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | console.log(number); |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (number === 0) { |'
+- en: '| ​  | `if` (number === 0) { |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | `return`; |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | countdown(number - 1); |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'I found that for problems of this category, the last line of code in the function
     was a simple, single call to the function again. In the previous snippet, this
-    takes the form of countdown(number - 1). This line does one thing: it makes the
+    takes the form of `countdown(number - 1)`。This line does one thing: it makes the
     next recursive call.'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The directory-printing algorithm from the previous chapter is another example
     of this. This function repeatedly executes the task of printing directory names.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Our code looked like this:'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ { readdirSync, lstatSync } ​**from**​ ​*''fs''*​; |'
+- en: '| ​  | `import` { readdirSync, lstatSync } `from` `fs`; |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**import**​ { join } ​**from**​ ​*''path''*​; |'
+- en: '| ​  | `import` { join } `from` `path`; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**function**​ printSubdirectories(directoryName) { |'
+- en: '| ​  | `function` printSubdirectories(directoryName) { |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ fileName ​**of**​ readdirSync(directoryName))
-    { |'
+- en: '| ​  | `for` (`const` fileName `of` readdirSync(directoryName)) { |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ pathName = join(directoryName, fileName); |'
+- en: '| ​  | `const` pathName = join(directoryName, fileName); |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (lstatSync(pathName).isDirectory()) { |'
+- en: '| ​  | `if` (lstatSync(pathName).isDirectory()) { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | console.log(pathName); |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printSubdirectories(pathName); |'
+- en: '| ​  | `printSubdirectories(pathName);` |'
+  id: totrans-25
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Here as well, the last line of code is printSubdirectories(pathName), which
+- en: '| ​  | } |'
+  id: totrans-27
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-28
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: Here as well, the last line of code is `printSubdirectories(pathName)`，which
     is a simple call to the recursive function, triggering it again.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Recursive Trick: Passing Extra Parameters'
+  id: totrans-30
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s try our hand at another problem of the “repeatedly execute” category.
     We’re going to write an algorithm that takes an array of numbers and doubles each
     of the numbers within the array. Note that we’re not going to produce a new array;
     instead, we’re going to modify the array in place.
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In-Place Modifications
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s take a look at the concept of in-place modifications, just in case it’s
     not clear.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Generally speaking, there are two basic approaches to manipulating data. Let’s
-    take the example of doubling the values in an array. If I had the array [1, 2,
-    3, 4, 5] and wanted to “double” it to produce the array [2, 4, 6, 8, 10], I could
-    do one of two things.
+    take the example of doubling the values in an array. If I had the array `[1, 2,
+    3, 4, 5]` and wanted to “double” it to produce the array `[2, 4, 6, 8, 10]`, I
+    could do one of two things.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The first option is to create a new array that contains the doubled data but
     leave the original array alone. Take the following code:'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ a = [1, 2, 3, 4, 5]; |'
+- en: '| ​  | `const`​ `a` = [1, 2, 3, 4, 5]; |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ b = doubleArray(a); |'
+- en: '| ​  | `const`​ `b` = `doubleArray(a)`; |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Since the doubleArray function is creating and returning a brand-new array,
-    if we were to check the values of a and b, we’d get the following:'
+- en: 由于`doubleArray`函数创建并返回一个全新的数组，如果我们检查`a`和`b`的值，我们会得到以下结果：
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | a; ​*// [1, 2, 3, 4, 5]*​ |'
+- en: '| ​  | `a`; ​*// [1, 2, 3, 4, 5]*​ |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | b; ​*// [2, 4, 6, 8, 10]*​ |'
+- en: '| ​  | `b`; ​*// [2, 4, 6, 8, 10]*​ |'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The original array a was unmodified, and b holds a brand-new array.
+- en: 原始数组`a`未被修改，而`b`持有一个全新的数组。
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The second option is called in-place modification, meaning the function actually
-    changes the original array passed into function.
+- en: 第二个选项称为就地修改，意味着函数实际更改传入函数的原始数组。
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'With in-place modification, if we now check a and b, we’d find this:'
+- en: 在就地修改中，如果我们现在检查`a`和`b`，我们会发现：
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | a; ​*// [2, 4, 6, 8, 10]*​ |'
+- en: '| ​  | `a`; ​*// [2, 4, 6, 8, 10]*​ |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | b; ​*// [2, 4, 6, 8, 10]*​ |'
+- en: '| ​  | `b`; ​*// [2, 4, 6, 8, 10]*​ |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The in-place function modifies a, and b is just pointing to the very same array
-    that a is.
+- en: 就地函数修改了`a`，而`b`只是指向与`a`相同的数组。
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Whether we choose to create a new array or modify the original one in place
-    is up to us and depends on the context of our project. We’re going to talk more
-    about in-place algorithms in Chapter 19, [​*Dealing with Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).
+- en: 我们选择创建一个新数组还是就地修改原数组取决于我们，具体要根据项目的上下文。我们将在第19章讨论更多关于就地算法的内容，参见[​*Dealing with
+    Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints)。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This algorithm, too, is one in which we repeatedly execute a task. Specifically,
-    we repeatedly double a number. We start with the first number and double it. We
-    move onto the second number and double it—and so on.
+- en: 这个算法也是一个我们重复执行任务的算法。具体来说，我们重复将一个数字翻倍。我们从第一个数字开始并将其翻倍。然后我们转向第二个数字并将其翻倍——依此类推。
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s take a stab at writing this algorithm in JavaScript, which we’ll call
-    doubleArray(). We know that our final line will be the recursive call, so let’s
-    include that line:'
+- en: 让我们尝试在JavaScript中编写这个算法，我们称之为`doubleArray()`。我们知道最终行将是递归调用，因此让我们包含该行：
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array) { |'
+- en: '| ​  | `function`​ `doubleArray(array)` { |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | doubleArray(array); |'
+- en: '| ​  | `doubleArray(array); |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Next, we need to add the code that will actually double the number. But which
-    number will we double? Let’s try to double the first number:'
+- en: 接下来，我们需要添加实际将数字翻倍的代码。但我们要翻倍哪个数字呢？让我们尝试翻倍第一个数字：
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array) { |'
+- en: '| ​  | `function`​ `doubleArray(array)` { |'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[0] *= 2; |'
+- en: '| ​  | `array[0] *= 2; |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | doubleArray(array); |'
+- en: '| ​  | `doubleArray(array); |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Okay, so we’ve doubled the number at index 0, but how do we proceed to double
-    the number at index 1?
+- en: 好的，我们已经将索引0的数字翻倍，但我们该如何继续翻倍索引1的数字呢？
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Now, if we were to use a loop instead of recursion, we would have used a variable
-    to keep track of the index and continuously increased it by 1, something along
-    these lines:'
+- en: 现在，如果我们使用循环而不是递归，我们将使用一个变量来跟踪索引并将其不断增加1，类似这样的方式：
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array) { |'
+- en: '| ​  | `function`​ `doubleArray(array)` { |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ index = 0; |'
+- en: '| ​  | `let`​ `index` = 0; |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (index < array.length) { |'
+- en: '| ​  | `while`​ (`index` < `array.length`) { |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[index] *= 2; |'
+- en: '| ​  | `array[index] *= 2; |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | index += 1; |'
+- en: '| ​  | `index` += 1; |'
+  id: totrans-65
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: In our recursive version, though, the only argument to our function is the array.
-    We need some way to keep track of and increment an index. How do we pull this
-    off?
-  prefs: []
-  type: TYPE_NORMAL
-- en: And now for our next trick…
-  prefs: []
-  type: TYPE_NORMAL
-- en: Let’s pass in extra parameters!
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Let’s modify the beginning of our function so that it accepts two arguments—the
-    array itself and an index to keep track of. Here’s the code:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
-  prefs: []
-  type: TYPE_TB
-- en: 'As things stand right now, when we call this function, we need to pass in the
-    array and the starting index, which will be 0:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | doubleArray([1, 2, 3, 4, 5], 0); |'
-  prefs: []
-  type: TYPE_TB
-- en: 'Once we have the index as a function argument, we have a way of incrementing
-    and tracking the index as we make each successive recursive call. Here’s the code
-    for this:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | array[index] *= 2; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | doubleArray(array, index + 1); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-66
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-67
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 在我们的递归版本中，唯一的函数参数是数组。我们需要某种方式来跟踪和增加索引。我们该如何实现这一点？
+  id: totrans-68
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 现在让我们看看下一个技巧…
+  id: totrans-69
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们传入额外的参数！
+  id: totrans-70
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 让我们修改函数的开头，以便它接受两个参数——数组本身和一个索引来跟踪。这里是代码：
+  id: totrans-71
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `function`​ `doubleArray(array, index)` { |'
+  id: totrans-72
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 目前，当我们调用这个函数时，需要传入数组和起始索引，这将是0：
+  id: totrans-73
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `doubleArray([1, 2, 3, 4, 5], 0); |'
+  id: totrans-74
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 一旦我们将索引作为函数参数，就可以在进行每次递归调用时增加和跟踪索引。这里是代码：
+  id: totrans-75
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `function` `doubleArray(array, index) {` |'
+  id: totrans-76
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `array[index] *= 2;` |'
+  id: totrans-77
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `doubleArray(array, index + 1);` |'
+  id: totrans-78
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `}` |'
+  id: totrans-79
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In each successive call, we pass in the array again as the first argument, but
     we also pass along an incremented index. This allows us to keep track of an index
     just as we would in a classical loop.
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Our code isn’t perfect just yet, though. Our function will throw an error once
     the index goes past the end of the array and tries to multiply a nonexistent number.
     To solve this, we need our base case:'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array, index) { |'
+- en: '| ​  | `function` `doubleArray(array, index) {` |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case: when the index goes past the end of the array*​ |'
+- en: '| ​  | `// Base case: when the index goes past the end of the array` |'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (index >= array.length) { ​**return**​; } |'
+- en: '| ​  | `if` (index >= array.length) { `return`; } |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[index] *= 2; |'
+- en: '| ​  | `array[index] *= 2;` |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | doubleArray(array, index + 1); |'
+- en: '| ​  | `doubleArray(array, index + 1);` |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We can test this function out with the following code:'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ array = [1, 2, 3, 4]; |'
+- en: '| ​  | `const` `array = [1, 2, 3, 4];` |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | doubleArray(array, 0); |'
+- en: '| ​  | `doubleArray(array, 0);` |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(array); |'
+- en: '| ​  | `console.log(array);` |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Our recursive function is now complete. However, if our programming language
     supports default arguments as JavaScript does, we can make things even prettier.
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Right now, we need to call the function like this:'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | doubleArray([1, 2, 3, 4, 5], 0); |'
+- en: '| ​  | `doubleArray([1, 2, 3, 4, 5], 0);` |'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Admittedly, passing in that 0 as a second parameter isn’t beautiful—it’s just
+- en: Admittedly, passing in that `0` as a second parameter isn’t beautiful—it’s just
     so we can achieve our trick of maintaining an index. After all, we always want
-    to start our index off at 0.
+    to start our index off at `0`.
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, we can use default parameters to allow us to simply call the function
     the original way:'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | doubleArray([1, 2, 3, 4, 5]); |'
+- en: '| ​  | `doubleArray([1, 2, 3, 4, 5]);` |'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Here’s our updated code to make this work:'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ doubleArray(array, index=0) { |'
+- en: '| ​  | `function` `doubleArray(array, index=0) {` |'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case: when the index goes past the end of the array*​ |'
+- en: '| ​  | `// Base case: when the index goes past the end of the array` |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (index >= array.length) { ​**return**​; } |'
+- en: '| ​  | `if` (index >= array.length) { `return`; } |'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[index] *= 2; |'
+- en: '| ​  | `array[index] *= 2;` |'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | doubleArray(array, index + 1); |'
+- en: '| ​  | `doubleArray(array, index + 1);` |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: All we updated here was setting a default argument of index=0. This way, the
+- en: All we updated here was setting a default argument of `index=0`. This way, the
     first time we call the function, we don’t have to pass in the index parameter.
     However, we still get to use the index parameter for all successive calls.
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The “trick” of using extra function parameters is a common technique in writing
     recursive functions, and a handy one.
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

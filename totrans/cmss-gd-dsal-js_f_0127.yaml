@@ -1,131 +1,193 @@
 - en: Sorting as a Key to Other Algorithms
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: As of this writing, the fastest sorting algorithms we know of have speeds of
-    O(N log N). While Quicksort is one of the most popular among them, there are many
-    others as well. Mergesort is another well-known O(N log N) sorting algorithm and
-    will be covered in Volume 2 of this book.
+    `O(N log N)`. While Quicksort is one of the most popular among them, there are
+    many others as well. Mergesort is another well-known `O(N log N)` sorting algorithm
+    and will be covered in Volume 2 of this book.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The fact that the fastest sorting algorithms are O(N log N) is important, as
-    this has implications for other algorithms as well. This is because there are
+- en: The fact that the fastest sorting algorithms are `O(N log N)` is important,
+    as this has implications for other algorithms as well. This is because there are
     algorithms that use sorting as a component of a larger process.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For example, if you’ll recall from Chapter 4, [​*Speeding Up Your Code with
-    Big O*​](f_0040.xhtml#chp.speeding_up), we dealt with the problem of checking
-    whether there are duplicate values within an array.
+- en: For example, if you’ll recall from Chapter 4, [`Speeding Up Your Code with Big
+    O`](f_0040.xhtml#chp.speeding_up), we dealt with the problem of checking whether
+    there are duplicate values within an array.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The first solution we looked at involved nested loops and had an efficiency
-    of O(N²). While we found a solution that took O(N), I parenthetically hinted at
-    a disadvantage with that approach having to do with extra memory consumption.
-    (I’ll eventually discuss this at length in Chapter 19, [​*Dealing with Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).)
-    So let’s assume that the O(N) approach is out. Are there any other ways we can
-    improve upon the quadratic O(N²) solution? Hint: the solution has something to
-    do with sorting!'
+    of `O(N²)`. While we found a solution that took `O(N)`, I parenthetically hinted
+    at a disadvantage with that approach having to do with extra memory consumption.
+    (I’ll eventually discuss this at length in Chapter 19, [`Dealing with Space Constraints`](f_0189.xhtml#chp.dealing_with_space_constraints).)
+    So let’s assume that the `O(N)` approach is out. Are there any other ways we can
+    improve upon the quadratic `O(N²)` solution? Hint: the solution has something
+    to do with sorting!'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can build a beautiful algorithm if we presort the array.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s say the original array was [5, 9, 3, 2, 4, 5, 6]. This array has two instances
-    of 5, so we do have a case of duplicates.
+- en: Let’s say the original array was `[5, 9, 3, 2, 4, 5, 6]`. This array has two
+    instances of `5`, so we do have a case of duplicates.
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, if we first sorted this array, it would become [2, 3, 4, 5, 5, 6, 9].
+- en: Now, if we first sorted this array, it would become `[2, 3, 4, 5, 5, 6, 9]`.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Next, we can use a single loop to iterate over each number. As we inspect each
     number, we’d check whether it’s identical to the next number. If it is, we’ve
     found a duplicate. If we get to the end of the loop without finding a duplicate,
     then we know that we have no duplicates.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The trick here is that by presorting the numbers, we end up bunching duplicate
     numbers together.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In our example, we’d start by looking at the first number, which is the 2. We’d
-    check whether it’s identical to the next number. The next number is 3, so they’re
-    not duplicates.
+- en: In our example, we’d start by looking at the first number, which is the `2`.
+    We’d check whether it’s identical to the next number. The next number is `3`,
+    so they’re not duplicates.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We’d then check the 3 against the following number, which happens to be a 4,
-    allowing us to move on. We’d check the 4 against the 5, and we’d move on again.
+- en: We’d then check the `3` against the following number, which happens to be a
+    `4`, allowing us to move on. We’d check the `4` against the `5`, and we’d move
+    on again.
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: At this point, we’d inspect the first 5 and check it against the following number,
-    which is the second 5. Aha! We found a pair of duplicate numbers, and we can return
-    true.
+- en: At this point, we’d inspect the first `5` and check it against the following
+    number, which is the second `5`. Aha! We found a pair of duplicate numbers, and
+    we can return `true`.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s a JavaScript implementation of this:'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ hasDuplicateValue(array) { |'
+- en: '| ​  | `function hasDuplicateValue(array) {` |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array.sort((a, b) => a - b); |'
+- en: '| ​  | `array.sort((a, b) => a - b);` |'
+  id: totrans-15
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ index = 0; index < array.length - 1; index += 1)
-    { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (array[index] === array[index + 1]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**false**​; |'
+- en: '| ​  | `for (let index = 0; index < array.length - 1; index += 1) {` |'
+  id: totrans-17
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if (array[index] === array[index + 1]) {` |'
+  id: totrans-18
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return true`; |'
+  id: totrans-19
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Here we use JavaScript’s built-in sort function. The argument (a, b) => a -
-    b is necessary to ensure that JavaScript sorts integers correctly, and doesn’t
+- en: '| ​  | } |'
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-22
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return false`; |'
+  id: totrans-23
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-24
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: Here we use JavaScript’s built-in sort function. The argument `(a, b) => a -
+    b` is necessary to ensure that JavaScript sorts integers correctly, and doesn’t
     sort them as if they were strings.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Now, this is an algorithm that used sorting as one of its components. What’s
     the Big O of this algorithm?
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We start out by sorting the array. We can assume that JavaScript’s sort function
-    uses something like Quicksort under the hood and has an efficiency of O(N log
-    N). Next, we spend up to N steps iterating through the array. Our algorithm, then,
-    takes (N log N) + N steps.
+    uses something like `Quicksort` under the hood and has an efficiency of `O(N log
+    N)`. Next, we spend up to `N` steps iterating through the array. Our algorithm,
+    then, takes `(N log N) + N` steps.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: You learned that when we have multiple orders added together, Big O notation
-    keeps only the highest order of N because the lower orders are trivial beside
-    the higher orders. Here as well, N is trivial beside N log N, so we reduce the
-    expression to O(N log N).
+    keeps only the highest order of `N` because the lower orders are trivial beside
+    the higher orders. Here as well, `N` is trivial beside `N log N`, so we reduce
+    the expression to `O(N log N)`.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So, that’s it! We’ve used sorting to develop an algorithm that is O(N log N),
-    which is a significant improvement over the original O(N²) algorithm.
+- en: So, that’s it! We’ve used sorting to develop an algorithm that is `O(N log N)`,
+    which is a significant improvement over the original `O(N²)` algorithm.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Plenty of algorithms employ sorting as part of a larger process. We now know
-    that any time we do so, we have an algorithm that is at least O(N log N). Of course,
-    the algorithm may be slower than this if it has other things going on, but we
-    know that O(N log N) will always be the baseline.
+    that any time we do so, we have an algorithm that is at least `O(N log N)`. Of
+    course, the algorithm may be slower than this if it has other things going on,
+    but we know that `O(N log N)` will always be the baseline.
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

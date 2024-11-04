@@ -1,151 +1,206 @@
-- en: Implementing a Linked List
+- en: 实现链表
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Some programming languages, such as Java, come with linked lists built into
-    the language. Many languages don’t, but it’s fairly simple to implement them on
-    our own.
+- en: 一些编程语言，如Java，内置了链表。许多语言没有，但我们自己实现链表是相当简单的。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s create our own linked list using JavaScript. We’ll use two classes to
-    implement this: Node and LinkedList. Let’s create the Node class first:'
+- en: 让我们使用JavaScript创建自己的链表。我们将使用两个类来实现这一点：`Node`和`LinkedList`。我们先创建`Node`类：
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ Node { |'
+- en: '| ​  | `class` Node { |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(data) { |'
+- en: '| ​  | `constructor`(data) { |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.data = data; |'
+- en: '| ​  | `this`.data = data; |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.nextNode = ​**null**​; |'
+- en: '| ​  | `this`.nextNode = `null`; |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**export**​ ​**default**​ Node; |'
+- en: '| ​  | `export` `default` Node; |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'The Node class has two attributes: data contains the node’s primary value (for
-    example, the string "a"), while nextNode contains the link to the next node in
-    the list. We can use this class as follows:'
+- en: '`Node`类有两个属性：`data`包含节点的主要值（例如字符串`"a"`），而`nextNode`包含指向列表中下一个节点的链接。我们可以如下使用这个类：'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ node1 = ​**new**​ Node(​*''once''*​); |'
+- en: '| ​  | `const` node1 = `new` Node(*''once''*); |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ node2 = ​**new**​ Node(​*''upon''*​); |'
+- en: '| ​  | `const` node2 = `new` Node(*''upon''*); |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ node3 = ​**new**​ Node(​*''a''*​); |'
+- en: '| ​  | `const` node3 = `new` Node(*''a''*); |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ node4 = ​**new**​ Node(​*''time''*​); |'
+- en: '| ​  | `const` node4 = `new` Node(*''time''*); |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | node1.nextNode = node2; |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | node2.nextNode = node3; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | node3.nextNode = node4; |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: With this code, we’ve created a list of four nodes that serve as a list containing
-    the strings ’once’, ’upon’, ’a’, and ’time’.
+- en: 使用这段代码，我们创建了一个包含四个节点的列表，这些节点包含字符串`'once'`、`'upon'`、`'a'`和`'time'`。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Note that in our implementation, the nextNode refers to another Node instance
-    rather than an actual memory address number. The effect, however, is the same—the
-    nodes are likely dispersed throughout the computer’s memory, and yet we can use
-    the nodes’ links to string the list together.
+- en: 请注意，在我们的实现中，`nextNode`指的是另一个`Node`实例，而不是实际的内存地址号。效果是一样的——这些节点很可能分散在计算机的内存中，但我们可以使用节点的链接将列表串联起来。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Going forward, then, we’re simply going to discuss each link as pointing to
-    another node rather than to a specific memory address. Accordingly, we’re going
-    to use simplified diagrams to depict linked lists, such as this one:'
+- en: 接下来，我们将简单讨论每个链接指向另一个节点，而不是特定的内存地址。因此，我们将使用简化的图示来描绘链表，例如这个：
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/pitting_linked_lists_against_arrays/once_upon_a_time.png](images/pitting_linked_lists_against_arrays/once_upon_a_time.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Each node in this diagram consists of two cells. The first cell contains the
-    node’s data, and the second cell points to the next node.
+- en: 此图中的每个节点由两个单元组成。第一个单元包含节点的数据，第二个单元指向下一个节点。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This reflects our implementation of the Node class. In it, the data method returns
-    the node’s data, while the nextNode method returns the next node in the list.
-    In this context, the nextNode method serves as the node’s link.
+- en: 这反映了我们对`Node`类的实现。在其中，`data`方法返回节点的数据，而`nextNode`方法返回列表中的下一个节点。在这个上下文中，`nextNode`方法作为节点的链接。
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'While we’ve been able to create this linked list with the Node class alone,
-    we still need an easy way to tell our program where the linked list begins. To
-    do this, we’ll create a LinkedList class in addition to our previous Node class.
-    Here’s the LinkedList class in its basic form:'
+- en: 尽管我们仅凭`Node`类就能够创建这个链表，但我们仍然需要一个简单的方法来告诉程序链表的起始位置。为此，我们将创建一个`LinkedList`类，除了之前的`Node`类。下面是`LinkedList`类的基本形式：
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ Node ​**from**​ ​*''./node.js''*​; |'
+- en: '| ​  | `import` Node `from` *''./node.js''*; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**class**​ LinkedList { |'
+- en: '| ​  | `class` LinkedList { |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(firstNode=​**null**​) { |'
+- en: '| ​  | `constructor`(firstNode=`null`) { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.firstNode = firstNode; |'
+- en: '| ​  | `this`.firstNode = firstNode; |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Note that we import node at the beginning of our code, since we placed the Node
-    class in a separate file from this LinkedList class.
+- en: 请注意，我们在代码开始时导入了node，因为我们将`Node`类放在了与`LinkedList`类不同的文件中。
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: At this point, all a LinkedList instance does is keep track of the first node
-    of the list.
+- en: 此时，所有`LinkedList`实例做的就是跟踪列表的第一个节点。
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Previously we created a chain of nodes containing node1, node2, node3, and
-    node4. We can now use our LinkedList class to reference this list by writing the
-    following code:'
+- en: 之前我们创建了一个包含`node1`、`node2`、`node3`和`node4`的节点链。现在我们可以使用我们的`LinkedList`类来引用这个列表，通过写以下代码：
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ list = ​**new**​ LinkedList(node1); |'
+- en: '| ​  | ​`const`​ list = ​`new`​ `LinkedList(node1)`; |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This list variable now acts as a handle on the linked list, as it’s an instance
-    of LinkedList that has access to the list’s first node.
+- en: 这个列表变量现在作为链表的句柄，因为它是`LinkedList`的一个实例，具有访问列表第一个节点的能力。
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'An important point emerges: when dealing with a linked list, we have immediate
-    access only to its head. This is going to have serious ramifications, as we’ll
-    see shortly.'
+- en: 一个重要的观点出现了：在处理链表时，我们只能立即访问它的头节点。这将会带来严重的后果，正如我们将很快看到的那样。
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'At first glance, though, linked lists and arrays are similar—they’re both just
-    lists of stuff. When we dig into the analysis, though, we’ll see some dramatic
-    differences in these two data structures’ performances! Let’s jump into the four
-    classic operations: reading, searching, insertion, and deletion.'
+- en: 乍一看，链表和数组是相似的——它们都是一系列的元素。但是，当我们深入分析时，会看到这两种数据结构在性能上的一些显著差异！让我们深入了解四个经典操作：读取、搜索、插入和删除。
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

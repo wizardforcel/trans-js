@@ -1,272 +1,415 @@
 - en: Anagram Generation
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: To top off our conversation, let’s tackle our most complex recursive problem
     yet. We’re going to use everything we’ve got in our recursion toolbox to make
     this work.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We’re going to write a function that returns an array of all anagrams of a
     given string. An anagram is a reordering of all the characters within a string.
-    For example, these are the anagrams of "abc":'
+    For example, these are the anagrams of `"abc"`:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ["abc", |'
+- en: '| ​  | `["abc",` |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | "acb", |'
+- en: '| ​  | `"acb",` |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | "bac", |'
+- en: '| ​  | `"bac",` |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | "bca", |'
+- en: '| ​  | `"bca",` |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | "cab", |'
+- en: '| ​  | `"cab",` |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | "cba"] |'
+- en: '| ​  | `"cba"]` |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Now, let’s say we were to collect all the anagrams of the string "abcd". Let’s
+- en: Now, let’s say we were to collect all the anagrams of the string `"abcd"`. Let’s
     apply our top-down mindset to this problem.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Presumably, we could say that the subproblem of "abcd" is "abc". The question
+- en: 'Presumably, we could say that the subproblem of `"abcd"` is `"abc"`. The question
     then is this: if we had a working anagrams function that returned all the anagrams
-    of "abc", how can we use them to produce all the anagrams of "abcd"? Think about
-    this for a bit and see if you can come up with any approaches.'
+    of `"abc"`, how can we use them to produce all the anagrams of `"abcd"`? Think
+    about this for a bit and see if you can come up with any approaches.'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Here’s the approach that occurred to me. (There are others, though.)
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we had all six anagrams of "abc", we can come up with every permutation
-    of "abcd" if we stick the "d" in every possible spot within each anagram of "abc":'
+- en: 'If we had all six anagrams of `"abc"`, we can come up with every permutation
+    of `"abcd"` if we stick the `"d"` in every possible spot within each anagram of
+    `"abc"`:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/learning_to_write_in_recursive/d_anagram_placement.png](images/learning_to_write_in_recursive/d_anagram_placement.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Here is a JavaScript implementation of this algorithm. You’ll note that it’s
     certainly more involved than the previous examples in this chapter:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ anagramsOf(string) { |'
+- en: '| ​  | `function` anagramsOf(string) { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (string.length === 1) { ​**return**​ [string[0]]; } |'
+- en: '| ​  | `if` (string.length === 1) { `return` [string[0]]; } |'
+  id: totrans-16
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ collection = []; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ substringAnagrams = anagramsOf(string.slice(1)); |'
+- en: '| ​  | `const` collection = []; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ substringAnagram ​**of**​ substringAnagrams)
+- en: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
+  id: totrans-20
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
+  id: totrans-22
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `for` (`let` index = 0; index <= substringAnagram.length; index += 1)
     { |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ index = 0; index <= substringAnagram.length; index
-    += 1) { |'
+- en: '| ​  | `const` newString = (substringAnagram.slice(0, index) |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ newString = (substringAnagram.slice(0, index) |'
+- en: '| ​  | `+ string[0]` |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + string[0] |'
+- en: '| ​  | `+ substringAnagram.slice(index));` |'
+  id: totrans-26
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | + substringAnagram.slice(index)); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | collection.push(newString); |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ collection; |'
+- en: '| ​  | `return` collection; |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `}` |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This code is not trivial, so let’s break it down. For now, we’ll skip over the
     base case.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We start by creating an empty array in which we’ll collect the entire collection
     of anagrams:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ collection = []; |'
+- en: '| ​  | `const` collection = []; |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This is the same array we’ll return at the end of our function.
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we grab the array of all anagrams from the substring of our string. This
     substring is the subproblem string—namely, from the second character until the
-    end. For example, if the string is "hello", the substring is "ello":'
+    end. For example, if the string is `"hello"`, the substring is `"ello"`:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ substringAnagrams = anagramsOf(string.slice(1)); |'
+- en: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Note how we use the top-down mentality to assume that the anagramsOf function
     already works on the substring.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We then iterate over each of the substringAnagrams:'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ substringAnagram ​**of**​ substringAnagrams)
-    { |'
+- en: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Before moving on, it’s worth noting at this point that we are using a combination
     of loops and recursion together. Using recursion doesn’t mean that you have to
     eliminate loops from your code altogether! We’re using each tool in the way that
     most naturally helps us solve the problem at hand.
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'For each substring anagram, we iterate over each of its indexes—plus an extra
-    index at the end. For each index, we create a brand-new string (called newString)
+    index at the end. For each index, we create a brand-new string (called `newString`)
     and fill it with the substring anagram plus the first character of our current
     string inserted at the current index:'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**let**​ index = 0; index <= substringAnagram.length; index
-    += 1) { |'
+- en: '| ​  | `for` (`let` index = `0`; index <= `substringAnagram.length`; index
+    += `1`) { |'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ newString = (substringAnagram.slice(0, index) |'
+- en: '| ​  | `const` `newString` = (`substringAnagram.slice(0, index) |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + string[0] |'
+- en: '| ​  | + `string[0]` |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | + substringAnagram.slice(index)); |'
+- en: '| ​  | + `substringAnagram.slice(index));` |'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'For example, if the string is "abcd" and the substring anagram is "bcd", we
-    iterate over each index (plus an extra index at the end), which comes out to 0
-    through 3, and create the following new strings:'
+- en: 'For example, if the string is `"abcd"` and the substring anagram is `"bcd"`,
+    we iterate over each index (plus an extra index at the end), which comes out to
+    `0` through `3`, and create the following new strings:'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​*"abcd"*​ ​*// inserted ''a'' at index 0*​ |'
+- en: '| ​  | `"abcd"`​ ​// inserted `''a''` at index `0`​ |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"bacd"*​ ​*// inserted ''a'' at index 1*​ |'
+- en: '| ​  | `"bacd"`​ ​// inserted `''a''` at index `1`​ |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"bcad"*​ ​*// inserted ''a'' at index 2*​ |'
+- en: '| ​  | `"bcad"`​ ​// inserted `''a''` at index `2`​ |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*"bcda"*​ ​*// inserted ''a'' at index 3*​ |'
+- en: '| ​  | `"bcda"`​ ​// inserted `''a''` at index `3`​ |'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Really, the substring anagram "bcd" doesn’t have an index 3, but we iterate
-    through index 3 so we can insert the "a" at the very end of the substring anagram.
+- en: Really, the substring anagram `"bcd"` doesn’t have an index `3`, but we iterate
+    through index `3` so we can insert the `'a'` at the very end of the substring
+    anagram.
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Each newString represents a new anagram, so we add it to our collection:'
+- en: 'Each `newString` represents a new anagram, so we add it to our collection:'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | collection.push(newString); |'
+- en: '| ​  | `collection.push(newString);` |'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: When we’re done, we return the collection of anagrams.
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The base case is where the substring contains only one character, in which case
     there’s only one anagram—the character itself!
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The Efficiency of Anagram Generation
+  id: totrans-58
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: As an aside, let’s stop for a moment to analyze the efficiency of our anagram-generating
     algorithm, since we’ll discover something interesting. In fact, the time complexity
     of generating anagrams is a new category of Big O that we haven’t encountered
     before.
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If we think about how many anagrams we generate, we’ll notice an interesting
     pattern.
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: For a string containing three characters, we create permutations that start
     with each of the three characters. Each permutation then picks its middle character
     from one of the two remaining characters, and its last character from the last
-    character that’s left. This is 3 * 2 * 1, which is six permutations.
+    character that’s left. This is `3 * 2 * 1`, which is `six` permutations.
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Looking at this for other string lengths, we get:'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | 4 characters: 4 * 3 * 2 * 1 anagrams |'
+- en: '| ​  | `4` characters: `4 * 3 * 2 * 1` anagrams |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 5 characters: 5 * 4 * 3 * 2 * 1 anagrams |'
+- en: '| ​  | `5` characters: `5 * 4 * 3 * 2 * 1` anagrams |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | 6 characters: 6 * 5 * 4 * 3 * 2 * 1 anagrams |'
+- en: '| ​  | `6` characters: `6 * 5 * 4 * 3 * 2 * 1` anagrams |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Do you recognize this pattern? It’s a factorial!
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: So if the string has six characters, the number of anagrams is whatever the
-    factorial of 6 is. This is 6 * 5 * 4 * 3 * 2 * 1, which computes to 720.
+    factorial of `6` is. This is `6 * 5 * 4 * 3 * 2 * 1`, which computes to `720`.
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The mathematical symbol for factorial is the exclamation point. So, factorial
-    6 is expressed as 6!, and the factorial of 10 is expressed as 10!.
+    `6` is expressed as `6!`, and the factorial of `10` is expressed as `10!`.
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Remember that Big O expresses the answer to the key question: if there are
-    N data elements, how many steps will the algorithm take? In our case, N would
-    be the length of the string.'
+- en: 记住，Big O表示对关键问题的回答：如果有`N`个数据元素，算法将需要多少步？在我们的情况下，`N`将是字符串的长度。
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For a string of length N, we produce N! anagrams. In Big O notation then, this
-    is expressed as O(N!). This is also known as factorial time.
+- en: 对于长度为`N`的字符串，我们生成`N!`个字谜。那么在Big O符号中，这表示为`O(N!)`。这也被称为阶乘时间。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: O(N!) is the slowest category of Big O we’ll encounter in this book. Let’s see
-    how it looks compared to other “slow” Big O categories as shown in the [graph](#fig.ch11.big_o_factorial_graph).
+- en: '`O(N!)`是我们在本书中遇到的最慢的Big O类别。让我们看看它与其他“慢”的Big O类别相比的样子，如图所示`[graph](#fig.ch11.big_o_factorial_graph)`。'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/learning_to_write_in_recursive/big_o_factorial_graph.png](images/learning_to_write_in_recursive/big_o_factorial_graph.png)'
+- en: '`![images/learning_to_write_in_recursive/big_o_factorial_graph.png](images/learning_to_write_in_recursive/big_o_factorial_graph.png)`'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Although O(N!) is extremely slow, we don’t have a better option here, since
-    our task is to generate all the anagrams, and there simply are N! anagrams for
-    an N-character word.
+- en: 尽管`O(N!)`极其缓慢，但我们没有更好的选择，因为我们的任务是生成所有的字谜，而对于一个N字符的单词，确实有`N!`个字谜。
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In any case, recursion played a pivotal role in this algorithm, which is an
-    important example of how recursion can be used to solve a complex problem.
+- en: 无论如何，递归在这个算法中发挥了关键作用，这是一个递归如何用于解决复杂问题的重要示例。
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

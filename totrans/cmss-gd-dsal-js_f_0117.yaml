@@ -1,249 +1,361 @@
-- en: Dynamic Programming Through Memoization
+- en: '`Dynamic Programming Through Memoization`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Luckily, we do have options, and that is through something called dynamic programming.
-    Dynamic programming is the process of optimizing recursive problems that have
+- en: Luckily, we do have options, and that is through something called `dynamic programming`.
+    `Dynamic programming` is the process of optimizing recursive problems that have
     overlapping subproblems.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: (Don’t pay too much attention to the word dynamic. There’s some debate as to
-    how the term came about, and there’s nothing obviously dynamic about the techniques
-    I’m about to demonstrate.)
+- en: (Don’t pay too much attention to the word `dynamic`. There’s some debate as
+    to how the term came about, and there’s nothing obviously `dynamic` about the
+    techniques I’m about to demonstrate.)
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Optimizing an algorithm with dynamic programming is typically accomplished with
-    one of two techniques.
+- en: Optimizing an algorithm with `dynamic programming` is typically accomplished
+    with one of two techniques.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The first technique is something called memoization. And no, that’s not a typo.
-    Pronounced meh-moe-ih-ZAY-shun, memoization is a simple, but brilliant, technique
-    for reducing recursive calls in cases of overlapping subproblems.
+- en: The first technique is something called `memoization`. And no, that’s not a
+    typo. Pronounced `meh-moe-ih-ZAY-shun`, `memoization` is a simple, but brilliant,
+    technique for reducing recursive calls in cases of overlapping subproblems.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Essentially, memoization reduces recursive calls by remembering previously computed
-    functions. (In this respect, memoization really is like its similar-sounding word
-    memorization.)
+- en: Essentially, `memoization` reduces recursive calls by remembering previously
+    computed `functions`. (In this respect, `memoization` really is like its similar-sounding
+    word `memorization`.)
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In our Fibonacci example, the first time fib(3) is called, the function does
-    its computation and returns the number 2\. However, before moving on, the function
-    stores this result inside a hash table. The hash table will look something like
-    this:'
+- en: 'In our `Fibonacci` example, the first time `fib(3)` is called, the `function`
+    does its computation and returns the number `2`. However, before moving on, the
+    `function` stores this result inside a hash table. The hash table will look something
+    like this:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | {3: 2} |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This indicates that the result of fib(3) is the number 2.
+- en: This indicates that the result of `fib(3)` is the number `2`.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Similarly, our code will memoize the results of all new computations it encounters.
-    After encountering fib(4), fib(5), and fib(6), for example, our hash table will
-    look like this:'
+- en: 'Similarly, our code will `memoize` the results of all new computations it encounters.
+    After encountering `fib(4)`, `fib(5)`, and `fib(6)`, for example, our hash table
+    will look like this:'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | { |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 3: 2, |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 4: 3, |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 5: 5, |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | 6: 8 |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Now that we have this hash table, we can use it to prevent future recursive
     calls. Here’s the way this works:'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Without memoization, fib(4) would normally call fib(3) and fib(2), which in
-    turn make their own recursive calls. Now that we have this hash table, we can
-    approach things differently. Instead of fib(4) just blithely calling fib(3), for
-    example, it first checks the hash table to see if the result of fib(3) has already
-    been computed. Only if the 3 key is not in the hash table does the function proceed
-    to call fib(3).
+- en: Without `memoization`, `fib(4)` would normally call `fib(3)` and `fib(2)`, which
+    in turn make their own recursive calls. Now that we have this hash table, we can
+    approach things differently. Instead of `fib(4)` just blithely calling `fib(3)`,
+    for example, it first checks the hash table to see if the result of `fib(3)` has
+    already been computed. Only if the `3` key is not in the hash table does the `function`
+    proceed to call `fib(3)`.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Memoization goes for the jugular of overlapping subproblems. The whole issue
+- en: '`Memoization` goes for the jugular of overlapping subproblems. The whole issue
     with overlapping subproblems is that we end up computing the same recursive calls
-    over and over again. With memoization, though, each time we make a new calculation,
+    over and over again. With `memoization`, though, each time we make a new calculation,
     we store it in the hash table for future use. This way, we only make a calculation
-    if it hasn’t ever been made before.
+    if it hasn’t ever been made before.'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Okay, this all sounds good, but there’s one glaring problem. How does each recursive
     function get access to this hash table?
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The answer is this: we pass the hash table as a second parameter to the function.'
+- en: 'The answer is this: we pass the hash table as a second parameter to the `function`.'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because the hash table is a specific object in memory, we’re able to pass it
     from one recursive call to the next, even though we’re modifying it as we go.
     This is true even as we unwind the call stack. Even though the hash table may
     have been empty when the original call was made, that same hash table can be full
     of data by the time the original call has finished executing.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Implementing Memoization
+- en: 实现备忘录化
+  id: totrans-22
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To pass the hash table along, we modify our function to accept two arguments,
-    with the hash table as the second. We call this hash table, memo, as in memoization:'
+- en: 为了将哈希表传递下去，我们修改我们的函数，使其接受两个参数，哈希表作为第二个参数。我们将这个哈希表称为`memo`，如同备忘录化：
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ fib(n, memo={}) { |'
+- en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Note that we’re setting memo up as a default argument; this way we don’t have
-    to pass in an empty hash table the first time we call it. As such, we can simply
-    call the function using this:'
+- en: 注意，我们将`memo`设置为默认参数；这样，我们在第一次调用它时就不必传入一个空的哈希表。因此，我们可以简单地使用以下方式调用函数：
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | fib(6); |'
+- en: '| ​  | `fib(6);` |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Each time fib calls itself, it also passes along the hash table, which gets
-    filled up along the way.
+- en: 每次`fib`调用自身时，它还会传递哈希表，这样哈希表就会在此过程中填满。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s the rest of the function:'
+- en: 这里是函数的其余部分：
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ fib(n, memo={}) { |'
+- en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
+- en: '| ​  | ​`if`​ (`n === 0` || `n === 1`) { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ n; |'
+- en: '| ​  | ​`return`​ `n;` |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!memo[n]) { |'
+- en: '| ​  | ​`if`​ (!`memo[n]`) { |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | memo[n] = fib(n - 2, memo) + fib(n - 1, memo); |'
+- en: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ memo[n]; |'
+- en: '| ​  | ​`return`​ `memo[n];` |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Let’s analyze this line by line.
+- en: 让我们逐行分析。
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Again, our function now accepts two parameters, namely n and the memo hash
-    table:'
+- en: 同样，我们的函数现在接受两个参数，即`n`和备忘录哈希表：
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ fib(n, memo={}) { |'
+- en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: First off, the base cases of 0 and 1 both automatically return n and are unaffected
-    by memoization.
+- en: 首先，基本情况 0 和 1 都会自动返回`n`，并且不受备忘录化的影响。
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Before making any recursive calls, our code first checks to see whether fib(n)
-    has already been calculated for the given n:'
+- en: 在进行任何递归调用之前，我们的代码首先检查`fib(n)`是否已经为给定的`n`计算过：
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!memo[n]) { |'
+- en: '| ​  | ​`if`​ (!`memo[n]`) { |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: (If the calculation for n is already in the hash table, we simply return the
-    result with return memo[n].)
+- en: （如果`n`的计算已经在哈希表中，我们只需使用`return memo[n]`返回结果。）
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Only if the calculation for n has not yet been made do we proceed with the
-    calculation:'
+- en: 只有在对`n`的计算尚未完成时，我们才会继续进行计算：
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | memo[n] = fib(n - 2, memo) + fib(n - 1, memo); |'
+- en: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Here, we store the result of the calculation in the memo hash table so we never
-    have to calculate it again.
+- en: 在这里，我们将计算的结果存储在备忘录哈希表中，因此我们永远不必再次计算它。
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Also note how we pass memo along as an argument to the fib function each time
-    we call it. This is the key to sharing the memo hash table across all the calls
-    to the fib function.
+- en: 还要注意，我们每次调用`fib`函数时都会将`memo`作为参数传递。这是共享备忘录哈希表的关键。
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As you can see, the guts of the algorithm remain the same. We’re still using
-    recursion to solve our problem, as the computation of fib is still essentially
-    fib(n - 2) + fib(n - 1). However, if the number we’re computing is new, we store
-    the result in a hash table, and if the number we’re computing was already computed
-    once before, we simply grab the result from the hash table instead of computing
-    it again.
+- en: 如您所见，算法的核心部分保持不变。我们仍然在使用递归来解决问题，因为`fib`的计算仍然基本上是`fib(n - 2) + fib(n - 1)`。然而，如果我们计算的数字是新的，我们会将结果存储在哈希表中；如果我们计算的数字之前已经计算过，我们只需从哈希表中获取结果，而不是重新计算。
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'When we map out the recursive calls in our memoized version, we get this:'
+- en: 当我们在备忘录版本中映射递归调用时，我们得到了这个：
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/memoized_fib.png](images/dynamic_programming/memoized_fib.png)'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: In this diagram, each call that is surrounded by a box is one in which the result
-    was retrieved from the hash table.
+- en: 在这个图中，所有被框住的调用是从哈希表中检索结果的调用。
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'So what is the Big O of our function now? Let’s look at how many recursive
-    calls we make for different types of N:'
+- en: 那么我们函数的 Big O 现在是什么？让我们看看对不同类型的`N`我们进行多少次递归调用：
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| N Elements | Number of Calls |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| --- | --- |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 1 | 1 |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 2 | 3 |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 3 | 5 |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 4 | 7 |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 5 | 9 |'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| 6 | 11 |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: We can see that for N, we make (2N) - 1 calls. Since in Big O we drop the constants,
-    this is an O(N) algorithm.
+- en: 我们可以看到，对于`N`，我们进行了`(2N) - 1`次调用。由于在 Big O 中我们省略常数，这个算法是`O(N)`。
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This is an incredible improvement over O(2^N). Go memoization!
+- en: 这是对`O(2^N)`的一个惊人改进。去备忘录化吧！
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,474 +1,690 @@
-- en: Depth-First Search
+- en: '`Depth-First Search`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: The two well-known approaches for graph search are depth-first search and breadth-first
-    search. Both approaches can get the job done, but each provides unique advantages
-    in particular situations. We’re going to start with depth-first search, also referred
-    to as DFS, because it’s actually quite similar to the algorithm for binary tree
-    traversal that we discussed back in [​*Binary Search Tree Traversal*​](f_0150.xhtml#sect.binary-tree-traversal).
-    In fact, it’s also the same essential algorithm that we saw in [​*Filesystem Traversal*​](f_0101.xhtml#sect.filesystem-traversal).
+- en: 图搜索的两种著名方法是深度优先搜索和广度优先搜索。这两种方法都能完成任务，但在特定情况下各自提供独特的优势。我们将首先介绍深度优先搜索，也称为`DFS`，因为它实际上与我们之前讨论的`Binary
+    Search Tree Traversal`的算法非常相似。实际上，它也是我们在`Filesystem Traversal`中看到的同一基本算法。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: As mentioned earlier, graph search can be used either to find a particular vertex
-    or to simply traverse the graph. We’re going to begin by using depth-first search
-    to traverse the graph since that algorithm is slightly simpler.
+- en: 如前所述，图搜索可以用来找到特定顶点或简单地遍历图形。我们将首先使用深度优先搜索来遍历图，因为该算法稍微简单一些。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The key to any graph search algorithm is keeping track of which vertices we’ve
-    visited so far. If we don’t do this, we can end up in an infinite cycle. Take
-    the following graph, for example:'
+- en: 任何图搜索算法的关键是跟踪我们到目前为止访问过的顶点。如果我们不这样做，可能会陷入无限循环。以下图形就是一个例子：
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/cycle_graph.png](images/graphs/cycle_graph.png)'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Here, Mohammad is friends with Felicia. And Felicia also happens to be friends
-    with Zeina. But Zeina is friends with Mohammad. So our code would end up going
-    in circles unless we keep track of which vertices we’ve already traversed.
+- en: 在这里，`Mohammad`与`Felicia`是朋友。`Felicia`也恰好与`Zeina`是朋友。但是`Zeina`与`Mohammad`是朋友。因此，除非我们跟踪已经遍历的顶点，否则我们的代码会陷入循环。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This problem didn’t occur when we dealt with trees (or filesystem traversal),
-    since trees can’t have cycles. But since a graph can have a cycle, we need to
-    address this issue now.
+- en: 当我们处理树（或文件系统遍历）时，这个问题并不存在，因为树不能有循环。但由于图可以有循环，我们现在需要解决这个问题。
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: One way to keep track of our visited vertices is by using a hash table. As we
-    visit each vertex, we add the vertex (or its value) as a key in the hash table
-    and assign it an arbitrary value, such as the Boolean true. If a vertex is present
-    in the hash table, it means we’ve already visited it.
+- en: 跟踪我们已访问的顶点的一种方法是使用哈希表。当我们访问每个顶点时，将顶点（或其值）作为哈希表中的键，并为其分配一个任意值，如布尔值`true`。如果某个顶点在哈希表中，则意味着我们已经访问过它。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With this in mind, the depth-first search algorithm works as follows.
+- en: 考虑到这一点，深度优先搜索算法的工作方式如下。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Start at any random vertex within the graph.
+- en: 从图中的任何随机顶点开始。
+  id: totrans-9
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Add the current vertex to the hash table to mark it as having been visited.
+- en: 将当前顶点添加到哈希表中，以标记它为已访问。
+  id: totrans-10
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Iterate through the current vertex’s adjacent vertices.
+- en: 遍历当前顶点的相邻顶点。
+  id: totrans-11
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: For each adjacent vertex, if the adjacent vertex has already been visited, ignore
-    it.
+- en: 对于每个相邻顶点，如果该相邻顶点已经被访问过，则忽略它。
+  id: totrans-12
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: If the adjacent vertex has not yet been visited, recursively perform depth-first
-    search on that vertex.
+- en: 如果相邻顶点尚未被访问，则对该顶点递归执行深度优先搜索。
+  id: totrans-13
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Depth-First Search Walk-Through
+- en: '`Depth-First Search Walk-Through`'
+  id: totrans-14
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s see this in action.
+- en: 让我们看看这如何实现。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this walk-through, we’re going to start with Alice. In the following diagrams,
-    the vertex with lines around it is the current vertex. A check mark means we’ve
-    officially marked the vertex as having been visited (and added to the hash table).
+- en: 在这个演示中，我们将从`Alice`开始。在下面的图示中，带有线条的顶点是当前顶点。一个勾号意味着我们已经正式标记该顶点为已访问（并添加到哈希表中）。
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 1: We start with Alice and give her a check mark to indicate that we’ve
-    officially visited her vertex:'
+- en: 步骤 1：我们从`Alice`开始，并给她一个勾号以表示我们已经正式访问了她的顶点：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/visited_alice.png](images/graphs/visited_alice.png)'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Next up, we’ll iterate over Alice’s neighbors using a loop. These will be Bob,
-    Candy, Derek, and Elaine.
+- en: 接下来，我们将使用循环遍历`Alice`的邻居。这些邻居将是`Bob`、`Candy`、`Derek`和`Elaine`。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The order of which neighbor to visit first doesn’t matter, so let’s just start
-    with Bob. He seems nice.
+- en: 访问邻居的顺序无关紧要，所以我们就从`Bob`开始吧。他看起来很好。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 2: We now perform depth-first search on Bob. Note that this is making
-    a recursive call, as we’re already in the middle of a depth-first search of Alice.'
+- en: 'Step 2: We now perform depth-first search on `Bob`。 Note that this is making
+    a recursive call, as we’re already in the middle of a depth-first search of `Alice`。'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'As with all recursion, the computer needs to remember which function calls
-    it’s still in the middle of, so it first adds Alice to the call stack:'
+- en: As with all recursion, the computer needs to remember which function calls it’s
+    still in the middle of，so it first adds `Alice` to the call stack：
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/alice_call_stack.png](images/graphs/alice_call_stack.png)'
+- en: '![`images/graphs/alice_call_stack.png`](images/graphs/alice_call_stack.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We can now begin the depth-first search on Bob, which makes Bob the current
-    vertex. We mark him as visited, as shown in the [graph](#fig.ch18.visit_bob).
+- en: We can now begin the depth-first search on `Bob`，which makes `Bob` the current
+    vertex。 We mark him as visited，as shown in the [graph](#fig.ch18.visit_bob)。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_bob.png](images/graphs/visit_bob.png)'
+- en: '![`images/graphs/visit_bob.png`](images/graphs/visit_bob.png)'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We then iterate over Bob’s adjacent vertices. These are Alice and Fred.
+- en: We then iterate over `Bob`’s adjacent vertices。 These are `Alice` and `Fred`。
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 3: Alice has already been visited, so we can ignore her.'
+- en: 'Step 3: `Alice` has already been visited, so we can ignore her。'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 4: The only other neighbor, then, is Fred. We call the depth-first search
-    function on Fred’s vertex. The computer first adds Bob to the call stack to remember
-    that it’s still in the middle of searching Bob:'
+- en: 'Step 4: The only other neighbor, then, is `Fred`。 We call the depth-first search
+    function on `Fred`’s vertex。 The computer first adds `Bob` to the call stack to
+    remember that it’s still in the middle of searching `Bob`：'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/bob_call_stack.png](images/graphs/bob_call_stack.png)'
+- en: '![`images/graphs/bob_call_stack.png`](images/graphs/bob_call_stack.png)'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We now perform depth-first search on Fred. He’s now the current vertex, so
-    we mark him as visited:'
+- en: We now perform depth-first search on `Fred`。 He’s now the current vertex，so
+    we mark him as visited：
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_fred.png](images/graphs/visit_fred.png)'
+- en: '![`images/graphs/visit_fred.png`](images/graphs/visit_fred.png)'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Next, we iterate over Fred’s adjacent vertices, which are Bob and Helen.
+- en: Next, we iterate over Fred’s adjacent vertices, which are `Bob` and `Helen`。
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 5: Bob has already been visited, so we ignore him.'
+- en: 'Step 5: `Bob` has already been visited, so we ignore him。'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 6: The only remaining adjacent vertex is Helen. We recursively perform
-    depth-search first on Helen, so the computer first adds Fred to the call stack:'
+- en: 'Step 6: The only remaining adjacent vertex is `Helen`。 We recursively perform
+    depth-search first on `Helen`，so the computer first adds `Fred` to the call stack：'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/fred_call_stack.png](images/graphs/fred_call_stack.png)'
+- en: '![`images/graphs/fred_call_stack.png`](images/graphs/fred_call_stack.png)'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We now begin depth-first search on Helen. She’s the current vertex, so we mark
-    her as visited:'
+- en: We now begin depth-first search on `Helen`。 She’s the current vertex，so we mark
+    her as visited：
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_helen.png](images/graphs/visit_helen.png)'
+- en: '![`images/graphs/visit_helen.png`](images/graphs/visit_helen.png)'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Helen has two adjacent vertices: Fred and Candy.'
+- en: '`Helen` has two adjacent vertices: `Fred` and `Candy`。'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 7: We’ve already visited Fred, so we can ignore him.'
+- en: 'Step 7: We’ve already visited `Fred`，so we can ignore him。'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 8: Candy has not yet been visited, so we recursively perform depth-search
-    on Candy. First, though, Helen gets added to the call stack:'
+- en: 'Step 8: `Candy` has not yet been visited, so we recursively perform depth-search
+    on `Candy`。 First, though, `Helen` gets added to the call stack：'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/helen_call_stack.png](images/graphs/helen_call_stack.png)'
+- en: '![`images/graphs/helen_call_stack.png`](images/graphs/helen_call_stack.png)'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We perform depth-first search on Candy. She’s now the current vertex, and we
-    mark her as visited:'
+- en: We perform depth-first search on `Candy`。 She’s now the current vertex, and
+    we mark her as visited：
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_candy.png](images/graphs/visit_candy.png)'
+- en: '![`images/graphs/visit_candy.png`](images/graphs/visit_candy.png)'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Candy has two adjacent vertices: Alice and Helen.'
+- en: '`Candy` has two adjacent vertices: `Alice` and `Helen`。'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 9: We’ve already visited Alice, so we can ignore her.'
+- en: 'Step 9: We’ve already visited `Alice`，so we can ignore her。'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 10: We’ve already visited Helen, so we can ignore her as well.'
+- en: 'Step 10: We’ve already visited `Helen`，so we can ignore her as well。'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Since Candy has no other neighbors, we’re done performing depth-first search
-    on Candy. At this point, then, the computer begins to unwind the call stack.
+- en: Since `Candy` has no other neighbors, we’re done performing depth-first search
+    on `Candy`。 At this point, then, the computer begins to unwind the call stack。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: First, it pops off Helen from the call stack. We’ve already iterated over all
-    her neighbors, so the depth-first search on Helen is complete.
+- en: First, it pops off `Helen` from the call stack。 We’ve already iterated over
+    all her neighbors, so the depth-first search on `Helen` is complete。
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The computer pops off Fred. We’ve iterated over all his neighbors too, so we’re
-    done searching him as well.
+- en: The computer pops off `Fred`。 We’ve iterated over all his neighbors too，so we’re
+    done searching him as well。
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The computer pops off Bob, but we’re done with him as well.
+- en: The computer pops off `Bob`，but we’re done with him as well。
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The computer then pops Alice off the call stack. Within our search of Alice,
-    we were in the middle of looping through all of Alice’s neighbors. Now, this loop
-    already iterated over Bob. (This was Step 2.) This leaves Candy, Derek, and Elaine.
+- en: 计算机随后将`Alice`从调用栈中弹出。在我们搜索`Alice`的过程中，我们正在循环遍历`Alice`的所有邻居。现在，这个循环已经遍历过`Bob`。（这是步骤2。）这留下了`Candy`、`Derek`和`Elaine`。
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 11: Candy has already been visited, so there’s no need to perform search
-    on her.'
+- en: 步骤11：`Candy`已经被访问过，所以没有必要对她进行搜索。
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, we’ve not yet visited Derek or Elaine.
+- en: 然而，我们还没有访问`Derek`或`Elaine`。
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 12: Let’s proceed by recursively performing depth-first search on Derek.
-    The computer adds Alice to the call stack once again:'
+- en: 步骤12：让我们通过递归地对`Derek`执行深度优先搜索来进行。计算机再次将`Alice`添加到调用栈中：
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/alice_call_stack.png](images/graphs/alice_call_stack.png)'
+- en: '![`images/graphs/alice_call_stack.png`](images/graphs/alice_call_stack.png)'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'The depth-first search of Derek now begins. Derek is the current vertex, so
-    we mark him as visited:'
+- en: '`Derek`的深度优先搜索现在开始。`Derek`是当前顶点，因此我们将他标记为已访问：'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_derek.png](images/graphs/visit_derek.png)'
+- en: '![`images/graphs/visit_derek.png`](images/graphs/visit_derek.png)'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Derek has three adjacent vertices: Alice, Elaine, and Gina.'
+- en: '`Derek`有三个相邻顶点：`Alice`、`Elaine`和`Gina`。'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 13: Alice has already been visited, so we don’t need to perform another
-    search on her.'
+- en: 步骤13：`Alice`已经被访问过，因此我们不需要对她进行另一次搜索。
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 14: Let’s visit Elaine next, by recursively performing depth-first search
-    on her vertex. Before we do, the computer adds Derek to the call stack:'
+- en: 步骤14：接下来让我们访问`Elaine`，通过递归地对她的顶点执行深度优先搜索。在我们执行之前，计算机将`Derek`添加到调用栈中：
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/derek_call_stack.png](images/graphs/derek_call_stack.png)'
+- en: '![`images/graphs/derek_call_stack.png`](images/graphs/derek_call_stack.png)'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We now perform depth-first search on Elaine. We mark Elaine as visited, as shown
-    in the [graph](#fig.ch18.visit_elaine).
+- en: 我们现在对`Elaine`执行深度优先搜索。我们将`Elaine`标记为已访问，如图所示[graph](#fig.ch18.visit_elaine)。
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_elaine.png](images/graphs/visit_elaine.png)'
+- en: '![`images/graphs/visit_elaine.png`](images/graphs/visit_elaine.png)'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Elaine has two adjacent vertices: Alice and Derek.'
+- en: '`Elaine`有两个相邻顶点：`Alice`和`Derek`。'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 15: Alice has already been visited, so there’s no need to perform another
-    search on her.'
+- en: 步骤15：`Alice`已经被访问过，因此没有必要再对她进行一次搜索。
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 16: Derek, too, has already been visited.'
+- en: 步骤16：`Derek`也已经被访问过。
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Since we iterated over all Elaine’s neighbors, we’re done searching Elaine.
-    The computer now pops Derek from the call stack and loops over his remaining adjacent
-    vertices. In this case, Gina is the final neighbor to visit.
+- en: 由于我们已经遍历了所有`Elaine`的邻居，因此我们完成了对`Elaine`的搜索。计算机现在从调用栈中弹出`Derek`，并遍历他剩余的相邻顶点。在这种情况下，`Gina`是最后一个要访问的邻居。
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 17: We’ve never visited Gina before, so we recursively perform depth-first
-    search on her vertex. First, though, the computer adds Derek to the call stack
-    again:'
+- en: 步骤17：我们之前从未访问过`Gina`，所以我们对她的顶点递归地执行深度优先搜索。不过，计算机首先再次将`Derek`添加到调用栈中：
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/derek_call_stack.png](images/graphs/derek_call_stack.png)'
+- en: '![`images/graphs/derek_call_stack.png`](images/graphs/derek_call_stack.png)'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We begin our depth-first search of Gina, and mark her as visited, as shown in
-    the [graph](#fig.ch18.visit_gina).
+- en: 我们开始对`Gina`进行深度优先搜索，并将她标记为已访问，如图所示[graph](#fig.ch18.visit_gina)。
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_gina.png](images/graphs/visit_gina.png)'
+- en: '![`images/graphs/visit_gina.png`](images/graphs/visit_gina.png)'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Gina has two neighbors: Derek and Irena.'
+- en: '`Gina`有两个邻居：`Derek`和`Irena`。'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 18: Derek has already been visited.'
+- en: 步骤18：`Derek`已经被访问过。
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 19: Gina has one unvisited adjacent vertex—namely, Irena. Gina gets added
-    to the call stack so that we can recursively perform depth-first search on Irena:'
+- en: 步骤19：`Gina`有一个未访问的相邻顶点——即`Irena`。`Gina`被添加到调用栈中，以便我们可以递归地对`Irena`执行深度优先搜索：
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/gina_call_stack.png](images/graphs/gina_call_stack.png)'
+- en: '![`images/graphs/gina_call_stack.png`](images/graphs/gina_call_stack.png)'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We begin search on Irena and mark her as visited:'
+- en: 我们开始对`Irena`进行搜索，并将她标记为已访问：
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/graphs/visit_irena.png](images/graphs/visit_irena.png)'
+- en: '![`images/graphs/visit_irena.png`](images/graphs/visit_irena.png)'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We iterate over Irena’s neighbors. Irena has only one neighbor: Gina.'
+- en: 我们遍历`Irena`的邻居。`Irena`只有一个邻居：`Gina`。
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 20: Gina has already been visited.'
+- en: 步骤20：`Gina`已经被访问过。
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The computer then unwinds the call stack, popping off each vertex one by one.
-    However, since each vertex on the call stack has already iterated over all of
-    its neighbors, there’s nothing more for the computer to do with each vertex.
+- en: 计算机随后逐个弹出调用栈，依次将每个顶点弹出。然而，由于调用栈中的每个顶点已经遍历过它的所有邻居，计算机对每个顶点没有更多操作。
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This means we’re done!
+- en: 这意味着我们完成了！
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Code Implementation: Depth-First Search'
+- en: 代码实现：深度优先搜索
+  id: totrans-82
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here is an implementation of depth-first traversal:'
+- en: '-   下面是深度优先遍历的实现：'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ dfsTraverse(vertex, visitedVertices={}) { |'
+- en: '| ​  | ​`function`​ `dfsTraverse(vertex, visitedVertices={})` { |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | visitedVertices[vertex.value] = ​**true**​; |'
+- en: '| ​  | `visitedVertices[vertex.value]` = ​`true`​; |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(vertex.value); |'
+- en: '| ​  | `console.log(vertex.value);` |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ adjacentVertex ​**of**​ vertex.adjacentVertices)
+- en: '| ​  | ​`for`​ (​`const`​ `adjacentVertex` ​`of`​ `vertex.adjacentVertices`)
     { |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!visitedVertices[adjacentVertex.value]) { |'
+- en: '| ​  | ​`if`​ (!`visitedVertices[adjacentVertex.value]`) { |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | dfsTraverse(adjacentVertex, visitedVertices); |'
+- en: '| ​  | `dfsTraverse(adjacentVertex, visitedVertices);` |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Our dfsTraverse method accepts a single vertex and a visitedVertices hash table.
-    The first time we call this function, visitedVertices defaults to an empty hash
-    table. For the above example, we’d perform a depth-first traversal starting with
-    the alice vertex, with the following:'
+- en: '-   Our `dfsTraverse`方法接受一个单独的顶点和一个`visitedVertices`哈希表。第一次调用这个`function`时，`visitedVertices`默认为一个空的哈希表。对于上述示例，我们将从`alice`顶点开始执行深度优先遍历，过程如下：'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | dfsTraverse(alice); |'
+- en: '| ​  | `dfsTraverse(alice);` |'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: As we visit vertices, though, we populate this hash table with the vertices
-    we’ve visited and pass along the same hash table with each recursive call.
+- en: '-   当我们访问顶点时，我们会将已访问的顶点填充到这个哈希表中，并在每次递归调用中传递相同的哈希表。'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The first thing we do within the function is mark the current vertex as visited.
-    We do this by adding the vertex’s value to the hash:'
+- en: '-   在`function`内我们做的第一件事是将当前顶点标记为已访问。我们通过将顶点的值添加到哈希中来实现这一点：'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | visitedVertices[vertex.value] = ​**true**​; |'
+- en: '| ​  | `visitedVertices[vertex.value]` = ​`true`​; |'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then optionally print the vertex’s value just to get feedback that we’ve
-    truly traversed it:'
+- en: '-   然后我们可选地打印顶点的值，以便反馈我们确实遍历了它：'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | console.log(vertex.value); |'
+- en: '| ​  | `console.log(vertex.value);` |'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'Next, we iterate over all the adjacent vertices of the current vertex:'
+- en: '-   接下来，我们迭代当前顶点的所有相邻顶点：'
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ adjacentVertex ​**of**​ vertex.adjacentVertices)
+- en: '| ​  | ​`for`​ (​`const`​ `adjacentVertex` ​`of`​ `vertex.adjacentVertices`)
     { |'
+  id: totrans-103
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We check each adjacent vertex to see whether it has already been visited. If
-    it has, we do nothing, but if it has never been visited, we recursively call dfsTraverse
-    on that adjacent vertex:'
+- en: '-   我们检查每个相邻顶点，看它是否已经被访问。如果已访问，我们什么也不做；但如果从未被访问，我们就递归调用`dfsTraverse`，传入该相邻顶点：'
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!visitedVertices[adjacentVertex.value]) { |'
+- en: '| ​  | ​`if`​ (!`visitedVertices[adjacentVertex.value]`) { |'
+  id: totrans-105
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | dfsTraverse(adjacentVertex, visitedVertices); |'
+- en: '| ​  | `dfsTraverse(adjacentVertex, visitedVertices);` |'
+  id: totrans-106
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-107
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Again, we also pass in the visitedVertices hash table so the ensuing call has
-    access to it.
+- en: '-   同样，我们也传入`visitedVertices`哈希表，以便后续调用可以访问它。'
+  id: totrans-108
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we want to use depth-first search to search for a particular vertex, we
-    can use a modified version of the previous function:'
+- en: '-   如果我们想使用深度优先搜索来搜索特定顶点，可以使用之前`function`的修改版：'
+  id: totrans-109
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ dfs(vertex, searchValue, visitedVertices={}) { |'
+- en: '| ​  | ​`function`​ `dfs(vertex, searchValue, visitedVertices={})` { |'
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | visitedVertices[vertex.value] = ​**true**​; |'
+- en: '| ​  | `visitedVertices[vertex.value]` = ​`true`​; |'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-112
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (vertex.value === searchValue) { ​**return**​ vertex; } |'
+- en: '| ​  | ​`if`​ (`vertex.value` === `searchValue`) { ​`return`​ `vertex`; } |'
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-114
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ adjacentVertex ​**of**​ vertex.adjacentVertices)
+- en: '| ​  | ​`for`​ (​`const`​ `adjacentVertex` ​`of`​ `vertex.adjacentVertices`)
     { |'
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (adjacentVertex.value === searchValue) { |'
+- en: '| ​  | ​`if`​ (`adjacentVertex.value` === `searchValue`) { |'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ adjacentVertex; |'
+- en: '| ​  | ​`return`​ `adjacentVertex;` |'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!visitedVertices[adjacentVertex.value]) { |'
+- en: '| ​  | ​`if`​ (!`visitedVertices[adjacentVertex.value]`) { |'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ vertexWeAreSearchingFor = |'
+- en: '| ​  | ​`const`​ `vertexWeAreSearchingFor` = |'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | dfs(adjacentVertex, searchValue, visitedVertices); |'
+- en: '| ​  | `dfs(adjacentVertex, searchValue, visitedVertices);` |'
+  id: totrans-122
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (vertexWeAreSearchingFor) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ vertexWeAreSearchingFor; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | ​`if`​ (`vertexWeAreSearchingFor`) { |'
+  id: totrans-124
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ `vertexWeAreSearchingFor;` |'
+  id: totrans-125
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This implementation also recursively calls itself for each vertex but returns
-    the vertexWeAreSearchingFor if it finds the correct vertex.
+- en: '| ​  | } |'
+  id: totrans-127
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-128
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-129
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ ​`null`​; |'
+  id: totrans-130
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-131
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '-   这个实现也会递归调用自身，对于每个顶点，如果找到正确的顶点，则返回`vertexWeAreSearchingFor`。'
+  id: totrans-132
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL

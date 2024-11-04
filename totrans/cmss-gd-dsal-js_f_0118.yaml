@@ -1,131 +1,195 @@
-- en: Dynamic Programming Through Going Bottom-Up
+- en: '`Dynamic Programming Through Going Bottom-Up`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: I mentioned earlier that dynamic programming can be achieved through one of
     two techniques. We looked at one technique, memoization, which is quite nifty.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The second technique, known as going bottom-up, is a lot less fancy and may
     not even seem like a technique at all. All going bottom-up means is to ditch recursion
     and use some other approach (like a loop) to solve the same problem.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The reason that going bottom-up is considered part of dynamic programming is
     because dynamic programming means taking a problem that could be solved recursively
     and ensuring that it doesn’t make duplicate calls for overlapping subproblems.
     Using iteration (that is, loops) instead of recursion is, technically, a way to
     achieve this.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Going bottom-up becomes more of a “technique” when the problem is more naturally
     solved with recursion. Generating Fibonacci numbers is one example where recursion
     is a neat, elegant solution. Having to solve the same problem with iteration may
     take more brainpower, as an iterative approach may be less intuitive. (Imagine
     solving the staircase problem from the previous chapter with a loop. Ugh.)
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s see how we might implement a bottom-up approach for our Fibonacci function.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Bottom-Up Fibonacci
+- en: '`Bottom-Up Fibonacci`'
+  id: totrans-6
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In the following bottom-up approach, we start with the first two Fibonacci
-    numbers: 0 and 1\. We then use good ol’ iteration to build up the sequence:'
+    numbers: `0` and `1`。We then use good ol’ iteration to build up the sequence:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ fib(n) { |'
+- en: '| ​  | ​`function`​ `fib(n) {` |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n === 0) { ​**return**​ 0; } |'
+- en: '| ​  | ​`if`​ (`n === 0) { ​`return`​ `0`; } |'
+  id: totrans-9
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ a = 0; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ b = 1; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**let**​ i = 1; i < n; i += 1) { |'
+- en: '| ​  | ​`let`​ `a = 0;` |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | [a, b] = [b, a + b]; |'
+- en: '| ​  | ​`let`​ `b = 1;` |'
+  id: totrans-12
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-13
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
+  id: totrans-14
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `[a, b] = [b, a + b];` |'
+  id: totrans-15
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ b; |'
+- en: '| ​  | ​`return`​ `b`; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The very first thing we do is return 0 if the input n is 0\. Officially, fib(0)
-    should return 0, so we easily dispense with that with a simple conditional statement.
+- en: The very first thing we do is return `0` if the input `n` is `0`。Officially，`fib(0)`
+    should return `0`，so we easily dispense with that with a simple conditional statement.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, we get to the meat of the code. We initialize variables a and b as 0 and
-    1 respectively, as those are the first two numbers of the Fibonacci sequence.
+- en: Now, we get to the meat of the code. We initialize variables `a` and `b` as
+    `0` and `1` respectively, as those are the first two numbers of the Fibonacci
+    sequence.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We then start a loop so we can calculate each number of the sequence until
-    we reach n:'
+    we reach `n`:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**let**​ i = 1; i < n; i += 1) { |'
+- en: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'To calculate the next number in the sequence, we need to add the two previous
-    numbers together, namely a + b. We’ll update b to be this new number, since b
-    always is supposed to point to the last number in the sequence. We also update
-    a to what b was, so that a continues to point to the second-to-last number. We
-    do this all with one convenient swap:'
+    numbers together, namely `a + b`。We’ll update `b` to be this new number, since
+    `b` always is supposed to point to the last number in the sequence. We also update
+    `a` to what `b` was, so that `a` continues to point to the second-to-last number.
+    We do this all with one convenient swap:'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | [a, b] = [b, a + b]; |'
+- en: '| ​  | `[a, b] = [b, a + b];` |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Because our code is a simple loop from 1 to N, our code takes N steps. Like
-    the memoization approach, it’s O(N).
+- en: Because our code is a simple loop from `1` to `N`，our code takes `N` steps.
+    Like the memoization approach, it’s `O(N)`。
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Memoization vs. Bottom-Up
+- en: '`Memoization vs. Bottom-Up`'
+  id: totrans-27
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'You’ve now seen the two primary techniques of dynamic programming: memoization
     and going bottom-up. Is one technique better than the other?'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Usually, it depends on the problem and why you’re using recursion in the first
-    place. If recursion presents an elegant and intuitive solution to a given problem,
-    you may want to stick with it and use memoization to deal with any overlapping
-    subproblems. However, if the iterative approach is equally intuitive, you may
-    want to go with that.
+- en: Usually, it depends on the problem and why you’re using `recursion` in the first
+    place。If `recursion` presents an elegant and intuitive solution to a given problem，you
+    may want to stick with it and use `memoization` to deal with any overlapping subproblems。However,
+    if the `iterative` approach is equally intuitive，you may want to go with that。
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: It’s important to point out that even with memoization, recursion does carry
-    some extra overhead versus iteration. Specifically, with any recursion, the computer
-    needs to keep track of all the calls in a call stack, which consumes memory. The
-    memoization itself also requires the use of a hash table, which will take up additional
-    space on your computer as well. (More on this in Chapter 19, [​*Dealing with Space
-    Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).)
+- en: It’s important to point out that even with `memoization`，`recursion` does carry
+    some extra overhead versus `iteration`。Specifically, with any `recursion`，the
+    computer needs to keep track of all the calls in a `call stack`，which consumes
+    memory。The `memoization` itself also requires the use of a `hash table`，which
+    will take up additional space on your computer as well。 (More on this in Chapter
+    19, [​*Dealing with Space Constraints*​](f_0189.xhtml#chp.dealing_with_space_constraints).)
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Generally speaking, going bottom-up is often the better choice, unless the recursive
-    solution is more intuitive. Where recursion is more intuitive, you can keep the
-    recursion and keep it fast by using memoization.
+- en: Generally speaking, going `bottom-up` is often the better choice, unless the
+    `recursive` solution is more intuitive。Where `recursion` is more intuitive, you
+    can keep the `recursion` and keep it fast by using `memoization`。
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

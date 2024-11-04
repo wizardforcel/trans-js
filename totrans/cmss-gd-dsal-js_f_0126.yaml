@@ -1,211 +1,292 @@
-- en: Quickselect
+- en: '`Quickselect`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say you have an array in random order, and you don’t need to sort it,
     but you do want to know the tenth-lowest value in the array, or the fifth-highest.
     This can be useful if we have a lot of test grades and want to know what the 25th
     percentile is, or if we want to find the median grade.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: One way to solve this would be to sort the entire array and then jump to the
     appropriate index.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: However, even were we to use a fast sorting algorithm like Quicksort, this algorithm
-    would take at least O(N log N) for average cases. And while that isn’t bad, we
-    can do even better with a brilliant little algorithm known as Quickselect. Like
-    Quicksort, Quickselect relies on partitioning and can be thought of as a hybrid
-    of Quicksort and binary search.
+- en: However, even were we to use a fast sorting algorithm like `Quicksort`, this
+    algorithm would take at least `O(N log N)` for average cases. And while that isn’t
+    bad, we can do even better with a brilliant little algorithm known as `Quickselect`.
+    Like `Quicksort`, `Quickselect` relies on partitioning and can be thought of as
+    a hybrid of `Quicksort` and `binary search`.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'As you’ve seen earlier in this chapter, after a partition, the pivot value
-    ends up in the appropriate spot in the array. Quickselect takes advantage of this
-    in the following way:'
+    ends up in the appropriate spot in the array. `Quickselect` takes advantage of
+    this in the following way:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s say we have an array of eight values, and we want to find the second-to-lowest
     value within the array.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First, we partition the entire array:'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/partition_entire_array.png](images/divide_and_conquer_code_in_turbo_mode/partition_entire_array.png)'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'After the partition, the pivot will hopefully end up somewhere toward the middle
     of the array:'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/pivot_in_middle.png](images/divide_and_conquer_code_in_turbo_mode/pivot_in_middle.png)'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: This pivot is now in its correct spot, and since it’s in the fifth cell, we
     now know which value is the fifth-lowest value within the array.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Now, we’re looking for the second-lowest value, not the fifth-lowest. But we
     do know that the second-lowest value is somewhere to the left of the pivot. We
     can now ignore everything to the right of the pivot and focus on the left subarray.
-    It’s in this respect that Quickselect is similar to binary search: we keep dividing
-    the array in half and focus on the half in which we know the value we’re seeking
-    will be found.'
+    It’s in this respect that `Quickselect` is similar to `binary search`: we keep
+    dividing the array in half and focus on the half in which we know the value we’re
+    seeking will be found.'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Next, we partition the subarray to the left of the pivot:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/subarray_left_of_pivot.png](images/divide_and_conquer_code_in_turbo_mode/subarray_left_of_pivot.png)'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Let’s say the new pivot of this subarray ends up the third cell:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/pivot_third_cell.png](images/divide_and_conquer_code_in_turbo_mode/pivot_third_cell.png)'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'We now know that the value in the third cell is in its correct spot, meaning
     it’s the third-to-lowest value in the array. By definition, then, the second-to-lowest
     value will be somewhere to its left. We can now partition the subarray to the
     left of the third cell:'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/partition_left_of_third_cell.png](images/divide_and_conquer_code_in_turbo_mode/partition_left_of_third_cell.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'After this next partition, the lowest and second-lowest values will end up
     in their correct spots within the array:'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/second_lowest_value.png](images/divide_and_conquer_code_in_turbo_mode/second_lowest_value.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We can then grab the value from the second cell and know with confidence that
-    it’s the second-lowest value in the entire array. One of the beautiful things
-    about Quickselect is that we can find the correct value without having to sort
-    the entire array.
+- en: 我们可以从第二个单元格中获取值，并有信心地知道它是整个数组中的第二小值。Quickselect的一个美妙之处在于，我们可以在不对整个数组进行排序的情况下找到正确的值。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: With Quicksort, each time we halved the array, we needed to re-partition every
-    single element again (in their subarray form), giving us O(N log N). With Quickselect,
-    on the other hand, each time we cut the array in half, we only had to partition
-    the one half we cared about—the half in which we know our value is to be found.
+- en: 与Quicksort相比，每次我们将数组对半时，需要重新分区每个元素（以其子数组形式），这使得时间复杂度为O(N log N)。而在Quickselect中，每次我们将数组对半时，只需分区我们关心的那一半——我们知道值所在的那一半。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The Efficiency of Quickselect
+- en: Quickselect的效率
+  id: totrans-22
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: When analyzing the efficiency of Quickselect, we’ll see that it’s O(N) for average
-    scenarios. Why is this?
+- en: 在分析Quickselect的效率时，我们会发现其在平均情况下的时间复杂度为O(N)。这是为什么呢？
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In our earlier example of an array of eight elements, we executed three partitions:
-    one on an array of eight elements, one on a subarray of four elements, and one
-    on a subarray of two elements.'
+- en: 在我们之前提到的包含八个元素的数组示例中，我们执行了三次分区：一次在包含八个元素的数组上，一次在包含四个元素的子数组上，以及一次在包含两个元素的子数组上。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Recall that each partition takes about N steps for the subarray it’s run upon.
-    The total steps, then, for the three partitions is 8 + 4 + 2 = 14 steps. So an
-    array of eight elements yields roughly 14 steps.
+- en: 请回忆一下，每次分区在它运行的子数组上大约需要N步。那么，对于这三次分区，总步数为8 + 4 + 2 = 14步。所以，八个元素的数组大约需要14步。
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: For an array of 64 elements, we run about 64 + 32 + 16 + 8 + 4 + 2 = 126 steps.
-    For 128 elements, we would need about 254 steps. And for 256 elements, we would
-    end up with 510 steps.
+- en: 对于包含64个元素的数组，我们大约需要64 + 32 + 16 + 8 + 4 + 2 = 126步。对于128个元素，我们大约需要254步。对于256个元素，我们将最终需要510步。
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: We can see that we need about 2N steps for N elements in the array.
+- en: 我们可以看到，对于数组中的N个元素，我们大约需要2N步。
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: (Another way to formulate this is to say that for N elements, we would need
-    N + (N/2) + (N/4) + (N/8) + … 2 steps. This always turns out to be roughly 2N
-    steps.)
+- en: （另一种表达方式是，对于N个元素，我们需要N + (N/2) + (N/4) + (N/8) + … 2步。这总是大约是2N步。）
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Since Big O ignores constants, we drop the 2 from the 2N and say that Quickselect
-    has an efficiency of O(N).
+- en: 由于大O表示法忽略常数，我们去掉2并说Quickselect的效率为O(N)。
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Code Implementation: Quickselect'
+- en: '`Code Implementation: Quickselect`'
+  id: totrans-30
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Following is an implementation of a quickselect method that can be dropped
-    into the SortableArray class described earlier. You’ll note that it’s very similar
-    to the quicksort method:'
+- en: 以下是一个可以直接放入之前描述的`SortableArray`类中的quickselect方法的实现。你会注意到它与quicksort方法非常相似：
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '| ​  | quickselect(kthLowestValue, leftIndex, rightIndex) { |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (rightIndex - leftIndex <= 0) { |'
+- en: '| ​  | `if` (rightIndex - leftIndex <= 0) { |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.array[leftIndex]; |'
+- en: '| ​  | `return` `this`.array[leftIndex]; |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ pivotIndex = ​**this**​.partition(leftIndex, rightIndex);
+- en: '| ​  | `const` pivotIndex = `this`.partition(leftIndex, rightIndex); |'
+  id: totrans-37
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-38
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `if` (kthLowestValue < pivotIndex) { |'
+  id: totrans-39
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `this`.quickselect(kthLowestValue, leftIndex, pivotIndex -
+    1); |'
+  id: totrans-40
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` `if` (kthLowestValue > pivotIndex) { |'
+  id: totrans-41
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` `this`.quickselect(kthLowestValue, pivotIndex + 1, rightIndex);
     |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  |  |'
+- en: '| ​  | } `else`​ { |'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (kthLowestValue < pivotIndex) { |'
+- en: '| ​  | `return` `this`.array[pivotIndex]; |'
+  id: totrans-44
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.quickselect(kthLowestValue, leftIndex, pivotIndex
-    - 1); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (kthLowestValue > pivotIndex) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.quickselect(kthLowestValue, pivotIndex + 1,
-    rightIndex); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**this**​.array[pivotIndex]; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The variable kthLowestValue allows us to choose which value we’re searching
-    for. We can search for the second-to-lowest value, the fifth-to-lowest value,
-    or any other value we’d like.
+- en: 变量`kthLowestValue`允许我们选择要搜索的值。我们可以搜索第二小的值、第五小的值，或者我们想要的任何其他值。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If you want to find the second-to-lowest value of an unsorted array, you’d
-    run the following code:'
+- en: 如果你想找到一个未排序数组的第二小值，你可以运行以下代码：
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ array = [0, 50, 20, 10, 60, 30]; |'
+- en: '| ​  | `const` array = [0, 50, 20, 10, 60, 30]; |'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ sortableArray = ​**new**​ SortableArray(array); |'
+- en: '| ​  | `const` sortableArray = `new` SortableArray(array); |'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(sortableArray.quickselect(1, 0, array.length - 1)); |'
+- en: '| ​  | `console.log(sortableArray.quickselect(1, 0, array.length - 1));` |'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The first argument of the quickselect method accepts the position you’re looking
-    for, starting at index 0\. We’ve put in a 1 to represent the second-to-lowest
-    value. The second and third values are the left and right indexes of the array,
-    respectively.
+- en: '`quickselect`方法的第一个参数接受您要查找的位置，从索引`0`开始。我们输入`1`以表示第二小的值。第二个和第三个值分别是数组的左索引和右索引。'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

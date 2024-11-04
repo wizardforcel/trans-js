@@ -1,115 +1,157 @@
-- en: Chapter 10
+- en: 第10章
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0103.xhtml#recursively.recurse.with.recursion.exercises).
+- en: 这些是章节[**Exercises**](f_0103.xhtml#recursively.recurse.with.recursion.exercises)中练习的解答。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The base case is if (low > high)—that is, we want to stop the recursion once
-    low has exceeded high. Otherwise, we’d end up printing numbers even greater than
-    the high number, and onto infinity.
+- en: 基准情况是`if (low > high)`——也就是说，我们希望在`low`超过`high`时停止递归。否则，我们将打印出比`high`更大的数字，一直到无穷大。
+  id: totrans-2
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: We’d have infinite recursion! factorial(10) calls factorial(8), which calls
-    factorial(6), which calls factorial(4), which calls factorial(2), which calls
-    factorial(0). Since our base case is if (number === 1), we never end up with number
-    ever being 1, so the recursion continues. factorial(0) calls factorial(-2), and
-    so on.
+- en: 我们会有无限递归！`factorial(10)`调用`factorial(8)`，它又调用`factorial(6)`，依此类推，最终调用`factorial(0)`。由于我们的基准情况是`if
+    (number === 1)`，因此我们永远不会得到`number`为1，所以递归继续。`factorial(0)`调用`factorial(-2)`，依此类推。
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s say low is 1 and high is 10\. When we call sum(1, 10), that in turn returns
-    10 + sum(1, 9). That is, we return the sum of 10 plus whatever the sum of 1 through
-    9 is. sum(1, 9) ends up calling sum(1, 8), which in turn calls sum(1, 7), and
-    so on.
+- en: 假设`low`是1，`high`是10。当我们调用`sum(1, 10)`时，它会返回`10 + sum(1, 9)`。也就是说，我们返回10加上`1`到`9`的和。`sum(1,
+    9)`最终调用`sum(1, 8)`，依此类推。
+  id: totrans-4
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We want the last call to be sum(1, 1), in which we simply want to return the
-    number 1. This becomes our base case:'
+- en: 我们希望最后的调用是`sum(1, 1)`，在这种情况下我们只想返回数字1。这成为我们的基准情况：
+  id: totrans-5
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ sum(low, high) { |'
+- en: '| ​  | `function` sum(low, high) { |'
+  id: totrans-6
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Base case:*​ |'
+- en: '| ​  | `// Base case:` |'
+  id: totrans-7
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (high === low) { |'
+- en: '| ​  | `if` (high === low) { |'
+  id: totrans-8
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ low; |'
+- en: '| ​  | `return` low; |'
+  id: totrans-9
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-10
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-11
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ high + sum(low, high - 1); |'
+- en: '| ​  | `return` high + `sum`(low, high - 1); |'
+  id: totrans-12
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: 'This approach is similar to the file directory example from the text:'
+- en: 这种方法类似于文本中的文件目录示例：
+  id: totrans-14
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ printAllItems(array) { |'
+- en: '| ​  | `function` printAllItems(array) { |'
+  id: totrans-15
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ value ​**of**​ array) { |'
+- en: '| ​  | `for` (`const` value `of` array) { |'
+  id: totrans-16
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// If the current value is an array:*​ |'
+- en: '| ​  | `// If the current value is an array:` |'
+  id: totrans-17
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (Array.isArray(value)) { |'
+- en: '| ​  | `if` (Array.isArray(value)) { |'
+  id: totrans-18
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | printAllItems(value); |'
+- en: '| ​  | `printAllItems(value);` |'
+  id: totrans-19
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-20
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(value); |'
+- en: '| ​  | `console.log(value);` |'
+  id: totrans-21
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-22
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-23
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-24
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: We iterate over each item within the outer array. If the value is itself another
-    array, we recursively call the function on that subarray. Otherwise, it’s the
-    base case where we simply print the value to the screen.
+- en: 我们迭代外部数组中的每个项目。如果值本身是另一个数组，我们就对该子数组递归调用函数。否则，就是基准情况，我们只是将值打印到屏幕上。
+  id: totrans-25
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL

@@ -1,107 +1,166 @@
 - en: Building a Thesaurus for Fun and Profit, but Mainly Profit
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: On nights and weekends, you’re single-handedly working on a stealth startup
-    that will take over the world. It’s…a thesaurus app. But this isn’t any old thesaurus
-    app—this is Quickasaurus. And you know that it will totally disrupt the billion-dollar
-    thesaurus market. When a user looks up a word in Quickasaurus, it returns just
-    one synonym, instead of every possible synonym, as old-fashioned thesaurus apps
+- en: On nights and weekends，you’re single-handedly working on a stealth startup that
+    will take over the world. It’s…a thesaurus app. But this isn’t any old thesaurus
+    app—this is `Quickasaurus`。And you know that it will totally disrupt the billion-dollar
+    thesaurus market. When a user looks up a word in `Quickasaurus`，it returns just
+    one synonym，instead of every possible synonym，as old-fashioned thesaurus apps
     do.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Since every word has an associated synonym, this is a great use case for a hash
-    table. After all, a hash table is a list of paired items. Let’s get started.
+- en: Since every word has an associated synonym，this is a great use case for a hash
+    table. After all，a hash table is a list of paired items. Let’s get started.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We can represent our thesaurus using a hash table:'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | thesaurus = {}; |'
+- en: '|   | `thesaurus = {};` |'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Under the hood, a hash table stores its data in a bunch of cells in a row,
     similar to an array. Each cell has a corresponding number, as shown in the following
     example:'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: (We left off index 0 since nothing would be stored there given our multiplication
+- en: (We left off index `0` since nothing would be stored there given our multiplication
     hash function.)
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s add our first entry into the hash table:'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | thesaurus[​*"bad"*​] = ​*"evil"*​ |'
+- en: '|   | `thesaurus["bad"] = "evil"` |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'In code, our hash table now looks like this:'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | {​*"bad"*​: ​*"evil"*​} |'
+- en: '|   | `{"bad": "evil"}` |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s explore how the hash table stores this data.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'First, the computer applies the hash function to the key. Again, we’ll be using
-    the multiplication hash function described previously. So this would compute as
+    the multiplication hash function described previously. So this would compute as
     follows:'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: BAD = 2 * 1 * 4 = 8
+- en: '`BAD = 2 * 1 * 4 = 8`'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Since our key ("bad") hashes into 8, the computer places the value ("evil")
-    into cell 8:'
+- en: Since our key (`"bad"`）hashes into `8`，the computer places the value (`"evil"`)
+    into cell `8`：
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/blazing_fast_lookup_with_hashes/hash_2.png](images/blazing_fast_lookup_with_hashes/hash_2.png)'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Now, let’s add another key-value pair:'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | thesaurus[​*"cab"*​] = ​*"taxi"*​; |'
+- en: '|   | `thesaurus["cab"] = "taxi";` |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'Again, the computer hashes the key:'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: CAB = 3 * 1 * 2 = 6
+- en: '`CAB = 3 * 1 * 2 = 6`'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Since the resulting value is 6, the computer stores the value ("taxi") inside
-    cell 6.
+- en: Since the resulting value is `6`，the computer stores the value (`"taxi"`) inside
+    cell `6`。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/blazing_fast_lookup_with_hashes/hash_3.png](images/blazing_fast_lookup_with_hashes/hash_3.png)'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Let’s add one more key-value pair:'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | thesaurus[​*"ace"*​] = ​*"star"*​; |'
+- en: '|   | `thesaurus["ace"] = "star";` |'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'To sum up what’s happening here: for every key-value pair, each value is stored
     at the index of the key, after the key has been hashed.'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'ACE hashes into 15, since ACE = 1 * 3 * 5 = 15, so "star" gets placed into
-    cell 15:'
+- en: '`ACE` hashes into `15`，since `ACE = 1 * 3 * 5 = 15`，so `"star"` gets placed
+    into cell `15`:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/blazing_fast_lookup_with_hashes/hash_4.png](images/blazing_fast_lookup_with_hashes/hash_4.png)'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'In code, our hash table currently looks like this:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | {​*"bad"*​: ​*"evil"*​, ​*"cab"*​: ​*"taxi"*​, ​*"ace"*​: ​*"star"*​}
-    |'
+- en: '|   | `{"bad": "evil", "cab": "taxi", "ace": "star"}` |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB

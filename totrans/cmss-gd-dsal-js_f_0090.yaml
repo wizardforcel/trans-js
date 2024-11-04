@@ -1,488 +1,752 @@
 - en: Stacks in Action
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Although a stack isn’t typically used to store data on a long-term basis, it
     can be a great tool to handle temporary data as part of various algorithms. Let’s
     look at an example.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s create the beginnings of a JavaScript linter—that is, a program that inspects
-    a programmer’s JavaScript code and ensures that each line is syntactically correct.
-    JavaScript is notorious for having an abundance of parentheses in its code, so
-    that’s the aspect of syntax we’ll be focusing on. This includes parentheses, square
-    brackets, and curly braces—all common causes of frustrating syntax errors.
+- en: Let’s create the beginnings of a JavaScript linter—that is，一个检查程序员 JavaScript
+    代码的程序，确保每一行都是语法正确的。JavaScript 以其代码中大量的括号而臭名昭著，因此我们将重点关注语法的这一方面。这包括括号、方括号和大括号——这些都是令人沮丧的语法错误的常见原因。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To solve this problem, let’s first analyze what type of syntax is incorrect
     when it comes to braces. If we break it down, we’ll find three situations of erroneous
     syntax.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The first is when there’s an opening brace that doesn’t have a corresponding
     closing brace, such as this:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | (​**let**​ x = 2; |'
+- en: '| ​  | (`let` x = 2; |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We’ll call this Syntax Error Type #1.'
+- en: 'We’ll call this `Syntax Error Type #1`。'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The second is when there is a closing brace that was never preceded by a corresponding
     opening brace:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ x = 2;) |'
+- en: '| ​  | ​(`let` x = 2;) |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We’ll call that Syntax Error Type #2.'
+- en: 'We’ll call that `Syntax Error Type #2`。'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The third, which we’ll refer to as Syntax Error Type #3, is when a closing
+- en: 'The third, which we’ll refer to as `Syntax Error Type #3`，is when a closing
     brace is not the same type of brace as the immediately preceding opening brace:'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | (​**let**​ x = [1, 2, 3)]; |'
+- en: '| ​  | (`let` x = [1, 2, 3)]; |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: In the preceding example, there’s a matching set of parentheses and a matching
     pair of square brackets, but the closing parenthesis is in the wrong place, as
     it doesn’t match the immediately preceding opening brace, which is a square bracket.
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: How can we implement an algorithm that inspects a line of JavaScript code and
     ensures that there are no brace-related syntax errors? This is where a stack allows
     us to implement a beautiful linting algorithm, which works as follows.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'We first prepare an empty stack, and then we read each character from left
     to right following these rules:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If we find any character that isn’t a type of brace (parenthesis, square bracket,
     or curly brace), we ignore it and move on.
+  id: totrans-15
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: If we find an opening brace, we push it onto the stack. Having it on the stack
     means we’re waiting to close that particular brace.
+  id: totrans-16
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If we find a closing brace, we pop the top element in the stack and inspect
     it. We then analyze:'
+  id: totrans-17
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If the item we popped (which is always an opening brace) does not match the
-    current closing brace, it means we’ve encountered Syntax Error Type #3.'
+    current closing brace, it means we’ve encountered `Syntax Error Type #3`。'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If we couldn’t pop an element because the stack was empty, that means the current
-    closing brace doesn’t have a corresponding opening brace beforehand. This is Syntax
-    Error Type #2.'
+    closing brace doesn’t have a corresponding opening brace beforehand。这是 `Syntax
+    Error Type #2`。'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: If the item we popped is a corresponding match for the current closing brace,
     it means we’ve successfully closed that opening brace, and we can continue parsing
     the line of JavaScript code.
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If we make it to the end of the line and there’s still something left on the
     stack, that means there’s an opening brace without a corresponding closing brace,
-    which is Syntax Error Type #1.'
+    which is `Syntax Error Type #1`。'
+  id: totrans-21
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s see this in action using the following example:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_1_new.png](images/stacks_and_queues/parens_1_new.png)'
+- en: '![`images/stacks_and_queues/parens_1_new.png`](images/stacks_and_queues/parens_1_new.png)'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: After we prepare an empty stack, we begin reading each character from left to
     right.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 1: We begin with the first character, which happens to be an opening parenthesis:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_2_new.png](images/stacks_and_queues/parens_2_new.png)'
+- en: '![`images/stacks_and_queues/parens_2_new.png`](images/stacks_and_queues/parens_2_new.png)'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 2: Since it’s a type of opening brace, we push it onto the stack:'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/push_open_parens.png](images/stacks_and_queues/push_open_parens.png)'
+- en: '![`images/stacks_and_queues/push_open_parens.png`](images/stacks_and_queues/push_open_parens.png)'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We then ignore all the characters let x = since they aren’t brace characters.
+- en: We then ignore all the characters `let x =` since they aren’t brace characters.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 3: We encounter our next opening brace:'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_3_new.png](images/stacks_and_queues/parens_3_new.png)'
+- en: '![`images/stacks_and_queues/parens_3_new.png`](images/stacks_and_queues/parens_3_new.png)'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 4: We push it onto the stack:'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/push_open_curly_brace.png](images/stacks_and_queues/push_open_curly_brace.png)'
+- en: '![`images/stacks_and_queues/push_open_curly_brace.png`](images/stacks_and_queues/push_open_curly_brace.png)'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We then ignore the y:.
+- en: We then ignore the `y:`.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 5: We encounter the opening square bracket:'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_4_new.png](images/stacks_and_queues/parens_4_new.png)'
+- en: '![`images/stacks_and_queues/parens_4_new.png`](images/stacks_and_queues/parens_4_new.png)'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 6: We add that to the stack as well:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/push_open_square_bracket.png](images/stacks_and_queues/push_open_square_bracket.png)'
+- en: '![`images/stacks_and_queues/push_open_square_bracket.png`](images/stacks_and_queues/push_open_square_bracket.png)'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We then ignore the 1, 2, 3.
+- en: We then ignore the `1`, `2`, `3`.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 7: We encounter our first closing brace—a closing square bracket:'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/first_closing_brace_new.png](images/stacks_and_queues/first_closing_brace_new.png)'
+- en: '![`images/stacks_and_queues/first_closing_brace_new.png`](images/stacks_and_queues/first_closing_brace_new.png)'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 8: We pop the element at the top of the stack, which happens to be an
     opening square bracket:'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/pop_square_bracket.png](images/stacks_and_queues/pop_square_bracket.png)'
+- en: '![`images/stacks_and_queues/pop_square_bracket.png`](images/stacks_and_queues/pop_square_bracket.png)'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Since our closing square bracket is a corresponding match to this top element
     of the stack, it means we can continue with our algorithm without throwing any
     errors.
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 9: We move on, encountering a closing curly brace:'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_6_new.png](images/stacks_and_queues/parens_6_new.png)'
+- en: '![`images/stacks_and_queues/parens_6_new.png`](images/stacks_and_queues/parens_6_new.png)'
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 10: We pop the top item from stack:'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/pop_curly_brace.png](images/stacks_and_queues/pop_curly_brace.png)'
+- en: '![`images/stacks_and_queues/pop_curly_brace.png`](images/stacks_and_queues/pop_curly_brace.png)'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: It’s an opening curly brace, so we’ve found a match with the current closing
     brace.
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 11: We encounter a closing parenthesis:'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/stacks_and_queues/parens_7_new.png](images/stacks_and_queues/parens_7_new.png)'
+- en: '![`images/stacks_and_queues/parens_7_new.png`](images/stacks_and_queues/parens_7_new.png)'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Step 12: We pop the last element in the stack. It’s a corresponding match,
     so there are no errors so far.'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because we’ve made it through the entire line of code and our stack is empty,
     our linter can conclude that there are no syntactical errors on this line (relating
     to opening and closing braces).
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Stack-Based Code Linter'
+  id: totrans-54
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s an implementation of the preceding algorithm. Note that we’re using
-    our earlier implementation of the Stack class:'
+    our earlier implementation of the `Stack` class:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**import**​ Stack ​**from**​ ​*''./stack.js''*​; |'
+- en: '| ​  | `import` Stack `from` *''./stack.js''*; |'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**class**​ Linter { |'
+- en: '| ​  | `class` Linter { |'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​() { |'
+- en: '| ​  | `constructor`() { |'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.stack = ​**new**​ Stack(); |'
+- en: '| ​  | `this`.stack = `new` Stack(); |'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | lint(text) { |'
+- en: '| ​  | `lint`(text) { |'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (​**this**​.stack.read()) { |'
+- en: '| ​  | `while` (`this`.stack.read()) { |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.stack.pop(); |'
+- en: '| ​  | `this`.stack.pop(); |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ matchingBraces = { ​*''(''*​: ​*'')''*​, ​*''[''*​: ​*'']''*​,
-    ​*''{''*​: ​*''}''*​ }; |'
+- en: '| ​  | `const` matchingBraces = { `''(''`: `'')''`, `''[''`: `'']''`, `''{''`:
+    `''}''` }; |'
+  id: totrans-68
   prefs: []
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ text) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (matchingBraces[​**char**​]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.stack.push(​**char**​); |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ ​**if**​ (Object.values(matchingBraces).includes(​**char**​))
-    { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!​**this**​.stack.read()) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *does not have opening brace`*​; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ poppedOpeningBrace = ​**this**​.stack.pop(); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (​**char**​ !== matchingBraces[poppedOpeningBrace]) { |'
+- en: '| ​  | `for`(`const` `char` `of` text) { |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *has mismatched opening brace`*​; |'
+- en: '| ​  | `if`(`matchingBraces[`char`]) { |'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `this`.stack.push(`char`); |'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | } `else` `if` (Object.values(matchingBraces).includes(`char`)) { |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `if` (!`this`.stack.read()) { |'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `return` `${`char`} does not have opening brace`; |'
+  id: totrans-75
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` { |'
+  id: totrans-76
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `const` poppedOpeningBrace = `this`.stack.pop(); |'
+  id: totrans-77
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// If we get to the end of line, and the stack isn''t empty:*​ |'
+- en: '| ​  | `if`(`char` !== `matchingBraces[poppedOpeningBrace]`) { |'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (​**this**​.stack.read()) { |'
+- en: '| ​  | `return` `${`char`} has mismatched opening brace`; |'
+  id: totrans-80
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**this**​.stack.read()}​ *does not have closing
-    brace`*​; |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-81
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-82
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-83
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-84
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​*// Return true if line has no errors:*​ |'
+- en: '| ​  | `// If we get to the end of line, and the stack isn''t empty:` |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**true**​; |'
+- en: '| ​  | `if` (`this`.stack.read()) { |'
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `return` `${`this`.stack.read()} does not have closing brace`; |'
+  id: totrans-88
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: The import Stack from ’./stack.js’ allows our code to use our own stack implementation
-    from above, as we saved it in a file called stack.js.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'As soon as we create an instance of the Linter class, we create a stack that
-    our algorithm can use. This is accomplished with the following code:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**constructor**​() { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.stack = ​**new**​ Stack(); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The main linting algorithm takes place within the lint method, which accepts
-    a string of JavaScript code and assigns it to a variable called text.
+- en: '| ​  |  |'
+  id: totrans-90
   prefs: []
-  type: TYPE_NORMAL
-- en: 'The very first thing we do is ensure that the stack is empty, as it still may
-    have data in it from a previous linting. We accomplish this by popping data from
-    the stack until there’s no data left:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (​**this**​.stack.read()) { |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.stack.pop(); |'
+- en: '| ​  | `// Return true if line has no errors:` |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } |'
+- en: '| ​  | `return` `true`; |'
+  id: totrans-92
   prefs: []
-  type: TYPE_TB
-- en: 'We then define what we consider to be sets of matching brackets:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ matchingBraces = { ​*''(''*​: ​*'')''*​, ​*''[''*​: ​*'']''*​,
-    ​*''{''*​: ​*''}''*​ }; |'
-  prefs: []
-  type: TYPE_TB
-- en: 'We’re now up to the main part of the algorithm, which runs using a loop that
-    analyzes each character of text, one at a time:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ text) { |'
-  prefs: []
-  type: TYPE_TB
-- en: 'If the character we’re up to is an opening brace, we push it onto the stack:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (matchingBraces[​**char**​]) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.stack.push(​**char**​); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'If the current character is not an opening brace, we then check to see if it’s
-    perhaps a closing brace:'
+- en: '| ​  | } |'
+  id: totrans-94
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`import Stack from ''./stack.js''` 允许我们的代码使用我们在上面实现的栈，因为我们将其保存在一个名为 `stack.js`
+    的文件中。'
+  id: totrans-95
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**else**​ ​**if**​ (Object.values(matchingBraces).includes(​**char**​))
-    { |'
+- en: 一旦我们创建了 `Linter` 类的实例，我们就会创建一个算法可以使用的栈。这是通过以下代码实现的：
+  id: totrans-96
   prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `constructor`() { |'
+  id: totrans-97
+  prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The Object.values method gives us an array of all the values of the matchingBraces
-    object (that is, a hash table) without the keys. In our case, these values are
-    all the closing braces.
+- en: '| ​  | `this`.stack = `new` Stack(); |'
+  id: totrans-98
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-99
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 主 linting 算法发生在 `lint` 方法中，该方法接受一段 JavaScript 代码的字符串并将其分配给一个名为 `text` 的变量。
+  id: totrans-100
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 我们首先确保栈是空的，因为它可能仍然包含来自之前的 linting 的数据。我们通过不断弹出栈中的数据，直到没有剩余数据：
+  id: totrans-101
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `while`(`this`.stack.read()) { |'
+  id: totrans-102
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `this`.stack.pop(); |'
+  id: totrans-103
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-104
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 我们随后定义了我们认为是匹配括号的集合：
+  id: totrans-105
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `const` matchingBraces = { `''(''`: `'')''`, `''[''`: `'']''`, `''{''`:
+    `''}''` }; |'
+  id: totrans-106
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 我们现在进入算法的主要部分，它通过循环逐个分析 `text` 中的每个字符：
+  id: totrans-107
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `for`(`const` `char` `of` text) { |'
+  id: totrans-108
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 如果当前字符是一个开括号，我们将它推入栈中：
+  id: totrans-109
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `if`(`matchingBraces[`char`]) { |'
+  id: totrans-110
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `this`.stack.push(`char`); |'
+  id: totrans-111
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-112
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 如果当前字符不是一个开括号，我们接着检查它是否可能是一个闭括号：
+  id: totrans-113
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `else` `if` (Object.values(matchingBraces).includes(`char`)) { |'
+  id: totrans-114
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '`Object.values` 方法给我们提供了一个包含 `matchingBraces` 对象所有值的数组（即一个哈希表），不包含键。在我们的例子中，这些值都是闭括号。'
+  id: totrans-115
+  prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'If the current character is a closing brace, we then consider a couple of possibilities.
     We first check to see if there’s anything on the stack. If there isn’t, we trigger
-    Syntax Error #2:'
+    `Syntax Error #2`:'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!​**this**​.stack.read()) { |'
+- en: '| ​  | `if`​ (!​`this`.stack.read()) { |'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *does not have opening brace`*​; |'
+- en: '| ​  | `return` ​*`*​${​`char`​}​ *does not have opening brace`*​; |'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'If there is something on the stack, we pop it off and check to see if it’s
-    a matching opening brace. If it isn’t, we trigger Syntax Error #3:'
+    a matching opening brace. If it isn’t, we trigger `Syntax Error #3`:'
+  id: totrans-120
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**else**​ { |'
+- en: '| ​  | `else`​ { |'
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ poppedOpeningBrace = ​**this**​.stack.pop(); |'
+- en: '| ​  | `const`​ `poppedOpeningBrace` = `this`.stack.pop(); |'
+  id: totrans-122
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (​**char**​ !== matchingBraces[poppedOpeningBrace]) { |'
+- en: '| ​  | `if`​ (`char` !== `matchingBraces[poppedOpeningBrace]`) { |'
+  id: totrans-124
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**char**​}​ *has mismatched opening brace`*​; |'
+- en: '| ​  | `return` ​*`*​${​`char`​}​ *has mismatched opening brace`*​; |'
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: The loop continues this way until it processes the entire text.
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'However, we’re not quite done. We still have to check whether the stack contains
     anything, because if it does, it means we have a stray opening brace that was
-    never closed. This, again, is Syntax Error #1:'
+    never closed. This, again, is `Syntax Error #1`:'
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (​**this**​.stack.read()) { |'
+- en: '| ​  | `if`​ (`this`.stack.read()) { |'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​*`*​${​**this**​.stack.read()}​ *does not have closing
-    brace`*​; |'
+- en: '| ​  | `return` ​*`*​${​`this`​.stack.read()}​ *does not have closing brace`*​;
+    |'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: At the end of our method we return true if we process the entire text and don’t
-    encounter any errors.
+- en: At the end of our method we return `true` if we process the entire text and
+    don’t encounter any errors.
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s some sample code to run our linter:'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ linter = ​**new**​ Linter(); |'
+- en: '| ​  | `const`​ `linter` = `new`​ `Linter();` |'
+  id: totrans-135
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | linter.lint(​*''(let x = 2;''*​) |'
+- en: '| ​  | `linter.lint(​*''(let x = 2;''*​)` |'
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'This example will trigger Syntax Error #1 since the opening parenthesis has
+- en: 'This example will trigger `Syntax Error #1` since the opening parenthesis has
     no closing parenthesis.'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In this example, we used a stack to implement our linter with a neat algorithm.
     But if a stack actually uses an array under the hood, why bother with a stack?
     Couldn’t we have accomplished the same task using an array?
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

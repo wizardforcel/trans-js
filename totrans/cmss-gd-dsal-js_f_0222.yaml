@@ -1,146 +1,205 @@
-- en: Chapter 17
+- en: 第17章
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0176.xhtml#tries.exercises).
+- en: 这些是本节[**Exercises**](f_0176.xhtml#tries.exercises)中练习的解决方案。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This trie stores the words: “tag”, “tan”, “tank”, “tap”, “today”, “total”,
-    “we”, “well”, and “went”.'
+- en: 这个字典树存储了以下单词：“tag”、“tan”、“tank”、“tap”、“today”、“total”、“we”、“well”和“went”。
+  id: totrans-2
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here is a trie that stores the words “get”, “go”, “got”, “gotten”, “hall”,
-    “ham”, “hammer”, “hill”, and “zebra”:'
+- en: 这里是一个字典树，存储了单词“get”、“go”、“got”、“gotten”、“hall”、“ham”、“hammer”、“hill”和“zebra”：
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/tries/solution_2.png](images/tries/solution_2.png)'
+  id: totrans-4
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_IMG
-- en: 'The following code starts at the trie’s node and iterates over each of its
-    children. For each child, it prints the key and then recursively calls itself
-    on the child node:'
+- en: 以下代码从字典树的节点开始，迭代每个子节点。对于每个子节点，它打印键，然后在子节点上递归调用自身：
+  id: totrans-5
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | traverse(node = ​**null**​) { |'
+- en: '| ​  | `traverse(node =` `null`) { |'
+  id: totrans-6
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ currentNode = node &#124;&#124; ​**this**​.root; |'
+- en: '| ​  | `const` currentNode = node `||` `this`.root; |'
+  id: totrans-7
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-8
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ [key, childNode] ​**of**​ Object.entries(currentNode.children))
+- en: '| ​  | `for` (`const` [key, childNode] `of` Object.entries(currentNode.children))
     { |'
+  id: totrans-9
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(key); |'
+- en: '| ​  | `console.log(key);` |'
+  id: totrans-10
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-11
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (key !== ​*''*''*​) { |'
+- en: '| ​  | `if` (key !== `''*''`) { |'
+  id: totrans-12
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.traverse(childNode); |'
+- en: '| ​  | `this.traverse(childNode);` |'
+  id: totrans-13
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-14
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: 'Our autocorrect implementation is a combination of the search and collectAllWords
-    functions:'
+- en: '| ​  | } |'
+  id: totrans-15
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-16
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: 我们的自动纠正实现是搜索和`collectAllWords`函数的组合：
+  id: totrans-17
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | autocorrect(word) { |'
+- en: '| ​  | `autocorrect(word)` { |'
+  id: totrans-18
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.root; |'
+- en: '| ​  | `let` currentNode = `this`.root; |'
+  id: totrans-19
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ wordFoundSoFar = ​*''''*​; |'
+- en: '| ​  | `let` wordFoundSoFar = `''''`; |'
+  id: totrans-20
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-21
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ ​**char**​ ​**of**​ word) { |'
+- en: '| ​  | `for` (`const` `char` `of` word) { |'
+  id: totrans-22
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (currentNode.children[​**char**​]) { |'
+- en: '| ​  | `if` (currentNode.children[`char`]) { |'
+  id: totrans-23
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | wordFoundSoFar += ​**char**​; |'
+- en: '| ​  | `wordFoundSoFar +=` `char`; |'
+  id: totrans-24
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.children[​**char**​]; |'
+- en: '| ​  | `currentNode = currentNode.children[`char`];` |'
+  id: totrans-25
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | } `else` { |'
+  id: totrans-26
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ wordFoundSoFar + ​**this**​.collectAllWords([], currentNode)[0];
+- en: '| ​  | `return` wordFoundSoFar + `this.collectAllWords([], currentNode)[0];`
     |'
+  id: totrans-27
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-28
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-29
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-30
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ word; |'
+- en: '| ​  | `return` word; |'
+  id: totrans-31
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-32
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: The basic approach is that we first search the trie to find as much of the prefix
-    as we can. When we hit a dead end, instead of just returning null (as the search
-    function does), we call collectAllWords on the current node to collect all the
-    suffixes that stem from that node. We then use the first suffix of the array and
-    concatenate it with the prefix to suggest a new word to the user.
+- en: 基本思路是，我们首先搜索字典树以找到尽可能多的前缀。当我们遇到死胡同时，而不是像搜索函数那样返回`null`，我们在当前节点调用`collectAllWords`来收集所有来自该节点的后缀。然后我们使用数组中的第一个后缀并将其与前缀连接，以向用户建议一个新单词。
+  id: totrans-33
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL

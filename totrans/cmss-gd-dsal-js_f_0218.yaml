@@ -1,265 +1,393 @@
-- en: Chapter 13
+- en: '-   Chapter 13'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0129.xhtml#divide.and.conquer.in.turbo.mode.exercises).
+- en: '-   These are the solutions to the exercises found in the section [`Exercises`](f_0129.xhtml#divide.and.conquer.in.turbo.mode.exercises).'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we sort the numbers, we know that the three greatest numbers will be at
-    the end of the array, and we can just multiply them together. The sorting will
+- en: '-   If we sort the numbers, we know that the three greatest numbers will be
+    at the end of the array, and we can just multiply them together. The sorting will
     take O(N log N):'
+  id: totrans-2
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ greatestProductOf3(array) { |'
+- en: '| ​  | ​`function`​ `greatestProductOf3(array) {` |'
+  id: totrans-3
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array.sort((a, b) => a - b); |'
+- en: '| ​  | `array.sort((a, b) => a - b);` |'
+  id: totrans-4
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-5
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[array.length - 1] * |'
+- en: '| ​  | ​`return`​ `array[array.length - 1] *` |'
+  id: totrans-6
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[array.length - 2] * |'
+- en: '| ​  | `array[array.length - 2] *` |'
+  id: totrans-7
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array[array.length - 3]; |'
+- en: '| ​  | `array[array.length - 3];` |'
+  id: totrans-8
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-9
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: (This code takes for granted that there are at least three values in the array.
-    You can add code to handle arrays where this is not the case.)
+- en: '-   (This code takes for granted that there are at least three values in the
+    array. You can add code to handle arrays where this is not the case.)'
+  id: totrans-10
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'If we presort the array, we can then expect each number to be at its own index.
-    That is, the 0 should be at index 0, the 1 should be at index 1, and so on. We
-    can then iterate through the array looking for a number that doesn’t equal the
-    index. Once we find it, we know that we just skipped over the missing number:'
+- en: '-   If we presort the array, we can then expect each number to be at its own
+    index. That is, the 0 should be at index 0, the 1 should be at index 1, and so
+    on. We can then iterate through the array looking for a number that doesn’t equal
+    the index. Once we find it, we know that we just skipped over the missing number:'
+  id: totrans-11
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ findMissingNumber(array) { |'
+- en: '| ​  | ​`function`​ `findMissingNumber(array) {` |'
+  id: totrans-12
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | array.sort((a, b) => a - b); |'
+- en: '| ​  | `array.sort((a, b) => a - b);` |'
+  id: totrans-13
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-14
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ [index, num] ​**of**​ array.entries()) { |'
+- en: '| ​  | ​`for`​ (​`const`​ `[index, num]` ​`of`​ `array.entries()) {` |'
+  id: totrans-15
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (num !== index) { |'
+- en: '| ​  | ​`if`​ (`num !== index`) { |'
+  id: totrans-16
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ index; |'
+- en: '| ​  | ​`return`​ `index;` |'
+  id: totrans-17
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-18
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-19
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-20
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | ​`return`​ ​`null`​; |'
+  id: totrans-21
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-22
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: The sorting takes N log N steps, and the loop afterward takes N steps. However,
-    we reduce the expression (N log N) + N to O(N log N) since the added N is a lower
-    order compared to N log N.
+- en: '-   The sorting takes N log N steps, and the loop afterward takes N steps.
+    However, we reduce the expression (N log N) + N to O(N log N) since the added
+    N is a lower order compared to N log N.'
+  id: totrans-23
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: 'This implementation uses nested loops and is O(N²):'
+- en: '-   This implementation uses nested loops and is O(N²):'
+  id: totrans-24
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ max(array) { |'
+- en: '| ​  | ​`function`​ `max(array) {` |'
+  id: totrans-25
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+- en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
+  id: totrans-26
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ i ​**of**​ array) { |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ iIsGreatestNumber = ​**true**​; |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-27
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ j ​**of**​ array) { |'
+- en: '| ​  | ​`for`​ (​`const`​ `i` ​`of`​ `array`) { |'
+  id: totrans-28
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (j > i) { |'
+- en: '| ​  | ​`let`​ `iIsGreatestNumber` = ​`true`​; |'
+  id: totrans-29
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | iIsGreatestNumber = ​**false**​; |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-30
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (iIsGreatestNumber) { |'
+- en: '| ​  | ​`for`​ (​`const`​ `j` ​`of`​ `array`) { |'
+  id: totrans-31
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ i; |'
+- en: '| ​  | ​`if`​ (`j > i`) { |'
+  id: totrans-32
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `iIsGreatestNumber` = ​`false`​; |'
+  id: totrans-33
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-34
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-35
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-36
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`if`​ (`iIsGreatestNumber`) { |'
+  id: totrans-37
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ `i;` |'
+  id: totrans-38
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-39
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: 'The next implementation simply sorts the array and returns the last number.
+- en: '| ​  | } |'
+  id: totrans-40
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-41
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '-   The next implementation simply sorts the array and returns the last number.
     The sorting is O(N log N):'
+  id: totrans-42
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ max(array) { |'
+- en: '| ​  | ​`function`​ `max(array) {` |'
+  id: totrans-43
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+- en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
+  id: totrans-44
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | array.sort((a, b) => a - b); |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-45
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[array.length - 1]; |'
+- en: '| ​  | `array.sort((a, b) => a - b);` |'
+  id: totrans-46
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-47
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ `array[array.length - 1];` |'
+  id: totrans-48
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-49
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: 'Our next and final implementation is O(N) since we iterate just once over the
-    array:'
+- en: '-   Our next and final implementation is O(N) since we iterate just once over
+    the array:'
+  id: totrans-50
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ max(array) { |'
+- en: '| ​  | ​`function`​ `max(array) {` |'
+  id: totrans-51
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ ​**null**​; } |'
+- en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
+  id: totrans-52
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**let**​ greatestNumberSoFar = array[0]; |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-53
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**for**​ (​**const**​ number ​**of**​ array) { |'
+- en: '| ​  | ​`let`​ `greatestNumberSoFar` = `array[0]`; |'
+  id: totrans-54
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (number > greatestNumberSoFar) { |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | greatestNumberSoFar = number; |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-55
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ greatestNumberSoFar; |'
+- en: '| ​  | ​`for`​ (​`const`​ `number` ​`of`​ `array`) { |'
+  id: totrans-56
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`if`​ (`number > greatestNumberSoFar`) { |'
+  id: totrans-57
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `greatestNumberSoFar` = `number`; |'
+  id: totrans-58
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-59
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-60
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-61
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | ​`return`​ `greatestNumberSoFar;` |'
+  id: totrans-62
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-63
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB

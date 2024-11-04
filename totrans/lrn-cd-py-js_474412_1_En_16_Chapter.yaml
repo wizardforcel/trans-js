@@ -1,99 +1,110 @@
-- en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
-    part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
-    [https://doi.org/10.1007/978-3-658-42912-6_16](https://doi.org/10.1007/978-3-658-42912-6_16)
+- en: © `The Author(s)`，独家授权给`Springer Fachmedien Wiesbaden GmbH`，`part of Springer
+    Nature` 2024`J. L. Zuckarelli`学习使用`Python`和`JavaScript` [https://doi.org/10.1007/978-3-658-42912-6_16](https://doi.org/10.1007/978-3-658-42912-6_16)
+  id: totrans-0
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 16. How Do I Search For and Fix Errors in a Structured Way?
+- en: 16. 如何以结构化的方式搜索和修复错误？
+  id: totrans-1
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+- en: '`Joachim L. Zuckarelli`^([1](#Aff2) )(1)`München, GermanyOverview`'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Errors are the programmer’s worst enemy. No matter how carefully you work, errors
-    always creep in. Testing the program, to detect and eliminate errors, is therefore
-    an essential part of programming. Errors manifest themselves either by the program
-    not being able to run at all, by it crashing during execution, or by the fact
-    that even if it runs to the end, it still doesn’t do what it’s supposed to.
+- en: 错误是程序员最糟糕的敌人。无论您工作多么小心，错误总会潜入。测试程序以检测和消除错误，因此是编程的重要部分。错误的表现形式可能是程序根本无法运行，执行过程中崩溃，或者即使运行到最后，它仍然无法按预期工作。
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A distinction can be made between errors that occur *at development time*, i.e.,
-    while the program is being written, and those that occur *at runtime*, i.e. when
-    the program is being executed.
+- en: 可以区分在`development time`发生的错误，即在编写程序时发生的错误，以及在`runtime`发生的错误，即当程序被执行时发生的错误。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In this chapter you will learn:'
+- en: 在本章中，您将学习：
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What types of errors there are and what causes them
+- en: 存在什么类型的错误以及它们的原因是什么
+  id: totrans-6
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: How to catch runtime errors by handling exceptions and make them harmless
+- en: 如何通过处理异常捕获运行时错误并使其无害
+  id: totrans-7
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: How to proceed skilfully when testing programs
+- en: 在测试程序时如何巧妙地进行
+  id: totrans-8
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: What a debugger is
+- en: 什么是调试器
+  id: totrans-9
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: What the debugger features, such as “breakpoints”, “single step mode” and “variable
-    observation/watches” are, and how to use them to understand the location and cause
-    of errors
+- en: 调试器的功能，如“`breakpoints`”、“`single step mode`”和“`variable observation/watches`”是什么，以及如何使用它们来理解错误的位置和原因
+  id: totrans-10
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: How to use temporary, additional output to diagnose errors in the program even
-    without a debugger.
+- en: 如何使用临时的、额外的输出在没有调试器的情况下诊断程序中的错误。
+  id: totrans-11
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 16.1 Errors at Development Time
+- en: 16.1 开发时的错误
+  id: totrans-12
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Errors that already happen at development time are either errors in syntax,
-    where the “grammar” of the program is not correct, and one or more statements
-    do not comply with the “sentence structure rules”, or they are algorithmic errors;
-    errors that are due to the fact that the program code. while formally correct,
-    is simply not an accurate implementation of what the programmer wants to do or
-    achieve.
+- en: 在开发时已经发生的错误要么是语法错误，其中程序的“语法”不正确，一个或多个语句不符合“句子结构规则”，要么是算法错误；这些错误是由于程序代码形式上正确，但根本不是程序员想要做或实现的准确实现。
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In the case of *syntax errors,* the compiler or interpreter regularly helps
-    by aborting the compilation or execution of the program with an error message.
-    This error message usually gives information about what kind of error has occurred
-    and where in the code (often via the line number or the name of the program part)
-    the cause probably lies. Such an error could be that a variable has not been declared,
-    and if you then use the variable in the program, the compiler or interpreter will
-    fail at this point. Sometimes, the error messages are somewhat cryptic, and only
-    programmers who are familiar with the internal structure of the programming language
-    will understand what the compiler/interpreter is trying to say. In such cases,
-    a search on the Internet usually helps, because other programmers will also have
-    wondered about this error message. You will find solutions for errors in many
-    different languages on *StackOverflow.*
+- en: 在发生`syntax errors`的情况下，编译器或解释器通常会通过中止程序的编译或执行，并提供错误信息来进行帮助。这个错误信息通常会提供关于发生了什么类型的错误以及在代码中的哪个位置（通常通过行号或程序部分的名称）可能是原因的信息。这样的错误可能是由于某个变量没有被声明，如果您在程序中使用该变量，编译器或解释器将在此处失败。有时，错误信息有些难以理解，只有熟悉编程语言内部结构的程序员才能理解编译器/解释器想要表达的意思。在这种情况下，通常在互联网上搜索会有所帮助，因为其他程序员也会对该错误信息感到困惑。您将在`StackOverflow`上找到多种语言的错误解决方案。
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '*Algorithmic* errors are often more difficult to detect and understand. To
-    do this, use the debugging methods described in ► Sect. [16.4](#Sec4).'
+- en: '`Algorithmic`错误通常更难以检测和理解。为此，请使用►节`[16.4](#Sec4)`中描述的调试方法。'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 16.2 Errors at Runtime
+- en: '`16.2 Errors at Runtime`'
+  id: totrans-16
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Unforeseen Circumstances During Program Execution
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The difference between errors that occur during the development of the program
     and errors that occur at runtime is that in the latter case the program works
     in principle, but during execution circumstances occur that the developer did
     not foresee and for which he did not take any precautions.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This could, for example, be that the program tries to access a file that does
     not exist. This problem never occurred during development, or during testing,
@@ -106,195 +117,260 @@
     when the program asked him to. Accordingly, he never got into the situation where
     the program crashed because of non-numeric input, so never took the precaution
     of testing the user’s input and rejecting it if it is not numeric.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Errors that only occur at runtime are regularly caused by a situation that can
     occur but was not foreseen during development. Under ideal conditions, the program
     runs without any problems.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The trick is to catch as many sources of errors as possible during development.
     For example, the program should test whether a user input that is for a calculation
     is a number, and otherwise reject it. Likewise, it should check that numeric variables
-    to be used as divisors will never be 0, which of course immediately causes an
+    to be used as divisors will never be `0`, which of course immediately causes an
     error. The existence of files that the program wants to access can also be checked
     and the program flow adjusted if the file does not exist.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This anticipation of possible bugs is time-consuming but important, especially
     when writing programs for others to use. They may not be able to look at the program
     code, or may lack technical understanding, and may have a low tolerance of bugs,
     especially if they paid for the program.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Catching Errors with Try-Catch Constructs
+- en: Catching Errors with `Try-Catch` Constructs
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Many programming languages support error handling in the program by special
-    language constructs. The basic idea is that errors are reflected in *exceptions*.
+    language constructs. The basic idea is that errors are reflected in `exceptions`.
     Exceptions are nothing more than events that are triggered when an error of a
     certain type occurs. In this context, programmers also speak of the exceptions
     being “thrown”.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Following the analogy of “throwing”, these exceptions can then be “caught” and
     handled. For example, an exception could occur when opening a file, if the file
     to be read from does not exist. In this case, the program does not terminate,
     but continues in a controlled manner with a part of the program that is intended
     for precisely this situation.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'In our pseudo-code, such a construct would look like this:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**Try***// Open file and read data***Catch***// Display error message***End**'
+- en: '`Try`// Open file and read data `Catch`// Display error message `End`'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: So, you “try” to execute a certain part of the program; if that works, it continues
-    after **End**. But if an exception occurs, the code after the **Catch** keyword
-    is executed first. Some programming languages allow you to catch different exceptions
+- en: So, you `try` to execute a certain part of the program; if that works, it continues
+    after `End`. But if an exception occurs, the code after the `Catch` keyword is
+    executed first. Some programming languages allow you to catch different exceptions
     within such a construction and react differently to each of them. Often, this
     involves providing a special exception object whose properties can be used to
     provide more details about the exception that occurred, so that you can tailor
     your response to it.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Now, what is the difference between such a Try-Catch construct and an approach
+- en: Now, what is the difference between such a `Try-Catch` construct and an approach
     that gets along without this construct by simply checking whether the file exists
     before trying to open it? In the latter approach, the possible source of the error
     is checked beforehand, and the action that could lead to an error is not performed
-    at all. With the Try-Catch construct no check takes place before the action, instead
-    you run straight into the error. The only difference is that the error does not
-    cause the program to crash or behave in an uncontrolled manner. Instead, the error
-    is processed in a completely controlled way *after* it has occurred (after the
-    exception has been thrown). The advantage of this approach is that you don’t have
-    to know in advance exactly what could go wrong. Perhaps the file to be read will
-    still not be readable, even though it exists, for example because the user has
-    insufficient access rights. This error would also be caught with our Try-Catch
-    construct, without us having to explicitly provide for it. The danger of this
-    seemingly practical approach is, of course, that one thinks less about the possible
-    sources of errors and the optimal response.
+    at all. With the `Try-Catch` construct no check takes place before the action,
+    instead you run straight into the error. The only difference is that the error
+    does not cause the program to crash or behave in an uncontrolled manner. Instead,
+    the error is processed in a completely controlled way `after` it has occurred
+    (after the exception has been thrown). The advantage of this approach is that
+    you don’t have to know in advance exactly what could go wrong. Perhaps the file
+    to be read will still not be readable, even though it exists, for example because
+    the user has insufficient access rights. This error would also be caught with
+    our `Try-Catch` construct, without us having to explicitly provide for it. The
+    danger of this seemingly practical approach is, of course, that one thinks less
+    about the possible sources of errors and the optimal response.
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '**A** better approach is therefore to catch as many potential problems and
-    exceptions as possible separately beforehand, to react to them individually, and
-    then finally to include a general Try-Catch constructs in the program for all
-    exceptions that are not handled separately.'
+- en: '`A` better approach is therefore to catch as many potential problems and exceptions
+    as possible separately beforehand, to react to them individually, and then finally
+    to include a general `Try-Catch` constructs in the program for all exceptions
+    that are not handled separately.'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 16.3 Testing
+- en: '`16.3 Testing`'
+  id: totrans-31
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Given the many possible sources of error, *testing* is of course the key to
-    success. Testing, testing and testing again. Testing is almost a science in itself,
-    there are numerous different approaches and types of tests. In fact, tester is
-    even a job description in software development. In some companies, developers
-    and testers work in pairs. In line with the importance of testing, there are special
-    tools to develop tests, sometimes even to perform them automatically, to document
-    the results and to provide project management support for the elimination of errors.
+- en: Given the many possible sources of error, `testing` is of course the key to
+    success. `Testing`, `testing` and `testing` again. `Testing` is almost a science
+    in itself, there are numerous different approaches and types of tests. In fact,
+    `tester` is even a job description in software development. In some companies,
+    `developers` and `testers` work in pairs. In line with the importance of `testing`,
+    there are special tools to develop tests, sometimes even to perform them automatically,
+    to document the results and to provide project management support for the elimination
+    of errors.
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Of course, you don’t have to go to that much trouble. Nevertheless, testing
-    is important. In the box you will find some tips for better testing.
+- en: Of course, you don’t have to go to that much trouble. Nevertheless, `testing`
+    is important. In the box you will find some tips for better `testing`.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Tips
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Think about how a user would use your program and try out these “use cases”.
+- en: Think about how a user would use your program and try out these `use cases`.
+  id: totrans-35
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Think about everything that could go wrong, that is, how the user could possibly
     use the program improperly.
+  id: totrans-36
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Expose the program to “extreme” conditions. During development, you tend to
     always use the same simple examples with which the program works flawlessly, because
     that’s naturally what you want: few problems during development. Work against
-    this and be your own *devil''s advocate*.'
+    this and be your own `devil''s advocate`.'
+  id: totrans-37
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Test section by section *and* in context. Testing code passages (for example,
+- en: Test section by section `and` in context. Testing code passages (for example,
     a function) individually makes debugging easier, because in the case of an error
     you already know approximately where the cause must lie. Nevertheless, sometimes
     unforeseen interactions occur when you run the program completely and let the
     different code passages intertwine. Therefore, you should always follow both approaches,
     testing in sections and testing in the full program context.
+  id: totrans-38
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: 16.4 Debugging Methods
+- en: '`16.4 Debugging Methods`'
+  id: totrans-39
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: If you notice that something about your program is not working, you start looking
-    for the error. The activities around finding and fixing bugs is called *debugging*.
+    for the error. The activities around finding and fixing bugs is called `debugging`.
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: There are basically two approaches here; either you work with “on-board tools”,
     in particular with suitable auxiliary outputs in the program flow, or you use
-    special tools, called *debuggers*. The latter are often part of the Integrated
+    special tools, called `debuggers`. The latter are often part of the Integrated
     Development Environment of the programming language and convenient to use. However,
     there are also command line debuggers.
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Basically, debugging is about two problems:'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: To determine *where* the error occurs
+- en: To determine `where` the error occurs
+  id: totrans-43
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: Determine *why* the error occurs.
+- en: Determine `why` the error occurs.
+  id: totrans-44
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
-- en: It is not always the case that you can first find where the error occurs and
+- en: 'It is not always the case that you can first find where the error occurs and
     then answer the question of why. Sometimes you first realize why the error occurs
     and then must search for the code that causes it. To answer both questions, you
-    essentially have the following tools at your disposal:Outputs
+    essentially have the following tools at your disposal: `Outputs`'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: You can temporarily *add extra output* to your program that will be removed
+- en: You can temporarily `add extra output` to your program that will be removed
     later, when the debugging is complete. These outputs can help you understand what
     parts of the program have already been run. For example, if you are faced with
     the problem of a program crash, and you don’t know exactly where your program
     is stopping, you might want to temporarily insert code that creates some extra
     output. Each time such an output appears, you know that the program has at least
     run through to this point without crashing. Sometimes it is also not quite clear
-    whether, for example, certain conditions (such as if-then constructs) or loops
+    whether, for example, certain conditions (such as `if-then` constructs) or loops
     are run through at all. Here, too, it helps to include a corresponding output
     to determine the position, which is only run through if the program code in the
-    If-Then construct or the loop is executed.
+    `If-Then` construct or the loop is executed.
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, you can use temporary, additional output not only to determine what
     part of your program code is currently executing, but also to check what value
     certain variables have in the program flow. Understanding the contents of variables
     often helps diagnose the problem.
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Breakpoints
+- en: '`Breakpoints`'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: If you are working with a debugger, you can set *breakpoints*. With breakpoints,
+- en: If you are working with a debugger, you can set `breakpoints`. With breakpoints,
     when you start the program, it will only run up to this breakpoint. After that,
     you can decide whether you want to let it continue running or terminate it at
     this point. Again, if you follow up a program crash and the program gets to the
     breakpoint without breaking, then the problem is after the breakpoint.
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Single Step Mode
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Another option that is regularly available to you when working with a debugger
-    is to execute programs in single-step mode*.* This means that only one program
-    instruction is executed at a time. Only when you press a certain key or key combination,
-    the next program statement is executed. The IDE shows you graphically in the program
+    is to execute programs in single-step mode. This means that only one program instruction
+    is executed at a time. Only when you press a certain key or key combination, the
+    next program statement is executed. The IDE shows you graphically in the program
     code which statement is the last executed. This also makes it easy to determine
     at which point a program terminates. However, if you have loops in your program
     that are repeated often, it is quite tedious to run through them in single-step
@@ -303,55 +379,80 @@
     least, if the error is not in the loop itself, this will save you a lot of keystrokes.
     However, if the problem is in the loop, you will have to single-step through the
     loop and check the values of any variables the loop might use.
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Variable WatchesIn conjunction with breakpoints or running your program in single-step
-    mode, there is another feature that many debuggers support, *variable watches*.
-    This feature allows you to view, sometimes even change, the current contents of
-    a variable. So, if your program has reached a breakpoint, you can look at what
-    value certain variables currently have. In single-step mode, this allows you to
-    follow how the values of variables change from one program statement to the next.
-    ◘ Figure [16.1](#Fig1) shows such a variable observation for our simple Celsius-Kelvin
-    conversion example. A breakpoint was established at line 60 of the program. The
-    program would be executed up to this line. The next instruction that would be
-    executed is the one in line 60, where you set the breakpoint (marked by a red
-    dot in front of the line).![](../images/474412_1_En_16_Chapter/474412_1_En_16_Fig1_HTML.jpg)
+- en: Variable Watches In conjunction with breakpoints or running your program in
+    single-step mode, there is another feature that many debuggers support, `variable
+    watches`. This feature allows you to view, sometimes even change, the current
+    contents of a variable. So, if your program has reached a breakpoint, you can
+    look at what value certain variables currently have. In single-step mode, this
+    allows you to follow how the values of variables change from one program statement
+    to the next. ◘ Figure [16.1](#Fig1) shows such a variable observation for our
+    simple Celsius-Kelvin conversion example. A breakpoint was established at line
+    60 of the program. The program would be executed up to this line. The next instruction
+    that would be executed is the one in line 60, where you set the breakpoint (marked
+    by a red dot in front of the line). ![](../images/474412_1_En_16_Chapter/474412_1_En_16_Fig1_HTML.jpg)
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A screenshot of the test project window in Delphi. It has a set of program codes
-    with variables Celsius, Kelvin, and real, which undergo a process and end.
+- en: A screenshot of the test project window in `Delphi`. It has a set of program
+    codes with variables `Celsius`, `Kelvin`, and `real`, which undergo a process
+    and end.
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Fig. 16.1
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Example of breakpoint with variable observation in Delphi
+- en: Example of breakpoint with variable observation in `Delphi`
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 16.5 Your Roadmap to Learning a New Programming Language
+  id: totrans-56
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: When you learn a new programming language …
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'you’ll discover:'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: what debugging tools are available to you and how you can access them (command
-    line tools, integration in IDE),
+- en: what debugging tools are available to you and how you can access them (`command
+    line tools`, integration in `IDE`),
+  id: totrans-59
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: Whether, and if so how, you can set and remove breakpoints,
+  id: totrans-60
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: whether, and if so how, you can execute your program in single-step mode,
+  id: totrans-61
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: whether, and if so how, you can monitor the contents of variables.
+  id: totrans-62
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL

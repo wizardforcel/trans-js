@@ -1,138 +1,213 @@
 - en: Chapter 12
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: These are the solutions to the exercises found in the section [​*Exercises*​](f_0120.xhtml#dynamic.programming.exercises).
+- en: These are the solutions to the exercises found in the section [*Exercises*](f_0120.xhtml#dynamic.programming.exercises).
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The problem here is the function recursively calls itself twice each time it
     runs. Let’s make it so that it only calls itself once each time:'
+  id: totrans-2
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ addUntil100(array) { |'
+- en: '| ​  | `function` addUntil100(array) { |'
+  id: totrans-3
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array.length === 0) { ​**return**​ 0; } |'
+- en: '| ​  | `if` (array.length === 0) { `return` 0; } |'
+  id: totrans-4
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**const**​ sumOfRemainingNumbers = addUntil100(array.slice(1)); |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-5
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (array[0] + sumOfRemainingNumbers > 100) { |'
+- en: '| ​  | `const` sumOfRemainingNumbers = addUntil100(array.slice(1)); |'
+  id: totrans-6
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ sumOfRemainingNumbers; |'
+- en: '| ​  |  |'
+  id: totrans-7
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | } ​**else**​ { |'
+- en: '| ​  | `if` (array[0] + sumOfRemainingNumbers > 100) { |'
+  id: totrans-8
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ array[0] + sumOfRemainingNumbers; |'
+- en: '| ​  | `return` sumOfRemainingNumbers; |'
+  id: totrans-9
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } `else` { |'
+  id: totrans-10
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` array[0] + sumOfRemainingNumbers; |'
+  id: totrans-11
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-12
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: 'Here is the memoized version:'
+  id: totrans-14
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ golomb(n, memo = {}) { |'
+- en: '| ​  | `function` golomb(n, memo = {}) { |'
+  id: totrans-15
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n === 1) { ​**return**​ 1; } |'
+- en: '| ​  | `if` (n === 1) { `return` 1; } |'
+  id: totrans-16
   prefs:
   - PREF_IND
-  type: TYPE_TB
-- en: '| ​  |  |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | ​**if**​ (!memo[n]) { |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | memo[n] = 1 + golomb(n - golomb(golomb(n - 1, memo), memo), memo); |'
-  prefs:
-  - PREF_IND
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs:
-  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-17
   prefs:
   - PREF_IND
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ memo[n]; |'
+- en: '| ​  | `if` (!memo[n]) { |'
+  id: totrans-18
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `memo`[n] = 1 + golomb(n - golomb(golomb(n - 1, memo), memo), memo);
+    |'
+  id: totrans-19
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-20
   prefs:
   - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  |  |'
+  id: totrans-21
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `return` memo[n]; |'
+  id: totrans-22
+  prefs:
+  - PREF_IND
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-23
+  prefs:
+  - PREF_IND
+  stylish: true
   type: TYPE_TB
 - en: To accomplish memoization here, we need to make a key that takes into account
     both the number of rows and the number of columns. To this end, we can make our
     key be based on the row and column together.
+  id: totrans-24
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ uniquePaths(rows, columns, memo = {}) { |'
+- en: '| ​  | `function` uniquePaths(rows, columns, memo = {}) { |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (rows === 1 &#124;&#124; columns === 1) { |'
+- en: '| ​  | `if` (rows === 1 || columns === 1) { |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ 1; |'
+- en: '| ​  | `return` 1; |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!memo[[rows, columns]]) { |'
+- en: '| ​  | `if` (!memo[[rows, columns]]) { |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | memo[[rows, columns]] = (uniquePaths(rows - 1, columns, memo) |'
+- en: '| ​  | `memo`[[rows, columns]] = (uniquePaths(rows - 1, columns, memo) |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | + uniquePaths(rows, columns - 1, memo)); |'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ memo[[rows, columns]]; |'
+- en: '| ​  | `return` memo[[rows, columns]]; |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB

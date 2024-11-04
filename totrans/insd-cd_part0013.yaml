@@ -1,618 +1,824 @@
-- en: 'Chapter 12: Memory Management Across Languages'
+- en: 第12章：跨语言的内存管理
+  id: totrans-0
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Section 12.1: Understanding Stack and Heap Allocation'
+- en: 第12.1节：理解`stack`和`heap`分配
+  id: totrans-1
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Memory management is a critical aspect of programming languages, as it directly
-    impacts the allocation and deallocation of memory during program execution. One
-    fundamental concept in memory management is the distinction between stack and
-    heap allocation.
+- en: 内存管理是编程语言中的一个关键方面，因为它直接影响程序执行期间内存的分配和释放。内存管理中的一个基本概念是`stack`和`heap`分配之间的区别。
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Stack Allocation
+- en: '`Stack`分配'
+  id: totrans-3
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Stack memory is a region of memory that follows a last-in, first-out (LIFO)
-    allocation scheme. It is typically used for storing local variables, function
-    call information, and managing function execution. Stack allocation is fast and
-    deterministic because memory is allocated and deallocated in a known order.
+- en: '`Stack`内存是一种遵循后进先出（LIFO）分配方案的内存区域。它通常用于存储局部变量、函数调用信息以及管理函数执行。`Stack`分配速度快且可预测，因为内存的分配和释放以已知的顺序进行。'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In languages like C and C++, when you declare a local variable inside a function,
-    it is usually allocated on the stack.
+- en: 在像`C`和`C++`这样的语言中，当您在函数内声明一个局部变量时，它通常是在`stack`上分配的。
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: void foo()  {
+- en: '`void foo() {`'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int x =  42;  // 'x' is allocated on the stack
+- en: '`int x = 42;` // `x`是在`stack`上分配的'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Stack memory is limited in size, and its scope is typically limited to the duration
-    of a function call. When a function exits, the memory allocated on the stack for
-    its local variables is automatically deallocated.
+- en: '`Stack`内存的大小是有限的，其作用域通常仅限于函数调用的持续时间。当函数退出时，为其局部变量在`stack`上分配的内存会自动释放。'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Heap Allocation
+- en: '`Heap`分配'
+  id: totrans-10
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Heap memory, on the other hand, is a region of memory used for dynamic memory
-    allocation. It is not bound by the same LIFO constraints as the stack and is suitable
-    for managing data structures of varying sizes and lifetimes. Heap memory is managed
-    explicitly by the programmer, and it is essential to allocate and deallocate memory
-    correctly to avoid memory leaks or access violations.
+- en: 另一方面，`heap`内存是一种用于动态内存分配的内存区域。它不受与`stack`相同的后进先出约束，适合管理大小和生命周期各异的数据结构。`Heap`内存由程序员显式管理，正确分配和释放内存对于避免内存泄漏或访问违规至关重要。
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Languages like C and C++ provide functions like  malloc and  free for allocating
-    and deallocating memory on the heap.
+- en: 像`C`和`C++`这样的语言提供了像`malloc`和`free`这样的函数，用于在`heap`上分配和释放内存。
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int  *arr =  (int  *)malloc(5  *  sizeof(int));  // Allocating an array on the
-    heap
+- en: '`int *arr = (int *)malloc(5 * sizeof(int));` // 在`heap`上分配一个数组'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: free(arr);  // Deallocating the memory when no longer needed
+- en: '`free(arr);` // 当不再需要时释放内存'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Heap memory allows for dynamic memory allocation and can persist beyond the
-    scope of a single function or block, making it suitable for data structures like
-    linked lists, trees, and objects with complex lifetimes.
+- en: '`Heap`内存允许动态内存分配，可以超出单个函数或块的作用域，适用于链表、树以及具有复杂生命周期的对象等数据结构。'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Choosing Between Stack and Heap
+- en: 在`stack`和`heap`之间选择
+  id: totrans-16
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The choice between stack and heap allocation depends on the requirements of
-    your program:'
+- en: '`stack`和`heap`分配之间的选择取决于您的程序需求：'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: •            Use stack allocation for short-lived objects with a predictable
-    lifetime.
+- en: •           对于具有可预测生命周期的短命对象，使用`stack`分配。
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: •            Use heap allocation for objects with a dynamic or longer lifetime.
+- en: •           使用`heap`分配用于动态或较长生命周期的对象。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: •            Be cautious when using heap memory, as manual management is required
-    to prevent memory leaks.
+- en: •           使用`heap`内存时要谨慎，因为需要手动管理以防止内存泄漏。
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Understanding the differences between stack and heap memory is crucial for writing
-    efficient and robust programs. It also plays a significant role in the performance
-    and reliability of software written in different programming languages.
+- en: 理解`stack`和`heap`内存之间的差异对于编写高效和健壮的程序至关重要。它还在不同编程语言编写的软件的性能和可靠性中发挥着重要作用。
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '* * *'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Section 12.2: Automatic vs Manual Memory Management'
+- en: 第12.2节：自动与手动内存管理
+  id: totrans-23
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Memory management in programming languages can be categorized into two main
-    approaches: automatic memory management (garbage collection) and manual memory
-    management. Each approach has its advantages and disadvantages, and the choice
-    between them often depends on the language’s design goals and the programmer’s
-    preferences.'
+- en: 编程语言中的内存管理可以分为两种主要方法：自动内存管理（垃圾收集）和手动内存管理。每种方法都有其优缺点，选择它们之间通常取决于语言的设计目标和程序员的偏好。
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Automatic Memory Management (Garbage Collection)
+  id: totrans-25
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Automatic memory management, commonly referred to as garbage collection, is
-    a memory management technique used by languages like Java, Python, C#, and JavaScript.
-    In this approach, the language runtime system automatically tracks and reclaims
-    memory that is no longer in use, relieving programmers from the responsibility
+    a memory management technique used by languages like `Java`, `Python`, `C#`, and
+    `JavaScript`. In this approach, the language runtime system automatically tracks
+    and reclaims memory that is no longer in use, relieving programmers from the responsibility
     of explicit memory allocation and deallocation.
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Garbage collection uses algorithms to identify and collect memory that can no
     longer be accessed by the program. This includes memory occupied by objects that
     are no longer referenced, cyclic references, and other unreachable memory.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a simplified example in Python:'
+- en: 'Here’s a simplified example in `Python`:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Automatic memory management (Python)
+- en: Automatic memory management (`Python`)
+  id: totrans-29
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: 'def create_and_use_list():'
+- en: '`def create_and_use_list():`'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: my_list = [1, 2, 3]  # List created
+- en: '`my_list = [1, 2, 3]`  # List created'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: print(my_list[0])    # List used
+- en: '`print(my_list[0])`    # List used'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'create_and_use_list() # List goes out of scope and becomes eligible for garbage
+- en: '`create_and_use_list()` # List goes out of scope and becomes eligible for garbage
     collection'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this example, when the  create_and_use_list function completes, the  my_list
+- en: In this example, when the `create_and_use_list` function completes, the `my_list`
     object goes out of scope, becomes unreachable, and is eventually garbage collected.
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Automatic memory management helps prevent common memory-related bugs such as
     memory leaks and dangling pointers. However, it can introduce some runtime overhead
     due to the need for garbage collection algorithms, which may briefly pause program
     execution during collection.
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Manual Memory Management
+  id: totrans-36
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: Manual memory management requires programmers to explicitly allocate and deallocate
-    memory. Languages like C and C++ rely on manual memory management, giving programmers
-    fine-grained control over memory usage.
+    memory. Languages like `C` and `C++` rely on manual memory management, giving
+    programmers fine-grained control over memory usage.
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In languages with manual memory management, memory allocation is typically done
-    using functions like  malloc (allocate) and deallocation using  free (deallocate).
+    using functions like `malloc` (allocate) and deallocation using `free` (deallocate).
     Programmers are responsible for ensuring that memory is properly allocated and
     deallocated, which can be error-prone but offers more predictable performance.
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Manual memory management (C)
+- en: '`// Manual memory management (C)`'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int  *arr =  (int  *)malloc(5  *  sizeof(int));  // Memory allocation
+- en: '`int *arr = (int *)malloc(5 * sizeof(int));`  // Memory allocation'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: free(arr);  // Memory deallocation
+- en: '`free(arr);`  // Memory deallocation'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Manual memory management can be efficient when done correctly, but it also presents
     challenges such as memory leaks, double frees, and dangling pointers. Programs
     written in languages with manual memory management require careful memory management
     practices to avoid these issues.
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Choosing Between Approaches
+  id: totrans-43
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: The choice between automatic and manual memory management depends on factors
     such as language design goals, programmer experience, and project requirements.
     Languages with automatic memory management are often chosen for productivity and
     safety, while languages with manual memory management are preferred for performance-critical
-    applications and systems programming. Hybrid approaches, like those used in C++
+    applications and systems programming. Hybrid approaches, like those used in `C++`
     with smart pointers, attempt to combine the benefits of both approaches.
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '* * *'
+- en: '*** '
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Section 12.3: Garbage Collection Mechanisms in Java and Python'
+- en: 'Section 12.3: Garbage Collection Mechanisms in `Java` and `Python`'
+  id: totrans-46
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Garbage collection is a critical aspect of memory management in modern programming
-    languages. It helps prevent memory leaks and ensures that memory is efficiently
-    reclaimed when it’s no longer needed. In this section, we’ll explore how garbage
-    collection works in two popular languages: Java and Python.'
+- en: 垃圾回收是现代编程语言中内存管理的一个关键方面。它有助于防止内存泄漏，并确保在内存不再需要时有效地回收内存。在本节中，我们将探讨垃圾回收在两种流行语言中的工作原理：Java和Python。
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Garbage Collection in Java
+- en: '`Garbage Collection in Java`'
+  id: totrans-48
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Java employs automatic garbage collection to manage memory. It uses a combination
-    of techniques to identify and reclaim unreachable objects. The most common garbage
-    collection algorithm used in Java is the generational garbage collection.
+- en: Java采用自动垃圾回收来管理内存。它使用多种技术来识别和回收不可达对象。Java中使用的最常见的垃圾回收算法是代际垃圾回收。
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'In generational garbage collection, memory is divided into two main areas:
-    the young generation and the old generation. New objects are allocated in the
-    young generation. When the young generation fills up, a minor garbage collection
-    is triggered to reclaim memory. Objects that survive multiple minor collections
-    are eventually promoted to the old generation. Major garbage collections are less
-    frequent and occur in the old generation.'
+- en: 在代际垃圾回收中，内存被分为两个主要区域：年轻代和老年代。新对象在年轻代分配。当年轻代填满时，会触发一次小规模垃圾回收以回收内存。存活经过多次小规模收集的对象最终会被提升到老年代。大规模垃圾回收较少发生，并在老年代进行。
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a simple example in Java:'
+- en: 这是Java中的一个简单示例：
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Garbage collection in Java
+- en: // Java中的垃圾回收
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: class MyClass {
+- en: '`class MyClass {`'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: public  void  finalize()  {
+- en: '`public void finalize() {`'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: System.out.println("Object finalized");
+- en: '`System.out.println("Object finalized");`'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: public  class GarbageCollectionDemo {
+- en: '`public class GarbageCollectionDemo {`'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: public  static  void  main(String[] args)  {
+- en: '`public static void main(String[] args) {`'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: MyClass obj1 =  new  MyClass();
+- en: '`MyClass obj1 = new MyClass();`'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: MyClass obj2 =  new  MyClass();
+- en: '`MyClass obj2 = new MyClass();`'
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: obj1 =  null;  // Make obj1 eligible for garbage collection
+- en: '`obj1 = null;`  // 使`obj1`有资格进行垃圾回收'
+  id: totrans-62
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: System.gc();  // Suggest JVM to run garbage collection
+- en: '`System.gc();`  // 建议JVM运行垃圾回收'
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this example, we create two  MyClass objects, and then we set  obj1 to  null
-    to make it eligible for garbage collection. We then suggest the JVM to run garbage
-    collection using  System.gc(). When the JVM decides to collect garbage, it will
-    call the  finalize method of eligible objects before reclaiming their memory.
+- en: 在这个例子中，我们创建了两个`MyClass`对象，然后将`obj1`设置为`null`使其有资格进行垃圾回收。然后我们建议JVM运行垃圾回收，使用`System.gc()`。当JVM决定收集垃圾时，它会在回收内存之前调用有资格对象的`finalize`方法。
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Garbage Collection in Python
+- en: '`Garbage Collection in Python`'
+  id: totrans-67
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Python also uses automatic garbage collection, but it employs a different mechanism.
-    Python uses a reference counting technique combined with a cycle detector.
+- en: Python也使用自动垃圾回收，但采用不同的机制。Python使用引用计数技术，并结合循环检测器。
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Reference counting keeps track of how many references point to an object. When
-    an object’s reference count drops to zero, it means the object is no longer accessible
-    and can be safely reclaimed.
+- en: 引用计数跟踪指向对象的引用数量。当一个对象的引用计数降到零时，这意味着该对象不再可访问，可以安全地回收。
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Garbage collection in Python
+- en: '`Garbage collection in Python`'
+  id: totrans-70
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: import gc
+- en: '`import gc`'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'class MyClass:'
+- en: '`class MyClass:`'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'def  __del__(self):'
+- en: '`def __del__(self):`'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: print("Object finalized")
+- en: '`print("Object finalized")`'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: obj1 = MyClass()
+- en: '`obj1 = MyClass()`'
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'obj2 = obj1 # Creating a reference to obj1'
+- en: '`obj2 = obj1` # 创建对`obj1`的引用'
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'del obj1 # Decrease reference count of obj1'
+- en: '`del obj1` # Decrease reference count of `obj1`'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Explicitly run garbage collection
+- en: 明确运行垃圾回收
+  id: totrans-78
   prefs:
   - PREF_H1
+  stylish: true
   type: TYPE_NORMAL
-- en: gc.collect()
+- en: '`gc.collect()`'
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this Python example, we create an instance of  MyClass, create a reference
-    to it with  obj2, and then delete  obj1. The reference count of the object decreases,
-    and when we explicitly run  gc.collect(), Python’s garbage collector reclaims
-    the memory.
+- en: 在这个Python示例中，我们创建了一个`MyClass`的实例，用`obj2`创建了一个对它的引用，然后删除了`obj1`。对象的引用计数减少，当我们明确运行`gc.collect()`时，Python的垃圾回收器回收了内存。
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Python’s cycle detector is used to detect and break reference cycles when objects
-    reference each other, ensuring that memory is properly released even in complex
-    data structures.
+- en: Python的循环检测器用于检测和打破引用循环，确保即使在复杂的数据结构中，内存也能得到正确释放。
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Both Java and Python provide automatic memory management through garbage collection,
-    relieving developers from manual memory allocation and deallocation, and reducing
-    the risk of memory-related bugs. However, understanding the underlying mechanisms
-    can help optimize memory usage and avoid common pitfalls.
+- en: Java和Python通过垃圾收集提供自动内存管理，减轻了开发人员手动进行内存分配和释放的负担，从而减少了与内存相关的错误风险。然而，理解底层机制可以帮助优化内存使用并避免常见的陷阱。
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '* * *'
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Section 12.4: Memory Leaks and Management in C and C++'
+- en: 第12.4节：C和C++中的内存泄漏和管理
+  id: totrans-84
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Memory management in C and C++ is significantly different from languages with
-    garbage collection like Java and Python. While it offers more control over memory,
-    it also introduces the risk of memory leaks and undefined behavior if not handled
-    properly.
+- en: C和C++中的内存管理与具有垃圾收集的语言（如Java和Python）显著不同。虽然它提供了对内存的更多控制，但如果处理不当，也会引入内存泄漏和未定义行为的风险。
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Memory Leaks in C and C++
+- en: C和C++中的内存泄漏
+  id: totrans-86
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: In C and C++, developers have explicit control over memory allocation and deallocation
-    using functions like  malloc,  calloc,  realloc, and  free. This control can lead
-    to memory leaks when developers forget to deallocate memory explicitly. A memory
-    leak occurs when allocated memory is no longer reachable but hasn’t been freed,
-    causing the program to consume increasing amounts of memory over time.
+- en: 在C和C++中，开发人员通过使用像`malloc`、`calloc`、`realloc`和`free`这样的函数显式控制内存的分配和释放。当开发人员忘记显式释放内存时，这种控制可能导致内存泄漏。内存泄漏发生在分配的内存不再可达但尚未被释放时，导致程序随着时间的推移消耗越来越多的内存。
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s an example in C that demonstrates a memory leak:'
+- en: 这里有一个C语言的示例，演示内存泄漏：
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '#include <stdio.h>'
+- en: '`#include <stdio.h>`'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '#include <stdlib.h>'
+- en: '`#include <stdlib.h>`'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int main()  {
+- en: '`int main() {`'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int  *arr =  (int  *)malloc(5  *  sizeof(int));  // Allocate memory for an integer
-    array
+- en: '`int *arr = (int *)malloc(5 * sizeof(int)); // Allocate memory for an integer
+    array`'
+  id: totrans-92
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: if  (arr == NULL)  {
+- en: '`if (arr == NULL) {`'
+  id: totrans-93
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: perror("Memory allocation failed");
+- en: '`perror("Memory allocation failed");`'
+  id: totrans-94
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: return  1;
+- en: '`return 1;`'
+  id: totrans-95
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-96
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Perform some operations with arr
+- en: '`// Perform some operations with arr`'
+  id: totrans-97
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '// Memory leak: Forgot to free the allocated memory'
+- en: '`// Memory leak: Forgot to free the allocated memory`'
+  id: totrans-98
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // free(arr);
+- en: '`// free(arr);`'
+  id: totrans-99
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: return  0;
+- en: '`return 0;`'
+  id: totrans-100
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-101
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In this example, memory is allocated for an integer array using  malloc, but
-    the code forgets to release the memory using  free. This leads to a memory leak,
-    as the allocated memory is never deallocated.
+- en: 在这个例子中，内存是通过`malloc`为一个整数数组分配的，但代码忘记使用`free`释放内存。这导致了内存泄漏，因为分配的内存从未被释放。
+  id: totrans-102
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Management Strategies in C and C++
+- en: C和C++中的管理策略
+  id: totrans-103
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'To manage memory effectively in C and C++, it’s essential to follow best practices:'
+- en: 为了有效管理C和C++中的内存，遵循最佳实践至关重要：
+  id: totrans-104
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Always Free Allocated Memory: Ensure that every memory allocation using functions
-    like  malloc is paired with a corresponding  free to release memory when it’s
-    no longer needed.'
+- en: 始终释放分配的内存：确保每次使用像`malloc`这样的函数进行内存分配时，都有相应的`free`来释放不再需要的内存。
+  id: totrans-105
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Use Smart Pointers (C++): In C++, you can use smart pointers like  std::shared_ptr
-    and  std::unique_ptr to automate memory management. They automatically release
-    memory when it’s no longer referenced, reducing the risk of memory leaks.'
+- en: 使用智能指针（C++）：在C++中，您可以使用像`std::shared_ptr`和`std::unique_ptr`这样的智能指针来自动管理内存。它们在不再被引用时自动释放内存，从而减少内存泄漏的风险。
+  id: totrans-106
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Valgrind (C/C++): Tools like Valgrind can help detect memory leaks and other
-    memory-related issues in C and C++ programs. Running your code through Valgrind
-    during development can catch memory leaks early.'
+- en: Valgrind（C/C++）：像Valgrind这样的工具可以帮助检测C和C++程序中的内存泄漏和其他内存相关问题。在开发期间通过Valgrind运行代码可以早期捕获内存泄漏。
+  id: totrans-107
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'RAII (Resource Acquisition Is Initialization): In C++, the RAII principle involves
-    acquiring resources like memory in constructors and releasing them in destructors.
-    RAII can help ensure that resources are automatically managed when objects go
-    out of scope.'
+- en: RAII（资源获取即初始化）：在C++中，RAII原则涉及在构造函数中获取内存等资源，并在析构函数中释放它们。RAII可以帮助确保在对象超出作用域时自动管理资源。
+  id: totrans-108
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Static Analysis Tools: Use static analysis tools to analyze your code for potential
-    memory leaks and undefined behavior.'
+- en: 静态分析工具：使用静态分析工具分析代码中的潜在内存泄漏和未定义行为。
+  id: totrans-109
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Memory management in C and C++ requires diligence and careful attention to detail.
-    While these languages offer greater control over memory, developers must be responsible
-    for correctly allocating and deallocating memory to avoid leaks and ensure program
-    stability.
+- en: 在C和C++中，内存管理需要谨慎和细致的注意。虽然这些语言提供了更大的内存控制，但开发者必须对正确分配和释放内存负责，以避免泄漏并确保程序的稳定性。
+  id: totrans-110
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '* * *'
+- en: '`* * *`'
+  id: totrans-111
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Section 12.5: Best Practices for Efficient Memory Usage'
+- en: '`Section 12.5: Best Practices for Efficient Memory Usage`'
+  id: totrans-112
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: Efficient memory usage is crucial in programming, as it directly impacts the
-    performance and stability of your applications. In this section, we’ll explore
-    best practices for managing memory efficiently in various programming languages,
-    with a focus on C and C++.
+- en: 高效的内存使用在编程中至关重要，因为它直接影响应用程序的性能和稳定性。在本节中，我们将探讨在各种编程语言中高效管理内存的最佳实践，重点关注C和C++。
+  id: totrans-113
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 1\. Use Stack Memory When Appropriate
+- en: '`1.` 使用栈内存（`Stack Memory`）时要适当'
+  id: totrans-114
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Stack memory is faster to allocate and deallocate than heap memory. Use the
-    stack for small, short-lived variables like local variables within functions.
-    These variables are automatically released when they go out of scope, reducing
-    the risk of memory leaks.
+- en: 栈内存的分配和释放速度比堆内存快。对小型、短生命周期的变量（如函数内的局部变量）使用栈。这些变量在超出作用域时会自动释放，从而降低内存泄漏的风险。
+  id: totrans-115
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: void exampleFunction()  {
+- en: '`void exampleFunction() {`'
+  id: totrans-116
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int x =  5;  // x is a stack variable
+- en: '`int x = 5; // x是栈变量`'
+  id: totrans-117
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // ...
+- en: '`// ...`'
+  id: totrans-118
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}  // x is automatically deallocated when the function exits'
+- en: '`}` // x在函数退出时会自动释放'
+  id: totrans-119
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 2\. Limit Dynamic Memory Allocation
+- en: '`2.` 限制动态内存分配（`Dynamic Memory Allocation`）'
+  id: totrans-120
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Dynamic memory allocation (e.g., using  malloc or  new) should be used judiciously.
-    Frequent dynamic memory allocation and deallocation can lead to fragmentation
-    and memory overhead. Instead, consider using fixed-size arrays or data structures
-    when the maximum size is known.
+- en: 动态内存分配（例如，使用`malloc`或`new`）应谨慎使用。频繁的动态内存分配和释放可能导致碎片化和内存开销。相反，当最大大小已知时，可以考虑使用固定大小的数组或数据结构。
+  id: totrans-121
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 3\. Avoid Memory Leaks
+- en: '`3.` 避免内存泄漏（`Memory Leaks`）'
+  id: totrans-122
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Always release memory you’ve allocated when it’s no longer needed. In C and
-    C++, use  free or  delete. In languages with garbage collection, rely on the garbage
-    collector to reclaim memory. Tools like Valgrind can help detect memory leaks
-    during development.
+- en: 始终在不再需要时释放已分配的内存。在C和C++中，使用`free`或`delete`。在具有垃圾回收的语言中，依靠垃圾收集器回收内存。像`Valgrind`这样的工具可以帮助在开发过程中检测内存泄漏。
+  id: totrans-123
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 4\. Use RAII in C++
+- en: '`4.` 在C++中使用RAII（`Use RAII in C++`）'
+  id: totrans-124
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: In C++, embrace the RAII (Resource Acquisition Is Initialization) principle.
-    It involves acquiring and releasing resources within the constructors and destructors
-    of objects. RAII ensures that resources, including memory, are properly managed
-    when objects go out of scope.
+- en: 在C++中，拥抱RAII（`Resource Acquisition Is Initialization`）原则。它涉及在对象的构造函数和析构函数中获取和释放资源。RAII确保资源（包括内存）在对象超出作用域时得到正确管理。
+  id: totrans-125
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: class ResourceWrapper {
+- en: '`class ResourceWrapper {`'
+  id: totrans-126
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'public:'
+- en: '`public:`'
+  id: totrans-127
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ResourceWrapper()  {
+- en: '`ResourceWrapper() {`'
+  id: totrans-128
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Acquire resource, e.g., allocate memory
+- en: '`// 获取资源，例如，分配内存`'
+  id: totrans-129
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-130
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: ~ResourceWrapper()  {
+- en: '`~ResourceWrapper() {`'
+  id: totrans-131
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Release resource, e.g., deallocate memory
+- en: '`// 释放资源，例如，释放内存`'
+  id: totrans-132
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-133
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '};'
+- en: '`};`'
+  id: totrans-134
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 5\. Employ Smart Pointers (C++)
+- en: '`5.` 使用智能指针（`Employ Smart Pointers (C++)`）'
+  id: totrans-135
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: In C++, prefer smart pointers like  std::shared_ptr and  std::unique_ptr over
-    raw pointers. Smart pointers automate memory management, reducing the likelihood
-    of memory leaks and ensuring timely deallocation.
+- en: 在C++中，优先使用智能指针（`smart pointers`），例如`std::shared_ptr`和`std::unique_ptr`，而不是原始指针（`raw
+    pointers`）。智能指针自动管理内存，减少内存泄漏的可能性，并确保及时释放。
+  id: totrans-136
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: std::shared_ptr<int> shared =  std::make_shared<int>(42);
+- en: '`std::shared_ptr<int> shared = std::make_shared<int>(42);`'
+  id: totrans-137
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: std::unique_ptr<int> unique =  std::make_unique<int>(42);
+- en: '`std::unique_ptr<int> unique = std::make_unique<int>(42);`'
+  id: totrans-138
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 6\. Profile and Optimize
+- en: '`6.` 性能分析与优化（`Profile and Optimize`）'
+  id: totrans-139
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Use profiling tools to identify memory bottlenecks in your code. Profilers help
-    pinpoint areas where memory is allocated excessively or inefficiently. Once identified,
-    you can optimize memory usage accordingly.
+- en: 使用性能分析工具识别代码中的内存瓶颈。性能分析器帮助定位内存分配过多或效率低下的区域。一旦识别出来，可以相应地优化内存使用。
+  id: totrans-140
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 7\. Avoid Global Variables
+- en: '`7.` 避免全局变量（`Avoid Global Variables`）'
+  id: totrans-141
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Global variables can remain in memory throughout the program’s execution, leading
-    to unnecessary memory consumption. Minimize the use of global variables, and prefer
-    local scope whenever possible.
+- en: 全局变量在程序执行期间可以一直存在于内存中，导致不必要的内存消耗。尽量减少全局变量的使用，并在可能的情况下优先使用局部作用域。
+  id: totrans-142
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 8\. Check Return Values of Allocation Functions
+- en: '`8.` 检查分配函数的返回值（`Check Return Values of Allocation Functions`）'
+  id: totrans-143
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: When allocating memory dynamically, always check the return values of allocation
-    functions (e.g.,  malloc,  new) to ensure they succeeded. Failing to do so can
-    result in undefined behavior if allocation fails.
+- en: 在动态分配内存时，总是检查分配函数（例如`malloc`、`new`）的返回值，以确保它们成功。未能这样做可能会导致未定义的行为。
+  id: totrans-144
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: int  *ptr =  (int  *)malloc(sizeof(int));
+- en: '`int *ptr = (int *)malloc(sizeof(int));`'
+  id: totrans-145
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: if  (ptr == NULL)  {
+- en: '`if (ptr == NULL) {`'
+  id: totrans-146
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: // Allocation failed, handle the error
+- en: '`// Allocation failed, handle the error`'
+  id: totrans-147
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '}'
+- en: '`}`'
+  id: totrans-148
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 9\. Release Resources in Error Handling Paths
+- en: 9\. `Release Resources in Error Handling Paths`
+  id: totrans-149
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: When handling errors or exceptions, ensure that any allocated resources, including
-    memory, are properly released. Failing to release resources in error paths can
-    lead to resource leaks.
+- en: 当处理错误或异常时，确保任何分配的资源，包括内存，得到妥善释放。未能在错误路径中释放资源可能导致资源泄漏。
+  id: totrans-150
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Efficient memory management is an essential skill for developers, regardless
-    of the programming language they work with. By following these best practices,
-    you can write code that not only conserves memory but also minimizes the risk
-    of memory-related issues such as leaks and fragmentation, ultimately leading to
-    more robust and performant software.
+- en: 高效的内存管理是开发人员必须掌握的基本技能，无论他们使用哪种编程语言。遵循这些最佳实践，可以编写出不仅节省内存，而且最小化内存相关问题（如泄漏和碎片化）风险的代码，最终使软件更加健壮和高效。
+  id: totrans-151
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '* * *'
+- en: '*** '
+  id: totrans-152
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

@@ -1,48 +1,69 @@
-- en: Hash Table Lookups
+- en: '`Hash Table Lookups`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: When we look up items from a hash table, we use a key to find its associated
-    value. Let’s see how this works with our Quickasaurus example hash table.
+    value. Let’s see how this works with our `Quickasaurus` example hash table.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Suppose we want to look up the value associated with the key "bad". In our
+- en: 'Suppose we want to look up the value associated with the key `"bad"`. In our
     code, we’d say this:'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | thesaurus[​*"bad"*​] |'
+- en: '| ​ | `thesaurus["bad"]` |'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'To find the value associated with "bad", the computer executes two simple steps:'
+- en: 'To find the value associated with `"bad"`, the computer executes two simple
+    steps:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The computer hashes the key we’re looking up: BAD = 2 * 1 * 4 = 8.'
+- en: 'The computer hashes the key we’re looking up: `BAD = 2 * 1 * 4 = 8`.'
+  id: totrans-5
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Since the result is 8, the computer looks inside cell 8 and returns the value
-    stored there. In this case, that is the string "evil".
+- en: Since the result is `8`, the computer looks inside cell `8` and returns the
+    value stored there. In this case, that is the string `"evil"`.
+  id: totrans-6
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
 - en: Let’s take a step back and look at the big picture here. In a hash table, the
     placement of each value is determined by its key; that is, by hashing the key
     itself, we compute the index number where the key’s associated value should be
     placed.
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Because the key determines the placement of the value, we use this principle
     to make lookups a cinch. When we have any key and want to find its value, the
     key itself tells us where the value will be found. Just as we hashed the key to
     insert the value in the appropriate cell, we can hash the key again to find where
     we previously put that value.
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'It now becomes clear why looking up a value in a hash table is typically O(1):
     it’s a process that takes a constant amount of time. The computer hashes the key,
     turns it into a number, and jumps to the index with that number to retrieve the
     value stored there.'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: We can now understand why a hash table would yield faster lookups for our restaurant
     menu than an array. With an array, when we look up the price of a menu item, we
@@ -51,22 +72,30 @@
     N). Using a hash table, however, we can now use the actual menu items as keys,
     allowing us to do a hash table lookup of O(1). And that’s the beauty of a hash
     table.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: One-Directional Lookups
+- en: '`One-Directional Lookups`'
+  id: totrans-11
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
 - en: It’s important to point out that the ability to find any value within the hash
     table in a single step only works if we know the value’s key. If we tried to find
     a particular value without knowing its key, we’d still have to resort to searching
     each and every key-value pair within the hash table, which is O(N).
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Similarly, we can only do O(1) lookups when using a key to find the value. If,
     on the other hand, we want to use a value to find its associated key, we can’t
     take advantage of the hash table’s fast lookup ability.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'This is because the whole premise of the hash table is that the key determines
     the value’s location. But this premise only works in one direction: we use the
@@ -74,28 +103,40 @@
     corresponding key, we’d have no way to quickly access that key. We’d have no choice
     but to comb through the entire hash table to look for the key, as the value gives
     us no info as to what its key is or where we could find it.'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Come to think of it, where are the keys stored? In the previous diagrams, we
-    only saw how the values are stored in the hash table.
+    only saw how the values are stored in the `hash table`.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While this detail may vary from language to language, some languages store the
     keys next to the values themselves. This is useful in case of collisions, which
     I’ll discuss in the next section.
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: In any case, another aspect of the hash table’s one-directional nature is worth
-    noting. Each key can exist only once in the hash table, but there can be multiple
-    instances of a value.
+- en: In any case, another aspect of the `hash table`’s one-directional nature is
+    worth noting. Each key can exist only once in the `hash table`, but there can
+    be multiple instances of a value.
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If we think about the menu example from the beginning of this chapter, we can’t
-    have the hamburger listed twice (nor would we want to, as it only has one price).
-    However, we could have multiple foods that cost $2.50.
+    have the `hamburger` listed twice (nor would we want to, as it only has one price).
+    However, we could have multiple foods that cost `$2.50`.
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: In many languages, if we try to store a key-value pair where the key already
     exists, it simply overwrites the old value while keeping the same key.
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

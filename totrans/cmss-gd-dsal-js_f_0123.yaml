@@ -1,350 +1,506 @@
-- en: Quicksort
+- en: '`Quicksort`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The Quicksort algorithm is a combination of partitions and recursion. It works
-    as follows:'
+- en: '`Quicksort`算法是分区和递归的组合。它的工作方式如下：'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Partition the array. The pivot is now in its proper place.
+- en: 分区数组。枢轴现在在它的正确位置。
+  id: totrans-2
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: Treat the subarrays to the left and right of the pivot as their own arrays,
-    and recursively repeat Steps 1 and 2\. That means we’ll partition each subarray
-    and end up with even smaller sub-subarrays to the left and right of each subarray’s
-    pivot. We then partition those sub-subarrays, and so on and so forth.
+- en: 将枢轴左侧和右侧的子数组视为各自的数组，并递归重复步骤1和2。这意味着我们将对每个子数组进行分区，并最终得到每个子数组枢轴左侧和右侧的更小的子子数组。然后我们对这些子子数组进行分区，以此类推。
+  id: totrans-3
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: When we have a subarray that has zero or one elements, that’s our base case
-    and we do nothing.
+- en: 当我们有一个包含零个或一个元素的子数组时，这就是我们的基例，我们什么都不做。
+  id: totrans-4
   prefs:
   - PREF_OL
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s return to our example. We began with the array of [0, 5, 2, 1, 6, 3]
-    and ran a single partition on the entire array. Since Quicksort begins with such
-    a partition, that means we’re already partly through the Quicksort process. Here’s
-    what we left off with:'
+- en: 让我们回到我们的例子。我们从数组`[0, 5, 2, 1, 6, 3]`开始，并在整个数组上运行一次分区。由于`Quicksort`以这样的分区开始，这意味着我们已经部分完成了`Quicksort`过程。以下是我们停下的地方：
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png)'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: As you can see, the value 3 was the original pivot. Now that the pivot is in
-    the correct place, we need to sort whatever is to the left and right of the pivot.
-    Note that in our example, it just so happens that the numbers to the left of the
-    pivot are already sorted, but the computer doesn’t know that yet.
+- en: 正如你所看到的，值`3`是原始枢轴。现在枢轴在正确的位置，我们需要对枢轴左侧和右侧的内容进行排序。请注意，在我们的例子中，枢轴左侧的数字恰好已经排序，但计算机还不知道这一点。
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: The next step after the partition is to treat everything to the left of the
-    pivot as its own array and partition it.
+- en: 在分区之后的下一步是将枢轴左侧的所有元素视为自己的数组并进行分区。
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We’ll obscure the rest of the array for now, as we’re not focusing on it at
-    the moment:'
+- en: 我们暂时遮住数组的其余部分，因为我们此时不关注它：
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_12.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_12.png)'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Now, of this [0, 1, 2] subarray, we’ll make the rightmost element the pivot.
-    So that would be the number 2:'
+- en: 现在，在这个`[0, 1, 2]`子数组中，我们将最右边的元素作为枢轴。所以这将是数字`2`：
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_13.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_13.png)'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'We’ll establish our left and right pointers:'
+- en: 我们将建立我们的左指针和右指针：
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_14.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_14.png)'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: And now we’re ready to partition this subarray. Let’s continue from after Step
-    8, where we left off previously.
+- en: 现在我们准备对这个子数组进行分区。让我们继续从第8步之后继续，我们在这里停下了。
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 9: We compare the left pointer (0) to the pivot (2). Since the 0 is less
-    than the pivot, we continue moving the left pointer.'
+- en: 第9步：我们将左指针（`0`）与枢轴（`2`）进行比较。由于`0`小于枢轴，我们继续移动左指针。
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 10: We move the left pointer one cell to the right, and it now happens
-    to be pointing to the same value the right pointer is pointing to:'
+- en: 第10步：我们将左指针向右移动一个单元，现在它恰好指向右指针指向的同一值：
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_15.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_15.png)'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We compare the left pointer to the pivot. Since the value 1 is less than the
-    pivot, we move on.
+- en: 我们将左指针与枢轴进行比较。由于值`1`小于枢轴，我们继续前进。
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 11: We move the left pointer one cell to the right, which just happens
-    to be the pivot:'
+- en: 第11步：我们将左指针向右移动一个单元，这恰好是枢轴：
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_16.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_16.png)'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: At this point, the left pointer is pointing to a value that is equal to the
-    pivot (since it is the pivot!), and so the left pointer stops.
+- en: 此时，左指针指向的值等于枢轴（因为它就是枢轴！），所以左指针停止。
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Note how the left pointer managed to sneak past the right pointer. That’s okay,
     though. The algorithm is designed to work even with such an occurrence.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 12: Now we activate the right pointer. However, because the right pointer’s
-    value (1) is less than the pivot, it stays still.'
+- en: '`Step 12`: Now we activate the right pointer. However, because the right pointer’s
+    value (`1`) is less than the pivot, it stays still.'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Since our left pointer has passed our right pointer, we’re done moving pointers
     altogether in this partition.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 13: Next, we swap the pivot with the left pointer’s value. Now, it just
+- en: '`Step 13`: Next, we swap the pivot with the left pointer’s value. Now, it just
     so happens that the left pointer is pointing to the pivot itself, so we swap the
     pivot with itself, which results in no change at all. At this point, the partition
-    is complete and the pivot (2) is now in its correct spot:'
+    is complete and the pivot (`2`) is now in its correct spot:'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_17.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_17.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/quicksort_17.png`](images/divide_and_conquer_code_in_turbo_mode/quicksort_17.png)'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We now have a subarray of [0, 1] to the left of the pivot (the 2) and no subarray
-    to its right. The next step is to recursively partition the subarray to the pivot’s
-    left, which again, is [0, 1]. We don’t have to deal with any subarray to the right
-    of the pivot since no such subarray exists.
+- en: We now have a subarray of `[0, 1]` to the left of the pivot (the `2`) and no
+    subarray to its right. The next step is to recursively partition the subarray
+    to the pivot’s left, which again, is `[0, 1]`. We don’t have to deal with any
+    subarray to the right of the pivot since no such subarray exists.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Because all we’ll focus on in the next step is the subarray [0, 1], we’ll block
-    out the rest of the array so it looks like this:'
+- en: 'Because all we’ll focus on in the next step is the subarray `[0, 1]`, we’ll
+    block out the rest of the array so it looks like this:'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_18.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_18.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/quicksort_18.png`](images/divide_and_conquer_code_in_turbo_mode/quicksort_18.png)'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'To partition the subarray [0, 1], we’ll make the rightmost element (the 1)
+- en: 'To partition the subarray `[0, 1]`, we’ll make the rightmost element (the `1`)
     the pivot. Where will we put the left and right pointers? Well, the left pointer
-    will point to the 0, but the right pointer will also point to the 0 since we always
-    start the right pointer at one cell to the left of the pivot. That gives us this:'
+    will point to the `0`, but the right pointer will also point to the `0` since
+    we always start the right pointer at one cell to the left of the pivot. That gives
+    us this:'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png`](images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png)'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: We’re now ready to begin the partition.
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 14: We compare the left pointer (0) with the pivot (1):'
+- en: '`Step 14`: We compare the left pointer (`0`) with the pivot (`1`):'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png`](images/divide_and_conquer_code_in_turbo_mode/quicksort_19.png)'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: It’s less than the pivot, so we move on.
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 15: We shift the left pointer one cell to the right. It now points to
+- en: '`Step 15`: We shift the left pointer one cell to the right. It now points to
     the pivot:'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_20.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_20.png)'
+- en: '![`images/divide_and_conquer_code_in_turbo_mode/quicksort_20.png`](images/divide_and_conquer_code_in_turbo_mode/quicksort_20.png)'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Since the left pointer’s value (1) is not lower than the pivot (since it is
+- en: Since the left pointer’s value (`1`) is not lower than the pivot (since it is
     the pivot), the left pointer stops moving.
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 16: We compare the right pointer with the pivot. Since it’s pointing to
-    a value that is less than the pivot, we don’t move it anymore. And since the left
-    pointer has passed the right pointer, we’re done moving pointers for this partition.'
+- en: '`Step 16`: We compare the right pointer with the pivot. Since it’s pointing
+    to a value that is less than the pivot, we don’t move it anymore. And since the
+    left pointer has passed the right pointer, we’re done moving pointers for this
+    partition.'
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 17: We now swap the left pointer with the pivot. Again, in this case,
+- en: '`Step 17`: We now swap the left pointer with the pivot. Again, in this case,
     the left pointer is actually pointing to the pivot itself, so the swap doesn’t
     actually change anything. The pivot is now in its proper place, and we’re done
     with this partition.'
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'That leaves us with this:'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_21.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_21.png)'
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Next up, we need to partition the subarray to the left of the most recent pivot.
-    In this case, that subarray is [0]—an array of just one element. An array of zero
-    or one elements is our base case, so we don’t do anything. The element is just
-    considered to be in its proper place automatically. So now we’ve got this:'
+    In this case, that subarray is `[0]`—an array of just one element. An array of
+    zero or one elements is our base case, so we don’t do anything. The element is
+    just considered to be in its proper place automatically. So now we’ve got this:'
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_22.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_22.png)'
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: We started out by treating 3 as our pivot, and recursively partitioned the subarray
-    to its left ([0, 1, 2]). As promised, we now need to come back to recursively
-    partitioning the subarray to the right of the 3, which is [6, 5].
+- en: We started out by treating `3` as our pivot, and recursively partitioned the
+    subarray to its left (`[0, 1, 2]`). As promised, we now need to come back to recursively
+    partitioning the subarray to the right of the `3`, which is `[6, 5]`.
+  id: totrans-46
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We’ll obscure the [0, 1, 2, 3], since we’ve already sorted those, and now we’re
-    only focusing on the [6, 5]:'
+- en: 'We’ll obscure the `[0, 1, 2, 3]`, since we’ve already sorted those, and now
+    we’re only focusing on the `[6, 5]`:'
+  id: totrans-47
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_23.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_23.png)'
+  id: totrans-48
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'In the next partition, we’ll treat the rightmost element (the 5) as the pivot.
+- en: 'In the next partition, we’ll treat the rightmost element (`5`) as the pivot.
     That gives us this:'
+  id: totrans-49
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_24.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_24.png)'
+  id: totrans-50
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'When setting up our next partition, our left and right pointers both end up
-    pointing to the 6:'
+    pointing to the `6`:'
+  id: totrans-51
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_25.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_25.png)'
+  id: totrans-52
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Step 18: We compare the left pointer (6) with the pivot (5). Since 6 is greater
-    than the pivot, the left pointer doesn’t move further.'
+- en: 'Step 18: We compare the left pointer (`6`) with the pivot (`5`). Since `6`
+    is greater than the pivot, the left pointer doesn’t move further.'
+  id: totrans-53
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Step 19: The right pointer is pointing to the 6 as well, so we would theoretically
+- en: 'Step 19: The right pointer is pointing to the `6` as well, so we would theoretically
     move on to the next cell to the left. However, there are no more cells to the
-    left of the 6, so the right pointer stops moving. Since the left pointer has reached
-    the right pointer, we’re done moving pointers altogether for this partition. That
-    means we’re ready for the final step.'
+    left of the `6`, so the right pointer stops moving. Since the left pointer has
+    reached the right pointer, we’re done moving pointers altogether for this partition.
+    That means we’re ready for the final step.'
+  id: totrans-54
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Step 20: We swap the pivot with the value of the left pointer:'
+  id: totrans-55
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_26.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_26.png)'
+  id: totrans-56
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: 'Our pivot (5) is now in its correct spot, leaving us with this:'
+- en: 'Our pivot (`5`) is now in its correct spot, leaving us with this:'
+  id: totrans-57
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_27.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_27.png)'
+  id: totrans-58
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: 'Next up, we technically need to recursively partition the subarray to the left
-    and right of the [5, 6] subarray. Since there’s no subarray to its left, that
+    and right of the `[5, 6]` subarray. Since there’s no subarray to its left, that
     means we only need to partition the subarray to the right. Since the subarray
-    to the right of the 5 is a single element of [6], that’s our base case and we
-    do nothing—the 6 is automatically considered to be in its proper place:'
+    to the right of the `5` is a single element of `[6]`, that’s our base case and
+    we do nothing—the `6` is automatically considered to be in its proper place:'
+  id: totrans-59
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_28.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_28.png)'
+  id: totrans-60
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: And we’re done!
+  id: totrans-61
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Quicksort'
+  id: totrans-62
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Following is a quicksort method we can add to the previous SortableArray class
-    that would successfully complete the Quicksort:'
+- en: 以下是我们可以添加到之前的`SortableArray`类中的一个`quicksort`方法，它能够成功完成快速排序：
+  id: totrans-63
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | quicksort(leftIndex, rightIndex) { |'
+- en: '| ​  | `quicksort(leftIndex, rightIndex)` { |'
+  id: totrans-64
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (rightIndex - leftIndex <= 0) { |'
+- en: '| ​  | ​`if`​ (`rightIndex - leftIndex <= 0`) { |'
+  id: totrans-65
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | ​`return`​; |'
+  id: totrans-66
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-67
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-68
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ pivotIndex = ​**this**​.partition(leftIndex, rightIndex);
+- en: '| ​  | ​`const`​ `pivotIndex` = ​`this`​.partition(`leftIndex`, `rightIndex`);
     |'
+  id: totrans-69
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-70
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.quicksort(leftIndex, pivotIndex - 1); |'
+- en: '| ​  | ​`this`​.quicksort(`leftIndex`, `pivotIndex - 1`); |'
+  id: totrans-71
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-72
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.quicksort(pivotIndex + 1, rightIndex); |'
+- en: '| ​  | ​`this`​.quicksort(`pivotIndex + 1`, `rightIndex`); |'
+  id: totrans-73
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-74
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The code here is surprisingly concise, but let’s look at each line. For now,
-    we’ll skip over the first line of code, which represents the base case. Let’s
-    jump straight to the meaty recursion.
+- en: 这里的代码令人惊讶地简洁，但让我们看一下每一行。目前，我们将跳过表示基例的第一行代码，直接跳到关键的递归部分。
+  id: totrans-75
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We begin by partitioning the range of elements between the leftIndex and rightIndex:'
+- en: 我们通过划分`leftIndex`和`rightIndex`之间的元素范围开始：
+  id: totrans-76
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ pivotIndex = ​**this**​.partition(leftIndex, rightIndex);
+- en: '| ​  | ​`const`​ `pivotIndex` = ​`this`​.partition(`leftIndex`, `rightIndex`);
     |'
+  id: totrans-77
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The first time we run quicksort, we partition the entire array. In subsequent
-    calls, though, this line of code partitions whatever range of elements that lies
-    between the leftIndex and rightIndex, which may be a subsection of the original
-    array.
+- en: 第一次运行`quicksort`时，我们划分整个数组。然而，在后续调用中，这行代码划分`leftIndex`和`rightIndex`之间的任何元素范围，这可能是原始数组的一个子部分。
+  id: totrans-78
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Note that we assign the return value of partition to a variable called pivotIndex.
-    If you’ll recall, this value was the leftPointer which pointed to the pivot by
-    the time the partition method was complete.
+- en: 请注意，我们将`partition`的返回值赋给一个名为`pivotIndex`的变量。如果你还记得，这个值在`partition`方法完成时是指向枢轴的`leftPointer`。
+  id: totrans-79
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We then recursively call quicksort on the subarrays to the left and right of
-    the pivot:'
+- en: 然后我们递归调用`quicksort`在枢轴左侧和右侧的子数组上：
+  id: totrans-80
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**this**​.quicksort(leftIndex, pivotIndex - 1); |'
+- en: '| ​  | ​`this`​.quicksort(`leftIndex`, `pivotIndex - 1`); |'
+  id: totrans-81
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.quicksort(pivotIndex + 1, rightIndex); |'
+- en: '| ​  | ​`this`​.quicksort(`pivotIndex + 1`, `rightIndex`); |'
+  id: totrans-82
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'The recursion ends when we reach the base case, which is when the subarray
-    at hand contains no more than one element:'
+- en: 当我们达到基例时递归结束，即当前子数组包含不超过一个元素：
+  id: totrans-83
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (rightIndex - leftIndex <= 0) { |'
+- en: '| ​  | ​`if`​ (`rightIndex - leftIndex <= 0`) { |'
+  id: totrans-84
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​; |'
+- en: '| ​  | ​`return`​; |'
+  id: totrans-85
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-86
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We can take our Quicksort implementation for a test drive using the following code:'
+- en: 我们可以使用以下代码对我们的`Quicksort`实现进行测试：
+  id: totrans-87
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ array = [0, 5, 2, 1, 6, 3]; |'
+- en: '| ​  | ​`const`​ `array` = `[0, 5, 2, 1, 6, 3]`; |'
+  id: totrans-88
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ sortableArray = ​**new**​ SortableArray(array); |'
+- en: '| ​  | ​`const`​ `sortableArray` = ​`new`​ `SortableArray`(`array`); |'
+  id: totrans-89
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | sortableArray.quicksort(0, array.length - 1); |'
+- en: '| ​  | `sortableArray.quicksort(0, array.length - 1);` |'
+  id: totrans-90
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | console.log(sortableArray.array); |'
+- en: '| ​  | `console.log(sortableArray.array);` |'
+  id: totrans-91
   prefs: []
+  stylish: true
   type: TYPE_TB

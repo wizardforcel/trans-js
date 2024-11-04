@@ -1,173 +1,233 @@
-- en: Weighted Graphs
+- en: 加权图
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
-- en: We’ve already seen that graphs can come in a number of different flavors. Another
-    useful type of graph, known as a weighted graph, adds additional information to
-    the edges of the graph.
+- en: 我们已经看到图可以有多种不同的形式。另一种有用的图类型，称为加权图，为图的边添加额外信息。
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a weighted graph that represents a basic map of several major cities
-    in the United States:'
+- en: 这是一个加权图，表示美国几个主要城市的基本地图：
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/weighted_graph_1.png](images/graphs/weighted_graph_1.png)'
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: In this graph, each edge is accompanied by a number that represents the distance
-    in miles between the cities the edge connects—for example, 714 miles between Chicago
-    and New York City.
+- en: 在这个图中，每条边都伴随着一个数字，表示连接这些城市的边的距离（以英里为单位）——例如，芝加哥与纽约市之间714英里。
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'It’s also possible to have weighted graphs that are also directional. In the
-    following example, we can see that although a flight from Dallas to Toronto is
-    $138, a flight from Toronto back to Dallas is $216:'
+- en: 也可以有加权图是方向性的。在下面的例子中，我们可以看到，虽然从达拉斯到多伦多的航班费用是$138，但从多伦多返回达拉斯的航班费用是$216：
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/weighted_graph_2.png](images/graphs/weighted_graph_2.png)'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Weighted Graphs in Code
+- en: 加权图在代码中
+  id: totrans-7
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We need to make a slight modification to our code if we want to add weights
-    to our graph. One way to do this is to use a hash table to represent the adjacent
-    vertices rather than using an array:'
+- en: 我们需要对我们的代码进行一些小修改，如果我们想要为图添加权重。实现这一点的一种方法是使用哈希表来表示相邻顶点，而不是使用数组：
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ WeightedGraphVertex { |'
+- en: '| ​  | `class` `WeightedGraphVertex` { |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(value) { |'
+- en: '| ​  | `constructor`(value) { |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.value = value; |'
+- en: '| ​  | `this`.value = value; |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.adjacentVertices = ​**new**​ Map(); |'
+- en: '| ​  | `this`.adjacentVertices = `new` `Map`(); |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | addAdjacentVertex(vertex, weight) { |'
+- en: '| ​  | `addAdjacentVertex`(vertex, weight) { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.adjacentVertices.​**set**​(vertex, weight); |'
+- en: '| ​  | `this`.adjacentVertices.`set`(vertex, weight); |'
+  id: totrans-16
   prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | } |'
-  prefs: []
-  type: TYPE_TB
-- en: As you can see, this.adjacentVertices is now a hash table instead of an array.
-    The hash table will contain key-value pairs, where in each pair the adjacent vertex
-    is the key and the weight (of the edge from this vertex to the adjacent vertex)
-    is the value.
-  prefs: []
-  type: TYPE_NORMAL
-- en: When we use the addAdjacentVertex method to add an adjacent vertex, we now pass
-    in both the adjacent vertex as well as the weight.
-  prefs: []
-  type: TYPE_NORMAL
-- en: 'Since we’ll continue to deal with the example of a graph that depicts flight
-    fares to and from various cities, we’ll create a special class called City. This
-    is the same implementation as the preceding WeightedGraphVertex but uses class
-    and variable names appropriate to our use case:'
-  prefs: []
-  type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ City { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**constructor**​(name) { |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.name = name; |'
-  prefs: []
-  type: TYPE_TB
-- en: '| ​  | ​**this**​.routes = ​**new**​ Map(); |'
-  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-17
   prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-18
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: 正如你所看到的，`this.adjacentVertices`现在是一个哈希表，而不是数组。哈希表将包含键值对，每个对中的相邻顶点是键，权重（从该顶点到相邻顶点的边的权重）是值。
+  id: totrans-19
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 当我们使用`addAdjacentVertex`方法添加相邻顶点时，我们现在同时传入相邻顶点和权重。
+  id: totrans-20
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: 由于我们将继续处理一个描述各城市之间航班票价的图，我们将创建一个名为`City`的特殊类。这与前面的`WeightedGraphVertex`实现相同，但使用适合我们用例的类名和变量名：
+  id: totrans-21
+  prefs: []
+  stylish: true
+  type: TYPE_NORMAL
+- en: '| ​  | `class` `City` { |'
+  id: totrans-22
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `constructor`(name) { |'
+  id: totrans-23
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `this`.name = name; |'
+  id: totrans-24
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | `this`.routes = `new` `Map`(); |'
+  id: totrans-25
+  prefs: []
+  stylish: true
+  type: TYPE_TB
+- en: '| ​  | } |'
+  id: totrans-26
+  prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | addRoute(city, price) { |'
+- en: '| ​  | `addRoute`(city, price) { |'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.routes.​**set**​(city, price); |'
+- en: '| ​  | `this`.routes.`set`(city, price); |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'So if we want to create the Dallas–Toronto flight price graph from earlier,
-    we can run the following code:'
+- en: 所以如果我们想从之前创建达拉斯–多伦多航班价格图，可以运行以下代码：
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ dallas = ​**new**​ City(​*''Dallas''*​); |'
+- en: '| ​  | `let` dallas = `new` `City`(`*''Dallas''*`); |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ toronto = ​**new**​ City(​*''Toronto''*​); |'
+- en: '| ​  | `let` toronto = `new` `City`(`*''Toronto''*`); |'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | dallas.addRoute(toronto, 138); |'
+- en: '| ​  | `dallas.addRoute(toronto, 138);` |'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | toronto.addRoute(dallas, 216); |'
+- en: '| ​  | `toronto.addRoute(dallas, 216);` |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: The Shortest Path Problem
+- en: '`The Shortest Path Problem`'
+  id: totrans-38
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: Weighted graphs can be very useful in modeling all sorts of datasets, and they
-    also come with some powerful algorithms that help us make the most out of that
-    data.
+- en: 加权图在建模各种数据集时非常有用，它们还带有一些强大的算法，帮助我们充分利用这些数据。
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Let’s harness one of these algorithms to save us a bit of money.
+- en: 让我们利用这些算法为自己节省一点钱。
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Here’s a graph that demonstrates the costs of available flights between five
-    different cities:'
+- en: 这是一个图，演示了五个不同城市之间可用航班的费用：
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/graphs/weighted_graph_3.png](images/graphs/weighted_graph_3.png)'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: Now, say I’m in Atlanta and want to fly to El Paso. Unfortunately, we can see
-    in this graph that there’s no direct route from Atlanta to El Paso at this time.
-    However, I can get there if I’m willing to stop over in other cities along the
-    way. For example, I can fly from Atlanta to Denver and then from Denver to El
-    Paso. But there are other paths as well, and each path has a different price.
-    The Atlanta–Denver–El Paso path will set me back $300, but the Atlanta–Denver–Chicago–El
-    Paso path only costs $280.
+- en: 现在，假设我在亚特兰大，想要飞往埃尔帕索。不幸的是，我们可以在这个图中看到，目前从亚特兰大到埃尔帕索没有直飞的路线。然而，如果我愿意在其他城市停留，我就能到达那里。例如，我可以从亚特兰大飞往丹佛，然后再从丹佛飞往埃尔帕索。但也有其他路径，而且每条路径的价格不同。亚特兰大–丹佛–埃尔帕索的路径让我花费$300，而亚特兰大–丹佛–芝加哥–埃尔帕索的路径只需$280。
+  id: totrans-43
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The puzzle, now, is this: how do we create an algorithm that finds the cheapest
-    price I’d have to shell out to get to my destination? Let’s assume we don’t care
-    about how many stops we have to make; we’re just out to get the cheapest fare.'
+- en: 现在的问题是：我们如何创建一个算法来找到我到达目的地所需支付的最低价格？假设我们不关心需要停多少次；我们只是想找到最便宜的票价。
+  id: totrans-44
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: This kind of puzzle is known as the shortest path problem. This problem can
-    take other forms as well. For example, if the graph showed us distances between
-    cities, we might want to find the path that has the shortest distance. But here,
-    the shortest path we’re looking for is the cheapest one since the weights represent
-    flight prices.
+- en: 这种类型的难题被称为最短路径问题。这个问题也可以有其他形式。例如，如果图中显示的是城市之间的距离，我们可能想要找到距离最短的路径。但在这里，我们寻找的最短路径是价格最低的，因为权重代表的是航班价格。
+  id: totrans-45
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

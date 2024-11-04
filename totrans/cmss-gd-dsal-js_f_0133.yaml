@@ -1,10 +1,14 @@
 - en: Reading
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: As you know, a computer can read from an array in O(1) time. But now let’s figure
     out the efficiency of reading from a linked list.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: If you want to read, say, the value of the third item of a linked list, the
     computer cannot look it up in one step, because it wouldn’t immediately know where
@@ -12,145 +16,225 @@
     be anywhere in memory! All our program knows immediately is the memory address
     of the first node of the linked list; it doesn’t know offhand where any of the
     other nodes are.
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To read from the third node, then, the computer must go through a process. First,
     it accesses the first node. It then follows the first node’s link to the second
     node and then the second node’s link to the third node.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: To get to any node, then, we always need to start with the first node (the only
     node we initially have access to), and follow the chain of nodes until we reach
     the node we want.
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: It turns out, then, that if we were to read from the last node in the list,
     it would take N steps for N nodes in the list. Linked lists having a worst-case
     read of O(N) is a major disadvantage when compared with arrays that can read any
     element in just O(1). But don’t fret, as linked lists will have their moment to
     shine, as we’ll see soon.
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Code Implementation: Linked List Reading'
+  id: totrans-6
   prefs:
   - PREF_H3
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Let’s go ahead and add a read method to our LinkedList class:'
+- en: 'Let’s go ahead and add a read method to our `LinkedList` class:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | read(index) { |'
+- en: '| ​  | `read(index) {` |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+- en: '| ​  | `let` currentNode = `this`.firstNode; |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ currentIndex = 0; |'
+- en: '| ​  | `let` currentIndex = 0; |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**while**​ (currentIndex < index) { |'
+- en: '| ​  | `while` (currentIndex < index) { |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentNode = currentNode.nextNode; |'
+- en: '| ​  | `currentNode = currentNode.nextNode;` |'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | currentIndex += 1; |'
+- en: '| ​  | `currentIndex += 1;` |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (!currentNode) { |'
+- en: '| ​  | `if` (!currentNode) { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | `return` `null`; |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ currentNode.data; |'
+- en: '| ​  | `return` currentNode.data; |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'If we want to read the fourth node from a list, for example, we’d call our
     method by passing in the node’s index as follows:'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | list.read(3); |'
+- en: '| ​  | `list.read(3);` |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Let’s walk through how this method works.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'First, we create a variable called currentNode that refers to the node we’re
+- en: 'First, we create a variable called `currentNode` that refers to the node we’re
     currently accessing. Since we’re going to start by accessing the head, we say
     this:'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ currentNode = ​**this**​.firstNode; |'
+- en: '| ​  | `let` currentNode = `this`.firstNode; |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: Recall that firstNode is an instance variable of the LinkedList class.
+- en: Recall that `firstNode` is an instance variable of the `LinkedList` class.
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'We also track the index of currentNode so that we can know when we reach the
-    desired index. We start at 0 since the first node’s index is 0:'
+- en: 'We also track the index of `currentNode` so that we can know when we reach
+    the desired index. We start at 0 since the first node’s index is 0:'
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**let**​ currentIndex = 0; |'
+- en: '| ​  | `let` currentIndex = 0; |'
+  id: totrans-29
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We then launch a loop that runs while currentIndex is less than the index we’re
-    attempting to read:'
+- en: 'We then launch a loop that runs while `currentIndex` is less than the index
+    we’re attempting to read:'
+  id: totrans-30
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**while**​ (currentIndex < index) { |'
+- en: '| ​  | `while` (currentIndex < index) { |'
+  id: totrans-31
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'In each pass-through of the loop, we access the next node in the list and make
-    it the new currentNode:'
+    it the new `currentNode`:'
+  id: totrans-32
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | currentNode = currentNode.nextNode; |'
+- en: '| ​  | `currentNode = currentNode.nextNode;` |'
+  id: totrans-33
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: 'We also bump up the currentIndex by 1:'
+- en: 'We also bump up the `currentIndex` by 1:'
+  id: totrans-34
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | currentIndex += 1; |'
+- en: '| ​  | `currentIndex += 1;` |'
+  id: totrans-35
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'At the end of each pass-through, we check whether we’ve reached the end of
-    the list, and we return null if the index we’re trying to read isn’t in our list:'
+    the list, and we return `null` if the index we’re trying to read isn’t in our
+    list:'
+  id: totrans-36
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**if**​ (!currentNode) { |'
+- en: '| ​  | `if` (!currentNode) { |'
+  id: totrans-37
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ ​**null**​; |'
+- en: '| ​  | `return`​ `null`; |'
+  id: totrans-38
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-39
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: This works because the final node of the list will actually have a nextNode
-    that is null since the last node was never assigned a nextNode of its own. This
-    being the case, when currentNode refers to the final node and we then execute
-    current =currentNode.nextNode, the currentNode becomes null.
+- en: 这是有效的，因为列表的最后一个节点实际上会有一个`nextNode`为`null`，因为最后一个节点从未被分配自己的`nextNode`。这样，当`currentNode`指向最后一个节点时，我们执行`current
+    = currentNode.nextNode`，`currentNode`就变成了`null`。
+  id: totrans-40
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Finally, if we do break out of the loop, it’s because we reached the desired
-    index. We can then return the node’s value with the following:'
+- en: 最后，如果我们跳出循环，那是因为我们达到了期望的索引。我们可以通过以下方式返回节点的值：
+  id: totrans-41
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ currentNode.data; |'
+- en: '| ​  | `return` currentNode.data; |'
+  id: totrans-42
   prefs: []
+  stylish: true
   type: TYPE_TB

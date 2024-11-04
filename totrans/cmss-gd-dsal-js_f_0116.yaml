@@ -1,113 +1,170 @@
 - en: Overlapping Subproblems
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: 'The Fibonacci sequence is a mathematical sequence of numbers that goes like
     this until infinity:'
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55…
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This sequence begins with the numbers 0 and 1, and each subsequent number is
     the sum of the previous two numbers of the sequence. For example, the number 55
     was computed because it is the sum of the previous two numbers, which are 21 and
     34.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: The following JavaScript function returns the Nth number in the Fibonacci sequence.
     For example, if we pass the number 10 to the function, it will return 55, as 55
     is the tenth number in the series. (The 0 is considered the 0th number in the
     series.)
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**function**​ fib(n) { |'
+- en: '| ​  | `function` fib(n) { |'
+  id: totrans-5
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**if**​ (n === 0 &#124;&#124; n === 1) { |'
+- en: '| ​  | `if` (n === 0 || n === 1) { |'
+  id: totrans-6
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ n; |'
+- en: '| ​  | `return` n; |'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**return**​ fib(n - 2) + fib(n - 1); |'
+- en: '| ​  | `return` fib(n - 2) + fib(n - 1); |'
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'The key line in this function is the following:'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**return**​ fib(n - 2) + fib(n - 1); |'
+- en: '| ​  | `return` fib(n - 2) + fib(n - 1); |'
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: This line sums the previous two numbers in the Fibonacci series. It’s a beautiful
     recursive function.
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: However, alarm bells should be going off in your head right now because our
     function calls itself twice.
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Let’s take the computation of the sixth Fibonacci number, for example. The
-    function fib(6) makes a call to both fib(4) and fib(5), as shown in the following
+    function `fib(6)` makes a call to both `fib(4)` and `fib(5)`，as shown in the following
     diagram:'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/simple_fib_6.png](images/dynamic_programming/simple_fib_6.png)'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: As we’ve seen, a function calling itself twice can easily lead us down the road
-    to O(2^N). Indeed, all the recursive calls made by fib(6) are shown in the [diagram](#fig.ch12.complete_fib_6).
+    to `O(2^N)`。Indeed, all the recursive calls made by `fib(6)` are shown in the
+    [diagram](#fig.ch12.complete_fib_6).
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/dynamic_programming/complete_fib_6.png](images/dynamic_programming/complete_fib_6.png)'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: You’ve got to admit, O(2^N) can look pretty scary.
+- en: You’ve got to admit, `O(2^N)` can look pretty scary.
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: While one simple change worked to optimize the first example in this chapter,
     optimizing our Fibonacci sequence isn’t as simple.
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: And that’s because there isn’t just one single piece of data we can save in
-    a variable. We need to calculate both fib(n - 2) and fib(n - 1) (as each Fibonacci
+    a variable. We need to calculate both `fib(n - 2)` and `fib(n - 1)` (as each Fibonacci
     number is the sum of those two numbers), and storing the result of one won’t alone
     give us the result for the other.
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: This is a case of what computer scientists call overlapping subproblems. Let’s
     unpack that term.
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: When a problem is solved by solving smaller versions of the same problem, the
     smaller problem is called a subproblem. This concept isn’t new—we’ve been dealing
     with it frequently throughout our discussion of recursion. In the case of the
     Fibonacci sequence, we compute each number by first computing the smaller numbers
     in the sequence. The computations of these smaller numbers are the subproblems.
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: What makes these subproblems overlapping, though, is the fact that fib(n - 2)
-    and fib(n - 1) end up calling many of the same functions as each other. Specifically,
-    fib(n - 1) ends up making some of the very same calculations already made by fib(n
-    - 2). For example, you can see in the previous diagram that fib(5) calls fib(3)
-    even though fib(4) has itself already done so. Many other calls are duplicated
-    too.
+- en: What makes these subproblems overlapping, though, is the fact that `fib(n -
+    2)` and `fib(n - 1)` end up calling many of the same functions as each other.
+    Specifically, `fib(n - 1)` ends up making some of the very same calculations already
+    made by `fib(n - 2)`. For example, you can see in the previous diagram that `fib(5)`
+    calls `fib(3)` even though `fib(4)` has itself already done so. Many other calls
+    are duplicated too.
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Well, it seems that we’re at a dead end. Our Fibonacci example requires us to
     make many overlapping function calls, and our algorithm oozes along at a pace
-    of O(2^N). There’s just nothing we can do.
+    of `O(2^N)`. There’s just nothing we can do.
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Or is there?
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_NORMAL

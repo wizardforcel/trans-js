@@ -1,101 +1,161 @@
-- en: Binary Search Trees
+- en: '`Binary Search Trees`'
+  id: totrans-0
   prefs:
   - PREF_H2
+  stylish: true
   type: TYPE_NORMAL
 - en: Many different kinds of tree-based data structures exist, but in this chapter,
-    we’ll focus on a particular tree known as a binary search tree.
+    we’ll focus on a particular tree known as a `binary search tree`.
+  id: totrans-1
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'Note that there are two adjectives here: binary and search.'
+- en: 'Note that there are two adjectives here: `binary` and `search`.'
+  id: totrans-2
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: A binary tree is a tree in which each node has zero, one, or two children.
+- en: A `binary tree` is a tree in which each node has zero, one, or two children.
+  id: totrans-3
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'A binary search tree is a binary tree that also abides by the following rules:'
+- en: '`A binary search tree` is a `binary tree` that also abides by the following
+    rules:'
+  id: totrans-4
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: Each node can have at most one left child and one right child.
+  id: totrans-5
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: A node’s left descendants can only contain values that are less than the node
     itself. Likewise, a node’s right descendants can only contain values that are
     greater than the node itself.
+  id: totrans-6
   prefs:
   - PREF_UL
+  stylish: true
   type: TYPE_NORMAL
 - en: 'Here’s an example of a binary search tree, in which the values are numbers:'
+  id: totrans-7
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_4.png](images/binary_trees/bst_4.png)'
+  id: totrans-8
   prefs: []
+  stylish: true
   type: TYPE_IMG
 - en: Note that each node has one child with a lesser value than itself, which is
     depicted using a left arrow, and one child with a greater value than itself, which
     is depicted using a right arrow.
+  id: totrans-9
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: Additionally, notice that all of the 50’s left descendants are less than it.
-    At the same time, all of the 50’s right descendants are greater than it. The same
-    pattern goes for each and every node.
+- en: Additionally, notice that all of the `50`’s left descendants are less than it.
+    At the same time, all of the `50`’s right descendants are greater than it. The
+    same pattern goes for each and every node.
+  id: totrans-10
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'While the following example is a binary tree, it’s not a binary search tree:'
+- en: 'While the following example is a `binary tree`, it’s not a `binary search tree`:'
+  id: totrans-11
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
 - en: '![images/binary_trees/bst_5.png](images/binary_trees/bst_5.png)'
+  id: totrans-12
   prefs: []
+  stylish: true
   type: TYPE_IMG
-- en: It’s a binary tree because each node has zero, one, or two children. But it’s
-    not a binary search tree, because the root node has two left children; that is,
-    it has two children than are less than it. For a binary search tree to be valid,
-    it can have at most one left (lesser) child and one right (greater) child.
+- en: It’s a `binary tree` because each node has zero, one, or two children. But it’s
+    not a `binary search tree`, because the root node has two left children; that
+    is, it has two children that are less than it. For a binary search tree to be
+    valid, it can have at most one left (lesser) child and one right (greater) child.
+  id: totrans-13
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: 'The implementation of a tree node in JavaScript might look something like this:'
+- en: 'The implementation of a tree node in `JavaScript` might look something like
+    this:'
+  id: totrans-14
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**class**​ TreeNode { |'
+- en: '| ​  | `class` TreeNode { |'
+  id: totrans-15
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**constructor**​(value, left=​**null**​, right=​**null**​) { |'
+- en: '| ​  | `constructor`(value, left=`null`, right=`null`) { |'
+  id: totrans-16
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.value = value; |'
+- en: '| ​  | `this`.value = value; |'
+  id: totrans-17
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.leftChild = left; |'
+- en: '| ​  | `this`.leftChild = left; |'
+  id: totrans-18
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**this**​.rightChild = right; |'
+- en: '| ​  | `this`.rightChild = right; |'
+  id: totrans-19
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-20
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  | } |'
+  id: totrans-21
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: '| ​  |  |'
+  id: totrans-22
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**export**​ ​**default**​ TreeNode; |'
+- en: '| ​  | `export` `default` TreeNode; |'
+  id: totrans-23
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: 'We can then build a simple tree like this:'
+  id: totrans-24
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
-- en: '| ​  | ​**const**​ node1 = ​**new**​ TreeNode(25); |'
+- en: '| ​  | `const` node1 = `new` TreeNode(25); |'
+  id: totrans-25
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**const**​ node2 = ​**new**​ TreeNode(75); |'
+- en: '| ​  | `const` node2 = `new` TreeNode(75); |'
+  id: totrans-26
   prefs: []
+  stylish: true
   type: TYPE_TB
-- en: '| ​  | ​**let**​ root = ​**new**​ TreeNode(50, node1, node2); |'
+- en: '| ​  | `let` root = `new` TreeNode(50, node1, node2); |'
+  id: totrans-27
   prefs: []
+  stylish: true
   type: TYPE_TB
 - en: Because of the unique structure of a binary search tree, we can search for any
     value within it very quickly, as we’ll now see.
+  id: totrans-28
   prefs: []
+  stylish: true
   type: TYPE_NORMAL
