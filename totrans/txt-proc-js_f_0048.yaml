@@ -1,222 +1,354 @@
 - en: '| Recipe 37 | Escaping Metacharacters with the Backslash |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 37 | 使用反斜杠转义元字符 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you have an array of quotations that uses square brackets to include
     words within a quote that are not part of the original quote:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个包含引用的数组，其中使用方括号将单词包含在引用中，这些单词并不是原始引用的一部分：
 - en: '|   | const quotes = [ |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | const quotes = [ |'
 - en: '|   | "The children [Hansel and Gretel] found a house made of candy.", |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | "孩子们[汉塞尔与格蕾特]找到了一座糖果做的房子。", |'
 - en: '|   | "Fortune favors the bold.", |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | "幸运之神眷顾勇者。", |'
 - en: '|   | "They [France] are playing against England tomorrow.", |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | "他们[法国]明天将与英格兰队比赛。", |'
 - en: '|   | "Everything you’ve ever wanted is on the other side of fear.", |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | "你曾经渴望的一切都在恐惧的另一边。", |'
 - en: '|   | // ... |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | // ... |'
 - en: '|   | ] |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | ] |'
 - en: 'You want to find those instances containing square brackets so that you can
     add them to a new collection for search purposes:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 你希望找到那些包含方括号的实例，以便将它们添加到新的集合中以进行搜索：
 - en: '|   | const quotesWithMod = [ |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | const quotesWithMod = [ |'
 - en: '|   | "The children [Hansel and Gretel] found a house made of candy.", |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | "孩子们[汉塞尔与格蕾特]找到了一座糖果做的房子。", |'
 - en: '|   | "They [France] are playing against England tomorrow.", |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | "他们[法国]明天将与英格兰队比赛。", |'
 - en: '|   | ] |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | ] |'
 - en: Since a bracket has a special meaning in regex, you need a way to escape the
     bracket character to match the actual bracket.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 因为括号在正则表达式中有特殊含义，所以你需要一种方法来转义括号字符，以匹配实际的括号。
 - en: Solution
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Precede the brackets with a backslash (\) to match for the actual bracket:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过在括号前加反斜杠（\）来匹配实际的括号：
 - en: '[part_2/backslash/backslash_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/backslash/backslash_ex1.js)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/backslash/backslash_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/backslash/backslash_ex1.js)'
 - en: '| 1:  | **const** quotes = [ |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 1:  | **const** quotes = [ |'
 - en: '| -  | *"The children [Hansel and Gretel] found a house made of candy."*, |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *"孩子们[汉塞尔与格蕾特]找到了一座糖果做的房子。"*, |'
 - en: '| -  | *"Fortune favors the bold."*, |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *"幸运之神眷顾勇者。"*, |'
 - en: '| -  | *"They [France] are playing against England tomorrow."*, |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *"他们[法国]明天将与英格兰队比赛。"*, |'
 - en: '| 5:  | *"Everything you’ve ever wanted is on the other side of fear."*, |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| 5:  | *"你曾经渴望的一切都在恐惧的另一边。"*, |'
 - en: '| -  | *// ...* |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// ...* |'
 - en: '| -  | ] |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| -  | ] |'
 - en: '| -  |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | **const** quotesWithMod = []; |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** quotesWithMod = []; |'
 - en: '| 10:  | **const** re = */**\[\w**+**(?:\s\w**+**)*****\]**/*; |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 10:  | **const** re = */**\[\w**+**(?:\s\w**+**)*****\]**/*; |'
 - en: '| -  |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | quotes.forEach(quote => { |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| -  | quotes.forEach(quote => { |'
 - en: '| -  | **if** (re.test(quote)) { |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **if** (re.test(quote)) { |'
 - en: '| -  | quotesWithMod.push(quote); |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| -  | quotesWithMod.push(quote); |'
 - en: '| 15:  | } |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 15:  | } |'
 - en: '| -  | }); |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| -  | }); |'
 - en: '| -  |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | console.log(quotesWithMod); |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| -  | console.log(quotesWithMod); |'
 - en: '| -  |  |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| 20:  | *// log:* |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| 20:  | *// 日志:* |'
 - en: '| -  | *// [* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// [* |'
 - en: '| -  | *// "The children [Hansel and Gretel] found a house made of candy.",*
     |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// "孩子们[汉塞尔与格蕾特]找到了一座糖果做的房子。"* |'
 - en: '| -  | *// "They [France] are playing against England tomorrow."* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// "他们[法国]明天将与英格兰队比赛。"* |'
 - en: '| -  | *// ]* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// ]* |'
 - en: You now have a separate array containing quotes with words that are not part
     of the original quote.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你有了一个独立的数组，其中包含了原始引号中不属于原引号的单词。
 - en: Discussion
+  id: totrans-44
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The regex in our example matches any text enclosed in square brackets, which
     could contain one or more words separated by spaces. Pay attention to the backslash
     character preceding [ and ]. Without a backslash, these brackets would be treated
     as a character class. \w and \s are different: the backslash before them is a
     part of the expression and creates a shorthand character class (see Recipe 28,
     [*Matching a Range of Characters with Character Classes*](f_0039.xhtml#rcp.character_class_range)).'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们示例中的正则表达式匹配任何被方括号包围的文本，方括号内可以包含一个或多个由空格分隔的单词。注意方括号前的反斜杠字符 [ 和 ]。如果没有反斜杠，这些括号将被当作字符类处理。\w
+    和 \s 是不同的：它们前面的反斜杠是表达式的一部分，创建了一个简写字符类（参见第28条，[*使用字符类匹配字符范围*](f_0039.xhtml#rcp.character_class_range)）。
 - en: When a backslash is followed by certain characters, it has a special meaning
     in the regular expression. For example, \n will represent a line feed, and \s
     will match a whitespace character. But we can also use a backslash to escape metacharacters.
     When we want to take away the special meaning of a metacharacter and use it as
     a literal character, we need to precede it with a backslash. For instance, to
     match a backslash followed by the letter “s,” we write \\s.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 当反斜杠后面跟着某些字符时，它在正则表达式中有特殊意义。例如，\n 代表换行符，\s 匹配一个空白字符。但我们也可以使用反斜杠来转义元字符。当我们想去除元字符的特殊意义，将其作为字面字符使用时，需要在其前面加上反斜杠。例如，要匹配反斜杠后跟字母“s”，我们写成
+    \\s。
 - en: 'Let’s look at the regex pattern step by step:'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们一步一步地来看这个正则表达式模式：
 - en: '|   | /\[\w+(?:\s\w+)*\]/ |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\[\w+(?:\s\w+)*\]/ |'
 - en: '|   |  |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \[ matches the character "[" literally |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \[ 字面匹配字符 "[" |'
 - en: '|   | ● \w matches a word character (ASCII letter, digit, or underscore) |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \w 匹配一个单词字符（ASCII字母、数字或下划线） |'
 - en: '|   | ○ + matches the previous token between one and unlimited times |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个符号出现一次或多次 |'
 - en: '|   | ● (?:\s\w+)* non-capturing group |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?:\s\w+)* 非捕获组 |'
 - en: '|   | ○ (?: indicates the start of a non-capturing group |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ (?: 表示非捕获组的开始 |'
 - en: '|   | ○ \s matches a whitespace character |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配一个空白字符 |'
 - en: '|   | ○ \w matches a single word character (ASCII letter, digit, or underscore)
     |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \w 匹配一个单词字符（ASCII字母、数字或下划线） |'
 - en: '|   | ○ + matches the previous token between one and unlimited times |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个符号出现一次或多次 |'
 - en: '|   | ○ ) closes the non-capturing group |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ) 关闭非捕获组 |'
 - en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前一个符号出现零次或多次 |'
 - en: '|   | ● \] matches the character "]" literally |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \] 字面匹配字符 "]" |'
 - en: In line 12, we try to loop through each quote in the quotes array using the
     forEach() method. Inside the loop, we call the test() method on the regex to check
     whether the current quote contains a word enclosed in square brackets. If the
     test returns true, we add the current quote to the quotesWithMod array using the
     push() method.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第12行，我们尝试使用forEach()方法遍历quotes数组中的每个引用。在循环内部，我们调用regex的test()方法来检查当前的引用是否包含被方括号括起来的单词。如果test返回true，我们使用push()方法将当前的引用添加到quotesWithMod数组中。
 - en: In the end, the quotesWithMod array will contain all the quotes from the quotes
     array that include a word enclosed in square brackets.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 最终，quotesWithMod数组将包含所有来自quotes数组的引用，这些引用中包含一个被方括号括起来的单词。
 - en: '| Escaping a Normal Character |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '| 转义普通字符 |'
 - en: '| --- |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | If you attempt
     to escape a character that is not a metacharacter, the character will be treated
     as a literal character and nothing will happen to it. In other words, escaping
@@ -226,9 +358,14 @@
     rules about the unnecessary use of backslashes and throw an error. For more on
     the u flag see Recipe 43, [*Enabling Unicode Features with the u Flag*](f_0054.xhtml#rcp.flag_u).
     |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 如果你尝试转义一个不是元字符的字符，那么该字符将被当作字面字符处理，不会发生任何变化。换句话说，转义一个非元字符对引擎的解析没有任何影响。以下是一个例子：`code`标签不应该出现在这里。但这个规则有一个例外：如果你设置了u标志，引擎将对反斜杠的使用进行更严格的检查，并会抛出错误。关于u标志的更多信息，请参阅第43条[*启用Unicode特性（u标志）*](f_0054.xhtml#rcp.flag_u)。
+    |'
 - en: Remember, you can use a backslash when you want to take away the special meaning
     of a metacharacter and use it as a literal character in a regex pattern.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 请记住，当你希望取消元字符的特殊含义并将其作为字面字符使用时，可以使用反斜杠来转义它。

@@ -1,16 +1,23 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_36](https://doi.org/10.1007/978-3-658-42912-6_36)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者，独家授权 Springer Fachmedien Wiesbaden GmbH，Springer Nature 的一部分 2024 J. L.
+    Zuckarelli《用 Python 和 JavaScript 学习编程》[https://doi.org/10.1007/978-3-658-42912-6_36](https://doi.org/10.1007/978-3-658-42912-6_36)
 - en: '36. Debugging & Error-Handling: How Do I Search for and Fix Errors in a Structured
     Way?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 36. 调试与错误处理：我如何以结构化的方式搜索并修复错误？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2) )(1)德国慕尼黑概述
 - en: To wrap up our introduction to JavaScript, we turn to the unloved but important
     topic of debugging and error handling. Overall, JavaScript is a bit more robust
     than other programming languages when it comes to runtime errors. So, where your
@@ -18,33 +25,48 @@
     keeps running. However, this only makes the handling of runtime errors *seem*
     easier; special, unusual situations must still be anticipated and handled by you
     as a programmer.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了总结我们对 JavaScript 的介绍，我们转向一个不太受欢迎但却重要的主题——调试与错误处理。总体来说，JavaScript 在处理运行时错误时比其他编程语言更为健壮。因此，在其他语言中会因为错误消息而中止的程序，在
+    JavaScript 中只会继续运行。然而，这只是让运行时错误的处理看起来*更容易*；特殊的、不寻常的情况仍然需要你作为程序员提前预见并处理。
 - en: For debugging purposes throughout the development process, the developer tools
     available in modern browsers include several useful features that you should take
     full advantage of.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了在整个开发过程中进行调试，现代浏览器中提供的开发者工具包含了多个有用的功能，你应当充分利用这些工具。
 - en: 'In this chapter you will learn:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 本章中你将学习：
 - en: how JavaScript handles runtime errors and what this means for you as a programmer
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 如何处理运行时错误，以及这对你作为程序员意味着什么
 - en: how you can catch exceptions
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何捕获异常
 - en: how to use browser debugging tools to find bugs in your programs, especially
     how to set breakpoints, watch variables, and run your program in single step mode
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用浏览器调试工具来查找程序中的 bug，特别是如何设置断点、监视变量以及以单步模式运行程序
 - en: 36.1 Error Handling at Runtime
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 36.1 运行时错误处理
 - en: Runtime errors where the program terminates are rarer in JavaScript than in
     many other programming languages. The reason is that JavaScript handles some situations
     that would have thrown an exception in the other languages differently and seeks
@@ -57,8 +79,12 @@
     and thrown an exception. Not so in JavaScript. JavaScript stubbornly continues
     to run and only signals through the results of the performed operations that something
     didn’t quite go as planned.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 与许多其他编程语言相比，JavaScript 中导致程序终止的运行时错误较少。原因在于，JavaScript 处理一些在其他语言中会抛出异常的情况时，采取了不同的方式，并寻求一种不那么剧烈的解决方案。例如，如果你用**Math.sqrt(-1)**计算负数的平方根，返回值将是**NaN**——*不是一个数字*。如果你用
+    0 除以某个数，你会得到**Infinity**（如果被除数为负，则返回**-Infinity**）。如果你试图将一个非数字字符串转换为数字（例如使用**Number("abc")**），转换结果同样是**NaN**。在这些情况下，许多其他编程语言会导致服务失败并抛出异常。但在
+    JavaScript 中并非如此。JavaScript 会顽固地继续运行，只是通过操作结果来表明某些事情并没有按计划进行。
 - en: At first glance, this way of dealing with errors is a good thing for you as
     a programmer, as it reduces the risk of your program going completely off the
     rails with some strange exception. However, the fact that no exceptions are thrown
@@ -69,8 +95,11 @@
     must therefore ensure, through suitable checks, that your program can really cope
     with all conceivable constellations—even and especially if these constellations
     do *not* lead to exceptions.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 乍一看，这种处理错误的方式对你作为程序员来说是一个好事，因为它减少了程序因某些奇怪的异常而完全崩溃的风险。然而，毫无异常抛出并不意味着你的程序一定能按预期工作；毕竟，考虑到用户将一个本不应为数字的输入错误地转换成了数字，从而产生
+    **NaN** 值，你的 JavaScript 代码在这种情况下是否仍能产生有用的结果，当前还值得怀疑。因此，作为开发者，你必须通过合适的检查，确保你的程序能够应对所有可能的情形——即使这些情形*不*导致异常。
 - en: However, exceptions can of course also occur in JavaScript. For example, if
     you call the **toLowerCase()** method (that converts a string to lowercase) for
     a numeric variable, you will get an exception, just as you will if you try to
@@ -81,82 +110,121 @@
     sufficient testing. In the fight against such errors, the debugging features of
     the developer tools in the browser are particularly important supporters. We will
     deal with them in the next section.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，例外情况当然也会在 JavaScript 中发生。例如，如果你对一个数字变量调用 **toLowerCase()** 方法（该方法将字符串转换为小写），你将得到一个异常，就像你尝试在脚本中访问一个没有实际分配给任何网页元素的
+    ID 的 HTML 元素时一样（例如我们前一章中的电子表格示例）。然而，这类错误通常并不是由仅在运行时发生的情况引起的，而是可以在开发过程中通过充分的测试发现并修正的。为了应对这类错误，浏览器中开发者工具的调试功能是特别重要的支持工具。我们将在下一节中讨论它们。
 - en: 'Even though exceptions are less important in JavaScript than in many other
     languages, JavaScript also supports a Try-Catch construct. It has the following
     syntax and thus, if you remember our considerations from ► Sect. [16.​2](474412_1_En_16_Chapter.xhtml#Sec2),
     has a very “classic” structure:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然在 JavaScript 中，异常的处理不如在许多其他语言中那么重要，但 JavaScript 也支持 Try-Catch 结构。它具有以下语法，因此，如果你还记得我们在
+    ► 第 [16.2](474412_1_En_16_Chapter.xhtml#Sec2) 节中的讨论，它有一个非常“经典”的结构：
 - en: '**try** {*// Code that is "tried*}**catch**(err) {*// Code for error handling*}**finally**
     {*// Code that is always executed in any case*}'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**try** {*// 尝试执行的代码*} **catch** (err) {*// 错误处理的代码*} **finally** {*// 无论如何始终执行的代码*}'
 - en: '**catch** takes as its argument an error object from which you can extract
     a variety of information, most notably the error name (in the **name** property)
     and an error message (in the **message** property). If you are particularly interested
     in which line of your code the exception was thrown, you can query the **line**
     property of the **err** object (or whatever you want to call the argument of **catch()**
     in your script).'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**catch** 接受一个错误对象作为参数，你可以从中提取各种信息，最显著的是错误名称（在 **name** 属性中）和错误消息（在 **message**
+    属性中）。如果你特别关心异常是在代码的哪一行抛出的，可以查询 **err** 对象的 **line** 属性（或者你在脚本中为 **catch()** 的参数起的任何名字）。'
 - en: 'By the way, you can also create exceptions yourself with the help of the **throw**
     statement. For example, you could use an exception to test whether the dividend
     is 0 when dividing two numbers:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，你还可以通过 **throw** 语句自己创建异常。例如，你可以使用异常来测试在除法运算时，除数是否为 0：
 - en: '**var** a = 10, b = 0;**try** {**if**(b == 0) **throw new**Error(''Division
     by 0 is impossible!'');}**catch**(myError) {console.log(''An error occurred: '',
     myError.message);}'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** a = 10, b = 0; **try** { **if**(b == 0) **throw new** Error(''除以 0
+    是不可能的！''); } **catch** (myError) { console.log(''发生错误：'', myError.message); }'
 - en: Of course, if you don’t catch your own exception, you’ll get a program abort
     with a suitably dramatic error message in the browser’s JavaScript console, as
     befits a proper exception!
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，如果你没有捕获自己的异常，你将在浏览器的 JavaScript 控制台中看到一个合适的错误消息，程序将中止，这也算是一个适当的异常！
 - en: 36.2 Troubleshooting During Development
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 36.2 开发过程中的故障排除
 - en: For debugging during development, modern browsers regularly provide some tools
     that we already learned about in ► Sect. [29.​2.​1](474412_1_En_29_Chapter.xhtml#Sec5).
     These include breakpoints, variable watching, and step-by-step execution.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在开发过程中，为了调试，现代浏览器通常会提供一些工具，我们在►第[29.2.1节](474412_1_En_29_Chapter.xhtml#Sec5)中已经学习过。这些工具包括断点、变量监视和逐步执行。
 - en: Even though we regularly refer to the situation in Google *Chrome* in this section
     you will find the same or very similar tools in virtually all other modern browsers
     as well. Even the functionality and way of working are often extremely similar.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管我们在本节中经常提到 Google *Chrome* 的情况，但你会发现几乎所有其他现代浏览器也有相同或非常相似的工具。即使是功能和工作方式，通常也极其相似。
 - en: 'To make the following considerations a little more vivid, consider the following
     example of a web page in which the user can simply enter a number and click a
     button:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了让接下来的讨论更加生动，考虑一下以下这个网页示例，用户可以简单地输入一个数字并点击一个按钮：
 - en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Script with errors**</title>****<noscript>**Please
     activate JavaScript!**</noscript>****</head>****<body>****<script** src="witherror.js"**></script>****<****form>****<****p>**Number:
     **<input** type="text" id="number"**></p>****<****p><span** id="result"**></span>****<****p></p>**<**input**
     type="button" value="Calculate"onclick="calculate()"**>****</form>****</body>****</html>**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>**<**html>**<**head>**<title>**Script with errors**</title>**<noscript>**请启用JavaScript！**</noscript>**</head>**<body>**<script**
+    src="witherror.js"**></script>**<**form>**<**p>**数字：**<input** type="text" id="number"**></p>**<**p><span**
+    id="result"**></span>**<**p></p>**<**input** type="button" value="计算"onclick="calculate()"**>**</form>**</body>**</html>**'
 - en: 'For the output of a calculation result we have created a **span** element with
     the ID **result**. In the web page we included the script **witherror.js**, which
     also contains the **calculate()** function triggered when the button is clicked.
     It looks like this:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了输出计算结果，我们创建了一个带有ID **result** 的 **span** 元素。在网页中，我们包含了脚本 **witherror.js**，其中还包含了当按钮被点击时触发的
+    **calculate()** 函数。代码如下：
 - en: '**function** calculate() {**var** num =\Number(document.getElementById(**''**number**''**).value);num
     = Math.round(num);num = Math.sqrt(**''**num**''**);var result = document.getElementById(**''**result**''**);result.innerHTML
     = **''**Root: **''** + num;}'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** calculate() {**var** num = Number(document.getElementById(**''number''**).value);
+    num = Math.round(num); num = Math.sqrt(**''num''**); var result = document.getElementById(**''result''**);
+    result.innerHTML = **''根号：''** + num;}'
 - en: As you can see, we do nothing here but read in the number entered by the user,
     round it to an integer, and take the square root from it. We output the result
     on our **span** element. So far, so good.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们在这里做的只是读取用户输入的数字，将其四舍五入为整数，然后从中求平方根。我们将结果输出到我们的 **span** 元素中。到目前为止，一切正常。
 - en: If you now open the web page in the browser, enter a number and click the button,
     you get the output **NaN** displayed on the **span** element **result** of the
     web page. So, the result of the calculation is apparently not a number. To get
@@ -174,24 +242,34 @@
     interesting place where your problem actually is. This is tedious. It is in such
     cases that it is worth using the debugging tools provided by the browser, and
     that is what we will use now.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你现在在浏览器中打开网页，输入一个数字并点击按钮，你会在网页的**span**元素**result**上看到输出**NaN**。因此，计算的结果显然不是一个数字。要深入了解问题，你当然可以研究程序代码，也许你已经注意到错误（当然，这完全是故意的）；或者你可以简单地在每次操作后通过在程序代码中加入像**console.log(num)**这样的输出语句，将我们在整个脚本中使用的变量**num**输出出来。当然，不管哪种方式都能帮助你找到问题，即使你没有浏览器中的调试工具。临时在程序代码中插入输出语句可能是最流行的调试方法，因为它既简单又有效。然而，特别是当你怀疑错误的代码段非常长时，你可能需要很多调试输出，或者你可能需要逐步将输出移到代码段的更远处，直到找到问题的根源。这样做非常繁琐。在这种情况下，使用浏览器提供的调试工具就显得非常有价值，这也是我们现在要使用的方法。
 - en: If you click on the “Sources” tab in the developer tools and then select your
     JavaScript file, you will see its contents in the middle of the developer tools
     area. You can see this in ◘ Fig. [36.1](#Fig1).![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig1_HTML.jpg)
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你点击开发者工具中的“Sources”（来源）标签，然后选择你的JavaScript文件，你会在开发者工具区域的中间看到其内容。你可以在◘ 图[36.1](#Fig1)中看到这一点。![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig1_HTML.jpg)
 - en: A screenshot of the Javascript file under the sources tab. A content page at
     the center has a set of program codes. The left part consists of a textbox for
     numbers, the root is N a N, and a calculate button.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是“来源”标签下JavaScript文件的截图。中间的内容页面展示了一组程序代码，左边是一个数字输入框，默认值是NaN，右边是一个计算按钮。
 - en: Fig. 36.1
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 图36.1
 - en: JavaScript debugging area in Google *Chrome*
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: Google *Chrome*中的JavaScript调试区域
 - en: In the right part of the developer tools area, you will see several expandable
     and collapsible sub-areas, including the “Breakpoints” subarea. If you click on
     the line number in front of the code display, a *breakpoint* is set at this point.
@@ -205,47 +283,71 @@
     down to this next breakpoint. ◘ Figure [36.3](#Fig3) shows the state of the program
     at another breakpoint, namely in line 6\. Here we see from the “Scope” subarea
     on the right that **num** has meanwhile assumed the value **NaN**.![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig2_HTML.jpg)
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在开发者工具区域的右侧，你将看到几个可展开和折叠的子区域，其中包括“Breakpoints”（断点）子区域。如果你点击代码显示前的行号，就会在该位置设置一个*断点*。如果你现在执行JavaScript代码，在我们的例子中就是点击网页上的按钮，JavaScript代码会执行直到到达断点。然后就会出现如下图所示的情况◘
+    图[36.2](#Fig2)。程序的执行已经在第3行执行之前停止了。在“Scope”（作用域）子区域，你可以看到当前作用域中存在的变量及其值，在我们的例子中，变量**num**的值是36。所以，显然这里一切正常。我们可以将断点移到代码的更下方，并让程序继续执行到下一个断点。◘
+    图[36.3](#Fig3)显示了程序在另一个断点，即第6行时的状态。我们可以从右侧的“Scope”子区域看到，**num**此时的值已经变为**NaN**。![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig2_HTML.jpg)
 - en: A screenshot of the Javascript file under the sources tab. A content page at
     the center has a set of program codes. Line 3 is executed from it. The number
     textbox on the left displays as paused in the debugger.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在“源”标签下的 Javascript 文件截图。中心的内容页面包含一组程序代码。第 3 行从中执行。左侧的数字文本框在调试器中显示为暂停状态。
 - en: Fig. 36.2
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 36.2
 - en: Reached breakpoint in Google *Chrome*
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Google *Chrome* 中到达断点
 - en: '![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig3_HTML.jpg)'
+  id: totrans-36
   prefs: []
   type: TYPE_IMG
+  zh: '![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig3_HTML.jpg)'
 - en: A screenshot of the Javascript file under the sources tab. A content page at
     the center has a set of program codes. Line 6 is executed from it. It is paused
     on a breakpoint.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在“源”标签下的 Javascript 文件截图。中心的内容页面包含一组程序代码。第 6 行从中执行。程序在断点处暂停。
 - en: Fig. 36.3
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 36.3
 - en: Reaching a breakpoint, after the error (in line 4)
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 到达断点后（在第 4 行的错误之后）
 - en: 'So, something must have happened in lines 3 and 4\. Of course, a closer look
     immediately reveals the source of the error: In line 4, the function **Math.sqrt()**
     is not passed the variable **num**, but a string **''num''** as argument (did
     you see it before?). Obviously, a square root cannot be calculated from a string;
     but because JavaScript is relatively fault-tolerant, as discussed earlier, **Math.sqrt()**
     simply returns **NaN** instead of throwing an exception.'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，第 3 行和第 4 行之间肯定发生了什么。当然，仔细观察会立刻揭示错误的来源：在第 4 行，**Math.sqrt()** 函数没有传递变量 **num**，而是传递了一个字符串
+    **'num'**（你之前看到过吗？）。显然，不能从字符串计算平方根；但是由于 JavaScript 相对容错，如前所述，**Math.sqrt()** 只是返回了
+    **NaN**，而不是抛出异常。
 - en: Instead of moving breakpoints, you also have executed the program stepwise from
     the first breakpoint. Each time you <F9> (“Step”) the next program statement is
     executed. This way, you would have easily found that the problem comes from line
     5.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以选择逐步执行程序，而不是移动断点。每次按下 <F9>（“步进”），程序的下一条语句就会执行。通过这种方式，你很容易发现问题出在第 5 行。
 - en: An interesting debugger feature is the possibility to add *event listeners.*
     This is done in the corresponding sub-area that you can see in ◘ Fig. [36.4](#Fig4).
     Here you have the option of setting an event breakpoint, i.e., a breakpoint that
@@ -253,69 +355,96 @@
     event-driven program flow, this variant of the breakpoint is a useful alternative
     to a breakpoint that attaches to a particular line, especially if you have many
     event handlers that respond to events of a particular type.![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig4_HTML.jpg)
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个有趣的调试器功能是可以添加*事件监听器*。这可以在对应的子区域中完成，你可以在 ◘ 图 [36.4](#Fig4) 中看到这里的设置。在这里，你有设置事件断点的选项，即当某个事件发生时触发的断点，例如鼠标点击。在事件驱动的程序流中，这种类型的断点是一个有用的替代方案，尤其是当你有许多事件处理程序响应特定类型事件时，它比绑定到特定行的断点更为有用。![](../images/474412_1_En_36_Chapter/474412_1_En_36_Fig4_HTML.jpg)
 - en: A screenshot of the Javascript file under the sources tab. A content page at
     the center has a set of program codes. The event listener breakpoint is set up
     on the right. Click is selected under the mouse header.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 在“源”标签下的 Javascript 文件截图。中心的内容页面包含一组程序代码。右侧设置了事件监听器断点。在鼠标标题下选择了点击（Click）。
 - en: Fig. 36.4
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 36.4
 - en: Setting an event breakpoint in Google *Chrome*
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Google *Chrome* 中设置事件断点
 - en: Breakpoints can therefore be very useful for diagnosing errors. If you want
     to continue the program from a breakpoint, click on the Play button in the toolbar
     above the right part of the debugging area.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，断点对于诊断错误非常有用。如果你希望从断点继续执行程序，可以点击调试区域右上方工具栏中的播放按钮。
 - en: In the first subsection on the right, the “Watch” subsection, you can set up
     *variable watches*, that is, expressions entered whose value you want to monitor
     and take a closer look at when program execution has come to a stop at a breakpoint.
     The expressions you enter here do not have to be simple variables, as in our example
     where we are only watching the value of the variable **num**, but you can also
     enter more complex expressions such as **Math.sqrt(num)>2.8** (a Boolean expression).
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 在右侧的第一个子区域“观察”区域，你可以设置*变量观察*，即输入你想监视的表达式，并在程序执行停在断点时仔细查看其值。你在这里输入的表达式不一定是简单的变量，就像我们在示例中仅监视变量
+    **num** 的值一样，你也可以输入更复杂的表达式，例如 **Math.sqrt(num)>2.8**（一个布尔表达式）。
 - en: 36.3 Summary
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 36.3 摘要
 - en: At the end of the JavaScript part, we looked at error diagnosis and handling.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 部分的最后，我们探讨了错误诊断和处理。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 请务必从本章中记住以下几点：
 - en: JavaScript is relatively robust against runtime errors, so it rarely terminates
     with an error message. However, this does not release the programmer from the
     obligation to ensure that the program does what it is supposed to do, even in
     exceptional situations.
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript对运行时错误具有相对较强的容错性，因此它很少以错误信息终止。然而，这并不免除程序员在任何特殊情况下仍需确保程序按预期执行的责任。
 - en: The Try-Catch construct also provides a way to catch exceptions in JavaScript;
     the **catch()** statement, when an exception occurs, is automatically passed an
     error object that you can evaluate to learn more about the exception.
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Try-Catch结构也提供了一种在JavaScript中捕获异常的方式；当发生异常时，**catch()**语句会自动传入一个错误对象，你可以评估该对象以了解更多关于异常的信息。
 - en: The developer tools of practically all modern browsers provide several useful
     debugging features for diagnosing errors during development; these debugging features
     include, in particular, functions for working with breakpoints, for observing
     the contents of variables, and for executing the program in single-step mode.
     In addition, event listeners provide the possibility of linking breakpoints to
     the occurrence of an event as such.
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 几乎所有现代浏览器的开发者工具都提供了多个有用的调试功能，用于在开发过程中诊断错误；这些调试功能特别包括用于处理断点的函数，用于观察变量内容的功能，以及用于单步执行程序的功能。此外，事件监听器提供了将断点与事件发生本身链接的可能性。
 - en: Probably the most frequently used “debugging tool” in practice is the **console.log()**
     function. Output generated in this way can help to track down the causes of errors
     in many situations; compared to them, the debugging tools of the developer tools
     show their strengths especially (but not only) when there are still few clues
     as to where the source of the error might lie.
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 实践中最常用的“调试工具”可能是**console.log()**函数。通过这种方式生成的输出可以帮助在许多情况下追踪错误的原因；与此相比，开发者工具中的调试工具尤其（但不仅仅是）在没有明确线索表明错误来源的情况下展现出它们的优势。

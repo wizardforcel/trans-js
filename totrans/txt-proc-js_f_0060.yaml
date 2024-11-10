@@ -1,191 +1,303 @@
 - en: '| Recipe 49 | Testing a Pattern with the Positive Lookbehind |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方49 | 使用正向回顾测试模式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose your task is to extract questions from a standardized test and store
     them in a database. The info you’re looking for always comes after a numbering
     system like “Question #5:”, but you want to extract the question text without
     its numbering.'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '假设你的任务是从标准化考试中提取问题并将其存储到数据库中。你需要提取的问题文本总是紧跟在类似“Question #5:”的编号系统后面，但你希望提取问题文本时不包含编号。'
 - en: 'The sticky flag wouldn’t be effective in this case because the length of characters
     in the numbering system varies between questions. For instance, one question may
     begin with “Question #9,” while another question may start with “Question #10”
     (for more on the sticky flag, see Recipe 44, [*Searching from a Specific Index
     with the y Flag*](f_0055.xhtml#rcp.flag_y)).'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '由于编号系统中字符的长度在不同问题之间会有所变化，粘滞标志在这种情况下并不有效。例如，一个问题可能以“Question #9”开始，而另一个问题则可能以“Question
+    #10”开始（关于粘滞标志的更多内容，参见配方44，[*使用y标志从特定索引开始搜索*](f_0055.xhtml#rcp.flag_y)）。'
 - en: 'You need a solution that allows you to match questions preceded by a “Question
     #n” without including the numbering in the result.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: '你需要一种解决方案，允许你匹配由“Question #n”前缀的问题，但不将编号包括在结果中。'
 - en: Solution
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Enclose the pattern in a positive lookbehind assertion denoted by (?<= ...
     ):'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 将模式包含在一个正向回顾断言中，表示为(?<= ... )：
 - en: '[part_2/positive_lookbehind/positive_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookbehind/positive_lookbehind_ex1.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/positive_lookbehind/positive_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookbehind/positive_lookbehind_ex1.js)'
 - en: '|   | **const** re = */**(?<**=Question**\s**#**\d{1,3}**:**\s)**.+**?\.**/ig*s;
     |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**=Question**\s**#**\d{1,3}**:**\s)**.+**?\.**/ig*s;
+    |'
 - en: '|   | **const** str = *`* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`* |'
 - en: '|   | *Question #9: The Peloponnesian Wars were fought between __________.*
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Question #9: 伯罗奔尼撒战争是发生在__________之间的。* |'
 - en: '|   | *Question #10: A ziggurat is __________.* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Question #10: 一个金字塔形神庙是__________。* |'
 - en: '|   | *`*; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`*; |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** questions = str.match(re); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** questions = str.match(re); |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(questions); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(questions); |'
 - en: '|   | *// → [* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [* |'
 - en: '|   | *// "The Peloponnesian Wars were fought between __________.",* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// "伯罗奔尼撒战争是发生在__________之间的。"* |'
 - en: '|   | *// "A ziggurat is __________."* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// "一个金字塔形神庙是__________。"* |'
 - en: '|   | *// ]* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// ]* |'
 - en: Success! The matched items don’t include the numbering system.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功！匹配的项目不包括编号系统。
 - en: '| Browser Compatibility |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Although
     lookbehind assertions are supported by the latest version of modern browsers,^([[29]](f_0064.xhtml#FOOTNOTE-29))
     chances are not all of your users have updated their browsers. To ensure maximum
     compatibility, you can use lookbehind assertions on the server side, where they’ve
     been supported since Node 10.3. |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/warning.png](images/aside-icons/warning.png) | 尽管现代浏览器的最新版本支持后顾查找断言，^([[29]](f_0064.xhtml#FOOTNOTE-29))
+    但并非所有用户都已更新他们的浏览器。为了确保最大兼容性，您可以在服务器端使用后顾查找断言，自 Node 10.3 版本起，它们就已经得到了支持。 |'
 - en: Discussion
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Before ES2018, JavaScript only supported lookahead assertions in regular expressions.
     But, with the introduction of ES2018, lookbehinds were added to enhance JavaScript
     capabilities. Similar to lookaheads, lookbehinds also come in two versions: positive
     and negative.'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 ES2018 之前，JavaScript 仅支持正向查找断言（lookahead assertions）。但随着 ES2018 的引入，后顾查找断言（lookbehinds）被添加，以增强
+    JavaScript 的功能。类似于正向查找，后顾查找也有两个版本：正向后顾查找和负向后顾查找。
 - en: 'In this recipe, .+\. matches one or more characters until it reaches a full
     stop. But before that, there’s a positive lookbehind that ensures the pattern
     is preceded by the word “Question” followed by a whitespace, a #, 1 to 3 digits,
     a :, and another whitespace.'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，.+\. 匹配一个或多个字符，直到遇到句号。但在此之前，有一个正向后顾查找断言，确保该模式前面有单词“Question”，后跟一个空白字符、一个#、1到3个数字、一个冒号和另一个空白字符。
 - en: 'Let’s examine the regex pattern step by step:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们一步步分析正则表达式模式：
 - en: '|   | /(?<=Question\s#\d{1,3}:\s).+\./igs |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | /(?<=Question\s#\d{1,3}:\s).+\./igs |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● (?<=Question\s#\d:\s) positive lookbehind |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?<=Question\s#\d:\s) 正向查找断言 |'
 - en: '|   | ○ Question matches the characters "Question" literally |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ Question 匹配字符"Question"字面意义 |'
 - en: '|   | ○ \s matches any whitespace character |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配任何空白字符 |'
 - en: '|   | ○ # matches the character "#" literally |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ # 匹配字符"#"字面意义 |'
 - en: '|   | ○ \d matches a digit |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \d 匹配一个数字 |'
 - en: '|   | ○ {1,3} matches the previous token between 1 and 3 times |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ {1,3} 匹配前一个元素 1 到 3 次 |'
 - en: '|   | ○ : matches the character ":" literally |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ : 匹配字符":"字面意义 |'
 - en: '|   | ○ \s matches any whitespace character |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配任何空白字符 |'
 - en: '|   | ● . matches any character |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● . 匹配任何字符 |'
 - en: '|   | ○ +? matches the previous token between one and unlimited times (lazy)
     |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ +? 匹配前一个元素一次或多次（懒惰匹配） |'
 - en: '|   | ● \. matches the character "." literally |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \. 匹配字符"."字面意义 |'
 - en: '|   | ● Flags |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ i performs a case-insensitive match |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ i 执行不区分大小写的匹配 |'
 - en: '|   | ○ g finds all matches |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g 查找所有匹配项 |'
 - en: '|   | ○ s dot matches newline characters |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ s 点号匹配换行符 |'
 - en: '| What’s a Lookaround? |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '| 什么是查找断言？ |'
 - en: '| --- |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | The lookahead
     and lookbehind assertions are collectively called lookarounds. |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/info.png](images/aside-icons/info.png) | 查找前瞻和查找后顾断言统称为查找断言（lookarounds）。
+    |'
 - en: '| Multiple Lookarounds |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| 多重查找断言 |'
 - en: '| --- |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Several lookarounds
     of any sort (negative or positive) may appear in succession to create a more complex
     pattern. |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 任意类型的前后查找（负向或正向）可以连续出现，以创建更复杂的模式。
+    |'
 - en: The important thing to remember about lookarounds is that although they check
     if a match is possible, they don’t actually consume the characters in the string.
     Lookbehinds are similar to lookaheads except that they work backward. They instruct
     the regex to briefly move backward in the string to see if their subexpression
     can match.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于前后查找（lookarounds），需要记住的一点是，尽管它们检查是否可能匹配，但实际上并不会消耗字符串中的字符。后向查找（lookbehinds）与前向查找（lookaheads）相似，区别在于它们是向后查找。它们指示正则表达式暂时向后移动，以查看其子表达式是否能够匹配。

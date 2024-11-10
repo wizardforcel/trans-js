@@ -1,207 +1,322 @@
 - en: '| Recipe 53 | Matching Unicode Word Boundaries with the Unicode Property Escape
     |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 53 | 使用 Unicode 属性转义匹配 Unicode 单词边界 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you want to search a document for the Portuguese word “vã,” which means
     “go,” without matching other words that contain “vã,” such as “vão.” To achieve
     this, you try using word boundaries to isolate the word “vã” from other words
     containing similar characters:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你要在文档中查找葡萄牙语单词“vã”，它的意思是“去”，而不想匹配包含“vã”的其他单词，如“vão”。为了实现这一目标，你尝试使用单词边界将单词“vã”与其他包含相似字符的单词隔离开来：
 - en: '[part_2/unicode_property_escapes_p3/upe_p3_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex1.js)'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/unicode_property_escapes_p3/upe_p3_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex1.js)'
 - en: '|   | **const** re = */**\b**vã**\b**/*; |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**vã**\b**/*; |'
 - en: '|   |  |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *"vão"*.match(re); |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"vão"*.match(re); |'
 - en: '|   | *// → ["vã", index: 0, input: "vão bem", groups: undefined]* |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["vã", index: 0, input: "vão bem", groups: undefined]* |'
 - en: '|   |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *"vã bem"*.match(re); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"vã bem"*.match(re); |'
 - en: '|   | *// → null* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → null* |'
 - en: But, your regex is matching the opposite of your intended result. The problem
     is that the word boundary (\b) considers accented characters such as “ã” as non-word
     characters. You need an alternative solution that doesn’t share the same limitation.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，你的正则表达式匹配到的结果与预期相反。问题在于，单词边界（\b）将带有重音符号的字符（如“ã”）视为非单词字符。因此，你需要一个不受此限制的替代方案。
 - en: Solution
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a combination of Unicode property escapes to match word boundaries in Unicode
     characters:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 Unicode 属性转义的组合来匹配 Unicode 字符中的单词边界：
 - en: '[part_2/unicode_property_escapes_p3/upe_p3_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex2.js)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/unicode_property_escapes_p3/upe_p3_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p3/upe_p3_ex2.js)'
 - en: '|   | **let** re = */**(?<**=**[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;^**)**vã**(?=[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;$**)**/*u;
     |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** re = */**(?<**=**[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;^**)**vã**(?=[^\p**{L}**\p**{M}**\p**{Nd}**\p**{Pc}**]**&#124;$**)**/*u;
+    |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *"vão"*.match(re); |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"vão"*.match(re); |'
 - en: '|   | *// → null* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → null* |'
 - en: '|   |  |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *"vã bem"*.match(re); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"vã bem"*.match(re); |'
 - en: '|   | *// → ["vã", index: 0, input: ''vã bem'', groups: undefined]* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["vã", index: 0, input: ''vã bem'', groups: undefined]* |'
 - en: Successful outcome! The regex is now able to correctly match the word boundary
     in Portuguese and other languages.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功的结果！现在正则表达式能够正确地匹配葡萄牙语以及其他语言中的单词边界。
 - en: Discussion
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: When dealing with non-English text in JavaScript, one drawback is that the word
     boundary in the regex engine identifies only characters present in the ASCII table.
     As a result, \b fails to match a “complete word” when performing a search in text
     containing accented characters or words written in non-Latin scripts.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中处理非英语文本时，一个缺点是正则表达式引擎中的单词边界仅识别 ASCII 表中的字符。结果是，当文本中包含带有重音符号的字符或使用非拉丁字母书写的单词时，\b
+    无法正确匹配“完整单词”。
 - en: In this recipe, the issue arises because the character “ã” is classified as
     a non-word character, resulting in the detection of a word boundary between the
     letters “ã” and “o.” Conversely, “ã” followed by a space character creates a continuous
     string of non-word characters, and therefore, no word boundary is detected.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，问题的出现是因为字符“ã”被分类为非单词字符，导致“ã”和“o”之间被检测为单词边界。相反，“ã”后跟一个空格字符会形成一个连续的非单词字符字符串，因此没有检测到单词边界。
 - en: 'To resolve this problem, we can use a set of Unicode property escapes in a
     lookaround:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了解决这个问题，我们可以在环视中使用一组 Unicode 属性转义：
 - en: '\p{L} Letter category: matches any type of letter regardless of the language'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{L} 字母类别：匹配任何类型的字母，无论其语言是什么
 - en: '\p{M} Mark category: matches a combining character, which is meant to be joined
     with another character such as accents, umlauts, enclosing boxes, and so on'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{M} 标记类别：匹配一个组合字符，这种字符通常与另一个字符结合使用，例如重音符号、变音符号、包围框等
 - en: '\p{Nd} Decimal digit number: matches any digit between 0 and 9 in any script,
     excluding ideographic scripts'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Nd} 十进制数字：匹配任何数字（0 到 9）在任何脚本中，排除表意文字脚本
 - en: '\p{Pc} Connector punctuation: matches a punctuation character, such as an underscore'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Pc} 连接标点符号：匹配一个标点符号字符，例如下划线
 - en: Dealing with non-English text in JavaScript requires special attention to ensure
     accurate searching and matching of words. Using the standard word boundary can
     lead to incomplete matches for accented or non-Latin script words. Fortunately,
     by using Unicode property escapes, we can address this issue and achieve more
     reliable searches for non-English text.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中处理非英语文本需要特别注意，以确保准确地搜索和匹配单词。使用标准的单词边界可能会导致带重音符号或非拉丁字母脚本的单词无法完全匹配。幸运的是，通过使用
+    Unicode 属性转义，我们可以解决这个问题，进行更可靠的非英语文本搜索。
 - en: Wrapping Up
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 总结
 - en: Text processing is an essential part of any modern application. Whether you’re
     working on a content-heavy website or building a sophisticated data analysis tool,
     using regular expressions can significantly enhance your development capabilities.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 文本处理是任何现代应用程序的核心部分。无论你是在开发一个内容密集型网站，还是在构建一个复杂的数据分析工具，使用正则表达式都能显著提升你的开发能力。
 - en: In this part of the book, you discovered how to use regex in JavaScript and
     take advantage of various regex methods. You learned about the building blocks
     of regex, such as character classes, quantifiers, and metacharacters, and how
     to combine them to form more complex patterns.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本书的这一部分，你学会了如何在 JavaScript 中使用正则表达式，并利用各种正则表达式方法。你了解了正则表达式的基本构件，如字符类、量词和元字符，以及如何将它们组合起来形成更复杂的模式。
 - en: Up next, you’ll bolster your understanding of regex by solving a wide range
     of text manipulation problems that require using the tokens discussed in this
     part. Regex may seem daunting at first, but with practice and patience, mastering
     this tool can significantly enhance your text-processing capabilities.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，您将通过解决一系列文本处理问题来加深对正则表达式的理解，这些问题需要使用本部分讨论的标记。正则表达式一开始可能让人感到艰难，但通过实践和耐心，掌握这个工具能够显著提高您的文本处理能力。
 - en: Footnotes
+  id: totrans-36
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 脚注
 - en: '[[23]](f_0051.xhtml#FNPTR-23)'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[23]](f_0051.xhtml#FNPTR-23)'
 - en: '[https://mzl.la/3u78Y6w](https://mzl.la/3u78Y6w)'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://mzl.la/3u78Y6w](https://mzl.la/3u78Y6w)'
 - en: '[[24]](f_0051.xhtml#FNPTR-24)'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[24]](f_0051.xhtml#FNPTR-24)'
 - en: '[https://www.npmjs.com/package/regexp-match-indices](https://www.npmjs.com/package/regexp-match-indices)'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://www.npmjs.com/package/regexp-match-indices](https://www.npmjs.com/package/regexp-match-indices)'
 - en: '[[25]](f_0052.xhtml#FNPTR-25)'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[25]](f_0052.xhtml#FNPTR-25)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/API/fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch)'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/en-US/docs/Web/API/fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch)'
 - en: '[[26]](f_0053.xhtml#FNPTR-26)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[26]](f_0053.xhtml#FNPTR-26)'
 - en: '[https://github.com/acornjs/acorn](https://github.com/acornjs/acorn)'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/acornjs/acorn](https://github.com/acornjs/acorn)'
 - en: '[[27]](f_0054.xhtml#FNPTR-27)'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[27]](f_0054.xhtml#FNPTR-27)'
 - en: '[https://en.wikipedia.org/wiki/Emoticons_(Unicode_block)](https://en.wikipedia.org/wiki/Emoticons_(Unicode_block))'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://en.wikipedia.org/wiki/Emoticons_(Unicode_block)](https://en.wikipedia.org/wiki/Emoticons_(Unicode_block))'
 - en: '[[28]](f_0054.xhtml#FNPTR-28)'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[28]](f_0054.xhtml#FNPTR-28)'
 - en: '[https://mathiasbynens.be/notes/es6-unicode-regex](https://mathiasbynens.be/notes/es6-unicode-regex)'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://mathiasbynens.be/notes/es6-unicode-regex](https://mathiasbynens.be/notes/es6-unicode-regex)'
 - en: '[[29]](f_0060.xhtml#FNPTR-29)'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[29]](f_0060.xhtml#FNPTR-29)'
 - en: '[https://caniuse.com/?search=lookbehind](https://caniuse.com/?search=lookbehind)'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://caniuse.com/?search=lookbehind](https://caniuse.com/?search=lookbehind)'
 - en: '[[30]](f_0063.xhtml#FNPTR-30)'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[30]](f_0063.xhtml#FNPTR-30)'
 - en: '[https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show](https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show)'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show](https://util.unicode.org/UnicodeJsps/character.jsp?a=A&B1=Show)'
 - en: '[[31]](f_0063.xhtml#FNPTR-31)'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[31]](f_0063.xhtml#FNPTR-31)'
 - en: '[https://unicode.org/reports/tr18/](https://unicode.org/reports/tr18/)'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://unicode.org/reports/tr18/](https://unicode.org/reports/tr18/)'
 - en: Copyright © 2024, The Pragmatic Bookshelf.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 版权 © 2024，The Pragmatic Bookshelf.

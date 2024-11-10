@@ -1,128 +1,205 @@
 - en: '| Recipe 57 | Validating ZIP Codes |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| Recipe 57 | 验证邮政编码 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you run an online shop that is dedicated to delivering packages to customers
     as quickly as possible. So, you want to ensure the ZIP codes (postal codes used
     in the United States) entered by users conform to a standard format to prevent
     errors in mail delivery. The basic format of a ZIP code consists of five digits.
     But, there’s an extended ZIP+4 code which features the five digits of the ZIP
     code, followed by a hyphen and four digits that define a more precise location.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你经营一家在线商店，致力于尽可能快速地将包裹送到客户手中。因此，你希望确保用户输入的邮政编码（美国使用的邮政编码）符合标准格式，以防止邮寄错误。邮政编码的基本格式由五位数字组成。但还有扩展的
+    ZIP+4 代码，包含邮政编码的五位数字，后面跟着一个连字符和四位数字，定义了更精确的位置。
 - en: You aim to create a regular expression capable of matching input formats such
     as 12345, 12345-6789, and 12345 6789, while excluding 1234, 123456, 123456789,
     or 1234-56789.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的目标是创建一个正则表达式，能够匹配类似 12345、12345-6789 和 12345 6789 的输入格式，同时排除 1234、123456、123456789
+    或 1234-56789。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the following function:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用以下函数：
 - en: '[part_3/validating_zipcode/zipcode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_zipcode/zipcode_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_zipcode/zipcode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_zipcode/zipcode_ex1.js)'
 - en: '|   | **function** isValidZipCode(zipcode) { |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** isValidZipCode(zipcode) { |'
 - en: '|   | **const** re = */^**\d{5}(?:[**-**\s]\d{4})?**$/*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */^**\d{5}(?:[**-**\s]\d{4})?**$/*; |'
 - en: '|   | **return** re.test(zipcode); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** re.test(zipcode); |'
 - en: '|   | } |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | isValidZipCode(*"12345-6789"*); *// → true* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"12345-6789"*); *// → true* |'
 - en: '|   | isValidZipCode(*"12345 6789"*); *// → true* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"12345 6789"*); *// → true* |'
 - en: '|   | isValidZipCode(*"12345"*); *// → true* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"12345"*); *// → true* |'
 - en: '|   | isValidZipCode(*"123456789"*); *// → false* |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"123456789"*); *// → false* |'
 - en: '|   | isValidZipCode(*"1234-56789"*); *// → false* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"1234-56789"*); *// → false* |'
 - en: '|   | isValidZipCode(*"123456"*); *// → false* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"123456"*); *// → false* |'
 - en: '|   | isValidZipCode(*"1234"*); *// → false* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidZipCode(*"1234"*); *// → false* |'
 - en: With this code, you can verify that a given ZIP code conforms to the standard
     format used by the United States Postal Service (USPS).
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这段代码，你可以验证给定的邮政编码是否符合美国邮政服务（USPS）使用的标准格式。
 - en: Discussion
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The function in this recipe takes a ZIP code as input and returns true if it’s
     a valid US ZIP code (5 digits or 5 digits followed by a space/hyphen and 4 digits)
     and false otherwise. A detailed explanation of the regex is as follows:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个示例中的函数以邮政编码作为输入，如果它是有效的美国邮政编码（5 位数字或 5 位数字后跟一个空格/连字符和 4 位数字），则返回 true，否则返回
+    false。正则表达式的详细解释如下：
 - en: '|   | /^\d{5}(?:[-\s]\d{4})?$/ |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | /^\d{5}(?:[-\s]\d{4})?$/ |'
 - en: '|   |  |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● ^ asserts the position at start of the string |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● ^ 确认字符串开始的位置 |'
 - en: '|   | ● \d matches a digit |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \d 匹配一个数字 |'
 - en: '|   | ○ {5} matches the previous token exactly 5 times |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ {5} 表示前一个字符匹配 5 次 |'
 - en: '|   | ● (?:[-\s]\d{4}) non-capturing group |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?:[-\s]\d{4}) 非捕获组 |'
 - en: '|   | ○ [-\s] matches a single character in the list |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ [-\s] 匹配列表中的一个字符 |'
 - en: '|   | ○ - matches the character - literally |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ - 字符串中字面匹配字符 - |'
 - en: '|   | ○ \s matches any whitespace character |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配任何空白字符 |'
 - en: '|   | ○ \d matches a digit |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \d 匹配一个数字 |'
 - en: '|   | ○ {4} matches the previous token exactly 4 times |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ {4} 精确匹配前一个标记 4 次 |'
 - en: '|   | ● ? matches the previous token 0 or 1 time |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● ? 匹配前一个标记 0 次或 1 次 |'
 - en: '|   | ● $ asserts the position at the end of the string |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● $ 断言字符串末尾的位置 |'
 - en: 'This regex assumes that the provided string consists solely of a ZIP code.
     But, if you intend to locate ZIP codes within a larger document or input string,
     you should substitute ^ and $ with the word boundary like this: /\b\d{5}(?:[-\s]\d{4})?\b/.'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式假设提供的字符串仅包含邮政编码。如果你打算在更大的文档或输入字符串中查找邮政编码，应将 ^ 和 $ 替换为单词边界，如下所示：/\b\d{5}(?:[-\s]\d{4})?\b/。
 - en: Checking the validity of ZIP codes in forms is crucial because it helps to avoid
     errors in address data, ensuring that goods or services are delivered to the correct
     recipient and preventing unnecessary delays or expenses.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在表单中检查邮政编码的有效性非常重要，因为这有助于避免地址数据中的错误，确保商品或服务送达正确的收件人，防止不必要的延误或额外开支。

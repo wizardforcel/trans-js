@@ -1,158 +1,245 @@
 - en: '| Recipe 32 | Excluding Groups from Result with the Non-capturing Group |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| Recipe 32 | 使用非捕获组排除结果中的组 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Let’s say you need to keep track of a particular golf player’s ranking based
     on information scraped from the player’s profile on a sports blog. The ranking
     information is in a string with an ordinal indicator such as “3rd” or “4th.” You
     only care about the number, not its suffix, and want to use a capturing group
     to extract it for additional processing.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你需要根据从运动博客上球员的个人资料中抓取的信息来跟踪某个高尔夫球员的排名。排名信息以字符串的形式出现，带有序数指示符，比如“3rd”或“4th”。你只关心数字，不关心后缀，并希望使用捕获组提取出来以便进一步处理。
 - en: If you use /(\d{1,2})(st|nd|rd|th)/, the second parentheses will capture the
     suffix, too, which is redundant. You need a way to tell the regex engine not to
     capture those letters.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你使用 /(\d{1,2})(st|nd|rd|th)/，第二个括号也会捕获后缀，这是多余的。你需要一种方式告诉正则表达式引擎不要捕获这些字母。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Add a question mark (?) and a colon (:) right after the opening parentheses
     to create a non-capturing group:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在开括号后加一个问号（?）和冒号（:），就创建了一个非捕获组：
 - en: '[part_2/non_capturing_group/non_capturing_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/non_capturing_group/non_capturing_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex1.js)'
 - en: '|   | **const** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)**/*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)**/*; |'
 - en: '|   | **const** str = *"Tiger Woods sits 16th in the latest World Golf Ranking."*;
     |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"泰格·伍兹目前在最新的世界高尔夫排名中位列第16。"*; |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** match = str.match(re); |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = str.match(re); |'
 - en: '|   |  |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **if** (match) { |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (match) { |'
 - en: '|   | console.log(*"Player Rank: "* + match[1]); *// → Player Rank: 16* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"球员排名："* + match[1]); *// → 球员排名：16* |'
 - en: '|   | } |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: Your regex is now able to match the ordinal number “16th,” and you can access
     the number in the second item of the resulting array.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，你的正则表达式能够匹配“16th”这种序数数字，并且你可以在结果数组的第二项中访问该数字。
 - en: Discussion
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The pattern in this recipe matches an ordinal number but remembers only the
     first capturing group: the digits. The second group is non-capturing because there’s
     a question mark and a colon right after the opening parentheses.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 本示例中的模式匹配一个序数数字，但只记住第一个捕获组：数字。第二个组是非捕获组，因为在开括号后紧跟着一个问号和冒号。
 - en: So, unlike the capturing group, it doesn’t capture anything from the substring
     it matches. Here, “16th” is the string we want to match, “16” is the substring
     we want to capture, and “th” is the substring we want to exclude.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，与捕获组不同，非捕获组不会捕获它匹配的子字符串。在这里，“16th”是我们想要匹配的字符串，“16”是我们想要捕获的子字符串，而“th”是我们想要排除的子字符串。
 - en: 'Let’s take a closer look at the pattern:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们仔细看看这个模式：
 - en: '|   | /(\d{1,3})(?:st&#124;nd&#124;rd&#124;th)/ |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | /(\d{1,3})(?:st&#124;nd&#124;rd&#124;th)/ |'
 - en: '|   |  |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● (\d{1,3}) 1st capturing group |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (\d{1,3}) 第一个捕获组 |'
 - en: '|   | ○ \d matches a digit (equivalent to [0-9]) |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \d 匹配一个数字（等价于 [0-9]） |'
 - en: '|   | ○ {1,3} matches the previous token between 1 to 3 times |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ {1,3} 匹配前一个符号 1 到 3 次 |'
 - en: '|   | ● (?:st&#124;nd&#124;rd&#124;th) non-capturing group |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?:st&#124;nd&#124;rd&#124;th) 非捕获分组 |'
 - en: '|   | ○ 1st Alternative: st matches the characters st literally |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第一种替代方案：st 字面上匹配字符 st |'
 - en: '|   | ○ 2nd Alternative: nd matches the characters nd literally |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第二种替代方案：nd 字面上匹配字符 nd |'
 - en: '|   | ○ 3rd Alternative: rd matches the characters rd literally |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第三种替代方案：rd 字面上匹配字符 rd |'
 - en: '|   | ○ 4th Alternative: th matches the characters th literally |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第四种替代方案：th 字面上匹配字符 th |'
 - en: The match() method returns a wealth of information about the result. In this
     case, we’re interested in only the second item of the array, which is the ranking
     number without the ordinal indicator, so we use str.match(re)[1].
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: match() 方法返回关于结果的丰富信息。在此例中，我们只关心数组中的第二项，即没有序号指示符的排名数字，因此我们使用 str.match(re)[1]。
 - en: 'A non-capturing group may have a quantifier like a regular group. In the following
     example, the final question mark makes the group optional, so the pattern matches
     non-ordinal numbers as well:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 非捕获分组可以像常规分组一样带有量词。在以下示例中，最后的问号使该分组变为可选，因此该模式也能匹配非序号数字：
 - en: '[part_2/non_capturing_group/non_capturing_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex2.js)'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/non_capturing_group/non_capturing_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/non_capturing_group/non_capturing_ex2.js)'
 - en: '|   | **const** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)?**/*;
     |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **常量** re = */**(\d{1,3})(?:**st&#124;nd&#124;rd&#124;th**)?**/*; |'
 - en: '|   | **const** str = *"Tiger Woods sits 16 in the latest World Golf Ranking."*;
     |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **常量** str = *"老虎·伍兹在最新的世界高尔夫排名中排第16。"*; |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** match = str.match(re); |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | **常量** match = str.match(re); |'
 - en: '|   |  |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **if** (match) { |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | **如果** (match) { |'
 - en: '|   | console.log(*"Player Rank: "* + match[1]); *// → Player Rank: 16* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"玩家排名: "* + match[1]); *// → 玩家排名: 16* |'
 - en: '|   | } |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: The question mark at the end of this regex is not related to the one in the
     group. It simply tells the regular expression engine to match zero or one occurrence
     of the group.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式末尾的问号与分组中的问号无关。它只是告诉正则引擎匹配零次或一次该分组。
 - en: Remember, to avoid capturing a matched substring, use a non-capturing group
     instead of a regular one. Your code may also benefit from using non-capturing
     groups when adding more groupings to an existing pattern. This way, you won’t
     have to make major changes when revising a pattern. There’s also a minor performance
     improvement in some engines because JavaScript doesn’t have to add the group to
     the result.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 请记住，若要避免捕获匹配的子字符串，请使用非捕获分组而不是常规分组。当向现有模式添加更多分组时，你的代码也能从使用非捕获分组中受益。这样，在修改模式时，你就不必做大幅更改。一些引擎在性能上也有细微改进，因为
+    JavaScript 无需将分组添加到结果中。

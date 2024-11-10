@@ -1,20 +1,29 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_32](https://doi.org/10.1007/978-3-658-42912-6_32)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者，独家授权给 Springer Fachmedien Wiesbaden GmbH，Springer Nature 旗下，2024年 J. L.
+    Zuckarelli《学习编程：Python 和 JavaScript》 [https://doi.org/10.1007/978-3-658-42912-6_32](https://doi.org/10.1007/978-3-658-42912-6_32)
 - en: '32. User Interfaces: How Do I Input and Output Data?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 32. 用户界面：如何输入和输出数据？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2)  )(1)德国慕尼黑概述
 - en: JavaScript is the primary language used on the web, which explains why data
     input and output largely involve interactions with the webpage that hosts the
     JavaScript code.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 是 Web 上使用的主要语言，这解释了为什么数据输入和输出通常涉及与托管 JavaScript 代码的网页交互。
 - en: JavaScript offers many possibilities to receive information from the user of
     the web page and to modify the web page to output information. The interaction
     with the surrounding web page is made possible by the fact that JavaScript allows
@@ -22,53 +31,77 @@
     web page. But before we turn to using the DOM, let’s take a quick look at output
     with the JavaScript console, which we’ve already used a lot, and at working with
     dialog boxes.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 提供了许多接收网页用户信息并修改网页以输出信息的可能性。与周围网页的交互之所以能够实现，是因为 JavaScript 允许通过网页的*文档对象模型*（*DOM*）访问其单个元素。但在我们转向使用
+    DOM 之前，让我们快速回顾一下我们已经经常使用的 JavaScript 控制台输出，以及如何处理对话框。
 - en: 'In this chapter you will learn the following:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，您将学习以下内容：
 - en: how to output objects in the console
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何在控制台中输出对象
 - en: how to conveniently build output strings using variables with template literals
     and string substitutions
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用模板字面量和字符串替换方便地构建输出字符串
 - en: how to display information via dialog boxes and request decisions from the user
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何通过对话框显示信息并请求用户决策
 - en: what the *Document Object Model* (*DOM*) is, and how it is structured
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*文档对象模型*（*DOM*）是什么，以及它是如何结构化的'
 - en: how to select and modify individual elements of a web page on the basis of the
     DOM
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何根据 DOM 选择和修改网页的单个元素
 - en: how to use forms to accept input from the user
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用表单接收用户输入
 - en: 32.1 Overview of Input and Output in JavaScript
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.1 JavaScript 输入和输出概述
 - en: The simplest way to output data with JavaScript is to output to the console.
     We made extensive use of this option in the last chapter, mainly because the console
     provides interactivity that is useful when trying out new language concepts. One
     enters an instruction and is immediately shown the result.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 JavaScript 输出数据的最简单方式是输出到控制台。在上一章中，我们广泛使用了这种方式，主要因为控制台提供了交互性，在尝试新的语言概念时非常有用。输入指令后，立即显示结果。
 - en: When writing real JavaScript applications, however, you typically won’t want
     to work with the console, which is a developer tool and therefore usually invisible
     to your website viewer. Instead, you want your JavaScript application to interact
     with the website and output information there for the user to see.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，在编写实际的 JavaScript 应用程序时，通常不希望使用控制台——它是开发者工具，通常对网站浏览者是不可见的。相反，您希望 JavaScript
+    应用程序与网页交互，并在网页上输出信息供用户查看。
 - en: In this chapter, after taking a quick look at the console output we’re already
     familiar with, we’ll look at how you can output (and input) data via *dialog boxes.*
     After that, however, we’ll turn to the core area of input and output, working
@@ -78,110 +111,163 @@
     *forms*, which are particularly useful for website interactivity because they
     allow users to enter text and other information directly. Working with forms is
     an important application area of JavaScript for a reason.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将首先快速回顾已经熟悉的控制台输出，接着探讨如何通过*对话框*输出（和输入）数据。然后，我们将转向输入和输出的核心领域——与嵌入脚本的网页的交互。在此过程中，我们将看到如何通过所谓的*文档对象模型*（*DOM*）从
+    JavaScript 程序中修改网页的各个元素。特别是，我们将关注*表单*，它们对网站交互性非常有用，因为它们允许用户直接输入文本和其他信息。处理表单是 JavaScript
+    的一个重要应用领域。
 - en: Unlike other programming languages, we won’t get into working with files in
     JavaScript because, for security reasons, JavaScript usually doesn’t have access
     to the local computer’s file system.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 与其他编程语言不同，我们不会在 JavaScript 中涉及文件操作，因为出于安全原因，JavaScript 通常无法访问本地计算机的文件系统。
 - en: We will conclude the chapter with two small sample applications, a simple calculator
     and a color picker, that can be used to conveniently generate the hexadecimal
     color codes commonly used in HTML.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将通过两个小示例应用程序来结束本章，一个是简单的计算器，另一个是颜色选择器，可以方便地生成常用于 HTML 中的十六进制颜色代码。
 - en: 32.2 Output Via the Console
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.2 通过控制台输出
 - en: In the last chapter, we already worked frequently with the **log()** method
     of the **console** object to output data to the console quickly and easily. In
     this section, we’ll take a closer look at it, and in particular at how **console.log()**
     can be used to produce output that is composed of several different parts. The
     approaches presented here for **console.log()** are transferable and can be used
     in many places where strings are used.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上一章中，我们已经频繁使用了 **log()** 方法来快速方便地将数据输出到控制台。在本节中，我们将更详细地了解它，特别是 **console.log()**
+    如何用于输出由多个不同部分组成的内容。这里介绍的 **console.log()** 使用方法是可转移的，能在许多使用字符串的地方应用。
 - en: Printing a List of Multiple Objects
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印多个对象的列表
 - en: 'If you want to output multiple values/objects in a row, simply pass them to
     **console.log()** as a comma-separated list:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想在一行中输出多个值/对象，只需将它们作为逗号分隔的列表传递给 **console.log()**：
 - en: '**>** console.log(''Today is: '', Date(), ''. A random number between 0 and
     10 is: '',Math.round(Math.random()*10,0))Today is: Mon Oct 03 2022 13:24:53 GMT+0200
     (Central European Summer Time). A random number between 0 and 10 is: 4'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''今天是: '', Date(), ''. 一个介于 0 和 10 之间的随机数是: '',Math.round(Math.random()*10,0))今天是:
+    Mon Oct 03 2022 13:24:53 GMT+0200 (中央欧洲夏令时)。一个介于 0 和 10 之间的随机数是: 4'
 - en: '**console.log()** simply outputs the objects passed as arguments stubbornly
     one after the other. The outputs of the different objects are separated by a space.'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**console.log()** 简单地将作为参数传递的对象一个接一个地输出，不加选择。不同对象的输出之间用空格隔开。'
 - en: Printing Multiple Objects as a Concatenated String
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印多个对象作为连接字符串
 - en: 'If you want to avoid this whitespace, you must first assemble the objects into
     a string, controlling the occurrence of whitespace as desired, and then output
     the complete string:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想避免这个空白，你必须首先将对象组合成一个字符串，按需控制空白的出现，然后输出完整的字符串：
 - en: '**>** output = ''Today is: '' + Date().toString() + ''. A random number between
     0 and 10 is: '' +Math.round(Math.random()*10,0).toString()**>** console.log(output)Today
     is: Mon Oct 03 2022 13:30:19 GMT+0200 (Central European Summer Time). A random
     number between 0 and 10 is: 9Working with Template Literals'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** output = ''今天是: '' + Date().toString() + ''. 一个介于 0 和 10 之间的随机数是: ''
+    +Math.round(Math.random()*10,0).toString()**>** console.log(output)今天是: Mon Oct
+    03 2022 13:30:19 GMT+0200 (中央欧洲夏令时)。一个介于 0 和 10 之间的随机数是: 9'
 - en: 'Another method to achieve the same is to work with a *template literal.* Template
     literals are strings that contain placeholders. Unlike conventional strings, they
     are enclosed in *back ticks* (**`**). Within a template literal, placeholders
     can be inserted to represent the value of variables or other expressions. Wildcards
     are characterized by starting with a dollar sign (**$**) and enclosing the expression
     they represent in curly braces, as in the following example:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 达到相同效果的另一种方法是使用 *模板字面量*。模板字面量是包含占位符的字符串。与常规字符串不同，它们用 *反引号*（**`**）括起来。在模板字面量中，可以插入占位符来表示变量或其他表达式的值。通配符的特点是以美元符号（**$**）开始，并将表示的表达式用大括号括起来，如以下示例所示：
 - en: '**>** randomNumber = Math.round(Math.random()*10,0)**>** output = `A random
     number between 0 and 10 is:${ randomNumber}.`**>** console.log(output)A random
     number between 0 and 10 is: 6.'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** randomNumber = Math.round(Math.random()*10,0)**>** output = `一个介于 0 和
+    10 之间的随机数是:${ randomNumber}.`**>** console.log(output)一个介于 0 和 10 之间的随机数是: 6。'
 - en: This way, you don’t have to painstakingly assemble your string, making sure
     that the quotes are set correctly for each substring and that the substrings themselves
     are all connected with plus operators. It is sufficient to simply write a long
     string in which you write everything you want to represent in variables or other
     expressions as placeholders.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样，你就不必费力地组合你的字符串，确保每个子字符串的引号设置正确，并且每个子字符串都用加号运算符连接。只需写一个长字符串，在其中将你想要表示的变量或其他表达式写为占位符。
 - en: 'Important: The values of the variables are fixed at the time when the template
     literal is created. Subsequent changes to the values of the variables are then
     no longer reflected in the template literal. The following example illustrates
     this:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 重要提示：变量的值在模板字面量创建时就已经固定。之后对变量值的修改将不再反映在模板字面量中。以下示例说明了这一点：
 - en: '**>** value = 2**>** output = `Current value: ${value}`**>** value = 3**>**
     console.log(output)Current value: 2'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** value = 2**>** output = `Current value: ${value}`**>** value = 3**>**
+    console.log(output)Current value: 2'
 - en: 'By the way, a very practical feature of template literals is that, unlike conventional
     strings, they can extend over several lines, as this example shows:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，模板字面量的一个非常实用的功能是，与常规字符串不同，它们可以跨越多行，如以下示例所示：
 - en: '**>** twoLines = `First lineSecond line`**>** console.log(twoLines)First lineSecond
     line'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** twoLines = `First lineSecond line`**>** console.log(twoLines)First lineSecond
+    line'
 - en: 'In a normal string, we would have had to work with the escape sequence **\n**
     to do this:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在普通字符串中，我们需要使用转义序列 **\n** 来实现这一点：
 - en: '**>** console.log(''First line\nSecond line'')First lineSecond lineWorking
     with String SubstitutionsAnother way to generate a composite output is to use
     string substitutions, which are supported by **console.log()** and other JavaScript
     functions. This also works with wildcards. A simple example illustrates how this
     works:**>** pi = 3.14159**>** console.log(''The value of the number pi is: %f'',
     pi)3.14159'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''First line\nSecond line'')First lineSecond line 使用字符串替换生成组合输出
+    另一种生成组合输出的方式是使用字符串替换，这在 **console.log()** 和其他 JavaScript 函数中都得到了支持。这同样适用于通配符。一个简单的例子说明了这个如何工作：**>**
+    pi = 3.14159**>** console.log(''The value of the number pi is: %f'', pi)3.14159'
 - en: The placeholder here is composed of the percent sign and a formatting instruction;
     **f** instructs the output to display the number as a floating-point number. What
     the placeholder is finally filled with depends on the further argument of the
@@ -189,171 +275,256 @@
     is our variable **pi**, so this is used for the first placeholder found in the
     string. If the string contained further placeholders, their substitutions would
     be added as further arguments after **pi**.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 占位符由百分号和格式化指令组成；**f** 指示输出将数字显示为浮动小数。占位符最终填充的内容取决于 **console.log()** 函数的进一步参数。在我们的示例中，字符串后的第一个参数是我们的变量
+    **pi**，因此它会用于字符串中找到的第一个占位符。如果字符串包含更多占位符，它们的替换内容将作为 **pi** 后面的进一步参数添加。
 - en: 'Similarly, a value can be output as a string with **%s**, or as an integer
     with **%d** and **%i**:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，值可以使用 **%s** 输出为字符串，或使用 **%d** 和 **%i** 输出为整数：
 - en: '**>** console.log(''The value of the number pi is: %'', pi)3Producing Warnings
     and Errors'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''The value of the number pi is: %'', pi)3 生成警告和错误'
 - en: 'So far, we have always output to the console using **console.log()**. However,
     you can also output warning and error messages, which are then highlighted and
     provided with appropriate icons:'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们一直使用 **console.log()** 向控制台输出信息。然而，你也可以输出警告和错误消息，这些消息会被高亮显示并带有适当的图标：
 - en: '**>** console.warn(''Nothing bad, just a warning'')**>** console.error(''Now
     a real error'')You can see the result of these outputs in ◘ Fig. [32.1](#Fig1).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig1_HTML.jpg)'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.warn(''Nothing bad, just a warning'')**>** console.error(''Now
+    a real error'')你可以在◘ 图 [32.1](#Fig1)中查看这些输出的结果。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig1_HTML.jpg)'
 - en: A screenshot of a warning and an error message. The warning message is an undefined
     console error. The error message is undefined.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个警告和错误消息的截图。警告消息是未定义的控制台错误。错误消息是未定义的。
 - en: Fig. 32.1
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.1
 - en: Self-generated warning and error messages
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 自生成的警告和错误消息
 - en: 32.3 Inputs and Outputs Via Dialog Boxes
+  id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.3 通过对话框进行输入输出
 - en: 'JavaScript provides the ability to cause the browser to display messages as
     small dialog boxes. With the help of the **alert(*****message*****)** function,
     you display your message prominently to the user:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 提供了使浏览器显示消息为小对话框的功能。借助 **alert(*****message*****)** 函数，你可以显著地向用户显示消息：
 - en: '**>** alert(''An important Message'')A dialog box opens as shown in ◘ Fig.
     [32.2](#Fig2).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig2_HTML.jpg)'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** alert(''An important Message'') 会打开一个对话框，如图◘ [32.2](#Fig2)所示。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig2_HTML.jpg)'
 - en: A screenshot of the alert box. The message is, that this page says an important
     message. The ok button is at the bottom.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个警告框的截图。消息是，这个页面显示了一个重要的信息。确认按钮在底部。
 - en: Fig. 32.2
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.2
 - en: '**alert()** box in Google Chrome'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**alert()** 框在 Google Chrome 中'
 - en: If you want to have the user confirm an action, you use the **confirm(*****message*****)**
     function, which displays a message and offers the user the “Okay” and “Cancel”
     buttons in a dialog like the one shown for the example in ◘ Fig. [32.3](#Fig3)**.
     confirm()** returns **true** if the user selected **Okay** and **false** if the
     user selected **Cancel**.![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig3_HTML.jpg)
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想让用户确认某个操作，可以使用**confirm(*****message*****)**函数，它会显示一条消息，并提供“确定”和“取消”按钮，如◘
+    图 [32.3](#Fig3) 所示的对话框。**confirm()**返回**true**（如果用户选择了“确定”）或者返回**false**（如果用户选择了“取消”）。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig3_HTML.jpg)
 - en: A screenshot of the confirmation dialog box. The message is, that do you really
     want to continue learning javascript? The ok and cancel buttons are at the bottom.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个确认对话框的截图。消息内容是：你真的想继续学习JavaScript吗？确认和取消按钮位于底部。
 - en: Fig. 32.3
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.3
 - en: Confirmation dialog with **confirm()** in Google Chrome
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**confirm()**的Google Chrome中的确认对话框
 - en: '**>** action = confirm(''Do you really want to continue learning JavaScript?'')**>**
     console.log(action)True'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** action = confirm(''你真的想继续学习JavaScript吗？'')**>** console.log(action)True'
 - en: Another way to accept input from the user is to use the **prompt(*****message*****)**
     function. It creates a dialog box in which the user can make any input, which
     **prompt()** returns as a string (even if the user enters a number!)
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种接受用户输入的方法是使用**prompt(*****message*****)**函数。它会创建一个对话框，用户可以在其中输入内容，**prompt()**会将输入返回为字符串（即使用户输入的是数字！）
 - en: 'The following example, in which we also use the template literals introduced
     in the previous section, should look familiar. It is the conversion of a temperature
     value from degrees Celsius to Kelvin, which has already been used several times:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下示例，使用了我们在前一节中介绍的模板字面量，应该是你很熟悉的。它是将摄氏度的温度值转换为开尔文，这个过程之前已经使用过几次：
 - en: 'celsius = prompt(''Please enter a temperature in degrees Celsius: '');console.log(`${celsius}
     degrees Celsius are ${Number(celsius) + 273.15} Kelvin.`);The input dialog that
     **prompt()** generates is shown in ◘ Fig. [32.4](#Fig4).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig4_HTML.jpg)'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: celsius = prompt('请输入摄氏温度：');console.log(`${celsius} 摄氏度是 ${Number(celsius)
+    + 273.15} 开尔文。`);**prompt()**生成的输入对话框如◘ 图 [32.4](#Fig4) 所示。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig4_HTML.jpg)
 - en: A screenshot of the prompt input dialog box. It has a text bar to enter a temperature
     in degrees Celsius. The ok and cancel buttons are at the bottom.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个提示输入对话框的截图。它有一个文本框，用于输入摄氏温度。确认和取消按钮位于底部。
 - en: Fig. 32.4
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.4
 - en: '**prompt()** input dialog in Microsoft Edge'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**prompt()**输入对话框在Microsoft Edge中的表现'
 - en: You can also try this example without calling the **Number()** constructor.
     What happens? Can you explain the result? If not, go back a few pages to ► Sect.
     [31.​3.​1](474412_1_En_31_Chapter.xhtml#Sec8).
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以尝试这个示例，而不调用**Number()**构造函数。会发生什么？你能解释结果吗？如果不能，请返回几页，参见► Sect. [31.​3.​1](474412_1_En_31_Chapter.xhtml#Sec8)。
 - en: 32.4 Output to an HTML Document/Web Page
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.4 输出到HTML文档/网页
 - en: 32.4.1 Writing HTML Code into the Web Page
+  id: totrans-63
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.1 将HTML代码写入网页
 - en: Let’s now turn to the most important form of output, modifying the web page
     in which the JavaScript program is embedded.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们转向最重要的输出形式——修改嵌入JavaScript程序的网页。
 - en: The simplest way to modify a web page from JavaScript is to use the **document.write(*****html*****)**
     method. It simply writes the string passed as argument ***html*** into the web
     page at the point where the script is embedded in the web page. The string, which
     may contain text as well as HTML instructions (tags), is inserted into the source
     code of the HTML page as if it had originally been written there by the designer
     of the page.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 从JavaScript修改网页的最简单方法是使用**document.write(*****html*****)**方法。它将作为参数传入的字符串***html***直接写入网页的当前位置，即脚本嵌入在网页中的地方。这个字符串可能包含文本以及HTML指令（标签），它会被插入到HTML页面的源代码中，就像它最初是由网页设计者写的那样。
 - en: 'To illustrate this, let’s assume a (very minimalist) web page whose source
     code looks like this:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了说明这一点，假设有一个（非常简化的）网页，它的源代码如下所示：
 - en: '**<!DOCTYPE html>****<html>****<head>****<title>**Test Page**</title>****<noscript>**Please
     enable JavaScript!**</noscript>****</head>****<body>****<h1>**Our test page**</h1>****<p**
     id="output"**></p>****<script** src="script.js"**></script>****</body>****<html>**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>****<html>****<head>****<title>**测试页面**</title>****<noscript>**请启用JavaScript！**</noscript>****</head>****<body>****<h1>**我们的测试页面**</h1>****<p**
+    id="output"**></p>****<script** src="script.js"**></script>****</body>****<html>**'
 - en: The body of this web page contains nothing but a header (**<h1>…</h1>**), an
     empty paragraph (**<p>…</p>**), and the reference to the script.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 该网页的主体仅包含一个标题（**<h1>…</h1>**）、一个空的段落（**<p>…</p>**）和对脚本的引用。
 - en: 'The JavaScript program **script.js** embedded in the web page looks like this:'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 嵌入网页中的JavaScript程序**script.js**如下所示：
 - en: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>A random
     number between 0 and 100:${random}.</p>`);'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>0到100之间的随机数：${random}。</p>`);'
 - en: 'As you can see, we use the template literals familiar from ► Sect. [32.2](#Sec2)
     here to achieve a simple representation of the HTML string to be written to the
     web page. Instead, of course, we could have written **document.write(''<p>A random
     number between 0 and 100: '', random, ''.</p>'');** which is a little more cluttered.'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们在这里使用了来自►第[32.2节](#Sec2)的模板字面量，以简单地表示要写入网页的HTML字符串。当然，我们本可以写**document.write('<p>0到100之间的随机数：',
+    random, '。</p>');**，这虽然有效，但代码略显杂乱。
 - en: 'Now, each time you refresh the display of the web page in the browser, the
     JavaScript code is executed, drawing a new random number each time. The web page
     that is shown in the browser after our script has been written into it using **document.write()**
     then looks like this:'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，每次刷新浏览器中的网页显示时，JavaScript代码都会执行，每次都绘制一个新的随机数。我们的脚本通过**document.write()**写入网页后，浏览器中显示的网页如下所示：
 - en: '**<!DOCTYPE html>**<**html>****<head>****<title>**Test Page**</title>****<noscript>**Please
     enable JavaScript!**</noscript>****</head>****<body>****<h1>**Our test page**</h1>**<**p**
     id="output"**></p>****<p>**A random number between 0 and 100: 62.**</p>****</body>****</html>**'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>**<**html>**<**head>**<**title>**测试页面**</title>**<**noscript>**请启用JavaScript！**</noscript>**</head>**<body>**<h1>**我们的测试页面**</h1>**<**p**
+    id="output"**></p>**<p>**0到100之间的随机数：62。**</p>**</body>**</html>**'
 - en: Our script modifies the web page by adding an HTML element. This practically
     results in a “new” web page, which is then displayed in the browser. You can view
     the source code of the page in the browser.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的脚本通过添加一个HTML元素来修改网页。这实际上会导致一个“新”的网页，然后在浏览器中显示。你可以在浏览器中查看该页面的源代码。
 - en: Now, of course, you won’t always want to output something new at the current
     point in the script, but you may want to change existing elements of the web page.
     For example, we might want to change the headline of the page. But our script
@@ -361,52 +532,74 @@
     should be a way to change *any* element of the web page from anywhere. This way
     does exist. It is via the *Document Object Model* (*DOM*) of the web page, which
     we deal with in the next section.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，你不总是希望在脚本的当前位置输出新的内容，但你可能想要更改网页上现有的元素。例如，我们可能想要更改页面的标题。但我们的脚本“离标题太远”，所以我们无法直接访问标题。那么，应该有一种方法可以从任何地方更改网页的*任何*元素。确实有这种方法。那就是通过网页的*文档对象模型*（*DOM*），我们将在下一节中详细讲解。
 - en: 32.4.2 The Document Object Model (DOM)
+  id: totrans-76
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.2 文档对象模型（DOM）
 - en: 'In the HTML repetition in ► Sect. [29.​1.​1](474412_1_En_29_Chapter.xhtml#Sec2),
     we saw that the web browser reads the HTML file, and internally converts it into
     a representation called the *Document Object Model* or *DOM*. This is a hierarchical
     representation of the document structure. The nodes in the structure are either:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 在►第[29.1.1节](474412_1_En_29_Chapter.xhtml#Sec2)的HTML重复部分中，我们看到网页浏览器读取HTML文件，并将其内部转换为一种名为*文档对象模型*（*DOM*）的表示。这是一个层次结构的文档结构表示。结构中的节点可以是：
 - en: the document itself (highest node),
+  id: totrans-78
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文档本身（最高节点），
 - en: the individual HTML elements such as **title**, **body**, **h1** or **p**,
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单独的HTML元素，如**title**、**body**、**h1**或**p**，
 - en: any text associated with the elements (the **title** and **h1** elements of
     our example website from the previous section have directly associated text),
     or
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 与元素相关的任何文本（我们在上一节中示例网站的**title**和**h1**元素有直接关联的文本），或者
 - en: the attributes of the HTML elements like the **src** attribute of the **script**
     element.
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: HTML元素的属性，如**script**元素的**src**属性。
 - en: Graphing the hierarchical structure of these elements results in a representation
     of the Document Object Model of the Web page as shown in ◘ Fig. [32.5](#Fig5).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig5_HTML.jpg)
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 绘制这些元素的层次结构结果是一个网页文档对象模型的表示，如图◘[32.5](#Fig5)所示。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig5_HTML.jpg)
 - en: A flowchart of the document object model. The document is followed by h t m
     l which is classified into head and body. The head is followed by the title and
     javascript test. The body is classified into h 1, p, and script.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 文档对象模型的流程图。文档后跟着 HTML，它被分为头部和主体。头部后面是标题和 JavaScript 测试。主体被分为 h1、p 和 script。
 - en: Fig. 32.5
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.5
 - en: The Document Object Model (DOM) of our sample website
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们示例网站的文档对象模型（DOM）
 - en: The individual nodes of the document object model are represented in JavaScript
     by corresponding objects. With the help of these objects, we can edit the nodes
     and in this way change, for example, the text that is displayed in the **h1**
@@ -414,45 +607,67 @@
     This is not easy, because there could be several occurrences of each element type
     (for example **h1**) in the document. So, the trick is to “target” the one element
     we want to edit. This is exactly what we will deal with in the following sections.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 文档对象模型的各个节点在 JavaScript 中由相应的对象表示。借助这些对象，我们可以编辑节点，从而更改网页上显示的 **h1** 标题的文本。为此，我们只需要获取正确的元素。这并不容易，因为文档中可能有多个相同类型的元素（例如
+    **h1**）。因此，诀窍是“定位”我们想要编辑的那个元素。这正是我们将在接下来的章节中讨论的内容。
 - en: 'By the way, the highest node in the Document Object Model, which represents
     the entire document, is represented in JavaScript by an object we already worked
     with in the previous section: **document**. As you recall, we had used its **write()**
     method to write HTML code to the web page at the point where the JavaScript program
     is embedded.'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下，文档对象模型中表示整个文档的最高节点在 JavaScript 中由我们在前一节中已经使用过的对象表示：**document**。如你所记得，我们曾用它的
+    **write()** 方法将 HTML 代码写入网页，该方法在嵌入 JavaScript 程序的位置调用。
 - en: 32.4.3 Selecting DOM Nodes by Their Properties
+  id: totrans-88
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.3 通过属性选择 DOM 节点
 - en: Selecting an HTML Element by Its ID
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过 ID 选择 HTML 元素
 - en: 'The simplest way to capture an HTML element (i.e., a node of the Web page’s
     Document Object Model) is to address it by its **id** attribute. In our example
     HTML document from ► Sect. [32.4.1](#Sec5), you can see a paragraph element (**p**)
     with the following code, which we had not used before:'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 捕获 HTML 元素（即网页文档对象模型中的一个节点）最简单的方法是通过其 **id** 属性来定位它。在我们在 ► Sect. [32.4.1](#Sec5)
+    中的示例 HTML 文档中，你可以看到一个段落元素（**p**），其代码如下，我们之前没有使用过：
 - en: '**<p** id="output"**></p>**'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<p** id="output"**></p>**'
 - en: The element does not carry any text or other HTML elements (there isn't anything
     between **>** and **<**), but it has an **id** attribute that we can use to access
     it. The **getElementById(*****id*****)** function of the **document** object is
     used for this purpose. The statement
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 该元素不包含任何文本或其他 HTML 元素（在 **>** 和 **<** 之间没有任何内容），但它有一个 **id** 属性，我们可以用它来访问该元素。**document**
+    对象的 **getElementById(*****id*****)** 函数用于此目的。语句
 - en: '**var** outputField = document.getElementById(''output'');creates an object
     **outputField** that corresponds to the **p** element of our web page and through
     which we can edit the element on the web page. You can quickly see that **outputField**
     is a real object with properties and methods if you enter **outputField** (i.e.,
     object identifier followed by the dot operator) and the popup window with the
     properties and methods of the object opens.'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** outputField = document.getElementById(''output''); 创建一个 **outputField**
+    对象，它对应于我们网页中的 **p** 元素，通过它我们可以编辑网页上的该元素。你可以很快看到，**outputField** 是一个真正的对象，具有属性和方法，只需输入
+    **outputField**（即对象标识符后跟点操作符），弹出窗口会显示该对象的属性和方法。'
 - en: The properties and methods offered depend, of course, on the type of object.
     In our example, we are dealing with an **HTMLParagraph** object. Analogously,
     there is a whole range of other object types for the various HTML element types.
@@ -460,17 +675,24 @@
     relevant to the particular type of HTML element. What they all have in common,
     however, is that they are derived from the object type **HTMLElement** and therefore
     share certain properties and methods.
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 提供的属性和方法当然取决于对象的类型。在我们的示例中，我们处理的是一个 **HTMLParagraph** 对象。类似地，对于各种 HTML 元素类型，还有一系列其他对象类型。每种对象类型可能带有与特定类型
+    HTML 元素相关的特定属性和方法。然而，它们的共同点是，它们都派生自 **HTMLElement** 对象类型，因此共享某些属性和方法。
 - en: All HTML elements can have an **id** attribute, the value of which (as is usual
     with HTML attributes) is written in quotation marks. When working with **id**
     attributes, it is only necessary to ensure that each ID only occurs once in the
     document, so that it can be used to uniquely identify the respective element.
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有 HTML 元素都可以有一个 **id** 属性，其值（如同 HTML 属性一样）用引号括起来。在处理 **id** 属性时，只需确保每个 ID 在文档中只出现一次，这样就可以用它来唯一标识相应的元素。
 - en: Selecting an HTML Element by Its Type
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 按照元素类型选择 HTML 元素
 - en: HTML elements can be grabbed not only by their unique ID, but also by their
     type. The method **document.getElementsByTagName(*****type*****)** is used for
     this purpose. Note, however, that an HTML document can have more than one element
@@ -478,32 +700,49 @@
     *array* with all elements found. If you take a closer look, you will see that
     the method, unlike **getElementById()**, is a plural—it has an s in its name—not
     without reason!
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: HTML 元素不仅可以通过其唯一 ID 获取，还可以通过其类型获取。为此，可以使用 **document.getElementsByTagName(*****type*****)**
+    方法。然而，需要注意的是，一个 HTML 文档中可能会有多个相同类型的元素。因此，**document.getElementsByTagName()** 也会返回一个包含所有找到元素的*数组*。如果你仔细观察，会发现该方法与
+    **getElementById()** 不同，它是复数形式——名字中有一个 s——这并非没有道理！
 - en: 'To illustrate this, let’s rebuild our script from ► Sect. [32.4.1](#Sec5) so
     that *all* **p** elements are grabbed:'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了说明这一点，我们可以重建我们在 ► Sect. [32.4.1](#Sec5) 中的脚本，以便*所有*的 **p** 元素都能被获取：
 - en: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>A random
     number between 0 and 100:${random}.</p>`);**var** pElements = document.getElementsByTagName(''p'');console.log(pElements.length);'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** random = Math.round(Math.random()*100, 0);document.write(`<p>一个 0 到
+    100 之间的随机数：${random}。</p>`);**var** pElements = document.getElementsByTagName(''p'');console.log(pElements.length);'
 - en: If you open the JavaScript console, you will see that the length of the **pElements**
     array is 2\. But why two elements? Doesn’t our HTML document contain only a single
     **p** element? Where does the second element come from? This second element is
     the one we create by using the **document.write()** statement in our own script.
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你打开 JavaScript 控制台，你会看到 **pElements** 数组的长度是 2。但为什么是两个元素呢？难道我们的 HTML 文档中只有一个
+    **p** 元素吗？第二个元素从哪里来？这个第二个元素是我们通过使用 **document.write()** 语句在脚本中创建的。
 - en: 'We can now work with these elements. For example, we can use the **innerText**
     property to display the contents of the text element attached directly to the
     HTML element created by our script in the Document Object Model. This element
     is the second in the array, that is, the one with index 1:'
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以开始处理这些元素。例如，我们可以使用**innerText**属性来显示附加到我们脚本创建的 HTML 元素的文本元素内容，该元素直接位于文档对象模型中。这个元素是数组中的第二个，也就是索引为
+    1 的那个：
 - en: '**>** pElements[1].innerText"A random number between 0 and 100: 62."Selecting
     an HTML Element by Its CSS Class'
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** pElements[1].innerText"一个 0 到 100 之间的随机数：62。"按 CSS 类选择 HTML 元素'
 - en: In a similar way to the element type, HTML elements can also be grabbed by the
     value of their **class** attribute. As you will recall from the HTML repetition
     in ► Sect. [29.​1.​1](474412_1_En_29_Chapter.xhtml#Sec2), HTML elements can be
@@ -512,36 +751,56 @@
     In this way, formatting and presentation instructions can be defined that are
     not applied to all elements of a type (for example, to all **p** elements), but
     only to some of them.
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似于元素类型，HTML 元素也可以通过其 **class** 属性的值来获取。正如你从 ► Sect. [29.​1.​1](474412_1_En_29_Chapter.xhtml#Sec2)
+    中的 HTML 复习中记得的，HTML 元素可以通过其 **class** 属性进行分组，并且可以在层叠样式表（CSS）文件中为其设置特定的格式和展示设置。通过这种方式，可以定义格式和展示指令，这些指令不仅应用于某一类型的所有元素（例如，所有的
+    **p** 元素），而是只应用于其中的一部分元素。
 - en: Using the **document.getElementsByClassName(*****class*****)** method, you can
     get an array of all HTML elements whose class attribute corresponds to **class**.
     Our simple example from above does not work with CSS, so none of the HTML elements
     have the **class** attribute.
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 **document.getElementsByClassName(*****class*****)** 方法，可以获取所有其 class 属性与
+    **class** 对应的 HTML 元素的数组。我们上面的简单示例没有使用 CSS，因此没有任何 HTML 元素拥有 **class** 属性。
 - en: 32.4.4 Selecting DOM Nodes via the Hierarchical Structure of the Document
+  id: totrans-105
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.4 通过文档的层级结构选择 DOM 节点
 - en: The hierarchical structure of the Document Object Model can be used to capture
     other related nodes starting from one node. For this purpose, all node objects
     offer a number of predefined properties.
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 文档对象模型的层次结构可以用来从一个节点开始捕获其他相关节点。为此，所有节点对象都提供了许多预定义的属性。
 - en: Child Elements of a Node
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 节点的子元素
 - en: The following example shows how, starting from the **body** element of the HTML
     document, we can grab all DOM nodes that are directly at the level *below:*
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下示例展示了如何从 HTML 文档的 **body** 元素开始，抓取所有直接位于*下一级*的 DOM 节点：
 - en: '**var** bodyElements = document.getElementsByTagName(''body'');**var** bodyChildren
     = bodyElements[0].childNodes;**for**(**var** i = 0; i < bodyChildren.length -
     1; i++) {console.log(''Node no.'', i)console.log(''Node name:'', bodyChildren[i].nodeName);console.log(''Node
     type:'', bodyChildren[i].nodeType, ''\n'');}'
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** bodyElements = document.getElementsByTagName(''body'');**var** bodyChildren
+    = bodyElements[0].childNodes;**for**(**var** i = 0; i < bodyChildren.length -
+    1; i++) {console.log(''节点号'', i)console.log(''节点名称:'', bodyChildren[i].nodeName);console.log(''节点类型:'',
+    bodyChildren[i].nodeType, ''\n'');}'
 - en: To do this, we first select the body element; more precisely, we grab *all*
     body elements using the **document** method **getElementsByTagName()**. Of course,
     there is only one of them in our web page. Nevertheless, **getElementsByTagName()**
@@ -550,19 +809,30 @@
     that every DOM node automatically has, and contains the “child nodes”, those nodes
     that are hierarchically directly below it, i.e., in our case, whose *parent* element
     is **body**.
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 为此，我们首先选择 body 元素；更准确地说，我们通过 **document** 方法 **getElementsByTagName()** 抓取 *所有*
+    body 元素。当然，在我们的网页中只有一个 body 元素。然而，**getElementsByTagName()** 方法总是返回一个数组。我们在下一行中访问它的第一个元素。然后，我们使用它的
+    **childNodes** 属性。**childNodes** 是每个 DOM 节点自动拥有的只读数组，包含了“子节点”，即那些在层次结构中直接位于该节点下的节点，也就是在我们这个例子中，它们的*父节点*是
+    **body**。
 - en: 'In a **for** loop (which we discuss in detail in ► Sect. [35.​1](474412_1_En_35_Chapter.xhtml#Sec1)),
     we go through all the child elements and output two of their properties to the
     JavaScript console, their name and their type. The output to the console would
     then look like this for our example page:'
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 在一个 **for** 循环中（我们将在 ► 第 [35.​1](474412_1_En_35_Chapter.xhtml#Sec1) 节中详细讨论），我们遍历所有子元素并将它们的两个属性输出到
+    JavaScript 控制台，分别是它们的名称和类型。对于我们的示例网页，控制台输出将如下所示：
 - en: 'Node no. 0Node name: #textNode type: 3Node no. 1Node name: H1Node type: 1Node
     no. 2Node name: #textNode type: 3Node no. 3Node name: PNode type: 1Node no. 4Node
     name: #textNode type: 3Node no. 5Node name: SCRIPTNode type: 1'
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: '节点号 0节点名称: #text节点类型: 3节点号 1节点名称: H1节点类型: 1节点号 2节点名称: #text节点类型: 3节点号 3节点名称:
+    P节点类型: 1节点号 4节点名称: #text节点类型: 3节点号 5节点名称: SCRIPT节点类型: 1'
 - en: The name of the node corresponds to the identifier of the HTML element; for
     text nodes we find **#text** as name. As you can see, there are several text nodes
     attached to **body**. In our sample web page, there are only other HTML elements
@@ -572,23 +842,34 @@
     tab characters are represented by the text nodes seen in the output above. For
     the sake of clarity, we have omitted their representation in our Document Object
     Model in ◘ Fig. [32.5](#Fig5).
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 节点的名称对应 HTML 元素的标识符；对于文本节点，我们会看到**#text**作为名称。正如你所看到的，**body**元素下附有多个文本节点。在我们的示例网页中，body
+    内只有其他 HTML 元素，但它们前后可能会有文本。这些文本在我们的示例网页中是空的，实际上，它们包含了制表符缩进，以更好地强调 HTML 源代码的层次结构。这些制表符字符通过上面输出中的文本节点表示。为了清晰起见，我们在文档对象模型中省略了它们的表示，详见
+    ◘ 图 [32.5](#Fig5)。
 - en: 'Text is also contained in the **h1** heading of the document (“Our test page”),
     but it is in a text node that is hierarchically *one level lower*: It is not attached
     to the **body** element of the web page, but to the **h1** element and is therefore
     not captured by our traversal of the child nodes of the **body** element.'
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: 文本也包含在文档的 **h1** 标题中（“我们的测试页面”），但它处于一个层级上*更低一级*的文本节点中：它没有附加在网页的 **body** 元素下，而是附加在
+    **h1** 元素下，因此不被我们的 body 元素子节点遍历所捕获。
 - en: Querying Attributes
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 查询属性
 - en: The same applies to the *attributes* of the **p** element and the **script**
     element. They are hierarchically attached to the **p** and **script** elements
     and are therefore not direct children of the **body** element (rather its grandchildren,
     so to speak).
+  id: totrans-116
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样适用于**p**元素和**script**元素的*attributes*。它们是按层次结构附加在**p**和**script**元素上的，因此它们不是**body**元素的直接子节点（可以说是它的孙子节点）。
 - en: 'However, there is a peculiarity with the attributes: they are not contained
     in the array **childNodes** as own nodes. You can easily check this by typing
     **bodyChildren[5].childNodes** into the console (the 5th child node of **body**
@@ -603,19 +884,25 @@
     value can be accessed with the properties **nodeName** and **nodeValue**, in our
     example with **bodyChildren[5].attributes[0].nodeName** (which would then return
     **"src"**).'
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，属性有一个特殊性：它们并不作为独立的节点包含在数组**childNodes**中。你可以通过在控制台中输入**bodyChildren[5].childNodes**来轻松检查这一点（**body**的第5个子节点是**script**元素）。**childNodes**是空的！首先，这可以理解，因为在**script元素**下面没有其他HTML元素或文本节点按层次结构悬挂。但是属性**src**（脚本文件的名称）是附加在**script**元素上的，而这个属性在我们网页的文档对象模型中也是一个节点。然而，这个节点并未包含在**childNodes**中。属性是以数组对象**attributes**的形式映射的。**bodyChildren[5].attributes[0]**表示我们**script**元素的第一个属性，**src**。可以通过**nodeName**和**nodeValue**属性访问属性的名称和值，在我们的示例中是通过**bodyChildren[5].attributes[0].nodeName**（这将返回**"src"**）。
 - en: There is a second way to access the attributes of an HTML element. The attributes
     are also properties of the element object. Because **bodyChildren[5]** is our
     **script** element, we can access the *value* of its **src** attribute directly
     with **bodyChildren[5].src** (the name is already in the attribute identifier).
     As in many cases, the value of the **src** property of the **bodyChildren[5]**
     object is a simple string.
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有另一种访问HTML元素属性的方法。属性也是元素对象的属性。因为**bodyChildren[5]**是我们的**script**元素，我们可以通过**bodyChildren[5].src**直接访问它的**src**属性的*值*（名称已经在属性标识符中）。像许多情况一样，**bodyChildren[5]**对象的**src**属性值是一个简单的字符串。
 - en: Identifying the Type of the Node
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 识别节点的类型
 - en: 'Let’s turn again to the output above. Two more things stand out: First, that
     the nodes are mapped into the array in the order in which they appear in the document;
     this is handy if you want to blueprint the child nodes of **body** from top to
@@ -623,11 +910,15 @@
     1 are the HTML elements, nodes of type 3 are the text nodes. Attributes have node
     type 2; thus, the **src** attribute of our **script** element also has a **nodeType**
     property:'
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们再回到上面的输出。有两点突出：首先，节点是按照它们在文档中出现的顺序映射到数组中的；如果你想按从上到下的顺序绘制**body**的子节点，这会很方便。其次，似乎有两种节点类型，1和3。类型为1的节点是HTML元素，类型为3的节点是文本节点。属性的节点类型是2；因此，我们的**script**元素的**src**属性也有一个**nodeType**属性：
 - en: bodyChildren[5].attributes[0].nodeTypeFinding the Parent Element of a Node
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: bodyChildren[5].attributes[0].nodeType 查找节点的父元素
 - en: 'Besides **childNodes**, there is another important object for navigating within
     the DOM structure, and that is a property of each DOM node: **parentNode**. **parentNode**
     is the counterpart of **childNodes**, it specifies the node to which the current
@@ -635,38 +926,56 @@
     immediately subordinate. Unlike **childNodes**, **parentNode** is not an array,
     but a single node, because each child node has exactly one parent node under which
     it hangs.'
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**childNodes**，还有一个用于在DOM结构中导航的重要对象，那就是每个DOM节点的一个属性：**parentNode**。**parentNode**是**childNodes**的对应物，它指定当前节点（我们查询其**parentNode**属性的节点）在层次结构中直接隶属于哪个节点。与**childNodes**不同，**parentNode**不是一个数组，而是一个单一的节点，因为每个子节点下只有一个父节点。
 - en: 32.1 [5 min]
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: 32.1 [5分钟]
 - en: Suppose you have an object **elem** in JavaScript that represents an HTML element
     of a web page. How can you access the sibling elements of **elem** (including
     **elem** itself), that is, all HTML elements that are at the same hierarchical
     level as **elem** in the HTML document?
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你在JavaScript中有一个对象 **elem**，它表示网页中的一个HTML元素。你如何访问 **elem** 的兄弟元素（包括 **elem**
+    本身），也就是在HTML文档中与 **elem** 处于相同层级的所有HTML元素？
 - en: 32.4.5 Changing HTML Elements
+  id: totrans-125
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.5 更改HTML元素
 - en: Injecting HTML Code Directly into an Object
+  id: totrans-126
   prefs: []
   type: TYPE_NORMAL
+  zh: 将HTML代码直接注入到对象中
 - en: All HTML element objects have the **innerHTML** object property in JavaScript.
     It is a string that contains all the HTML code that hangs hierarchically below
     the respective HTML element.
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有HTML元素对象在JavaScript中都有 **innerHTML** 对象属性。它是一个字符串，包含了挂在各自HTML元素下方的所有HTML代码。
 - en: 'Let’s look at the example of our web page from ► Sect. [32.4.1](#Sec5). Its
     body element has, as we can easily check in the console, the following **innerHTML**
     property:'
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看我们网页的示例，来自► 第[32.4.1](#Sec5)节。它的body元素，如我们可以在控制台轻松检查到的，具有以下 **innerHTML**
+    属性：
 - en: '**>** document.body.innerHTML"<h1>Our Test Page</h1><p id="output"></p><script
     src="script.js"></script><p>A random number between 0 and 100: 31.</p>"'
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** document.body.innerHTML"<h1>我们的测试页面</h1><p id="output"></p><script src="script.js"></script><p>0到100之间的随机数：31。</p>"'
 - en: 'Of course, we can also edit this property and thus “inject” HTML code into
     an object, so to speak. Suppose we didn’t want to output our random number in
     a new paragraph element (**p**) that the script would simply insert at the point
@@ -675,59 +984,89 @@
     would simply need to grab the paragraph element by its ID and then “inject” it
     with the output containing the random number into that element. With this, our
     script **script.js** could then look like this:'
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，我们也可以编辑这个属性，从而“注入”HTML代码到一个对象中。假设我们不想将随机数字输出到一个新的段落元素（**p**）中，脚本会在网站运行时将其插入到该位置，而是希望将数字写入到具有ID
+    **output** 的现有段落元素中。为此，我们的脚本 **script.js** 只需通过ID获取该段落元素，然后将包含随机数字的输出“注入”到该元素中。这样，我们的脚本
+    **script.js** 就可以像这样：
 - en: 'rndNum = Math.round(Math.random()*100, 0);pOutput = document.getElementById("output");pOutput.innerHTML
     = ''A random number between 0 und 100: ''+ rndNum + ''.'';'
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: rndNum = Math.round(Math.random()*100, 0);pOutput = document.getElementById("output");pOutput.innerHTML
+    = '0到100之间的随机数：'+ rndNum + '。';
 - en: 'However, we might want to highlight our output in boldface and embed it in
     a **strong** element for that purpose. To do this, we would simply need to modify
     the last line of our script as follows:'
+  id: totrans-132
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，我们可能希望将输出加粗并嵌入到 **strong** 元素中。为此，我们只需修改脚本的最后一行，方法如下：
 - en: 'pOutput.innerHTML =''<strong>A random number between 0 und 100: ''+ rndNum
     + ''.</strong>'';'
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: pOutput.innerHTML ='<strong>0到100之间的随机数：'+ rndNum + '。</strong>';
 - en: 'If you now look at the source code of the page displayed in the browser, or
     simply use **document.body.innerHTML** to view the HTML content of the **body**
     element in the console, you will find the following in it:'
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你现在查看浏览器中显示的页面源代码，或者直接使用 **document.body.innerHTML** 在控制台中查看 **body** 元素的HTML内容，你会发现其中包含以下内容：
 - en: '**"**<h1>Our Test Page</h1><p id="output"><strong>A random number between 0
     und 100:33.</strong></p><script src="script.js"></script>**"**'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: '**"**<h1>我们的测试页面</h1><p id="output"><strong>0到100之间的随机数：33。</strong></p><script
+    src="script.js"></script>**"**'
 - en: So, as you can see, we successfully “injected” a snippet of HTML code inside
     the **p** element output.
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们成功地将一段HTML代码“注入”到了 **p** 元素的输出中。
 - en: Changing Attributes of Elements
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 更改元素的属性
 - en: Besides using the **b** element, there is another way to display text in bold,
     and that is with the help of the CSS property **font-weight**. If you set this
     to **bold**, the text is also displayed in boldface.
+  id: totrans-138
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了使用 **b** 元素外，还有另一种方法可以将文本加粗，那就是利用CSS属性 **font-weight**。如果将其设置为 **bold**，文本也会显示为加粗样式。
 - en: 'The CSS properties of an HTML element can either be described via a separate
     CSS file (a path we will take in one of the two examples with which we conclude
     this chapter) or set directly using the **style** attribute of an HTML element.
     Thus, if we wanted to display the entire contents of our paragraph element **output**
     in boldface type, we would have to modify the opening HTML tag as follows:'
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: HTML 元素的 CSS 属性可以通过单独的 CSS 文件来描述（在我们本章结束时的两个示例中会采用这种方法），或者直接使用 HTML 元素的 **style**
+    属性来设置。因此，如果我们想让段落元素 **output** 的所有内容以粗体显示，我们需要修改打开的 HTML 标签，如下所示：
 - en: '**<p** id="output" style="font-face: bold;"**>**'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<p** id="output" style="font-face: bold;"**>**'
 - en: The name of a property and its value are always separated by a colon in CSS.
     Strictly speaking, we would not have needed the final semicolon. However, it is
     possible to place several CSS property assignments in the **style** attribute,
     which must then be separated from each other with semicolons. So, it doesn’t hurt
     to have a semicolon at the end of the **style** attribute.
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 CSS 中，属性名和属性值总是通过冒号分隔。严格来说，我们不需要在最后加上分号。然而，在 **style** 属性中可以放置多个 CSS 属性赋值，这些赋值之间必须用分号分隔。因此，在
+    **style** 属性的末尾加上分号是没有问题的。
 - en: 'But how can we now set the **style** attribute with the help of our JavaScript
     code? The approach should not come as a surprise to you after the previous section.
     After all, we already know that the HTML element object (which we bound to the
@@ -737,49 +1076,74 @@
     CSS properties. The names of the properties are the same as the CSS properties,
     but the CSS-typical hyphen is omitted and replaced by capitalization. Thus, **font-weight**
     becomes **fontWeight**:'
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: 但我们现在如何通过 JavaScript 代码设置 **style** 属性呢？在上一节之后，这个方法应该不会让你感到惊讶。毕竟，我们已经知道 HTML
+    元素对象（在上面的脚本中，我们通过 **getElementById** 将其绑定到 **pOutput** 变量）有一个与每个标准属性相匹配的属性。当然，我们可以对这些属性进行赋值。需要注意的是，**style**
+    是一个对象，具有多个属性，反映了 CSS 属性。属性的名称与 CSS 属性相同，但 CSS 中常见的连字符被省略，代之以大小写字母。因此，**font-weight**
+    变成了 **fontWeight**：
 - en: pOutput.style.fontWeight = 'bold';
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: pOutput.style.fontWeight = 'bold';
 - en: If you now—so that we can also observe the effect—reset the “injection” of the
     HTML code to
+  id: totrans-144
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你现在——为了让我们也能观察到效果——将 HTML 代码的“注入”重置为
 - en: 'pOutput.innerHTML = ''A random number between 0 und 100: ''+ rndNum + ''.'';and
     reload the web page in the browser, you will notice that the operation was successful
     and the output is displayed in boldface. Now, the **style** attribute is a special
     case in that the **style** property of the HTML element object cannot simply be
     assigned a value like **"font-face: bold;"** in JavaScript, but instead must be
     worked with the individual properties of the **style** object.'
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: 'pOutput.innerHTML = ''一个介于 0 和 100 之间的随机数：'' + rndNum + ''.''; 并重新加载浏览器中的网页，你会注意到操作成功，输出内容已经以粗体显示。现在，**style**
+    属性是一个特殊情况，HTML 元素对象的 **style** 属性不能像 **"font-face: bold;"** 这样直接赋值给 JavaScript，而必须通过
+    **style** 对象的各个属性来操作。'
 - en: However, many attributes have a corresponding property in the HTML element object
     in JavaScript that can be assigned directly. The **align** attribute, for example,
     that determines the text direction, could be assigned with the statement
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，许多属性在 JavaScript 中的 HTML 元素对象中都有对应的属性，可以直接赋值。例如，决定文本方向的 **align** 属性，可以通过以下语句赋值：
 - en: pOutput.align = 'right';so that the text within the paragraph is right-aligned
     (try it out!). Unlike **style**, the corresponding property of the HTML element
     object (in our case the **align** property of **pOutput**) is not an object, but
     a simple string that can easily be assigned. The statement therefore results in
     the code of the **p** element now looking like this:**<p** id=**"**output" align="right"**>**32.2
     [10 min]
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: pOutput.align = 'right'; 使得段落内的文本右对齐（试试看！）。与 **style** 不同，HTML 元素对象（在我们这里是 **pOutput**
+    的 **align** 属性）的相应属性不是对象，而是一个简单的字符串，可以直接赋值。因此，这条语句使得 **p** 元素的代码看起来像这样：**<p**
+    id="output" align="right"**>**32.2 [10 min]
 - en: 'Create a simple web page with a **p** element (paragraph) containing a text.
     From within a JavaScript program, change the font background color (CSS property
     **background-color**) so that the text is highlighted in light yellow (color components
     red: 255, green: 255, blue: 204).'
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个简单的网页，其中包含一个**p**元素（段落），并在其中加入一段文字。在JavaScript程序中，改变该文字的字体背景颜色（CSS属性**background-color**），使文字呈现淡黄色（红色分量：255，绿色分量：255，蓝色分量：204）。
 - en: 32.4.6 Adding and Deleting HTML Elements
+  id: totrans-149
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.4.6 添加和删除HTML元素
 - en: Adding HTML Elements
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 添加HTML元素
 - en: In the last section, we used the **innerHTML property** of HTML element objects
     to “inject” HTML code directly into the elements, and in this way we were also
     able to create new HTML objects as child elements of the edited parent elements
@@ -787,27 +1151,39 @@
     we’ll look at another method of creating HTML elements by generating corresponding
     HTML element objects in JavaScript and then “hooking” them into the document at
     the desired location.
+  id: totrans-151
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上一节中，我们使用了HTML元素对象的**innerHTML属性**将HTML代码直接“注入”到元素中，通过这种方式，我们还能够通过将完整的HTML代码写入父元素来创建新的HTML对象作为父元素的子元素。在这一节中，我们将探讨另一种方法，通过在JavaScript中生成相应的HTML元素对象，然后将它们“挂接”到文档中的目标位置来创建HTML元素。
 - en: New HTML element objects can be easily created in JavaScript using the **createElement()**
     function of the **document** object. As argument, this function expects the identifier
     of the HTML element type of which an instance is to be created.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 新的HTML元素对象可以通过JavaScript中**document**对象的**createElement()**函数轻松创建。作为参数，这个函数期望传入要创建实例的HTML元素类型的标识符。
 - en: 'To create a new subheading (HTML element type **h2**), for example, the following
     statement is sufficient:'
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，要创建一个新的子标题（HTML元素类型为**h2**），只需以下语句即可：
 - en: '**var** heading2 = document.createElement(''h2'');'
+  id: totrans-154
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** heading2 = document.createElement(''h2'');'
 - en: 'Now we can edit the properties of the new element as desired, for example,
     using the **align** attribute to make the heading text right-aligned:'
+  id: totrans-155
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以根据需要编辑新元素的属性，例如，使用**align**属性使标题文字右对齐：
 - en: Headline2.align = 'right';
+  id: totrans-156
   prefs: []
   type: TYPE_NORMAL
+  zh: Headline2.align = 'right';
 - en: 'Of course, the heading also needs a text. We could set it with the already
     known **innerHTML** property of our element object, or we could use the innerText
     property. **innerText** usually represents all the text that is attached to the
@@ -815,72 +1191,107 @@
     look at the **innerText** property of the **body** element of our web page. However,
     we can also use **innerText** to add text to our newly created element (which
     has no child elements):'
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，标题也需要文字。我们可以通过元素对象已经知道的**innerHTML**属性来设置它，或者使用innerText属性。**innerText**通常表示附加到元素本身或其子元素中的所有文本节点；如果你查看我们网页的**body**元素的**innerText**属性，就能更清楚这一点。然而，我们也可以使用**innerText**向我们新创建的元素（它没有子元素）添加文本：
 - en: heading2.innerText = 'Another exciting section';
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: heading2.innerText = '另一个激动人心的部分';
 - en: After we have sufficiently configured our new HTML element object, we still
     need to add it to the web page where we want it. The easiest way to do this is
     to grab the intended parent element and then add the new child element to it using
     the element object method **appendChild(*****newChild*****):**
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们充分配置好新HTML元素对象之后，我们仍然需要将它添加到我们想要放置的网页上。最简单的方法是抓取目标父元素，然后通过元素对象方法**appendChild(*****newChild*****):**将新子元素添加到其中：
 - en: '**var** bodyElem = document.getElementsByTagName(''body'')[0];bodyElem.appendChild(heading2);'
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** bodyElem = document.getElementsByTagName(''body'')[0];bodyElem.appendChild(heading2);'
 - en: 'Alternatively, if you don’t want to simply append the new element to the existing
     child element at the back, you can control its position more precisely by placing
     the child element with the element object method **insertBefore(*****newChildElement*****,**
     ***successorChildElement*****)**. This way, we could insert our new heading before
     the paragraph element **output**, which we represent in our program by the object
     **pOutput**:'
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，如果你不想仅仅将新元素追加到现有子元素的后面，你可以通过使用元素对象方法**insertBefore(*****newChildElement*****,**
+    ***successorChildElement*****)**更精确地控制它的位置。通过这种方式，我们可以在段落元素**output**之前插入新标题，我们在程序中用对象**pOutput**表示它：
 - en: bodyElem.insertBefore(heading2, pOutput);32.3 [5 min]
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: bodyElem.insertBefore(heading2, pOutput);32.3 [5 min]
 - en: Develop a piece of JavaScript code that you can run in the JavaScript console
     that adds the bold-formatted text “This is the end.” to the HTML body of a web
     page (at the bottom of the web page).
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: 开发一段 JavaScript 代码，你可以在 JavaScript 控制台中运行，它会将加粗格式的文本“这是结尾。”添加到网页的 HTML body
+    中（在网页底部）。
 - en: 'Try it out: Take a web page like ► [*wikipedia.com*](http://wikipedia.com),
     open the developer tools in your browser and run your code. You will see that
     your HTML element has been added to the web page!'
+  id: totrans-164
   prefs: []
   type: TYPE_NORMAL
+  zh: 试试吧：拿一个网页，比如► [*wikipedia.com*](http://wikipedia.com)，打开浏览器的开发者工具并运行你的代码。你会看到你的
+    HTML 元素已经被添加到网页中了！
 - en: Deleting HTML Elements
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 删除 HTML 元素
 - en: 'Deleting HTML elements from the web page can be conveniently accomplished with
     the **remove()** method that all HTML node objects in JavaScript inherently provide.
     So, for example, to delete the paragraph element **output**, all we have to do
     is call **remove()** on the **pOutput** object:'
+  id: totrans-166
   prefs: []
   type: TYPE_NORMAL
+  zh: 删除网页中的 HTML 元素，可以通过所有 HTML 节点对象在 JavaScript 中固有提供的 **remove()** 方法方便地实现。例如，要删除段落元素
+    **output**，我们只需在 **pOutput** 对象上调用 **remove()** 方法：
 - en: pOutput.remove()
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: pOutput.remove()
 - en: The element immediately disappears from the web page. Just like when adding
     and changing objects, the browser regenerates the display without the user or
     us as developers having to do anything.
+  id: totrans-168
   prefs: []
   type: TYPE_NORMAL
+  zh: 该元素会立即从网页中消失。就像在添加和更改对象时一样，浏览器会重新生成显示，而无需用户或我们作为开发者做任何操作。
 - en: 32.5 Input with Forms
+  id: totrans-169
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.5 表单输入
 - en: In the following, we will look at how JavaScript can be used to validate or
     otherwise process input from HTML forms. The next section first provides a brief
     overview of how forms work in HTML. If you are already familiar with this, you
     can—without missing anything—go directly to ► Sect. [32.5.2](#Sec13).
+  id: totrans-170
   prefs: []
   type: TYPE_NORMAL
+  zh: 在接下来的内容中，我们将了解如何使用 JavaScript 来验证或以其他方式处理来自 HTML 表单的输入。下一节首先简要介绍 HTML 表单的工作原理。如果你已经熟悉这部分内容，你可以—无需遗漏任何内容—直接跳到
+    ► Sect. [32.5.2](#Sec13)。
 - en: 32.5.1 Forms in HTML
+  id: totrans-171
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.5.1 HTML 中的表单
 - en: 'With the exception of dialog boxes, we have so far focused on how to output
     data in web pages, but not on how the user can enter data. This is exactly the
     purpose of HTML forms: They are used to accept data from the user. The data received
@@ -891,8 +1302,12 @@
     the user’s input on the client side before it is sent to the web server, for example,
     to check for any incorrect entries, stop the sending of the data (if necessary)
     and inform the user of the incorrect entries.'
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了对话框，我们迄今为止主要关注如何在网页中输出数据，但没有涉及用户如何输入数据。这正是 HTML 表单的作用：它们用于接受用户输入的数据。接收到的数据通常会发送到提供该页面的
+    Web 服务器并在服务器上处理。这通常涉及到 PHP 编程语言的使用，这正是为此目的开发的，但有时也会涉及到服务器端的 JavaScript 程序。在这种客户端-服务器的情况下，JavaScript
+    通常负责在数据发送到 Web 服务器之前，在客户端验证用户的输入，例如检查是否有不正确的输入，必要时停止数据发送，并通知用户输入错误。
 - en: However, the data does not necessarily have to be sent to a web server. In fact,
     the form input can also be used as input for a JavaScript application; this application
     would then not be a validation mechanism, but in a sense the final recipient of
@@ -900,36 +1315,51 @@
     the JavaScript program. The two examples with which this chapter concludes, a
     calculator and a color picker, fall squarely into the category of interaction
     between forms and JavaScript.
+  id: totrans-173
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，数据不一定非要发送到 Web 服务器。实际上，表单输入也可以作为 JavaScript 应用程序的输入；此应用程序将不再是一个验证机制，而在某种程度上是数据的最终接收者。数据的输入只是为了被
+    JavaScript 程序处理。本章的两个例子，一个计算器和一个颜色选择器，正好属于表单和 JavaScript 之间交互的范畴。
 - en: 'However, before we get into these applications, let’s first look at how forms
     are constructed in HTML. Forms are always created by the HTML element **form**.
     This creates an initially empty form. Within the **form**, there can be any number
     of different **input** elements that represent different input options. The type
     of input represented by each element is controlled by the **input** attribute
     **type**. Consider the following simple (login) form as an example:'
+  id: totrans-174
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，在深入了解这些应用之前，让我们首先看看如何在HTML中构建表单。表单总是通过HTML元素**form**来创建的。这会创建一个最初为空的表单。在**form**内，可以有任意数量的不同**input**元素，代表不同的输入选项。每个元素所代表的输入类型由**input**属性中的**type**控制。考虑以下简单的（登录）表单作为示例：
 - en: '**<form** action="http://www.mysupernicewebsite.com/login.php" method="POST"**>**Username:
     **<br>****<input** type="entry" value="" name="username"**><br>**Password: **<br>****<input**
     type="password" value="" name="password"**><br>****<input** type="submit" value="Login"**>****</form>**In
     this example, we create a form with a total of three input elements:'
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<form** action="http://www.mysupernicewebsite.com/login.php" method="POST"**>**用户名：**<br>****<input**
+    type="entry" value="" name="username"**><br>**密码：**<br>****<input** type="password"
+    value="" name="password"**><br>****<input** type="submit" value="登录"**>****</form>**在这个例子中，我们创建了一个包含三个输入元素的表单：'
 - en: an element of type **entry** for the username; this is a simple text input field
+  id: totrans-176
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**entry** 类型的元素，用于输入用户名；这是一个简单的文本输入框'
 - en: an element of the type **password**, which is ultimately a special variant of
     the type **entry**, where the entered characters are masked by asterisks
+  id: totrans-177
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**password** 类型的元素，这实际上是**entry**类型的特殊变体，输入的字符会被星号掩盖'
 - en: an element of type **submit**, a special button that sends the form content
     to the server
+  id: totrans-178
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**submit** 类型的元素，一种将表单内容发送到服务器的特殊按钮'
 - en: Besides these, there are a number of other types of input elements, for example
     **button** (“normal” buttons, the **submit** type has a very special function
     as a button), **radio** (radio buttons), **checkbox** which can then in turn be
@@ -937,8 +1367,10 @@
     text input). There are also input elements that allow the selection of dates (**date**),
     colors (**color**) or files to be uploaded (**file**), plus a range of other elements
     that support other input modes.
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了这些，还有许多其他类型的输入元素，例如**button**（“普通”按钮，**submit**类型的按钮有一个非常特殊的功能），**radio**（单选按钮），**checkbox**（复选框，可以进行查询），**range**（滑块）和**textarea**（多行文本输入）。还有允许选择日期的输入元素（**date**）、颜色（**color**）或上传文件（**file**），以及其他支持输入模式的元素。
 - en: All elements have a **value** attribute that contains their current value; in
     the case of the text input fields, this is the text currently in the input field,
     and in the case of the **submit** button, it is the button label. This attribute
@@ -952,8 +1384,10 @@
     this is especially true for the individual selection options in a group of radio
     buttons, where only one option can be selected at a time (we will take a closer
     look at this in an example below).
+  id: totrans-180
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有元素都有一个**value**属性，包含它们的当前值；对于文本输入框来说，这是当前输入框中的文本，而对于**submit**按钮来说，这是按钮的标签。这个属性非常重要，因为它可以用来确定用户的输入，这些输入将被处理。除了**value**，输入元素还可以有一个**name**属性（与所有HTML元素一样）。如果你想在服务器端访问输入值，这非常有用。另一方面，如果我们仅在客户端使用JavaScript，我们也可以像平常一样通过**id**属性访问这些元素，为了简便，以上示例中省略了**id**。**name**还用于将那些需要一起评估的元素进行分组；这尤其适用于单选按钮组中的单个选择项，其中每次只能选择一个选项（我们将在下面的示例中深入探讨这个问题）。
 - en: The behavior of the input elements can be fine-tuned with a number of other
     attributes; for example, the **required** attribute prevents the form from being
     submitted if the field in question is not filled in, and the **readonly** attribute
@@ -963,8 +1397,12 @@
     **required** in practice. The mere existence of the attribute is already evaluated
     as **true** and would be sufficient in this case to make the input element in
     question a mandatory specification.
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: 输入元素的行为可以通过许多其他属性进行微调；例如，**required** 属性如果字段未填写则会阻止表单提交，而 **readonly** 属性则会阻止用户修改输入元素的当前值。这两个属性都是
+    **boolean** 类型，因此它们的值可以是 **true** 或 **false**。然而，实际上我们通常看到的是仅仅使用 **required**，而不是
+    **required="true"**。该属性的存在本身就被评估为 **true**，在这种情况下已经足够将输入元素指定为必填项。
 - en: In addition to these standard attributes, the various input elements can have
     other type-specific attributes. For example, the **range** input element, which
     represents a slider, has the attributes **min** and **max**, which describe the
@@ -972,8 +1410,11 @@
     slider (which can then in turn be queried in the **value** attribute); checkboxes
     have a **boolean** attribute with **checked**, which specifies whether the checkbox
     should currently be checked or not.
+  id: totrans-182
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了这些标准属性外，各种输入元素还可以具有其他特定类型的属性。例如，**range** 输入元素（表示滑块）具有 **min** 和 **max** 属性，用于描述可以通过滑块选择的范围的限制（该范围的值随后可以在
+    **value** 属性中查询）；复选框有一个 **boolean** 类型的 **checked** 属性，用于指定复选框当前是否应该被选中。
 - en: So far, we have not discussed the attributes of the **form** element itself.
     The attribute **action** determines which address should be called (usually a
     PHP script) to pass the data to the server when the user triggers the submission
@@ -981,8 +1422,12 @@
     be used to transfer the data via the *Hypertext Transfer Protocol* (HTTP). The
     default value of this attribute is **GET**, but **POST** is usually used when
     sensitive data such as passwords is to be transferred.
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们尚未讨论 **form** 元素本身的属性。**action** 属性决定了在用户通过 **submit** 按钮触发表单提交时，应该调用哪个地址（通常是
+    PHP 脚本）来将数据传递给服务器。**method** 属性决定了应使用哪种方式通过 *超文本传输协议*（HTTP）来传输数据。该属性的默认值是 **GET**，但当需要传输敏感数据（例如密码）时，通常使用
+    **POST**。
 - en: The attributes **action** and **method** of the **form** element, as well as
     the submit **button**, with which the data can be sent, are however only needed
     if the entered data is to be transferred to a web server. The color picker example
@@ -990,12 +1435,18 @@
     uses buttons but no **submit** button. Both applications process the data directly
     in a client-side JavaScript program and can therefore do without any precautions
     for sending the data.
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: '**form** 元素的 **action** 和 **method** 属性，以及用于发送数据的 **submit** 按钮，只有在要将输入的数据传输到
+    web 服务器时才需要。然而，本章结尾的颜色选择器示例根本不需要任何按钮，计算器示例使用了按钮，但没有 **submit** 按钮。两个应用程序都直接在客户端
+    JavaScript 程序中处理数据，因此可以不需要任何传输数据的预防措施。'
 - en: 32.5.2 Accessing Forms from JavaScript
+  id: totrans-185
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.5.2 从 JavaScript 访问表单
 - en: From within our JavaScript programs, we regularly want to work with the data
     that the user has entered into a form. To do this, we need to access the form
     elements from JavaScript to get to the data they contain, but we also need to
@@ -1003,22 +1454,31 @@
     an action by the user. After all, in the area of web interfaces, we are also operating
     in an *event-driven* environment in which the user triggers events (for example,
     by clicking on a button) and our JavaScript application reacts to them.
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的 JavaScript 程序中，我们经常需要处理用户在表单中输入的数据。为了做到这一点，我们需要从 JavaScript 访问表单元素，以获取它们包含的数据，同时还需要找到一种方式将这种访问（以及随后的数据处理）与用户的操作关联起来。毕竟，在
+    web 界面领域，我们也在一个 *事件驱动* 的环境中工作，用户触发事件（例如，点击按钮），然后我们的 JavaScript 应用程序对此做出反应。
 - en: To learn about the event control procedure and how to access the form data,
     let’s look at our well-used example, the temperature conversion between degrees
     Celsius and Kelvin.
+  id: totrans-187
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了了解事件控制过程及如何访问表单数据，让我们来看一个常见的例子，即摄氏度与开尔文之间的温度转换。
 - en: This application could have an interface where the user enters a temperature
     and decides whether to convert that temperature to degrees Celsius (they had entered
     a Kelvin temperature) or to Kelvin (they had entered a Celsius temperature). A
     click on a button starts the conversion and outputs the result.
+  id: totrans-188
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个应用程序可以有一个界面，用户输入温度并决定是否将该温度转换为摄氏度（如果输入的是开尔文温度）或转换为开尔文（如果输入的是摄氏度温度）。点击按钮启动转换并输出结果。
 - en: 'The HTML code of such an interface looks like this:'
+  id: totrans-189
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样的界面的HTML代码如下所示：
 - en: '**<!DOCTYPE html>****<html>****<head>****<title>**Temperature Conversion</title>**<noscript>**Please
     activate JavaScript!**</noscript>****</head>****<body>****<script** src="kelvincelsius.js"**></script>****<h1>**Temperature
     conversion Kelvin <=> degrees Celsius **</h1>****<form>****<p>**Temperature for
@@ -1028,32 +1488,50 @@
     type="radio" name="direction"onchange="change(''Celsius'')"**>**Kelvin**</p>****<p></p>****<input**
     type="button" value="Convert"onclick="convert()"**>****</form>****</body>****</html>**This
     is also shown in ◘ Fig. [32.6](#Fig6)![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig6_HTML.jpg)'
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>****<html>****<head>****<title>**温度转换</title>**<noscript>**请启用JavaScript！**</noscript>****</head>****<body>****<script**
+    src="kelvincelsius.js"**></script>****<h1>**温度转换：开尔文 <=> 摄氏度**</h1>****<form>****<p>**输入要转换的温度：**<input**
+    id="temp" type="text" value="" size="5"**>****<span** id="unitLabel"> 开尔文**</span></p>**转换为：**<br>****<p><input**
+    type="radio" name="direction" checked onchange="change(''Kelvin'')"**>**摄氏度**</p>****<p><input**
+    type="radio" name="direction" onchange="change(''Celsius'')"**>**开尔文**</p>****<p></p>****<input**
+    type="button" value="转换" onclick="convert()"**>****</form>****</body>****</html>**如图◘
+    [32.6](#Fig6)所示！[](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig6_HTML.jpg)'
 - en: A screenshot of a H T M L form of Kelvin-celsius conversion. It has a text box
     to give input and 2 radio buttons to select degrees Celsius or Kelvin. A convert
     button is at the bottom.
+  id: totrans-191
   prefs: []
   type: TYPE_NORMAL
+  zh: 一张开尔文-摄氏度转换的HTML表单截图。它有一个文本框用于输入，两个单选按钮用于选择摄氏度或开尔文。底部有一个转换按钮。
 - en: Fig. 32.6
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.6
 - en: Kelvin-Celsius conversion with HTML form
+  id: totrans-193
   prefs: []
   type: TYPE_NORMAL
+  zh: 开尔文-摄氏度转换的HTML表单
 - en: The form includes a text input with the ID **temp** for *temperature*, two radio
     buttons (**direction**) to define the conversion direction and a button that triggers
     the conversion.
+  id: totrans-194
   prefs: []
   type: TYPE_NORMAL
+  zh: 该表单包括一个ID为**temp**的文本输入框，用于输入*温度*，两个单选按钮（**direction**）用来定义转换方向，还有一个按钮触发转换操作。
 - en: You will also see an HTML element that we haven’t encountered before, namely
     **span**. **span** doesn’t have any special function, but it helps us to give
     a text display its own ID so that we can address it from within our JavaScript
     program. On our **span** element **unitLabel**, we represent the unit in which
     the user enters the temperature. Every time he changes the selection regarding
     the conversion direction, this unit display must also change.
+  id: totrans-195
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还会看到一个我们以前没见过的HTML元素，即**span**。**span**本身没有任何特殊功能，但它帮助我们为文本显示提供一个自己的ID，以便在JavaScript程序中访问它。在我们的**span**元素**unitLabel**中，我们表示用户输入温度的单位。每次他更改转换方向的选择时，这个单位显示也必须随之更改。
 - en: 'We have combined the two radio buttons via their **name** attribute: This means
     that they belong to one group, so only one of them can be selected at a time.
     Please note that the grouping of the radio buttons is realized via the **name**
@@ -1064,15 +1542,19 @@
     has neither an ID nor a name. Neither is necessary, since the button triggers
     an action and thus triggers our JavaScript program, but we do not need to access
     it from within the program.'
+  id: totrans-196
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过**name**属性将两个单选按钮组合在一起：这意味着它们属于同一组，因此一次只能选择其中一个。请注意，单选按钮的分组是通过**name**属性实现的，而不是通过**id**属性。区别在于ID是一个*唯一*标识符，因此不能有两个元素具有相同的ID。我们的两个单选按钮根本没有ID，因为我们也可以通过名称在JavaScript程序中访问它们。启动转换的按钮甚至没有ID或名称。两者都不是必须的，因为按钮触发一个操作，从而启动我们的JavaScript程序，但我们不需要在程序中访问它。
 - en: The **p** and **br** elements have a purely design function (**br** creates
     a simple line break), they help us to make the form a bit more visually appealing.
     So, as you can see, not only **input** elements can be placed in a **form** element,
     but you can use the whole HTML element variety (including tables and images) to
     build an attractive form.
+  id: totrans-197
   prefs: []
   type: TYPE_NORMAL
+  zh: '**p**和**br**元素仅具有设计功能（**br**创建一个简单的换行符），它们帮助我们使表单看起来更加视觉吸引人。所以，正如您所看到的，**form**元素中不仅可以放置**input**元素，还可以使用整个HTML元素种类（包括表格和图片）来构建一个吸引人的表单。'
 - en: 'However, we have not yet considered a very important part of the form: The
     **onchange** and **onclick** attributes of the **direction** radio button and
     the **Convert** button. The value of each of these attributes is a JavaScript
@@ -1082,19 +1564,30 @@
     is triggered. When the **click** event occurs, the browser automatically checks
     whether the **onclick** attribute is set and, if so, executes the JavaScript function
     specified there. In this way, we link our interface to the JavaScript program.'
+  id: totrans-198
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，我们还没有考虑表单中的一个非常重要的部分：**direction**单选按钮和**Convert**按钮的**onchange**和**onclick**属性。每个属性的值是一个JavaScript函数（一个*事件处理函数*），该属性的名称与一个事件相关联，即在该事件发生时会调用相应的JavaScript函数。例如，当用户点击我们的按钮时，**click**事件会被触发。当**click**事件发生时，浏览器会自动检查**onclick**属性是否已设置，如果已设置，则执行其中指定的JavaScript函数。通过这种方式，我们将界面与JavaScript程序连接起来。
 - en: 'In our example, this looks like this:'
+  id: totrans-199
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的示例中，它看起来是这样的：
 - en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
     direction = document.getElementsByName(''direction'');**if**(direction[0].checked
     == **true**) {document.write(`<p>${temp} Kelvin are${temp - 273.15} degrees Celsius.<p>`);}**else**
     {document.write(`<p>${temp} degrees Celsius are${temp + 273.15} Kelvin.<p>`);}}**function**
     change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
     = unit;}'
+  id: totrans-200
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {document.write(`<p>${temp} Kelvin are${temp - 273.15} degrees Celsius.<p>`);}**else**
+    {document.write(`<p>${temp} degrees Celsius are${temp + 273.15} Kelvin.<p>`);}}**function**
+    change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
+    = unit;}'
 - en: 'The whole program consists of only two functions, namely the two event handlers
     that are linked to the radio buttons and the main button of our application. The
     function **change()** is stored as an event handler with the **onchange** attributes
@@ -1105,13 +1598,17 @@
     is the unit to be displayed on our **span** element **unitLabel** as the unit
     for the user input. In the HTML code you can see very clearly that the event handler
     is immediately given the desired unit as a parameter when it is called: **onchange="change(''Kelvin'')"**.'
+  id: totrans-201
   prefs: []
   type: TYPE_NORMAL
+  zh: 整个程序仅由两个函数组成，即与单选按钮和主按钮相关联的两个事件处理函数。函数**change()**作为事件处理函数存储在单选按钮的**onchange**属性中，因此每当**change**事件发生时，都会调用该函数。每当用户点击单选按钮中的一个时（顺便说一句，我们也可以将事件处理程序附加到**click**事件上），此事件便会发生。当事件发生时，函数会被调用，并传入一个参数，即要显示在**span**元素**unitLabel**中的单位，用于表示用户输入的单位。在HTML代码中，您可以清楚地看到，每当调用事件处理函数时，它都会立即传递所需的单位作为参数：**onchange="change('Kelvin')"**。
 - en: Inside the event handler **change()** we first select the **span** element with
     **document.getElementById()** and then replace the HTML code inside it; in our
     example this is just plain text without any further HTML coding anyway.
+  id: totrans-202
   prefs: []
   type: TYPE_NORMAL
+  zh: 在事件处理函数**change()**中，我们首先使用**document.getElementById()**选择**span**元素，然后替换其中的HTML代码；在我们的示例中，这只是纯文本，实际上没有任何其他的HTML编码。
 - en: But now to our other event handler, **convert()**, which is called whenever
     the user clicks the “Convert” button. It has a very simple structure. First, we
     get the temperature by querying the **value** attribute of the **temp** input
@@ -1133,67 +1630,94 @@
     a conversion from Kelvin to degrees Celsius. We then output this to the web page
     with **document.write()** using a template literal (if you are no longer familiar
     with template literals, scroll back a few pages to ► Sect. [32.2](#Sec2)).
+  id: totrans-203
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在来看我们的另一个事件处理程序，**convert()**，它在用户点击“转换”按钮时被调用。它的结构非常简单。首先，我们通过查询**temp**输入框的**value**属性来获取温度值，我们是通过ID选择该输入框的。注意，我们需要将该值转换为**number**变量，因为我们想要用温度值进行计算。表单本身始终将输入的值保存为**string**；有一些方法可以配置表单输入框，使其一开始就只允许输入数字，但为了简单起见，我们这里没有这样做。接下来，我们通过名称选择单选按钮。为此，我们使用**getElementsByName()**函数。请注意**Elements**中的复数s！由于名称不像ID那样不一定是唯一的，因此在通过名称选择时，可能会选择到多个元素。这正是我们示例中的情况。调用**getElementsByName()**返回的值是一个*数组*，在我们的例子中是两个单选按钮。接下来的步骤是使用单选按钮的**checked**属性来检查我们的第一个单选按钮（索引0！）是否被选中。此时不用太担心If-Else结构，我们将在►第[34.1节](474412_1_En_34_Chapter.xhtml#Sec1)中详细讨论这类程序分支。如果第一个单选按钮被选中，意味着我们程序的用户希望将温度从开尔文转换为摄氏度。然后，我们通过**document.write()**将其输出到网页上，使用的是模板字符串（如果你不再熟悉模板字符串，请翻回几页到►第[32.2节](#Sec2)）。
 - en: As you can see, our JavaScript program consists entirely of event handlers that
     lie dormant until they are triggered by the browser because an event has occurred
     to which they are linked. We will deal with events in more detail in ► Sect. [34.​3](474412_1_En_34_Chapter.xhtml#Sec5),
     when we talk about program flow control. At this point, it is sufficient to understand
     the basic mechanism by which we can “wire” our JavaScript code to the interface
     controls.
+  id: totrans-204
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们的JavaScript程序完全由事件处理程序组成，这些事件处理程序在浏览器触发它们时才会激活，因为有某个事件发生，并且它们与该事件相连。我们将在►第[34.3节](474412_1_En_34_Chapter.xhtml#Sec5)中更详细地讨论事件，当时我们将讲解程序流程控制。在这一点上，了解基本机制足矣，它告诉我们如何将JavaScript代码与界面控件进行“连接”。
 - en: 32.4 [5 min]
+  id: totrans-205
   prefs: []
   type: TYPE_NORMAL
+  zh: 32.4 [5分钟]
 - en: Modify the Kelvin-Celsius conversion example so that the output is not done
     with **document.write()**, but to an HTML element of type **span** that must be
     built into the web page interface for this purpose.
+  id: totrans-206
   prefs: []
   type: TYPE_NORMAL
+  zh: 修改开尔文-摄氏度转换示例，使输出不再通过**document.write()**完成，而是输出到一个必须在网页界面中内嵌的类型为**span**的HTML元素中。
 - en: 32.5 [30 min]
+  id: totrans-207
   prefs: []
   type: TYPE_NORMAL
+  zh: 32.5 [30分钟]
 - en: Develop a simple application in which one can use a slider to change the font
     size of some sample text displayed on the application’s web page. The font size
     can be set in HTML/CSS via the **fontsize** CSS style option and is specified
     in pixels (**px**); a valid font size setting would, for example, be **'18px'**.
     If you think you need some more “inspiration” before tackling this task, first
     deal with the examples in the following two sections.
+  id: totrans-208
   prefs: []
   type: TYPE_NORMAL
+  zh: 开发一个简单的应用程序，在该程序中，用户可以使用滑块来改变应用程序网页上显示的一些示例文本的字体大小。字体大小可以通过HTML/CSS中的**fontsize**
+    CSS样式选项设置，并且以像素（**px**）为单位；有效的字体大小设置可以是例如**'18px'**。如果你觉得在开始这项任务之前需要一些“灵感”，可以先处理接下来的两个章节中的示例。
 - en: '32.6 Example: Simple Calculator'
+  id: totrans-209
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.6 示例：简单计算器
 - en: In this and the next section, we will develop two little example applications.
     First, we turn to a simple calculator. The calculator should be able to handle
     the four basic arithmetic operations and allow copying the result of the calculation
     to the clipboard. The input of numbers and operators shall be done either by buttons
     or by direct input via the keyboard.
+  id: totrans-210
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本节及下一节中，我们将开发两个小示例应用程序。首先，我们将实现一个简单的计算器。该计算器应能处理四种基本的算术运算，并允许将计算结果复制到剪贴板。数字和运算符的输入可以通过按钮或通过键盘直接输入。
 - en: 'Our application consists of three files:'
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的应用程序由三个文件组成：
 - en: the HTML file **calculator.html**, which builds the web interface
+  id: totrans-212
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: HTML 文件 **calculator.html**，构建网络接口
 - en: the Cacading-Style-Sheet-(CSS-)file **calculator.css**, which helps us to define
     the design of the buttons and the display, as well as
+  id: totrans-213
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 层叠样式表（CSS）文件 **calculator.css**，帮助我们定义按钮和显示器的设计，以及
 - en: the JavaScript program **calculator.js**, which provides the functionality for
     the interface
+  id: totrans-214
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 程序 **calculator.js**，提供接口功能
 - en: 32.6.1 The Web Interface
+  id: totrans-215
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.6.1 网络接口
 - en: Let’s start with the HTML file **calculator.html**:1 **<!DOCTYPE html>**2 **<html>**34
     **<head>**5 **<title>**Calculator**</title>**6 **<link** rel="stylesheet" type="text/css"
     href="calculator.css"**>**7 **<noscript>**Please activate JavaScript!**</noscript>**8
@@ -1218,25 +1742,60 @@
     onclick="key('0')"**>**36 **<input** type="button" value="." class="normalButton"onclick="key('.')"**>**37
     **<input** type="button" value="=" class="normalButtonfunctionButton" onclick="calculate()"**>**38
     **</form>**39 **</body>**4041 **</html>**Lines 1–8
+  id: totrans-216
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从 HTML 文件 **calculator.html** 开始：1 **<!DOCTYPE html>**2 **<html>**34 **<head>**5
+    **<title>**计算器**</title>**6 **<link** rel="stylesheet" type="text/css" href="calculator.css"**>**7
+    **<noscript>**请启用 JavaScript！**</noscript>**8 **</head>**910 **<body** bgcolor="#282923"**>**11
+    **<script** src="calculator.js"**></script>**1213 **<form>**14 **<input** id="display"
+    type="text" value="0" class="inputOutput"**>**15 **<p></p>**16 **<input** type="button"
+    value="C" class="normalButton functionButton" onclick="clearDisplay()"**>**17
+    **<input** type="button" value="复制" style="width:104px" class="normalButton functionButton"
+    onclick="copy()"**>**18 **<input** type="button" value="/" class="normalButton
+    functionButton" onclick="key('/')"**>**19 **<p></p>**20 **<input** type="button"
+    value="7" class="normalButton" onclick="key('7')"**>**21 **<input** type="button"
+    value="8" class="normalButton" onclick="key('8')"**>**22 **<input** type="button"
+    value="9" class="normalButton" onclick="key('9')"**>**23 **<input** type="button"
+    value="*" class="normalButton functionButton" onclick="key('*')"**>**24 **<p></p>**25
+    **<input** type="button" value="4" class="normalButton" onclick="key('4')"**>**26
+    **<input** type="button" value="5" class="normalButton" onclick="key('5')"**>**27
+    **<input** type="button" value="6" class="normalButton" onclick="key('6')"**>28
+    **<input** type="button" value="-" class="normalButton functionButton" onclick="key('-')"**>**29
+    **<p></p>**30 **<input** type="button" value="1" class="normalButton" onclick="key('1')"**>**31
+    **<input** type="button" value="2" class="normalButton" onclick="key('2')"**>**32
+    **<input** type="button" value="3" class="normalButton" onclick="key('3')"**>**33
+    **<input** type="button" value="+" class="normalButton functionButton" onclick="key('+')"**>**34
+    **<p></p>**35 **<input** type="button" value="0" class="normalButton" style="width:104px"
+    onclick="key('0')"**>**36 **<input** type="button" value="." class="normalButton"
+    onclick="key('.')"**>**37 **<input** type="button" value="=" class="normalButton
+    functionButton" onclick="calculate()"**>**38 **</form>**39 **</body>**4041 **</html>**
+    第 1–8 行
 - en: The usual HTML header, in which we first include the CSS file **calculator.css**
     and use the **noscript** element to make a provision for the case where the user
     has JavaScript disabled in his browser. The CSS file is integrated with the **link**
     element.
+  id: totrans-217
   prefs: []
   type: TYPE_NORMAL
+  zh: 常见的HTML头部，在这里我们首先包含了CSS文件**calculator.css**，并使用**noscript**元素为用户在浏览器中禁用JavaScript的情况做出预处理。CSS文件通过**link**元素进行集成。
 - en: Line 10
+  id: totrans-218
   prefs: []
   type: TYPE_NORMAL
+  zh: 第10行
 - en: We set the background of the web page by the **bgcolor** attribute to a dark
     shade, so that our calculator also looks stylish. After all, the eye does the
     math!
+  id: totrans-219
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过**bgcolor**属性将网页背景设置为深色调，这样我们的计算器看起来也更加时尚。毕竟，眼睛也在做数学！
 - en: Line 11
+  id: totrans-220
   prefs: []
   type: TYPE_NORMAL
+  zh: 第11行
 - en: We include the script **calculator.js**, which contains the actual functionality
     of the page. It is technically executed at this early point when the web page
     is loaded, but as we will see below, it only consists of functions that are called
@@ -1245,18 +1804,26 @@
     the application side when the script is executed. We could just as well have included
     the script in the **body** segment of our website. This would not affect the functionality
     of the application.
+  id: totrans-221
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们包含了脚本**calculator.js**，该脚本包含了页面的实际功能。从技术上讲，它在网页加载时就会被执行，但正如我们下面所看到的，它仅由一些作为事件处理程序被调用的函数组成，换句话说，它是由各个按钮驱动的事件驱动型脚本。只要这些函数没有被明确调用，脚本执行时应用程序端什么都不会发生。我们完全可以将脚本放在网页的**body**部分，这不会影响应用程序的功能。
 - en: Lines 13 and 38
+  id: totrans-222
   prefs: []
   type: TYPE_NORMAL
+  zh: 第13行和第38行
 - en: The rest of the **body** segment of our page is an HTML form that contains all
     the controls of the calculator.
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们页面的其余**body**部分是一个HTML表单，包含了计算器的所有控件。
 - en: Line 14
+  id: totrans-224
   prefs: []
   type: TYPE_NORMAL
+  zh: 第14行
 - en: Here we define the display of our calculator. We give it the id **"display"**
     so that we can address it later from our JavaScript program. Its type is **text**,
     so it is an input field, after all, the user should also be able to enter numbers
@@ -1272,11 +1839,15 @@
     element in the header of the page, which also contains design statements for the
     class **inputOutput**, and the display of the display would change without us
     having to adjust the actual web page (the HTML document).
+  id: totrans-225
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里我们定义了计算器的显示区域。我们给它设置了id为**"display"**，以便以后可以在JavaScript程序中引用。它的类型是**text**，所以它是一个输入字段，毕竟用户也应该能够通过键盘输入数字和运算符；在我们的计算器中，用户可以直接在显示区域输入。初始值应该为0，除非用户输入了其他内容。另外，我们通过**class**属性为显示区域赋予了一个类信息。对于这个类，我们定义了**inputOutput**，在CSS文件中有专门的设计说明。所以，我们不需要通过HTML代码中的属性（特别是CSS属性**style**）直接定义样式，而是将这些设置外包到单独的CSS文件中，使我们的代码更加清晰，易于维护。这样，如果我们想要更改计算器显示区域的样式，我们只需要通过页面头部的**link**元素包含另一个CSS文件，其中也包含了**inputOutput**类的设计声明，这样显示区域的样式就会改变，而我们无需调整实际的网页（HTML文档）。
 - en: Lines 16–37
+  id: totrans-226
   prefs: []
   type: TYPE_NORMAL
+  zh: 第16至37行
 - en: This is where the actual buttons come in. Through the **onclick** attribute,
     we assign a JavaScript function to each of the buttons, which is triggered whenever
     the user clicks on the button. This event handler function is either the function
@@ -1291,38 +1862,54 @@
     ensures that these buttons get an orange coloring, while the buttons of the **normalButton**
     class get the default coloring (usually a shade of gray). We’ll take a closer
     look at this later in connection with the CSS instructions.
+  id: totrans-227
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是实际按钮的作用。通过**onclick**属性，我们为每个按钮分配一个JavaScript函数，该函数在用户点击按钮时触发。这个事件处理函数要么是**key(character)**，它将数字或运算符作为参数传递给按钮，要么是特殊函数**calculate()**，用于在用户点击等号时触发计算，或者是**clear()**，用于清除显示内容，或者是**copy()**，用于将当前显示的内容复制到剪贴板。最初，除了特殊功能按钮（如运算符、复制、清除和等号按钮）之外，所有按钮的**class**属性都为**normalButton**。功能按钮不仅属于**normalButton**类，还属于**functionButton**类。**functionButton**类确保这些按钮具有橙色的背景色，而**normalButton**类的按钮则具有默认的颜色（通常是灰色的阴影）。稍后我们会结合CSS指令详细了解这一点。
 - en: 'As you may have noticed, the buttons themselves have not been given an **id**.
     Strictly speaking, this is a bit messy, but it’s not necessary for us, since we
     don’t need to address the buttons from our JavaScript code. It’s the other way
     around: the buttons address our code by calling the corresponding event handler
     function when they are clicked by the user.'
+  id: totrans-228
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，按钮本身没有被赋予**id**。严格来说，这有些乱，但对我们来说并不必要，因为我们不需要通过JavaScript代码来访问按钮。恰恰相反：按钮通过点击时调用相应的事件处理函数来访问我们的代码。
 - en: You can see the entire interface in ◘ Fig. [32.7](#Fig7).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig7_HTML.jpg)
+  id: totrans-229
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在◘ 图 [32.7](#Fig7) 中看到完整的界面。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig7_HTML.jpg)
 - en: A screenshot of the calculator interface. It has a display screen at the top,
     numbers from 0 to 9, signs for division, multiplication, minus, addition, equal
     to, C, and copy.
+  id: totrans-230
   prefs: []
   type: TYPE_NORMAL
+  zh: 计算器界面的截图。界面顶部有一个显示屏，下方有从0到9的数字，除法、乘法、减法、加法、等号、C和复制的符号。
 - en: Fig. 32.7
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.7
 - en: The interface of the calculator application
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: 计算器应用程序的界面
 - en: 32.6.2 The CSS Design Instructions
+  id: totrans-233
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.6.2 CSS设计指令
 - en: In order to separate the basic structure of the interface described in the HTML
     file from the detailed design of the individual elements, we move the latter in
     our example to a separate CSS file **calculator.css**.
+  id: totrans-234
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了将HTML文件中描述的界面基本结构与各个元素的详细设计分离，我们在本例中将后者移到一个独立的CSS文件**calculator.css**中。
 - en: The CSS file defines design statements for three classes of objects, **normalButton**
     (basically all buttons), **functionButton** (the function buttons) and **inputOutput**
     (the display of our calculator). The design statements are presented per class
@@ -1333,20 +1920,31 @@
     buttons belong to two classes, **normalButton**, which is the class for all buttons,
     and the special class **functionButton**. The CSS selector **.functionButton**
     therefore causes the appropriate design statements to be applied to these buttons.
+  id: totrans-235
   prefs: []
   type: TYPE_NORMAL
+  zh: CSS文件为三类对象定义了设计声明，分别是**normalButton**（基本所有按钮）、**functionButton**（功能按钮）和**inputOutput**（计算器的显示屏）。这些设计声明按类在一个用花括号括起来的CSS块中呈现。该块前面是*选择器*，它指定了要应用设计声明的网页HTML元素。前面的点表示“所有**class**属性*包含*指定类的对象”。在►
+    节 [32.6.1](#Sec15) 中，我们看到功能按钮属于两个类：**normalButton**（所有按钮的类）和特殊类**functionButton**。因此，CSS选择器**.functionButton**会使适当的设计声明应用于这些按钮。
 - en: '1 .normalButton {2 width:50px;3 height:50px;4 }56 .functionButton {7 background-color:
     #ED5036;8 color: #FFFFFF;9 border: 1px solid #ED5036;10 }1112 .inputOutput {13
     width:208px;14 height:60px;15 background-color: #282923;16 color: #66FF33;17 border:
     1px solid #ED5036;18 padding-right: 5px;19 font-family: "Lucida Console";20 font-size:32px;21
     font-weight: bold;22 text-align: right;23 }Lines 2–3'
+  id: totrans-236
   prefs: []
   type: TYPE_NORMAL
+  zh: '1 .normalButton {2 width:50px;3 height:50px;4 }56 .functionButton {7 background-color:
+    #ED5036;8 color: #FFFFFF;9 border: 1px solid #ED5036;10 }1112 .inputOutput {13
+    width:208px;14 height:60px;15 background-color: #282923;16 color: #66FF33;17 border:
+    1px solid #ED5036;18 padding-right: 5px;19 font-family: "Lucida Console";20 font-size:32px;21
+    font-weight: bold;22 text-align: right;23 }第2-3行'
 - en: For the class **normalButton**, and thus initially for all buttons, we define
     height and width in pixels (delete these design statements once from the CSS file
     and reload the page in the browser. What happens?)
+  id: totrans-237
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**normalButton**类，也就是最初所有按钮，我们定义了高度和宽度（从CSS文件中删除这些设计声明并重新加载页面，你会看到什么效果？）
 - en: Lines 7–9For the class **functionButton**, we additionally define special background
     and foreground colors and the design of the button border (here, a one-pixel-wide
     solid line in the same color as the button background). Those buttons that belong
@@ -1375,38 +1973,55 @@
     special CSS block for buttons of class **functionButton** (and the selected button
     is such a button). This way you can quickly see which (values for the) CSS design
     properties your element has and where they come from.![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig8_HTML.jpg)
+  id: totrans-238
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**functionButton**类，我们额外定义了特殊的背景色和前景色，以及按钮边框的设计（这里是与按钮背景色相同的颜色，宽度为一像素的实线）。那些仅属于**normalButton**类的按钮（即，主要是数字按钮）自然也有一个配色方案，但我们没有显式地定义它；因此，使用的是默认值，这通常会导致这些按钮显示为灰色。对于**functionButton**类，我们通过自定义的颜色规范覆盖了这些默认值。一旦你在浏览器中加载了页面，打开开发者工具并点击“Elements”（在非谷歌*Chrome*浏览器中，可能会有不同的标签名称）。在这里，你会看到一个功能按钮（在谷歌*Chrome*浏览器中，位于最左上角），允许你切换到一个特别的元素检查模式。在此模式下，你可以通过点击页面上的元素来选择它，并在开发者工具中获取关于它的更多信息。在元素检查器中（◘
+    图[32.8](#Fig8)），你会在页面的HTML源代码左侧看到所选元素，而在右侧则是该元素的CSS设计规范。设计的默认值是从下往上读取的。在我们的例子中（选中了带有除法运算符的功能按钮），你会看到一系列的CSS设计属性，首先是**input**类的默认值（位于最底部的CSS块），接着是上面的一个专门针对**button**类型的**input**元素的CSS块。再往上，是我们定义的两个按钮类的CSS块，**normalButton**和**functionButton**。一些属性被划掉了。这意味着这些属性被更具体的CSS块所覆盖。例如，**button**类型**input**元素的CSS块中的**color**和**background**属性被划掉了，因为它们在专门为**functionButton**类按钮定义的CSS块中有不同的定义（而且选中的按钮正是这种按钮）。通过这种方式，你可以快速看到你的元素有哪些CSS设计属性及其来源。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig8_HTML.jpg)
 - en: A screenshot of the calculator interface and element inspector. The element
     inspector displays a set of program codes. The header style is displayed on the
     right.
+  id: totrans-239
   prefs: []
   type: TYPE_NORMAL
+  zh: 计算器界面和元素检查器的截图。元素检查器显示一组程序代码，标题样式显示在右侧。
 - en: Fig. 32.8
+  id: totrans-240
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.8
 - en: Element inspector in Google *Chrome*
+  id: totrans-241
   prefs: []
   type: TYPE_NORMAL
+  zh: Google *Chrome*中的元素检查器
 - en: We assign a width directly to the buttons for copying the display content and
     the number 0 in the HTML code of the web interface using your **style** attribute.
     The **style attribute** contains CSS code that applies only to the element in
     question. This takes precedence over all other statements in the CSS stylesheet
     file, as you can see by examining the CSS statement hierarchy of one of the elements
     in the Element inspector.
+  id: totrans-242
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过在网页界面的HTML代码中使用**style**属性，直接为复制显示内容的按钮和数字0分配宽度。**style属性**包含仅应用于当前元素的CSS代码。这优先于CSS样式表文件中的所有其他声明，正如你在元素检查器中检查某个元素的CSS声明层级时所看到的。
 - en: Lines 13–22
+  id: totrans-243
   prefs: []
   type: TYPE_NORMAL
+  zh: 第13–22行
 - en: This is where the design for the calculator display is set; including the background,
     font, color and size, and the text indentation from the edge of the element (*padding*).
+  id: totrans-244
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是设置计算器显示设计的地方；包括背景、字体、颜色和大小，以及元素边缘的文本缩进（*padding*）。
 - en: 32.6.3 The JavaScript Code
+  id: totrans-245
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.6.3 JavaScript 代码
 - en: The JavaScript code of our application consists of the four event handler functions
     that we trigger from the HTML interface when the different buttons are clicked:1
     **function** key(character) {2 **var** display = document.getElementById('display');3
@@ -1416,56 +2031,76 @@
     display.select();14 document.execCommand('copy');15 }1617 **function** calculate()
     {18 var display = document.getElementById('display');19 display.value = Number(eval(display.value)).toFixed(6);20
     }Lines 1–9
+  id: totrans-246
   prefs: []
   type: TYPE_NORMAL
+  zh: '我们应用程序的JavaScript代码由四个事件处理函数组成，当不同的按钮被点击时，它们从HTML界面被触发：  '
 - en: The functions **key(character)** and **clearDisplay()** are event handler functions
     that are called when the user clicks one of the corresponding buttons. As you
     remember, we always call the function **key(character)** from the HTML code of
     the web page with the character as argument (no matter if it is a number or an
     operator) that is assigned to the pressed key. By using this “trick” we only need
     one function for all buttons, instead of a special event handler for each button.
+  id: totrans-247
   prefs: []
   type: TYPE_NORMAL
+  zh: '**key(character)**和**clearDisplay()**函数是事件处理函数，当用户点击对应按钮时会被调用。如你所记，我们总是通过网页的HTML代码调用**key(character)**函数，字符作为参数（无论是数字还是运算符），这个字符分配给被按下的键。通过使用这种“技巧”，我们只需要一个函数来处理所有按钮，而无需为每个按钮编写单独的事件处理器。'
 - en: Both functions change the display on the screen. To do this, we first always
     “grab” the display element of our web page form using the **getElementById()**
     method of the **document** object. Then we change the property **value** of the
     display element, i.e. the text displayed on the input element; with **key()**
     we simply add the label of the pressed button to the current value (line 3).
+  id: totrans-248
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个函数都会更改屏幕上的显示内容。为此，我们首先总是使用**document**对象的**getElementById()**方法“抓取”网页表单中的显示元素。然后我们修改显示元素的**value**属性，也就是输入元素上显示的文本；使用**key()**时，我们仅仅将按下按钮的标签添加到当前值中（第3行）。
 - en: Lines 11–15
+  id: totrans-249
   prefs: []
   type: TYPE_NORMAL
+  zh: 第11–15行
 - en: To copy the current display content to the clipboard, we first select the existing
     text using the **select()** method of the **display input** element and then call
     the browser’s copy command.
+  id: totrans-250
   prefs: []
   type: TYPE_NORMAL
+  zh: 要将当前显示的内容复制到剪贴板，我们首先使用**select()**方法选择现有文本，该方法属于**显示输入**元素，然后调用浏览器的复制命令。
 - en: Lines 17–20
+  id: totrans-251
   prefs: []
   type: TYPE_NORMAL
+  zh: 第17–20行
 - en: 'When the user wants to perform the entered calculation and clicks the button
     with the equal sign, the value of the display is updated. Here we use the function
     **eval(*****expression*****)**, which evaluates the expression passed as a string,
     that is in our case: calculates it. We then convert the result into a number using
     **Number()**, which we then format into a string representation with six decimal
     places using its **toFixed()** method.'
+  id: totrans-252
   prefs: []
   type: TYPE_NORMAL
+  zh: 当用户希望执行输入的计算并点击带有等号的按钮时，显示的值会更新。这里我们使用了**eval(*****expression*****)**函数，它会计算作为字符串传入的表达式，也就是在我们的例子中：对其进行计算。然后我们使用**Number()**将结果转换为数字，再使用**toFixed()**方法将其格式化为六位小数的字符串表示。
 - en: '32.7 Example: Color Picker'
+  id: totrans-253
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.7 示例：颜色选择器
 - en: In this example we develop a small application that allows you to design colors
     according to the red-green-blue (RGB) scheme in a user-friendly way and to convert
     them into the HTML-typical hexadecimal encoding. Such applications, even much
     more sophisticated ones, can be found *en masse* on the Internet.
+  id: totrans-254
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们开发了一个小应用程序，允许用户以简便的方式设计符合红绿蓝（RGB）方案的颜色，并将其转换为 HTML 中常见的十六进制编码。此类应用程序，即使是更为复杂的应用程序，也可以在互联网上**大量**找到。
 - en: 32.7.1 The Web Interface
+  id: totrans-255
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.7.1 Web 界面
 - en: 'The interface of our application is very simple. It consists of three sliders
     that allow you to change the color components of red, green, and blue, and a field
     that displays the resulting color as a hexadecimal code of the form **#RRGGBB**.
@@ -1484,23 +2119,46 @@
     value="255"min="0" max="255" oninput=" adjustColor ()"**>**25 **<input** id="colorBlueOutput"
     type="input" value="255"readonly**>**26 **</form>**2728 **</div>**2930 **<script**
     src="colorpicker.js"></script**>**3132 **</body>**3334 **</html>**'
+  id: totrans-256
   prefs: []
   type: TYPE_NORMAL
+  zh: '我们应用的界面非常简单。它由三个滑块组成，分别用来改变红色、绿色和蓝色的色彩成分，并且有一个字段用来以**#RRGGBB**的十六进制代码形式显示结果颜色。通过滑块选择的颜色将作为网页的背景色，这样用户就能清楚地看到自己所创造的颜色。1
+    **<!DOCTYPE html>**2 **<html>**34 **<head>**5 **<title>**颜色选择器**</title>**6 **<noscript>**请启用
+    JavaScript！**</noscript>**7 **</head>**89 **<body** id="bodyElem"**>**1011 **<div**
+    style="background:#FFFFFF; margin: 0 auto;padding:10px; width:400px;"**>**1213
+    **<form>**14 **<input** id="hexColor" type="input" value="#000000" readonly**>**15
+    **<p>**红色：**</p>**16 **<input** id="colorRedRange" type="range" value="255"min="0"
+    max="255" oninput="adjustColor()"**>**17 **<input** id="colorRedOutput" type="input"
+    value="255"readonly**>**18 **<p></p>**19 **<p>**绿色**</p>**20 **<input** id="colorGreenRange"
+    type="range" value="255"min="0" max="255" oninput=" adjustColor ()"**>**21 **<input**
+    id="colorGreenOutput" type="input" value="255"readonly>22 **<p></p>**23 **<p>**蓝色**</p>**24
+    **<input** id="colorBlueRange" type="range" value="255"min="0" max="255" oninput="
+    adjustColor ()"**>**25 **<input** id="colorBlueOutput" type="input" value="255"readonly**>**26
+    **</form>**2728 **</div>**2930 **<script** src="colorpicker.js"></script**>**3132
+    **</body>**3334 **</html>**'
 - en: 'Let’s look at the interface in detail:'
+  id: totrans-257
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们详细看看界面：
 - en: Line 9
+  id: totrans-258
   prefs: []
   type: TYPE_NORMAL
+  zh: 第 9 行
 - en: This time we give the **body** element of the page an **id** because we want
     to color the background of the page in the selected hue. To do this, we need to
     adjust the **bgcolor** attribute of the **body** element from within our JavaScript
     code.
+  id: totrans-259
   prefs: []
   type: TYPE_NORMAL
+  zh: 这次我们给页面的**body**元素添加了**id**，因为我们想要以所选的色调为背景色渲染页面。为了做到这一点，我们需要在 JavaScript 代码中调整**body**元素的**bgcolor**属性。
 - en: Line 11
+  id: totrans-260
   prefs: []
   type: TYPE_NORMAL
+  zh: 第 11 行
 - en: A **div** element in HTML simply marks a contiguous area on the page, ultimately
     a box that is initially invisible. We put all our controls in such a box. We can
     then color the **div** element white using its CSS attribute **style** (**#FFFFFF**
@@ -1509,19 +2167,26 @@
     In addition, we equip the box with a margin of 10 pixels wide using the **padding**
     property, so that the controls have some free space to the edge of the box and
     fix the width of the box to 400 pixels.
+  id: totrans-261
   prefs: []
   type: TYPE_NORMAL
+  zh: HTML中的**div**元素简单地标记了页面上的一个连续区域，最终形成一个最初不可见的框。我们将所有控件放在这样的框中。然后，我们可以使用CSS属性**style**将**div**元素的颜色设置为白色（**#FFFFFF**表示红色、绿色和蓝色的颜色部分均为255），并将其居中显示在页面上（通过将**margin**属性的值设置为**0
+    auto**实现）。此外，我们还使用**padding**属性为该框设置了10像素的外边距，这样控件就可以离框的边缘有一些空白空间，并将框的宽度固定为400像素。
 - en: Lines 13–26
+  id: totrans-262
   prefs: []
   type: TYPE_NORMAL
+  zh: 第13至26行
 - en: The form inside the **div** box consists of a text input field in which we display
     the color code converted to hexadecimal notation (line 14). By default, the color
     should be white as long as the user has not selected a different color via the
     sliders. We also want the input field to be read-only, so we add the attribute
     **readonly**, which is a **boolean** attribute and therefore does not require
     an explicit value assignment for a true value (but we could have written **readonly="true"**).
+  id: totrans-263
   prefs: []
   type: TYPE_NORMAL
+  zh: '**div**框内的表单包含一个文本输入框，在其中显示转换为十六进制表示的颜色代码（第14行）。默认情况下，颜色应为白色，除非用户通过滑块选择了其他颜色。我们还希望输入框为只读，因此添加了**readonly**属性，这是一个**boolean**类型的属性，因此不需要显式赋值为真（但我们也可以写成**readonly="true"**）。'
 - en: Then we add three sliders (**color*****Colorname*****Range**), one for each
     color part ***Colorname*** of our RGB value. The sliders are of type **range**
     and are adjustable between 0 (**min**) and 255 (**max**). Each time the user moves
@@ -1531,30 +2196,45 @@
     portion in a (readonly) input field (**color*****Colorname*****Output**) next
     to the slider. By using the empty paragraph elements **<p></p>** we provide line
     breaks and thus better readability.
+  id: totrans-264
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们添加了三个滑块（**color*****Colorname*****Range**），每个滑块对应RGB值的一个颜色部分***Colorname***。这些滑块的类型为**range**，其可调范围在0（**min**）和255（**max**）之间。每当用户移动滑块时（事件**oninput**），事件处理函数**adjustColor()**被触发，该函数将调整**hexColor
+    input**字段中的十六进制颜色代码，重置页面的背景颜色，并最终在滑块旁边的（只读）输入框中显示新的颜色值（**color*****Colorname*****Output**）。通过使用空段落元素**<p></p>**，我们提供了换行，从而提高了可读性。
 - en: You can see the entire interface in ◘ Fig. [32.9](#Fig9).![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig9_HTML.jpg)
+  id: totrans-265
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在◘ 图 [32.9](#Fig9)中看到整个界面。![](../images/474412_1_En_32_Chapter/474412_1_En_32_Fig9_HTML.jpg)
 - en: A screenshot of the color picker application interface. It has 3 colors, and
     each has a slider and a textbox. Numerical data are given in the text boxes.
+  id: totrans-266
   prefs: []
   type: TYPE_NORMAL
+  zh: 颜色选择器应用界面的截图。它有三个颜色，每个颜色都有一个滑块和一个文本框。文本框中显示了数值数据。
 - en: Fig. 32.9
+  id: totrans-267
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 32.9
 - en: The Color Picker application interface
+  id: totrans-268
   prefs: []
   type: TYPE_NORMAL
+  zh: 颜色选择器应用界面
 - en: 32.7.2 The JavaScript Code
+  id: totrans-269
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 32.7.2 JavaScript代码
 - en: The JavaScript file **colorpicker.js**, which we include in our web page in
     line 30, consists only of the event handler **colorAdjust()**, the function that
     is called every time the user moves one of the sliders.
+  id: totrans-270
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在网页中第30行引入的JavaScript文件**colorpicker.js**仅包含事件处理函数**colorAdjust()**，该函数在用户每次移动滑块时被调用。
 - en: The code in detail:1 **function** adjustColor() {23 **var** bodyElem = document.getElementById('bodyElem');4
     **var** hexColor = document.getElementById('hexColor');56 **var** colorRedRange
     = document.getElementById('colorRedRange');7 **var** colorGreenRange =document.getElementById('colorGreenRange');8
@@ -1569,25 +2249,47 @@
     bodyElem.bgColor = hex;2627 colorRedOutput.value = colorRedRange.value;28 colorGreenOutput.value
     = colorGreenRange.value;29 colorBlueOutput.value = colorBlueRange.value;30 }Lines
     3–12
+  id: totrans-271
   prefs: []
   type: TYPE_NORMAL
+  zh: 代码详细信息：1 **function** adjustColor() {23 **var** bodyElem = document.getElementById('bodyElem');4
+    **var** hexColor = document.getElementById('hexColor');56 **var** colorRedRange
+    = document.getElementById('colorRedRange');7 **var** colorGreenRange = document.getElementById('colorGreenRange');8
+    **var** colorBlueRange = document.getElementById('colorBlueRange');910 **var**
+    colorRedOutput = document.getElementById('colorRedOutput');11 **var** colorGreenOutput
+    = document.getElementById('colorGreenOutput');12 **var** colorBlueOutput = document.getElementById('colorBlueOutput');1314
+    **var** hexRed = Number(colorRedRange.value).toString(16);15 **var** hexGreen
+    = Number(colorGreenRange.value).toString(16);16 **var** hexBlue = Number(colorBlueRange.value).toString(16);1718
+    **if**(hexRed.length == 1) hexRed = '0' + hexRed;19 **if**(hexGreen.length ==
+    1) hexGreen = '0' + hexGreen;20 **if**(hexBlue.length == 1) hexBlue = '0' + hexBlue;2122
+    **var** hex = '#' + hexRed + hexGreen + hexBlue;23 hexColor.value = hex.toUpperCase();2425
+    bodyElem.bgColor = hex;2627 colorRedOutput.value = colorRedRange.value;28 colorGreenOutput.value
+    = colorGreenRange.value;29 colorBlueOutput.value = colorBlueRange.value;30 }第3–12行
 - en: Here we first create variables for the different elements of the interface that
     we need to address.
+  id: totrans-272
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们首先为需要访问的界面中不同的元素创建变量。
 - en: Lines 14–16
+  id: totrans-273
   prefs: []
   type: TYPE_NORMAL
+  zh: 第14–16行
 - en: Next, we take the current values that the sliders are set to (using their **value**
     attribute) and convert the value to a hexadecimal string. As you recall from ►
     Sect. 31.3.2, the **toString()** method has an argument that specifies the base
     of the number system into which the number is to be converted for representation
     as a string, which in our case is 16, since we want to achieve hexadecimal representation.
+  id: totrans-274
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们获取当前滑块设置的值（使用它们的**value**属性），并将值转换为十六进制字符串。如你所记得，在►第31.3.2节中，**toString()**方法有一个参数，用于指定将数字转换为字符串时的进制系统，在我们的情况下是16，因为我们希望得到十六进制表示。
 - en: Lines 18–20
+  id: totrans-275
   prefs: []
   type: TYPE_NORMAL
+  zh: 第18–20行
 - en: 'With the variables **hexRed**, **hexGreen** and **hexBlue** we already have
     everything together that we need to display the hexadecimal color value in the
     format **#RRGGBB**. But there is a small complication: The value of the color
@@ -1596,182 +2298,263 @@
     because hexadecimal color codes of the form **#RRGGBB** expect *exactly two* value
     digits per color component. Therefore, we check the length of the previously generated
     color part strings and add a 0 if necessary.'
+  id: totrans-276
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用变量**hexRed**、**hexGreen**和**hexBlue**，我们已经将所有需要的信息准备好，以便以**#RRGGBB**格式显示十六进制颜色值。但有一个小问题：颜色组件变量的值可能是单个数字（如果相应颜色组件的十进制值小于16）。在这种情况下，我们必须在前面添加一个0，因为**#RRGGBB**形式的十六进制颜色代码要求每个颜色组件的值是*恰好两个*数字。因此，我们检查先前生成的颜色部分字符串的长度，并在必要时添加一个0。
 - en: Lines 22–23
+  id: totrans-277
   prefs: []
   type: TYPE_NORMAL
+  zh: 第22–23行
 - en: Now we can compose the hexadecimal value and display it in our (readonly) input
     element **hexColor**.
+  id: totrans-278
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，我们可以组合十六进制值并将其显示在我们的（只读）输入元素**hexColor**中。
 - en: Line 25
+  id: totrans-279
   prefs: []
   type: TYPE_NORMAL
+  zh: 第25行
 - en: We also assign the hexadecimal RGB value we just determined to the **bgcolor**
     attribute of the **body** element. So, as soon as the user activates one of the
     color proportion sliders, not only the display of the hexadecimal color value,
     **hexColor**, changes, but also the background color of the web page.
+  id: totrans-280
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还将刚刚确定的十六进制RGB值赋给**bgcolor**属性以及**body**元素。因此，一旦用户激活其中一个颜色比例滑块，不仅十六进制颜色值**hexColor**的显示会发生变化，网页的背景颜色也会随之变化。
 - en: Lines 27–29
+  id: totrans-281
   prefs: []
   type: TYPE_NORMAL
+  zh: 第27–29行
 - en: Finally, we display the color percentage values as decimal numbers in the (readonly)
     input fields provided next to the respective color percentage sliders.
+  id: totrans-282
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们将颜色百分比值作为十进制数显示在分别放置在颜色百分比滑块旁的（只读）输入框中。
 - en: 32.8 Summary
+  id: totrans-283
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.8 总结
 - en: In this chapter, we looked at how to input and output data using JavaScript.
     In particular, we have looked at the JavaScript console and how JavaScript applications
     can interact with a web page.
+  id: totrans-284
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们学习了如何使用 JavaScript 输入和输出数据。特别是，我们了解了 JavaScript 控制台以及 JavaScript 应用如何与网页进行交互。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-285
   prefs: []
   type: TYPE_NORMAL
+  zh: 请务必从本章中记住以下几点：
 - en: The **console.log()** method can be used to output objects in the JavaScript
     console.
+  id: totrans-286
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**console.log()** 方法可以用来在 JavaScript 控制台输出对象。'
 - en: Template literals allow you to include variables in strings in the form of placeholders
     that are replaced with the current value of the variable at the time the literal
     is created; the variable is written as **${variable}**, and the entire literal
     itself is enclosed in backticks (**`**).
+  id: totrans-287
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模板字面量允许你在字符串中以占位符的形式包含变量，在字面量创建时将占位符替换为变量的当前值；变量写作 **${variable}**，整个字面量本身用反引号
+    (**`**) 包围。
 - en: Alternatives to the template literal are string substitution and concatenating
     strings and objects that can be output as strings using the plus operator.
+  id: totrans-288
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模板字面量的替代方法是字符串替换和字符串与对象的连接，这些都可以通过加号运算符输出为字符串。
 - en: With **console.warn()** and **console.error()** you can output warning or error
     messages in the console.
+  id: totrans-289
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 **console.warn()** 和 **console.error()** 可以在控制台输出警告或错误信息。
 - en: Interaction with the user can also be done via dialog boxes; in particular with
     **alert()** (display of a message), **confirm()** (dialog with “Okay” and “Cancel”
     as options) and **prompt()** (text input in a popup dialog).
+  id: totrans-290
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 与用户的交互还可以通过对话框进行；特别是使用 **alert()**（显示消息）、**confirm()**（具有“确定”和“取消”选项的对话框）和 **prompt()**（弹出对话框中的文本输入）。
 - en: JavaScript is great for editing the HTML elements of web pages, making the web
     page dynamic through the JavaScript application.
+  id: totrans-291
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 非常适合编辑网页的 HTML 元素，通过 JavaScript 应用使网页动态化。
 - en: The easiest way to do this is to use **document.write()** to write HTML code
     to the current location where the script is running in the web page.
+  id: totrans-292
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最简单的方法是使用 **document.write()** 将 HTML 代码写入脚本正在网页中运行的当前位置。
 - en: The components of HTML pages, especially the HTML elements themselves, their
     attributes, and the text inside them, can be represented hierarchically as nodes
     of the *Document Object Model* (DOM).
+  id: totrans-293
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: HTML 页面中的组件，尤其是 HTML 元素本身、它们的属性和内部文本，可以作为*文档对象模型*（DOM）的节点以层级结构表示。
 - en: JavaScript allows elements of the DOM to be selected and edited in JavaScript
     as HTML element objects, and changes to these objects are immediately reflected
     in the rendering of the web page.
+  id: totrans-294
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 允许将 DOM 元素选择并编辑为 HTML 元素对象，对这些对象的修改会立即反映在网页的渲染中。
 - en: DOM nodes can be identified mainly by their **id** attribute (with **document.getElementByID()**),
     by their type (with **document.getElementsByTagName()**; note plural, an array
     is returned here because there may be multiple elements that match the criterion!),
     or their CSS class (with **document.getElementsByClassName()**; again, the return
     is an array).
+  id: totrans-295
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: DOM 节点主要通过其 **id** 属性（使用 **document.getElementByID()**）、其类型（使用 **document.getElementsByTagName()**；注意复数形式，这里返回的是一个数组，因为可能有多个元素符合该条件！）或其
+    CSS 类（使用 **document.getElementsByClassName()**；同样，返回的是一个数组）来识别。
 - en: Element objects/arrays of element objects are returned that represent the HTML
     elements of the web page and whose properties are the attributes of those HTML
     elements.
+  id: totrans-296
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回的是表示网页 HTML 元素的元素对象/元素对象数组，这些元素对象的属性是 HTML 元素的属性。
 - en: Also, starting from an element object, the DOM structure can be exploited to
     select hierarchically connected objects with properties like **childNodes** and
     **parentNode**.
+  id: totrans-297
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 此外，从一个元素对象开始，可以利用 DOM 结构通过类似 **childNodes** 和 **parentNode** 的属性选择层级关联的对象。
 - en: The **innerHTML** and **innerText** properties of an element object represent
     the HTML code contained in an HTML element (that is, the code of the hierarchically
     subordinate elements in the DOM) and the text contained in it, respectively.
+  id: totrans-298
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 元素对象的 **innerHTML** 和 **innerText** 属性分别表示 HTML 元素中包含的 HTML 代码（即 DOM 中层级从属元素的代码）和其中包含的文本。
 - en: HTML elements can be created on the web page with **document.createElement(*****type*****)**
     and added below an element by calling its **appendChild(*****new_element*****)**
     method; the **insertbefore(*****new_element*****,** ***before_child*****)** method
     of an HTML element adds ***new_element*** as a child element before another child
     element (***before_child*****)**; **remove(*****element*****)** removes the HTML
     element object ***element*** from the Web page.
+  id: totrans-299
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: HTML 元素可以通过 **document.createElement(*****type*****)** 在网页上创建，并通过调用其 **appendChild(*****new_element*****)**
+    方法将其添加到另一个元素下；HTML 元素的 **insertbefore(*****new_element*****,** ***before_child*****)**
+    方法将 ***new_element*** 作为子元素添加到另一个子元素（***before_child*****)** 之前；**remove(*****element*****)**
+    移除网页上的 HTML 元素对象 ***element***。
 - en: In practice, the most important form of interaction with the user on web pages
     is the use of *forms*; they are created in HTML with the **form** element, so
     their components, namely the controls such as text input or buttons, are located
     between **<form>** and **</form>.**
+  id: totrans-300
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 实际上，网页上与用户交互的最重要形式是使用 *表单*；它们通过 HTML 中的 **form** 元素创建，因此它们的组件（即文本输入框或按钮等控件）位于
+    **<form>** 和 **</form>** 之间。
 - en: The elements of the forms are mainly of the HTML type **input** and are further
     differentiated by their **type** attribute; for example, **"text"** is the type
     for a text input field, **"button"** is the type for a button, and **"slider"**
     is the type for a slider.
+  id: totrans-301
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 表单的元素主要是 HTML 类型为 **input** 的元素，并根据其 **type** 属性进一步区分；例如，**"text"** 是文本输入框的类型，**"button"**
+    是按钮的类型，**"slider"** 是滑块的类型。
 - en: User actions with these controls (for example, clicking a button) can be linked
     via events to event handler functions in the JavaScript code, which are automatically
     called whenever the event associated with the action is triggered. The calls to
     the event handlers are given to the HTML elements as attribute values, where the
     attribute name is composed of **on** and the event, for example, **onclick** for
     the **click** event.
+  id: totrans-302
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 用户通过这些控件的操作（例如，点击按钮）可以通过事件与 JavaScript 代码中的事件处理函数相关联，每当与操作相关的事件被触发时，事件处理函数就会自动调用。事件处理函数的调用通过属性值传递给
+    HTML 元素，其中属性名由 **on** 和事件名称组成，例如，**onclick** 代表 **click** 事件。
 - en: 32.9 Solutions to the Exercises
+  id: totrans-303
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 32.9 练习解答
 - en: Exercise 32.1
+  id: totrans-304
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 32.1
 - en: The sibling elements of **elem** (including **elem** itself) are nothing but
     the children of the parent element of **elem**. Thus, **elem.parentElement.children**
     returns an **HTMLCollection**, a collection of objects that correspond to the
     HTML elements. You can work with this object of type **HTMLCollection** practically
     like with an array.
+  id: totrans-305
   prefs: []
   type: TYPE_NORMAL
+  zh: '**elem** 的兄弟元素（包括 **elem** 本身）实际上就是 **elem** 的父元素的子元素。因此，**elem.parentElement.children**
+    返回一个 **HTMLCollection**，即对应 HTML 元素的对象集合。你可以像处理数组一样操作这种类型为 **HTMLCollection**
+    的对象。'
 - en: Exercise 32.2
+  id: totrans-306
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 32.2
 - en: 'Your **p** element could look like this in the HTML source code of the web
     page:'
+  id: totrans-307
   prefs: []
   type: TYPE_NORMAL
+  zh: 在网页的 HTML 源代码中，你的 **p** 元素可能如下所示：
 - en: '**<p** id="paragraph1">Here''s a note.**</p>**'
+  id: totrans-308
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<p** id="paragraph1">这里是一个注释。**</p>**'
 - en: 'You can now change the background color in your JavaScript program:'
+  id: totrans-309
   prefs: []
   type: TYPE_NORMAL
+  zh: 你现在可以在你的 JavaScript 程序中更改背景颜色：
 - en: '**var** pElem = document.getElementById(''paragraph1'');pElem.style.backgroundColor
     = ''#FFFFCC'';'
+  id: totrans-310
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** pElem = document.getElementById(''paragraph1'');pElem.style.backgroundColor
+    = ''#FFFFCC'';'
 - en: The **background-color** property is convenient to change because our element
     object **pElem** mirrors the **style** attribute in an object property of the
     same name. When doing so, please note that the CSS **background-color** property
@@ -1781,19 +2564,32 @@
     Also, of course, you need to convert the decimal RGB color components to hexadecimal
     numbers to get a valid color code of the form **'#RRGGBB'**. In doing so, 255
     (red and green components) becomes **FF** and 204 (blue component) becomes **CC**.
+  id: totrans-311
   prefs: []
   type: TYPE_NORMAL
+  zh: '**background-color** 属性很方便更改，因为我们的元素对象 **pElem** 对应于一个同名的 **style** 属性。当这样做时，请注意，CSS
+    中的 **background-color** 属性在 JavaScript 中变成了元素对象 **style** 属性下的 **backgroundColor**
+    属性（即去掉了连字符，且属性名中第一个组件的字母后的任何字母变为大写）。当然，你还需要将 RGB 十进制颜色分量转换为十六进制数值，以获得有效的颜色代码，形式为
+    **''#RRGGBB''**。在转换时，255（红色和绿色分量）变为 **FF**，204（蓝色分量）变为 **CC**。'
 - en: Exercise 32.3
+  id: totrans-312
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 32.3
 - en: 'The code might look like this:'
+  id: totrans-313
   prefs: []
   type: TYPE_NORMAL
+  zh: 代码可能如下所示：
 - en: '**var** bodyElem = document.getElementsByTagName(''body'')[0];**var** pElem
     = document.createElement(''p'');pElem.style.fontWeight = ''bold''pElem.innerText
     = ''This is the end'';bodyElem.appendChild(pElem);'
+  id: totrans-314
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** bodyElem = document.getElementsByTagName(''body'')[0];**var** pElem
+    = document.createElement(''p'');pElem.style.fontWeight = ''bold'';pElem.innerText
+    = ''This is the end'';bodyElem.appendChild(pElem);'
 - en: 'First, we grab the **body** element of the web page via its element tag (note:
     **getElementsByTagName()** returns an array of HTML nodes, since there may well
     be several copies of an element type in the web page—at least for elements other
@@ -1801,55 +2597,88 @@
     give it the **"This is the end"** text and add it to the **body** element of the
     web page as a new child element, i.e. append it to the existing children at the
     end.'
+  id: totrans-315
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们通过其元素标签抓取网页的**body**元素（注意：**getElementsByTagName()**返回一个HTML节点数组，因为网页中可能有多个相同类型的元素——至少对于**body**之外的元素）。然后我们创建一个新的**p**元素，使用CSS属性对其进行格式化，给它设置**"This
+    is the end"**文本，并将其作为新的子元素添加到网页的**body**元素中，即将其附加到现有子元素的末尾。
 - en: 'By the way: If you include this script in a web page, as we usually do, i.e.,
     via the **script** attribute of the body of the web page, then **"This is the
     end"** appears at the *beginning* of the web page! The reason is simple: the script
     is loaded and executed at the beginning of the body, at a time when there are
     no other elements in the body of the web page. The element that we add with the
     above code is thus the first and is logically displayed at the top of the page.'
+  id: totrans-316
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一句：如果你将此脚本包含在网页中，像我们通常做的那样，即通过网页body的**script**属性，那么**"This is the end"**会出现在网页的*开头*！原因很简单：脚本在body的开始处加载和执行，这时网页的body中没有其他元素。我们通过上述代码添加的元素就是第一个元素，因此在页面上逻辑上显示在顶部。
 - en: Exercise 32.4
+  id: totrans-317
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 32.4
 - en: 'First, the (still “empty”) **span** element must be inserted into the HTML
     code:'
+  id: totrans-318
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，必须将（仍然是“空”的）**span**元素插入到HTML代码中：
 - en: '**<span** id="output">**</span>**'
+  id: totrans-319
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<span** id="output">**</span>**'
 - en: 'You only have to change the code of the function **convert()** slightly by
     first selecting the **span** element and then assigning the output to the **innerHTML**
     property:'
+  id: totrans-320
   prefs: []
   type: TYPE_NORMAL
+  zh: 你只需要稍微修改一下**convert()**函数的代码，首先选择**span**元素，然后将输出赋值给**innerHTML**属性：
 - en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
     direction = document.getElementsByName(''direction'');**var** outputSpan = document.getElementsById(''output'');**if**(direction[0].checked
     == **true**) {outputSpan.innerHTML = `<p>${temp} Kelvin are${temp - 273.15} degrees
     Celsius.<p>`;}**else** {outputSpan.innerHTML = `<p>${temp} degrees Celsius are${temp
     + 273.15} Kelvin.<p>`;}}**function** change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
     = unit;}Exercise 32.5'
+  id: totrans-321
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**var** outputSpan = document.getElementsById(''output'');**if**(direction[0].checked
+    == **true**) {outputSpan.innerHTML = `<p>${temp}开尔文是${temp - 273.15}摄氏度。</p>`;}**else**
+    {outputSpan.innerHTML = `<p>${temp}摄氏度是${temp + 273.15}开尔文。</p>`;}}**function**
+    change(unit) {**var** unitLabel = document.getElementById(''unitLabel'');unitLabel.innerHTML
+    = unit;} 练习 32.5'
 - en: 'The website could look like this:'
+  id: totrans-322
   prefs: []
   type: TYPE_NORMAL
+  zh: 该网站可能会像这样显示：
 - en: '**<!DOCTYPE html>****<html>****<head>****<title>**Font Sizes**</title>****<noscript>**Please
     activate JavaScript!**</noscript>****</head>****<body>****<script** src="fontsizecontroller.js"**></script>****<form>**<p>Font
     size:<input id="controller" type="range" min="1" max= "150"value="20" onchange="
     changeFontSize()">**</p>****</form>****<span** id="sampletext" style="font-size:
     20px;"**>**Some text in size 20**</span>****</body>****</html>**'
+  id: totrans-323
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>****<html>****<head>****<title>**字体大小**</title>****<noscript>**请启用JavaScript！**</noscript>****</head>****<body>****<script**
+    src="fontsizecontroller.js"**></script>****<form>**<p>字体大小：<input id="controller"
+    type="range" min="1" max="150" value="20" onchange=" changeFontSize()">**</p>****</form>****<span**
+    id="sampletext" style="font-size: 20px;"**>**一些字体大小为20的文本**</span>****</body>****</html>**'
 - en: 'The corresponding JavaScript program in **fontsizecontroller.js** would then
     look like this:'
+  id: totrans-324
   prefs: []
   type: TYPE_NORMAL
+  zh: 相应的JavaScript程序在**fontsizecontroller.js**中将如下所示：
 - en: '**function** changeFontSize() {**var** size =Number(document.getElementById(‘controller’).value);**var**
     text = document.getElementById(''sampletext'');text.style.fontSize = size + ''px'';text.innerHTML
     = ''Some text in size '' + String(size);}'
+  id: totrans-325
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** changeFontSize() {**var** size = Number(document.getElementById(''controller'').value);**var**
+    text = document.getElementById(''sampletext'');text.style.fontSize = size + ''px'';text.innerHTML
+    = ''Some text in size '' + String(size);}'

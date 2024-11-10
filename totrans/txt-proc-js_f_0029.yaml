@@ -1,197 +1,310 @@
 - en: '| Recipe 19 | Counting Words in a String with Intl.Segmenter() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 19 | 使用 Intl.Segmenter() 统计字符串中的单词 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you have a weblog that allows users to submit articles. You have a requirement
     that each article should have a minimum word count of 500\. You want to create
     a function that gives feedback to users about their article’s word count. To achieve
     this, your application needs to determine the number of words in a given text
     string.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设您有一个博客，允许用户提交文章。您要求每篇文章的字数必须至少为 500 字。您希望创建一个函数，向用户反馈其文章的字数。为此，您的应用需要确定给定文本字符串中的单词数。
 - en: One crude solution to this problem is to split the text string by spaces and
     count the resulting segments. However, this approach may not work correctly in
     cases where there are multiple consecutive spaces between words, or when the article
     is written in a language that doesn’t use spaces to separate words, such as Korean
     or Japanese.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 解决这个问题的一种粗略方法是通过空格分割文本字符串并计算得到的段落。然而，当单词之间有多个连续空格，或文章使用不以空格分隔单词的语言（如韩语或日语）时，这种方法可能无法正确工作。
 - en: You need a solution that can accurately count the number of words in a text,
     regardless of the language used.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 您需要一个能够准确计算文本中单词数的解决方案，不论所使用的语言是什么。
 - en: Solution
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Call the Intl.Segmenter() constructor with the granularity option set to word:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 `Intl.Segmenter()` 构造函数，并将粒度选项设置为单词：
 - en: '[part_1/counting_words/word_segmenter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex1.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/counting_words/word_segmenter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex1.js)'
 - en: '|   | **const** str = *"White, red, and blue."*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"White, red, and blue."*; |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** countWords(str, lang) { |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** countWords(str, lang) { |'
 - en: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
     |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
+    |'
 - en: '|   | .segment(str)]; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | .segment(str)]; |'
 - en: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
     |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
+    |'
 - en: '|   | } |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | countWords(str, *"en"*); *// → 4* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | countWords(str, *"en"*); *// → 4* |'
 - en: Success! The countWords() function counts the number of words in str based on
     a specified language (lang).
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功！countWords() 函数根据指定的语言（lang）统计 str 中的单词数。
 - en: '| Browser Compatibility |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | At the
     time of this writing, Firefox has not implemented Intl.Segmenter() yet.^([[19]](f_0032.xhtml#FOOTNOTE-19))
     Until browser support is more solid, you can run Intl.Segmenter() on the server
     side with Node 16 or higher. |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/warning.png](images/aside-icons/warning.png) | 截至本文撰写时，Firefox
+    尚未实现 Intl.Segmenter()。^([[19]](f_0032.xhtml#FOOTNOTE-19)) 在浏览器支持更加稳定之前，您可以在服务器端（Node
+    16 或更高版本）运行 Intl.Segmenter()。 |'
 - en: Discussion
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In the previous recipe, we used the default implementation of Intl.Segmenter(),
     which splits a string at grapheme cluster (user-perceived character) boundaries.
     This time, we’re setting the granularity to word so that the split occurs at word
     boundaries.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在之前的示例中，我们使用了`Intl.Segmenter()`的默认实现，它在字素集群（用户感知字符）边界处拆分字符串。这次，我们将粒度设置为单词，以便在单词边界处进行拆分。
 - en: The first argument of Intl.Segmenter() determines the locale, which must be
     a BCP 47 language tag.^([[20]](f_0032.xhtml#FOOTNOTE-20)) In this case, we want
     to split English words, so we pass “en.” Once we get the segments of the string,
     we should filter those that aren’t words. Fortunately, the API makes it easy for
     us by providing the isWordLike property. The filter effectively removes any non-word
     segments (such as punctuation or numbers).
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '`Intl.Segmenter()`的第一个参数决定了地区设置，它必须是一个BCP 47语言标签。^([[20]](f_0032.xhtml#FOOTNOTE-20))
+    在这种情况下，我们想要拆分英文单词，所以我们传递“en”。一旦获得字符串的片段，我们应该过滤掉那些不是单词的片段。幸运的是，API通过提供`isWordLike`属性使这变得非常简单。该过滤器有效地移除了所有非单词片段（如标点符号或数字）。'
 - en: 'Finally, we return the length of the filtered segments array, which represents
     the total number of word segments in the original string. Now, if we want to count
     the words in another language, all we need to do is pass the corresponding language
     tag to the countWords() function. For instance, the following example counts the
     words in Japanese:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们返回过滤后的片段数组的长度，它表示原始字符串中单词片段的总数。现在，如果我们想要统计另一种语言的单词，我们只需将相应的语言标签传递给`countWords()`函数。例如，下面的例子统计了日语中的单词数：
 - en: '[part_1/counting_words/word_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex2.js)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/counting_words/word_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_words/word_segmenter_ex2.js)'
 - en: '|   | **const** str = *"アジア・東アジアの中でも東方にあります"*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"アジア・東アジアの中でも東方にあります"*; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** countWords(str, lang) { |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** countWords(str, lang) { |'
 - en: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
     |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** segments = [...**new** Intl.Segmenter(lang, {granularity: *"word"*})
+    |'
 - en: '|   | .segment(str)]; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | .segment(str)]; |'
 - en: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
     |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** segments.filter(item => item.isWordLike === **true**).length;
+    |'
 - en: '|   | } |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | countWords(str, *"jp"*); *// → 8* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | countWords(str, *"jp"*); *// → 8* |'
 - en: Even though the Japanese language has no whitespace between words, the function
     is able to distinguish word boundaries.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管日语中单词之间没有空格，函数仍然能够区分单词边界。
 - en: 'If you search online for a JavaScript solution to count words, you’ll surely
     come across codes like this:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你在线搜索一个JavaScript解决方案来统计单词，你肯定会看到类似这样的代码：
 - en: '|   | **return** str.split(*" "*).length; |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.split(*" "*).length; |'
 - en: 'This code returns an array of words split by a single space character and counts
     its length. But if your string has double spaces or trailing spaces, the result
     would be wrong:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码返回一个由单个空格字符拆分的单词数组，并计算其长度。但是，如果你的字符串中有双空格或尾随空格，结果会是错误的：
 - en: '|   | **const** str = *"White, red, and blue. "*; |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | **常量** str = *"白色，红色，和蓝色。 "*; |'
 - en: '|   | str.split(*" "*).length; *// → 5* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.split(*" "*).length; *// → 5* |'
 - en: 'Of course, you can fix this problem by filtering the array like this:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，你可以通过如下方式过滤数组来解决这个问题：
 - en: '|   | **const** str = *"White, red, and blue. "*; |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **常量** str = *"白色，红色，和蓝色。 "*; |'
 - en: '|   |  |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** countWords(str) { |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** countWords(str) { |'
 - en: '|   | **return** str |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** str |'
 - en: '|   | .split(*" "*) |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | .split(*" "*) |'
 - en: '|   | .filter(a => {**return** a != *""*}) |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | .filter(a => {**返回** a != *""*}) |'
 - en: '|   | .length; |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | .length; |'
 - en: '|   | } |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | countWords(str); *// → 4* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | countWords(str); *// → 4* |'
 - en: But this solution would work only for languages that use spaces between words.
     The beauty of using Intl.Segmenter() is its ability to detect word boundaries
     in different languages.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 但这个解决方案仅适用于在单词之间使用空格的语言。使用 `Intl.Segmenter()` 的优点在于它能够在不同语言中检测单词边界。

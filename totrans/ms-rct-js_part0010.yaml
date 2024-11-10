@@ -1,257 +1,380 @@
 - en: 'Chapter 6: Conditional Rendering and Lists'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第六章：条件渲染和列表
 - en: Conditional rendering and working with lists are essential skills when building
     dynamic and data-driven user interfaces in React. In this chapter, we will explore
     how to conditionally render components based on certain conditions and how to
     efficiently render and manipulate lists of data in React applications.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 条件渲染和处理列表是构建动态和数据驱动的 React 用户界面时的基本技能。在本章中，我们将探讨如何根据特定条件进行组件的条件渲染，以及如何高效地渲染和操作
+    React 应用中的数据列表。
 - en: Conditional Rendering in React
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: React 中的条件渲染
 - en: Conditional rendering involves displaying or hiding components or content based
     on specific conditions or user interactions. React provides several ways to implement
     conditional rendering, enabling you to create dynamic and responsive user interfaces.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 条件渲染是根据特定条件或用户交互来显示或隐藏组件或内容。React 提供了多种方法来实现条件渲染，使你能够创建动态且响应迅速的用户界面。
 - en: Using Conditional Statements
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用条件语句
 - en: 'One of the simplest ways to conditionally render content in React is by using
     JavaScript''s conditional statements within the component''s `render` method.
     For example, you can use the `if` statement to conditionally render different
     components or elements:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 中进行条件渲染的最简单方法之一是使用 JavaScript 的条件语句，放在组件的 `render` 方法中。例如，你可以使用 `if`
+    语句来有条件地渲染不同的组件或元素：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this example, the `LoggedInComponent` is rendered if the `isLoggedIn` prop
     is `true`, and the `LoggedOutComponent` is rendered if it's `false`.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，如果 `isLoggedIn` 属性为 `true`，则渲染 `LoggedInComponent`，如果为 `false`，则渲染 `LoggedOutComponent`。
 - en: Using the Ternary Operator
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用三元运算符
 - en: 'A concise way to perform conditional rendering is by using the ternary operator
     (`? :`). It allows you to conditionally choose between two expressions. Here''s
     how you can use it for conditional rendering:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 进行条件渲染的简洁方法是使用三元运算符 (`? :`)。它允许你在两个表达式之间进行条件选择。以下是如何使用它进行条件渲染：
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This code produces the same result as the previous example, with the `LoggedInComponent`
     or `LoggedOutComponent` being rendered based on the `isLoggedIn` prop.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码产生的结果与前一个例子相同，`LoggedInComponent` 或 `LoggedOutComponent` 会根据 `isLoggedIn`
+    属性进行渲染。
 - en: Using Logical && Operator
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用逻辑 `&&` 运算符
 - en: 'Another approach to conditional rendering in React is to use the logical AND
     (`&&`) operator. This operator allows you to render a component or element if
     a condition is met. Here''s an example:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 中进行条件渲染的另一种方法是使用逻辑与 (`&&`) 运算符。这个运算符允许你在条件满足时渲染组件或元素。下面是一个例子：
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this case, the `ConditionalComponent` is rendered only if `shouldRenderComponent`
     is `true`. If it's `false`, nothing is rendered.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，只有当 `shouldRenderComponent` 为 `true` 时，`ConditionalComponent` 才会被渲染。如果是
+    `false`，则什么都不渲染。
 - en: Using Conditional (Ternary) Rendering in JSX
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 在 JSX 中使用条件（三元）渲染
 - en: 'You can also perform conditional rendering directly within JSX by placing a
     ternary expression inside curly braces. Here''s an example:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以直接在 JSX 中进行条件渲染，方法是将一个三元表达式放在花括号内。下面是一个例子：
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This approach provides a clean and readable way to conditionally render components
     based on the value of `isMobile`.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种方法提供了一种清晰可读的方式，根据`isMobile`的值有条件地渲染组件。
 - en: Lists and Rendering Multiple Elements
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 列表与渲染多个元素
 - en: Lists are a fundamental part of many applications, and React provides the means
     to efficiently render and manipulate lists of data. Whether you're rendering a
     list of items, generating dynamic navigation menus, or displaying user-generated
     content, understanding how to work with lists in React is crucial.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 列表是许多应用程序的基本组成部分，React提供了高效渲染和操作数据列表的方式。无论你是在渲染一组项目、生成动态导航菜单，还是展示用户生成的内容，理解如何在React中处理列表是至关重要的。
 - en: Rendering a List of Items
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 渲染一个列表项
 - en: 'To render a list of items in React, you typically map over an array of data
     and create React elements for each item. Let''s consider an example where we have
     an array of names and want to render them in a list:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在React中渲染列表项时，通常会遍历一个数据数组，并为每个项创建React元素。我们来看看一个示例，我们有一个名字数组，并希望将其渲染成列表：
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In this example, we use the `map` method to iterate over the `names` array and
     create a list item (`<li>`) for each name. The `key` attribute is essential when
     rendering lists to help React efficiently update and reorder list items.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们使用`map`方法遍历`names`数组，并为每个名字创建一个列表项（`<li>`）。在渲染列表时，`key`属性是必不可少的，它帮助React高效地更新和重新排序列表项。
 - en: Using Keys for Efficient List Rendering
+  id: totrans-26
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用Key实现高效的列表渲染
 - en: Keys are used to identify elements within a list, and they are crucial for React
     to efficiently update the virtual DOM when the list changes. Each item in the
     list should have a unique and stable key.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: Key用于标识列表中的元素，并且对于React高效更新虚拟DOM至关重要。当列表发生变化时，每个列表项应该有一个唯一且稳定的key。
 - en: In the previous example, we used the `index` as the key. While this is acceptable
     for static lists, it's not recommended for lists that may change over time or
     when working with data from an API. Ideally, you should use a unique identifier
     from your data, such as an `id`, as the key.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在前面的示例中，我们使用了`index`作为key。虽然对于静态列表这是可以接受的，但对于可能随时间变化的列表，或者在处理来自API的数据时，不推荐使用`index`。理想情况下，你应该使用数据中的唯一标识符，如`id`，作为key。
 - en: 'Here''s an improved version of the list rendering example using unique keys:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个改进版的列表渲染示例，使用了唯一的key：
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In this updated example, we use the `id` property of each user object as the
     key for the list items, ensuring a stable and unique identifier for each item.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个更新后的示例中，我们使用每个用户对象的`id`属性作为列表项的key，确保每个项都有一个稳定且唯一的标识符。
 - en: Conditional Rendering of Lists
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 列表的条件渲染
 - en: 'Conditional rendering and list rendering often go hand in hand when building
     dynamic interfaces. You may need to conditionally display a list of items based
     on certain conditions. Here''s an example where we render a list of tasks only
     if there are tasks to display:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 条件渲染和列表渲染在构建动态界面时通常是并行进行的。你可能需要根据某些条件有选择性地显示一组项目。以下是一个示例，只有在有任务需要显示时，我们才渲染任务列表：
 - en: '[PRE6]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In this component, we check if the `tasks` array has items. If it does, we render
     the list of tasks; otherwise, we display a message indicating that there are no
     tasks to show.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个组件中，我们检查 `tasks` 数组是否有项。如果有，我们渲染任务列表；否则，我们显示一条消息，表示没有任务可显示。
 - en: Advanced List Operations
+  id: totrans-36
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 高级列表操作
 - en: 'Working with lists in React often involves more than just rendering. You may
     also need to perform operations like filtering, sorting, and updating lists dynamically.
     Here are some advanced list operations in React:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 中操作列表通常不仅仅是渲染。你可能还需要执行过滤、排序和动态更新列表等操作。以下是 React 中一些高级列表操作：
 - en: Filtering a List
+  id: totrans-38
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 筛选列表
 - en: Filtering a list involves displaying only the items that meet certain criteria.
     You can use JavaScript's `filter` method to filter an array of data and then render
     the filtered list.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 筛选列表涉及仅显示符合特定条件的项。你可以使用 JavaScript 的 `filter` 方法来筛选数据数组，然后渲染筛选后的列表。
 - en: '[PRE7]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In this example, we filter the `users` array to get only the admin users and
     then render the list of admin users.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们筛选 `users` 数组，只获取管理员用户，然后渲染管理员用户的列表。
 - en: Sorting a List
+  id: totrans-42
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 排序列表
 - en: Sorting a list involves arranging the items in a specific order, such as alphabetically
     or by a certain attribute. You can use JavaScript's `sort` method to sort an array
     of data and then render the sorted list.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 排序列表涉及将项按特定顺序排列，如字母顺序或按某个属性排序。你可以使用 JavaScript 的 `sort` 方法对数据数组进行排序，然后渲染排序后的列表。
 - en: '[PRE8]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In this example, we create a copy of the `names` array using `slice()` to avoid
     mutating the original array, then sort the copy alphabetically before rendering
     it.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们使用 `slice()` 创建 `names` 数组的副本，以避免修改原始数组，然后对副本进行字母顺序排序，再进行渲染。
 - en: Updating Lists Dynamically
+  id: totrans-46
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 动态更新列表
 - en: Updating a list dynamically involves adding, removing, or modifying items within
     a list. To update a list in React, you typically use state to store the list data
     and update the state when changes occur. React will then re-render the component
     with the updated list.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 动态更新列表涉及在列表中添加、删除或修改项。要在 React 中更新列表，通常使用状态来存储列表数据，并在发生更改时更新状态。React 将会重新渲染组件，显示更新后的列表。
 - en: 'Here''s an example where you can add new tasks to a list:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个示例，你可以在其中向列表中添加新任务：
 - en: '[PRE9]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In this example, we maintain a `tasks` array in the component's state. When
     the user enters a new task and clicks the "Add Task" button, we add the task to
     the `tasks` array by updating the state. React then re-renders the component with
     the updated list.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们在组件的状态中维护一个 `tasks` 数组。当用户输入新任务并点击“添加任务”按钮时，我们通过更新状态将任务添加到 `tasks`
+    数组中。React 然后会使用更新后的列表重新渲染组件。
 - en: Conclusion and Best Practices
+  id: totrans-51
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论与最佳实践
 - en: 'Conditional rendering and working with lists are fundamental skills in React
     for creating dynamic and data-driven user interfaces. Here are some best practices
     to keep in mind:'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 条件渲染和操作列表是 React 中创建动态数据驱动用户界面的基本技能。以下是一些最佳实践，需要牢记：
 - en: '1\. **Use Keys for List Items**: When rendering lists, always assign unique
     keys to list items to help React efficiently update and reorder elements.'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **为列表项使用键值**：在渲染列表时，始终为列表项分配唯一的键值，以帮助 React 高效地更新和重新排序元素。
 - en: '2\. **Avoid Mutating State Directly**: When updating lists dynamically, avoid
     mutating the state directly. Instead, create new arrays or objects with updated
     data and then set the state using `setState`.'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **避免直接修改状态**：在动态更新列表时，避免直接修改状态。相反，应创建包含更新数据的新数组或对象，然后使用`setState`来设置状态。
 - en: '3\. **Filter and Sort Carefully**: When filtering or sorting lists, consider
     creating new arrays or copies of data to avoid unintentional side effects on the
     original data.'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **小心筛选和排序**：在筛选或排序列表时，考虑创建新数组或数据副本，以避免对原始数据产生意外的副作用。
 - en: '4\. **Use State for List Data**: For dynamic lists, store the list data in
     component state. Updating the state triggers re-renders, ensuring that the UI
     reflects the latest data.'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **使用状态管理列表数据**：对于动态列表，将列表数据存储在组件状态中。更新状态会触发重新渲染，确保 UI 反映最新的数据。
 - en: '5\. **Conditional Rendering**: Use conditional rendering to display or hide
     components or content based on specific conditions. Choose the conditional rendering
     approach that best suits your scenario.'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **条件渲染**：使用条件渲染根据特定条件显示或隐藏组件或内容。选择最适合你场景的条件渲染方法。
 - en: As you continue to build React applications, you'll encounter various situations
     where conditional rendering and lists are essential. These skills will empower
     you to create versatile and responsive user interfaces that can adapt to different
     data and user interactions.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 在你继续构建 React 应用时，会遇到多种需要条件渲染和列表处理的情况。这些技能将帮助你创建多功能和响应式的用户界面，能够适应不同的数据和用户交互。

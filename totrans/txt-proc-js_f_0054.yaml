@@ -1,154 +1,242 @@
 - en: '| Recipe 43 | Enabling Unicode Features with the u Flag |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 43 | 使用 u 标志启用 Unicode 特性 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you have an online forum and want to limit the characters in user posts
     to words, numbers, underscores, hyphens, and emoticons. You can impose the first
     four rules with a character class like [-\w]+. Recall from Recipe 27, [*Matching
     One of Several Characters with the Character Class*](f_0038.xhtml#rcp.character_class)
     that \w is equivalent to [a-zA-Z0-9_], so you just need to add the hyphen and
     emoticons.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个在线论坛，想要限制用户帖子中的字符只能是单词、数字、下划线、连字符和表情符号。你可以通过字符类 `[-\w]+` 实现前四条规则。回想一下第27条配方，[*匹配多个字符中的一个（使用字符类）*](f_0038.xhtml#rcp.character_class)，`\w`
+    等价于 `[a-zA-Z0-9_]`，因此你只需要添加连字符和表情符号。
 - en: Matching emoticons is a bit more complicated. In Unicode, emoticons are a block
     of code points containing 80 Unicode emojis. But adding all these code points
     to your character class would be a real chore.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配表情符号稍微复杂一些。在 Unicode 中，表情符号是一个包含 80 个 Unicode 表情符号的代码点块。但将所有这些代码点添加到字符类中将非常繁琐。
 - en: You need a solution that enables you to define a range of emojis in the character
     class, just as you’d define a range of characters.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一种解决方案，能够像定义字符范围一样在字符类中定义表情符号范围。
 - en: Solution
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'List the first and last emojis of the emoticons Unicode block in a character
     class and place a hyphen between them to define a range.^([[27]](f_0064.xhtml#FOOTNOTE-27))
     Then, append the u flag to the pattern to enable matching emoji ranges:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 将表情符号 Unicode 块中的第一个和最后一个表情符号列出，并在它们之间放置一个连字符以定义一个范围。^([[27]](f_0064.xhtml#FOOTNOTE-27))
+    然后，将 `u` 标志附加到模式中，以启用匹配表情符号范围：
 - en: '[part_2/flag_unicode/unicode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex1.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_unicode/unicode_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex1.js)'
 - en: '|   | *// Match words, numbers, underscores, hyphens, and emoticons* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配单词、数字、下划线、连字符和表情符号* |'
 - en: '![images/flags_u_ex1.png](images/flags_u_ex1.png)'
+  id: totrans-9
   prefs: []
   type: TYPE_IMG
+  zh: '![images/flags_u_ex1.png](images/flags_u_ex1.png)'
 - en: Your pattern is now able to match a range of emojis successfully!
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的模式现在能够成功匹配表情符号范围！
 - en: Discussion
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Although the regex in this recipe contains two hyphens, each serves a different
     purpose. The first hyphen matches a hyphen literally because it is located at
     the beginning of the character class and cannot possibly define a range. The second
     hyphen, however, is placed between two emojis, which tells the regex engine to
     match a range:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管这个正则表达式包含了两个连字符，但它们的作用不同。第一个连字符是字面上的匹配连字符，因为它位于字符类的开头，不可能定义一个范围。然而，第二个连字符则位于两个表情符号之间，这告诉正则表达式引擎匹配一个范围：
 - en: '![images/flags_u_ex4.png](images/flags_u_ex4.png)'
+  id: totrans-13
   prefs: []
   type: TYPE_IMG
+  zh: '![images/flags_u_ex4.png](images/flags_u_ex4.png)'
 - en: 'Without the u flag, this code would throw a SyntaxError:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果没有 `u` 标志，这段代码会抛出一个语法错误：
 - en: '[part_2/flag_unicode/unicode_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex2.js)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_unicode/unicode_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex2.js)'
 - en: '|   | *// Same pattern with no unicode flag* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 与没有 Unicode 标志的相同模式* |'
 - en: '![images/flags_u_ex2.png](images/flags_u_ex2.png)'
+  id: totrans-17
   prefs: []
   type: TYPE_IMG
+  zh: '![images/flags_u_ex2.png](images/flags_u_ex2.png)'
 - en: 'Another use of the Unicode flag is to tell the engine to treat a pattern as
     a sequence of Unicode code points, making it possible to interpret surrogate pairs
     as whole characters rather than two separate characters. For instance:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: Unicode 标志的另一个用途是告诉引擎将模式视为 Unicode 代码点的序列，这使得可以将代理对（surrogate pairs）解释为整个字符，而不是两个独立的字符。例如：
 - en: '[part_2/flag_unicode/unicode_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex3.js)'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_unicode/unicode_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex3.js)'
 - en: '|   | **const** str = *"***\***ud846"*; |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"***\***ud846"*; |'
 - en: '![images/flags_u_ex3.png](images/flags_u_ex3.png)'
+  id: totrans-21
   prefs: []
   type: TYPE_IMG
+  zh: '![images/flags_u_ex3.png](images/flags_u_ex3.png)'
 - en: 'The Chinese character in this example consists of two code points: \ud846\udf10.
     Without setting the u flag, the regex engine incorrectly interprets the first
     pair as a match. For more details about Unicode, see Appendix 1, [*What Is Unicode?*](f_0088.xhtml#apx1).'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个例子中的汉字由两个代码点组成：\ud846\udf10。如果没有设置 u 标志，正则表达式引擎会错误地将第一个代码对当作匹配项。关于 Unicode
+    的更多细节，请参阅附录 1，[*什么是 Unicode？*](f_0088.xhtml#apx1)。
 - en: 'An important thing to remember about the u flag is that it’s more strict about
     the unnecessary use of the backslash. If you escape a character that has no special
     meaning in regex, and the Unicode mode is on, you’ll get an error:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 u 标志需要记住的一点是，它对不必要使用反斜杠的情况更加严格。如果你转义一个在正则表达式中没有特殊意义的字符，并且启用了 Unicode 模式，系统会抛出错误：
 - en: '[part_2/flag_unicode/unicode_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex4.js)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_unicode/unicode_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_unicode/unicode_ex4.js)'
 - en: '|   | **const** str = *"cab"*; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"cab"*; |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | */**\c**/*.test(str); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | */**\c**/*.test(str); |'
 - en: '|   | *// → false* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → false* |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | */**\c**/*u.test(str); |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | */**\c**/*u.test(str); |'
 - en: '|   | *// → SyntaxError: Invalid regular expression: /\c/: Invalid Unicode
     escape* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → SyntaxError: 无效的正则表达式：/\c/：无效的 Unicode 转义* |'
 - en: The second regex in this code attempts to escape “c,” which is not a reserved
     character. The outcome is a SyntaxError.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 该代码中的第二个正则表达式尝试转义“c”，但“c”不是保留字符，结果会导致 SyntaxError（语法错误）。
 - en: '| Unicode Property Escapes |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| Unicode 属性转义 |'
 - en: '| --- |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/note.png](images/aside-icons/note.png) | An extremely
     useful feature of the Unicode flag is to enable Unicode property escapes, which
     you’ll learn about in Recipe 51, [*Matching Non-ASCII Numerals with the Unicode
     Property Escape*](f_0062.xhtml#rcp.unicode_property_escapes_p1). |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/note.png](images/aside-icons/note.png) | Unicode 标志的一个非常有用的功能是启用
+    Unicode 属性转义，你将在第 51 条食谱中学习到，[*使用 Unicode 属性转义匹配非 ASCII 数字*](f_0062.xhtml#rcp.unicode_property_escapes_p1)。
+    |'
 - en: '| Nitty-Gritty Details |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| Nitty-Gritty 细节 |'
 - en: '| --- |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | There are more
     nitty-gritty details about the u flag that could be useful to know if you are
     working with non-BPM characters. Check out Mathias Bynens’ extensive article on
     Unicode-aware regular expressions to learn more.^([[28]](f_0064.xhtml#FOOTNOTE-28))
     |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 关于 u 标志还有更多细节，如果你在处理非
+    BMP 字符时可能会用到。查看 Mathias Bynens 关于 Unicode 感知正则表达式的详细文章，了解更多内容。^([[28]](f_0064.xhtml#FOOTNOTE-28))
+    |'
 - en: The Unicode flag enables various ES2015 Unicode features. You can use it to
     define a range of astral (non-BMP) symbols such as emojis, interpret surrogate
     pairs as whole characters, interpret Unicode property escapes, and more.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: Unicode 标志启用了各种 ES2015 Unicode 特性。你可以使用它来定义一系列天文字符（非 BMP 字符），如表情符号，解释代理对为完整字符，解释
+    Unicode 属性转义等。

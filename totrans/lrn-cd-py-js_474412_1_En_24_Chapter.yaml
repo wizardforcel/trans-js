@@ -1,66 +1,98 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_24](https://doi.org/10.1007/978-3-658-42912-6_24)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者（们），独家授权给 Springer Fachmedien Wiesbaden GmbH，隶属于 Springer Nature 2024 J.
+    L. Zuckarelli《使用 Python 和 JavaScript 学习编码》 [https://doi.org/10.1007/978-3-658-42912-6_24](https://doi.org/10.1007/978-3-658-42912-6_24)
 - en: '24. Conditional Statements & Event Handling: How Do I Control the Program Flow
     and Make the Program React to User Actions and Other Events?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 24. 条件语句与事件处理：如何控制程序流程并使程序响应用户操作及其他事件？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2)  )(1)德国慕尼黑概述
 - en: Next, we will look at how to branch in Python programs and—depending on the
     situation—sometimes execute one part of the code, sometimes another. This way,
     our program flow becomes really interesting and is not just the execution of exactly
     the same sequence of Python statements over and over again.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们将看看如何在 Python 程序中进行分支——根据情况，有时执行代码的某一部分，有时执行另一部分。通过这种方式，我们的程序流程变得非常有趣，而不是简单地一遍又一遍地执行完全相同的
+    Python 语句序列。
 - en: 'In this chapter you will learn:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 本章你将学到：
 - en: How to branch in the program code with If-Else constructs
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用 If-Else 语句结构在程序代码中进行分支
 - en: how If-Else constructs are nested within each other
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何嵌套使用 If-Else 语句结构
 - en: how multiple alternative conditions can be considered with the elif statement
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用 elif 语句考虑多个备选条件
 - en: how conditions for If-Else constructs are built, and which comparison operators
     can be used for this purpose
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何构建 If-Else 语句结构的条件，并且可以使用哪些比较运算符
 - en: how to combine several conditions into one overall condition using logical operators
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用逻辑运算符将多个条件组合成一个整体条件
 - en: how to make your program react to events
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何让程序响应事件
 - en: 24.1 If-Else Constructs
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 24.1 If-Else 语句结构
 - en: 24.1.1 Simple If-Else Constructs
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 24.1.1 简单的 If-Else 语句结构
 - en: 'Let’s review our conversion of temperatures between the units Kelvin and degrees
     Celsius. In the previous chapter (► Sect. [23.​1.​3](474412_1_En_23_Chapter.xhtml#Sec4))
     we defined the following function:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们回顾一下温度单位开尔文与摄氏度之间的转换。在上一章（► 节 [23.​1.​3](474412_1_En_23_Chapter.xhtml#Sec4)）中，我们定义了以下函数：
 - en: '**def** kelvin_to_celsius(kelvin: float) -> float:return kelvin - 273.15'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float) -> float:return kelvin - 273.15'
 - en: Suppose now that we wanted to improve this simple function by making it less
     prone to erroneous input. A temperature in Kelvin, as you recall, can never be
     negative. Absolute zero is 0 K, which is −273.15 °C. Lower temperatures are physically
@@ -75,18 +107,28 @@
     the programmer to react to an error the way they want to, whereas just displaying
     our error message does not give the user any option other than starting the program
     again.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设现在我们想通过减少出错输入的可能性来改进这个简单的函数。正如你所记得，开尔文温度不能是负数。绝对零度是 0 K，即 -273.15 °C。更低的温度在物理上是不可行的。在
+    0 K 时，根本没有热量，因此无法再变得更冷。因此，如果我们想防止函数因为输入无效而返回无效值，我们需要检查函数参数 **kelvin** 是否大于或等于
+    0。如果 **kelvin** 小于 0，即无效，函数应该做出响应，可以通过在控制台显示错误消息，或者返回一个特殊的错误代码，让调用我们函数的程序员能够检查转换是否成功。我们选择后者，这更可取，因为它允许程序员按自己的方式处理错误，而仅仅显示错误消息不会给用户其他选择，除了重新启动程序。
 - en: 'Now, to make our function robust to incorrect input, we need to add an If-Else
     construct that checks if the **kelvin** value is invalid, i.e., less than 0, and
     in that case return an error indicator, for example None. The adapted function
     might then look like this:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，为了使我们的函数能够应对不正确的输入，我们需要添加一个 If-Else 语句结构，检查 **kelvin** 值是否无效，即小于 0，在这种情况下返回一个错误指示符，例如
+    None。调整后的函数可能看起来像这样：
 - en: '**def** kelvin_to_celsius(kelvin: float) -> float:**if** kelvin < 0:res = None**else**:res
     = kelvin - 273.15**return** res'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float) -> float: **if** kelvin < 0: res =
+    None **else**: res = kelvin - 273.15 **return** res'
 - en: 'You can see that we have built in a program hint here: The keyword if is followed
     by the condition to be checked, in our case whether the Kelvin temperature is
     less than 0\. If the condition is met, the following code block is executed, which—like
@@ -101,29 +143,41 @@
     code in the **if** code block. In our example, moving to the **else** code block
     means that our kelvin argument is valid and can thus be converted to a Celsius
     value.'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以看到我们在这里构建了一个程序提示：关键字**if**后面跟着需要检查的条件，在我们的例子中是判断开尔文温度是否小于0\. 如果条件满足，接下来的代码块将被执行，代码块—就像函数的代码块一样—在冒号后开始并缩进。在我们的示例中，代码块只包含一个语句，即将**None**赋值给一个名为**res**的中间变量，但当然这里也可以有任何数量的进一步语句。接下来是—与**if**具有相同缩进级别的—**else**关键字，后面跟着一个只有在**if**条件不满足时才会执行的代码块。**else**分支从某种意义上说是**if**条件的逻辑反义；每当**if**条件不满足时，程序会直接跳转到**else**，而不执行**if**代码块中的程序代码。在我们的示例中，跳转到**else**代码块意味着我们的开尔文参数有效，因此可以转换为摄氏度值。
 - en: The **return** statement after the If-Else construct is executed in any case,
     no matter whether the program branches into the **if** or **else** branch. In
     this way, we ensure that the function value stored in **res** is always returned,
     which—depending on whether the **if** or **else** branch has been traversed—contains
     the converted Celsius value or the error indicator None.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在If-Else结构后的**return**语句无论如何都会执行，不论程序是进入**if**分支还是**else**分支。通过这种方式，我们确保存储在**res**中的函数值始终会被返回，这个值—取决于程序走的是**if**分支还是**else**分支—要么包含转换后的摄氏度值，要么包含错误指示符**None**。
 - en: 'In our main program we could now integrate this function, for example, like
     this:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的主程序中，我们现在可以将这个函数集成进来，例如，像这样：
 - en: 'kelv = input(''Please enter a temperature in Kelvin: '')cel = kelvin_to_celsius(float(kelv))**if**
     celis None:print(''You have entered an invalid Kelvin temperature!'')**else**:print(round(float(kelv),
     2), ''Kelvin are'', round(cel, 2),''degrees celsius.'')'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 'kelv = input(''请输入一个开尔文温度：'') cel = kelvin_to_celsius(float(kelv)) **if** cel
+    is None: print(''您输入的开尔文温度无效！'') **else**: print(round(float(kelv), 2), ''开尔文等于'',
+    round(cel, 2), ''摄氏度。'')'
 - en: As you can see, we ask the user for a temperature in Kelvin, convert it, and
     then look to see if there was an error; depending on whether there was, we either
     output an error message or the converted value in Celsius.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们要求用户输入一个开尔文温度，进行转换，然后检查是否存在错误；根据是否存在错误，我们要么输出错误信息，要么输出转换后的摄氏度值。
 - en: You will have noticed the double equal sign that we use to compare the variable
     **cel** with the error indicator None. Python, like many other languages, distinguishes
     between the *assignment operator* **=** and the *comparison operator* **==**.
@@ -132,66 +186,95 @@
     other programming languages, the logical operator *NOT*, which turns the truth
     of a statement around. In this case the statement that the two values to the left
     and right of the equal sign operator are equal.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 你会注意到我们用来将变量**cel**与错误指示符**None**进行比较的双等号。Python与许多其他语言一样，区分了*赋值运算符* **=** 和
+    *比较运算符* **==**。数学中的不等号（≠）在Python中等价于比较运算符**!=**，即“*不等于*”，因为感叹号在许多编程语言中作为逻辑运算符*NOT*，用于反转一个表达式的真假。在这个例子中，表示左右两边的值是否相等。
 - en: 'The **else** branch in an If-Else construct can also be omitted. So our function
     **kelvin_to_celsius()** could also look like this:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: If-Else结构中的**else**分支也可以省略。因此，我们的函数**kelvin_to_celsius()**也可以像这样：
 - en: '**def** kelvin_to_celsius(kelvin: float) -> float:res = None**if** kelvin >=
     0:res = kelvin - 273.15**return** res'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float) -> float: res = None **if** kelvin
+    >= 0: res = kelvin - 273.15 **return** res'
 - en: This formulation of the function does exactly the same as the previous option.
     We first set the variable **res** to None, that is, to error. So, if nothing happens
     now, the function returns the error value. But something else happens if the kelvin
     argument is a valid value. Then the value of **res** (currently the error code)
     is replaced by the value converted to Celsius.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种函数的表述与前一种选项完全相同。我们首先将变量 **res** 设置为 None，即错误值。因此，如果现在没有发生任何事情，函数会返回错误值。但如果
+    kelvin 参数是有效值，则会发生其他情况。此时，**res**（当前是错误代码）的值会被转换为摄氏度后的值。
 - en: 'By the way: We could have moved the whole logic of checking whether the user
     input is valid or not from the function **kelvin_to_celsius()** to the main program
     and simply call the function only if the input was valid. Otherwise, a corresponding
     error message would be output.'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下：我们本可以将检查用户输入是否合法的整个逻辑从函数 **kelvin_to_celsius()** 移到主程序中，并在输入有效时仅调用该函数。否则，会输出相应的错误信息。
 - en: 24.1 [15 min]Modify the text editor code from ► Sect. [22.​4](474412_1_En_22_Chapter.xhtml#Sec22)
     so that
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 24.1 [15 min] 修改文本编辑器代码，来自 ► 第 [22.​4](474412_1_En_22_Chapter.xhtml#Sec22) 节，以便
 - en: (a)
+  id: totrans-29
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (a)
 - en: A file is read when opening and written when saving only if a file name actually
     exists (i.e., the user did not click “Cancel” in the file open dialog without
     selecting a file).
+  id: totrans-30
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 只有当文件名确实存在时（即用户没有在文件打开对话框中点击“取消”而不选择文件），文件才会在打开时读取，在保存时写入。
 - en: (b)
+  id: totrans-31
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (b)
 - en: A click on “Save” automatically opens the “Save File As” dialog if no file name
     has been specified yet.
+  id: totrans-32
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 如果尚未指定文件名，点击“保存”会自动打开“另存为”对话框。
 - en: With these changes, you avoid the nasty error messages in the run console when,
     for example, the user clicks “Save” without first specifying a filename; in this
     case, Python tries to write to a file with an empty filename (''), which of course
     fails.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过这些改动，你可以避免在运行控制台中出现那些讨厌的错误信息，例如，当用户在没有先指定文件名的情况下点击“保存”时；在这种情况下，Python会尝试将内容写入一个空文件名（''），这显然会失败。
 - en: Handling situations in which further execution of the program would lead to
     an error is a common use of branching with the help of If-Else constructs.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理程序执行过程中可能导致错误的情况是使用 If-Else 结构进行分支的常见用途。
 - en: 24.1.2 Nested if-else Constructs
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 24.1.2 嵌套的 if-else 结构
 - en: 'Now suppose we wanted to convert our function **celsius_to_kelvin()** to a
     function **convert_temperature(temperature: float, toCelsius: bool)**, which converts
     a temperature specification either from Kelvin to Celsius or from Celsius to Kelvin.
@@ -202,23 +285,37 @@
     temperature, i.e. temperatures greater than 0 if it is a Kelvin value (**toCelsius
     == True**) or greater than −273.15° if temperature contains a Celsius value (**toCelsius
     == False**).'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '现在假设我们想将函数 **celsius_to_kelvin()** 转换为一个函数 **convert_temperature(temperature:
+    float, toCelsius: bool)**，它可以将温度值从开尔文转换为摄氏度，或从摄氏度转换为开尔文。一个新的 **bool** 类型参数 **toCelsius**
+    应该指定转换的方向。如果这个参数值为 **True**，则将开尔文转换为 *摄氏度*，否则反之。并且，在新函数 **convert_temperature()**
+    中，我们希望确保只有合法的温度值可以作为参数传入，即如果是开尔文值（**toCelsius == True**），则温度应大于0；如果是摄氏度值（**toCelsius
+    == False**），则温度应大于−273.15°。'
 - en: 'Our function could then look like this:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的函数可能看起来像这样：
 - en: '1 **def** convert_temperature(temperature: float,toCelsius: bool) -> float:2
     **if** toCelsius == **True**:3 **if** temperature >= 0:4 res = temperature - 273.155
     **else**:6 res = None7 **else**:8 **if** temperature >= -273.15:9 res = temperature
     + 273.1510 **else**:11 res = None12 **return** res'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '1 **def** convert_temperature(temperature: float,toCelsius: bool) -> float:  '
 - en: We could now call the function, for example, with
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们现在可以例如通过以下方式调用该函数：
 - en: print(convert_temperature(100, False))to convert 100 °C to Kelvin.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: print(convert_temperature(100, False)) 将 100°C 转换为开尔文。
 - en: 'If you take a closer look at the function, you will notice that two If-Else
     constructs have been nested here: The “outer” one checks (line 2) in which direction
     the user wants to convert the temperature and branches accordingly; the “inner”
@@ -228,8 +325,12 @@
     (in case of an invalid temperature specification) **res** is assigned the error
     value **None** (see Sect. [21.​3.​4](474412_1_En_21_Chapter.xhtml#Sec7)) (lines
     6 and 11).'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你仔细观察这个函数，你会注意到这里嵌套了两个 If-Else 结构：外层的检查（第2行）用户想要将温度转换成哪个方向，并根据需要进行分支；内层的结构（第3行和第8行）检查参数
+    temperature 在各自的程序分支中是否具有有效的值。如果条件成立，就会执行转换并存储在局部变量 **res** 中（第5行和第10行），否则（在温度无效的情况下）**res**
+    会被赋值为错误值 **None**（见第[21.​3.​4](474412_1_En_21_Chapter.xhtml#Sec7)节）（第6行和第11行）。
 - en: The “outer” **if** and the “outer” else are each followed by a code block (indented,
     of course), which in turn contains another If-Else construct. Theoretically, there
     are no limits to the depth of nesting, but in practice the code becomes more and
@@ -242,28 +343,44 @@
     example above, these code blocks each comprise only a single line), because then
     you read a lot of code and suddenly come across an **else** you no longer know
     to which if condition it belongs.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: “外层”的 **if** 和 “外层”的 **else** 都后跟一个代码块（当然是缩进的），而该代码块又包含了另一个 If-Else 结构。从理论上讲，嵌套的深度没有限制，但实际上，随着嵌套深度的增加，代码会变得越来越难以阅读，几乎就像一个自然语言句子，开头有许多从句，然后迅速关闭并在句尾结束。为了清晰起见，建议在嵌套超过两个结构时加上适当的注释，尤其是为了说明各个
+    **else** 条件属于哪个条件。同样的，如果 **if** 和 **else** 块中的代码较长（如上例中，这些代码块每个只有一行），因为你会阅读大量代码，然后突然遇到一个
+    **else**，而不再清楚它属于哪个 **if** 条件。
 - en: 'By the way: Instead of **if toCelsius == True**, we could have formulated the
     “outer” condition more simply as **if toCelsius**; the comparison with the value
     **True** may thus be omitted. This is because Python, if no comparison value is
     specified, compares with **True** by default.'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下：我们本可以将“外层”条件简化为 **if toCelsius**，而不需要写成 **if toCelsius == True**；因为如果没有指定比较值，Python
+    默认会与 **True** 进行比较，所以可以省略与 **True** 的比较。
 - en: 24.1.3 If-Else Construct with Composite Conditions
+  id: totrans-44
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 24.1.3 具有复合条件的 If-Else 结构
 - en: 'We could have written the **temperature_convert()** function from the previous
     section like this:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们本可以像这样编写上一节的 **temperature_convert()** 函数：
 - en: '1 **def** convert_temperature(temperature: float,toCelsius: bool) -> float:2
     **if** toCelsius == **True and** temperature >= 0:3 res = temperature - 273.154
     **else**:5 **if** toCelsius == **False and** temperature >= -273.15:6 res = temperature
     + 273.157 **else**:8 res = None9 **return** res'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '1 **def** convert_temperature(temperature: float, toCelsius: bool) -> float:
+    2 **if** toCelsius == **True and** temperature >= 0: 3 res = temperature - 273.154
+    **else**: 5 **if** toCelsius == **False and** temperature >= -273.15: 6 res =
+    temperature + 273.157 **else**: 8 res = None 9 **return** res'
 - en: This formulation of the function does the same as the function above but is
     structured differently with regard to the nesting of the If-Else construct s.
     The “outer” construct checks two conditions at once, namely whether a conversion
@@ -274,8 +391,12 @@
     at least one partial condition is not true, i.e., either **toCelsius == False**
     *or* **temperature < 0** (or even both!), the program is continued in the **else**
     block of the outer If-Else construct (line 4).
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数的表达式与上面的函数实现相同，但在嵌套的 If-Else 结构方面有不同的组织方式。“外层”结构同时检查两个条件，即是否需要转换为摄氏度（**toCelsius
+    == True**）*并且*指定的（开尔文）温度是否允许（**temperature >= 0**）。这两个部分条件通过**and**结合成一个总条件，只有当*两个*部分条件都为真时，总条件才为真。在这种情况下，会执行转换（第3行）。但如果至少有一个部分条件不为真，即**toCelsius
+    == False** *或* **temperature < 0**（甚至可能两个条件都不成立！），程序会继续执行外层 If-Else 结构中的**else**块（第4行）。
 - en: 'There again a compound condition is checked, namely whether a conversion from
     Celsius to Kelvin is required and whether the argument temperature is permissible
     for this conversion. If both partial conditions are fulfilled, the conversion
@@ -285,22 +406,30 @@
     there is now only the possibility that the argument **temperature** has a value
     that is not permissible for the required conversion. So, in this case the variable
     **res** is assigned the error value **None** (line 8).'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里又检查了一个复合条件，即是否需要从摄氏度转换为开尔文，并且参数温度是否适用于此转换。如果两个部分条件都成立，转换就会进行（第6行）。但如果这个条件也不成立，程序将跳转到最“内层”的**else**块：由于**toCelsius**只能取**True**或**False**（至少当函数被“正确”调用时），现在只有可能是参数**temperature**的值不适合要求的转换。因此，在这种情况下，变量**res**会被赋予错误值**None**（第8行）。
 - en: 'In this example, we have linked two partial conditions with a logical *AND*.
     Other important logical operators besides **and** are:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们通过逻辑*与*连接了两个部分条件。除了**and**，其他重要的逻辑运算符还包括：
 - en: '**or**, the logical *OR*, with which two conditions are linked in such a way
     that the total condition is true if *either* one or the other or *both* conditions
     are true.'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**or**，逻辑*或*，通过它将两个条件链接在一起，使得总条件成立时，*任何一个*条件或*两个*条件成立时。'
 - en: '**not**, the logical *NOT*, with which the truth of a statement can be reversed.'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**not**，逻辑*非*，用来反转一个语句的真假。'
 - en: 'So the condition **toCelsius == True and temperature >= 0** could have been
     written—admittedly somewhat awkwardly—as **not(toCelsius == False or temperature
     < 0)**. Then the overall condition would have required that it must not be true
@@ -310,37 +439,56 @@
     Kelvin to degrees Celsius) is executed. By the way: You do not always have to
     link compound conditions with logical operators. For example, instead of**if**
     x >= 0 **and** x < 10'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以条件**toCelsius == True and temperature >= 0**本来可以写成——尽管有些别扭——**not(toCelsius
+    == False or temperature < 0)**。这样，整体条件就要求不能成立的是**toCelsius**等于**False**，或**temperature
+    < 0**，或者两者都成立。换句话说：只有当**toCelsius == True**且**temperature >= 0**时，整体条件才成立，接下来的代码块（即从开尔文到摄氏度的转换）才会被执行。顺便提一下：你不总是需要用逻辑运算符来连接复合条件。例如，可以用**if**
+    x >= 0 **and** x < 10
 - en: Python (unlike many other programming languages) also allows the more compact
     notation
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: Python（与许多其他编程语言不同）也允许使用更简洁的表示法
 - en: '**if** 0 <= x < 10'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**if** 0 <= x < 10'
 - en: This causes exactly the same check, namely whether the value of the variable
     **x** is at least 0 but less than 10.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 这会进行完全相同的检查，即检查变量**x**的值是否至少为0且小于10。
 - en: 24.2 [10 min]
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 24.2 [10 min]
 - en: 'Write a function **age_in_seconds(age_years: int) -> int**, which converts
     an age in years passed as argument **age_years**, into seconds; the function shall
     thus calculate and return the *minimum* seconds already experienced. Specific
     error messages are to be output if the argument **age_years** is not an integer
     variable, or the age is less than 0 or greater than 120.'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '编写一个函数**age_in_seconds(age_years: int) -> int**，该函数将一个以**age_years**参数传入的年龄（单位为年）转换为秒数；该函数因此计算并返回已经历的*最小*秒数。如果参数**age_years**不是整数变量，或年龄小于0或大于120，则应输出特定的错误信息。'
 - en: If you don’t remember how to check whether a value is an integer, scroll back
     to ► Sect. [21.​4.​1](474412_1_En_21_Chapter.xhtml#Sec10).
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你不记得如何检查一个值是否是整数，请滚动回►第[21.4.1节](474412_1_En_21_Chapter.xhtml#Sec10)。
 - en: 24.1.4 If-Else Construct with Alternative Conditions (elif)
+  id: totrans-59
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 24.1.4 If-Else结构与替代条件（elif）
 - en: Sometimes you want to check several similar conditions. Many other languages
     provide a Switch-Case construct for this, as we saw in ► Sect. [14.​6](474412_1_En_14_Chapter.xhtml#Sec6).
     Switch-Case is excellent for checking an expression (for example, a variable)
@@ -348,8 +496,10 @@
     the **elif** keyword, there is a very efficient way to check multiple alternative
     conditions to the **if**-condition of an If-Else construct; this way of formulating
     the conditions is even more flexible than a conventional Switch-Case construct.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时候，你可能需要检查多个相似的条件。许多其他编程语言提供了Switch-Case结构，正如我们在►第[14.6节](474412_1_En_14_Chapter.xhtml#Sec6)中看到的那样。Switch-Case非常适合检查一个表达式（例如，变量）是否等于多个不同的值。Python中没有这种结构。然而，使用**elif**关键字，可以非常高效地检查多个替代条件，以补充If-Else结构的**if**条件；这种表述方式比传统的Switch-Case结构更灵活。
 - en: 'As an example, suppose you have developed a program that allows the user to
     select a file and then specify what to do with the file. In doing so, the file
     can be renamed, deleted, copied to another directory, or moved there. To select
@@ -359,27 +509,38 @@
     Now, what is the condition that checks which action the user wants to perform?
     Using nested If-Else constructs as in ► Sect. [24.1.2](#Sec3), we could choose
     the following formulation:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，假设你开发了一个程序，允许用户选择一个文件，并指定对文件执行的操作。这样，文件可以被重命名、删除、复制到另一个目录或移动到那里。为了选择所需的操作，用户只需输入所需操作的首字母，即**r**（重命名）、**d**（删除）、**c**（复制）或**m**（移动）。在用户输入该操作请求后，它将存储在**str**类型的变量**action**中。那么，判断用户希望执行哪种操作的条件是什么呢？使用如►第[24.1.2节](#Sec3)中的嵌套If-Else结构，我们可以选择以下表述：
 - en: '**if** action == ''r'':# Code executed if the user enters ''r''# (rename the
     file)**else**:**if** action == ''d'':# Code executed if the user enters ''d''#
     (delete the file)**else**:**if** action == ''c'':# Code executed if the user enters
     ''c''# (rename the file)**else**:**if** action == ''m'':# Code executed if the
     user enters ''m''# (move the file)**else**:# Code executed if the user enters#
     something else'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**if** action == ''r'':# 如果用户输入了''r''，执行的代码#（重命名文件）**else**:**if** action ==
+    ''d'':# 如果用户输入了''d''，执行的代码#（删除文件）**else**:**if** action == ''c'':# 如果用户输入了''c''，执行的代码#（复制文件）**else**:**if**
+    action == ''m'':# 如果用户输入了''m''，执行的代码#（移动文件）**else**:# 如果用户输入了其他内容，执行的代码'
 - en: 'This nested formulation checks in sequence which action code has been entered.
     If **''r''** was not entered, **''d''** is checked next, if this was not entered
     either, then **''c''** and so on. Due to the nesting, the whole thing appears
     somewhat confusing. With the help of the **elif** keyword it is possible to structure
     this part of the program much more clearly:'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种嵌套的表述依次检查用户输入了哪个操作代码。如果没有输入**'r'**，则接着检查**'d'**，如果也没有输入**'d'**，则检查**'c'**，以此类推。由于存在嵌套，整个结构看起来有些混乱。借助**elif**关键字，可以更清晰地组织程序的这一部分：
 - en: '**if** action == ''r'':# rename**elif** action == ''d'':# delete**elif** action
     == ''c'':# copy**elif** action == ''m'':# move**else**:# no valid action code'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**if** action == ''r'':# 重命名**elif** action == ''d'':# 删除**elif** action ==
+    ''c'':# 复制**elif** action == ''m'':# 移动**else**:# 无效的操作代码'
 - en: With **elif**, on the same level as the introductory **if**, further conditions
     can be checked. The (optional) **else** code block at the end is used if neither
     the **if** condition nor one of the **elif** conditions is true. If one of the
@@ -389,55 +550,80 @@
     **elif** formulates *alternative* conditions. In this way, a highly convoluted
     and difficult to understand construct can be replaced by a very clear, easy to
     read notation.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**elif**时，可以在与初始**if**同一层级上检查更多的条件。如果既没有**if**条件成立，也没有**elif**条件成立，那么（可选的）**else**代码块将被执行。如果某个**elif**条件成立，则执行该代码块，并在**else**代码块之后继续执行程序，即在整个If-Elif-Else结构之后继续。其他的**elif**条件将不再检查，因为**elif**表示的是*备选*条件。通过这种方式，一个复杂且难以理解的结构可以被替换为一个非常清晰、易于阅读的符号。
 - en: 24.3 [10 min]Consider the If-Elif-Else construct in the following program excerpt.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 24.3 [10 min]考虑下面程序片段中的If-Elif-Else结构。
 - en: (a)
+  id: totrans-67
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (a)
 - en: What values do the variables **a** and **b** take after running the program
     extract if their values at the beginning are **a = 100**, **b = 50**?
+  id: totrans-68
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 程序提取运行后，若初始时**a = 100**，**b = 50**，则变量**a**和**b**的值会是多少？
 - en: (b)
+  id: totrans-69
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (b)
 - en: What values do the variables **a** and **b** take after running the program
     extract if their values at the beginning are **a = 110**, **b = 40**?
+  id: totrans-70
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 程序提取运行后，若初始时**a = 110**，**b = 40**，则变量**a**和**b**的值会是多少？
 - en: (c)
+  id: totrans-71
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (c)
 - en: What combinations of values of **a** and **b** result in **b = 0** in the end?
+  id: totrans-72
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 哪些**a**和**b**的值组合最终会导致**b = 0**？
 - en: If you don’t get the solution directly in subtasks (a) and (b), enter the code
     in Python and try it out.**if** a > 90 **and** b <= 20:b = 15**elif** b < 10:b
     = 0**elif** (a > 90 **and** b < 50) **or** (a == 100 **and** b > 50):b = 20**if**
     a >= 100 **or** b <= 50:a = 5**else:**a = 25**elif** a >= 90 **or** b <= 50:b
     = 5**else**:b = 10a = 20
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果在子任务（a）和（b）中没有直接得到解决方案，可以将代码输入到Python中并尝试运行。**if** a > 90 **and** b <= 20:b
+    = 15**elif** b < 10:b = 0**elif** (a > 90 **and** b < 50) **or** (a == 100 **and**
+    b > 50):b = 20**if** a >= 100 **or** b <= 50:a = 5**else:**a = 25**elif** a >=
+    90 **or** b <= 50:b = 5**else**:b = 10a = 20
 - en: 24.2 Events
+  id: totrans-74
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 24.2 事件
 - en: Like If-(Elif-)Else constructs, *events* are used to control the program flow,
     such as to be able to react to user input. However, unlike If-(Elif-)Else constructs,
     events do not simply run through the program linearly from beginning to end, branching
     into certain parts and “skipping” others. Instead, events cause a specific function,
     the *event handler*, to be called and the code it contains to be executed.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似于If-(Elif-)Else结构，*事件*用于控制程序的流程，比如能够响应用户输入。然而，与If-(Elif-)Else结构不同，事件并不会简单地从程序的开始到结束线性执行，分支到某些部分并“跳过”其他部分。相反，事件会调用一个特定的函数——*事件处理器*，并执行其包含的代码。
 - en: This can be seen very nicely in our **tkinter** programs, such as the calculator
     application from ► Sect. [22.​2.​6](474412_1_En_22_Chapter.xhtml#Sec20). The function
     **equal_press()**, for example, is an event handler that is called whenever the
@@ -450,67 +636,96 @@
     [25.​2](474412_1_En_25_Chapter.xhtml#Sec5), we will use simple means to build
     a program with a main loop and event handlers that runs in the Python (run) console,
     i.e., without a graphical user interface.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 这一点在我们的**tkinter**程序中体现得非常好，例如在► 第[22.2.6节](474412_1_En_22_Chapter.xhtml#Sec20)的计算器应用程序中。例如，**equal_press()**函数就是一个事件处理器，当用户点击等号按钮时，它会被调用。当事件处理器中的代码完全处理完毕后，程序会跳回程序的主循环——在**tkinter**程序中，这是函数**mainloop()**。在这个循环中，程序“等待”下一个事件发生，并为该事件定义了事件处理器。一旦发生了这个事件，事件处理器就会获得控制权；事件处理器执行完毕后，程序会返回到“潜伏”状态。我们将在►
+    第[25.2节](474412_1_En_25_Chapter.xhtml#Sec5)中，使用简单的方法来构建一个带有主循环和事件处理器的程序，该程序将在Python（运行）控制台中运行，也就是说，不需要图形用户界面。
 - en: 24.3 Summary
+  id: totrans-77
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 24.3 总结
 - en: In this chapter, we have dealt with how branches can be built into the program
     code, so that not always the entire code, but, depending on conditions, only individual
     parts are executed. The central tools for this are the If-Else construct and events.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们讨论了如何在程序代码中构建分支，使得并非总是执行整个代码，而是根据条件，只执行某些特定部分。实现这一功能的核心工具是 If-Else 结构和事件。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 请务必掌握本章中的以下要点：
 - en: 'If-Else constructs allow you to make the execution of parts of the program
     code dependent on conditions; **if** (and **else**) is followed by the code block
     that is to be executed if the condition (or its alternative) is fulfilled; the
     **else** branch can also be omitted; the general structure is thus: **if** ***condition:
     code_block*** **else:** ***code_block***.'
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 'If-Else 结构使得程序代码的某些部分的执行可以依赖于条件；**if**（以及**else**）后面跟着在条件（或其替代条件）满足时需要执行的代码块；**else**分支也可以省略；一般结构为：**if**
+    ***condition: code_block*** **else:** ***code_block***。'
 - en: If-Else constructs can be nested within each other.
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: If-Else 结构可以相互嵌套。
 - en: With **elif** several further conditions can be formulated, which are only checked
     if the **if**-condition and possibly further, preceding **elif** constructs were
     not fulfilled.
+  id: totrans-82
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**elif**可以制定多个进一步的条件，这些条件只有在**if**条件及可能的其他前置**elif**结构未被满足时才会被检查。
 - en: Conditions are regularly formed by comparisons; the operator for checking equality
     is the double equal sign (**==**), the single equal sign is used for assignments;
     for inequality relations **!=** is used.
+  id: totrans-83
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 条件通常通过比较运算符形成；检查相等性的运算符是双等号（**==**），单等号用于赋值；不等式运算使用**!=**。
 - en: Several (sub-)conditions can be linked with logical operators (especially **and**,
     **or**, **not**) to form a composite condition.
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以使用逻辑运算符（特别是**and**、**or**、**not**）将多个（子）条件连接起来，形成复合条件。
 - en: Events are processed by defining a special function (event handler) that is
     called whenever the event is triggered. Events are especially useful in programs
     with a graphical user interface.
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 事件通过定义一个特殊的函数（事件处理器）来处理，该函数会在事件被触发时被调用。事件在具有图形用户界面的程序中尤为有用。
 - en: 24.4 Solutions to the Exercises
+  id: totrans-86
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 24.4 练习解答
 - en: Exercise 24.1
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 24.1
 - en: 'The (event handler) functions **saveas_press()**, **save_press()** and **open_press()
     have** to be adapted. The supplemented If-Else constructs are highlighted in italics
     in the following sample solution:'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: （事件处理器）函数**saveas_press()**、**save_press()**和**open_press()**需要进行调整。补充的 If-Else
+    结构在下面的示例解答中用斜体标出：
 - en: '**def** open_press():**global** filenamefname = askopenfilename(defaultextension
     = ''txt'',filetypes = [(''Text files'', ''*.txt''),(''All files'', ''*.*''),],title
     = ''Open File....'',initialdir = ''C:\\Windows'')**if** fname != '''':textfile
@@ -523,17 +738,37 @@
     = fname**def** save_press():**global** filename**if** filename != '''':textfile
     = open(filename, ''w'')textfile.write(text.get(1.0, END))textfile.close()status[''text'']
     = ''File "'' + filename + ''" saved.''**else**:saveas_press()Exercise 24.2'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** open_press():**global** filenamefname = askopenfilename(defaultextension
+    = ''txt'',filetypes = [(''Text files'', ''*.txt''),(''All files'', ''*.*''),],title
+    = ''Open File....'',initialdir = ''C:\\Windows'')**if** fname != '''':textfile
+    = open(fname, ''r'')text.delete(1.0, END)text.insert(1.0, file.read())textfile.close()status[''text'']
+    = ''File "'' + fname + ''" opened.''filename = fname**def** saveas_press():**global**
+    filenamefname = asksaveasfilename(defaultextension = ''txt'',filetypes=[(''Text
+    files'', ''*.txt''),(''All files'', ''*.*''),],title = ''Save File As...'',initialdir
+    = ''C:\\Windows'')**if** fname != '''':textfile = open(fname, ''w'')textfile.write(text.get(1.0,
+    END))textfile.close()status[''text''] = ''File "'' + fname + ''" saved.''filename
+    = fname**def** save_press():**global** filename**if** filename != '''':textfile
+    = open(filename, ''w'')textfile.write(text.get(1.0, END))textfile.close()status[''text'']
+    = ''File "'' + filename + ''" saved.''**else**:saveas_press()练习 24.2'
 - en: 'A possible formulation of the function could look like this:'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数的一个可能的表述如下所示：
 - en: '**def** age_in_seconds(age_years: int) -> int:**if** **not** isinstance(alter_years,
     int):print(''Error: The age is not an integer value!'')**else**:**if** age_years
     < 0 **or** age_years > 120:print(''Error: Implausible age information!'')**else**:return
     age_years * 365 * 24 * 60 * 60'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** age_in_seconds(age_years: int) -> int:**if** **not** isinstance(alter_years,
+    int):print(''Error: The age is not an integer value!'')**else**:**if** age_years
+    < 0 **or** age_years > 120:print(''Error: Implausible age information!'')**else**:return
+    age_years * 365 * 24 * 60 * 60'
 - en: First, the **isinstance()** function is used in an outer If-Else construct to
     check whether the argument **age_years** is not (!) an integer value. If this
     is the case, an error message is issued and the function is exited. We take advantage
@@ -541,46 +776,71 @@
     an expression in a condition against **True** by default. Alternatively, we could
     have written **if not isinstance(age_years, int) == True** or **if isinstance(age_years,
     int) != True**.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，**isinstance()** 函数在外层的 If-Else 结构中被用来检查参数 **age_years** 是否不是（!）一个整数值。如果是这种情况，则会发出错误信息并退出函数。我们在这里利用了
+    **isinstance** 返回 **bool** 值的事实，并且 Python 默认将条件中的表达式与 **True** 进行比较。或者，我们也可以写成
+    **if not isinstance(age_years, int) == True** 或 **if isinstance(age_years, int)
+    != True**。
 - en: However, if **age_years** is indeed an integer value, the inner If-Else construct
     checks whether the age is outside the plausible limits. In this case, the function
     is again exited with an error message. If this hurdle is also successfully overcome,
     the function returns the age in seconds.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，如果 **age_years** 确实是一个整数值，内层的 If-Else 结构会检查年龄是否超出了合理范围。如果是这种情况，函数再次退出并发出错误信息。如果这个障碍也成功克服，函数将返回年龄的秒数。
 - en: You could then call the function for example with
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后，您可以例如调用该函数：
 - en: print(age_in_seconds(38))Exercise 24.3
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: print(age_in_seconds(38))练习 24.3
 - en: (a)
+  id: totrans-96
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: （a）
 - en: '**a = 100**, **b = 5** (the condition applies: **a >= 90 or b <= 50**)'
+  id: totrans-97
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**a = 100**, **b = 5**（适用的条件：**a >= 90 或 b <= 50**）'
 - en: (b)
+  id: totrans-98
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: （b）
 - en: '**a = 5**, **b = 20** (the conditions: **(a > 90 and b < 50) or (a == 100 and
     b > 50)** and **a >= 100 or b <= 50** apply)'
+  id: totrans-99
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**a = 5**, **b = 20**（适用的条件：**(a > 90 且 b < 50) 或 (a == 100 且 b > 50)** 和 **a
+    >= 100 或 b <= 50**）'
 - en: (c)
+  id: totrans-100
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: （c）
 - en: None. For this, the condition **a >= 95 and b < 15** would have to be fulfilled.
     But this is an alternative condition to **a > 90 and b <= 20**. Every combination
     of **a** and **b** that satisfies **a >= 95 and b < 15** also satisfies **a >
     90 and b <= 20**. The alternative condition therefore never comes into play, it
     is “dead code”.
+  id: totrans-101
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 无。为此，条件 **a >= 95 且 b < 15** 必须满足。但这是 **a > 90 且 b <= 20** 的一个替代条件。任何满足 **a
+    >= 95 且 b < 15** 的 **a** 和 **b** 的组合也会满足 **a > 90 且 b <= 20**。因此，替代条件永远不会生效，它是“死代码”。

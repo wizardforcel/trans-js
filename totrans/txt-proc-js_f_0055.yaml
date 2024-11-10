@@ -1,335 +1,543 @@
 - en: '| Recipe 44 | Searching from a Specific Index with the y Flag |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 44 | 使用 y 标志从特定索引进行搜索 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Let’s say your task is to take the transcript of a conference and organize
     it in a way that can be read like an article. Suppose the transcript is like this:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是将会议记录整理成像文章一样的格式。假设记录如下：
 - en: '|   | <p>2:05 pm: We also improved durability, which is another essential aspect
     |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:05：我们还提高了耐用性，这是我们产品的另一个重要方面。 |'
 - en: '|   | of our products.</p> |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 我们产品的一个方面。</p> |'
 - en: '|   |  |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | <p>2:10 pm: It has our most crack resistant front crystal, thanks to
     a |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:10：得益于更强的几何设计，它拥有我们最抗裂的前玻璃。</p> |'
 - en: '|   | stronger and more robust geometry.</p> |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | 更坚固且更具抗裂性的几何结构。</p> |'
 - en: '|   |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | <p>2:15 pm: It’s also our first product to have IP6X certification, so
     you |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:15：这也是我们首个拥有IP6X认证的产品，因此你 |'
 - en: '|   | don’t have to worry about wearing it in dusty environments.</p> |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | 你不必担心在多尘环境中佩戴它。</p> |'
 - en: 'And you want to remove the timestamps and extra <p></p> tags, and join the
     sentences like this:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要去除时间戳和多余的 <p></p> 标签，并像这样连接句子：
 - en: '|   | <p>We also improved durability, which is another essential aspect of
     our |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>我们还提高了耐用性，这是我们产品的另一个重要方面。 |'
 - en: '|   | products. It has our most crack resistant front crystal, thanks to a
     stronger |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | 产品。它拥有我们最抗裂的前玻璃，得益于更强的 |'
 - en: '|   | and more robust geometry. It’s also our first product to have IP6X |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | 以及更坚固的几何结构。这也是我们首个拥有IP6X认证的产品。 |'
 - en: '|   | certification, so you don’t have to worry about wearing it in dusty |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | 认证，因此你不必担心在多尘环境中佩戴它。 |'
 - en: '|   | environments.</p> |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | 环境。</p> |'
 - en: 'The data you want to extract has a fixed structure: a string in a pair of HTML
     tags and a timestamp that’s always eight characters long. So, you just need to
     retrieve the characters from index 9 onwards.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 你想提取的数据具有固定结构：一个成对的HTML标签字符串和一个总是8个字符长的时间戳。因此，你只需要从索引9开始提取字符。
 - en: Solution
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the sticky flag (y) to match the target string only from the index you
     specify with the lastIndex property:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 sticky 标志（y）仅从你指定的索引（通过 lastIndex 属性）匹配目标字符串：
 - en: '[part_2/flag_sticky/sticky_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex1.js)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_sticky/sticky_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex1.js)'
 - en: '|   | **const** re = */.+/*ys; |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */.+/*ys; |'
 - en: '|   |  |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.lastIndex = 9; |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.lastIndex = 9; |'
 - en: '|   |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str = *`2:05 pm: We also improved durability, which is another
     essential* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`下午2:05：我们还提高了耐用性，这是我们产品的另一个重要方面* |'
 - en: '|   | *aspect of our products.`*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | *我们产品的一个方面。`*; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(str.match(re)[0]); |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(str.match(re)[0]); |'
 - en: '|   | *// → We also improved durability, which is another essential aspect
     of our* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 我们还提高了耐用性，这是我们产品的另一个重要方面。* |'
 - en: '|   | *// products.* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 产品。* |'
 - en: 'Now that you know your regex works, use it to extract text from an actual HTML
     document:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你知道你的正则表达式有效，可以用它从实际的HTML文档中提取文本：
 - en: '[part_2/flag_sticky/sticky.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky.xhtml)'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_sticky/sticky.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky.xhtml)'
 - en: '|   | *<!doctype html>* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *<!doctype html>* |'
 - en: '|   | <html lang=*"en-us"*> |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | <html lang=*“en-us”*> |'
 - en: '|   | <head> |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | <head> |'
 - en: '|   | <meta charset=*"utf-8"*> |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta charset=*“utf-8”*> |'
 - en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
     |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta name=*“viewport”* content=*“width=device-width, initial-scale=1”*>
+    |'
 - en: '|   | <script src=*"sticky_ex2.js"* defer></script> |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | <script src=*“sticky_ex2.js”* defer></script> |'
 - en: '|   | </head> |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | </head> |'
 - en: '|   | <body> |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | <body> |'
 - en: '|   | <p>2:05 pm: We also improved durability, which is another essential aspect
     |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:05：我们还提高了耐用性，这是另一个至关重要的方面</p> |'
 - en: '|   | of our products.</p> |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | 我们的产品之一。</p> |'
 - en: '|   | <p>2:10 pm: It has our most crack resistant front crystal, thanks to
     a |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:10：得益于 |'
 - en: '|   | stronger and more robust geometry.</p> |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | 更强大且更加坚固的几何结构。</p> |'
 - en: '|   | <p>2:15 pm: It’s also our first product to have IP6X certification, so
     you |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p>下午2:15：这是我们的首个获得 IP6X 认证的产品，因此你 |'
 - en: '|   | don’t have to worry about wearing it in dusty environments.</p> |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | 无需担心在灰尘环境中佩戴。</p> |'
 - en: '|   | </body> |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | </body> |'
 - en: '|   | </html> |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | </html> |'
 - en: 'Call the querySelectorAll() method to retrieve all paragraph elements, and
     pass each to a function that applies the regex, like this:'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 调用 querySelectorAll() 方法获取所有段落元素，并将每个元素传递给应用正则表达式的函数，如下所示：
 - en: '[part_2/flag_sticky/sticky_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex2.js)'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_sticky/sticky_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex2.js)'
 - en: '|   | **let** result = *""*; |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** result = *“”*; |'
 - en: '|   |  |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Extract info from each element and append it to result* |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 从每个元素中提取信息并附加到结果中* |'
 - en: '|   | **function** extractData(str) { |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractData(str) { |'
 - en: '|   | **const** re = */.+/*ys; |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */.+/*ys; |'
 - en: '|   | re.lastIndex = 9; |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.lastIndex = 9; |'
 - en: '|   | **const** match = str.match(re); |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = str.match(re); |'
 - en: '|   | **if** (match) { |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (match) { |'
 - en: '|   | result = result + match[0] + *" "*; |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | result = result + match[0] + *“ ”*; |'
 - en: '|   | } **else** { |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | **throw** **new** Error(*"No match found."*); |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | **throw** **new** Error(*“没有找到匹配项。”*); |'
 - en: '|   | } |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | } |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Execute extractData() for the content of each <p> element* |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 执行 extractData() 函数，处理每个 <p> 元素的内容* |'
 - en: '|   | document.querySelectorAll(*"p"*).forEach(el => { |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | document.querySelectorAll(*“p”*).forEach(el => { |'
 - en: '|   | extractData(el.textContent); |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractData(el.textContent); |'
 - en: '|   | }); |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove newline characters from the resulting string,* |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 从结果字符串中移除换行符,* |'
 - en: '|   | *// remove whitespace from both ends of the string,* |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 去除字符串两端的空白字符,* |'
 - en: '|   | *// and enclose it in a pair of <p> tags.* |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 并将其包含在一对 <p> 标签中.* |'
 - en: '|   | console.log(*`<p>*${result.trim().replaceAll(*"***\***n"*, *""*)}*</p>`*);
     |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*`<p>*${result.trim().replaceAll(*“***\***n”*, *“”*)}*</p>`*);
+    |'
 - en: You now have contiguous sentences that can be read like a story.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你有了可以像故事一样阅读的连续句子。
 - en: Discussion
+  id: totrans-76
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The sticky flag performs a search only at the position indicated by the lastIndex
     property. Consider this code:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: sticky 标志仅在 lastIndex 属性指示的位置执行搜索。考虑以下代码：
 - en: '[part_2/flag_sticky/sticky_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex3.js)'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_sticky/sticky_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_sticky/sticky_ex3.js)'
 - en: '| 1:  | **const** str = *"crack resistant"*; |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '| 1:  | **const** str = *"crack resistant"*; |'
 - en: '| -  | **const** re = */resistant/*y; |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** re = */resistant/*y; |'
 - en: '| -  |  |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | re.lastIndex = 0; |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '| -  | re.lastIndex = 0; |'
 - en: '| 5:  | console.log(str.match(re)); |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '| 5:  | console.log(str.match(re)); |'
 - en: '| -  | *// → null (no match at index 0)* |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// → null (在索引 0 处没有匹配项)* |'
 - en: '| -  |  |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | re.lastIndex = 2; |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '| -  | re.lastIndex = 2; |'
 - en: '| -  | console.log(str.match(re)); |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '| -  | console.log(str.match(re)); |'
 - en: '| 10:  | *// → null (no match at index 2)* |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '| 10:  | *// → null (在索引 2 处没有匹配项)* |'
 - en: '| -  |  |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | re.lastIndex = 6; |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '| -  | re.lastIndex = 6; |'
 - en: '| -  | console.log(str.match(re)); |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '| -  | console.log(str.match(re)); |'
 - en: '| -  | *// → ["resistant", index: 6, input: "crack resistant", groups: undefined]*
     |'
+  id: totrans-92
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// → ["resistant", index: 6, input: "crack resistant", groups: undefined]*
+    |'
 - en: '| 15:  |  |'
+  id: totrans-93
   prefs: []
   type: TYPE_TB
+  zh: '| 15:  |  |'
 - en: '| -  | console.log(re.lastIndex); |'
+  id: totrans-94
   prefs: []
   type: TYPE_TB
+  zh: '| -  | console.log(re.lastIndex); |'
 - en: '| -  | *// → 15* |'
+  id: totrans-95
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// → 15* |'
 - en: A sticky search won’t match characters from any index other than the one indicated
     by the lastIndex property. Also, notice how the flag updates the lastIndex property
     when the operation is successful (Line 16).
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: sticky 搜索不会匹配除 lastIndex 属性所指示的索引之外的字符。另请注意，当操作成功时，标志如何更新 lastIndex 属性（第 16
+    行）。
 - en: '| The Order of Flags |'
+  id: totrans-97
   prefs: []
   type: TYPE_TB
+  zh: '| 标志的顺序 |'
 - en: '| --- |'
+  id: totrans-98
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | JavaScript flags
     can be specified in any order or combination. The regex /abc/img behaves in the
     same way as /abc/mgi. |'
+  id: totrans-99
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | JavaScript 标志可以按任何顺序或组合指定。正则表达式
+    /abc/img 的行为与 /abc/mgi 相同。 |'
 - en: 'The sticky flag is useful when the string we want to match has a fixed structure.
     In this recipe, we knew ahead of time about the structure of the input string:
     a timestamp followed by a sentence. So we simplified the pattern by telling the
     engine to search only at the position where the data we want is located. Without
     the sticky flag, the pattern could become unnecessarily more complicated.'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们要匹配的字符串具有固定结构时，sticky 标志非常有用。在这个示例中，我们事先知道输入字符串的结构：一个时间戳后跟一个句子。因此，我们通过告诉引擎仅在我们需要的数据所在的位置进行搜索来简化了模式。没有
+    sticky 标志，模式可能会变得不必要地更复杂。

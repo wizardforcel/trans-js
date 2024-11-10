@@ -1,122 +1,186 @@
 - en: '| Recipe 27 | Matching One of Several Characters with the Character Class |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 27 | 使用字符类匹配多个字符中的一个 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you want to find a word in a document even if it is misspelled. For
     example, the word “license” is one of the most misspelled words in English. You
     want to write a pattern that matches “license,” “licence,” “lisence,” or “lisense”
     in a document.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想在文档中找到一个单词，即使它被拼错了。例如，“license”是英语中最常见的拼写错误之一。你想写一个模式来匹配文档中的“license”、“licence”、“lisence”或“lisense”。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a character class:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用字符类：
 - en: '[part_2/character_class/character_class_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class/character_class_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex1.js)'
 - en: '|   | **const** re = */li**[**sc**]**en**[**sc**]**e/*; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */li**[**sc**]**en**[**sc**]**e/*; |'
 - en: '|   |  |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"A driver''s license"*); *// → true* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"A driver''s license"*); *// → true* |'
 - en: '|   | re.test(*"A driver''s lisense"*); *// → true* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"A driver''s lisense"*); *// → true* |'
 - en: '|   | re.test(*"A driver''s licence"*); *// → true* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"A driver''s licence"*); *// → true* |'
 - en: '|   | re.test(*"A shopping list"*); *// → false* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"A shopping list"*); *// → false* |'
 - en: A character class matches only one out of the specified characters. In this
     code, the specified characters are “s” and “c,” so the regex matches “license,”
     “licence,” “lisense,” or “lisence,” but not “liscense.” Keep in mind that a character
     class matches only one character.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符类只匹配指定字符中的一个。在这段代码中，指定的字符是“s”和“c”，所以正则表达式会匹配“license”、“licence”、“lisense”或“lisence”，但不匹配“liscense”。请记住，字符类只匹配一个字符。
 - en: Discussion
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Certain characters change the behavior of the character class. If you place
     a caret (^) after the opening square bracket, it negates the entire character
     class. That means the character class will match any character that isn’t one
     of the specified characters.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 某些字符会改变字符类的行为。如果你在方括号开头放置一个插入符号（^），它会否定整个字符类。这意味着字符类将匹配任何不是指定字符的字符。
 - en: 'So, /[^license]/ would match any character that isn’t “l,” “i,” “c,” “n,” “s,”
     and “e”:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，/[^license]/ 将匹配任何不是“l”、“i”、“c”、“n”、“s”和“e”的字符：
 - en: '[part_2/character_class/character_class_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex2.js)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class/character_class_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex2.js)'
 - en: '|   | **const** re = */**[^**license**]**/*; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**[^**license**]**/*; |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"lie"*); *// → false* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"lie"*); *// → false* |'
 - en: '|   | re.test(*"list"*); *// → true* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"list"*); *// → true* |'
 - en: This pattern matches “t” in “list,” so test() returns true. You might have noticed
     that the caret (^) is the same as the one that matches the beginning of a string
     (Recipe 24, [*Asserting the Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar)).
     Although the character is the same, its meaning is entirely different.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个模式匹配“list”中的“t”，因此test()返回true。你可能已经注意到，插入符号（^）与匹配字符串开始的符号是相同的（配方24，[*使用^和$断言字符串的开始或结束*](f_0035.xhtml#rcp.dollar)）。尽管字符相同，但其含义完全不同。
 - en: It’s just like the English word “arm” can mean different things depending on
     what context it is used in (sometimes a part of the body, sometimes to provide
     a weapon).
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 就像英文单词“arm”在不同的语境中可以有不同的意思（有时是身体的一部分，有时是指武器）。
 - en: Also, keep in mind that caret has a special meaning only when used right after
     the opening bracket of the character class. So, /[a^bc]/ wouldn’t negate the character
     class because “^” would be treated as a literal character.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，请记住，插入符号（^）只有在紧接着字符类的开括号后面使用时才有特殊意义。因此，/ [a^bc] / 不会否定字符类，因为“^”会被当作字面字符处理。
 - en: 'As with a regular class, a negated class must match a character to be successful.
     For example, the pattern /Number[^5]/ matches “Number6” but not “Number” because
     the class expects a character:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 与普通的类一样，否定类必须匹配一个字符才能成功。例如，模式/Number[^5]/会匹配“Number6”，但不会匹配“Number”，因为该类期望一个字符：
 - en: '[part_2/character_class/character_class_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex3.js)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class/character_class_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class/character_class_ex3.js)'
 - en: '|   | **const** re = */Number**[^**5**]**/*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Number**[^**5**]**/*; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Number6"*); *// → true* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Number6"*); *// → true* |'
 - en: '|   | re.test(*"Number"*); *// → false* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Number"*); *// → false* |'
 - en: Use a character class to match a character out of several characters, such as
     when you want to consider misspelled words or spelling differences in American
     and British English.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用字符类来匹配多个字符中的一个，例如当你想考虑拼写错误或美式英语和英式英语中的拼写差异时。
 - en: Use a negated character class to list characters you don’t want to appear in
     a string. An exciting aspect of the character class is its ability to match a
     range of characters, which you’ll learn about in the next recipe.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用否定字符类列出你不希望出现在字符串中的字符。字符类的一个有趣特点是它能够匹配一系列字符，你将在下一个配方中学习到这一点。

@@ -1,108 +1,156 @@
 - en: 'Chapter 5: Implementing CRUD Functionality'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第5章：实现CRUD功能
 - en: In this chapter, we will take our blogging application to the next level by
     implementing the CRUD (Create, Read, Update, Delete) functionality for managing
     blog posts. We'll dive into the logic for each route and leverage MongoDB to store
     and retrieve data. Let's get started!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将通过实现管理博客文章的CRUD（创建、读取、更新、删除）功能，将我们的博客应用程序提升到一个新的水平。我们将深入了解每个路由的逻辑，并利用MongoDB来存储和检索数据。让我们开始吧！
 - en: 5.1 Creating a Blog Post
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.1 创建博客文章
 - en: 'In the `routes.js` file, let''s implement the logic for creating a new blog
     post. Update the `/create` route as follows:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在`routes.js`文件中，让我们实现创建新博客文章的逻辑。更新`/create`路由，如下所示：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this code, we first extract the `title` and `content` from the request body.
     Then, we validate that both fields are provided. If not, we return a 400 status
     code with an error message.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们首先从请求体中提取`title`和`content`。然后，我们验证这两个字段是否已提供。如果没有，我们返回一个400状态码和错误消息。
 - en: Next, we create a new instance of the `Post` model (assuming you have defined
     the model using Mongoose). We pass in the `title` and `content` as parameters.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们创建一个新的`Post`模型实例（假设你已经使用Mongoose定义了该模型）。我们将`title`和`content`作为参数传入。
 - en: Finally, we save the new blog post to the database using the `save` method.
     If the save operation is successful, we return a 201 status code with a success
     message. Otherwise, we return a 500 status code with an error message.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们使用`save`方法将新博客文章保存到数据库中。如果保存操作成功，我们返回201状态码和成功消息。否则，我们返回500状态码和错误消息。
 - en: 5.2 Retrieving Blog Posts
+  id: totrans-8
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.2 获取博客文章
 - en: 'Now, let''s implement the logic for retrieving all blog posts. Update the home
     route (`/`) in the `routes.js` file as follows:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，让我们实现获取所有博客文章的逻辑。更新`routes.js`文件中的首页路由（`/`），如下所示：
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this code, we use the `find` method to retrieve all blog posts from the database.
     If the retrieval is successful, we return a 200 status code with the array of
     blog posts as the response. If there's an error, we return a 500 status code with
     an error message.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们使用`find`方法从数据库中检索所有博客文章。如果检索成功，我们返回一个200状态码，并将博客文章数组作为响应。如果出现错误，我们返回500状态码和错误消息。
 - en: 5.3 Updating a Blog Post
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.3 更新博客文章
 - en: 'Let''s implement the logic for updating a blog post. Update the `/update/:id`
     route in the `routes.js` file as follows:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们实现更新博客文章的逻辑。更新`routes.js`文件中的`/update/:id`路由，如下所示：
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this code, we first extract the `title` and `content` from the request body
     and the `postId` from the URL parameters. We validate that both fields are provided
     and return a 400 status code with an error message if they are missing.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们首先从请求体中提取`title`和`content`，并从URL参数中提取`postId`。我们验证这两个字段是否已提供，如果缺失，则返回400状态码和错误消息。
 - en: Next, we use the `findByIdAndUpdate` method to find the blog post by its ID
     and update its `title` and `content`. If the update is successful, we return a
     200 status code with a success message. If there's an error, we return a 500 status
     code with an error message.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们使用`findByIdAndUpdate`方法通过博客文章的ID查找并更新其`title`和`content`。如果更新成功，我们返回一个200状态码和成功消息。如果出现错误，我们返回一个500状态码和错误消息。
 - en: 5.4 Deleting a Blog Post
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.4 删除博客文章
 - en: 'Lastly, let''s implement the logic for deleting a blog post. Update the `/delete/:id`
     route in the `routes.js` file as follows:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，让我们实现删除博客文章的逻辑。更新`routes.js`文件中的`/delete/:id`路由，如下所示：
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this code, we retrieve the `postId` from the URL parameters. Then, we use
     the `findByIdAndDelete` method to find the blog post by its ID and delete it from
     the database. If the deletion is successful, we return a 200 status code with
     a success message. If there's an error, we return a 500 status code with an error
     message.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们从URL参数中获取`postId`。然后，我们使用`findByIdAndDelete`方法通过ID查找博客文章，并从数据库中删除它。如果删除成功，我们返回一个200状态码和成功消息。如果出现错误，我们返回一个500状态码和错误消息。
 - en: 5.5 Summary
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.5 小结
 - en: In this chapter, we implemented the CRUD functionality for our blogging application.
     We created a new blog post, retrieved all blog posts, updated a blog post, and
     deleted a blog post. We leveraged MongoDB and Mongoose to store and retrieve data
     from the database.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们实现了博客应用的CRUD功能。我们创建了新的博客文章，检索了所有博客文章，更新了博客文章，并删除了博客文章。我们利用MongoDB和Mongoose来存储和检索数据库中的数据。
 - en: Our blogging application is now fully functional, allowing users to perform
     all the necessary operations on blog posts. In the next chapter, we'll focus on
     enhancing the user interface and adding additional features to make our application
     even more robust.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的博客应用现在已经完全功能化，用户可以对博客文章执行所有必要的操作。在下一章，我们将专注于增强用户界面并添加更多功能，使我们的应用更加稳健。

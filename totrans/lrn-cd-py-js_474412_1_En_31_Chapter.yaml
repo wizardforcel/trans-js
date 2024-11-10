@@ -1,66 +1,95 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_31](https://doi.org/10.1007/978-3-658-42912-6_31)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者，独家授权Springer Fachmedien Wiesbaden GmbH，Springer Nature的一部分 2024 J. L. Zuckarelli《使用Python和JavaScript学习编程》
+    [https://doi.org/10.1007/978-3-658-42912-6_31](https://doi.org/10.1007/978-3-658-42912-6_31)
 - en: '31. Variables & Objects: How Do I Store Data to Work With?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 31. 变量与对象：如何存储数据以供处理？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2) )(1)德国慕尼黑概述
 - en: Now it’s time to look at how we work with variables and objects in JavaScript
     to be able to temporarily store data for processing. That’s what this chapter
     is about.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在是时候看看我们如何在JavaScript中处理变量和对象，以便能够暂时存储数据进行处理。这正是本章的内容。
 - en: 'In this chapter you will learn:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，您将学习：
 - en: the elementary data types of JavaScript (called primitives)
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript的基本数据类型（称为原始类型）
 - en: how to work with variables of elementary data types (create them, assign them,
     convert them, ...)
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何处理基本数据类型的变量（创建它们、赋值、转换等……）
 - en: how to create fields (arrays) from any data type and how to work with them
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何从任何数据类型创建字段（数组），以及如何处理它们
 - en: what distinguishes elementary data types from real JavaScript objects
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基本数据类型与真正的JavaScript对象有何区别
 - en: how object orientation works differently in JavaScript than in other object-oriented
     languages
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript中的面向对象与其他面向对象语言中的工作方式有何不同
 - en: how to create and edit objects in JavaScript
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何在JavaScript中创建和编辑对象
 - en: what JSON is, why it’s so important, and how you can turn JavaScript objects
     into JSON, and vice versa
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JSON是什么，它为什么如此重要，以及如何将JavaScript对象转换为JSON，反之亦然
 - en: 31.1 Declaration of Variables
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.1 变量声明
 - en: Variables *should be declared* in JavaScript, that is, registered before they
     are used for the first time. It is good practice to declare variables, although
     a simple value assignment is regularly sufficient to create a variable and a formal
     declaration is strictly speaking not required. However, you will get an error
     message if you try to access a variable that has neither been declared nor assigned
     a value beforehand.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量*应该声明*在JavaScript中，即在第一次使用之前进行注册。声明变量是良好的编程习惯，尽管通常只需简单的值赋值就足以创建一个变量，严格来说并不要求正式声明。然而，如果您尝试访问一个既未声明也未事先赋值的变量，您会收到错误消息。
 - en: 'A common problem, if variable declarations are not mandatory, is that you accidentally
     create a new variable in the program by mistyping. For example, if you want to
     assign a value to an existing variable **amountInvoice**, but unintentionally
@@ -72,26 +101,36 @@
     to an error message. Strict mode can be switched on for an entire script (or a
     single function) by introducing a special statement as the first statement in
     the script (or function):'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个常见问题是，如果变量声明不是强制的，您可能会因为拼写错误而不小心在程序中创建了一个新变量。例如，如果您想给现有变量**amountInvoice**赋值，但不小心在赋值时写成了**amountIvoice**，您将会遇到问题，尤其是在继续使用原本意图的变量标识符**amountInvoice**时，然而它从未接收到预期赋值。相反，新创建的变量**amountIvoice**保存了该值。您可以通过在*严格模式*下运行JavaScript来避免这种问题，在严格模式下，未声明的变量会导致错误消息。可以通过在脚本（或函数）中引入一个特殊语句作为第一条语句来为整个脚本（或单个函数）开启严格模式：
 - en: '''use strict'';'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '''use strict'';'
 - en: Try it and assign a value to a variable that you have not declared before in
     your script; you will immediately get an error message. Now remove the **'use
     strict'** statement and run the script again—no problem, the variable is simply
     created on the first assignment.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试为您在脚本中尚未声明的变量赋值；您会立即收到错误消息。现在去掉**'use strict'**语句并重新运行脚本——没问题，变量将在第一次赋值时被创建。
 - en: The formal declaration of variables in JavaScript is done with the help of the
     keyword **var**, which is followed by one or several variable identifiers, separated
     by commas. The variables can, but do not have to be initialized with a value during
     the declaration.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在JavaScript中，变量的正式声明是通过使用关键字**var**，后跟一个或多个由逗号分隔的变量标识符完成的。变量可以在声明时初始化值，但不是必须的。
 - en: '**var** x = 0.5, y, z = ''A message'';'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** x = 0.5, y, z = ''一条消息'';'
 - en: It is noticeable that the variables are created without type specification during
     the declaration. JavaScript automatically recognizes which type it must be based
     on the value assigned during the declaration (if you initialize the variable)
@@ -104,12 +143,18 @@
     does not necessarily have to be at the beginning of the entire program source
     code. However, it is good practice to merge variable declarations at the beginning
     to keep track of the registered variables.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 值得注意的是，变量在声明时是没有指定类型的。JavaScript 会根据在声明时（如果初始化了变量）或稍后分配的值自动识别变量应属于何种类型。程序员说
+    JavaScript 是弱类型的。 当然，我们可以并且有时必须通过转换显式指定变量的类型。我们将在►第[31.3节](#Sec7)中讨论这个问题。通过简单地为变量赋予不同类型的值，也可以更改变量的类型。JavaScript
+    会自动调整变量的类型以适应新值（动态类型）。关键字**var**可以在程序中多次出现，并且不必出现在整个程序源代码的开头。然而，最好将变量声明合并在开头，以便跟踪已注册的变量。
 - en: 31.2 Elementary Data Types
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.2 基本数据类型
 - en: JavaScript has several elementary data types, including numbers (**number**),
     strings (**string**), and logical values (**boolean**). These (and some special
     other) types are *elementary* in the sense that they are *not objects* themselves,
@@ -117,15 +162,22 @@
     have attributes and methods to manipulate them. The elementary data types do not,
     but nevertheless sometimes—as we will see—behave almost miraculously as if they
     were “real” objects.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 有几种基本数据类型，包括数字（**number**）、字符串（**string**）和逻辑值（**boolean**）。这些（以及其他一些特殊类型）之所以被称为*基本*类型，是因为它们*不是对象*本身，而是*原始类型*。所有其他类型的变量都是
+    JavaScript 中的对象，因此具有可以操作它们的属性和方法。基本数据类型则没有，但有时——正如我们将看到的——它们的行为几乎像“真实”对象一样，奇迹般地表现出来。
 - en: 31.2.1 Numbers (number)
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.2.1 数字（number）
 - en: Integers and Floating-Point Numbers
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 整数和浮点数
 - en: '**number** is the data type that holds numbers, regardless of whether they
     are integers or fractional, i.e., floating-point numbers. JavaScript always reserves
     64 bits, i.e., 8 bytes, for storing a number. The range of numbers that a **number**
@@ -133,21 +185,30 @@
     how much memory is required for storing the decimal places. Conversely, the possible
     precision depends on the size of the integer part before the decimal point: If
     this is very large, less memory remains for the decimal places.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**number** 是用于表示数字的数据类型，无论这些数字是整数还是小数，即浮点数。JavaScript 始终为存储数字预留 64 位，即 8 字节。因此，一个**number**变量能够存储的数字范围取决于所需的精度，即存储小数位所需的内存大小。反过来，可能的精度取决于小数点前整数部分的大小：如果整数部分非常大，那么小数位就会占用较少的内存。'
 - en: Infinity
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: Infinity
 - en: 'A special value that a **number** variable can assume is **Infinity**. If you
     divide a number by the value 0 in JavaScript, you will not receive an error message—unlike
     in many other languages—but the value **Infinity** or **-Infinity**. Open the
     JavaScript console and enter the following code (the greater-than sign here represents
     the console prompt and must therefore not be entered):'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个**数字**变量可以拥有的特殊值是**无限大**。如果你在 JavaScript 中将一个数字除以 0，你不会收到错误消息——与许多其他语言不同——而是会得到**Infinity**或**-Infinity**。打开
+    JavaScript 控制台并输入以下代码（此处的大于符号表示控制台提示符，因此不需要输入）：
 - en: '**>** 1/0InfinityOperators'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** 1/0Infinity操作符'
 - en: Of course, you can perform the usual arithmetic operations with numbers, including
     the four basic arithmetic operations. In addition, **%** is a *modulo operator*
     that returns the integer remainder of a division. All these operators are *binary*
@@ -158,144 +219,210 @@
     by the value 1 regardless of whether the variable has a decimal part other than
     0 or not. So, **variable++** is a more compact notation for the assignment **variable
     = variable + 1**.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，您可以对数字执行通常的算术运算，包括四种基本算术运算。此外，**%** 是一个*模运算符*，返回除法的整数余数。所有这些运算符都是*二元*运算符，将两个值处理为一个新值。然而，在这个上下文中还有几个*一元*运算符，它们作用于单个值。在这种情况下特别有趣的是常见于
+    JavaScript 程序中的*递增*（**++**）和*递减*（**--**）运算符，它们无论变量是否有除 0 以外的小数部分，都将**number**变量的值增加或减少
+    1。因此，**variable++** 是对赋值**variable = variable + 1**更紧凑的表示方式。
 - en: Methods of Number Objects
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 数字对象的方法
 - en: '**number** variables have (apparently) callable methods, albeit in a manageable
     number. “Apparently” because a **number** variable is actually a *primitive*,
     i.e., a variable of an elementary data type, and thus *not* an object, i.e., an
     instance of a class, for which we would expect the existence of properties and
     methods. In ► Sect. 31.3.2 we will see how this apparently contradictory behavior
     comes about.'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**number**变量有（显然）可调用的方法，尽管数量可控制。“显然”是因为**number**变量实际上是一个*原始值*，即一个基本数据类型的变量，因此*不是*一个对象，即一个类的实例，我们期望它具有属性和方法。在►章节
+    31.3.2中，我们将看到这种显然矛盾的行为如何产生。'
 - en: Among the methods available for **number** variables, one example is **toExponential()**,
     a method that converts the number to an exponential notation and returns it as
     a string. The variable itself is not changed in the process.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在**number**变量的可用方法中，一个例子是**toExponential()**，这是一个将数字转换为指数表示法并将其作为字符串返回的方法。变量本身在此过程中不会更改。
 - en: '**>** myNumber = 50000**>** scientific = myNumber.toExponential()**>** scientific"5e+4"**>**
     typeof myNumber"number"**>** typeof scientific"string"'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** myNumber = 50000**>** scientific = myNumber.toExponential()**>** scientific"5e+4"**>**
+    typeof myNumber"number"**>** typeof scientific"string"'
 - en: Here you first see that we can access the methods (and properties) of objects
     using the dot operator (just like in Python), and that calling a method always
     requires the parentheses to be specified, even if no arguments are passed to the
     method at all.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，您首先看到我们可以使用点运算符（就像在 Python 中一样）访问对象的方法（和属性），调用方法始终需要指定括号，即使根本不向方法传递任何参数。
 - en: With **typeof** ***objectinstance***, you’re about to learn another useful operator
     that returns the type of a variable as a string. It’s not a mathematical operator
     but still a (unary) operator. As you can see, **toExponential()** returns a string
     containing the formatted number.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**typeof** ***objectinstance***，您将学习另一个有用的运算符，它返回变量的类型作为字符串。它不是数学运算符，但仍然是（一元）运算符。正如您所见，**toExponential()**
+    返回一个包含格式化数字的字符串。
 - en: 'Another handy method besides **toExponential()** that can be applied to **number**
     is **toFixed(*****places*****)**, which rounds the number to the specified number
     of decimal places, and again returns the result as a string:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**toExponential()**之外，可以应用于**number**的另一个方便的方法是**toFixed(*****places*****)**，它将数字四舍五入到指定的小数位数，并再次将结果作为字符串返回：
 - en: '**>** myNumber = 3.14159**>** myNumber.toFixed(3)"3.142"'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** myNumber = 3.14159**>** myNumber.toFixed(3)"3.142"'
 - en: 'Constant values (*literals*) also behave like objects in JavaScript. However,
     to access the methods of these objects, you need to write the value in round brackets,
     as in the following example, which you can easily try out in the console:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 常量值（*字面量*）在 JavaScript 中的行为也像对象一样。但是，要访问这些对象的方法，您需要将值写在圆括号中，就像下面的示例中那样，您可以轻松地在控制台中尝试：
 - en: '**>** (3.14159).toFixed(3)"3.142"31.1 [3 min]'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** (3.14159).toFixed(3)"3.142"31.1 [3 min]'
 - en: Show that in JavaScript infinity plus one is still infinity.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 展示 JavaScript 中无穷大加一仍然是无穷大。
 - en: 31.2.2 Text (string)
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.2.2 文本（字符串）
 - en: Assign Strings
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 分配字符串
 - en: 'Strings are delimited by single or double quotes:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符串可以用单引号或双引号括起来：
 - en: '**var** message = "Hello world", message2 = ''Hello world again'';console.log(message,
     message2);'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** message = "Hello world", message2 = ''Hello world again'';console.log(message,
+    message2);'
 - en: 'Due to the fact that in JavaScript, similar to Python, two different string
     delimiters are available, one of them can be used to delimit the string, the other
     one within the string can be used for “quotes”:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于在JavaScript中，类似于Python，提供了两种不同的字符串定界符，其中一个可以用来定界字符串，另一个可以在字符串中用作“引号”：
 - en: '**var** message = "The nerd shouted loudly: ''Hello world''";Escaping'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** message = "程序员大声喊道：''Hello world''"; 转义'
 - en: 'Sometimes, however, within a string, you want the character you use to mark
     the beginning and end of the string to be part of the string. In this case, *escaping*
     must be used. As we have already seen earlier, the character that is to have a
     different function within the string than it would normally have is preceded by
     a backslash (**\**). In our example, we could escape the double quote as follows:'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，有时，在一个字符串中，你可能希望用来标记字符串开始和结束的字符也成为字符串的一部分。在这种情况下，必须使用*转义*。正如我们之前看到的，想要在字符串中具有不同功能的字符，前面会加上一个反斜杠（**\**）。在我们的示例中，我们可以这样转义双引号：
 - en: '**var** message = "The nerd called out loudly: \"Hello world\"";'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** message = "程序员大声叫道：\"Hello world\"";'
 - en: By prepending the backslash, the quote character is no longer interpreted as
     the character it is in JavaScript programs, namely a delimiter for strings. Instead,
     it is considered part of the string. The last quotation mark is not escaped and
     therefore actually marks the end.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过在前面加上反斜杠，双引号字符不再被解释为JavaScript程序中的字符——即字符串的定界符。相反，它被视为字符串的一部分。最后一个引号没有被转义，因此实际标记了字符串的结束。
 - en: 'However, escaping can not only be used to disable the normal control function
     of certain characters in order to include them as a constituent part of the string;
     escaping can also be used to give characters that would normally be inconspicuous
     letters in the string a different function, thereby turning them into a control
     statement. Consider the following example:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，转义不仅可以用来禁用某些字符的正常控制功能，以便将它们作为字符串的一部分包含在内；转义还可以用来赋予通常在字符串中不起眼的字符不同的功能，从而将它们转变为控制语句。考虑以下示例：
 - en: '**>** console.log(''Some things need to be looked '',''at \nwith a bit of \t
     distance.'');Some things you need to be looked atwith a bit of distance.'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''有些事情需要被看'',''到 \n与一点 \t 距离。''); 有些事情你需要被看，带着一点距离。'
 - en: 'Again, we see two backslashes used for escaping: Once the letter **n** is escaped;
     **\n** causes a new line to be inserted into the string at this point. **\t**
     causes a tab jump to be inserted. In both cases, a letter that would otherwise
     have no special function and would be a normal part of the string is converted
     into a control statement.'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，我们看到两个反斜杠被用来进行转义：一旦字母**n**被转义，**\n**会在此处将换行符插入到字符串中。**\t**会插入一个制表符。在这两种情况下，一个本来没有特殊功能的字母被转变为控制语句。
 - en: 'But what if you use a backslash to escape a character that has no special control
     function at all, for example, the **i**. The good news is that nothing happens:'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，如果你使用反斜杠来转义一个完全没有特殊控制功能的字符，比如**i**，会发生什么呢？好消息是，什么都不会发生：
 - en: '**>** console.log(''Escape the \i but don''t know why.'');Escape the i but
     don''t know why.'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''转义\i但不知道为什么。''); 转义i，但不知道为什么。'
 - en: 'However, the backslash is not displayed, it is a special control instruction
     that causes the next character get a special meaning (if it has one). This logically
     brings us to the next question, namely how a backslash can be represented in a
     string. After all, programmers working under Windows use the backslash as a separator
     for path specifications. The solution is simple: The backslash itself is simply
     escaped:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，反斜杠本身并不会显示出来，它是一个特殊的控制指令，用于赋予下一个字符一个特殊的意义（如果它有的话）。这自然引出了下一个问题，也就是如何在字符串中表示一个反斜杠。毕竟，在Windows下工作的程序员会使用反斜杠作为路径分隔符。解决方案很简单：反斜杠本身只是被转义：
 - en: '**>** console.log(''The file is located in C:\\Windows\\System.'');The file
     is located in C:\Windows\System.Work with Individual Characters'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** console.log(''文件位于C:\\Windows\\System。''); 文件位于C:\Windows\System。处理单个字符'
 - en: 'The individual characters of a string can be accessed in JavaScript like the
     elements of a (read-only) field/array. The indexing of arrays in JavaScript starts
     with the index 0 for the first character. The index is enclosed in square brackets
     when accessed:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在JavaScript中，字符串的各个字符可以像（只读）字段/数组中的元素一样进行访问。JavaScript中的数组索引从0开始表示第一个字符。访问时，索引会被括在方括号中：
 - en: '**>** var message = ''Hello world''**>** message[1]"e"**>** typeof message[1]"string"'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var message = ''Hello world''**>** message[1]"e"**>** typeof message[1]"string"'
 - en: As can be easily verified, a character from a string is in turn a string. There
     is no special data type for single characters in JavaScript. The array containing
     the characters of the string is read-only, so it cannot be written to. Therefore,
@@ -303,57 +430,84 @@
     = 'z'**. To do this, you must work with the methods available for variables of
     type **string**, which we will learn about below. We will look at the details
     of working with arrays in more detail in ► Sect. [31.4](#Sec10).
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如可以轻松验证的那样，字符串中的一个字符本身也是一个字符串。在 JavaScript 中没有专门的数据类型来表示单个字符。包含字符串字符的数组是只读的，因此无法对其进行写操作。因此，你*不能*使用类似**message[2]
+    = 'z'**的语句来替换字符串中的字符。要做到这一点，你必须使用可用于**string**类型变量的方法，我们将在下面学习这些方法。我们将在►第[31.4节](#Sec10)中更详细地介绍数组操作的细节。
 - en: Concatenate Strings
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符串连接
 - en: 'Although strings cannot be computed like numbers, **string** variables also
     support the plus operator (**+**). In the context of strings, it is used to concatenate
     several strings:'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然字符串不能像数字那样进行计算，但**string**变量也支持加号操作符（**+**）。在字符串的上下文中，它用于连接多个字符串：
 - en: '**var** message = "Hello" + " " + ''World'';console.log(message);'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** message = "Hello" + " " + ''World'';console.log(message);'
 - en: As you can see, it doesn’t matter whether single or double quotes are used to
     delimit the strings.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所看到的，使用单引号或双引号来界定字符串没有区别。
 - en: Unlike the plus, the other arithmetic operators cannot be applied to strings.
     If you do so, you will not get an error message, but you will get the return value
     **NaN** (*not a number*), which we will look at in more detail in ► Sect. [31.2.4](#Sec6).
     It signals that we have applied an operator designed to work with numbers to something
     that is not a number (try it out!).
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 与加号不同，其他算术运算符不能应用于字符串。如果你这么做，你不会得到错误信息，但你会得到返回值**NaN**（*非数字*），我们将在►第[31.2.4节](#Sec6)中更详细地讲解它。这表示我们对一个非数字的东西应用了一个设计用来处理数字的运算符（试试看！）。
 - en: Methods and Properties of Strings
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符串的方法和属性
 - en: If you create a **string** variable in the JavaScript console and then enter
     its name followed by a dot operator, the popup menu opens with the list of methods
     and properties available for strings.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你在 JavaScript 控制台中创建了一个**string**变量，然后输入它的名称并跟上一个点操作符，弹出菜单将显示该字符串可用的方法和属性列表。
 - en: 'A particularly important property is **length**, the length of the string:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个特别重要的属性是**length**，即字符串的长度：
 - en: '**>** var message = ''Hello World''**>** message.length10'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var message = ''Hello World''**>** message.length10'
 - en: So if you want to access the individual characters of the string, you can use
     **message[message.length-1]** to grab the last character of the string (because
     indexing starts at 0!).
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，如果你想访问字符串的单个字符，可以使用**message[message.length-1]**来获取字符串的最后一个字符（因为索引从0开始！）。
 - en: 'Instead of accessing a single character via the array of characters, you could
     also use the **charAt(*****index*****)** method of the string:'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以使用字符串的**charAt(*****index*****)**方法来访问单个字符，而不是通过字符数组来访问：
 - en: '**>** var message = ''Hello world ''**>** message.charAt(message.length-1);"t"Besides
     **charAt()**, **string** offers a number of other handy methods:'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var message = ''Hello world ''**>** message.charAt(message.length-1);"t"除了**charAt()**，**string**还提供了其他许多有用的方法：'
 - en: '**indexOf(*****searchString*****,** ***fromPosition*****)**: Searches for **searchString**
     in the string for which the method is called, starting at index **fromPosition**
     at the earliest; here, **fromPosition** is an optional argument, so it can be
@@ -361,249 +515,374 @@
     value **indexOf** is the index of the beginning of the **searchString** within
     the searched string, or -1 if **searchString** was not found in the searched string:**>**
     message.indexOf("el")2**>** message.indexof("tel")-1'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**indexOf(*****searchString*****,** ***fromPosition*****)**：在调用该方法的字符串中搜索**searchString**，从**fromPosition**索引开始；这里，**fromPosition**是一个可选参数，因此可以省略，默认从字符串的开头开始搜索。**indexOf**的返回值是**searchString**在被搜索字符串中的起始索引，若未找到**searchString**，则返回-1：**>**
+    message.indexOf("el")2**>** message.indexof("tel")-1'
 - en: '**replace(*****search*****,** ***replaceBy*****)**: Searches the string for
     **search** and replaces each occurrence with the string **replaceBy**:**>** message.replace("Hello",
     "Hi")"Hi word"'
+  id: totrans-72
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**replace(*****search*****,** ***replaceBy*****)**：搜索字符串中的**search**并将每个匹配项替换为字符串**replaceBy**：**>**
+    message.replace("Hello", "Hi")"Hi word"'
 - en: '**toUpperCase()**, **toLowerCase()**: Converts the string to upper and lower
     case respectively:**>** message.toUpperCase("HELLO WORLD"**>** message.toLowerCase();"hello
     world"'
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**toUpperCase()**, **toLowerCase()**：分别将字符串转换为大写和小写：**>** message.toUpperCase("HELLO
+    WORLD"**>** message.toLowerCase();"hello world"'
 - en: '**trim()**, **trimLeft**, **trimRight()**: Removes leading and trailing, leading-only,
     and trailing-only whitespace from a string, respectively:**>** message = " " +
     message + " "" Hello World "**>** message.trim();"Hello World"**>** message.trimLeft()"Hello
     World "**>** message.trimRight()" Hello World"'
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**trim()**, **trimLeft**, **trimRight()**：分别从字符串中移除前后空白、仅前导空白和仅尾随空白：**>** message
+    = " " + message + " "" Hello World "**>** message.trim();"Hello World"**>** message.trimLeft()"Hello
+    World "**>** message.trimRight()" Hello World"'
 - en: When using these methods, please note that the variable for which they are called
     does not undergo any change, but a new, changed string is created and returned
     by the methods. So, you have to take care yourself to catch this return value.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这些方法时，请注意，被调用的方法所作用的变量不会发生改变，而是由方法创建并返回一个新的、更改后的字符串。所以，你必须自己处理这个返回值。
 - en: 31.2.3 Logical Values (boolean)
+  id: totrans-76
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.2.3 逻辑值（boolean）
 - en: The third important elementary data type in JavaScript are logical/truth values.
     They can only take the value constants **true** and **false** (note lower case!)
     and are internally coded with the values 1 for **true** and 0 for **false**. This
     becomes clear when you calculate with the constants:**>** true * 55**>** false
     - 1-1
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 中第三个重要的基本数据类型是逻辑/布尔值。它们只能取常量 **true** 和 **false** 的值（注意小写！），在内部用
+    1 表示 **true**，用 0 表示 **false**。当你用常量进行计算时，这一点变得清晰：**>** true * 55**>** false -
+    1-1
 - en: 31.2.4 Special Types and Values (null, undefined, NaN)
+  id: totrans-78
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.2.4 特殊类型和值（null, undefined, NaN）
 - en: 'null'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 'null'
 - en: 'JavaScript knows two special values that can signal that a variable has no
     value: **undefined** and **null**.'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 知道两个特殊值，可以表示一个变量没有值：**undefined** 和 **null**。
 - en: 'If a variable deliberately has no real value—for example, the answer to a choice
     question in a questionnaire that the respondent deliberately omitted when answering—the
     (quasi-) “value” **null** is used:'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果一个变量故意没有真实值——例如，在问卷调查中，受访者故意遗漏的选择问题答案——则使用（准）“值” **null**：
 - en: questionAge = **null**;
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: questionAge = **null**;
 - en: '**null** is thus a special value constant that indicates that a variable is
     deliberately “empty”, that is, it does not currently hold a “real” value. If you
     assign **null** to a variable that previously held a “real” value, it changes
     its object type to the general **object**:'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '**null** 因此是一个特殊的值常量，表示一个变量故意“空”，即当前不持有“真实”值。如果将 **null** 赋给一个之前持有“真实”值的变量，它会将其对象类型更改为一般的
+    **object**：'
 - en: '**>** var mynumber = 5**>** typeof mynumber"number"**>** mynumber = null**>**
     typeof mynumber"object"'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var mynumber = 5**>** typeof mynumber"number"**>** mynumber = null**>**
+    typeof mynumber"object"'
 - en: 'Don’t let this confuse you: **null** is a variable of an elementary data type
     with the same name. The fact that **typeof** still returns **“object”** is strictly
     speaking wrong and stems from the historical implementation of the **typeof()**
     function.'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 不要被这个弄混：**null** 是一个具有相同名称的基本数据类型的变量。事实上，**typeof** 仍然返回 **“object”** 是严格来说不对的，这源自
+    **typeof()** 函数的历史实现。
 - en: undefined
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: undefined
 - en: '**undefined** is similar to **null** in that it also indicates that a variable
     has no real value. However, **undefined** does not mean “deliberately empty”,
     but rather “untouched” or “not yet assigned another value”. Variables carry the
     value **undefined** after initialization, as can be easily checked:'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**undefined** 类似于 **null**，也表示一个变量没有真实值。然而，**undefined** 不意味着“故意为空”，而是意味着“未触碰”或“尚未赋予另一个值”。变量在初始化后会携带
+    **undefined** 值，容易检查：'
 - en: '**>** var value**>** console.log(value)undefined'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var value**>** console.log(value)undefined'
 - en: '**undefined** is not only used in JavaScript as the “content” of currently
     uninitialized variables, but also in other contexts where something is “missing”
     without someone having consciously decided to use an “empty” content. This is
     particularly the case for return values of functions that do not return a real
     value.'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**undefined** 不仅仅在 JavaScript 中作为当前未初始化变量的“内容”使用，也用于其他上下文中，表示某物“缺失”，而没有人有意识地决定使用“空”内容。特别是在没有返回真实值的函数返回值中，通常会出现这种情况。'
 - en: 'Technically, **undefined**, like **null**, is a real variable of the elementary
     type of the same name, but of which there is only this one variable:'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 从技术上讲，**undefined** 和 **null** 一样，是同名基本类型的一个真实变量，但只有这一个变量：
 - en: '**>** typeof undefined"undefined"NaN'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** typeof undefined"undefined"NaN'
 - en: '**NaN** is the abbreviation for *Not a Number* and expresses as a special value
     that a numeric variable does not contain a valid numeric value, although it should.
     Often **NaN** is returned as the result of improper arithmetic operations, such
     as taking the square root of a negative number:'
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: '**NaN** 是 *Not a Number*（不是数字）的缩写，表示一个数字变量并未包含有效的数字值，尽管它应该包含。通常，**NaN** 是由于不正确的算术操作（例如对负数开方）返回的结果：'
 - en: '**>** Math.sqrt(-1)NaN'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** Math.sqrt(-1) NaN'
 - en: 'Interestingly, **NaN** is not a real variable of an independent type like **undefined**
     is, but simply a special value of numeric variables, as you can see in the following
     code:'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 有趣的是，**NaN** 并不是像 **undefined** 那样独立类型的真实变量，而只是数字变量的一种特殊值，如下面的代码所示：
 - en: '**>** var x = Math.sqrt(-10)**>** typeof x"number"'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var x = Math.sqrt(-10) **>** typeof x "number"'
 - en: 'You can’t calculate with the value **NaN**, as every calculation operation
     applied to it returns **NaN** again:'
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 你无法使用 **NaN** 进行计算，因为对它应用的每个计算操作都会返回 **NaN**：
 - en: '**>** NaN + 3NaN'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** NaN + 3 NaN'
 - en: 'With **isNaN(*****expression*****)** a special function is available to check
     whether an expression (variable, calculation rule, function call or similar) has
     the value **NaN**:'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 **isNaN(*****expression*****)**，可以检查一个表达式（变量、计算规则、函数调用等）是否具有值 **NaN**：
 - en: '**>** isNaN(Math.sqrt(-100))true**>** isNaN(Math.sqrt(100))false'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** isNaN(Math.sqrt(-100)) true **>** isNaN(Math.sqrt(100)) false'
 - en: 31.3 Converting Variables
+  id: totrans-100
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.3 转换变量
 - en: 31.3.1 Implicit Conversion
+  id: totrans-101
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.3.1 隐式转换
 - en: We have already seen an example of implicit type conversion, i.e., type conversion
     not explicitly instructed by the developer, in ► Sect. [31.2.3](#Sec5), namely
     the fact that **boolean** variables behave like the values 1 (for **true**) and
     0 (for **false**) in calculations. So, in this case, JavaScript automatically
     converted the type when it seemed appropriate.
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经看过一个隐式类型转换的例子，即开发者未明确指示的类型转换，见 ► Sect. [31.2.3](#Sec5)，即 **boolean** 变量在计算中表现得像值
+    1（对于 **true**）和 0（对于 **false**）。因此，在这种情况下，JavaScript 在适当的时候自动进行了类型转换。
 - en: Implicit type conversions play an important role in practice in connection with
     strings.
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 隐式类型转换在与字符串相关的实际操作中起着重要作用。
 - en: '**>** x=3; y="4"; z="5"**>** x * y12**>** y * z20'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** x = 3; y = "4"; z = "5" **>** x * y 12 **>** y * z 20'
 - en: As you can see, JavaScript performs the calculations without any problems, even
     though the variables **y** and **z** are actually strings. For the calculation,
     the values are implicitly converted into numbers (type **number**).
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，JavaScript 在计算时没有任何问题，即使变量 **y** 和 **z** 实际上是字符串。在计算过程中，这些值会被隐式地转换为数字（类型
+    **number**）。
 - en: 'That this works so well here is mainly because the applied (arithmetic) operator
     has no meaning at all when working with strings. The situation is quite different,
     however, when we perform an addition:'
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 之所以在这里这么顺利地工作，主要是因为在处理字符串时，应用的（算术）操作符没有任何意义。然而，当我们执行加法时，情况就大不相同了：
 - en: '**>** x + y"34"**>** y + z"45"'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** x + y "34" **>** y + z "45"'
 - en: In this case, JavaScript assumes that the “target type” of the operation should
     be **string**. Therefore, the **+** operator is interpreted as a string concatenation
     operator and the value of the **number** variable **x** is converted to a string
     for the purpose of concatenation; **y** and **z** are already strings by default,
     they do not require any further conversion.
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，JavaScript 假定操作的“目标类型”应该是 **string**（字符串）。因此，**+** 操作符被解释为字符串连接操作符，并且
+    **number** 类型的变量 **x** 被转换为字符串以便连接；**y** 和 **z** 默认已经是字符串，不需要进一步转换。
 - en: So, when working with strings that contain numbers, be careful.
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在处理包含数字的字符串时，要小心。
 - en: '31.2 [5 min]What is the result of the following operations? If you are unsure,
     try it and explain the result: 1.  (a)'
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 31.2 [5 min] 以下运算的结果是什么？如果不确定，可以尝试并解释结果：1. (a)
 - en: '**''ab'' + "def"**'
+  id: totrans-111
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''ab'' + "def"**'
 - en: (b)
+  id: totrans-112
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (b)
 - en: '**''98'' + "5"**'
+  id: totrans-113
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + "5"**'
 - en: (c)
+  id: totrans-114
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (c)
 - en: '**''98'' + 5**'
+  id: totrans-115
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + 5**'
 - en: (d)
+  id: totrans-116
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (d)
 - en: '**''98'' + "5.3"**'
+  id: totrans-117
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + "5.3"**'
 - en: (e)
+  id: totrans-118
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (e)
 - en: '**''98'' * 5**'
+  id: totrans-119
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * 5**'
 - en: (f)
+  id: totrans-120
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (f)
 - en: '**''98'' * false**'
+  id: totrans-121
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * false**'
 - en: (g)
+  id: totrans-122
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (g)
 - en: '**''98'' * ''false''**'
+  id: totrans-123
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * ''false''**'
 - en: 'If you want to consider the two numbers contained in the string variables **y**
     and **z** of the last section as **number** values and add them, it is not sufficient
     to link the two variables with the plus operator, because this leads to a string
     concatenation. Therefore, an *explicit* conversion is required, which converts
     values into numbers before linking them with the plus operator. The function **Number(notNumberValue)**
     is available in JavaScript for this purpose:'
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你希望将上一节中的字符串变量 **y** 和 **z** 中包含的两个数字视为 **number** 值并进行相加，那么仅仅使用加号操作符连接这两个变量是不够的，因为这会导致字符串拼接。因此，需要进行*显式*转换，在连接前将值转换为数字。JavaScript
+    提供了 **Number(notNumberValue)** 函数来完成此操作：
 - en: '**>** y=''4''; z=''5''**>** Number(y) + Number(z)9'
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** y=''4''; z=''5'' **>** Number(y) + Number(z) 9'
 - en: '**Number()** is a function that returns an elementary **number** value. At
     the same time, **Number()** is also the constructor function of the **Number**
     class. With an assignment of the form **variable = new Number()** (a notation
@@ -620,17 +899,30 @@
     object, leaving behind the original elementary variable. This “trick” allows JavaScript
     to make even elementary data types look like real objects with properties and
     methods. So much for a brief look “under the hood” of JavaScript.'
+  id: totrans-126
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Number()** 是一个返回基本 **number** 值的函数。同时，**Number()** 也是 **Number** 类的构造函数。通过形式为
+    **variable = new Number()** 的赋值操作（我们将在 ► 第[31.5.4节](#Sec15) 和 [31.5.5节](#Sec16)
+    中详细讨论这种符号），你可以创建一个 **Number** 类的对象。这些对象包含了我们在 **number** 变量上下文中已经使用过的所有属性和方法。这正是像
+    **number** 这样的基本数据类型获取其属性和方法的方式：当我们访问基本 **number** 数据类型的属性或方法时，尽管该数据类型是*原始的*，因此并不真正代表一个对象，应该没有方法或属性，JavaScript
+    会在后台将变量转换为 **Number** 类型的对象。然后，这些相关的属性和方法就可以在这个对象上使用了。完成工作后，JavaScript 的自动垃圾回收机制会处理掉这个现在不再使用的对象，留下原始的基本变量。这个“技巧”使得
+    JavaScript 即使对于基本数据类型，也能够让它们看起来像是真正拥有属性和方法的对象。这就是我们对 JavaScript “幕后工作”的简要了解。'
 - en: Corresponding functions exist with **String(notStringvalue)** and **Boolean(notBooleanvalue)**
     also for the other two elementary data types. In the following example, we convert
     the string **‘true’** into a real **boolean variable**.
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 对应的函数同样存在于 **String(notStringvalue)** 和 **Boolean(notBooleanvalue)** 中，适用于另外两个基本数据类型。在下面的示例中，我们将字符串
+    **‘true’** 转换为一个真正的 **boolean 变量**。
 - en: '**>** trueval = ''true''**>** typeof trueval"string"**>** trueval = Boolean(trueval)**>**
     typeof trueval"boolean"'
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** trueval = ''true'' **>** typeof trueval "string" **>** trueval = Boolean(trueval)
+    **>** typeof trueval "boolean"'
 - en: 'By the way, as you can easily try out, the **Boolean()** function remains completely
     unimpressed if you ignore the usual rules of case sensitivity and write **"True"**
     or **"TRUE"** in your string, for example; the conversion still works perfectly.
@@ -640,134 +932,203 @@
     it, **Number()** is much more picky: If you call **Number()** with an argument
     that is not convertible to a number, the function refuses to work and will return
     **NaN**.'
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，正如你可以轻松尝试的那样，如果忽略大小写规则，像是写 **"True"** 或 **"TRUE"** 这样的字符串，**Boolean()**
+    函数依然完全不受影响，转换仍然能够正常工作。这是因为 **Boolean()** 会将所有不是 **0**、**null**、**undefined** 或
+    **NaN** 的值评估为 **true**。因此，**Boolean("hello")** 也会返回 **true**！而贪吃的 **Boolean()**
+    会评估你传给它的所有内容，**Number()** 却挑剔得多：如果你调用 **Number()** 并传入一个无法转换为数字的参数，函数将拒绝工作并返回
+    **NaN**。
 - en: 'For the conversion between strings and numbers there are some special functions
     besides **Number()** and **String()**. **parseInt(string)** and **parseFloat(string)**
     both process a string to a number and thus at first sight do the same as **Number()**.
     The special feature of **parseInt()** and **parseFloat()**, however, is that they
     also process strings which are not exclusively numeric as long as the numeric
     part is at the beginning:'
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**Number()**和**String()**，用于字符串和数字之间转换的函数还有一些特殊的函数。**parseInt(string)**和**parseFloat(string)**都可以将字符串处理为数字，表面上看与**Number()**做的是一样的。然而，**parseInt()**和**parseFloat()**的特别之处在于，它们还可以处理并非完全是数字的字符串，只要数字部分位于字符串的开头：
 - en: '**>** parseInt(''3 twins are one too many'')3**>** parseInt(''3.1415926535
     is the number Pi'')3'
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** parseInt(''3 twins are one too many'')3**>** parseInt(''3.1415926535
+    is the number Pi'')3'
 - en: The second example also shows that **parseInt()**—as the name already suggests—only
     processes the integer part of the number found at the beginning of the string.
     If nothing is found at the beginning of the string that can be interpreted as
     a number, **NaN** is returned.
+  id: totrans-132
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个示例还表明，**parseInt()**——顾名思义——只处理字符串开头部分的整数。如果字符串开头找不到可以解释为数字的部分，则返回**NaN**。
 - en: 'In the opposite direction of conversion—from number to string—there are also
     some special functions available to help control the representation of the number
     as a string. The **toString(*****numbersystem*****)** method of **number** (actually
     of the **Number** object, as we know by now), allows you to specify the base of
     the number system you want to convert to; **numbersystem = 2** would thus lead
     to a binary representation, **numbersystem = 16** to a hexadecimal representation:'
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 在转换的相反方向——从数字到字符串——也有一些特殊的函数可用来帮助控制数字作为字符串的表示方式。**number**（实际上是**Number**对象，如我们现在所知道的）的**toString(*****number
+    system*****)**方法，允许你指定要转换成的数字系统的基数；因此，**number system = 2**会导致二进制表示，**number system
+    = 16**则会得到十六进制表示：
 - en: '**>** someNumber = 156**>** someNumber.toString(2)"10011100"**>** someNumber.toString(16)"9c"'
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** someNumber = 156**>** someNumber.toString(2)"10011100"**>** someNumber.toString(16)"9c"'
 - en: 'You can use the **toFixed(*****decimals*****)** and **toExponential(*****decimals*****)**
     methods of the **Number** object to affect the number of decimals in a traditional
     representation as well as a scientific representation:'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以使用**Number**对象的**toFixed(*****decimals*****)**和**toExponential(*****decimals*****)**方法来影响传统表示法和科学表示法中的小数位数：
 - en: '**>** number = 156.27813**>** number.toFixed(2)"156.27"**>** number.toExponential(3)"1.562e+2"'
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** number = 156.27813**>** number.toFixed(2)"156.27"**>** number.toExponential(3)"1.562e+2"'
 - en: The exponent is chosen in the exponential representation in such a way that
     exactly one digit before the decimal point is always shown.
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 在科学计数法表示中，指数被选择为使得小数点前面始终显示一个数字。
 - en: 31.4 Arrays
+  id: totrans-138
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.4 数组
 - en: Creating Arrays and Accessing Individual Array Elements
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建数组并访问数组中的单个元素
 - en: Arrays in JavaScript are similar to what is known as lists in some other languages
     (including Python, see ► Sect. [21.​6.​1](474412_1_En_21_Chapter.xhtml#Sec14)).
     Not only can they hold elements of any type, but the elements can also be of *different*
     types. Even arrays themselves can be elements of other arrays. In this way, multidimensional
     arrays can be created, which JavaScript does not know out-of-the-box.
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript中的数组类似于其他一些语言中的列表（包括Python，见►第[21.6.1](474412_1_En_21_Chapter.xhtml#Sec14)节）。它们不仅可以包含任何类型的元素，而且元素的类型也可以是*不同*的。甚至数组本身也可以是其他数组的元素。通过这种方式，可以创建多维数组，而这是JavaScript默认不支持的。
 - en: 'The easiest way to create an array is to specify its elements directly in the
     form of an *array literal*. The elements are enclosed in square brackets:'
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建数组最简单的方式是直接用*数组字面量*的形式指定其元素。元素用方括号括起来：
 - en: '**>** primes = [1,3,5,7,11,13]'
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]'
 - en: 'In the same way, however, the objects can also have different types:'
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，数组中的对象也可以具有不同的类型：
 - en: '**>** multipleTypes = [false, ''Caroline'', 28.3]'
+  id: totrans-144
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes = [false, ''Caroline'', 28.3]'
 - en: 'The individual elements are accessed via a numerical index, which—as in many
     other languages—also starts at 0 and is specified in square brackets. So, if we
     wanted to access the second element of the array we just created (“Caroline”),
     we would do so as follows:'
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过数字索引访问单个元素，索引——与许多其他语言一样——也从0开始，并用方括号指定。所以，如果我们想访问刚才创建的数组的第二个元素（“Caroline”），可以这样做：
 - en: '**>** multipleTypes[1]"Caroline"'
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes[1]"Caroline"'
 - en: Accordingly, **multipleTypes[0]** would return the first element of the array,
     **false**.
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，**multipleTypes[0]** 将返回数组的第一个元素，即 **false**。
 - en: 'The elements of arrays can also be empty; more precisely, they can be *left
     blank* and thus take the value **undefined**:'
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组的元素也可以为空；更准确地说，它们可以是 *空白*，因此它们的值是 **undefined**：
 - en: '**>** multipleTypes = [false, , ''Caroline'', 28.3]**>** multipleTypes[false,
     *empty*, ''Caroline'', 28.3]'
+  id: totrans-149
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes = [false, , ''Caroline'', 28.3]**>** multipleTypes[false,
+    *empty*, ''Caroline'', 28.3]'
 - en: 'If you view the contents of the array, ***empty*** is displayed—at least in
     Google *Chrome*’s JavaScript console—for the array element that has been left
     empty. However, by displaying this directly, it is easy to convince yourself that
     the content is indeed **undefined**:'
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果查看数组的内容，***empty*** 会被显示出来——至少在 Google *Chrome* 的 JavaScript 控制台中——对于那些被留空的数组元素。然而，通过直接显示它，容易让人相信该元素的内容确实是
+    **undefined**：
 - en: '**>** multipleTypes[1]undefined'
+  id: totrans-151
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes[1]undefined'
 - en: 'Arrays are not elementary data types, not *primitives*, but *objects*. Therefore,
     arrays can be created not only by assigning an array literal as we did above,
     but also by calling the constructor function of the array type, **Array()**. The
     array used above could therefore also be constructed in this way:'
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组不是基本数据类型，不是 *原始类型*，而是 *对象*。因此，数组不仅可以像上面那样通过赋值数组字面量来创建，还可以通过调用数组类型的构造函数 **Array()**
+    来创建。上述使用的数组也可以通过这种方式构造：
 - en: '**>** multipleTypes = new Array(false, undefined, ''Caroline'', 28.3)'
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes = new Array(false, undefined, ''Caroline'', 28.3)'
 - en: The array elements that is left empty must be explicitly assigned the value
     **undefined** as leaving it truly empty leads to an error message. We have already
     seen the keyword **new** in ► Sect. 31.3.2; in ► Sects. [31.5.4](#Sec15) and [31.5.5](#Sec16)
     we will look at its meaning in more detail.
+  id: totrans-154
   prefs: []
   type: TYPE_NORMAL
+  zh: 被留空的数组元素必须显式赋值为 **undefined**，因为如果它真的留空，会导致错误消息。我们已经在► 第 31.3.2 节看到过 **new**
+    关键字；在► 第 [31.5.4](#Sec15) 和 [31.5.5](#Sec16) 节中，我们将更详细地讨论它的含义。
 - en: 'By the way: If you specify only one positive integer as the argument of the
     constructor **Array()**, then you do not get an array with only one element, but
     a completely empty array with the specified number of elements will be created.'
+  id: totrans-155
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一句：如果你仅指定一个正整数作为 **Array()** 构造函数的参数，那么你得到的不是一个包含一个元素的数组，而是一个创建了指定元素数量的完全空数组。
 - en: Selecting Multiple Elements from Arrays
+  id: totrans-156
   prefs: []
   type: TYPE_NORMAL
+  zh: 从数组中选择多个元素
 - en: Arrays provide a whole range of useful properties and methods as objects. In
     the following, we will use some of these properties and methods to work more intensively
     with arrays. Let’s start with the selection of elements from arrays.
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组作为对象提供了许多有用的属性和方法。在接下来的内容中，我们将使用其中的一些属性和方法来更深入地操作数组。我们先从数组中选择元素开始。
 - en: 'We have already seen how to access an array element by specifying the element
     index. But what if several elements are to be selected at once? Unlike Python,
     JavaScript does not have an operator to “grab” an entire range of index values
@@ -775,157 +1136,240 @@
     ***to*****)**, which can use to achieve the same effect. In this case, all index
     values from index value ***from*** are returned *before* index value **to**, but
     without this element itself. Consider the following example:'
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经看到如何通过指定元素索引来访问数组元素。但如果要一次选择多个元素怎么办呢？与 Python 不同，JavaScript 没有操作符可以一次“抓取”整个索引值范围。然而，**Array**
+    类有一个方法 **slice(*****from*****,** ***to*****)**，可以用来实现相同的效果。在这种情况下，从索引值 ***from***
+    开始，返回的是所有在索引值 **to** 之前的索引值，但不包括这个元素本身。考虑以下示例：
 - en: '**>** prime = [1,3,5,7,11,13]**>** prime.slice(2,4)[5, 7]'
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** prime = [1,3,5,7,11,13]**>** prime.slice(2,4)[5, 7]'
 - en: So, the elements with the index values 2 and 3 are selected (because the indexing
     starts at 0, this means the third and fourth element in the array are selected).
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，选择了索引值为 2 和 3 的元素（因为索引是从 0 开始的，这意味着选择的是数组中的第三个和第四个元素）。
 - en: 'The ***to*** argument can also be omitted. In this case, the entire remainder
     of the array is returned starting at the index position **from**:'
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: '***to*** 参数也可以省略。在这种情况下，返回的是从索引位置 **from** 开始的数组的其余部分：'
 - en: '**>** prime.slice(3)[7, 11, 13]'
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** prime.slice(3)[7, 11, 13]'
 - en: 'Negative values are also possible for the **from** and **to** arguments of
     **slice()**. In this case, the selection is made from the back, with the last
     element of the array carrying the index value -1:'
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: '**slice()** 的 **from** 和 **to** 参数也可以是负值。在这种情况下，选择是从数组的末尾开始，数组的最后一个元素的索引值为
+    -1：'
 - en: '**>** prime.slice(-3,-1)[7, 11]'
+  id: totrans-164
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** prime.slice(-3,-1)[7, 11]'
 - en: Please note that also here the elements are selected before the element with
     the second index.
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，这里选择的元素也是在第二个索引位置之前的元素。
 - en: Determining and Changing the Length of an Array
+  id: totrans-166
   prefs: []
   type: TYPE_NORMAL
+  zh: 确定和改变数组的长度
 - en: 'The **length** property can be used to determine the length of arrays:'
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: '**length**属性可以用来确定数组的长度：'
 - en: '**>** multipleTypes = new Array(false, undefined, ''Caroline'',28.3, undefined)**>**
     multipleTypes.length5'
+  id: totrans-168
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes = new Array(false, undefined, ''Caroline'',28.3, undefined)**>**
+    multipleTypes.length5'
 - en: 'This property can also be changed, so we can shorten an array by assigning
     a new, smaller value to its length:'
+  id: totrans-169
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个属性也可以被改变，因此我们可以通过将一个新的、更小的值赋给它的长度来缩短数组：
 - en: '**>** multipleTypes.length = 3[false, empty, ''Caroline'']'
+  id: totrans-170
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes.length = 3[false, empty, ''Caroline'']'
 - en: 'If we “extend” it again afterwards, the previously “cut away” elements do not
     reappear, but the new elements are filled with **undefined** (in Google Chrome’s
     representation: **empty**):'
+  id: totrans-171
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们之后“扩展”数组，之前“切掉”的元素不会重新出现，但新元素将被填充为**undefined**（在Google Chrome的表示中为**empty**）：
 - en: '**>** multipleTypes.length = 5[false, empty, ''Caroline'', empty x 2]'
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** multipleTypes.length = 5[false, 空, ''Caroline'', 空 x 2]'
 - en: 'An array literal is also an **Array** object, and so we can also access the
     object properties and methods of arrays for an array literal. Unlike **number**
     or **string**, for example, the literal does *not* have to be enclosed in round
     brackets:'
+  id: totrans-173
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组字面量也是一个**Array**对象，因此我们也可以访问数组字面量的对象属性和方法。与**number**或**string**不同的是，字面量*不需要*用圆括号括起来：
 - en: '**>** [1,3,5,7,11,13].length6Changing Elements in Arrays, Adding Elements to
     Arrays or Deleting Elements from Arrays'
+  id: totrans-174
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** [1,3,5,7,11,13].length6更改数组中的元素、向数组中添加元素或从数组中删除元素'
 - en: 'So far, with the exception of changing the array length, we have worked with
     arrays in a *read-only manner*. Of course, you can also *change* the value of
     an array element using the selection technique we have already learned about:'
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: 迄今为止，除了改变数组的长度外，我们一直以*只读方式*处理数组。当然，你也可以使用我们已经学过的选择技术来*更改*数组元素的值：
 - en: '**>** primes = [1,3,5,7,11,13]**>** primes[2] = ''Gap in prime series''**>**
     primes[1, 3, ''Gap in prime series'', 7, 11, 13]'
+  id: totrans-176
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** primes[2] = ''素数系列中的间隙''**>** primes[1,
+    3, ''素数系列中的间隙'', 7, 11, 13]'
 - en: 'You can *delete* elements from an array using the **splice(*****from*****,**
     ***count*****)** method of the **Array** object. ***count*** elements from (and
     including) the element at index position ***from*** are deleted. The **splice()**
     method returns an array of the deleted elements:'
+  id: totrans-177
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以使用**splice(*****from*****,** ***count*****)**方法从数组中*删除*元素。***count***个元素从索引位置***from***（包括该元素）开始被删除。**splice()**方法返回一个包含被删除元素的数组：
 - en: '**>** primes.splice(2,3)[''Gap in prime number series'', 7, 11]**>** primes[1,
     3, 13]'
+  id: totrans-178
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes.splice(2,3)[''素数间隙'', 7, 11]**>** primes[1, 3, 13]'
 - en: Unlike the methods provided for the primitives **number** and **string**, **splice()**
     modifies the original array for which it is called.
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: 与提供给基本类型**number**和**string**的方法不同，**splice()**会修改它被调用的原始数组。
 - en: 'By the way, the argument **count** is optional: If **count** remains unused,
     **splice** deletes the rest of the array including the index position **from**.'
+  id: totrans-180
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下，参数**count**是可选的：如果**count**没有使用，**splice**会删除从索引位置**from**开始的整个数组。
 - en: '**splice()** can be used not only to delete elements, but also to insert them.
     The second argument (**count**) can be followed by any number of further values,
     which are inserted *after* the element with the index position **from**; the **count**
     elements specified by the argument **count** are nevertheless deleted beforehand:'
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: '**splice()**不仅可以用来删除元素，还可以用来插入元素。第二个参数（**count**）后面可以跟任意数量的值，这些值会*插入*在索引位置**from**的元素之后；然而，参数**count**指定的**count**个元素仍然会先被删除：'
 - en: '**>** primes = [1,3,5,7,11,13]**>** primes.splice(1, 2, ''Gap 1'', ''Gap 2'')[3,
     5]**>** primes[1, "Gap 1", "Gap 2", 7, 11, 13]'
+  id: totrans-182
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** primes.splice(1, 2, ''间隙 1'', ''间隙 2'')[3,
+    5]**>** primes[1, "间隙 1", "间隙 2", 7, 11, 13]'
 - en: 'If you only want to insert, but not delete, set the argument **count** to 0:'
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你只想插入而不删除，将参数**count**设置为 0：
 - en: '**>** primes.splice(3, 0, ''Gap 3'')[]**>** primes[1, ''Gap 1'', ''Gap 2'',
     ''Gap 3'', 7, 11, 13]'
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes.splice(3, 0, ''间隙 3'')[]**>** primes[1, ''间隙 1'', ''间隙 2'', ''间隙
+    3'', 7, 11, 13]'
 - en: '**splice()**, since no elements were deleted from the array, returns an empty
     array as the function value.'
+  id: totrans-185
   prefs: []
   type: TYPE_NORMAL
+  zh: '**splice()**，因为没有从数组中删除任何元素，所以该函数返回一个空数组作为返回值。'
 - en: 'In addition to **splice()**, the **Array** object has other methods that can
     be used to add elements to or remove elements from the array. The **push()** method
     appends an element to the back of the array and returns the new length of the
     array as a function value. **pop()** deletes the last element from the array and
     returns the value of the deleted element:'
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**splice()**，**Array**对象还有其他方法可以用来向数组添加元素或从数组中删除元素。**push()**方法将元素追加到数组的末尾，并返回数组的新长度作为函数值。**pop()**方法删除数组的最后一个元素，并返回被删除元素的值：
 - en: '**>** primes.push(57)8**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7, 11,
     13, 57]**>** primes.pop()57**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7,
     11, 13]'
+  id: totrans-187
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes.push(57)8**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7, 11,
+    13, 57]**>** primes.pop()57**>** primes[1, ''Gap 1'', ''Gap 2'', ''Gap 3'', 7,
+    11, 13]'
 - en: The **shift()** and **unshift()** methods work very similarly to **push()**
     and **pop()**, but work with the beginning of the array instead of its end (try
     it out!).
+  id: totrans-188
   prefs: []
   type: TYPE_NORMAL
+  zh: '**shift()**和**unshift()**方法与**push()**和**pop()**非常相似，但它们操作的是数组的开头，而不是末尾（试试看！）。'
 - en: Merge Arrays
+  id: totrans-189
   prefs: []
   type: TYPE_NORMAL
+  zh: 合并数组
 - en: 'Two arrays can be conveniently concatenated using the **concat(*****otherArray*****)**
     method. This places the elements of the array ***otherArray*** after the last
     element of the array whose **concat()** method is called. However, the array is
     not changed by calling its **concat()** method; instead, the new, merged array
     is simply returned as a function value and can be caught in a variable:'
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个数组可以方便地使用**concat(*****otherArray*****)**方法连接。这个方法会将数组***otherArray***的元素添加到调用**concat()**方法的数组的最后一个元素之后。然而，调用**concat()**方法不会改变原数组，而是返回一个新的合并数组，可以将其保存在一个变量中：
 - en: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** myNumbers
     = primes.concat(evenNumbers)**>** myNumbers[1, 3, 5, 7, 11, 13, 2, 4, 6, 8, 10]Sort
     Arrays'
+  id: totrans-191
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** myNumbers
+    = primes.concat(evenNumbers)**>** myNumbers[1, 3, 5, 7, 11, 13, 2, 4, 6, 8, 10]排序数组'
 - en: 'You can use the **sort()** method of the **Array** object to sort the elements
     of an array *alphabetically* in ascending order according to their values:'
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以使用**Array**对象的**sort()**方法按照元素的值将数组元素按字母顺序升序排列：
 - en: '**>** primes = [1,3,5,7,11,13]**>** primes.sort()**>** primes[1, 11, 13, 3,
     5, 7]'
+  id: totrans-193
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** primes.sort()**>** primes[1, 11, 13, 3,
+    5, 7]'
 - en: 'You may have noticed that **sort()** treats the elements of the array as strings
     and therefore places, for example, 3 *after* 13, an order that would not result
     from numerical sorting. If this behavior is not desired, it can be changed. In
@@ -940,38 +1384,57 @@
     expression **(x-y)>0** is a logical expression, i.e., an expression that takes
     the value **true** or **false,** depending on how the comparison of **x** and
     **y** turns out. With this, our numerical sorting would then look like this:'
+  id: totrans-194
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能已经注意到，**sort()** 将数组的元素视为字符串，因此会把 3 排在 13 后面，这是数字排序所不会出现的顺序。如果不希望这种行为，可以进行修改。实际上，**sort()**
+    方法有一个可选的参数，允许你指定一个函数，该函数接受两个值（我们称之为**x**和**y**）作为参数，并且在排序顺序中当**x**应排在**y**之前时返回一个正值，而在相反的情况下返回一个负值。因此，通过指定一个比较规则来决定任意两个值中，哪个应当先出现在排序顺序中，哪个应当排在后面，你可以微调**sort()**函数的行为。为了实现数字排序，我们可以编写一个辅助函数**greater(x,y)**，如果**x
+    > y**，它返回一个正值，否则返回一个负值。表达式**(x-y)>0**是一个逻辑表达式，也就是说，它根据**x**和**y**的比较结果返回**true**或**false**。这样，我们的数字排序就可以如下进行：
 - en: '**>** greater = function(x, y) {return (x - y) > 0;}**>** primes.sort(greater)**>**
     primes[1, 3, 5, 7, 11, 13]'
+  id: totrans-195
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** greater = function(x, y) {return (x - y) > 0;}**>** primes.sort(greater)**>**
+    primes[1, 3, 5, 7, 11, 13]'
 - en: We will deal with the definition of functions in more detail in a later chapter.
+  id: totrans-196
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将在后面的章节中更详细地讲解函数的定义。
 - en: 'To sort the values in descending order, we can use the **reverse()** method
     of the **Array** object. It simply flips the elements of an array around. If we
     apply this method to the array previously sorted with **sort()**, we get a descending
     sort:'
+  id: totrans-197
   prefs: []
   type: TYPE_NORMAL
+  zh: 要按降序排序值，我们可以使用**Array**对象的**reverse()**方法。它只是简单地翻转数组中的元素。如果我们将此方法应用于先前使用**sort()**排序的数组，我们将得到一个降序排序：
 - en: '**>** primes.sort(greater).reverse()'
+  id: totrans-198
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes.sort(greater).reverse()'
 - en: 'The notation with the two dot operators may seem strange, but it is actually
     very logical: The expression **primes.sort(greater)** returns an **Array** object,
     which in turn has a **reverse()** function. This is called with the usual dot
     notation. Of course, you can also break the whole operation into two steps.'
+  id: totrans-199
   prefs: []
   type: TYPE_NORMAL
+  zh: 带有两个点运算符的表示法可能看起来有些奇怪，但实际上是非常合逻辑的：表达式**primes.sort(greater)**返回一个**Array**对象，该对象又具有**reverse()**函数。可以使用常规的点符号调用该函数。当然，你也可以将整个操作分为两步来进行。
 - en: Both **sort()** and **reverse()** not only return the result of the respective
     operation as a function value, but also change the array for which they are called.
     In this last respect, they resemble **splice()** and differ from **concat()**.
+  id: totrans-200
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sort()**和**reverse()**不仅返回各自操作的结果作为函数值，还会修改它们被调用的数组。在这一点上，它们与**splice()**相似，而与**concat()**不同。'
 - en: Display Arrays as Strings
+  id: totrans-201
   prefs: []
   type: TYPE_NORMAL
+  zh: 显示数组为字符串
 - en: 'With **join()** and **toString()**, the **Array** object provides two methods
     to combine its elements into a string. The original array is not touched by either
     method. **join()** and the **toString()** method offered by any JavaScript object
@@ -979,76 +1442,111 @@
     argument can be used to specify the separator character that will be between each
     array element in the generated string, while **toString()** stubbornly uses the
     comma as the separator character:'
+  id: totrans-202
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**join()**和**toString()**方法，**Array**对象提供了两种将其元素合并为字符串的方法。原始数组不会被这两种方法修改。**join()**和任何JavaScript对象提供的**toString()**方法基本上有相同的效果，但**join()**更为灵活，因为它可以使用一个可选参数来指定数组元素之间的分隔符，而**toString()**则固执地使用逗号作为分隔符：
 - en: '**>** primes = [1,3,5,7,11,13]**>** primes.toString()"1,3,5,7,11,13"**>** primes.join()"1,3,5,7,11,13"**>**
     primes.join(''-'')"1-3-5-7-11-13"'
+  id: totrans-203
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** primes.toString()"1,3,5,7,11,13"**>** primes.join()"1,3,5,7,11,13"**>**
+    primes.join(''-'')"1-3-5-7-11-13"'
 - en: 'There is a danger of confusion between the **join()** method and the **concat()**
     method: Contrary to what the name **join()** might suggest, here it is not *two
     different arrays* that are joined, but the *different elements* of an array.'
+  id: totrans-204
   prefs: []
   type: TYPE_NORMAL
+  zh: '**join()**方法和**concat()**方法之间存在混淆的危险：与**join()**的名称可能暗示的不同，这里并不是*将两个不同的数组*连接起来，而是连接*数组中的不同元素*。'
 - en: 'By the way: If you “add” two arrays, you will also get a string that includes
     all elements of both arrays; but be careful, because no separator is inserted
     between the two arrays, i.e., between the last element of the first array and
     the first element of the second array (hence the “number” **132** in the example):'
+  id: totrans-205
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下：如果你“添加”两个数组，你也会得到一个包含两个数组所有元素的字符串；但要小心，因为在两个数组之间不会插入任何分隔符，也就是说，在第一个数组的最后一个元素和第二个数组的第一个元素之间没有分隔符（因此示例中的“数字”**132**）：
 - en: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** primes
     + evenNumbers"1,3,5,7,11,132,4,6,8,10"Decompose Strings to Arrays'
+  id: totrans-206
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** primes = [1,3,5,7,11,13]**>** evenNumbers = [2,4,6,8,10]**>** primes
+    + evenNumbers"1,3,5,7,11,132,4,6,8,10"将字符串分解为数组'
 - en: 'Just as you can use **join()** and **toString() to** convert arrays into strings,
     it is possible to split a string and make the individual parts elements of an
     array. In the following example, consider the string **friends**, which contains
     a comma-separated list of names:'
+  id: totrans-207
   prefs: []
   type: TYPE_NORMAL
+  zh: 就像你可以使用**join()**和**toString()**方法将数组转换为字符串一样，也可以将字符串拆分并使单个部分成为数组的元素。在以下示例中，考虑字符串**friends**，它包含一个以逗号分隔的名称列表：
 - en: '**>** friends = ''Thomas,Marc,Sharon,Hazel'''
+  id: totrans-208
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** friends = ''Thomas,Marc,Sharon,Hazel'''
 - en: 'With the help of the method split**()**, the string can now be split into the
     individual names and an array can be “fed” with these. The argument of **split()**
     is the separator character that separates the individual parts of the string,
     in our example the comma:'
+  id: totrans-209
   prefs: []
   type: TYPE_NORMAL
+  zh: 借助**split()**方法，字符串现在可以拆分为单个名称，并将这些名称“喂入”数组中。**split()**的参数是分隔符字符，用于分隔字符串的各个部分，在我们的示例中是逗号：
 - en: '**>** friendsArray = friends.split('','')**>** friendsArray[''Thomas'', ''Marc'',
     ''Sharon'', ''Hazel'']Repetition: Accessing String Characters in Array Notation'
+  id: totrans-210
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** friendsArray = friends.split('','')**>** friendsArray[''Thomas'', ''Marc'',
+    ''Sharon'', ''Hazel'']重复：使用数组表示法访问字符串字符'
 - en: 'In JavaScript, as we saw in ► Sect. [31.2.2](#Sec4), strings are an elementary
     data type, a *primitive*, and thus not an object. As you recall, their individual
     characters can nevertheless be accessed like the elements of an array:'
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中，正如我们在►第 31.2.2 节中所见，字符串是一种基本数据类型，属于*原始类型*，因此不是对象。如你所记得，字符串的单个字符仍然可以像访问数组元素一样被访问：
 - en: '**>** var message = ''Hello World!''**>** message[1]"2"**>** message[message.length-1]"!"'
+  id: totrans-212
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var message = ''Hello World!''**>** message[1]"2"**>** message[message.length-1]"!"'
 - en: With the last command, we access the last character in the string (remember
     that indexing starts at 0!). However, you cannot change the individual characters
     of a string with the array notation. While such an attempt will not result in
     an error message, the attempted change will not take effect in the string. Strings
     are, in a sense, “read-only arrays”.
+  id: totrans-213
   prefs: []
   type: TYPE_NORMAL
+  zh: 在最后一条命令中，我们访问了字符串中的最后一个字符（记住，索引是从 0 开始的！）。然而，你不能使用数组符号来修改字符串的单个字符。虽然这样的尝试不会导致错误信息，但尝试的修改不会生效。字符串在某种意义上是“只读数组”。
 - en: 31.3 [5 min]
+  id: totrans-214
   prefs: []
   type: TYPE_NORMAL
+  zh: 31.3 [5 min]
 - en: Create a string with the value **"Hello World"**. Select the sixth and the eight
     character from this string. Then remove these characters from the string.
+  id: totrans-215
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个值为**"Hello World"**的字符串。选择这个字符串中的第六个和第八个字符，然后从字符串中删除这些字符。
 - en: 31.5 Objects
+  id: totrans-216
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.5 对象
 - en: 31.5.1 Object Orientation in JavaScript
+  id: totrans-217
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.1 JavaScript 中的面向对象编程
 - en: Object orientation in JavaScript works somewhat differently than in most other
     object-oriented languages. JavaScript does not inherently recognize the central
     basic concept of object-oriented programming, *classes*. Instead, JavaScript takes
@@ -1057,8 +1555,11 @@
     also have a prototype function for the objects derived from them (these are, in
     a sense, built according to the “prototype” of the class). In fact, however, the
     two approaches are quite different.
+  id: totrans-218
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 中的面向对象编程与大多数其他面向对象语言有所不同。JavaScript 本身并不直接识别面向对象编程的核心基本概念——*类*。相反，JavaScript
+    采用了一种基于*原型*创建对象的方法。“原型”和“类”乍一看可能并没有太大区别，因为面向对象编程中的类也有一个原型函数，用于派生自它们的对象（这些对象在某种意义上是根据类的“原型”构建的）。然而，实际上，这两种方法有很大的不同。
 - en: 'Two examples: Unlike in typical object-oriented languages with their classes,
     in JavaScript properties and methods can be *added directly* to individual objects
     (in normal object-oriented terminology you would say: to the instances of classes)
@@ -1079,40 +1580,56 @@
     make sense in a prototype approach, unless you want *static* properties in the
     spirit of object-oriented programming, meaning they have the same value for all
     object instances).'
+  id: totrans-219
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个例子：与典型的面向对象语言中的类不同，在 JavaScript 中，属性和方法可以直接添加到单个对象（在传统面向对象术语中，你会说：添加到类的实例）中，而这些属性和方法并不包含在原型定义中。因此，在不从基类派生额外类的情况下，同一类型（类）的不同对象实例可以在其方法和属性上有所不同。在其他面向对象语言中，同一类型（类）的所有对象会有相同的结构，表现为可用的方法和属性（后者当然可能赋予不同的值）。JavaScript
+    的原型方法与其他面向对象语言的类方法之间的另一个区别在于，JavaScript 中类的结构并未明确描述；直到 ECMAScript 2015 版本之前（但这并未改变原型方法），没有描述类型（类）作为方法和属性集合的语法结构，正如我们在
+    Python 中看到的那样。相反，JavaScript 中的类型定义完全封装在类型的构造函数中，并通过其对其他对象原型的引用来“继承”方法（在原型方法中，继承属性并没有什么意义，除非你想要以面向对象编程的精神添加*静态*属性，即所有对象实例共享相同的值）。
 - en: If the last paragraph seems very technical and rather difficult to skim read,
     don’t worry, we’ll skirt most of the shoals of JavaScript’s own prototype approach
     in the following sections. Covering them would significantly exceed the book’s
     idea of *quickly* learning the *most important* basic concepts of the language
     to be able to apply them.
+  id: totrans-220
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果上一段看起来非常技术性且较难理解，不用担心，我们将在接下来的章节中避开 JavaScript 自身的原型方法的大部分细节。深入探讨这些内容将大大超出本书快速学习语言*最重要*基本概念、并能够应用它们的目的。
 - en: Unlike the Python part of the book, we refrain here from dealing with inheritance
     and thus deriving objects from other objects or their prototypes. You will be
     able to master most application scenarios well, even without having fully internalized
     JavaScript’s unusual but very flexible approach to object orientation down to
     the last detail (especially if you come from a “classical” object-oriented way
     of thinking).
+  id: totrans-221
   prefs: []
   type: TYPE_NORMAL
+  zh: 与本书的 Python 部分不同，我们在这里避免处理继承问题，因此不会从其他对象或其原型派生对象。即使没有完全掌握 JavaScript 独特但非常灵活的面向对象方法（特别是如果你来自“经典”的面向对象思维方式），你也能够很好地掌握大多数应用场景。
 - en: 31.5.2 Creating Objects Directly
+  id: totrans-222
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.2 直接创建对象
 - en: The simplest way to create an object in JavaScript is a variable declaration,
     in which not only a value, but also (one or more often) several properties are
     assigned to an (object) variable. To demonstrate this, we will work with the example
     of a product definition that has already been used several times.
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中创建对象的最简单方法是声明一个变量，在该变量中不仅赋值，还可以（通常是一个或多个）为该（对象）变量赋予多个属性。为了演示这一点，我们将使用已经多次使用的产品定义示例。
 - en: 'An object with these same properties can easily be created in JavaScript with
     an assignment like the following:'
+  id: totrans-224
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以通过以下赋值轻松地在 JavaScript 中创建具有相同属性的对象：
 - en: '**var** product = {name: ''Garden shovel, stainless steel'',price: 10.99}'
+  id: totrans-225
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** product = {name: ''园艺铲，不锈钢'', price: 10.99}'
 - en: As you can see, a variable called **product** is declared here and something
     is directly assigned to it as part of the declaration. What is assigned are the
     properties of the product. The curly braces make it clear that **product** is
@@ -1120,42 +1637,59 @@
     of an identifier, in our example **name** and **price**, and a value that is assigned
     to the property after the colon. Multiple properties are separated by commas within
     the object declaration.
+  id: totrans-226
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，这里声明了一个名为**product**的变量，并在声明时直接为其赋值。赋值的内容是产品的属性。大括号表明**product**是一个自定义对象。大括号中指定的每个属性由标识符（在我们的示例中是**name**和**price**）和在冒号后分配给该属性的值组成。多个属性在对象声明中由逗号分隔。
 - en: The properties of the product can also be assigned variables (whose current
     value is thus assigned to the property); in particular, the values of properties
     can in turn be other objects.
+  id: totrans-227
   prefs: []
   type: TYPE_NORMAL
+  zh: 产品的属性也可以分配变量（因此，当前值被分配给该属性）；特别是，属性的值可以是其他对象。
 - en: 'Rarely encountered in practice, but syntactically permissible, it is also possible
     to enclose property identifiers in (single or double) quotes: This allows you
     to even include spaces in the property identifiers, for example:'
+  id: totrans-228
   prefs: []
   type: TYPE_NORMAL
+  zh: 在实践中很少遇到，但语法上是允许的，也可以将属性标识符用（单引号或双引号）括起来：这使你可以在属性标识符中包含空格，例如：
 - en: '**var** product = {''Name of the product'': ''Garden shovel, stainless steel'',price:
     10.99}'
+  id: totrans-229
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var** product = {''Name of the product'': ''Garden shovel, stainless steel'',
+    price: 10.99}'
 - en: This way you can add identifiers to properties that would otherwise be illegal
     in JavaScript, such as **#hastag** (illegal because of first character). You could
     also use otherwise reserved keywords like **var** as property identifiers. However,
     this is also rather uncommon because of the expected poor readability and the
     higher error-proneness of the code.
+  id: totrans-230
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样，你可以为属性添加标识符，否则在 JavaScript 中会被认为是非法的，比如**#hastag**（由于第一个字符的原因，非法）。你还可以使用其他保留关键字，比如**var**，作为属性标识符。然而，这种做法也相对少见，因为它会导致代码可读性差且更容易出错。
 - en: As with “free-standing” variables, JavaScript itself decides on the data type
     that the properties must have; in our example, **name** will be of type **string**,
     **price** of type **number**.
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 与“独立”变量一样，JavaScript 本身决定属性必须具有的数据类型；在我们的示例中，**name**将是**string**类型，**price**是**number**类型。
 - en: 31.5.3 Accessing Properties of Objects
+  id: totrans-232
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.3 访问对象的属性
 - en: 'Objects are nothing more than *associative arrays*: Arrays of properties consisting
     of key-value pairs.'
+  id: totrans-233
   prefs: []
   type: TYPE_NORMAL
+  zh: 对象不过是*关联数组*：由键值对组成的属性数组。
 - en: But what about methods? In the sense of object-oriented programming, we understand
     objects as constructs that include properties (attributes) and methods, i.e.,
     functions, with the help of which the properties can be worked with. The methods,
@@ -1164,46 +1698,68 @@
     in JavaScript, functions are also objects, and they are objects of type **function**.
     But we saw in the last section that the value of an object property can in turn
     be an object and thus also a function.
+  id: totrans-234
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么，方法呢？从面向对象编程的角度来看，我们将对象理解为包括属性（特性）和方法，即函数的构造体，通过这些方法可以操作属性。然而，方法不能同时是属性。那么，如何才能使
+    JavaScript 中的对象实际上仅仅是一个只有属性的关联数组呢？诀窍在于，JavaScript 中函数也是对象，并且它们是**function**类型的对象。但我们在上一节中看到，对象属性的值可以是另一个对象，从而也可以是一个函数。
 - en: 'If objects are ultimately a kind of associative array, then their properties
     (and thus also methods) can be accessed by specifying the key, i.e., the property
     identifier. For this purpose, it must be specified in quotes and square brackets.
     After you have executed the object declaration from the last section in the JavaScript
     console, you can now easily access the **price** property of the **product** object:'
+  id: totrans-235
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果对象最终是一种关联数组，那么它们的属性（也包括方法）可以通过指定键，即属性标识符来访问。为此，必须用引号和方括号来指定。完成上一节中对象声明的 JavaScript
+    控制台操作后，现在可以轻松访问**product**对象的**price**属性：
 - en: '**>** product[''price'']10.99'
+  id: totrans-236
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** product[''price''] 10.99'
 - en: 'The key may of course be a variable itself:'
+  id: totrans-237
   prefs: []
   type: TYPE_NORMAL
+  zh: 键当然也可以是一个变量本身：
 - en: '**>** property = ''price''**>** product[property]10.99'
+  id: totrans-238
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** property = ''price'' **>** product[property] 10.99'
 - en: This notation makes clear the character of JavaScript objects as associative
     arrays.
+  id: totrans-239
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种表示法清楚地展示了 JavaScript 对象作为关联数组的特性。
 - en: 'In practice, however, the access method that is also known from many other
     object-oriented languages is much more common, namely with the help of the dot
     operator:'
+  id: totrans-240
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，在实践中，另一种常见的访问方法是通过点操作符，这也是许多其他面向对象语言中所熟知的：
 - en: '**>** product.price10.99'
+  id: totrans-241
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** product.price10.99'
 - en: This type of access only works if the identifiers of your object properties
     are valid JavaScript identifiers, i.e., do not contain spaces or start with a
     special character other than underscore and dollar sign. However, it is always
     recommended to choose identifiers that comply with the usual rules.
+  id: totrans-242
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种访问方式只在对象属性的标识符是有效的JavaScript标识符时才有效，也就是说，不能包含空格，且不能以除下划线和美元符号以外的特殊字符开头。然而，始终推荐选择符合常规规则的标识符。
 - en: 31.5.4 Creating Objects Using the Object Constructor
+  id: totrans-243
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.4 使用Object构造函数创建对象
 - en: 'In ► Sect. [31.5.2](#Sec13), we created an object by assigning a set of key-value
     pairs, namely the object’s properties, to a variable when we declared it. In this
     section, we will learn a second way to create an object. To do this, we take advantage
@@ -1211,8 +1767,10 @@
     from the basic type **object**. Therefore, we first create a variable of type
     **object** by calling the constructor function (more about JavaScript constructors
     in the following section). Please note the capitalization of the constructor function:'
+  id: totrans-244
   prefs: []
   type: TYPE_NORMAL
+  zh: 在►第[31.5.2](#Sec13)节中，我们通过将一组键值对，即对象的属性，赋值给变量来创建了一个对象。在本节中，我们将学习创建对象的第二种方法。为此，我们利用了这样一个特性：JavaScript中所有对象层次结构中的对象都派生自基本类型**object**。因此，我们首先通过调用构造函数来创建一个**object**类型的变量（关于JavaScript构造函数的更多内容将在下一节介绍）。请注意构造函数的首字母大写：
 - en: '**>** var product = new Object()**>** typeof product"object"With this we have
     created an empty object. If you type **product**. into the console, you can see
     from the popup window that now opens that our supposedly empty object already
@@ -1220,53 +1778,76 @@
     has by default. But we want to give the object our standard **product** properties
     **name** and **price**. This is now done by simple assignment:**>** product.name
     = ''Garden shovel, stainless steel'';**>** product.price = 10.99;'
+  id: totrans-245
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var product = new Object()**>** typeof product"object"通过这个我们创建了一个空对象。如果你在控制台输入**product**，你可以看到弹出窗口中显示的内容，这时我们原本认为是空的对象，实际上已经包含了一整套属性和方法，即**object**类型默认的那些属性和方法。但我们希望给这个对象添加我们标准的**product**属性**name**和**price**。现在我们可以通过简单的赋值来完成：**>**
+    product.name = ''园艺铲，不锈钢''; **>** product.price = 10.99;'
 - en: 'You can easily verify that our **product** object actually has the properties
     **name** and **price** with the appropriate values:'
+  id: totrans-246
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以很容易验证我们的**product**对象确实拥有**name**和**price**这两个属性，并且其值分别为：
 - en: '**>** product.name"Garden shovel, stainless steel"**>** product.price10.99'
+  id: totrans-247
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** product.name"园艺铲，不锈钢"**>** product.price10.99'
 - en: 31.5.5 Creating Objects Using Constructor Functions
+  id: totrans-248
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.5 使用构造函数创建对象
 - en: The last—and probably most important—way to generate objects is to write a constructor
     function that creates the object. In the previous section we also used a constructor
     function, namely the constructor **Object()**. In this section, we will now build
     ourselves a constructor to create our very own type of object.
+  id: totrans-249
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后——也是最重要的一种——生成对象的方法是编写一个构造函数来创建该对象。在前一部分，我们也使用了构造函数，即构造函数**Object()**。在这一部分，我们将自己构建一个构造函数，用来创建我们自己的对象类型。
 - en: 'We want our **product** object to have two properties, **name** and **price**;
     these should be directly specifiable when the object is created. We achieve this
     with a constructor function like the following:'
+  id: totrans-250
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们希望我们的**product**对象拥有两个属性，**name**和**price**；这些属性应该在创建对象时直接指定。我们可以通过如下的构造函数来实现：
 - en: '**function** product(price, name) {this.price = price;this.name = name;}'
+  id: totrans-251
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** product(price, name) {this.price = price;this.name = name;}'
 - en: 'The constructor is passed two values as arguments, which are then assigned
     to properties of the newly created object, using the keyword **this**. It refers
     to the current object in whose context it is used. In our example, this refers
     to our newly created **product** object. This also completes the definition of
     our very simple type. We can now create an instance of this type by calling the
     constructor function we just developed:'
+  id: totrans-252
   prefs: []
   type: TYPE_NORMAL
+  zh: 构造函数接收两个值作为参数，然后通过关键字**this**将它们赋值给新创建对象的属性。**this**指的是当前对象，它表示在其上下文中使用的对象。在我们的例子中，this指的是我们新创建的**product**对象。这样，我们也完成了我们这个非常简单类型的定义。现在，我们可以通过调用刚刚开发的构造函数来创建该类型的实例：
 - en: '**>** gardenShovel = new product(10.99,''Garden shovel, stainless steel'')'
+  id: totrans-253
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** gardenShovel = new product(10.99,''Garden shovel, stainless steel'')'
 - en: Note the keyword **new**. It ensures that a new object is created. If the constructor
     function is called without this keyword, no new object is created, but simply
     **undefined** is returned.
+  id: totrans-254
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意关键词 **new**。它确保创建一个新的对象。如果构造函数在没有这个关键词的情况下被调用，则不会创建新的对象，而是简单地返回 **undefined**。
 - en: 31.5.6 JSON
+  id: totrans-255
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 31.5.6 JSON
 - en: Even if you don’t work with JavaScript, chances are you’ll encounter the JSON
     data format at some point. For example, it is often used in Internet APIs for
     retrieving information from web services. Such interfaces often return their results
@@ -1274,132 +1855,192 @@
     important data exchange format on the Internet. JSON is the abbreviation for *JavaScript
     Object Notation*, so it’s certainly not surprising that we’re focusing our attention
     on this popular data exchange format at the end of our look at objects in JavaScript.
+  id: totrans-256
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使你不使用 JavaScript，仍然有可能在某个时刻遇到 JSON 数据格式。例如，它通常用于互联网 API 中，用于从 Web 服务中检索信息。这类接口通常会以
+    JSON 格式将结果返回给调用的应用程序。仅次于 XML，它是互联网上第二重要的数据交换格式。JSON 是*JavaScript 对象表示法*（JavaScript
+    Object Notation）的缩写，因此，在我们结束对 JavaScript 中对象的讨论时，重点关注这个流行的数据交换格式也就不足为奇了。
 - en: We have already encountered the JSON format in ► Sect. [31.5.2](#Sec13), where
     we created objects directly as literals. The notation used there with its key-value
     pairs, which are placed in braces separated by commas, is nothing other than a
     notation in JSON format.
+  id: totrans-257
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经在►第 [31.5.2](#Sec13) 节中遇到过 JSON 格式，在那里我们直接以字面量的形式创建了对象。那里使用的表示法，键值对被放在花括号内并用逗号分隔，这实际上就是一种
+    JSON 格式的表示法。
 - en: 'Consider the following excerpt from a JSON dataset:'
+  id: totrans-258
   prefs: []
   type: TYPE_NORMAL
+  zh: 请考虑以下来自 JSON 数据集的片段：
 - en: '{''customer01'': {''First name'': ''Phil'',''Last name'': ''Philipson'',''Address'':
     {''Street'': ''1 Philly Drive'',''ZIP'': 19145,''City'': ''Philadelphia''''State'':
     ''PA''}},''customer02'': {''First name'': ''Auric'',''Last name'': ''Goldfinger'',''Address'':
     {''Street'': ''450 Gold Avenue'',''ZIP'': 40121,''City'': ''Fort Knox''''State'':
     ''KY''}}}'
+  id: totrans-259
   prefs: []
   type: TYPE_NORMAL
+  zh: '{''customer01'': {''First name'': ''Phil'',''Last name'': ''Philipson'',''Address'':
+    {''Street'': ''1 Philly Drive'',''ZIP'': 19145,''City'': ''Philadelphia''''State'':
+    ''PA''}},''customer02'': {''First name'': ''Auric'',''Last name'': ''Goldfinger'',''Address'':
+    {''Street'': ''450 Gold Avenue'',''ZIP'': 40121,''City'': ''Fort Knox''''State'':
+    ''KY''}}}'
 - en: This JSON object (delimited by the outer curly brackets) comprises two (sub)objects,
     **customer01** and **customer02**, which are characterized by different fields.
     One of the fields, the address, is itself an object composed of different fields.
     The field names, i.e., the keys of the key-value pairs, are enclosed in quotes
     in JSON, which—as already mentioned—is also syntactically permissible in JavaScript.
+  id: totrans-260
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个 JSON 对象（由外部的花括号界定）包含两个（子）对象，**customer01** 和 **customer02**，它们具有不同的字段。其中一个字段，地址，本身就是一个由不同字段组成的对象。字段名，即键值对中的键，在
+    JSON 中用引号括起来，这—如前所述—在 JavaScript 中也是语法允许的。
 - en: Using the **JSON.stringify(*****object*****)** function, you can convert any
     object into a JSON string, which is also called *serialization*; conversely, **JSON.parse(string)**
     allows you to turn a JSON string (returned as the result of a web API call, for
     example) into a real JavaScript object.
+  id: totrans-261
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 **JSON.stringify(*****object*****)** 函数，你可以将任何对象转换为 JSON 字符串，这也叫做 *序列化*；反之，**JSON.parse(string)**
+    允许你将 JSON 字符串（例如，作为 Web API 调用结果返回的字符串）转换成一个真正的 JavaScript 对象。
 - en: Although the origin of JSON is closely linked to JavaScript, today practically
     all common programming languages offer functions for working with data in JSON
     format, which underlines the popularity of JSON as a data exchange format. This
     popularity certainly stems from the fact that JSON allows hierarchical object
     structures to be represented with little effort in a syntactically straightforward
     way that can be read well even without JSON knowledge.
+  id: totrans-262
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管 JSON 的起源与 JavaScript 紧密相关，但如今几乎所有常见的编程语言都提供了处理 JSON 格式数据的函数，这也强调了 JSON 作为数据交换格式的流行。这种流行无疑源于
+    JSON 允许以一种语法简洁的方式表示层次化的对象结构，这种方式即使没有 JSON 知识的人也能很容易地读取。
 - en: 31.4 [5 min]
+  id: totrans-263
   prefs: []
   type: TYPE_NORMAL
+  zh: 31.4 [5 分钟]
 - en: Create an array of objects, each containing the name and age (in years) of your
     immediate family members. Then access and display the name of the second person
     in this array. Finally, convert this array into a JSON string.
+  id: totrans-264
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个包含你直系家庭成员姓名和年龄（以年为单位）的对象数组。然后访问并显示该数组中第二个人的姓名。最后，将这个数组转换为 JSON 字符串。
 - en: 31.5 [10 min]
+  id: totrans-265
   prefs: []
   type: TYPE_NORMAL
+  zh: 31.5 [10 分钟]
 - en: Create two objects, each containing a customer address. Work once with the direct
     creation of objects by assigning key-value pairs to a variable, once with the
     general object constructor **Object()**.
+  id: totrans-266
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建两个对象，每个对象包含一个客户地址。一次通过直接创建对象，向变量分配键值对；一次通过通用的对象构造函数 **Object()** 来创建。
 - en: 31.6 Summary
+  id: totrans-267
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.6 总结
 - en: In this chapter we have dealt with elementary variables and objects in JavaScript.
+  id: totrans-268
   prefs: []
   type: TYPE_NORMAL
+  zh: 本章我们讨论了 JavaScript 中的基础变量和对象。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-269
   prefs: []
   type: TYPE_NORMAL
+  zh: 确保从本章中记住以下几点：
 - en: Variables are not mandatory to declare in JavaScript, however it is good practice
     to do so.
+  id: totrans-270
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中，变量并非必须声明，但良好的编程实践是声明变量。
 - en: The main elementary data types are **number** (numbers, both integers and floating-point
     numbers), **string** (strings) and **boolean** (logical values).
+  id: totrans-271
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主要的基础数据类型有 **number**（数字，包括整数和浮点数）、**string**（字符串）和 **boolean**（布尔值）。
 - en: Strings can be enclosed in single or double quotes; individual characters of
     a string can be accessed in simple array notation (**string[*****characterIndex*****]**),
     but only in read-only mode.
+  id: totrans-272
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串可以用单引号或双引号括起来；可以通过简单的数组表示法 (**string[*****characterIndex*****]**) 访问字符串中的单个字符，但仅限于只读模式。
 - en: For the elementary data types, which are not objects themselves, there are object
     prototypes with the same name (but with a capital letter, such as **Number**)
     that provide useful properties and methods; if necessary, JavaScript automatically
     converts the elementary data types temporarily into objects of the corresponding
     type in the background, so that you can access the properties and methods as if
     they were properties or methods of the elementary data types themselves.
+  id: totrans-273
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于那些本身不是对象的基础数据类型，存在与之同名的对象原型（但首字母大写，例如 **Number**），它们提供有用的属性和方法；如果需要，JavaScript
+    会在后台自动将基础数据类型临时转换为对应类型的对象，以便你像访问基础数据类型的属性或方法一样访问这些属性和方法。
 - en: The special value **undefined** is used when a variable does not yet have a
     defined value (or a function does not return a real return value), whereas **null**
     is used whenever a conscious decision is made that a variable should remain “empty”.
+  id: totrans-274
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 特殊值 **undefined** 用于表示变量尚未定义值（或者函数没有返回实际的返回值），而 **null** 用于表示有意识地决定某个变量应该保持“空”值。
 - en: JavaScript already implicitly converts where necessary.
+  id: totrans-275
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 已经在必要时进行隐式转换。
 - en: 'Caution is advised when converting strings: The plus operator is used with
     strings to link two strings, but undesirable effects can occur if numbers contained
     in strings are to be added numerically, and are not explicitly converted to the
     **number** **type** beforehand.'
+  id: totrans-276
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在转换字符串时需要小心：加号操作符用于连接两个字符串，但如果字符串中包含数字并且需要进行数值相加，而没有事先显式地转换为**数字**类型，可能会导致不期望的结果。
 - en: An explicit conversion of the elementary data types among each other can be
     achieved with the help of the constructors of the object types belonging to the
     elementary types, for example with **Number(*****string*****)**.
+  id: totrans-277
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过基础数据类型所属的对象类型构造函数，可以显式地进行基础数据类型之间的转换，例如使用 **Number(*****string*****)**。
 - en: Arrays are lists that can hold variables (also objects) of different data types;
     the individual elements of the array are accessed in the notation **array[*****elementIndex*****]**,
     with indexing starting at **0**.
+  id: totrans-278
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数组是可以存储不同数据类型变量（也可以是对象）的列表；数组的各个元素通过 **array[*****elementIndex*****]** 来访问，索引从
+    **0** 开始。
 - en: JavaScript does not recognize any classes in its core definition; object orientation
     is realized with the help of prototypes, after whose likeness objects can then
     be created; to the instances of objects further properties and methods can be
     added, which the prototype, whose construction the object follows, did not possess.
+  id: totrans-279
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JavaScript 在其核心定义中并不识别任何类；面向对象特性是通过原型实现的，基于原型的形式可以创建对象；可以向对象的实例添加额外的属性和方法，这些属性和方法是原型在构造时未包含的。
 - en: 'Objects can be created directly by assigning a comma-separated list of elements/properties
     in the form of key-value pairs (object notation) to a variable in curly braces,
     for example: **object = {*****property1*****:** ***value1*****,** ***property2*****:**
@@ -1407,189 +2048,285 @@
     object constructor **Object()** by assigning the form **object = new Object()**
     and then successively creating properties in it, by assigning the form ***object*****.*****property***
     **=** ***value***.'
+  id: totrans-280
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对象可以通过将逗号分隔的元素/属性列表（键值对表示法）直接分配给变量，形式为大括号中的键值对，例如：**object = {*****property1*****:**
+    ***value1*****,** ***property2*****:** ***value2*****}**。类似地，可以先通过对象构造函数 **Object()**
+    创建一个“空”对象，形式为 **object = new Object()**，然后逐步在其中创建属性，通过赋值形式 ***object*****.*****property***
+    **=** ***value***。
 - en: You can also create objects by calling the constructor of the respective object
     type, for example ***object*** **= MyObject()**.
+  id: totrans-281
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你也可以通过调用相应对象类型的构造函数来创建对象，例如 ***object*** **= MyObject()**。
 - en: You can access the elements/properties of objects using the dot operator in
     the notation ***object*****.*****property*** or, as with an (associative) field,
     in an array notation of the form ***object*****["*****property"*****]**.
+  id: totrans-282
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你可以使用点操作符访问对象的元素/属性，符号为 ***object*****.*****property***，或者像处理（关联）字段一样，使用数组表示法
+    ***object*****["*****property"*****]**。
 - en: '*JavaScript Object Notation* (*JSON*) is a common exchange format for data
     on the Internet. It corresponds exactly to the notation that is also used for
     the direct creation of objects as a comma-separated list of key-value pairs specified
     in curly braces. Any JSON document can therefore be transformed into a JavaScript
     object with JSON**.parse(*****jsonDocument*****)** and, conversely, any JavaScript
     object can be represented as a JSON document with **JSON.stringify(*****object*****)**.'
+  id: totrans-283
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*JavaScript 对象表示法*（*JSON*）是互联网数据交换的常见格式。它完全对应于用于直接创建对象的表示法，即通过逗号分隔的键值对列表，放置在大括号中。因此，任何
+    JSON 文档都可以通过 **JSON.parse(*****jsonDocument*****)** 转换为 JavaScript 对象，反之，任何 JavaScript
+    对象也可以通过 **JSON.stringify(*****object*****)** 表示为 JSON 文档。'
 - en: 31.7 Solutions to the Exercises
+  id: totrans-284
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 31.7 练习解答
 - en: Exercise 31.1**>** Infinity + 1Infinity**>** Infinity + 1 == Infinitytrue
+  id: totrans-285
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 31.1 **>** Infinity + 1 Infinity **>** Infinity + 1 == Infinity true
 - en: Here we use the special value **Infinity**, with which we can also calculate.
     By the way, you can see from the second input that infinity plus one equals infinity
     again (the double equal sign is the comparison operator). So, the comparison results
     in a true statement, accordingly the value **true** is returned.
+  id: totrans-286
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里我们使用特殊值 **Infinity**，它也可以用于计算。顺便说一下，从第二个输入中你可以看到，正无穷加一等于正无穷（双等号是比较操作符）。因此，比较结果为真，相应地返回值
+    **true**。
 - en: Exercise 31.2
+  id: totrans-287
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 31.2
 - en: (a)
+  id: totrans-288
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (a)
 - en: '**''abc'' + ''def'' = ''abcdef''**. Strings are concatenated by the plus operator.'
+  id: totrans-289
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''abc'' + ''def'' = ''abcdef''**。字符串通过加号操作符连接。'
 - en: (b)
+  id: totrans-290
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (b)
 - en: '**''98'' + ''5'' = ''985''**. The plus operator also appends the two strings
     together here. The fact that they happen to contain numbers does not matter.'
+  id: totrans-291
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + ''5'' = ''985''**。加号操作符在这里也将两个字符串连接起来。它们恰好包含数字并不重要。'
 - en: (c)
+  id: totrans-292
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (c)
 - en: '**''98'' + 5 = ''985''**. Here the second summand is a real number. However,
     the plus as *string concatenation operator* has priority in the processing of
     the expression. Therefore, JavaScript implicitly converts the number **5** into
     a string in order to be able to concatenate it with the string **''98''**.'
+  id: totrans-293
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + 5 = ''985''**。这里第二个加数是一个实数。然而，加号作为 *字符串连接操作符* 在表达式处理中具有优先权。因此，JavaScript
+    会隐式地将数字 **5** 转换为字符串，以便能够与字符串 **''98''** 连接。'
 - en: (d)
+  id: totrans-294
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (d)
 - en: '**''98'' + ''5.3'' = ''985.3''**. Also, if the strings contain fractional numbers,
     the plus operator results in string concatenation.'
+  id: totrans-295
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' + ''5.3'' = ''985.3''**。同样，如果字符串包含小数，使用加号操作符会导致字符串连接。'
 - en: (e)
+  id: totrans-296
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (e)
 - en: '**''98'' * 5 = 490**. The multiplication operator has no meaning for strings.
     Because an operation with strings is therefore out of the question here, JavaScript
     implicitly converts the string **"98"** into a number in order to be able to perform
     a meaningful operation after all.'
+  id: totrans-297
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * 5 = 490**。乘法操作符对字符串没有意义。因此，由于字符串操作在这里不适用，JavaScript 会隐式地将字符串 **"98"**
+    转换为数字，以便能够执行有效的操作。'
 - en: (f)
+  id: totrans-298
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (f)
 - en: '**''98'' * false = 0**. The constant **false** is internally evaluated with
     as value **0**. Since multiplication makes no sense for strings, JavaScript tries
     an operation with numbers and converts the string **"98"** into a number for this
     purpose.'
+  id: totrans-299
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * false = 0**。常量**false**在内部被评估为值**0**。由于字符串的乘法没有意义，JavaScript尝试进行数值操作，并为此将字符串**"98"**转换为数字。'
 - en: (g)
+  id: totrans-300
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (g)
 - en: '**''98'' * ''false'' = NaN**. Here even JavaScript capitulates. The multiplication
     is obviously an operation with numbers as operands, but JavaScript gets served
     two strings here. The result is *not a number*. In no way are both strings converted
     into numerical values, although that would happen with **"98" * "5"** (try it
     out!).'
+  id: totrans-301
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: '**''98'' * ''false'' = NaN**。在这里，即使是JavaScript也认输了。乘法显然是数值操作，但JavaScript这里接受了两个字符串。结果是*不是数字*。这两者并没有被转换为数值，尽管**"98"
+    * "5"**会发生这种情况（试试看！）。'
 - en: As you can see, it is not easy to predict JavaScript’s implicit conversions
     without knowing the full set of rules in detail. It is therefore best not to rely
     on implicit conversions, but to make sure that explicit conversions are performed
     wherever they might be needed.
+  id: totrans-302
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所看到的，如果不了解完整的规则集，预测JavaScript的隐式转换并不容易。因此，最好不要依赖隐式转换，而是确保在需要的地方进行显式转换。
 - en: Exercise 31.3
+  id: totrans-303
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习31.3
 - en: 'Strings behave like arrays in *read access*, accordingly we can select out
     the characters in array notation:'
+  id: totrans-304
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符串在*读取访问*时表现得像数组，因此我们可以像数组一样选择其中的字符：
 - en: '**>** message = ''Hello World''**>** message[5]" "**>** message[7]"o"'
+  id: totrans-305
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** message = ''Hello World''**>** message[5]" "**>** message[7]"o"'
 - en: 'With regard to write access, however, strings do not behave like arrays. Using
     the array method **splice()** to delete the elements is therefore out of the question.
     One way to achieve the desired effect is to “slice” the string by using **slice()**
     to cut the corresponding parts so that the characters at index positions **5**
     and **7** fall out. Note that slice**()** always selects up to *before* the specified
     second index:'
+  id: totrans-306
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，就写访问而言，字符串不像数组那样工作。因此，使用数组方法**splice()**删除元素是不行的。实现所需效果的一种方法是使用**slice()**将字符串“切片”，从而使得位于索引位置**5**和**7**的字符被去掉。请注意，slice**()**总是选取直到*指定的第二个索引之前*的部分：
 - en: message = message.slice(0,5) + message.slice(6,7) +message.slice(8, message.length)Exercise
     31.4
+  id: totrans-307
   prefs: []
   type: TYPE_NORMAL
+  zh: message = message.slice(0,5) + message.slice(6,7) + message.slice(8, message.length)练习31.4
 - en: 'We create an array whose elements are objects that we store as key-value pairs
     in the usual object notation:'
+  id: totrans-308
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们创建一个数组，其元素是我们存储为键值对的对象，使用通常的对象表示法：
 - en: '**>** family = [{name: ''Mark'', age: 28}, {name: ''Cathy'',age: 54}, {name:
     ''Ben'', age: 57}]'
+  id: totrans-309
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** family = [{name: ''Mark'', age: 28}, {name: ''Cathy'', age: 54}, {name:
+    ''Ben'', age: 57}]'
 - en: 'We get the name of the second person by first selecting the person object from
     the array using its index (**family[1]**) and then accessing its **name** property,
     which we do in the usual dot notation:'
+  id: totrans-310
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过首先使用索引（**family[1]**）从数组中选择人物对象，然后访问其**name**属性来获取第二个人的名字，通常我们使用点表示法来实现：
 - en: '**>** family[1].name"Cathy"'
+  id: totrans-311
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** family[1].name"Cathy"'
 - en: The **stringify()** method of the global JSON object helps with the conversion
     to a JSON string.
+  id: totrans-312
   prefs: []
   type: TYPE_NORMAL
+  zh: 全局JSON对象的**stringify()**方法帮助将数据转换为JSON字符串。
 - en: '**>** JSON.stringify(family)"[{"name":"Mark","age":28},{"name":"Cathy","age":54},{"name":"Ben","age":57}]"Exercise
     31.5'
+  id: totrans-313
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** JSON.stringify(family)"[{"name":"Mark","age":28},{"name":"Cathy","age":54},{"name":"Ben","age":57}]"练习31.5'
 - en: 'Direct generation in object notation as a comma-separated list of key-value
     pairs:'
+  id: totrans-314
   prefs: []
   type: TYPE_NORMAL
+  zh: 直接在对象表示法中生成，作为一个用逗号分隔的键值对列表：
 - en: '**>** var customer1 = { customerNumber: 14527,name: ''Peterson'', firstName:
     ''Carl'',street: ''54 Wellington Drive'', zip : ''02113'',city: ''Boston, MA''
     }**>** var customer2 = { customerNumber: 19321,name: ''Hamilton'', firstName:
     ''Beth'',street: ''21 Eagle''s Square'', zip : ''10012'',city: ''New York, NY''
     }'
+  id: totrans-315
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var customer1 = { customerNumber: 14527,name: ''Peterson'', firstName:
+    ''Carl'',street: ''54 Wellington Drive'', zip : ''02113'',city: ''Boston, MA''
+    }**>** var customer2 = { customerNumber: 19321,name: ''Hamilton'', firstName:
+    ''Beth'',street: ''21 Eagle''s Square'', zip : ''10012'',city: ''New York, NY''
+    }'
 - en: 'Generation by first letting the general **Object()** constructor create an
     “empty” object and then equipping it with our properties:'
+  id: totrans-316
   prefs: []
   type: TYPE_NORMAL
+  zh: 生成通过首先让通用的**Object()**构造函数创建一个“空”对象，然后为其添加我们的属性：
 - en: '**>** var customer1 = new Object()**>** customer1.customerNumber = 14527**>**
     customer1.name = ''Peterson''**>** customer1.firstName = ''Carl''**>** customer1.street
     = ''54 Wellington Drive''**>** customer1.zip = ''02113''**>** customer1.city =
     ''Boston, MA'''
+  id: totrans-317
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** var customer1 = new Object()**>** customer1.customerNumber = 14527**>**
+    customer1.name = ''Peterson''**>** customer1.firstName = ''Carl''**>** customer1.street
+    = ''54 Wellington Drive''**>** customer1.zip = ''02113''**>** customer1.city =
+    ''Boston, MA'''
 - en: The procedure for **customer2** is analogous.
+  id: totrans-318
   prefs: []
   type: TYPE_NORMAL
+  zh: '**customer2**的流程是类似的。'

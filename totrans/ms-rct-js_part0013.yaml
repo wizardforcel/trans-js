@@ -1,184 +1,276 @@
 - en: 'Chapter 9: Working with APIs and Data Fetching'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第9章：与API和数据获取的工作
 - en: In modern web development, applications often rely on external data sources
     to provide dynamic content and functionality. This external data is typically
     obtained through the use of APIs (Application Programming Interfaces). In this
     chapter, we'll explore the process of working with APIs and fetching data in a
     React application.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在现代Web开发中，应用程序通常依赖外部数据源提供动态内容和功能。这些外部数据通常通过使用API（应用程序编程接口）来获取。在本章中，我们将探索在React应用程序中与API进行交互并获取数据的过程。
 - en: Understanding APIs
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 理解API
 - en: An API is a set of rules and protocols that allows different software applications
     to communicate with each other. In the context of web development, APIs are commonly
     used to request and exchange data between a client (e.g., a web browser) and a
     server (e.g., a web server or a third-party service).
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: API是允许不同软件应用程序相互通信的一组规则和协议。在Web开发的背景下，API通常用于在客户端（例如Web浏览器）和服务器（例如Web服务器或第三方服务）之间请求和交换数据。
 - en: Types of APIs
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: API类型
 - en: 'There are various types of APIs, but two of the most common categories are:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: API有多种类型，但最常见的两大类是：
 - en: '1\. **RESTful APIs**: Representational State Transfer (REST) APIs are designed
     around a set of architectural principles. They use HTTP methods (GET, POST, PUT,
     DELETE) to perform CRUD (Create, Read, Update, Delete) operations on resources.
     REST APIs are widely used for web services.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 1. **RESTful API**：表示性状态转移（REST）API是围绕一组架构原则设计的。它们使用HTTP方法（GET、POST、PUT、DELETE）对资源执行CRUD（创建、读取、更新、删除）操作。REST
+    API广泛用于Web服务。
 - en: '2\. **GraphQL APIs**: GraphQL is a query language for APIs that allows clients
     to request only the data they need. Unlike REST APIs, which have predefined endpoints
     and return fixed data structures, GraphQL APIs enable clients to define the shape
     and structure of the response.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 2. **GraphQL API**：GraphQL是一种用于API的查询语言，允许客户端仅请求所需的数据。与REST API不同，REST API具有预定义的端点并返回固定的数据结构，而GraphQL
+    API使客户端能够定义响应的形状和结构。
 - en: API Endpoints
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: API端点
 - en: APIs are typically accessed through specific URLs known as endpoints. Each endpoint
     corresponds to a particular resource or functionality provided by the API. For
     example, a weather API might have endpoints for retrieving current conditions,
     forecasts, and historical data.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: API通常通过特定的URL（称为端点）进行访问。每个端点对应API提供的特定资源或功能。例如，一个天气API可能有用于获取当前天气、预报和历史数据的端点。
 - en: Data Fetching in React
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: React中的数据获取
 - en: 'React applications often need to fetch data from APIs to display dynamic content.
     To accomplish this, developers can use JavaScript''s built-in `fetch()` function
     or libraries like Axios to make HTTP requests to API endpoints. Here''s an example
     of how to use the `fetch()` function to retrieve data from an API:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: React应用程序经常需要从API获取数据以展示动态内容。为了实现这一点，开发者可以使用JavaScript内置的`fetch()`函数或像Axios这样的库向API端点发送HTTP请求。以下是如何使用`fetch()`函数从API获取数据的示例：
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'In this example:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此示例中：
 - en: '- We use the `fetch()` function to make a GET request to the specified API
     endpoint (`https://api.example.com/data`).'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用 `fetch()` 函数向指定的 API 端点（`https://api.example.com/data`）发起 GET 请求。'
 - en: '- We check if the response status is OK (status code 200) using the `response.ok`
     property. If not, we throw an error.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们通过 `response.ok` 属性检查响应状态是否为 OK（状态码 200）。如果不是，我们抛出错误。'
 - en: '- If the response is OK, we parse the JSON data using `response.json()`, which
     returns a promise.'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 如果响应正常，我们使用 `response.json()` 解析 JSON 数据，它会返回一个 promise。'
 - en: '- We then process the data or handle any errors that may occur during the fetch
     operation.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 然后，我们处理数据或处理在获取数据过程中可能发生的错误。'
 - en: Fetching Data in React Components
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 在 React 组件中获取数据
 - en: 'To fetch data in a React component, you typically make the data request within
     a lifecycle method or a useEffect hook. Here''s an example of how to fetch and
     display data in a React component using the `useState` and `useEffect` hooks:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 组件中获取数据时，通常会在生命周期方法或 `useEffect` 钩子中发起数据请求。以下是使用 `useState` 和 `useEffect`
+    钩子在 React 组件中获取并显示数据的示例：
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'In this example:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此示例中：
 - en: '- We define a component called `DataFetchingComponent` that manages the state
     for data, loading, and errors using the `useState` hook.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们定义了一个名为 `DataFetchingComponent` 的组件，使用 `useState` 钩子来管理数据、加载状态和错误状态。'
 - en: '- We use the `useEffect` hook to initiate the data fetching operation when
     the component mounts (empty dependency array `[]` ensures it runs once).'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用 `useEffect` 钩子在组件挂载时启动数据获取操作（空的依赖数组 `[]` 确保它只运行一次）。'
 - en: '- During the fetch operation, we update the state based on the loading status
     and handle any errors.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在数据获取过程中，我们根据加载状态更新状态，并处理可能出现的错误。'
 - en: '- Finally, we render the data or appropriate messages based on the state.'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 最后，根据状态渲染数据或相应的消息。'
 - en: Fetching Data in React Using Async/Await
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 在 React 中使用 Async/Await 获取数据
 - en: 'You can also use the `async/await` syntax to make asynchronous data requests
     in React components. Here''s an example of how to use `async/await` with `fetch()`:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以使用 `async/await` 语法在 React 组件中发起异步数据请求。以下是如何将 `async/await` 与 `fetch()`
+    一起使用的示例：
 - en: '[PRE2]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this example, we define an `async` function `fetchData()` within the `useEffect`
     hook, allowing us to use `await` with the `fetch()` request and handle errors
     using `try/catch`. The rest of the component remains the same.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此示例中，我们在 `useEffect` 钩子内定义了一个 `async` 函数 `fetchData()`，允许我们使用 `await` 与 `fetch()`
+    请求一起使用，并通过 `try/catch` 处理错误。其余部分保持不变。
 - en: Best Practices for Data Fetching in React
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: React 数据获取的最佳实践
 - en: 'When working with data fetching in React, consider the following best practices:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 中处理数据获取时，考虑以下最佳实践：
 - en: '1\. **Separation of Concerns**: Keep your data fetching logic separate from
     your presentation components. This improves code organization and makes it easier
     to test.'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **关注点分离**：将数据获取逻辑与展示组件分开。这有助于改进代码组织结构，使其更容易测试。
 - en: '2\. **State Management**: Use React state or state management libraries like
     Redux to manage fetched data, loading indicators, and errors.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **状态管理**：使用 React 状态或像 Redux 这样的状态管理库来管理获取的数据、加载指示器和错误。
 - en: '3\. **Loading Indicators**:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **加载指示器**：
 - en: Provide loading indicators or placeholders to inform users that data is being
     fetched.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 提供加载指示器或占位符，告知用户数据正在获取中。
 - en: '4\. **Error Handling**: Implement error handling to gracefully handle network
     errors or API failures and provide informative error messages to users.'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **错误处理**：实现错误处理机制，优雅地处理网络错误或 API 失败，并向用户提供有用的错误信息。
 - en: '5\. **Caching**: Consider caching data on the client side to reduce unnecessary
     API requests and improve performance.'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **缓存**：考虑在客户端缓存数据，以减少不必要的 API 请求并提升性能。
 - en: '6\. **Optimistic UI**: In some cases, you can use an optimistic UI approach
     to update the UI optimistically before the data is actually saved on the server.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 6\. **乐观 UI**：在某些情况下，你可以使用乐观 UI 方法，在数据实际保存到服务器之前，乐观地更新 UI。
 - en: '7\. **Authentication**: Handle authentication and authorization properly when
     accessing protected APIs. Store authentication tokens securely.'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 7\. **认证**：在访问受保护的 API 时，妥善处理认证和授权。安全存储认证令牌。
 - en: '8\. **Code Splitting**: Consider code splitting to load data fetching components
     only when needed to reduce initial bundle size.'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 8\. **代码分割**：考虑进行代码分割，仅在需要时加载数据获取组件，以减少初始包的大小。
 - en: Conclusion
+  id: totrans-41
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论
 - en: Fetching data from APIs is a fundamental part of building dynamic and data-driven
     React applications. By understanding the basics of APIs, making HTTP requests,
     and managing data within your components, you can create web applications that
     provide real-time information and interactivity to users. As you continue to develop
     your React skills, mastering data fetching will enable you to build more complex
     and feature-rich applications.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 从 API 获取数据是构建动态和数据驱动的 React 应用程序的基本部分。通过理解 API 的基础，发起 HTTP 请求，并在组件中管理数据，你可以创建提供实时信息和交互性的网页应用程序。随着你继续提升
+    React 技能，掌握数据获取将使你能够构建更复杂、更具功能的应用程序。

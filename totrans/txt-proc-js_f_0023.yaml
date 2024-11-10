@@ -1,266 +1,428 @@
 - en: '| Recipe 13 | Formatting Dates with Intl.DateTimeFormat() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 13 | 使用 Intl.DateTimeFormat() 格式化日期 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you work as a programmer for an online shop that delivers products after
     two days from the date of purchase. Your task is to create a JavaScript code that
     will notify the user about the exact day of the week when they can expect to receive
     their ordered goods.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你在一家在线商店工作，商店在购买日期后两天交付产品。你的任务是编写一段 JavaScript 代码，通知用户他们可以在具体的星期几收到所订购的商品。
 - en: For instance, if a customer purchases a product on a Saturday, your code should
     inform them that the delivery will take place on the following Monday.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果客户在周六购买了商品，你的代码应当通知他们，交货将在下周一进行。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'This task involves three steps:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 这项任务包括三个步骤：
 - en: Getting the current date
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 获取当前日期
 - en: Adding two days to the current date
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将当前日期加上两天
 - en: Converting that date to the day of the week
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将该日期转换为星期几
 - en: 'We can perform the first two steps with a function like this:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以通过以下函数完成前两步：
 - en: '|   | **function** addDaysToToday(days) { |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addDaysToToday(days) { |'
 - en: '|   | **const** d = **new** Date(); |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** d = **new** Date(); |'
 - en: '|   | d.setDate(d.getDate() + days); |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | d.setDate(d.getDate() + days); |'
 - en: '|   | **return** d; |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** d; |'
 - en: '|   | } |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
 - en: '|   |  |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(dayAfterTomorrow); |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(dayAfterTomorrow); |'
 - en: '|   | *// → Wed Apr 12 2023 11:41:09 GMT+0400* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → Wed Apr 12 2023 11:41:09 GMT+0400* |'
 - en: First, use the Date() constructor to get the current date. Next, retrieve the
     day of the month for today by calling the getDate() method of the date object.
     Add two to this value to get the day after tomorrow’s date. Then, use the setDate()
     method to update the day of the month, and the date object will automatically
     adjust the month and year if needed.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，使用 Date() 构造函数获取当前日期。接下来，通过调用日期对象的 getDate() 方法获取今天的日期。将此值加上二得到后天的日期。然后，使用
+    setDate() 方法更新日期，日期对象会自动调整月份和年份（如有需要）。
 - en: 'After performing the preceding steps, you’ll have a string that contains the
     date after tomorrow, along with the timestamp and timezone. But you need only
     the day and the month and don’t want to include the timestamp or timezone. So,
     use the Intl.DateTimeFormat() constructor to format the date:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行前面的步骤后，你将获得一个包含后天日期的字符串，其中包括时间戳和时区。但你只需要日期和月份，并且不希望包含时间戳或时区。因此，使用 Intl.DateTimeFormat()
+    构造函数来格式化日期：
 - en: '|   | **function** getFormattedDate(locale, date) { |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedDate(locale, date) { |'
 - en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
     *"full"*}); |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
 - en: '|   | **return** formatter.format(date); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** formatter.format(date); |'
 - en: '|   | } |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** formattedDate = getFormattedDate(*"en-US"*, dayAfterTomorrow)
     |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formattedDate = getFormattedDate(*"en-US"*, dayAfterTomorrow)
+    |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(formattedDate); |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(formattedDate); |'
 - en: '|   | *// → Wednesday, April 12, 2023* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 2023年4月12日，星期三* |'
 - en: Intl.DateTimeFormat() accepts an object as its second argument that specifies
     how the date should be formatted. In this case, you want to include the day of
     the week in the date, so set the dateStyle to full.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '`Intl.DateTimeFormat()` 接受一个对象作为第二个参数，用于指定日期的格式。在这种情况下，你希望在日期中包含星期几，所以需要将 `dateStyle`
+    设置为 `full`。'
 - en: 'Here’s how the final code should look like:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是最终代码的样子：
 - en: '[part_1/formatting_dates/adding_days_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex1.js)'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/formatting_dates/adding_days_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex1.js)'
 - en: '|   | **function** addDaysToToday(days) { |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addDaysToToday(days) { |'
 - en: '|   | **const** d = **new** Date(); |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** d = **new** Date(); |'
 - en: '|   | d.setDate(d.getDate() + days); |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | d.setDate(d.getDate() + days); |'
 - en: '|   | **return** d; |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** d; |'
 - en: '|   | } |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** getFormattedDate(locale, date) { |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedDate(locale, date) { |'
 - en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
     *"full"*}); |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
 - en: '|   | **return** formatter.format(date); |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** formatter.format(date); |'
 - en: '|   | } |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
 - en: '|   | **const** msg = *"We''ll deliver your purchase on "*; |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** msg = *"我们将在 "*; |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(msg + getFormattedDate(*"en-US"*, dayAfterTomorrow)); |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(msg + getFormattedDate(*"en-US"*, dayAfterTomorrow)); |'
 - en: '|   | *// → We''ll deliver your purchase on Wednesday, April 12, 2023* |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 我们将在2023年4月12日，星期三交付您的购买商品* |'
 - en: This code generates a message containing the expected delivery date of a purchase
     based on the current date and a specified locale.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码根据当前日期和指定的区域生成一条消息，内容为预计的购买商品交付日期。
 - en: Discussion
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: To ensure that the date format in your application is suitable for the country
     where the products are being shipped, you should pass an appropriate BCP 47 language
     tag to Intl.DateTimeFormat().^([[10]](f_0032.xhtml#FOOTNOTE-10))
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 为确保应用程序中的日期格式适用于商品发货所在国家/地区，你应该将适当的 BCP 47 语言标签传递给 `Intl.DateTimeFormat()`。^([[10]](f_0032.xhtml#FOOTNOTE-10))
 - en: A language tag is composed of one or more subtags, which identify the language,
     script, region, and other language-related information. For example, “en-GB” is
     a language tag that represents British English, where “en” indicates the language
     and “GB” indicates the region. The BCP-47 standard is widely used in software
     development to ensure consistent language support across different platforms.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 语言标签由一个或多个子标签组成，用于标识语言、脚本、区域和其他与语言相关的信息。例如，"en-GB" 是表示英国英语的语言标签，其中 "en" 表示语言，"GB"
+    表示区域。BCP-47 标准广泛应用于软件开发中，以确保在不同平台上提供一致的语言支持。
 - en: 'In this solution, we’ve used the “en-US” language to indicate American English.
     But, if you’re delivering a product to France, for example, you should use the
     “fr-FR” tag to indicate the French language:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个解决方案中，我们使用了“en-US”语言来表示美式英语。但如果你要将产品交付到法国，例如，应该使用“fr-FR”标签来表示法语：
 - en: '[part_1/formatting_dates/adding_days_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex2.js)'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/formatting_dates/adding_days_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_dates/adding_days_ex2.js)'
 - en: '|   | **function** addDaysToToday(days) { |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addDaysToToday(days) { |'
 - en: '|   | **const** d = **new** Date(); |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** d = **new** Date(); |'
 - en: '|   | d.setDate(d.getDate() + days); |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | d.setDate(d.getDate() + days); |'
 - en: '|   | **return** d; |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** d; |'
 - en: '|   | } |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** getFormattedDate(locale, date) { |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedDate(locale, date) { |'
 - en: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
     *"full"*}); |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.DateTimeFormat(locale, {dateStyle:
+    *"full"*}); |'
 - en: '|   | **return** formatter.format(date); |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** formatter.format(date); |'
 - en: '|   | } |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** dayAfterTomorrow = addDaysToToday(2); |'
 - en: '|   | **const** msg = *"Nous livrerons votre achat "*; |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** msg = *"我们将在您的购买交付 "*; |'
 - en: '|   |  |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(msg + getFormattedDate(*"fr-FR"*, dayAfterTomorrow)); |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(msg + getFormattedDate(*"fr-FR"*, dayAfterTomorrow)); |'
 - en: '|   | *// → Nous livrerons votre achat mercredi 12 avril 2023* |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 我们将在2023年4月12日星期三交付您的购买* |'
 - en: '| Converting a String to a Date Object |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '| 转换字符串为日期对象 |'
 - en: '| --- |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | If you want to
     scrape a date from text and turn it into a Date object, you can use the Date()
     constructor.^([[11]](f_0032.xhtml#FOOTNOTE-11)) |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 如果你想从文本中提取日期并将其转换为日期对象，可以使用Date()构造函数。^([[11]](f_0032.xhtml#FOOTNOTE-11))
+    |'
 - en: Consider using the Intl.DateTimeFormat() constructor when working with date
     and time. Intl.DateTimeFormat() lets you get date formatting for different languages,
     set the style for date and time, define a numbering system for languages such
     as Thai and Arabic, and more. For a complete list of available options, visit
     MDN Web Docs.^([[12]](f_0032.xhtml#FOOTNOTE-12))
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 在处理日期和时间时，考虑使用Intl.DateTimeFormat()构造函数。Intl.DateTimeFormat()允许你获取不同语言的日期格式，设置日期和时间的样式，定义诸如泰语和阿拉伯语等语言的数字系统，等等。要查看完整的可用选项列表，请访问MDN
+    Web文档。^([[12]](f_0032.xhtml#FOOTNOTE-12))

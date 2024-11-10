@@ -1,155 +1,241 @@
 - en: '| Recipe 26 | Matching One of Several Alternatives with the Vertical Bar (&#124;)
     |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 26 | 使用竖线（&#124;）匹配多个备选项 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine you want to match specific variations of the word “week,” including
     “weekend” and “weekly,” but not “weekday.” You want the match to be at word boundaries,
     so other words like “Newsweek” wouldn’t count as a match. What you need is a way
     to define alternative patterns in the regex.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想匹配“week”这个词的不同变体，包括“weekend”和“weekly”，但不包括“weekday”。你希望匹配发生在单词边界处，这样像“Newsweek”这样的词就不会被当作匹配项。你需要的是一种在正则表达式中定义备选模式的方法。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a vertical bar (|) to form an alternation. The vertical bar character will
     tell the regex engine to match any one of a series of patterns:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用竖线（|）来形成交替。竖线字符会告诉正则表达式引擎匹配一系列模式中的任何一个：
 - en: '[part_2/vertical_bar/vertical_bar_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/vertical_bar/vertical_bar_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex1.js)'
 - en: '|   | **const** re = */**\b**week**\b**&#124;**\b**weekend**\b**&#124;**\b**weekly**\b**/*;
     |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**week**\b**&#124;**\b**weekend**\b**&#124;**\b**weekly**\b**/*;
+    |'
 - en: '|   |  |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
 - en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
 - en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
 - en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
     |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
+    |'
 - en: The regex engine matches everything left of the vertical bar or everything right.
     The pattern in this example has three alternatives, each enclosed in a pair of
     word boundaries. So, it will only match “week,” “weekend,” or “weekly.”
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式引擎会匹配竖线左边的所有内容或右边的所有内容。这个例子中的模式有三个备选项，每个选项都被一对单词边界包围。所以，它只会匹配“week”、“weekend”或“weekly”。
 - en: Discussion
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: If you want to add other symbols to the pattern but don’t want them to be a
     part of the alternation, you can use parentheses. Using parentheses will limit
     the scope of the alternation.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想在模式中添加其他符号，但又不希望它们成为交替的一部分，你可以使用括号。使用括号会限制交替的范围。
 - en: 'Remember, a vertical bar matches either everything to the left or everything
     to the right. So, if you wanted to match “this week” or “this weekend,” you could
     write /\bthis (week|weekend)\b/:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 记住，竖线匹配的是左侧或右侧的任何内容。所以，如果你想匹配“this week”或“this weekend”，你可以写/\bthis (week|weekend)\b/：
 - en: '[part_2/vertical_bar/vertical_bar_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex2.js)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/vertical_bar/vertical_bar_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex2.js)'
 - en: '|   | **const** re = */**\b**this* *(**week&#124;weekend**)\b**/*; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**this* *(**week&#124;weekend**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Are you free this weekend?"*); *// → true* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Are you free this weekend?"*); *// → true* |'
 - en: '|   | re.test(*"Are you free this week?"*); *// → true* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Are you free this week?"*); *// → true* |'
 - en: '|   | re.test(*"weekend"*); *// → false* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"weekend"*); *// → false* |'
 - en: This pattern tells the regex engine to find a word boundary, then “this” followed
     by a space, then either “week” or “weekend,” and then another word boundary.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 该模式告诉正则引擎查找一个单词边界，接着是“this”加空格，然后是“week”或“weekend”，最后是另一个单词边界。
 - en: 'You could also use parentheses to rewrite the solution in this recipe in a
     more compact form:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以使用括号，以更简洁的形式重写本食谱中的解决方案：
 - en: '[part_2/vertical_bar/vertical_bar_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex3.js)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/vertical_bar/vertical_bar_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex3.js)'
 - en: '|   | **const** re = */**\b(**week&#124;weekend&#124;weekly**)\b**/*; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(**week&#124;weekend&#124;weekly**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"你每周赚多少钱？"*); *// → true* |'
 - en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"员工每周领取薪水。"*); *// → true* |'
 - en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"办公室在周末关闭。"*); *// → true* |'
 - en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
     |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"你的故事可能会出现在《新闻周刊》上！"*); *// → false* |'
 - en: 'The outcome is identical, but the pattern is more readable. Since all three
     alternatives in this example begin with the same word, we can further fine-tune
     the regular expression engine by rephrasing the regex as follows:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 结果是相同的，但这个模式更具可读性。由于本例中的三个选项都以相同的单词开始，我们可以通过重新表述正则表达式来进一步优化正则引擎：
 - en: '[part_2/vertical_bar/vertical_bar_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex4.js)'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/vertical_bar/vertical_bar_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/vertical_bar/vertical_bar_ex4.js)'
 - en: '|   | **const** re = */**\b**week**(**end&#124;ly&#124;**)\b**/*; |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**week**(**end&#124;ly&#124;**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"How much do you earn per week?"*); *// → true* |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"你每周赚多少钱？"*); *// → true* |'
 - en: '|   | re.test(*"Employees are paid weekly."*); *// → true* |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"员工每周领取薪水。"*); *// → true* |'
 - en: '|   | re.test(*"The office is closed on the weekend."*); *// → true* |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"办公室在周末关闭。"*); *// → true* |'
 - en: '|   | re.test(*"Your story could be featured on Newsweek!"*); *// → false*
     |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"你的故事可能会出现在《新闻周刊》上！"*); *// → false* |'
 - en: 'The options in parentheses tell the regex engine to match “end,” “ly,” or nothing.
     The empty option at the end of the parentheses is necessary to be able to match
     “week.” Alternatively, you could use a quantifier to make the pattern in the parentheses
     optional, like this: /\bweek(end|ly)?\b/, which is more conventional (see Recipe
     29, [*Repeating Part of a Regex with Quantifiers*](f_0040.xhtml#rcp.quantifiers)).'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 括号中的选项告诉正则引擎匹配“end”、“ly”或不匹配任何内容。括号末尾的空选项是必要的，以便能够匹配“week”。另外，你也可以使用量词来使括号中的模式可选，如：/\bweek(end|ly)?\b/，这种写法更为常规（参见食谱29，[*使用量词重复正则表达式的一部分*](f_0040.xhtml#rcp.quantifiers)）。
 - en: Regex engines typically match words in a list from left to right. Therefore,
     arranging words with the highest probability of appearing in the text at the beginning
     of the list might slightly enhance the engine’s performance.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式引擎通常从左到右匹配列表中的单词。因此，将在文本中最可能出现的单词排列在列表的开头，可能会稍微提高引擎的性能。
 - en: Remember, take advantage of alternation when you want to match one of a choice
     of regular expressions, and add parentheses to limit the scope of the alternation.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 记住，当你想匹配一组正则表达式中的某一项时，利用 alternation（交替），并添加括号来限制交替的范围。

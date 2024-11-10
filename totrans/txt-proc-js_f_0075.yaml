@@ -1,129 +1,203 @@
 - en: '| Recipe 63 | Replacing Duplicate Whitespaces with the Same Type |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 63 | 用相同类型的空白字符替换重复的空白字符 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Imagine that your whitespace removal script is effective for paragraphs and
     headings, but you come across posts that have redundant tabs before certain list
     items, like this:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的空白字符移除脚本在段落和标题中有效，但你遇到了一些帖子，它们在某些列表项之前有多余的制表符，如下所示：
 - en: '|   | My list: |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | 我的列表：|'
 - en: '|   | 1\. Item one |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1\. 项目一 |'
 - en: '|   | 2\. Item two |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | 2\. 项目二 |'
 - en: '|   | 3\. Item three |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | 3\. 项目三 |'
 - en: 'If you implement the solution in the preceding recipe, the repeated tab characters
     will be replaced with a single space character, resulting in an inconsistent appearance
     of the items in the list:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你按照上述解决方案实现，重复的制表符将被替换为单个空格字符，导致列表项目的外观不一致：
 - en: '|   | My list: |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | 我的列表：|'
 - en: '|   | 1\. Item one |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1\. 项目一 |'
 - en: '|   | 2\. Item two |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | 2\. 项目二 |'
 - en: '|   | 3\. Item three |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | 3\. 项目三 |'
 - en: You need a solution that replaces repeated whitespaces with the same type of
     whitespace.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，将重复的空白字符替换为相同类型的空白字符。
 - en: Solution
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Capture the repeated whitespace with a capturing group and reference it with
     $1:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用捕获组捕获重复的空白字符，并通过 $1 引用它：
 - en: '[part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces_same_type/removing_dup_whitespaces_ex1.js)'
 - en: '|   | **const** str = |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`My list:* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`我的列表：* |'
 - en: '|   | *1\. Item one* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *1\. 项目一* |'
 - en: '|   | *2\. Item two* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *2\. 项目二* |'
 - en: '|   | *3\. Item three`*; |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *3\. 项目三`*; |'
 - en: '|   |  |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** removeExtraWhitespaces(str) { |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** removeExtraWhitespaces(str) { |'
 - en: '|   | **const** re = */**(\s)\1**+/g*; |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(\s)\1**+/g*; |'
 - en: '|   | **return** str.replace(re, *"$1"*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(re, *"$1"*); |'
 - en: '|   | } |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | removeExtraWhitespaces(str); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | removeExtraWhitespaces(str); |'
 - en: '|   | *//"My list:* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *//"我的列表：* |'
 - en: '|   | *// 1\. Item one* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 1\. 项目一* |'
 - en: '|   | *// 2\. Item two* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 2\. 项目二* |'
 - en: '|   | *// 3\. Item three"* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 3\. 项目三"* |'
 - en: This function replaces duplicate whitespaces with a single whitespace of the
     same type.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数将重复的空白字符替换为相同类型的单一空白字符。
 - en: Discussion
+  id: totrans-33
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In this recipe, str holds a list of items where each item is indented with a
     tab character (\t). The first item, however, has an extra tab character that we
     want to remove. Inside the function, we use (\s)\1+ to match any whitespace character
     followed by one or more occurrences of the same whitespace character.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，str 包含一个项目列表，其中每个项目前面都有一个制表符（\t）。然而，第一个项目有一个额外的制表符，我们想要去除它。在函数内部，我们使用(\s)\1+来匹配任何空白字符，后跟一个或多个相同的空白字符。
 - en: Because we want to replace all these tab characters with a single tab character,
     we use a backreference to match the same character that was matched by the capturing
     group (\s).
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 因为我们想要将所有这些制表符替换为单一的制表符，所以我们使用反向引用来匹配捕获组(\s)所匹配的相同字符。
 - en: Then, we use the special replacement pattern $1 to replace the matched characters
     with the same type of whitespace. The g flag at the end of the regular expression
     indicates global matching, meaning it will search for all occurrences of the pattern
     in the input string.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后，我们使用特殊的替换模式$1将匹配的字符替换为相同类型的空白字符。正则表达式末尾的g标志表示全局匹配，这意味着它会搜索输入字符串中所有出现的模式。

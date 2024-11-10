@@ -1,363 +1,577 @@
 - en: '| Recipe 34 | Using Special Replacement Patterns |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 34 | 使用特殊的替换模式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine you have a private group web page where members agreed to share their
     contact information with other members. You don’t want to impose any restrictions
     on the phone number format the website accepts other than it should consist of
     ten digits. So, a user might enter 123-456-7890, 123 456 7890, or (123)4567890.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个私密的群组网页，成员们同意与其他成员分享他们的联系信息。你不想对网站接受的电话号码格式施加任何限制，只要求号码由十个数字组成。因此，用户可能输入123-456-7890、123
+    456 7890或(123)4567890。
 - en: But you want to transform the digits into a formatted phone number so they will
     display consistently, like (123) 456-7890, throughout the website. To achieve
     this, you first need to remove any existing formatting from the number and then
     format it the way you want.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 但你希望将数字转换为格式化后的电话号码，以便在整个网站上都能一致地显示，例如(123) 456-7890。为此，你首先需要去除号码中已有的任何格式，然后按照你希望的方式进行格式化。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Remove all formatting by replacing non-digit characters with an empty string:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过将非数字字符替换为空字符串来去除所有格式：
 - en: '[part_2/replacement_patterns/replacement_ex1_p1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex1_p1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p1.js)'
 - en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** phoneNum = *"123-456-7890"*; |'
 - en: '|   | **const** re = */**\D**/g*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\D**/g*; |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | phoneNum.replace(re,*""*); *// → "1234567890"* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | phoneNum.replace(re,*""*); *// → "1234567890"* |'
 - en: 'To format the number, use capturing groups to match different sections of the
     phone number, and refer to each section with a replacement pattern:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 要格式化号码，可以使用捕获组匹配电话号码的不同部分，并通过替换模式引用每个部分：
 - en: '[part_2/replacement_patterns/replacement_ex1_p2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p2.js)'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex1_p2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_p2.js)'
 - en: '|   | **const** phoneNum = *"1234567890"*; |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** phoneNum = *"1234567890"*; |'
 - en: '|   | **const** re = */**(\d{3})(\d{3})(\d{4})**/*; |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(\d{3})(\d{3})(\d{4})**/*; |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | phoneNum.replace(re, *"($1) $2-$3"*); *// → "(123) 456-7890"* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | phoneNum.replace(re, *"($1) $2-$3"*); *// → "(123) 456-7890"* |'
 - en: 'Your final code should look like this:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 最终代码应该如下所示：
 - en: '[part_2/replacement_patterns/replacement_ex1_final.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_final.js)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex1_final.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex1_final.js)'
 - en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** phoneNum = *"123-456-7890"*; |'
 - en: '|   |  |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** formatPhoneNumber(num) { |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** formatPhoneNumber(num) { |'
 - en: '|   |  |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove non-digits* |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 去除非数字字符* |'
 - en: '|   | num = num.replace(*/**\D**/g*,*""*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | num = num.replace(*/**\D**/g*,*""*); |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Format the number* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 格式化号码* |'
 - en: '|   | num = num.replace(*/**(\d{3})(\d{3})(\d{4})**/*, |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | num = num.replace(*/**(\d{3})(\d{3})(\d{4})**/*, |'
 - en: '|   | *"($1) $2-$3"*); |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"($1) $2-$3"*); |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** num; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** num; |'
 - en: '|   | } |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
 - en: 'Success: you now have a nicely formatted phone number to display despite a
     variety of formats entered by users.'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功：你现在有了一个格式化良好的电话号码，尽管用户输入了各种不同的格式。
 - en: Discussion
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'In this recipe, we use the replace() method to execute the regex patterns.
     replace() takes a regex as its first argument, attempts to find a match in the
     given string, and replaces it with its second argument. The first regex consists
     of only one metacharacter: \D, which matches any non-digit character. When we
     use it with the global flag (g), we get a string with all non-digit characters
     removed.'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个方案中，我们使用replace()方法来执行正则表达式。replace()的第一个参数是一个正则表达式，它尝试在给定的字符串中查找匹配项，并用第二个参数替换它。第一个正则表达式只包含一个元字符：\D，表示匹配任何非数字字符。当我们使用全局标志(g)时，我们得到一个去除所有非数字字符的字符串。
 - en: The second regex formats the number. When we use capturing groups, input strings
     that match are stored in memory and available to be recalled later. In this case,
     we’re recalling the first, second, and third capturing groups by using special
     replacement patterns in the form of $1, $2, and $3, respectively.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个正则表达式格式化了数字。当我们使用捕获组时，匹配的输入字符串会被存储在内存中，并可以在以后调用。在这种情况下，我们通过使用特殊的替换模式分别回调第一个、第二个和第三个捕获组，形式为$1、$2和$3。
 - en: A special replacement pattern starts with a dollar sign and has a special meaning
     when used in the second argument of the replace() method. The result is a formatted
     phone number ready to be displayed to the end user.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 特殊的替换模式以美元符号开始，在replace()方法的第二个参数中使用时具有特殊含义。结果是一个格式化的电话号码，准备显示给最终用户。
 - en: Exploring Other Special Replacement Characters
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 探索其他特殊替换字符
 - en: Besides $n, other special characters exist that allow reusing the portions of
     the matched text. These characters are the only special constructs accepted in
     a replacement string, so metacharacters like \w aren’t valid. Similarly, special
     replacement characters only work in the replacement string and have no special
     meaning in a regex pattern.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了$n外，还有其他特殊字符可以重复使用匹配文本的部分。这些字符是替换字符串中唯一接受的特殊构造，因此像\w这样的元字符在替换字符串中无效。类似地，特殊的替换字符仅在替换字符串中起作用，在正则表达式模式中没有特殊含义。
 - en: $<Name>
+  id: totrans-41
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: $<Name>
 - en: 'Includes a named capturing group. Here’s an example of what the solution in
     this recipe would look like if we wrote it with named capturing groups:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 包括一个命名捕获组。如果我们使用命名捕获组编写此方案，解决方案的示例如下：
 - en: '[part_2/replacement_patterns/replacement_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex3.js)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex3.js)'
 - en: '|   | **const** phoneNum = *"123-456-7890"*; |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** phoneNum = *"123-456-7890"*; |'
 - en: '|   |  |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** formatPhoneNumber(num) { |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** formatPhoneNumber(num) { |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove non-digits* |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 移除非数字* |'
 - en: '|   | num = num.replace(*/**\D**/g*,*""*); |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | num = num.replace(*/**\D**/g*,*""*); |'
 - en: '|   |  |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Format the number* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 格式化数字* |'
 - en: '|   | num = num.replace(*/**(?<**area>**\d{3})(?<**exchange>**\d{3})(?<**line>**\d{4})**/*,
     |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | num = num.replace(*/**(?<**area>**\d{3})(?<**exchange>**\d{3})(?<**line>**\d{4})**/*,
+    |'
 - en: '|   | *"($<area>) $<exchange>-$<line>"*); |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"($<area>) $<exchange>-$<line>"*); |'
 - en: '|   |  |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** num; |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** num; |'
 - en: '|   | } |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | formatPhoneNumber(phoneNum); *// → "(123) 456-7890"* |'
 - en: For further explanation of named capturing groups, see Recipe 33, [*Reading
     Groups with Ease Using Named Capturing Groups*](f_0044.xhtml#rcp.named_capturing_group).
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 有关命名捕获组的进一步解释，请参见第33个配方，[*使用命名捕获组轻松读取组*](f_0044.xhtml#rcp.named_capturing_group)。
 - en: $n
+  id: totrans-60
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: $n
 - en: 'Includes the nth captured group, where n is a positive integer. You’ve already
     seen this special character in action, but we’re including it here for comparison:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含第n个捕获组，其中n是正整数。你已经看到这个特殊字符的实际应用，但我们在这里包括它以便比较：
 - en: '[part_2/replacement_patterns/replacement_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex7.js)'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex7.js)'
 - en: '|   | **const** str = *"cold & hot"*; |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"cold & hot"*; |'
 - en: '|   | **const** re = */**(**cold**)\s**&**\s(**hot**)**/*; |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**（cold**）\s**&**\s（hot**）**/*; |'
 - en: '|   |  |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$2 & $1"*); *// → "hot & cold"* |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$2 & $1"*); *// → "hot & cold"* |'
 - en: '| Available Only in Regex |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '| 仅在正则表达式中可用 |'
 - en: '| --- |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | $n
     and $<Name> constructs have a special meaning only if the pattern is a regex.
     In a string, they’re treated as literals. |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | $n
+    和 $<Name> 仅在模式是正则表达式时具有特殊含义。在字符串中，它们被视为字面量。 |'
 - en: $&
+  id: totrans-70
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: '$& '
 - en: 'Includes a copy of the matched substring. For example:'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含匹配子字符串的副本。例如：
 - en: '[part_2/replacement_patterns/replacement_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex4.js)'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex4.js)'
 - en: '|   | **const** str = *"FAT is a computer file system architecture"*; |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"FAT是计算机文件系统架构"*; |'
 - en: '|   | **const** re = */FAT/*; |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */FAT/*; |'
 - en: '|   |  |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$& (File Allocation Table)"*); |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$&（文件分配表）"*); |'
 - en: '|   | *// → "FAT (File Allocation Table) is a computer file system architecture"*
     |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "FAT（文件分配表）是计算机文件系统架构"* |'
 - en: $’
+  id: totrans-78
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: $’
 - en: 'A dollar sign followed by an apostrophe includes the portion of the input that
     comes after the matched substring. For instance:'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 以美元符号后跟撇号的形式包含输入中匹配子字符串之后的部分。例如：
 - en: '[part_2/replacement_patterns/replacement_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex5.js)'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex5.js)'
 - en: '|   | **const** str = *"#3"*; |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"#3"*; |'
 - en: '|   | **const** re = */#/*; |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */#/*; |'
 - en: '|   |  |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"#$''"*); *// → "#33"* |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"#$''"*); *// → "#33"* |'
 - en: $‘
+  id: totrans-85
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: $‘
 - en: 'A dollar sign followed by a backtick includes the portion of the input that
     comes before the matched substring:'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个美元符号后跟反引号，包含输入中匹配子字符串之前的部分：
 - en: '[part_2/replacement_patterns/replacement_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex6.js)'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex6.js)'
 - en: '|   | **const** str = *"1000 liter"*; |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"1000 liter"*; |'
 - en: '|   | **const** re = */liter/*; |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */liter/*; |'
 - en: '|   |  |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"liter = $`kg"*); *// → "1000 Liter = 1000 kg"* |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"liter = $`kg"*); *// → "1000 Liter = 1000 kg"* |'
 - en: Sometimes the difference between an apostrophe and a backtick can be hard to
     see. A way to remember the difference is that the backtick points backward and
     so gives you the string that comes before the match.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时候，撇号和反引号之间的区别可能很难看清。记住它们的区别的一种方法是，反引号指向后方，因此给出的是匹配之前的字符串。
 - en: $$
+  id: totrans-93
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: $$
 - en: 'Includes a dollar sign ($):'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含美元符号（$）：
 - en: '[part_2/replacement_patterns/replacement_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex8.js)'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_patterns/replacement_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_patterns/replacement_ex8.js)'
 - en: '|   | **const** str = *"€700"*; |'
+  id: totrans-96
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"€700"*; |'
 - en: '|   | **const** re = */€/*; |'
+  id: totrans-97
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */€/*; |'
 - en: '|   |  |'
+  id: totrans-98
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$$"*); *// → "$700"* |'
+  id: totrans-99
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$$"*); *// → "$700"* |'
 - en: We’ll talk about this pattern in more detail in Recipe 35, [*Taking Away the
     Special Meaning of Replacement Patterns*](f_0046.xhtml#rcp.neutralizing_replacement).
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将在第35个食谱中更详细地讨论这个模式，[*去除替换模式的特殊含义*](f_0046.xhtml#rcp.neutralizing_replacement)。
 - en: '| Ordering |'
+  id: totrans-101
   prefs: []
   type: TYPE_TB
+  zh: '| 排序 |'
 - en: '| --- |'
+  id: totrans-102
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | You may use special
     replacement characters more than once and in any order. |'
+  id: totrans-103
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 你可以多次使用特殊替换字符，并且顺序不限。
+    |'
 - en: Take advantage of special replacement characters inside a replacement string
     to reference different parts of the matched substring. One thing to remember about
     replace() is that it does not modify the original string. Instead, it creates
     a new string, performs the replacement operation, and returns the edited copy.
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用替换字符串中的特殊替换字符来引用匹配子字符串的不同部分。需要记住的一点是，replace()方法不会修改原始字符串。相反，它会创建一个新字符串，执行替换操作，并返回编辑后的副本。

@@ -1,147 +1,232 @@
 - en: '| Recipe 62 | Removing Duplicate Whitespaces |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 62 | 移除重复的空白字符 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you discover that the guest posts on your blog site contain not just
     extra space characters, but also other whitespace characters, like tabs. So, this
     time, you want to replace all whitespace characters, including space, tab (\t),
     line feed (\n), carriage return (\r), vertical tab (\v), form feed (\f), and others.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你发现博客上的客人帖子不仅包含多余的空格字符，还包含其他空白字符，如制表符。因此，这次你想要替换所有空白字符，包括空格、制表符 (\t)、换行符 (\n)、回车符
+    (\r)、垂直制表符 (\v)、换页符 (\f) 等。
 - en: 'For instance, consider the following string, where the space between “My” and
     “life” is made up of two tab characters. You can confirm the presence of a tab
     character by searching for \t in the string:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，考虑以下字符串，其中“My”和“life”之间的空格由两个制表符字符组成。你可以通过在字符串中搜索 \t 来确认制表符字符的存在：
 - en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js)'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex1.js)'
 - en: '|   | **const** str = *" My life needs editing."*; |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"我的生活需要编辑。"*; |'
 - en: '|   |  |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | */My**\t\t**/*.test(str); *// → true* |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | */My**\t\t**/*.test(str); *// → true* |'
 - en: You need a solution that allows you to find repeated tabs or other whitespace
     characters and replace them with a single space.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，能够找到重复的制表符或其他空白字符，并将它们替换为一个单一的空格。
 - en: Solution
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a \s character class to match a whitespace character, then use a \s again
     to match any extra whitespaces that come after the first one:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 \s 字符类来匹配一个空白字符，然后再次使用 \s 来匹配第一个空白字符后面的所有额外空白字符：
 - en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex2.js)'
 - en: '|   | **const** str = *" My life needs editing."*; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"我的生活需要编辑。"*; |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** removeExtraWhitespaces(str) { |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** removeExtraWhitespaces(str) { |'
 - en: '|   | **const** re = */**\s\s**+/g*; |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\s\s**+/g*; |'
 - en: '|   | **return** str.replace(re, *" "*); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(re, *" "*); |'
 - en: '|   | } |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | removeExtraWhitespaces(str); |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | removeExtraWhitespaces(str); |'
 - en: '|   | *// → " My life needs editing."* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "我的生活需要编辑。"* |'
 - en: 'This function’s purpose is to replace all instances of repeated whitespace
     characters (two or more) with a single space character. Notice the single whitespace
     at the beginning of the output. To ensure that the function also removes any additional
     leading/trailing whitespaces, you should apply trim() before returning the output
     string:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数的目的是将所有重复的空白字符（两个或更多）替换为一个单一的空格字符。注意输出开始时有一个单一的空白字符。为了确保该函数还可以去除任何额外的前导/尾随空白字符，你应该在返回输出字符串之前应用
+    trim()：
 - en: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js)'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_whitespaces/removing_dup_whitespaces_ex3.js)'
 - en: '|   | **const** str = *" My life needs editing."*; |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *" 我的生活需要编辑。"*; |'
 - en: '|   |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** removeExtraWhitespaces(str) { |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** removeExtraWhitespaces(str) { |'
 - en: '|   | **const** re = */**\s\s**+/g*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\s\s**+/g*; |'
 - en: '|   | str = str.replace(re, *" "*); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | str = str.replace(re, *" "*); |'
 - en: '|   | str = str.trim(); |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | str = str.trim(); |'
 - en: '|   | **return** str; |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str; |'
 - en: '|   | } |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | removeExtraWhitespaces(str); |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | removeExtraWhitespaces(str); |'
 - en: '|   | *// → "My life needs editing."* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "我的生活需要编辑。"* |'
 - en: Mission accomplished!
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 任务完成！
 - en: Discussion
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In JavaScript, “space” and “whitespace” are not the same thing. A space character
     is what you get when you press the spacebar on your keyboard. But a whitespace
     character is a broader term that includes any character that represents a blank
     area in text. It’s important to understand the difference between these two types
     of characters because they can have different effects on your code.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在JavaScript中，“空格”和“空白字符”并不是同一个概念。空格字符是当你按下键盘上的空格键时得到的字符。而空白字符是一个更广泛的术语，包含了任何表示文本中空白区域的字符。理解这两种字符之间的区别非常重要，因为它们可能对你的代码产生不同的影响。
 - en: The solution in this recipe replaces any type of whitespace character, so if
     a line feed (\n) comes after a tab (\t), they both get replaced by a space. If
     your intention is to replace only a specific type of whitespace character, then
     the following alternate recipe may be more suitable for your needs.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 本例中的解决方案替换了任何类型的空白字符，因此如果换行符（\n）出现在制表符（\t）之后，它们都会被替换为空格。如果你的目的是只替换某种特定类型的空白字符，那么下面的替代方案可能更适合你的需求。
 - en: '| The Negated Form of \s |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| \s的否定形式 |'
 - en: '| --- |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Remember, when
     using \S with a capital letter, it functions as the negation or opposite of \s
     with a small letter. \S enables you to match any character that is not a whitespace.
     |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/tip.png](images/aside-icons/tip.png) | 记住，当你使用大写的\S时，它的作用是\s小写字母的否定形式。\S可以匹配任何不是空白字符的字符。
+    |'

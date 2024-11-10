@@ -1,314 +1,506 @@
 - en: '| Recipe 40 | Generating Indices for Matches with the d Flag |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 40 | 使用 d 标志生成匹配的索引 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you’re building a tool that helps detect errors and potential problems
     in JavaScript code. You need your tool to be able to detect the use of reserved
     words in variables and functions and warn the user.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你正在构建一个工具，帮助检测 JavaScript 代码中的错误和潜在问题。你需要确保你的工具能够检测到变量和函数中使用了保留字，并警告用户。
 - en: 'Ideally, you want to program your tool to pinpoint the exact part of the code
     where the reserved word is misused rather than outputting just a line number.
     So, if the code has a variable assignment with a reserved word like this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 理想情况下，你希望将工具编程为准确地定位到代码中保留字被误用的具体部分，而不仅仅是输出行号。因此，如果代码中有类似这样的变量赋值：
 - en: '|   | **let** **default** = 7; |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** **default** = 7; |'
 - en: 'You want to indicate the error like this:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 你希望像这样指示错误：
 - en: '|   | **let** **default** = 7; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** **default** = 7; |'
 - en: '|   | **↑**------ Invalid variable name |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **↑**------ 无效的变量名 |'
 - en: To achieve this task, you need a regex that provides the start and end indices
     of the match.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了完成这个任务，你需要一个正则表达式，能够提供匹配的起始和结束索引。
 - en: Solution
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Send the supplied code one line at a time to a function that looks for an invalid
     variable/function name. Use the d flag to obtain the start and end indices of
     the name:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 将提供的代码逐行传递给一个查找无效变量/函数名称的函数。使用 `d` 标志来获取名称的起始和结束索引：
 - en: '[part_2/flag_indices/indices_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_indices/indices_ex1.js)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_indices/indices_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_indices/indices_ex1.js)'
 - en: '|   | *// The js code you want to check.* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 你想要检查的 JS 代码。* |'
 - en: '|   | *// In production, you''ll likely use the FileReader API* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 在生产环境中，你可能会使用 FileReader API* |'
 - en: '|   | *// or a textarea to grab the code.* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 或者一个文本框来获取代码。* |'
 - en: '|   | **const** code = *`* |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** code = *`* |'
 - en: '|   | *let a = 123;* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | *let a = 123;* |'
 - en: '|   | *let b = 456;* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *let b = 456;* |'
 - en: '|   | *let default = 7;* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *let default = 7;* |'
 - en: '|   | *`*; |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`*; |'
 - en: '|   |  |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// A short list of js reserved words.* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 一小部分 JS 保留字列表。* |'
 - en: '|   | *// A full list is available here:* |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 完整的保留字列表可以在这里找到：* |'
 - en: '|   | *// https://mzl.la/3XG92DO* |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// https://mzl.la/3XG92DO* |'
 - en: '|   | **const** reserved = [*"class"*, *"default"*, *"this"*, *"case"*, *"if"*];
     |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** reserved = [*"class"*, *"default"*, *"this"*, *"case"*, *"if"*];
+    |'
 - en: '|   | *// Build a regex pattern with the reserved words* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 使用保留字构建正则表达式模式* |'
 - en: '|   | **const** re = **new** RegExp(*`(?:var&#124;let&#124;const&#124;function)\\s+(*${reserved.join(*"&#124;"*)}*)`*,
     |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = **new** RegExp(*`(?:var&#124;let&#124;const&#124;function)\\s+(*${reserved.join(*"&#124;"*)}*)`*,
+    |'
 - en: '|   | *"d"*); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"d"*); |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Find and display the location of the reserved word* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 查找并显示保留字的位置* |'
 - en: '|   | **function** locateReservedWord(line) { |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** locateReservedWord(line) { |'
 - en: '|   | **const** match = line.match(re); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = line.match(re); |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// If no match is found, return* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 如果没有匹配，返回* |'
 - en: '|   | **if** (match === **null**) {**return**;} |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (match === **null**) {**return**;} |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Assign the start and end indices using the destructuring assignment.*
     |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 使用解构赋值赋值起始和结束索引。* |'
 - en: '|   | *// indices[0] holds the indices of the matched string.* |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// indices[0] 保存匹配字符串的索引。* |'
 - en: '|   | *// indices[1] holds the indices of the first capturing group.* |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// indices[1] 保存第一个捕获组的索引。* |'
 - en: '|   | **const** [start, end] = match.indices[1]; |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** [start, end] = match.indices[1]; |'
 - en: '|   |  |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Build the error message* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 构建错误消息* |'
 - en: '|   | **const** error = |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** error = |'
 - en: '|   | *" "*.repeat(start) + *// Add spaces before the arrow* |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | *" "*.repeat(start) + *// 在箭头前添加空格* |'
 - en: '|   | *"↑"* + |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"↑"* + |'
 - en: '|   | *"-"*.repeat(end - start - 1) + |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"-"*.repeat(end - start - 1) + |'
 - en: '|   | *" Invalid name (reserved word)"*; |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | *" 无效的名称（保留字）"*; |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(line); |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(line); |'
 - en: '|   | console.log(error); |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(error); |'
 - en: '|   | } |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Split the code into separate lines,* |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将代码分割成单独的行，* |'
 - en: '|   | *// then send each line to locateReservedWord()* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 然后发送每一行到 locateReservedWord()* |'
 - en: '|   | code.split(*/**\n**&#124;**\r**&#124;**\r\n**/*).forEach(line => { |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | code.split(*/**\n**&#124;**\r**&#124;**\r\n**/*).forEach(line => { |'
 - en: '|   | locateReservedWord(line); |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | locateReservedWord(line); |'
 - en: '|   | }); |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Logs:* |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 日志：* |'
 - en: '|   | *// → let default = 7;* |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → let default = 7;* |'
 - en: '|   | *// → ↑------ Invalid name (reserved word)* |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ↑------ 无效的名称（保留字）* |'
 - en: Your code can now indicate the exact position of a reserved word in a variable
     or function name.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，您的代码可以准确地指示保留字在变量或函数名中的位置。
 - en: '| Browser Compatibility |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Despite being
     a newcomer to the regex family, the d Flag is supported by all modern browsers.^([[23]](f_0064.xhtml#FOOTNOTE-23))
     In the Node environment, you’ll need a minimum version of 16.0.0 (Released 2021-04-20).
     To support older browsers, you can use a polyfill available in the regexp-match-indices
     package on NPM.^([[24]](f_0064.xhtml#FOOTNOTE-24)) |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 尽管 d 标志是正则表达式家族中的新成员，但所有现代浏览器都支持它。^([[23]](f_0064.xhtml#FOOTNOTE-23))
+    在 Node 环境中，您需要至少版本 16.0.0（发布于 2021-04-20）。为了支持旧版浏览器，您可以使用 NPM 上 regexp-match-indices
+    包中的 polyfill。^([[24]](f_0064.xhtml#FOOTNOTE-24)) |'
 - en: Discussion
+  id: totrans-65
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The hasIndices flag (d) indicates that the matching result should provide additional
     information about the start and end positions of each matched substring. The information
     will be stored in a property named indices. Consider this example:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: hasIndices 标志（d）表示匹配结果应提供关于每个匹配子串的起始和结束位置的附加信息。该信息将存储在一个名为 indices 的属性中。请考虑以下示例：
 - en: '[part_2/flag_indices/indices_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_indices/indices_ex2.js)'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_indices/indices_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_indices/indices_ex2.js)'
 - en: '|   | **const** str = *"word1 word2"*; |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"word1 word2"*; |'
 - en: '|   | **const** re = */word/*dg; |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */word/*dg; |'
 - en: '|   |  |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.exec(str).indices[0]); *// → [ 0, 4 ]* |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str).indices[0]); *// → [ 0, 4 ]* |'
 - en: '|   | console.log(re.exec(str).indices[0]); *// → [ 6, 10 ]* |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str).indices[0]); *// → [ 6, 10 ]* |'
 - en: When we set the d flag in a regex, an indices property will be available in
     the result of exec(), match(), and matchAll(). Here, we’re using the exec() method,
     which is similar to match() except that it provides indices in the global mode
     too (see Appendix 2, [*Implementing Regex in JavaScript*](f_0089.xhtml#apx2)).
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们在正则表达式中设置 d 标志时，exec()、match() 和 matchAll() 的结果中将包含一个 indices 属性。在这里，我们使用
+    exec() 方法，它与 match() 类似，不同之处在于它也在全局模式下提供 indices（请参见附录 2，[*在 JavaScript 中实现正则表达式*](f_0089.xhtml#apx2)）。
 - en: The regex in this recipe requires using the RegExp() constructor because we’re
     constructing the pattern dynamically with an array of reserved words. Any backslash
     in RegExp() must be escaped with another backslash. So, we write the shorthand
     character class to match whitespaces in the form of \\s rather than \s. Remember,
     if your dynamically created list contains a backslash, you must escape it too.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式的写法需要使用 RegExp() 构造函数，因为我们正在通过一个保留字数组动态构建模式。在 RegExp() 中的任何反斜杠都必须用另一个反斜杠进行转义。因此，我们以
+    \\s 的形式编写简写字符类来匹配空白字符，而不是 \s。记住，如果你动态创建的列表中包含反斜杠，你也必须进行转义。
 - en: 'Also, pay attention to the second parameter of RegExp(). The RegExp() constructor
     uses a different approach to set the flags: it takes an optional second parameter
     containing the letters of the flags to set. Here, we want to set the hasIndices
     flag, so we pass d. As with the first argument, the second argument must be a
     string. Do not wrap it in slashes.'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请注意 RegExp() 的第二个参数。RegExp() 构造函数使用不同的方式设置标志：它接受一个可选的第二个参数，包含要设置的标志字母。在这里，我们希望设置
+    hasIndices 标志，因此传入 d。与第一个参数一样，第二个参数必须是字符串，不要将其包裹在斜杠中。
 - en: 'Let’s analyze the regex in more detail:'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们更详细地分析这个正则表达式：
 - en: '|   | (?:var&#124;let&#124;const&#124;function)\\s+(${reserved.join("&#124;")})
     |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?:var&#124;let&#124;const&#124;function)\\s+(${reserved.join("&#124;")})
+    |'
 - en: '|   |  |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● (?:var&#124;let&#124;const&#124;function) non-capturing group |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?:var&#124;let&#124;const&#124;function) 非捕获组 |'
 - en: '|   | ○ 1st alternative: matches the characters "var" literally |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第一个替代方案：字面匹配字符“var” |'
 - en: '|   | ○ 2nd alternative: matches the characters "let" literally |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第二个替代方案：字面匹配字符“let” |'
 - en: '|   | ○ 3rd alternative: matches the characters "const" literally |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第三个替代方案：字面匹配字符“const” |'
 - en: '|   | ○ 4th alternative: matches the characters "function" literally |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第四个替代方案：字面匹配字符“function” |'
 - en: '|   | ● \\s matches any whitespace character |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \\s 匹配任何空白字符 |'
 - en: '|   | ○ + matches the previous token between one and unlimited times |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个标记一次或多次 |'
 - en: '|   | ● (${reserved.join("&#124;")}) 1st Capturing Group |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (${reserved.join("&#124;")}) 第一个捕获组 |'
 - en: '|   | ○ ${reserved.join("&#124;")} retrieves the array of reserved words and
     joins its |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ${reserved.join("&#124;")} 获取保留字数组并将其连接 |'
 - en: '|   | items with a vertical bar, resulting in class&#124;default&#124;this&#124;case&#124;if
     |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '|   | 带有竖线的项目，结果为 class&#124;default&#124;this&#124;case&#124;if |'
 - en: '|   | ● Flags |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ d provides information about the start and end indices |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ d 提供关于起始和结束索引的信息 |'
 - en: Take advantage of the hasIndices flag to obtain information about the start
     and end positions of matches. Remember, when using the RegExp() constructor, you
     can’t append flags to the regex pattern the way you typically do with regex literals.
     Instead, you should pass a string containing the flags as the second argument
     of the constructor.
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用 hasIndices 标志获取匹配项的起始和结束位置的信息。请记住，在使用 RegExp() 构造函数时，你不能像通常使用正则表达式字面量那样将标志附加到正则表达式模式上。相反，你应该将包含标志的字符串作为构造函数的第二个参数传递。

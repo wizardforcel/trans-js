@@ -1,181 +1,269 @@
 - en: '| Recipe 66 | Escaping a String for Use in a Regex |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 66 | 转义字符串以用于正则表达式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine a scenario where you’re designing a search feature for an online bookstore.
     Within the app’s search functionality, there is a field where users can enter
     a partial title or author’s name to find the specific book they are looking for.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 想象一下你正在为一个在线书店设计搜索功能。在应用的搜索功能中，有一个字段允许用户输入部分书名或作者名，以查找他们正在寻找的特定书籍。
 - en: Your code involves using the user-provided string as a component of a regex
     to search a database. In order to safeguard your app from potential attacks, you
     should implement a function that escapes all regex metacharacters in the user-provided
     string before using it as a component of your search pattern.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的代码涉及将用户提供的字符串作为正则表达式的一个组成部分来搜索数据库。为了保护你的应用免受潜在攻击，你应该实现一个函数，在将用户提供的字符串作为搜索模式的组成部分之前，先转义其中的所有正则元字符。
 - en: Escaping ensures that the special characters within the string are properly
     handled and do not inadvertently affect the behavior of the regular expression.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 转义确保字符串中的特殊字符得到正确处理，不会无意中影响正则表达式的行为。
 - en: Solution
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'To ensure that characters with special meanings within a pattern are treated
     as ordinary characters without any special interpretation, you can create a function
     that adds a backslash before those characters:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了确保在模式中具有特殊含义的字符被当作普通字符处理，不进行特殊解释，你可以创建一个函数，在这些字符前添加反斜杠：
 - en: '[part_3/escaping_metacharacters/escaping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/escaping_metacharacters/escaping_ex1.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/escaping_metacharacters/escaping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/escaping_metacharacters/escaping_ex1.js)'
 - en: '|   | **function** escapeRegex(str) { |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** escapeRegex(str) { |'
 - en: '|   | **const** re = */**[**-**\\**^$*+?.()&#124;[**\]**{}**]**/g*; |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**[**-**\\**^$*+?.()&#124;[**\]**{}**]**/g*; |'
 - en: '|   | **return** str.replace(re, *"***\\***$&"*); |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(re, *"***\\***$&"*); |'
 - en: '|   | } |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str = *"These should be escaped: -* **\\** *^ $ * + ? . ( )
     &#124; [ ] { }"*; |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"这些字符应该被转义： -* **\\** *^ $ * + ? . ( ) &#124; [ ] {
+    }"*; |'
 - en: '|   | **const** escaped = escapeRegex(str); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** escaped = escapeRegex(str); |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(escaped); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(escaped); |'
 - en: '|   | *// → "These should be escaped: \- \\ \^ \$ \* \+ \? \. \( \) \&#124;
     \[ \] \{ \}"* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "这些字符应该被转义：\- \\ \^ \$ \* \+ \? \. \( \) \&#124; \[ \] \{ \}"*
+    |'
 - en: The string is now safe to use as part of your regex.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 该字符串现在可以安全地用作正则表达式的一部分。
 - en: Discussion
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The regex for this recipe encapsulates all the regex metacharacters in a character
     class. The square brackets [] denote a character class, which means any character
     within the class will be matched. Then, the replace() method replaces all occurrences
     of the metacharacters with their escaped versions.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个配方的正则表达式将所有的正则元字符封装在一个字符类中。方括号 [] 表示一个字符类，意味着类中的任何字符都将被匹配。然后，replace() 方法将所有的元字符替换为其转义版本。
 - en: 'The $& in the replacement string represents the matched substring itself. Notice
     the double backslash preceding it: since the backslash is used as the escape character,
     you cannot use it directly if you want to add a literal backslash to a string.
     Instead, you need to type two backslashes in a row. This is because the first
     backslash acts as an escape character for the second backslash, telling JavaScript
     to treat the second backslash as a literal character instead of an escape sequence.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 替换字符串中的 $& 表示匹配的子字符串本身。注意它前面的双反斜杠：由于反斜杠作为转义字符，如果你想在字符串中添加字面上的反斜杠，不能直接使用它。相反，你需要输入两个连续的反斜杠。这是因为第一个反斜杠充当第二个反斜杠的转义字符，告诉
+    JavaScript 将第二个反斜杠视为字面字符，而不是转义序列。
 - en: 'Here’s the reasoning behind escaping each of those characters in the character
     class:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是转义字符类中每个符号的理由：
 - en: '- The hyphen symbol defines a range of characters in a character class. To
     prevent accidental creation of ranges while incorporating text within a character
     class, it’s necessary to escape it'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '- 连字符符号在字符类中定义了一个字符范围。为了防止在字符类中无意间创建范围，必须对其进行转义。'
 - en: \ The backslash can be used to make certain literal characters special. For
     example, \n creates a newline character (rather than a backslash followed by the
     letter n)
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \ 反斜杠可用于将某些字面字符转化为特殊字符。例如，\n 创建一个换行符（而不是反斜杠后跟字母 n）
 - en: ^ The caret symbol matches the start of a line/string. It can also create a
     negated character class
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: ^ 脱字符号匹配行/字符串的开头。它也可以创建一个否定的字符类
 - en: $ The dollar symbol matches the end of a line/string
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: $ 美元符号匹配行/字符串的结尾
 - en: '* The * quantifier matches its preceding item zero or more times'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '* *量词匹配其前面的项零次或多次'
 - en: + The + quantifier matches its preceding item one or more times
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: + +量词匹配其前面的项一次或多次
 - en: '? The ? quantifier matches its preceding item zero or one time'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '? ?量词匹配其前面的项零次或一次'
 - en: . The dot symbol matches any character
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: . 点号符号匹配任何字符
 - en: '| The vertical bar matches any of two or more options'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '| 垂直条符号匹配两个或更多选项中的任意一个'
 - en: () Parentheses are used for capturing, grouping, and other constructs
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: () 圆括号用于捕获、分组和其他构造
 - en: '[] Square brackets create a character class'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[] 方括号用于创建字符类'
 - en: '{} Curly brackets create a quantifier'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '{} 大括号用于创建量词'
 - en: When using the pattern in this recipe, make sure to use the g flag to replace
     all matches, rather than only the first.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用此配方中的模式时，确保使用 g 标志以替换所有匹配项，而不仅仅是第一个。
 - en: It’s important to be careful when using user-provided input in your regex. Failing
     to do so could render your program vulnerable to a type of attack called ReDos
     (regular expression denial of service). An attacker could potentially exploit
     your program by providing an extremely intricate regex that requires a significant
     amount of time to process.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用用户提供的输入进行正则表达式匹配时，要特别小心。否则，可能会使程序容易受到一种叫做 ReDos（正则表达式拒绝服务攻击）的攻击。攻击者可能会通过提供一个极其复杂的正则表达式来利用程序，这会导致处理过程需要大量时间。
 - en: When evaluating user input in a browser, a ReDoS attack will typically cause
     the browser to hang. But, when the input is being evaluated on a server, the consequences
     can be more severe and potentially lead to a denial-of-service attack. In such
     an attack, the attacker floods the server with a barrage of highly processing-intensive
     requests, effectively preventing the server from servicing legitimate requests.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 当在浏览器中评估用户输入时，ReDoS攻击通常会导致浏览器卡死。但是，当输入在服务器上进行评估时，后果可能更为严重，甚至可能导致拒绝服务攻击。在这种攻击中，攻击者会向服务器发送大量计算密集型的请求，从而有效地阻止服务器处理合法请求。
 - en: 'In this case, protecting your program from ReDoS isn’t too difficult: escape
     all metacharacters that could alter the pattern of the expression. This can be
     done by placing a backslash before the metacharacter, which tells the regex engine
     to treat it as a literal character.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，保护你的程序免受ReDoS攻击并不困难：只需转义所有可能改变表达式模式的元字符。可以通过在元字符前加上反斜杠来实现，这样正则表达式引擎就会把它当作字面字符处理。
 - en: '| Escaping Metacharacters in Other Languages |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| 在其他语言中转义元字符 |'
 - en: '| --- |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | There exist built-in
     functions in several programming languages that automatically escape regex metacharacters.
     For example, Java has Pattern.quote(str) and Python provides e.escape(str). If
     you’re using the Lodash library, you might as well take advantage of its_.escapeRegExp()
     method to escape metacharacters. |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 在一些编程语言中，存在内置函数可以自动转义正则表达式元字符。例如，Java中有Pattern.quote(str)，Python提供了e.escape(str)。如果你使用Lodash库，你也可以利用它的_.escapeRegExp()方法来转义元字符。
+    |'

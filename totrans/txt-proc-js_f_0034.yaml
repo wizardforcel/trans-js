@@ -1,248 +1,391 @@
 - en: '| Recipe 23 | Creating Your First Regular Expression |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: 配方 23 | 创建你的第一个正则表达式 |
 - en: 'Before using the recipes in Parts 2 and 3, you need to know how to implement
     regular expressions in your code. In JavaScript, you have two options for creating
     regular expressions: you can either use the RegExp() constructor or use the regex
     literal. When using the literal form, you’ll need to enclose the pattern in a
     pair of forward slash (/) characters, like this:'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用第 2 部分和第 3 部分中的配方之前，你需要了解如何在代码中实现正则表达式。在 JavaScript 中，你有两种创建正则表达式的方式：可以使用
+    RegExp() 构造函数，也可以使用正则字面量。使用字面量形式时，你需要将模式包含在一对斜杠（/）字符中，如下所示：
 - en: '[part_2/first_regex/first_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex1.js)'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex1.js)'
 - en: '|   | **const** re = */Hello/*; |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Hello/*; |'
 - en: This regex pattern is made up of five characters that tell the regex engine
     to find a direct match for “Hello” in a string. A pattern can be as simple as
     a single literal character such as “i.” If there are multiple occurrences of “i”
     in a string, it matches the first one.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式模式由五个字符组成，指示正则引擎在字符串中找到“Hello”的直接匹配。模式可以像单个字面字符“i”一样简单。如果字符串中有多个“i”出现，它将匹配第一个。
 - en: For example, in the string “If opportunity doesn’t knock, build a door,” the
     regex matches the “i” in “opportunity,” not “build.” It also doesn’t match the
     “I” in “If” because that word uses a capital letter. As you will learn later in
     this part, you can use flags to configure your regular expression to continue
     searching after the first match or ignore the letter case.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在字符串“If opportunity doesn’t knock, build a door”中，正则表达式匹配的是“opportunity”中的“i”，而不是“build”中的“i”。它也不会匹配“If”中的“I”，因为该单词使用了大写字母。正如你将在本部分后面学到的，你可以使用标志来配置正则表达式，在找到第一个匹配后继续搜索，或忽略字母大小写。
 - en: 'Let’s look at another example:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看另一个例子：
 - en: '[part_2/first_regex/first_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex2.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex2.js)'
 - en: '|   | **const** re = */123/*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */123/*; |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str1 = *"123"*; |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str1 = *"123"*; |'
 - en: '|   | **const** str2 = *"321"*; |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str2 = *"321"*; |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.test(str1)); *// → true* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(str1)); *// → true* |'
 - en: '|   | console.log(re.test(str2)); *// → false* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(str2)); *// → false* |'
 - en: When running this code, the regex engine tries to find “1,” immediately followed
     by a “2,” and immediately followed by a “3.” This pattern exists within the first
     string, so test() returns true, but although the second string contains the same
     characters, they’re not counted as a match because they’re not in the correct
     order.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 当运行这段代码时，正则引擎会尝试找到“1”，然后是紧接着的“2”，接着是“3”。这个模式在第一个字符串中存在，因此 test() 返回 true，但尽管第二个字符串包含相同的字符，它们并没有算作匹配，因为它们的顺序不正确。
 - en: JavaScript provides several methods to determine whether a pattern exists in
     a string. The test() method is the simplest one. It returns true if a match exists
     in the given string or false if otherwise.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript提供了几种方法来判断一个模式是否存在于字符串中。test()方法是最简单的一种。如果给定的字符串中有匹配项，它返回true，否则返回false。
 - en: 'We can get the same result with the RegExp() constructor:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用RegExp()构造函数获得相同的结果：
 - en: '[part_2/first_regex/first_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex3.js)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex3.js)'
 - en: '|   | **const** re = **new** RegExp(*"123"*); |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = **new** RegExp(*"123"*); |'
 - en: '|   |  |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str1 = *"123"*; |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str1 = *"123"*; |'
 - en: '|   | **const** str2 = *"321"*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str2 = *"321"*; |'
 - en: '|   |  |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.test(str1)); *// → true* |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(str1)); *// → true* |'
 - en: '|   | console.log(re.test(str2)); *// → false* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(str2)); *// → false* |'
 - en: 'Unlike the literal form, the RegExp() constructor allows us to construct a
     pattern dynamically. For example, we can use it to build a pattern out of the
     items of an array:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 与字面量形式不同，RegExp()构造函数允许我们动态构建模式。例如，我们可以用它来从数组的项中构建一个模式：
 - en: '[part_2/first_regex/first_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex4.js)'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex4.js)'
 - en: '|   | **const** str = *"Debuggers don''t remove bugs. They show them in slow
     motion."*; |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"调试器并不能去除错误，它们只是以慢动作展示错误。"*; |'
 - en: '|   | **const** arr = [*"bug"*, *"flea"*, *"mite"*, *"midge"*]; |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** arr = [*"bug"*, *"flea"*, *"mite"*, *"midge"*]; |'
 - en: '|   | **const** re = **new** RegExp(arr.join(*"&#124;"*)); |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = **new** RegExp(arr.join(*"&#124;"*)); |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.test(str)); *// → true* |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(str)); *// → true* |'
 - en: A pipe symbol in a regex pattern works like the logical OR (||) operator in
     JavaScript. It matches either everything to the left of the symbol or everything
     to the right. In this case, we have four items in the array, and we’re joining
     them with a pipe, so it’s like writing the literal form /bug|flea|mite|midge/.
     The main difference is that RegExp() lets us build the pattern dynamically.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在正则表达式模式中，管道符号（|）的作用类似于JavaScript中的逻辑“或”(||)操作符。它匹配符号左侧的所有内容或符号右侧的所有内容。在这种情况下，我们在数组中有四个项，并且我们用管道符号连接它们，所以它就像写字面量形式的/bug|flea|mite|midge/。主要的区别是，RegExp()允许我们动态构建这个模式。
 - en: '| When to Use a Constructor |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 何时使用构造函数 |'
 - en: '| --- |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Keep in mind
     that the literal form is always faster than the constructor form. So, use a constructor
     only when you need to build a pattern dynamically. |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 请记住，字面量形式总是比构造函数形式更快。因此，只有在需要动态构建模式时，才使用构造函数。
+    |'
 - en: 'Another difference between the two forms is that when using the RegExp constructor,
     it’s necessary to use escape characters for backslashes and quotes. Compare:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这两种形式之间的另一个区别是，当使用RegExp构造函数时，需要对反斜杠和引号使用转义字符。对比一下：
 - en: '[part_2/first_regex/first_regex_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex5.js)'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex5.js)'
 - en: '|   | *// A RegExp pattern* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 一个 RegExp 模式* |'
 - en: '|   | **const** re1 = **new** RegExp(*"**\"***\\***d"*); |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = **new** RegExp(*"**\"***\\***d"*); |'
 - en: '|   |  |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// The literal version of the above pattern* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 上述模式的字面版本* |'
 - en: '|   | **const** re2 = */"**\d**/*; |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */"**\d**/*; |'
 - en: '|   |  |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re1.test(*''"3''*)); *// → true* |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.test(*''"3''*)); *// → true* |'
 - en: '|   | console.log(re2.test(*''"3''*)); *// → true* |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re2.test(*''"3''*)); *// → true* |'
 - en: 'To match a quote character in a regex pattern that is already enclosed in quotes,
     we need to use an escape character to indicate that the quote character is part
     of the string, rather than a delimiter for the string. An alternative way to write
     the same pattern would be to use single quotes for the pattern string: new RegExp(’"\\d’).'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 要匹配正则表达式模式中已经被引号括起来的引号字符，我们需要使用转义字符，表示引号字符是字符串的一部分，而不是字符串的分隔符。另一种写相同模式的方式是使用单引号作为模式字符串：new
+    RegExp(’"\\d’)。
 - en: '\d is a metacharacter in regex that matches a digit. If we don’t escape \d,
     RegExp() will match a backslash followed by a “d” literally:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: \d 是正则表达式中的一个元字符，用于匹配数字。如果我们不对 \d 进行转义，RegExp() 将会字面匹配一个反斜杠后跟着字母“d”：
 - en: '[part_2/first_regex/first_regex_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex6.js)'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex6.js)'
 - en: '|   | **const** re1 = **new** RegExp(*"***\***d"*); |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = **new** RegExp(*"***\***d"*); |'
 - en: '|   |  |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re1.test(*"***\***d"*)); *// → true* |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.test(*"***\***d"*)); *// → true* |'
 - en: '|   | console.log(re1.test(*"3"*)); *// → false* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.test(*"3"*)); *// → false* |'
 - en: 'In literal notation, where the pattern is enclosed in forward slashes, we must
     use a backslash to escape any forward slashes that appear within the pattern.
     This is necessary because a forward slash marks the end of the pattern in literal
     notation, and without escaping, it would be interpreted as such. Compare:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 在字面量表示法中，当模式被斜杠括起来时，我们必须使用反斜杠来转义模式中出现的任何斜杠。这是必要的，因为正则表达式字面量中的斜杠标志着模式的结束，如果不进行转义，它会被解释为结束符。对比：
 - en: '[part_2/first_regex/first_regex_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex7.js)'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/first_regex/first_regex_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/first_regex/first_regex_ex7.js)'
 - en: '|   | *// A RegExp pattern* |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 一个 RegExp 模式* |'
 - en: '|   | **const** re1 = **new** RegExp(*"/"*); |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = **new** RegExp(*"/"*); |'
 - en: '|   |  |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// The literal version of the above pattern* |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 上述模式的字面版本* |'
 - en: '|   | **const** re2 = */**\/**/*; |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */**\/**/*; |'
 - en: '|   |  |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re1.test(*"/"*)); *// → true* |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.test(*"/"*)); *// → true* |'
 - en: '|   | console.log(re2.test(*"/"*)); *// → true* |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re2.test(*"/"*)); *// → true* |'
 - en: '| Case Sensitivity |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| 区分大小写 |'
 - en: '| --- |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | By default,
     regular expressions are case sensitive. The pattern /abc/ does not match Abc,
     unless you use a special flag called ignoreCase to instruct the engine to ignore
     any differences in letter case. You’ll learn about flags later in this part. |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | 默认情况下，正则表达式是区分大小写的。模式
+    `/abc/` 不匹配 `Abc`，除非你使用一个名为 `ignoreCase` 的特殊标志来指示引擎忽略字母大小写的差异。你将在本部分稍后了解标志。 |'
 - en: But finding a direct match is not the biggest strength of regular expressions.
     JavaScript already has the indexOf() method that can do that job just fine. Regular
     expressions are designed to find more complex patterns, such as /\b(\w+)\s+\1\b/gi,
     which finds duplicate words.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 但找到直接匹配并不是正则表达式的最大优势。JavaScript 已经有了 `indexOf()` 方法，可以很好地完成这个任务。正则表达式旨在查找更复杂的模式，例如
+    `/\b(\w+)\s+\1\b/gi`，它用于查找重复的单词。
 - en: Now that you understand how to implement regex in JavaScript, you’re prepared
     to work on the recipes in Parts 2 and 3.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你已经了解如何在 JavaScript 中实现正则表达式，准备好在第二部分和第三部分中进行实际操作了。

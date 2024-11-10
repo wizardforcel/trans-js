@@ -1,229 +1,338 @@
 - en: 'Chapter 7: Forms and Form Handling'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第7章：表单和表单处理
 - en: Forms are a fundamental part of web applications, allowing users to input data,
     submit information, and interact with websites. React provides powerful tools
     for working with forms, including controlled components, form submission, validation,
     and handling user input. In this chapter, we'll explore how to create and manage
     forms in React, and we'll provide examples to illustrate these concepts.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 表单是Web应用程序的基础部分，它允许用户输入数据、提交信息并与网站互动。React 提供了强大的工具来处理表单，包括受控组件、表单提交、验证和处理用户输入。在本章中，我们将探索如何在
+    React 中创建和管理表单，并通过示例来说明这些概念。
 - en: Introduction to Forms in React
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: React 中的表单简介
 - en: 'In React, forms are created using HTML form elements, such as `<form>`, `<input>`,
     `<textarea>`, and `<select>`. However, React adds a layer of abstraction to handle
     form data and user interactions efficiently. When working with forms in React,
     you''ll often encounter the following concepts:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 中，表单是通过 HTML 表单元素创建的，如 `<form>`、`<input>`、`<textarea>` 和 `<select>`。然而，React
+    为表单数据和用户交互提供了一层抽象，能够更高效地处理这些内容。在使用 React 处理表单时，你将经常遇到以下概念：
 - en: Controlled Components
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 受控组件
 - en: Controlled components are React components that render form elements and manage
     their state through React's component state. This means that the value of the
     form element is controlled by the component's state, and any changes to the input
     value are reflected in the state and vice versa.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 受控组件是指通过 React 组件的状态来渲染表单元素并管理其状态的 React 组件。这意味着表单元素的值由组件的状态控制，输入值的任何变化都会反映在状态中，反之亦然。
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this example, the `<input>` element's value is controlled by the `inputValue`
     state. When the user types in the input field, the `handleChange` method updates
     the state, ensuring that the input value is always in sync with the component's
     state.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，`<input>` 元素的值由 `inputValue` 状态控制。当用户在输入框中输入时，`handleChange` 方法会更新状态，确保输入值始终与组件的状态同步。
 - en: Form Submission
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 表单提交
 - en: React handles form submission by listening to the `onSubmit` event of the `<form>`
     element. When the form is submitted, an event handler function is called, allowing
     you to access and process the form data.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: React 通过监听 `<form>` 元素的 `onSubmit` 事件来处理表单提交。当表单提交时，事件处理函数会被调用，这样你就可以访问并处理表单数据。
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this example, the `handleSubmit` method is called when the form is submitted,
     and we can perform data processing or send the form data to a server.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，当表单提交时，`handleSubmit` 方法被调用，我们可以在此时进行数据处理或将表单数据发送到服务器。
 - en: Form Validation
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 表单验证
 - en: Form validation is the process of ensuring that user input meets specific criteria
     or constraints. React allows you to implement form validation by adding conditional
     logic to your event handlers, checking the input data, and providing feedback
     to the user.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 表单验证是确保用户输入满足特定标准或约束的过程。React 允许你通过在事件处理函数中添加条件逻辑来实现表单验证，检查输入数据，并向用户提供反馈。
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this example, we validate the input by checking its length and displaying
     an error message if it's less than 5 characters. The error message is updated
     as the user types, providing real-time feedback.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们通过检查输入的长度来验证输入，如果长度少于5个字符，则显示错误消息。错误消息会随着用户输入实时更新，提供即时反馈。
 - en: Creating a Simple Form
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 创建一个简单的表单
 - en: Let's start by creating a simple form in React. We'll create a form that allows
     users to enter their name and email address. When the user submits the form, we'll
     display a greeting message with the provided name and email.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从创建一个简单的 React 表单开始。我们将创建一个表单，允许用户输入姓名和电子邮件地址。当用户提交表单时，我们将显示包含提供的姓名和电子邮件的问候消息。
 - en: 'Step 1: Create a New Component'
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 第一步：创建一个新组件
 - en: In your React project, create a new file called `SimpleForm.js`. This file will
     contain the `SimpleForm` component.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在你的 React 项目中，创建一个名为`SimpleForm.js`的新文件。这个文件将包含`SimpleForm`组件。
 - en: 'Step 2: Define the Component'
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 第二步：定义组件
 - en: 'Open the `SimpleForm.js` file and define the `SimpleForm` component as follows:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 打开`SimpleForm.js`文件，并按如下方式定义`SimpleForm`组件：
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'In this code:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中：
 - en: '- We define the `SimpleForm` class component, which has three state properties:
     `name`, `email`, and `submittedData`. `submittedData` is used to store the submitted
     form data.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们定义了`SimpleForm`类组件，该组件有三个状态属性：`name`、`email`和`submittedData`。`submittedData`用于存储提交的表单数据。'
 - en: '- The `handleChange` method updates the `name` and `email` states as the user
     types in the input fields. We use the `name` attribute of the input elements to
     dynamically update the corresponding state property.'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `handleChange`方法会在用户输入字段时更新`name`和`email`状态。我们使用输入元素的`name`属性动态地更新相应的状态属性。'
 - en: '- The `handleSubmit` method is called when the form is submitted. It prevents
     the default form submission behavior, creates an object with the form data, and
     updates the `submittedData` state with the object.'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `handleSubmit`方法在表单提交时被调用。它会阻止表单的默认提交行为，创建一个包含表单数据的对象，并用这个对象更新`submittedData`状态。'
 - en: '- In the `render` method, we display the form elements and conditionally render
     the submitted data if it exists.'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在`render`方法中，我们显示表单元素，并在有提交数据时有条件地渲染提交的数据。'
 - en: 'Step 3: Use the Component'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 第三步：使用组件
 - en: 'To use the `SimpleForm` component, import it in another component (e.g., `App.js`)
     and render it. Here''s an example of how to use it:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 要使用`SimpleForm`组件，在另一个组件中导入它（例如，`App.js`）并渲染它。以下是如何使用它的示例：
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now, when you view your React application, you'll see the "Simple Form" with
     input fields for name and email. After submitting the form, the submitted data
     will be displayed below.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，当你查看你的 React 应用时，你将看到带有姓名和电子邮件输入字段的“简单表单”。提交表单后，提交的数据将显示在下面。
 - en: Form Validation
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 表单验证
 - en: Form validation is essential for ensuring that users provide valid data. Let's
     enhance our simple form by adding validation for the name and email fields.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 表单验证对于确保用户提供有效数据至关重要。让我们通过为姓名和电子邮件字段添加验证来增强我们的简单表单。
 - en: 'Step 1: Update the Component'
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 第一步：更新组件
 - en: 'Open the `SimpleForm.js` file and update the `SimpleForm` component as follows:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 打开 `SimpleForm.js` 文件并按如下方式更新 `SimpleForm` 组件：
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'In this updated code:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在更新的代码中：
 - en: '- We added an `errors` state object to store validation errors for the `name`
     and `email` fields.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们添加了一个 `errors` 状态对象，用于存储 `name` 和 `email` 字段的验证错误。'
 - en: '- The `validateField` method is called whenever the user types in an input
     field. It validates the input based on the field name and updates the `errors`
     state accordingly.'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 每当用户在输入字段中输入时，`validateField` 方法会被调用。它根据字段名称验证输入，并相应地更新 `errors` 状态。'
 - en: '- We added a `validateForm` method to check if the form is valid. The form
     is considered invalid if there are validation errors or if the `name` or `email`
     fields are empty.'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们添加了一个 `validateForm` 方法，用于检查表单是否有效。如果有验证错误，或者 `name` 或 `email` 字段为空，则认为表单无效。'
 - en: '- The submit button is disabled if the form is invalid, preventing the user
     from submitting incomplete or erroneous data.'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 如果表单无效，提交按钮将被禁用，防止用户提交不完整或错误的数据。'
 - en: Now, the form will provide real-time validation feedback to the user, displaying
     error messages for invalid inputs and preventing submission of incomplete or invalid
     data.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，表单将向用户提供实时验证反馈，对于无效的输入显示错误信息，并防止提交不完整或无效的数据。
 - en: Conclusion and Best Practices
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论与最佳实践
 - en: 'In this chapter, we explored how to create and handle forms in React, including
     controlled components, form submission, and form validation. Here are some best
     practices to keep in mind when working with forms in React:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们探讨了如何在 React 中创建和处理表单，包括受控组件、表单提交和表单验证。以下是处理 React 表单时需要记住的一些最佳实践：
 - en: '1\. **Use Controlled Components**: Make use of controlled components to manage
     the form element''s state and ensure synchronization between the input values
     and component state.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **使用受控组件**：使用受控组件来管理表单元素的状态，并确保输入值与组件状态之间的同步。
 - en: '2\. **Handle Form Submission**: Prevent the default form submission behavior
     using `event.preventDefault()` and handle form submission with a custom function.
     This allows you to process form data or perform additional actions.'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **处理表单提交**：使用 `event.preventDefault()` 阻止默认的表单提交行为，并通过自定义函数处理表单提交。这允许你处理表单数据或执行额外操作。
 - en: '3\. **Implement Form Validation**: Implement form validation to ensure that
     user input meets specific criteria. Provide'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **实现表单验证**：实现表单验证，确保用户输入符合特定标准。提供
 - en: clear and informative error messages to guide users.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 提供清晰且信息丰富的错误信息，以指导用户。
 - en: '4\. **Real-Time Feedback**: Consider providing real-time feedback to users
     as they interact with the form. This includes validating input on change and displaying
     error messages dynamically.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **实时反馈**：考虑在用户与表单互动时提供实时反馈。这包括在更改时验证输入并动态显示错误信息。
 - en: '5\. **Disable Submit Button**: Disable the submit button when the form is invalid
     to prevent users from submitting incomplete or invalid data.'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **禁用提交按钮**：当表单无效时禁用提交按钮，防止用户提交不完整或无效的数据。
 - en: '6\. **Use Validation Libraries**: For complex forms, consider using validation
     libraries such as Formik or Yup to simplify form validation and error handling.'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 6\. **使用验证库**：对于复杂的表单，考虑使用像 Formik 或 Yup 这样的验证库，以简化表单验证和错误处理。
 - en: By following these best practices, you can create user-friendly and interactive
     forms in your React applications. Forms are a critical part of user interaction,
     and mastering form handling in React will enable you to build robust and user-friendly
     web applications.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过遵循这些最佳实践，你可以在 React 应用程序中创建用户友好且互动性强的表单。表单是用户交互的重要组成部分，掌握 React 中的表单处理将使你能够构建健壮且用户友好的
+    Web 应用程序。

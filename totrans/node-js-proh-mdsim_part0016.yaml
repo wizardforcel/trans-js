@@ -1,127 +1,185 @@
 - en: 'Chapter 12: Enhancing Security'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第12章：增强安全性
 - en: In this chapter, we will focus on improving the security of our blogging application
     by implementing input validation and error handling. By validating user input
     and handling errors effectively, we can prevent common security vulnerabilities
     and provide a better user experience. Let's dive in and enhance the security of
     our application!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将专注于通过实现输入验证和错误处理来提高我们的博客应用程序的安全性。通过验证用户输入并有效处理错误，我们可以防止常见的安全漏洞，并提供更好的用户体验。让我们深入了解，增强应用程序的安全性！
 - en: 12.1 Input Validation
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 12.1 输入验证
 - en: Input validation is an essential step in preventing malicious attacks and ensuring
     the integrity of data. By validating user input, we can protect our application
     from common vulnerabilities such as SQL injection and cross-site scripting (XSS)
     attacks.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 输入验证是防止恶意攻击和确保数据完整性的关键步骤。通过验证用户输入，我们可以保护应用程序免受常见的漏洞攻击，如SQL注入和跨站脚本（XSS）攻击。
 - en: 12.1.1 Express Validator
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 12.1.1 Express验证器
 - en: 'To simplify input validation, we will use the `express-validator` library.
     Start by installing it using npm:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了简化输入验证，我们将使用`express-validator`库。首先，通过npm安装它：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Once installed, we can use it in our routes to define validation rules for the
     request body parameters.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 安装完成后，我们可以在路由中使用它来为请求体参数定义验证规则。
 - en: 12.1.2 Validating User Registration
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 12.1.2 验证用户注册
 - en: 'Let''s begin by implementing input validation for user registration. Open the
     `routes/users.js` file and modify the registration route as follows:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从实现用户注册的输入验证开始。打开`routes/users.js`文件，并按如下方式修改注册路由：
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the code above, we import the necessary functions from `express-validator`.
     Then, we define validation rules using the `body()` function for each parameter.
     For example, we use `notEmpty()` to ensure that the `username` field is not empty,
     `isEmail()` to validate the `email` field as an email address, and `isLength()`
     to specify the minimum length for the `password` field.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述代码中，我们从`express-validator`导入了必要的函数。然后，我们使用`body()`函数为每个参数定义验证规则。例如，我们使用`notEmpty()`确保`username`字段不能为空，使用`isEmail()`验证`email`字段是否为有效的电子邮件地址，使用`isLength()`指定`password`字段的最小长度。
 - en: After defining the validation rules, we check for validation errors using `validationResult(req)`.
     If there are any errors, we return a 400 status code with an array of error messages.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在定义验证规则后，我们使用`validationResult(req)`检查验证错误。如果有任何错误，我们返回一个400状态码，并附上错误信息的数组。
 - en: Now you can apply input validation to other routes such as login, post creation,
     and comment creation to ensure that the data received is valid and secure.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，你可以将输入验证应用到其他路由，如登录、帖子创建和评论创建，以确保接收的数据是有效和安全的。
 - en: 12.2 Error Handling
+  id: totrans-14
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 12.2 错误处理
 - en: Effective error handling is crucial for both security and user experience. By
     properly handling errors, we can prevent sensitive information from being exposed
     to potential attackers and provide helpful feedback to the users.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '有效的错误处理对于安全性和用户体验至关重要。通过正确地处理错误，我们可以防止敏感信息暴露给潜在攻击者，并为用户提供有用的反馈。  '
 - en: 12.2.1 Centralized Error Handling Middleware
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '12.2.1 集中式错误处理中间件  '
 - en: 'To centralize error handling in our application, let''s create a middleware
     that will handle errors and provide consistent responses. Create a new file called
     `middleware/errorHandler.js` and add the following code:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '为了集中处理应用程序中的错误，我们创建一个中间件来处理错误并提供一致的响应。创建一个新的文件 `middleware/errorHandler.js`，并添加以下代码：  '
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'In this code, we define an `errorHandler` middleware function that takes four
     parameters: `err`, `req`, `res`, and `next`. It first logs the error to the console
     for debugging purposes.'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了一个 `errorHandler` 中间件函数，该函数接受四个参数：`err`、`req`、`res` 和 `next`。它首先将错误记录到控制台以便调试。
 - en: Next, we handle specific error types. For example, if the error is a `ValidationError`
     (ca
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '接下来，我们处理特定的错误类型。例如，如果错误是一个 `ValidationError`（验证错误）  '
 - en: used by input validation), we respond with a 400 status code and an appropriate
     error message. For other types of errors, we respond with a generic 500 status
     code and an error message.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '当输入验证失败时，我们会返回一个 400 状态码和适当的错误信息。对于其他类型的错误，我们会返回一个通用的 500 状态码和错误信息。  '
 - en: 12.2.2 Using the Error Handling Middleware
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '12.2.2 使用错误处理中间件  '
 - en: 'To use the error handling middleware, we need to add it to our application''s
     middleware stack. Open the `app.js` file and modify it as follows:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '要使用错误处理中间件，我们需要将其添加到应用程序的中间件栈中。打开 `app.js` 文件并按如下方式修改：  '
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: By adding `app.use(errorHandler)`, we ensure that any errors passed to `next()`
     will be caught by our centralized error handling middleware.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '通过添加 `app.use(errorHandler)`，我们确保任何传递给 `next()` 的错误都会被我们的集中式错误处理中间件捕获。  '
 - en: 12.3 Summary
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '12.3 总结  '
 - en: Congratulations! In this chapter, we enhanced the security of our blogging application
     by implementing input validation and error handling. We utilized the `express-validator`
     library to validate user input and prevent common security vulnerabilities. Additionally,
     we created a centralized error handling middleware to handle and respond to errors
     consistently.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '恭喜！在这一章节中，我们通过实现输入验证和错误处理来增强了博客应用程序的安全性。我们利用 `express-validator` 库来验证用户输入并防止常见的安全漏洞。此外，我们还创建了一个集中式错误处理中间件来一致地处理和响应错误。  '
 - en: By implementing these security measures, we have taken significant steps to
     protect our application and user data.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '通过实施这些安全措施，我们已采取重要步骤保护我们的应用程序和用户数据。  '

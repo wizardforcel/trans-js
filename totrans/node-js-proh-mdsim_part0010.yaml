@@ -1,171 +1,253 @@
 - en: 'Chapter 6: Enhancing the User Interface'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第6章：增强用户界面
 - en: In this chapter, we will enhance the user interface of our blogging application
     to provide a more engaging and user-friendly experience. We'll introduce additional
     features and improve the design to make our application stand out. Let's dive
     in!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将增强博客应用的用户界面，以提供更具吸引力和用户友好的体验。我们将引入更多功能并改进设计，使我们的应用脱颖而出。让我们深入探讨吧！
 - en: 6.1 Adding Styling with CSS
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.1 使用CSS添加样式
 - en: 'To improve the visual appeal of our blogging application, let''s add some CSS
     styling. Create a new file called `style.css` in the `public` directory of your
     project. Then, link the CSS file in the `index.html` file as follows:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了改善博客应用的视觉效果，接下来我们添加一些CSS样式。在项目的`public`目录中创建一个名为`style.css`的新文件。然后，如下所示在`index.html`文件中链接该CSS文件：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In the `style.css` file, you can define custom styles to enhance the appearance
     of your application. For example, you can set the background color, font styles,
     padding, margins, and more to create a visually appealing layout.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在`style.css`文件中，你可以定义自定义样式来增强应用程序的外观。例如，你可以设置背景颜色、字体样式、内边距、外边距等，来创建一个视觉上吸引人的布局。
 - en: 6.2 Implementing User Authentication
+  id: totrans-6
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.2 实现用户身份验证
 - en: 'To add an extra layer of security and enable personalized features, let''s
     implement user authentication in our blogging application. We''ll use the popular
     `passport` library for authentication. Follow these steps to get started:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了增加一层额外的安全性并启用个性化功能，我们将在博客应用中实现用户身份验证。我们将使用流行的`passport`库进行身份验证。按照以下步骤开始：
 - en: 6.2.1 Install Required Packages
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.2.1 安装所需的包
 - en: 'Install the necessary packages by running the following command in your project
     directory:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在项目目录中运行以下命令来安装必要的包：
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 6.2.2 Configuring Passport
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.2.2 配置Passport
 - en: 'In the `app.js` file, add the following code to configure Passport:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在`app.js`文件中，添加以下代码以配置Passport：
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this code, we import `passport` and the `LocalStrategy` from the required
     packages. We then configure Passport by initializing and using it in our application.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们从所需的包中导入`passport`和`LocalStrategy`。然后，我们通过初始化并在应用程序中使用它来配置Passport。
 - en: We also define the `LocalStrategy` for username/password authentication. Inside
     the strategy callback function, you can implement the logic to authenticate the
     user by checking their credentials against a database or any other authentication
     mechanism.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还定义了用于用户名/密码身份验证的`LocalStrategy`。在策略回调函数中，你可以实现通过检查用户凭证与数据库或其他身份验证机制进行身份验证的逻辑。
 - en: Lastly, we serialize and deserialize user objects to maintain user sessions.
     You need to provide the logic to retrieve user objects by ID and store the user's
     ID in the session.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们序列化和反序列化用户对象以保持用户会话。你需要提供逻辑，通过ID检索用户对象并将用户的ID存储在会话中。
 - en: 6.2.3 Protecting Routes
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.2.3 保护路由
 - en: 'To protect certain routes and allow only authenticated users to access them,
     add the following middleware to the routes that require authentication:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了保护某些路由并仅允许已认证的用户访问，向需要认证的路由添加以下中间件：
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this code, we define a middleware function called `ensureAuthenticated` that
     checks if the user is authenticated using the `isAuthenticated` method provided
     by Passport. If the user is authenticated, we call `next()` to allow them to access
     the route. If not, we redirect them to the login page.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了一个中间件函数`ensureAuthenticated`，它通过Passport提供的`isAuthenticated`方法检查用户是否已认证。如果用户已认证，我们调用`next()`允许他们访问该路由。如果没有认证，我们将用户重定向到登录页面。
 - en: You can use this `ensureAuthenticated` middleware in any route that requires
     authentication by simply adding it as a parameter before the
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在任何需要认证的路由中使用这个`ensureAuthenticated`中间件，只需在路由前添加它作为参数即可。
 - en: route handler.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 路由处理器。
 - en: 6.3 Adding Pagination to Blog Posts
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.3 为博客文章添加分页功能
 - en: 'As our blogging application grows, it''s essential to add pagination to handle
     a large number of blog posts efficiently. Let''s implement pagination using the
     `mongoose-paginate-v2` package. Follow these steps:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 随着我们的博客应用的增长，添加分页功能变得至关重要，以高效处理大量博客文章。让我们使用`mongoose-paginate-v2`包来实现分页功能。按照以下步骤进行操作：
 - en: 6.3.1 Install the Package
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.3.1 安装包
 - en: 'Run the following command in your project directory to install the `mongoose-paginate-v2`
     package:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在项目目录中运行以下命令来安装`mongoose-paginate-v2`包：
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 6.3.2 Implement Pagination
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.3.2 实现分页功能
 - en: 'In the model file where you defined the `Post` schema, add the following code
     to enable pagination:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在定义了`Post`模式的模型文件中，添加以下代码以启用分页功能：
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: By adding the `mongoosePaginate` plugin to the schema, you enable pagination
     for the `Post` model.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过将`mongoosePaginate`插件添加到模式中，你为`Post`模型启用了分页功能。
 - en: 6.3.3 Implement Pagination Logic
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6.3.3 实现分页逻辑
 - en: 'In the route where you retrieve blog posts, update the code as follows to implement
     pagination:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在检索博客文章的路由中，按如下方式更新代码以实现分页：
 - en: '[PRE6]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In this code, we retrieve the `page` parameter from the query string (e.g.,
     `?page=2`) and set a default value of 1 if no page is specified. We also define
     the `perPage` variable to specify the number of posts to display per page.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们从查询字符串中获取`page`参数（例如，`?page=2`），如果没有指定页面，则设置默认值为1。我们还定义了`perPage`变量来指定每页显示的文章数量。
 - en: Using the `paginate` method provided by the `mongoose-paginate-v2` plugin, we
     pass an empty object to retrieve all blog posts. We also provide the `page` and
     `limit` options to specify the current page number and the number of posts per
     page, respectively.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用`mongoose-paginate-v2`插件提供的`paginate`方法，我们传递一个空对象以获取所有博客文章。我们还提供了`page`和`limit`选项，分别指定当前页码和每页显示的文章数量。
 - en: The paginated result will be returned with information about the current page,
     total pages, and the array of blog posts.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 分页结果将返回当前页面信息、总页数以及博客文章数组。
 - en: 6.4 Summary
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.4 总结
 - en: In this chapter, we focused on enhancing the user interface of our blogging
     application. We added CSS styling to improve the visual appeal, implemented user
     authentication using Passport for added security, and introduced pagination to
     handle a large number of blog posts efficiently.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们集中于增强博客应用的用户界面。我们添加了CSS样式以改善视觉效果，使用Passport实现了用户认证以增强安全性，并引入了分页功能，以高效处理大量博客文章。
 - en: Our application now provides a more engaging and user-friendly experience, allowing
     users to navigate through blog posts, register, log in, and access protected routes.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，我们的应用提供了更具吸引力和用户友好的体验，允许用户浏览博客文章、注册、登录并访问受保护的路由。

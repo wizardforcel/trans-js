@@ -1,345 +1,541 @@
 - en: '| Recipe 71 | Highlighting Sentences Containing a Specific Word |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 71 | 高亮显示包含特定单词的句子 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you aim to add a search feature to your program that highlights all
     sentences in a text containing a specific word. For example, you are comparing
     a translated book to the original text, which uses a word with multiple meanings.
     You need to see not only the word, but the context in which it is used to help
     check that the proper translation was used.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想在程序中添加一个搜索功能，用于高亮显示文本中包含特定单词的所有句子。例如，你正在将一本翻译书与原文进行对比，原文中使用了一个多义词。你需要查看的不仅仅是这个单词本身，还有它所在的上下文，以帮助检查是否使用了正确的翻译。
 - en: While finding the word using regex is relatively straightforward, identifying
     the sentence in which it appears is a bit more challenging. To highlight the sentence
     containing the specified word found in a text, you should write a pattern capable
     of differentiating between one sentence and another.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然使用正则表达式查找单词相对简单，但识别包含该单词的句子要稍微复杂一些。要高亮显示包含指定单词的句子，你需要编写一个能够区分不同句子的模式。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Start with writing the JavaScript component, which comprises two primary functions:
     highlight() and unhighlight(). The highlight() function retrieves the search value
     entered in an HTML input and applies a regex that identifies the sentence encompassing
     the search term. By encasing the matched sentence with <mark></mark> tags, you
     can accomplish your objective:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先编写JavaScript组件，其中包括两个主要功能：highlight()和unhighlight()。highlight()函数获取HTML输入框中输入的搜索值，并应用一个正则表达式，识别包含搜索词的句子。通过将匹配的句子包裹在<mark></mark>标签中，你可以实现目标：
 - en: '[part_3/highlighting_sentences/highlight_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/highlighting_sentences/highlight_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.js)'
 - en: '| 1:  | **const** el = document.querySelector(*"#string"*); |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '| 1:  | **const** el = document.querySelector(*"#string"*); |'
 - en: '| -  |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | **function** highlight() { |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **function** highlight() { |'
 - en: '| -  |  |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| 5:  | *// Get the value of #input* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '| 5:  | *// 获取#input的值* |'
 - en: '| -  | **const** keyword = document.querySelector(*"#input"*).value; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** keyword = document.querySelector(*"#input"*).value; |'
 - en: '| -  |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | *// If the input is empty don''t execute the rest of the function* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 如果输入为空，不执行函数的其余部分* |'
 - en: '| -  | **if**(keyword === *""*) { |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **如果**(keyword === *""*) { |'
 - en: '| 10:  | **return**; |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| 10:  | **return**; |'
 - en: '| -  | } |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| -  | } |'
 - en: '| -  |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | *// Remove any existing highlights from the text* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 从文本中移除任何现有的高亮显示* |'
 - en: '| -  | unhighlight(); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| -  | unhighlight(); |'
 - en: '| 15:  |  |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| 15:  |  |'
 - en: '| -  | *// Construct a regular expression* |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 构造一个正则表达式* |'
 - en: '| -  | **const** re = **new** RegExp(*`([^.!?]*\\b*${keyword}*\\b[^.!?]*.?)`*,
     *"gi"*); |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** re = **new** RegExp(*`([^.!?]*\\b*${keyword}*\\b[^.!?]*.?)`*,
+    *"gi"*); |'
 - en: '| -  |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | *// Wrap each sentence in a pair of <mark></mark> tags* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 将每个句子用一对<mark></mark>标签包裹* |'
 - en: '| 20:  | el.innerHTML = el.innerHTML.replace(re,*"<mark>$1</mark>"*); |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 20:  | el.innerHTML = el.innerHTML.replace(re,*"<mark>$1</mark>"*); |'
 - en: '| -  | } |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| -  | } |'
 - en: '| -  |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | **function** unhighlight() { |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **function** unhighlight() { |'
 - en: '| -  |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| 25:  | *// Construct a regex that matches <mark> and </mark> tags* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 25:  | *// 构建一个正则表达式，用于匹配 <mark> 和 </mark> 标签* |'
 - en: '| -  | **const** re = */<**\/?**mark>/g*; |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** re = */<**\/?**mark>/g*; |'
 - en: '| -  |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | *// Remove tags by replacing each tag with an empty string* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 通过将每个标签替换为空字符串来移除标签* |'
 - en: '| -  | el.innerHTML = el.innerHTML.replace(re, *""*); |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| -  | el.innerHTML = el.innerHTML.replace(re, *""*); |'
 - en: '| 30:  | } |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| 30:  | } |'
 - en: '| -  |  |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | document.querySelector(*"#highlight"*).addEventListener(*"click"*, highlight);
     |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| -  | document.querySelector(*"#highlight"*).addEventListener(*"click"*, highlight);
+    |'
 - en: '| -  | document.querySelector(*"#unhighlight"*).addEventListener(*"click"*,
     unhighlight); |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| -  | document.querySelector(*"#unhighlight"*).addEventListener(*"click"*,
+    unhighlight); |'
 - en: 'Now, create two HTML buttons: one to initiate highlighting and another to reverse
     the effect. You also need an input field to type in a search keyword:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，创建两个 HTML 按钮：一个用于启动高亮显示，另一个用于反转效果。你还需要一个输入字段来输入搜索关键词：
 - en: '|   | <button id=*"highlight"*>Highlight All<*/button***>** |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | <button id=*"highlight"*>高亮显示全部<*/button***>** |'
 - en: '|   | <button id=*"unhighlight"*>Unhighlight<*/button***>** |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | <button id=*"unhighlight"*>取消高亮<*/button***>** |'
 - en: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
 - en: 'The input element has a default value of “crocodiles.” If you don’t want any
     text to appear in the input when the page loads, you can remove the value property.
     To keep things simple, let’s limit the text we want to search to a few sentences:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 输入元素的默认值是“鳄鱼”。如果你不希望页面加载时输入框中显示任何文本，可以删除值属性。为了简单起见，我们将要搜索的文本限制为几句话：
 - en: '[part_3/highlighting_sentences/highlight_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.xhtml)'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/highlighting_sentences/highlight_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_sentences/highlight_ex1.xhtml)'
 - en: '|   | *<!doctype html>* |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | *<!doctype html>* |'
 - en: '|   | <html lang=*"en-us"*> |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | <html lang=*"en-us"*> |'
 - en: '|   | <head> |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | <head> |'
 - en: '|   | <meta charset=*"utf-8"*> |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta charset=*"utf-8"*> |'
 - en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
     |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
+    |'
 - en: '|   | <script src=*"highlight_ex1.js"* defer></script> |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | <script src=*"highlight_ex1.js"* defer></script> |'
 - en: '|   | </head> |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | </head> |'
 - en: '|   | <body> |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | <body> |'
 - en: '|   | <p id=*"string"*> |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | <p id=*"string"*> |'
 - en: '|   | Crocodiles are like giant lizards with a serious attitude problem. They''re
     |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | 鳄鱼就像巨大的蜥蜴，有着严重的态度问题。它们是'
 - en: '|   | like the grumpy old men of the animal kingdom, constantly scowling and
     |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | 就像动物王国中的暴躁老头，永远皱着眉头和 |'
 - en: '|   | grunting like they''ve got a bad case of indigestion. But despite their
     |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | 发出类似胃部不适的咕噜声。但尽管它们看起来 |'
 - en: '|   | intimidating demeanor, crocodiles do have a soft side. Just try playing
     |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | 尽管鳄鱼给人一种威严的印象，但它们也有柔软的一面。只要试着和它们玩玩 |'
 - en: '|   | them some smooth jazz or offering them a plate of freshly baked cookies
     |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | 给它们放一些平滑的爵士乐，或者给它们端上一盘新鲜出炉的饼干 |'
 - en: '|   | —they''ll be putty in your hands. All in all, crocodiles are just |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | —它们会变得听从你指挥。总的来说，鳄鱼其实就是 |'
 - en: '|   | misunderstood creatures in need of a little love and a good chiropractor.
     |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | 被误解的生物，需要一点爱和一个好的脊椎按摩师。 |'
 - en: '|   | </p> |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | </p> |'
 - en: '|   |  |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | <button id=*"highlight"*>Highlight All</button> |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | <button id=*"highlight"*>高亮全部</button> |'
 - en: '|   | <button id=*"unhighlight"*>Unhighlight</button> |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | <button id=*"unhighlight"*>取消高亮</button> |'
 - en: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input id=*"input"* type=*"text"* value=*"crocodiles"*> |'
 - en: '|   | </body> |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | </body> |'
 - en: '|   |  |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | </html> |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | </html> |'
 - en: Fantastic! The code now highlights every sentence in the text that includes
     a particular term.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 太棒了！现在代码能够高亮显示文本中包含特定词汇的每个句子。
 - en: Discussion
+  id: totrans-71
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In the JavaScript code, we define two functions and two event listeners. The
     first function, highlight(), is executed when the user clicks the “highlight”
     button. Inside the function, we first retrieve the user’s input value and store
     it in a variable called keyword. If the input is empty, we terminate the function
     without doing anything. If the input is not empty, we call unhighlight() to remove
     any existing highlights in the HTML element.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 在JavaScript代码中，我们定义了两个函数和两个事件监听器。第一个函数`highlight()`会在用户点击“highlight”按钮时执行。在函数内部，我们首先获取用户输入的值，并将其存储在一个名为`keyword`的变量中。如果输入为空，我们会终止函数并不做任何操作。如果输入不为空，我们调用`unhighlight()`来移除HTML元素中现有的高亮。
 - en: Next, we create a regex pattern that matches any sentence containing the keyword.
     We use the negated character class [^.!?] to match a single character that is
     not a dot, exclamation point, or question mark. This allows us to differentiate
     between one sentence and another. If you want the pattern to identify sentences
     that end with other punctuation marks, such as a colon, you can include them in
     the character class.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们创建一个正则表达式模式，用于匹配包含关键字的句子。我们使用否定字符类[^.!?]来匹配一个不是句点、感叹号或问号的单个字符。这使我们能够区分一个句子与另一个句子。如果你希望该模式识别以其他标点符号结尾的句子，例如冒号，你可以将它们包括在字符类中。
 - en: Notice Line 17, where we create an instance of the RegExp object instead of
     a regular expression literal. This is essential because we want to dynamically
     insert the text from the HTML input into the regex pattern. We also need to use
     backticks to delimit the pattern instead of double or single quotes. Without backticks,
     the ${keyword} placeholder wouldn’t function as intended.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意第17行，我们在这里创建了一个RegExp对象实例，而不是使用正则表达式字面量。这一点至关重要，因为我们希望动态地将HTML输入框中的文本插入到正则表达式模式中。我们还需要使用反引号来限定模式，而不是双引号或单引号。如果没有反引号，${keyword}占位符将无法按预期工作。
 - en: Pay attention to the presence of the backslash before the word boundary (\b).
     Because we’re using the word boundary in a RegExp object, it’s necessary to escape
     it with a backslash.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意单词边界（\b）前面有一个反斜杠。因为我们在正则表达式对象中使用了单词边界，所以需要用反斜杠对其进行转义。
 - en: 'The following is how the regex engine perceives the pattern:'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是正则表达式引擎如何理解该模式：
 - en: '|   | ([^.!?]*\\b${keyword}\\b[^.!?]*.?) |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | ([^.!?]*\\b${keyword}\\b[^.!?]*.?) |'
 - en: '|   |  |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● ([^.!?]*\\b${keyword}\\b[^.!?]*.?) 1st capturing group |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● ([^.!?]*\\b${keyword}\\b[^.!?]*.?) 第一个捕获组 |'
 - en: '|   | ○ [^.!?] matches any character that isn''t ., !, or ? |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ [^.!?] 匹配不是.、! 或 ? 的任何字符 |'
 - en: '|   | ○ * matches zero or more sequences of the preceding item |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前面项的零个或多个序列 |'
 - en: '|   | ○ \\b asserts a word boundary |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \\b 表示一个单词边界 |'
 - en: '|   | ○ ${keyword} inserts the value of the keyword constant into the pattern
     |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ${keyword} 将关键字常量的值插入到模式中 |'
 - en: '|   | ○ \\b asserts a word boundary |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \\b 表示一个单词边界 |'
 - en: '|   | ○ [^.!?] matches any character that isn''t ., !, or ? |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ [^.!?] 匹配不是.、! 或 ? 的任何字符 |'
 - en: '|   | ○ * matches zero or more sequences of the preceding item |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前面项的零个或多个序列 |'
 - en: '|   | ○ . matches any character that''s not a line break character |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ . 匹配任何非换行符的字符 |'
 - en: '|   | ○ ? matches zero or one occurrence of the preceding item |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前面项的零次或一次出现 |'
 - en: '|   | ● Flags |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ g tells the regex engine to match all occurrences rather than stopping
     |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g 告诉正则表达式引擎匹配所有出现的项，而不是停止 |'
 - en: '|   | after the first match |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '|   | 在第一次匹配之后 |'
 - en: '|   | ○ i makes the search case-insensitive |'
+  id: totrans-92
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ i 使搜索不区分大小写 |'
 - en: At the end of the function, we use the replace() method to replace all matches
     of the pattern with the matched string surrounded by <mark></mark>. There are
     various ways in HTML to denote text that holds significance. In this case, we
     have opted for the <mark> element, which instructs the web browser to emphasize
     the enclosed text by highlighting it in yellow.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 在函数的末尾，我们使用replace()方法将所有匹配模式的结果替换为被<mark></mark>标签包围的匹配字符串。在HTML中，有多种方式来标示具有重要意义的文本。在这个例子中，我们选择了<mark>元素，它指示网页浏览器通过将文本高亮显示为黄色来强调包围其中的文本。
 - en: The second function, unhighlight(), is called when the user clicks the “unhighlight”
     button. It simply creates a regex pattern that matches any <mark> or </mark> tags
     in the HTML, and then removes those tags using the replace() method. The last
     two lines of code add the respective event listeners to the “highlight” and “unhighlight”
     buttons. When each button is clicked, the corresponding function is executed.
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个函数`unhighlight()`是在用户点击“取消高亮”按钮时调用的。它仅仅创建一个正则表达式模式，用来匹配 HTML 中的任何<mark>或</mark>标签，然后使用replace()方法移除这些标签。代码的最后两行为“高亮”和“取消高亮”按钮添加了相应的事件监听器。当每个按钮被点击时，相应的函数将被执行。
 - en: Being cautious while using the input submitted by the user in your regex is
     crucial. If you don’t verify the input, your program could become vulnerable to
     a potential attack known as ReDoS. To learn about safeguarding your application
     from such attacks, see Recipe 66, [*Escaping a String for Use in a Regex*](f_0078.xhtml#rcp.escaping_metacharacters).
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用用户提交的输入进行正则表达式处理时，保持谨慎非常重要。如果你没有验证输入，程序可能会受到一种叫做ReDoS的潜在攻击。要了解如何保护你的应用免受此类攻击，请参阅配方66，[*在正则表达式中使用字符串的转义*](f_0078.xhtml#rcp.escaping_metacharacters)。

@@ -1,290 +1,455 @@
 - en: '| Recipe 55 | Validating Password Strength |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 55 | 验证密码强度 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose your task is to check whether the passwords entered by users when signing
     up for a user account on your website are resistant to guessing or brute-force
     attacks. Usually, companies establish a password policy that outlines the criteria
     for creating and using passwords, which set requirements such as:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是检查用户在注册网站用户账户时输入的密码是否能够抵御猜测或暴力破解攻击。通常，公司会建立一项密码策略，概述密码创建和使用的标准，要求包括：
 - en: Having a minimum length of 8 characters or more
+  id: totrans-3
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 密码至少需要有 8 个字符或更多
 - en: Containing both uppercase and lowercase letters
+  id: totrans-4
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包含大小写字母
 - en: Containing one or more numerical digits
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包含一个或多个数字
 - en: 'Containing special characters like @, #, $, etc'
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包含特殊字符，如 @、#、$ 等
 - en: Forbidding words listed in the password blocklist
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 禁止使用密码黑名单中的词语
 - en: Forbidding words related to the user’s personal information
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 禁止使用与用户个人信息相关的词语
 - en: Forbidding the use of the company name or its abbreviation
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 禁止使用公司名称或其缩写
 - en: Forbidding passwords that match the date of birth, license plate number, phone
     number, or other frequently used numbers
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 禁止使用与出生日期、车牌号码、电话号码或其他常用数字匹配的密码
 - en: The specific guidelines for usage can vary significantly depending on the business
     and system. So, this recipe provides a variety of regexes that you can use as
     building blocks to create customized validation rules according to your needs.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用的具体指南可能会根据业务和系统的不同而显著变化。因此，本示例提供了多种正则表达式，可以作为构建块，根据需要创建定制的验证规则。
 - en: For matching non-English characters/digits, use the Unicode variants represented
     by \p{…} along with the u flag.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于匹配非英文字符/数字，请使用 Unicode 变体（由 \p{…} 表示）并带上 u 标志。
 - en: Solution
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Containing at least one ASCII uppercase letter (recall that (?= ...) is a positive
     lookahead):'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 ASCII 大写字母（回顾一下 (?= ...) 是正向先行断言）：
 - en: '|   | (?=.*[A-Z]) |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*[A-Z]) |'
 - en: 'Containing at least one Unicode uppercase letter:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 Unicode 大写字母：
 - en: '|   | (?=.*\p{Uppercase}) |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*\p{Uppercase}) |'
 - en: '| \p{...} Requires a Flag |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| \p{...} 需要一个标志 |'
 - en: '| --- |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Don’t
     forget to use the u flag when matching Unicode characters. |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | 别忘了在匹配
+    Unicode 字符时使用 u 标志。 |'
 - en: 'Containing at least one ASCII lowercase letter:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 ASCII 小写字母：
 - en: '|   | (?=.*[a-z]) |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*[a-z]) |'
 - en: 'Containing at least one Unicode lowercase letter:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 Unicode 小写字母：
 - en: '|   | (?=.*\p{Lowercase}) |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*\p{Lowercase}) |'
 - en: 'Containing at least one Unicode alphabet:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 Unicode 字母：
 - en: '|   | (?=.*\p{Alphabetic}) |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*\p{Alphabetic}) |'
 - en: 'Containing at least one digit:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个数字：
 - en: '|   | (?=.*\d) |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*\d) |'
 - en: 'Containing at least one Unicode digit:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含至少一个 Unicode 大写字母：
 - en: '|   | (?=.*\p{Number}) |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*\p{Number}) |'
 - en: 'Containing ASCII printable characters only:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅包含 ASCII 可打印字符：
 - en: '|   | (?=.*[ -~]) |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*[ -~]) |'
 - en: '| What Are ASCII Printable Characters? |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 什么是 ASCII 可打印字符？ |'
 - en: '| --- |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | ASCII printable
     characters consist of 95 characters that you can find on your QWERTY keyboard.^([[34]](f_0087.xhtml#FOOTNOTE-34))
     (?=.*[ -~]) would match all ASCII printable characters from the space to the tilde,
     excluding the Delete character. |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | ASCII可打印字符由95个字符组成，你可以在QWERTY键盘上找到它们。^([[34]](f_0087.xhtml#FOOTNOTE-34))
+    (?=.*[ -~]) 将匹配所有从空格到波浪号的ASCII可打印字符，排除删除字符。 |'
 - en: 'Containing one or more ASCII punctuations or spaces:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含一个或多个ASCII标点符号或空格：
 - en: '|   | (?=.*[ !"#$%&''()*+,\-./:;<=>?@[\\\]^_`{&#124;}~]) |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*[ !"#$%&''()*+,\-./:;<=>?@[\\\]^_`{&#124;}~]) |'
 - en: 'Containing anything other than ASCII letters and numbers:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含除了ASCII字母和数字以外的任何字符：
 - en: '|   | (?=.*[^A-Za-z0-9]) |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.*[^A-Za-z0-9]) |'
 - en: 'Requiring a length of at least 8 characters:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 要求最少8个字符：
 - en: '|   | (?=.{8,}) |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.{8,}) |'
 - en: 'Requiring a length of at least 8 characters and a maximum of 32 characters:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 要求最少8个字符，最多32个字符：
 - en: '|   | (?=.{8,32}) |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=.{8,32}) |'
 - en: 'Containing two or more digits/letters:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含两个或更多的数字/字母：
 - en: '|   | (?=(.*[a-z]){2,}) // at least 2 lowercase ASCII letters |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=(.*[a-z]){2,}) // 至少2个小写ASCII字母 |'
 - en: '|   | (?=(.*[A-Z]){2,}) // at least 2 uppercase ASCII letters |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=(.*[A-Z]){2,}) // 至少2个大写ASCII字母 |'
 - en: '|   | (?=(.*[0-9]){2,}) // at least 2 ASCII digits |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | (?=(.*[0-9]){2,}) // 至少2个ASCII数字 |'
 - en: You can also use this technique to require multiple punctuations, Unicode characters,
     and so on.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以使用这种技巧来要求多个标点符号、Unicode字符等等。
 - en: 'Example: minimum eight characters, one ASCII letter, and one special character:'
+  id: totrans-49
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 示例：最少八个字符，一个ASCII字母和一个特殊字符：
 - en: '[part_3/validating_passwords/pass_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex1.js)'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_passwords/pass_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex1.js)'
 - en: '|   | **let** re = */^**(?=**.***[**A-Za-z**])(?=**.***[* *!"#$%&''()*+,**\-**.**/**:;<=>?@[**\\\]**^_`{&#124;}~**])**.**{8,}**$/*;
     |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** re = */^**(?=**.***[**A-Za-z**])(?=**.***[* *!"#$%&''()*+,**\-**.**/**:;<=>?@[**\\\]**^_`{&#124;}~**])**.**{8,}**$/*;
+    |'
 - en: '|   |  |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"abcdefgh"*); *// → false* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"abcdefgh"*); *// → false* |'
 - en: '|   | re.test(*"A7#cdefgh"*); *// → true* |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"A7#cdefgh"*); *// → true* |'
 - en: 'Example: minimum eight characters, two Unicode digits, and two Unicode alphabets:'
+  id: totrans-55
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 示例：最少八个字符，两个Unicode数字和两个Unicode字母：
 - en: '[part_3/validating_passwords/pass_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex2.js)'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_passwords/pass_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex2.js)'
 - en: '|   | **let** re = */^**(?=(**.***\p**{Alphabetic}**){2,})(?=(**.***\p**{Number}**){2,})**.**{8,}**$/*u;
     |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** re = */^**(?=(**.***\p**{Alphabetic}**){2,})(?=(**.***\p**{Number}**){2,})**.**{8,}**$/*u;
+    |'
 - en: '|   |  |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"a7bcdefgh"*); *// → false* |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a7bcdefgh"*); *// → false* |'
 - en: '|   | re.test(*"a77bcdefg"*); *// → true* |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a77bcdefg"*); *// → true* |'
 - en: 'Example: forbidding words listed in a password blocklist:'
+  id: totrans-61
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 示例：禁止密码中列出的单词：
 - en: 'While you can use regex to accomplish this task, JavaScript already offers
     a built-in method that streamlines the process:'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然你可以使用正则表达式来完成这项任务，但 JavaScript 已经提供了一种内置方法，可以简化这个过程：
 - en: '[part_3/validating_passwords/pass_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex3.js)'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_passwords/pass_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_passwords/pass_ex3.js)'
 - en: '|   | **let** blocklist = [*"asdasd"*, *"qwerty"*, *"password"*, *"abc123"*,
     *"qwerty123"*, |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** blocklist = [*"asdasd"*, *"qwerty"*, *"password"*, *"abc123"*,
+    *"qwerty123"*, |'
 - en: '|   | *"iloveyou"*, *"football"*, *"princess"*, *"superman"*, *"computer"*];
     |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"iloveyou"*, *"football"*, *"princess"*, *"superman"*, *"computer"*];
+    |'
 - en: '|   |  |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **let** pass = *"superman"*; |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** pass = *"superman"*; |'
 - en: '|   |  |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | blocklist.includes(pass); *// → true* |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | blocklist.includes(pass); *// → true* |'
 - en: '| Allowing Multiline Passwords |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '| 允许多行密码 |'
 - en: '| --- |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | To ensure that
     your regex works correctly for complicated passwords containing line breaks, use
     the s flag (see Recipe 42, [*Forcing . to Match Newline Characters with the s
     Flag*](f_0053.xhtml#rcp.flag_s)). |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 为确保你的正则表达式在处理包含换行符的复杂密码时能正常工作，请使用
+    s 标志（参见配方 42，[*强制 . 匹配换行符的 s 标志*](f_0053.xhtml#rcp.flag_s)）。 |'
 - en: Discussion
+  id: totrans-73
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Users tend to select uncomplicated or commonly used passwords that are easy
     to recall. Surprisingly, some people are still using “123456” and “password” as
     their password, which means they are easy to hack. As a result, it’s often necessary
     to safeguard users from choosing easy-to-guess passwords by implementing minimum
     password complexity requirements.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 用户倾向于选择简单或常用的密码，这些密码容易记住。令人惊讶的是，一些人仍在使用“123456”和“password”作为他们的密码，这意味着他们很容易被破解。因此，通常有必要通过实施最小密码复杂度要求来防止用户选择容易猜测的密码。
 - en: We structured each validation rule of this recipe into its own lookahead group.
     Without lookahead, you’d need to use multiple regex patterns or iterate over the
     string multiple times to check for all the required conditions, which can be less
     efficient and harder to maintain.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将每个验证规则都结构化为独立的前瞻组。如果没有前瞻，你将需要使用多个正则表达式模式，或者多次遍历字符串来检查所有需要的条件，这样不仅效率较低，而且难以维护。
 - en: Lookaheads allow you to check for the conditions without actually advancing
     the position of the regex engine in the string, so each test runs from the start
     of the string. Once a lookahead succeeds, the regex engine then moves on to test
     the next lookahead from the same position. If a lookahead fails to find a match,
     the entire match fails as a result.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 前瞻允许你检查条件，而不实际推进正则引擎在字符串中的位置，因此每个测试都从字符串的起始位置开始。一旦前瞻成功，正则引擎会继续从相同的位置测试下一个前瞻。如果前瞻未能找到匹配项，则整个匹配会失败。
 - en: To search for a pattern, each lookahead has a “.*”, which means that the character
     type being sought can appear anywhere in the string, not just at the beginning.
     With the technique illustrated here, you can include multiple password tests in
     a single regex.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 要搜索一个模式，每个前瞻都有一个“.*”，这意味着要查找的字符类型可以出现在字符串中的任何位置，而不仅仅是在开头。通过这里展示的技巧，你可以在单个正则表达式中包含多个密码测试。
 - en: Remember, it’s important to validate form input with both client-side and server-side
     scripts. Client-side validation can provide immediate feedback to the user and
     can prevent errors from being submitted to the server. But, this type of validation
     can be bypassed or manipulated by users, either intentionally or unintentionally,
     and so cannot be relied upon as the only form of validation.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 记住，验证表单输入时，客户端和服务器端脚本都很重要。客户端验证可以为用户提供即时反馈，并防止错误数据提交到服务器。但这种类型的验证可能被用户绕过或操控，无论是故意还是无意的，因此不能仅依赖它作为唯一的验证方式。

@@ -1,308 +1,496 @@
 - en: '| Recipe 9 | Intersecting HTML Tables with filter() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 9 | 使用 filter() 交集 HTML 表格 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Task
 - en: Let’s say you have a sports app that displays statistics and scores. You have
     two objects and want to find properties that exist in both objects simultaneously.
     Your first object contains a list of national teams that have won the FIFA World
     Cup along with the total number of wins. Your second object includes similar information
     about the UEFA European Football Championship.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个显示统计数据和比分的体育应用。你有两个对象，并且想要找到同时存在于两个对象中的属性。第一个对象包含了赢得 FIFA 世界杯的国家队及其总冠军次数。第二个对象则包含了关于
+    UEFA 欧洲足球锦标赛的类似信息。
 - en: You want to create an HTML table that lists the intersection of the two objects,
     that is, a table of teams that have won at least one cup in both competitions.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你想创建一个 HTML 表格，列出两个对象的交集，即列出在两个比赛中至少获得过一次冠军的队伍的表格。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Solution
 - en: 'The first step is to create an HTML table. You can delegate this task to JavaScript,
     but let’s keep it simple by having an HTML structure in place and using JavaScript
     to insert information into the table:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一步是创建一个 HTML 表格。你可以将这项任务委托给 JavaScript，但让我们保持简单，先设置好 HTML 结构，再使用 JavaScript
+    向表格中插入信息：
 - en: '[part_1/intersecting_tables/filter_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.xhtml)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/intersecting_tables/filter_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.xhtml)'
 - en: '|   | <table id=*"national_teams"*> |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | <table id=*"national_teams"*> |'
 - en: '|   | <thead> |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | <thead> |'
 - en: '|   | <tr> |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | <tr> |'
 - en: '|   | <th>Country</th> |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | <th>国家</th> |'
 - en: '|   | <th>UEFA Wins</th> |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | <th>UEFA 获胜次数</th> |'
 - en: '|   | <th>FIFA Wins</th> |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | <th>FIFA 获胜次数</th> |'
 - en: '|   | </tr> |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | </tr> |'
 - en: '|   | </thead> |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | </thead> |'
 - en: '|   | <tbody></tbody> |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | <tbody></tbody> |'
 - en: '|   | </table> |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | </table> |'
 - en: 'Now create two objects: one for FIFA champions and one for UEFA champions,
     like this:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在创建两个对象：一个用于 FIFA 冠军，另一个用于 UEFA 冠军，如下所示：
 - en: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
 - en: '|   | **const** FIFAChamps = { |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** FIFAChamps = { |'
 - en: '|   | *"Brazil"*: 5, |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"巴西"*: 5, |'
 - en: '|   | *"Germany"*: 4, |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"德国"*: 4, |'
 - en: '|   | *"Italy"*: 4, |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"意大利"*: 4, |'
 - en: '|   | *"Argentina"*: 2, |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"阿根廷"*: 2, |'
 - en: '|   | *"France"*: 2, |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"法国"*: 2, |'
 - en: '|   | *"Uruguay"*: 2, |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"乌拉圭"*: 2, |'
 - en: '|   | *"Spain"*: 1, |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"西班牙"*: 1, |'
 - en: '|   | *"England"*: 1 |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"英格兰"*: 1 |'
 - en: '|   | }; |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | }; |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** UEFAChamps = { |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** UEFAChamps = { |'
 - en: '|   | *"Germany"*: 3, |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"德国"*: 3, |'
 - en: '|   | *"Spain"*: 3, |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"西班牙"*: 3, |'
 - en: '|   | *"Italy"*: 2, |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"意大利"*: 2, |'
 - en: '|   | *"France"*: 2, |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"法国"*: 2, |'
 - en: '|   | *"Russia"*: 1, |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"俄罗斯"*: 1, |'
 - en: '|   | *"Czech Republic"*: 1, |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"捷克共和国"*: 1, |'
 - en: '|   | *"Portugal"*: 1, |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"葡萄牙"*: 1, |'
 - en: '|   | *"Netherlands"*: 1, |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"荷兰"*: 1, |'
 - en: '|   | *"Denmark"*: 1, |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"丹麦"*: 1, |'
 - en: '|   | *"Greece"*: 1 |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *"希腊"*: 1 |'
 - en: '|   | }; |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | }; |'
 - en: To perform an intersection, obtain the keys of the first object with Object.keys()^([[8]](f_0032.xhtml#FOOTNOTE-8))
     and then check which keys are present in the second object with filter():^([[9]](f_0032.xhtml#FOOTNOTE-9))
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了执行交集操作，使用 Object.keys() 获取第一个对象的键^([[8]](f_0032.xhtml#FOOTNOTE-8))，然后使用 filter()
+    检查哪些键在第二个对象中存在^([[9]](f_0032.xhtml#FOOTNOTE-9))。
 - en: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/intersecting_tables/filter_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex1.js)'
 - en: '|   | **function** getIntersection(obj1, obj2) { |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getIntersection(obj1, obj2) { |'
 - en: '|   | **return** Object.keys(obj1).filter(key => { |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** Object.keys(obj1).filter(key => { |'
 - en: '|   | **return** key **in** obj2; |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** key **in** obj2; |'
 - en: '|   | }); |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | } |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// This constant will hold an array containing the keys of intersection*
     |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 这个常量将保存一个包含交集键的数组* |'
 - en: '|   | **const** intersection = getIntersection(FIFAChamps, UEFAChamps); |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** intersection = getIntersection(FIFAChamps, UEFAChamps); |'
 - en: '|   |  |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Get a reference to the body of the table* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 获取表格主体的引用* |'
 - en: '|   | **const** tbody = document.querySelector(*"#national_teams tbody"*);
     |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** tbody = document.querySelector(*"#national_teams tbody"*);
+    |'
 - en: '|   |  |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | intersection.forEach(elem => { |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | intersection.forEach(elem => { |'
 - en: '|   | **const** row = tbody.insertRow(); |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** row = tbody.insertRow(); |'
 - en: '|   | **const** cell1 = row.insertCell(0); |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** cell1 = row.insertCell(0); |'
 - en: '|   | **const** cell2 = row.insertCell(1); |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** cell2 = row.insertCell(1); |'
 - en: '|   | **const** cell3 = row.insertCell(2); |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** cell3 = row.insertCell(2); |'
 - en: '|   | cell1.textContent = elem; |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | cell1.textContent = elem; |'
 - en: '|   | cell2.textContent = UEFAChamps[elem]; |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | cell2.textContent = UEFAChamps[elem]; |'
 - en: '|   | cell3.textContent = FIFAChamps[elem]; |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | cell3.textContent = FIFAChamps[elem]; |'
 - en: '|   | }); |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: 'Once you get the intersection of the two objects, loop over the properties,
     and each time through the loop, insert the team, UEFA wins, and FIFA wins into
     the first, second, and third cell, respectively. Here, we’re using JavaScript’s
     built-in methods, including insertRow() and insertCell(), to create table rows
     and cells, but you can use string literals too. Here’s the result after applying
     some basic CSS styling:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦你得到两个对象的交集，遍历这些属性，每次遍历时将队伍、UEFA 胜利和 FIFA 胜利分别插入到第一、第二和第三个单元格中。在这里，我们使用了 JavaScript
+    的内置方法，包括 insertRow() 和 insertCell()，来创建表格行和单元格，但你也可以使用字符串字面量。这里是应用一些基本 CSS 样式后的结果：
 - en: '![images/filter_ex1.png](images/filter_ex1.png)'
+  id: totrans-66
   prefs: []
   type: TYPE_IMG
+  zh: '![images/filter_ex1.png](images/filter_ex1.png)'
 - en: The table lists only countries that exist in both objects simultaneously.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 表格只列出了同时存在于两个对象中的国家。
 - en: Discussion
+  id: totrans-68
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The filter() method takes a function as an argument and executes it for each
     element of an array—similar to forEach() and map(). The function you supply should
     be a predicate (a function that returns true or false). filter() will add an element
     to the resulting array only if the return value of your predicate is true.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: filter() 方法接受一个函数作为参数，并对数组的每个元素执行该函数——类似于 forEach() 和 map()。你提供的函数应该是一个谓词（即返回
+    true 或 false 的函数）。只有当谓词的返回值为 true 时，filter() 才会将元素添加到结果数组中。
 - en: 'When using the filter() method in JavaScript, it’s important to remember that
     it skips over any missing elements in arrays. For example, if you have an array
     with gaps such as [0, 1, , , 4, , 6], you can take advantage of filter() to get
     rid of the missing elements like this:'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中使用 filter() 方法时，重要的是要记住它会跳过数组中的任何缺失元素。例如，如果你有一个带有缺口的数组，比如 [0,
+    1, , , 4, , 6]，你可以利用 filter() 来去除这些缺失的元素，方法如下：
 - en: '|   | **const** sparseArr = [0, 1, , , 4, , 6]; |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** sparseArr = [0, 1, , , 4, , 6]; |'
 - en: '|   | sparseArr.filter(() => **true**); *// → [ 0, 1, 4, 6 ]* |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   | sparseArr.filter(() => **true**); *// → [ 0, 1, 4, 6 ]* |'
 - en: Here we use an arrow function that always returns true. Since filter() skips
     gaps, the new array won’t be sparse.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里我们使用了一个始终返回 true 的箭头函数。由于 filter() 会跳过缺口，新的数组就不会是稀疏的。
 - en: 'If your array also has undefined and null elements, you can remove them with
     filter() too:'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你的数组中还有 undefined 和 null 元素，你也可以通过 filter() 将它们移除：
 - en: '|   | **const** sparseArr = [0, 1, , **null**, 4, **undefined**, 6]; |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** sparseArr = [0, 1, , **null**, 4, **undefined**, 6]; |'
 - en: '|   | sparseArr.filter(x => x !== **undefined** && x !== **null**); *// → [
     0, 1, 4, 6 ]* |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | sparseArr.filter(x => x !== **undefined** && x !== **null**); *// → [
+    0, 1, 4, 6 ]* |'
 - en: In this code, we use the strict inequality operator (!==) to return true only
     if the element isn’t null or undefined.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们使用严格不等运算符（!==），只有当元素不是 null 或 undefined 时，才返回 true。
 - en: When it comes to performance optimization, you should take into account the
     size of your objects and the number of times you’d need to get their intersection.
     If your first object has 1000 properties and your second object has 50, your code
     will run faster if you get the keys of the object with fewer properties and then
     apply a filter, not the other way around.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 在进行性能优化时，你应该考虑对象的大小以及你需要获取交集的次数。如果你的第一个对象有 1000 个属性，第二个对象有 50 个属性，那么如果你先获取属性较少的对象的键，再应用
+    filter，代码的执行速度会更快，而不是反过来。
 - en: 'With this in mind, let’s rewrite our intersection function:'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 有了这个思路，让我们重写我们的交集函数：
 - en: '[part_1/intersecting_tables/filter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex2.js)'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/intersecting_tables/filter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/intersecting_tables/filter_ex2.js)'
 - en: '| 1:  | **function** getIntersection(obj1, obj2) { |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| 1:  | **function** getIntersection(obj1, obj2) { |'
 - en: '| 2:  | **const** k1 = Object.keys(obj1); |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '| 2:  | **const** k1 = Object.keys(obj1); |'
 - en: '| 3:  | **const** k2 = Object.keys(obj2); |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '| 3:  | **const** k2 = Object.keys(obj2); |'
 - en: '| 4:  | **const** [first, next] = k1.length > k2.length ? [k2, obj1] : [k1,
     obj2]; |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '| 4:  | **const** [first, next] = k1.length > k2.length ? [k2, obj1] : [k1,
+    obj2]; |'
 - en: '| 5:  | **return** first.filter(key => key **in** next); |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '| 5:  | **return** first.filter(key => key **in** next); |'
 - en: '| 6:  | } |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '| 6:  | } |'
 - en: Notice how we used a ternary operator on the right hand of the destructuring
     assignment to compare the length of objects and assign the one with fewer properties
     to first (line 4). Destructuring enables us to extract values and assign them
     to variables using a syntax that is similar to array literals. On the right side
     of the assignment is the data to be destructured. On the left side is the variables
     that will receive the data.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意到我们在解构赋值的右侧使用了三元运算符来比较对象的长度，并将具有较少属性的那个赋值给 `first`（第4行）。解构赋值使我们能够使用类似数组字面量的语法提取值并将其赋给变量。在赋值的右侧是待解构的数据，左侧是将接收这些数据的变量。
 - en: Our function now works faster when dealing with large arrays. But, remember,
     such micro-optimization is helpful only for performance-critical applications.
     In most cases, you’d be okay with the original solution in this recipe.
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的函数在处理大型数组时现在运行更快了。但请记住，这种微优化仅对性能关键的应用程序有帮助。在大多数情况下，使用这个食谱中的原始解决方案也完全可以。

@@ -1,114 +1,176 @@
 - en: '| Recipe 35 | Taking Away the Special Meaning of Replacement Patterns |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 35 | 去除替换模式的特殊含义 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose your task is to add the pricing for different services to a website’s
     blog. More specifically, you need to add the fee for tire replacement at a car
     service center. In your first attempt, you come up with a solution like this:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是将不同服务的定价添加到网站的博客中。更具体地说，你需要添加汽车服务中心换轮胎的费用。在你的第一次尝试中，你提出了如下的解决方案：
 - en: '[part_2/neutralizing_replacement/nrp_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex1.js)'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/neutralizing_replacement/nrp_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex1.js)'
 - en: '|   | **const** str = *"In our shops, tire change takes about 15 minutes."*;
     |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"在我们的商店，换轮胎大约需要 15 分钟。"*; |'
 - en: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$1 (which cost $10 for each tire)"*); |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$1 (每个轮胎收费$10)"*); |'
 - en: '|   | *// → "In our shops, tire change (which cost tire change0 for each tire)*
     |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "在我们的商店，换轮胎（每个轮胎收费$10）* |'
 - en: '|   | *// takes about 15 minutes."* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 大约需要 15 分钟。"* |'
 - en: This regex attempts to find the phrase “tire change” in a string and add the
     cost in parentheses. It uses a special replacement pattern in the form of $1,
     but because the regex treats $10 as a special replacement pattern, the result
     is unusable.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式试图在字符串中找到“换轮胎”短语并在括号中添加费用。它使用了 $1 的特殊替换模式，但由于正则表达式将 $10 视为特殊的替换模式，结果是不可用的。
 - en: You need a solution to take away the special meaning of $1 in $10, which has
     a corresponding capturing group in the pattern, and use the characters literally.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一种方法来去除 $1 在 $10 中的特殊含义，$1 在模式中有一个对应的捕获组，并且需要将字符按字面意义使用。
 - en: Solution
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Escape the dollar sign with another dollar sign:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 用另一个美元符号转义美元符号：
 - en: '[part_2/neutralizing_replacement/nrp_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex2.js)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/neutralizing_replacement/nrp_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex2.js)'
 - en: '|   | **const** str = *"In our shops, tire change takes about 15 minutes."*;
     |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"在我们的商店，换轮胎大约需要 15 分钟。"*; |'
 - en: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$1 (which cost $$10 for each tire)"*); |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$1 (每个轮胎收费$$10)"*); |'
 - en: '|   | *// → "In our shops, tire change (which cost $10 for each tire) takes*
     |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "在我们的商店，换轮胎（每个轮胎收费$10）需要* |'
 - en: '|   | *// about 15 minutes."* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 大约需要 15 分钟。"* |'
 - en: Successful outcome! The dollar sign neutralizes the special meaning of $1, so
     the regex engine recognizes it as literal characters.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功的结果！美元符号中和了 $1 的特殊含义，因此正则表达式引擎将其识别为字面字符。
 - en: Discussion
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'In this recipe, the regex has a single capturing group. But, what happens if
     you try to refer to a group that doesn’t actually exist? If you type $2 in the
     replacement text, it won’t correspond to anything. For example:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，正则表达式有一个捕获组。但是，如果你尝试引用一个实际上不存在的组会发生什么呢？如果你在替换文本中输入$2，它将不会对应任何内容。例如：
 - en: '[part_2/neutralizing_replacement/nrp_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex3.js)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/neutralizing_replacement/nrp_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/neutralizing_replacement/nrp_ex3.js)'
 - en: '|   | **const** str = *"In our shops, tire change takes about 15 minutes."*;
     |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"在我们的商店，轮胎更换大约需要15分钟。"*; |'
 - en: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(**tire change**)\b**/*; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$1 (which cost $20 for each tire)"*); |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$1（每个轮胎需要$20）"*); |'
 - en: '|   | *// → "In our shops, tire change (which cost $20 for each tire) takes*
     |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "在我们的商店，轮胎更换（每个轮胎需要$20）大约需要* |'
 - en: '|   | *// about 15 minutes."* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 15分钟。"* |'
 - en: 'If you use a two-digit reference in the replacement string, the outcome will
     depend on the number of capturing groups in the pattern. If you have ten capturing
     groups and use $10, it refers to the tenth capturing group. If you have fewer
@@ -116,9 +178,14 @@
     group and uses 0 as a literal replacement string. This is what happened in the
     first example in this recipe: “$1” in “cost $10” referenced “tire change” and
     “0” was treated as a literal character.'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你在替换字符串中使用两位数的引用，结果将取决于模式中的捕获组数量。如果你有十个捕获组并使用$10，它将引用第十个捕获组。如果你有更少的捕获组，$10只会使用第一位数字引用第一个捕获组，并将0作为文字替换字符串。这就是本示例中第一个例子的情况：“cost
+    $10”中的“$1”引用了“tire change”，而“0”被当作文字字符处理。
 - en: The takeaway from this recipe is to use $ to neutralize the special meaning
     of a replacement pattern.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 本示例的重点是使用$来中和替换模式的特殊含义。

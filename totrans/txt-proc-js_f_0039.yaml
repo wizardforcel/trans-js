@@ -1,557 +1,892 @@
 - en: '| Recipe 28 | Matching a Range of Characters with Character Classes |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 28 | 使用字符类匹配字符范围 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you’re tasked with searching scanned documents and filtering applicants
     aged between 20 and 40\. The info you need to extract is preceded with “age:”.
     So, your regex pattern should match the word “age,” followed by a colon, followed
     by a space, and followed by a range of numbers between 20 and 40\.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是搜索扫描的文档并筛选出年龄在 20 到 40 岁之间的申请者。你需要提取的信息前面会有“age:”字样。所以，你的正则表达式模式应该匹配“age”这个词，后面跟一个冒号，再跟一个空格，最后是一个
+    20 到 40 之间的数字范围。
 - en: 'With what you’ve learned so far, you could use vertical bars in a pair of parentheses
     to specify the possible matches, like this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据你迄今为止学到的内容，你可以在一对圆括号中使用竖线来指定可能的匹配项，像这样：
 - en: '[part_2/character_class_range/range_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex1.js)'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex1.js)'
 - en: '|   | /Age: (2(0&#124;1&#124;2&#124;3&#124;4&#124;5&#124;6&#124;7&#124;8&#124;9)&#124;3(0&#124;1&#124;2&#124;3&#124;4&#124;5&#124;6&#124;7&#124;8&#124;9)&#124;40)/
     |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | /Age: (2(0&#124;1&#124;2&#124;3&#124;4&#124;5&#124;6&#124;7&#124;8&#124;9)&#124;3(0&#124;1&#124;2&#124;3&#124;4&#124;5&#124;6&#124;7&#124;8&#124;9)&#124;40)/
+    |'
 - en: But what would you do if you wanted to look for a larger range of numbers? You
     need a better way of defining the range of characters in regex.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，如果你想查找更大的数字范围怎么办？你需要一种更好的方式来定义正则表达式中的字符范围。
 - en: Solution
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a character class and place a hyphen between the range of numbers you’re
     looking for:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用字符类，并在你要查找的数字范围之间放置一个连字符：
 - en: '[part_2/character_class_range/range_ex2_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex2_v1.js)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex2_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex2_v1.js)'
 - en: '|   | **const** re = */Age:* *(**2**[**0-9**]**&#124;3**[**0-9**]**&#124;40**)**/*;
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Age:* *(**2**[**0-9**]**&#124;3**[**0-9**]**&#124;40**)**/*;
+    |'
 - en: '|   |  |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Name: John &#124; Age: 23"*); *// → true* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Name: John &#124; Age: 23"*); *// → true* |'
 - en: '|   | re.test(*"Name: Ana &#124; Age: 54"*); *// → false* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Name: Ana &#124; Age: 54"*); *// → false* |'
 - en: 'When a hyphen appears within a character class, it’s treated as a metacharacter.
     But there’s an exception: if it’s the first or last character in the class, it
     can’t possibly define a range, so it loses its special meaning and is considered
     a normal character.'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 当连字符出现在字符类中时，它会被视为元字符。但有一个例外：如果它是字符类中的第一个或最后一个字符，它就不会定义一个范围，因此它失去其特殊含义，被视为普通字符。
 - en: 'You can even further shrink the pattern like this:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 你甚至可以进一步简化模式，像这样：
 - en: '[part_2/character_class_range/range_ex2_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex2_v2.js)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex2_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex2_v2.js)'
 - en: '|   | **const** re = */Age:* *([**23**][**0-9**]**&#124;40**)**/*; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Age:* *([**23**][**0-9**]**&#124;40**)**/*; |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Name: John &#124; Age: 23"*); *// → true* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Name: John &#124; Age: 23"*); *// → true* |'
 - en: '|   | re.test(*"Name: Ana &#124; Age: 54"*); *// → false* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Name: Ana &#124; Age: 54"*); *// → false* |'
 - en: Here, [23] matches 2 or 3, and [0-9] matches a single digit in the range of
     0 to 9\. Together, they match a number between 20 to 39\. The vertical bar at
     the end tells the engine to either match 20-39 or 40.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，[23] 匹配 2 或 3，[0-9] 匹配范围 0 到 9 内的单个数字。它们共同匹配一个 20 到 39 之间的数字。末尾的竖线告诉引擎要么匹配
+    20-39，要么匹配 40。
 - en: Discussion
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'If your regex involves only verifying a range of digits, you can achieve the
     same result with JavaScript’s built-in methods. Consider the following example:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你的正则表达式仅涉及验证数字范围，你可以通过 JavaScript 内置方法实现相同的效果。参考以下示例：
 - en: '[part_2/character_class_range/range_pure_js.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_pure_js.js)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_pure_js.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_pure_js.js)'
 - en: '|   | **const** str1 = *"Name: John &#124; Age: 23"*; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str1 = *"Name: John &#124; Age: 23"*; |'
 - en: '|   | **const** str2 = *"Name: Ana &#124; Age: 54"*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str2 = *"Name: Ana &#124; Age: 54"*; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** verifyAge(str) { |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** verifyAge(str) { |'
 - en: '|   | **const** index = str.indexOf(*"Age: "*); |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** index = str.indexOf(*"Age: "*); |'
 - en: '|   | **const** endIndex = index + 5; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** endIndex = index + 5; |'
 - en: '|   | **const** age = str.slice(endIndex, endIndex + 2); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** age = str.slice(endIndex, endIndex + 2); |'
 - en: '|   | **if** (age >= 20 && age <= 40) { |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (age >= 20 && age <= 40) { |'
 - en: '|   | **return** **true**; |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** **true**; |'
 - en: '|   | } **else** { |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | **return** **false**; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** **false**; |'
 - en: '|   | } |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | } |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(verifyAge(str1)); *// → true* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(verifyAge(str1)); *// → true* |'
 - en: '|   | console.log(verifyAge(str2)); *// → false* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(verifyAge(str2)); *// → false* |'
 - en: 'This code performs the following steps:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码执行以下步骤：
 - en: 'It finds the index of Age: in the input string'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它在输入字符串中查找 "Age:" 的索引
 - en: 'It adds the length of the substring Age: to the index to get the position of
     the digits'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它将 "Age:" 子字符串的长度加到索引上，以获取数字的位置
 - en: It extracts the digits using the slice() method
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它使用 slice() 方法提取数字
 - en: It then checks if the extracted age is within a valid range using the less than
     or equal (<=) and greater than or equal (>=) operators
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它随后使用小于等于（<=）和大于等于（>=）运算符检查提取的年龄是否在有效范围内。
 - en: Letting JavaScript determine whether a digit is in the range is often less error-prone.
     A common mistake among regex learners is to define double-digit ranges with a
     single-character class. The pattern [12-24] doesn’t match a number between 12
     and 24\. Instead, it matches a “1,” “2,” or “4” (equivalent to [124]).
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 让 JavaScript 来决定一个数字是否在范围内通常能减少错误。正则表达式学习者常犯的一个错误是用单个字符类定义双数字范围。模式 [12-24] 并不会匹配
+    12 到 24 之间的数字，而是匹配字符 “1”、"2" 或 "4"（等同于 [124]）。
 - en: 'Here’s how the regex engine interprets [12-24]:'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是正则引擎如何解析 [12-24]：
 - en: 1 matches the character “1”
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 1 匹配字符 "1"
 - en: 2-2 matches a single character in the range between “2” and “2”
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 2-2 匹配范围“2”到“2”之间的单个字符
 - en: 4 matches the character “4”
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 4 匹配字符“4”
 - en: 'To define a pattern that matches a double-digit range, we’ll need to use two
     character classes and a vertical bar:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 要定义一个匹配双位数范围的模式，我们需要使用两个字符类和一个竖线：
 - en: '[part_2/character_class_range/range_ex3_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex3_v1.js)'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex3_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex3_v1.js)'
 - en: '|   | **const** re = */1**[**2-9**]**&#124;2**[**0-4**]**/*; |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */1**[**2-9**]**&#124;2**[**0-4**]**/*; |'
 - en: '|   |  |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"10"*); *// → false* |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"10"*); *// → false* |'
 - en: '|   | re.test(*"15"*); *// → true* |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"15"*); *// → true* |'
 - en: '|   | re.test(*"24"*); *// → true* |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"24"*); *// → true* |'
 - en: '|   | re.test(*"25"*); *// → false* |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"25"*); *// → false* |'
 - en: '|   | re.test(*"015"*); *// → true* |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"015"*); *// → true* |'
 - en: '|   | re.test(*"240"*); *// → true* |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"240"*); *// → true* |'
 - en: 'Is there anything missing in this pattern? Yes, a pair of word boundaries (\b).
     Without word boundaries, the pattern would also match “015” and “150.” So, to
     match a double-digit range between 12 and 24, our pattern should look like this:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个模式中缺少了什么吗？是的，一对单词边界（\b）。没有单词边界，模式还会匹配“015”和“150”。所以，为了匹配12到24之间的双位数范围，我们的模式应该是这样的：
 - en: '[part_2/character_class_range/range_ex3_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex3_v2.js)'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex3_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex3_v2.js)'
 - en: '|   | **const** re = */**\b**1**[**2-9**]**&#124;2**[**0-4**]\b**/*; |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**1**[**2-9**]**&#124;2**[**0-4**]\b**/*; |'
 - en: '|   |  |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"10"*); *// → false* |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"10"*); *// → false* |'
 - en: '|   | re.test(*"15"*); *// → true* |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"15"*); *// → true* |'
 - en: '|   | re.test(*"24"*); *// → true* |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"24"*); *// → true* |'
 - en: '|   | re.test(*"25"*); *// → false* |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"25"*); *// → false* |'
 - en: '|   | re.test(*"015"*); *// → false* |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"015"*); *// → false* |'
 - en: '|   | re.test(*"240"*); *// → false* |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"240"*); *// → false* |'
 - en: 'The range we define with a hyphen isn’t limited to digits. We can define a
     range of alphabets, too. For example, [a-z] matches any lowercase letter, and
     [A-Z] matches any uppercase letter:'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们用连字符定义的范围不仅限于数字。我们也可以定义字母范围。例如，[a-z] 匹配任何小写字母，[A-Z] 匹配任何大写字母：
 - en: '[part_2/character_class_range/range_ex4_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex4_v1.js)'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex4_v1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex4_v1.js)'
 - en: '|   | **const** re = */Group* *[**A-Z**]**/*; |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Group* *[**A-Z**]**/*; |'
 - en: '|   |  |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Group B"*); *// → true* |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group B"*); *// → true* |'
 - en: '|   | re.test(*"Group 2"*); *// → false* |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group 2"*); *// → false* |'
 - en: 'We can even list multiple ranges, like this:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们甚至可以列出多个范围，像这样：
 - en: '[part_2/character_class_range/range_ex4_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex4_v2.js)'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex4_v2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex4_v2.js)'
 - en: '|   | **const** re = */Group* *[**A-Z0-9**]**/*; |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Group* *[**A-Z0-9**]**/*; |'
 - en: '|   |  |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Group B"*); *// → true* |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group B"*); *// → true* |'
 - en: '|   | re.test(*"Group 2"*); *// → true* |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group 2"*); *// → true* |'
 - en: 'The order in which we specify the ranges doesn’t matter. So, [A-Z0-9] is the
     same as [0-9A-Z]. To list the range of characters we don’t want to be included,
     we can apply a caret (^). If we use /Group [^A-C]/, the class matches “Group”
     followed by a space followed by a character that’s not “A,” “B,” or “C”:'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们指定范围的顺序无关紧要。所以，[A-Z0-9] 与 [0-9A-Z] 是一样的。要列出我们不想包含的字符范围，可以使用插入符号（^）。如果我们使用
+    /Group [^A-C]/，则该类匹配“Group”后跟一个空格，再跟一个不是“A”、“B”或“C”的字符：
 - en: '[part_2/character_class_range/range_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex5.js)'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex5.js)'
 - en: '|   | **const** re = */Group* *[^**A-C**]**/*; |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Group* *[^**A-C**]**/*; |'
 - en: '|   |  |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Group A"*); *// → false* |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group A"*); *// → false* |'
 - en: '|   | re.test(*"Group B"*); *// → false* |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group B"*); *// → false* |'
 - en: '|   | re.test(*"Group C"*); *// → false* |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group C"*); *// → false* |'
 - en: '|   | re.test(*"Group D"*); *// → true* |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group D"*); *// → true* |'
 - en: '|   | re.test(*"Group 5"*); *// → true* |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Group 5"*); *// → true* |'
 - en: Using Predefined Ranges
+  id: totrans-92
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用预定义的范围
 - en: Matching a range of characters is one of the most common tasks in regular expressions.
     For this reason, regex flavors offer special characters as shorthands for matching
     character ranges. Most shorthands comprise a backslash and a character like \d,
     which matches a digit character. The full stop (.) is an exception. It’s the only
     shorthand character class that isn’t preceded by a backslash.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配字符范围是正则表达式中最常见的任务之一。因此，正则表达式的各种变体提供了特殊字符，作为匹配字符范围的简写。大多数简写由反斜杠和一个字符组成，例如 \d，它匹配数字字符。句点（.）是一个例外，它是唯一一个不以反斜杠开头的简写字符类。
 - en: Keep the following list of shorthand character classes bookmarked—they are bound
     to come in handy.
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 保留以下简写字符类列表，以备后用——它们肯定会派上用场。
 - en: Digit Character (\d)
+  id: totrans-95
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 数字字符（\d）
 - en: '\d matches any ASCII digit character, which is equivalent to [0-9]. For example:'
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: \d 匹配任何 ASCII 数字字符，等同于 [0-9]。例如：
 - en: '[part_2/character_class_range/range_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex6.js)'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex6.js)'
 - en: '|   | **const** re = */**\d**/*; |'
+  id: totrans-98
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\d**/*; |'
 - en: '|   |  |'
+  id: totrans-99
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → true* |'
+  id: totrans-100
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → true* |'
 - en: '|   | re.test(*"a"*); *// → false* |'
+  id: totrans-101
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a"*); *// → false* |'
 - en: Word Character (\w)
+  id: totrans-102
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 单词字符（\w）
 - en: '\w matches any ASCII word characters, which is the same as [A-Za-z0-9_]. Keep
     in mind that the underscore is a word character in regex:'
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: \w 匹配任何 ASCII 字符，等同于 [A-Za-z0-9_]。请注意，下划线在正则表达式中是字字符：
 - en: '[part_2/character_class_range/range_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex7.js)'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex7.js)'
 - en: '|   | **const** re = */**\w**/*; |'
+  id: totrans-105
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\w**/*; |'
 - en: '|   |  |'
+  id: totrans-106
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → true* |'
+  id: totrans-107
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → true* |'
 - en: '|   | re.test(*"a"*); *// → true* |'
+  id: totrans-108
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a"*); *// → true* |'
 - en: '|   | re.test(*"_"*); *// → true* |'
+  id: totrans-109
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"_"*); *// → true* |'
 - en: '|   | re.test(*"*"*); *// → false* |'
+  id: totrans-110
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"*"*); *// → false* |'
 - en: Space Character (\s)
+  id: totrans-111
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 空白字符 (\s)
 - en: '\s matches any Unicode whitespace character. For instance:'
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: \s 匹配任何 Unicode 空白字符。例如：
 - en: '[part_2/character_class_range/range_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex8.js)'
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex8.js)'
 - en: '|   | **const** re = */**\s**/*; |'
+  id: totrans-114
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\s**/*; |'
 - en: '|   |  |'
+  id: totrans-115
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → false* |'
+  id: totrans-116
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → false* |'
 - en: '|   | re.test(*" "*); *// → true* |'
+  id: totrans-117
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*" "*); *// → true* |'
 - en: As you’ll see later in this book, an interesting use of \s is to remove duplicate
     whitespaces from a string (see Recipe 62, [*Removing Duplicate Whitespaces*](f_0074.xhtml#rcp.removing_dup_whitespaces)).
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你将在本书后面看到的，\s 有一个有趣的用法是从字符串中移除重复的空白字符（见第 62 章，[*移除重复空格*](f_0074.xhtml#rcp.removing_dup_whitespaces)）。
 - en: Non-Digit Character (\D)
+  id: totrans-119
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 非数字字符 (\D)
 - en: '\D matches any character that isn’t a digit, which is the same as [^\d] or
     [^0-9]:'
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: \D 匹配任何不是数字的字符，等同于 [^\d] 或 [^0-9]：
 - en: '[part_2/character_class_range/range_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex9.js)'
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex9.js)'
 - en: '|   | **const** re = */**\D**/*; |'
+  id: totrans-122
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\D**/*; |'
 - en: '|   |  |'
+  id: totrans-123
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → false* |'
+  id: totrans-124
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → false* |'
 - en: '|   | re.test(*"a"*); *// → true* |'
+  id: totrans-125
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a"*); *// → true* |'
 - en: '|   | re.test(*" "*); *// → true* |'
+  id: totrans-126
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*" "*); *// → true* |'
 - en: '| Negated Shorthands |'
+  id: totrans-127
   prefs: []
   type: TYPE_TB
+  zh: '| 取反简写形式 |'
 - en: '| --- |'
+  id: totrans-128
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | \D, \W, and
     \S are the negated forms of \d, \w, and \s respectively. That means they match
     the opposite of what normal shorthand character classes match. |'
+  id: totrans-129
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/info.png](images/aside-icons/info.png) | \D, \W 和 \S 分别是
+    \d, \w 和 \s 的取反形式。这意味着它们匹配与正常简写字符类相反的内容。 |'
 - en: Non-Word Character (\W)
+  id: totrans-130
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 非字字符 (\W)
 - en: '\W matches any character that isn’t a word character. Short for [^\w] and [^A-Za-z0-9_]:'
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: \W 匹配任何不是字母或数字的字符，等同于 [^\w] 和 [^A-Za-z0-9_]：
 - en: '[part_2/character_class_range/range_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex10.js)'
+  id: totrans-132
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex10.js)'
 - en: '|   | **const** re = */**\W**/*; |'
+  id: totrans-133
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\W**/*; |'
 - en: '|   |  |'
+  id: totrans-134
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → false* |'
+  id: totrans-135
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → false* |'
 - en: '|   | re.test(*"a"*); *// → false* |'
+  id: totrans-136
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a"*); *// → false* |'
 - en: '|   | re.test(*" "*); *// → true* |'
+  id: totrans-137
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*" "*); *// → true* |'
 - en: '|   | re.test(*"*"*); *// → true* |'
+  id: totrans-138
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"*"*); *// → true* |'
 - en: Non-Space Character (\S)
+  id: totrans-139
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 非空格字符 (\S)
 - en: '\S matches any character other than whitespace. Short for [^\s]:'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: \S 匹配除空白字符以外的任何字符。是 [^\s] 的简写：
 - en: '[part_2/character_class_range/range_ex11.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex11.js)'
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex11.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex11.js)'
 - en: '|   | **const** re = */**\S**/*; |'
+  id: totrans-142
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\S**/*; |'
 - en: '|   |  |'
+  id: totrans-143
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → true* |'
+  id: totrans-144
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → true* |'
 - en: '|   | re.test(*"a"*); *// → true* |'
+  id: totrans-145
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"a"*); *// → true* |'
 - en: '|   | re.test(*" "*); *// → false* |'
+  id: totrans-146
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*" "*); *// → false* |'
 - en: '|   | re.test(*"*"*); *// → true* |'
+  id: totrans-147
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"*"*); *// → true* |'
 - en: '| Where Can You Use Shorthands? |'
+  id: totrans-148
   prefs: []
   type: TYPE_TB
+  zh: '| 你可以在哪里使用简写？ |'
 - en: '| --- |'
+  id: totrans-149
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Shorthands may
     appear both inside and outside square brackets. For instance, while \s\d matches
     a whitespace character followed by a digit character, [\s\d] matches either a
     single whitespace character or a single digit character. |'
+  id: totrans-150
   prefs: []
   type: TYPE_TB
+  zh: '![images/aside-icons/tip.png](images/aside-icons/tip.png) | 简写可以出现在方括号内外。例如，\s\d
+    匹配一个空白字符后跟一个数字字符，而 [\s\d] 匹配一个空白字符或一个数字字符。 |'
 - en: Single Character (.)
+  id: totrans-151
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 单字符 (.)
 - en: 'A full stop (.) matches any single character except for a line break. For example:'
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 句点 (.) 匹配除换行符外的任何单个字符。例如：
 - en: '[part_2/character_class_range/range_ex12.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex12.js)'
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/character_class_range/range_ex12.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/character_class_range/range_ex12.js)'
 - en: '|   | **const** re = */./*; |'
+  id: totrans-154
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */./*; |'
 - en: '|   |  |'
+  id: totrans-155
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"5"*); *// → true* |'
+  id: totrans-156
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"5"*); *// → true* |'
 - en: '|   | re.test(*" "*); *// → true* |'
+  id: totrans-157
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*" "*); *// → true* |'
 - en: '|   | re.test(*"*"*); *// → true* |'
+  id: totrans-158
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"*"*); *// → true* |'
 - en: '|   | re.test(*"abc"*); *// → true* |'
+  id: totrans-159
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"abc"*); *// → true* |'
 - en: Notice the last test that returns true for “abc.” Here, the full stop matches
     “a” in “abc,” not the entire string. To match three consecutive characters, you
     can use the regex /.../. Alternatively, you can use /.{3}/, which takes advantage
     of a quantifier to specify the number of tokens to match. You’ll learn about quantifiers
     in Recipe 29, [*Repeating Part of a Regex with Quantifiers*](f_0040.xhtml#rcp.quantifiers).
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意最后一个返回true的测试，测试的是“abc”。这里，句点匹配的是“abc”中的“a”，而不是整个字符串。如果要匹配连续的三个字符，可以使用正则表达式
+    /.../。另外，你也可以使用 /.{3}/，它利用量词来指定要匹配的标记数量。你将在第29条食谱中学习量词，[*使用量词重复正则表达式的部分*](f_0040.xhtml#rcp.quantifiers)。
 - en: Be careful when matching characters that span multiple lines. A full stop won’t
     match a line break character unless you use a special flag (see Recipe 42, [*Forcing
     . to Match Newline Characters with the s Flag*](f_0053.xhtml#rcp.flag_s)).
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: 当匹配跨越多行的字符时要小心。句点不会匹配换行符，除非你使用特殊标志（参见第42条食谱，[*强制句点匹配换行符的s标志*](f_0053.xhtml#rcp.flag_s)）。
 - en: You can use a character class to define a range of characters to match. The
     range can be specified using a hyphen (-), and it’s not limited to numbers. To
     match a character that is not in a specific range, use the caret (^) immediately
     after the opening bracket. To specify ranges using a more compact syntax, you
     can take advantage of predefined character classes.
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以使用字符类来定义一个字符范围进行匹配。这个范围可以使用连字符（-）来指定，而且不限于数字。要匹配一个不在特定范围内的字符，可以在左方括号后立即使用插入符号（^）。为了使用更简洁的语法指定范围，你可以利用预定义的字符类。

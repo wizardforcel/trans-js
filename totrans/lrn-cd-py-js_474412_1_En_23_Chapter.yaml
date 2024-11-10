@@ -1,24 +1,33 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_23](https://doi.org/10.1007/978-3-658-42912-6_23)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者（们），独家授权Springer Fachmedien Wiesbaden GmbH，属于Springer Nature的一部分 2024J.
+    L. Zuckarelli《用Python和JavaScript学习编程》[https://doi.org/10.1007/978-3-658-42912-6_23](https://doi.org/10.1007/978-3-658-42912-6_23)
 - en: '23. Functions & Methods: How Do I Work with Program Functions to Work with
     Data and Trigger Actions?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 23. 函数与方法：如何使用程序函数处理数据并触发动作？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2)  )(1)德国慕尼黑概述
 - en: So far, we’ve covered how to get Python programs running, how to work with variables/objects,
     and how to input and output data. In this chapter, we’ll focus on what happens
     in between, namely how to process data. If input and output of data are the bun
     halves of our “program burger”, then we are now mainly concerned with the meat
     in the middle (although there are, of course, also many functions for input and
     output).
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们已经讨论了如何运行Python程序，如何处理变量/对象，以及如何输入和输出数据。在本章中，我们将重点讲解数据处理的过程。如果数据的输入和输出是我们“程序汉堡”的面包部分，那么我们现在主要关注的是中间的肉部分（尽管当然也有许多用于输入和输出的函数）。
 - en: The main way to manipulate data in programs is to call functions that modify
     the data or trigger other actions. Functions are so important because we can use
     them to perform certain tasks, even without knowing exactly how that actually
@@ -29,42 +38,60 @@
     functionality and make it accessible from the outside. With functions, we ultimately
     offload pieces of code from the main program code and make them callable from
     anywhere.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 操作程序中数据的主要方式是调用修改数据或触发其他操作的函数。函数如此重要，因为我们可以利用它们来执行特定的任务，即使我们并不完全了解这些任务是如何在细节上实现的。我们只需调用函数，函数就会执行它应该完成的任务，且我们无需自己编写这些功能，也无需理解函数的内部实现。当然，我们也可以自己定义函数。函数让我们能够将某个特定功能封装起来，并使其可以从外部访问。通过函数，我们最终可以将代码块从主程序中卸载，并使其可以在任何地方被调用。
 - en: 'In this chapter you will learn:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，你将学习：
 - en: How to program functions in Python and how to call functions (your own or those
     provided by others)
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何在Python中编写函数并调用函数（无论是自己的还是别人提供的）
 - en: how to combine functions (usually as methods of classes) into modules and packages
     and import them into your program when we want to use them
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何将函数（通常是类的方法）组合成模块和包，并在需要使用时将它们导入到程序中
 - en: how to work with the *Python Package Index* (*PyPI*) to include functionality
     provided by other developers in your program
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用*Python包索引*（*PyPI*）将其他开发者提供的功能包含到你的程序中
 - en: 23.1 Working with Functions
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 23.1 与函数一起工作
 - en: 23.1.1 Definition of Functions
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.1.1 函数的定义
 - en: 'Remember our calculator application that we developed in the last chapter using
     the **tkinter** package (► Sect. [22.​2.​6](474412_1_En_22_Chapter.xhtml#Sec20))?
     There we defined some functions of our own, for example this one:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 记得我们在上一章中使用**tkinter**包开发的计算器应用程序吗（► 第[22.2.6节](474412_1_En_22_Chapter.xhtml#Sec20)）？在那里，我们定义了一些自己的函数，例如这个：
 - en: '**def** delete_press():display[''text''] = '''''
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** delete_press():display[''text''] = '''''
 - en: This is a function that we don’t call ourselves, but an event handler function
     that is automatically called when the user clicks the “Clear” button to clear
     the current display. With this simple example, however, you can already see what
@@ -73,8 +100,10 @@
     that hold the function arguments. However, even if the function has no arguments
     at all (as in this case), the round brackets must be written in the definition
     (and later when the function is called).
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个我们不自己调用的函数，而是一个事件处理函数，当用户点击“清除”按钮以清除当前显示时，系统会自动调用它。通过这个简单的示例，你已经能够看到函数的基本概念。它的定义以**def**语句开始，后跟函数的名称。函数名称后面跟着圆括号，圆括号中包含函数的参数。然而，即使函数没有任何参数（如本例所示），圆括号仍然必须在定义时写上（并且在稍后的函数调用时也必须写上）。
 - en: 'The **def** statement, which is ultimately the *function head* of our function,
     is terminated with a colon, indicating that what now follows is the program code
     that is executed when the function is called, in short: What the function *does*.
@@ -82,12 +111,18 @@
     the fact that it is indented. In this example, the code block consists of only
     one line of code. Incidentally, the code block must be at least one line. The
     program:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** 语句，最终是我们函数的 *函数头*，以冒号结束，表示接下来是函数调用时执行的程序代码，简而言之：函数 *做什么*。函数体是一个代码块，正如
+    Python 中的惯例，代码块通过缩进来标识。在这个例子中，代码块只有一行代码。顺便提一下，代码块必须至少包含一行。程序：'
 - en: '**def** my_function():print(''This is the main program.'')leads to an error
     message:IndentationError: expected an indented block'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** my_function():print(''这是主程序。'') 会导致一个错误信息：IndentationError: expected
+    an indented block'
 - en: Apparently, an indented code block is expected after the **def** statement.
     Sometimes you already know that you need a function, you want to call it from
     the main program, but you don’t know exactly how the function should work. What
@@ -100,65 +135,103 @@
     function syntactically correct without the function doing anything. Note that
     **pass** (just like **def**) is a Python *statement*, not a function, and is therefore
     not called with (empty, round) parentheses.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 显然，**def** 语句后面期望一个缩进的代码块。有时候，你已经知道你需要一个函数，想从主程序中调用它，但你不完全确定这个函数应该怎么工作。该怎么办呢？写一个“空”的函数会导致上述错误信息，即使你在代码块中写下唯一的一行注释；这是因为注释不被视为一个可执行的语句，Python不会将它接受为代码块。为了解决这个问题，Python有一个特殊的语句，即
+    **pass**。**pass** 完全不做任何事，但它是一个可执行的语句。因此，如果你将 **pass** 作为函数代码中的唯一指令，它将使你的函数在语法上是正确的，但函数什么也不做。请注意，**pass**（就像
+    **def** 一样）是一个 Python *语句*，而不是一个函数，因此不需要用（空的，圆括号）调用。
 - en: 23.1.2 Function Arguments
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.1.2 函数参数
 - en: 'Let us return to an example from the first part of the book (from ► Sect. [12.​2.​2](474412_1_En_12_Chapter.xhtml#Sec6)),
     namely the temperature conversion from Kelvin to degrees Celsius. This conversion
     can be written as a function. Unlike the fnction delete_press() from above, however,
     our function needs an argument, namely the temperature to be converted:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们回到书本第一部分的一个例子（来自► Sect. [12.​2.​2](474412_1_En_12_Chapter.xhtml#Sec6)），即从开尔文到摄氏度的温度转换。这个转换可以写成一个函数。然而，与上面的函数
+    delete_press() 不同，我们的函数需要一个参数，即需要转换的温度：
 - en: '**def** kelvin_to_celsius(kelvin):print(kelvin, ''Kelvin are'', round(kelvin
     - 273.15, 2),''degrees Celsius.'')'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin):print(kelvin, ''开尔文是'', round(kelvin - 273.15,
+    2),''摄氏度。'')'
 - en: 'We could now call this function, for example with:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以这样调用这个函数，例如：
 - en: kelvin_to_celsius(300)
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: kelvin_to_celsius(300)
 - en: 'Then we received as output:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们得到如下输出：
 - en: 300 Kelvin are 26.85 degrees Celsius.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 300 开尔文是 26.85 摄氏度。
 - en: 'Of course, functions can have more than one argument. Consider the following
     example, in which we output a welcome message to the screen:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，函数可以有多个参数。考虑以下例子，我们将欢迎信息输出到屏幕：
 - en: '**def** welcome(name, greeting, message):print(greeting, '', '', name, ''!
     '', message, sep = '''')'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** welcome(name, greeting, message):print(greeting, '', '', name, ''!
+    '', message, sep = '''')'
 - en: 'We could now call the function as follows, for example:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以如下调用这个函数，例如：
 - en: welcome('Sophie', 'Welcome', 'Glad to have you with us.')
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: welcome('Sophie', '欢迎', '很高兴你加入我们。')
 - en: 'The result of this call looks like this in the (run) console:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个调用的结果在（运行）控制台中如下所示：
 - en: Welcome, Sophie! Glad to have you with us.Positional and Keyword Arguments
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 欢迎，Sophie！很高兴你加入我们。位置参数和关键字参数
 - en: 'Which of the strings specified in the function call is assigned to the argument
     **name**, which to the argument **greeting**, and which to the argument **message**,
     is decided by the order in which they are passed, i.e., their position; these
     arguments are, as you already know, also referred to as *positional arguments*.
     However, we can specify the name of the argument when calling the function. This
     allows a call like the following:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在函数调用中指定的字符串，哪个分配给 **name** 参数，哪个分配给 **greeting** 参数，哪个分配给 **message** 参数，是由它们传递的顺序决定的，也就是它们的位置；这些参数，正如你已经知道的那样，也被称为
+    *位置参数*。然而，我们可以在调用函数时指定参数的名称。这使得可以像下面这样调用：
 - en: welcome('Sophie', message = 'Glad to have you with us.',greeting = 'Welcome')
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: welcome('Sophie', message = 'Glad to have you with us.',greeting = 'Welcome')
 - en: Here we pass the first argument by its position, but the following two by their
     names. Note that we pass the values for the **message** and **greet** arguments
     in a different order than the argument order from the function definition above.
@@ -168,24 +241,33 @@
     which we specify the arguments doesn’t matter, which is especially nice if the
     called function has a whole bunch of arguments. It would be tedious to have to
     look up the exact order of the arguments first.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们通过位置传递第一个参数，但接下来的两个参数则通过名称传递。请注意，我们以不同于函数定义中参数顺序的顺序传递 **message** 和 **greet**
+    参数的值。然而，因为我们明确地按名称传递参数，Python 仍然可以正确地将传递的值映射到函数的参数中。因此，这些命名参数（也称为 *关键字参数*）的一个优点是，我们指定参数的顺序不重要，这在调用的函数有许多参数时尤其方便。如果每次都得查找参数的确切顺序，那将非常麻烦。
 - en: 'Be careful, however, if you mix position and keyword arguments, as we did in
     the example above: Because then the position arguments must always be at the beginning.
     So, you can’t pass the first argument as a keyword argument and the second as
     a position argument.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，注意，如果你混合使用位置参数和关键字参数，就像我们在上面的例子中所做的那样，要小心：因为在这种情况下，位置参数必须始终放在前面。所以，你不能将第一个参数作为关键字参数传递，而将第二个参数作为位置参数传递。
 - en: 'By the way, we have already used a keyword argument in the definition of our
     function, namely when calling **print()**: Here we used the **sep** argument to
     specify that the individual strings should not be output separated by a space,
     which would otherwise have caused annoying white space in inappropriate places,
     for example before the exclamation mark that concludes the greeting.'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，在我们定义函数时已经使用了一个关键字参数，即调用 **print()** 时：在这里我们使用了 **sep** 参数来指定个别字符串之间不应该用空格分隔，否则会在不合适的地方（例如，在问候语结尾的感叹号之前）产生令人讨厌的空白。
 - en: Optional Arguments
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 可选参数
 - en: 'The **sep** argument of the **print()** function just mentioned is an example
     of an *optional* argument that we *can* specify, but *don’t have to* (in the Kelvin-to-Celsius
     conversion, for example, we called **print()** *without* the **sep** argument).
@@ -193,29 +275,45 @@
     used whenever the **print()** function is called without explicitly specifying
     a value for **sep**. You can see this clearly when you call the help for **print()**
     in the Python console. There it says:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sep** 参数是刚才提到的 **print()** 函数的一个例子，它是一个 *可选的* 参数，我们 *可以* 指定，但 *不必* 指定（例如，在开尔文到摄氏度的转换中，我们调用
+    **print()** 时 *没有* 使用 **sep** 参数）。**sep** 有一个默认值，即 **'' ''**（即空格），每当调用 **print()**
+    函数时没有明确指定 **sep** 的值时，就会使用这个默认值。你可以通过在 Python 控制台中调用 **print()** 的帮助文档来清楚地看到这一点。那里写道：'
 - en: '**print(value, ..., sep='' '', end=''\n'', file=sys.stdout, flush=False)**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**print(value, ..., sep='' '', end=''\n'', file=sys.stdout, flush=False)**'
 - en: 'The optional argument **sep** is therefore “preallocated” with a default value,
     while the argument **value** is not an optional argument. If we were to refrain
     from specifying it in the function call, we would get an error message. Now, if
     we wanted to modify our **welcome()** function so that you don’t have to specify
     a greeting, all we have to do is add the default value of the **greeting** argument
     in the function header:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，*可选的* **sep** 参数是“预分配”了默认值的，而 **value** 参数则不是可选参数。如果我们在函数调用中不指定它，就会出现错误信息。现在，如果我们想修改
+    **welcome()** 函数，使得你不必指定问候语，我们只需在函数头部为 **greeting** 参数添加默认值：
 - en: '**def** welcome(name, message, greeting = ''Welcome''):print(greeting, '',
     '', name, ''! '', message, sep = '''')'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** welcome(name, message, greeting = ''Welcome''):print(greeting, '',
+    '', name, ''! '', message, sep = '''')'
 - en: 'After that, we could also call our function like this:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 之后，我们也可以这样调用我们的函数：
 - en: welcome('Sophie', 'Nice to have you.')
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: welcome('Sophie', '很高兴见到你。')
 - en: Note that we have swapped the order of the **greeting** and **message** arguments
     in the function header. The reason is that in Python, arguments with default values
     must come last in the function definition. If multiple optional arguments follow,
@@ -223,57 +321,82 @@
     specifying their names, otherwise Python will not know which of the passed values
     to assign to which optional arguments—after all, any of the optional arguments
     may or may not be provided with a value.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们在函数头部交换了**greeting**和**message**参数的位置。原因是，在Python中，带默认值的参数必须放在函数定义的最后。如果有多个可选参数跟随它们，那么调用函数时必须通过指定参数名称来传递它们，否则Python将不知道将传递的值分配给哪个可选参数——毕竟，任何一个可选参数都可能没有值。
 - en: Indefinite Number of Arguments
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 不定数量的参数
 - en: For some functions, you don’t know a priori with which arguments they will eventually
     be called. A good example of this is the **print()** function. It can take a whole
     set of variables or values and print them all on the screen. Each time **print()**
     is called, the number of arguments may be different.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于某些函数，你无法事先知道它们最终会用什么参数被调用。一个很好的例子是**print()**函数。它可以接受一组变量或值，并将它们全部打印到屏幕上。每次调用**print()**时，参数的数量可能不同。
 - en: 'Suppose we wanted to extend our **welcome()** function so that it welcomes
     not only one, but several people. We want the number of people to be variable.
     We achieve this by using a *tuple* argument that is marked with an asterisk in
     front of the identifier:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们希望扩展我们的**welcome()**函数，使其不仅欢迎一个人，而是欢迎几个人。我们希望人数是可变的。我们通过使用一个以星号标记的*元组*参数来实现这一点：
 - en: '**def** welcome(*name, message, greeting = ''Welcome''):print(greeting,'',
     '', end = '''', sep = '''')print(*name, end = '''', sep ='', '')print(''!'', message)'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** welcome(*name, message, greeting = ''Welcome''):print(greeting,'',
+    '', end = '''', sep = '''')print(*name, end = '''', sep ='', '')print(''!'', message)'
 - en: 'We can now call this function with several names, for example like this:'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以使用多个名字调用这个函数，例如这样：
 - en: welcome('Sophie', 'Marc', 'Celine', message = 'Glad you're here.')
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: welcome('Sophie', 'Marc', 'Celine', message = '很高兴你们在这里。')
 - en: 'The output then reads:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将显示如下：
 - en: 'Welcome, Sophie, Marc, Celine! Glad you''re here.Two things are noteworthy
     about our feature:'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 欢迎，Sophie、Marc、Celine！很高兴你们在这里。我们功能的两个特点值得注意：
 - en: '1.'
+  id: totrans-51
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '1.'
 - en: Compared to the previous version of **welcome()** we work here with several
     print statements. This is necessary to achieve the correct positioning of commas
     and spaces. By setting the (optional) argument **end** of the **print()** function
     to an empty string (default value is **'\n'**, i.e. newline) we ensure that we
     always continue writing on the same line despite several successive **print()**
     calls.
+  id: totrans-52
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 与之前版本的**welcome()**相比，我们现在使用了多个**print()**语句。这是必要的，以确保正确的位置设置逗号和空格。通过将**print()**函数的（可选）**end**参数设置为空字符串（默认值是**'\n'**，即换行符），我们确保即使有多个连续的**print()**调用，输出也会继续在同一行。
 - en: '2.'
+  id: totrans-53
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '2.'
 - en: The argument **name** now collects the “loose” arguments, i.e., the names of
     the persons we specify in the function call, and packs them into a tuple with
     the identifier **name**. We can then work with this tuple in the function body.
@@ -281,16 +404,21 @@
     elements using **print()**. If we had omitted the asterisk in the call to **print()**,
     we would have simply output the tuple en bloc, which is not as visually appealing
     (try it out!).
+  id: totrans-54
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 参数**name**现在收集了“松散”的参数，即我们在函数调用中指定的人的名字，并将它们打包成一个名为**name**的元组。然后我们可以在函数体内使用这个元组。在我们的示例中，我们通过“解包”元组（再次使用星号）并通过**print()**输出它的元素。如果我们在调用**print()**时省略了星号，我们会直接输出整个元组，这样的输出不太美观（试试看！）。
 - en: An alternative to this approach would have been to pass only one argument when
     calling for the names of the people to be greeted, namely a list, which we would
     then have had to process accordingly in our function. With such an adapted function,
     the function call would then look like this:welcome(['Sophie', 'Marc', 'Celine'],
     message = 'Glad you're here.')
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种方法是，在调用时只传递一个参数，即包含要打招呼的人的名字的列表，函数需要根据这个列表来处理。这种修改后的函数调用会是这样的：welcome(['Sophie',
+    'Marc', 'Celine'], message = '很高兴你们在这里。')
 - en: Note that in this case the three names represent only *one* argument, namely
     our list of names, whereas in the previous call to the function we passed *three
     different* name arguments, namely **'Sophie'**, **'Marc'** and **'Celine'**, which
@@ -301,8 +429,10 @@
     i.e., with their identifier; this is obvious, because how else is Python supposed
     to distinguish whether a passed value still belongs to the tuple argument or already
     belongs to the next argument.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在这种情况下，三个名称代表的只是*一个*参数，即我们的名称列表，而在之前调用函数时，我们传入了*三个不同*的名称参数，分别是**‘Sophie’**、**‘Marc’**和**‘Celine’**，Python会方便地将这些参数收集起来并放入一个元组中，供我们使用。这样调用函数的方式更加‘自然’和直观，因此比使用列表的方法更为可取。如果一个函数使用了这种不确定的元组参数，那么所有*后续*的参数必须作为关键字参数调用，即带上其标识符；这是显而易见的，因为否则Python怎么区分传入的值是属于元组参数，还是属于下一个参数呢？
 - en: By the way, every now and then you will see functions with arguments prefixed
     with a double asterisk (******); the **tkinter** function **config()**, which
     we can use to set the options of **tkinter** widgets (see ► Sect. [22.​2.​3.​1](474412_1_En_22_Chapter.xhtml#Sec6))
@@ -313,11 +443,17 @@
     arguments for non-named arguments (i.e., the “*** arguments**”), a collection
     argument for keyword arguments must *always* be placed *at the end of* the argument
     list in the function definition.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下，时不时你会看到带有双星号（******）前缀的函数参数；例如**tkinter**函数**config()**，我们可以用它来设置**tkinter**控件的选项（见►
+    第[22.2.3.1节](474412_1_En_22_Chapter.xhtml#Sec6)），就是这种类型的函数（查看帮助文档！）。这样的参数也是集合参数，但用于关键字参数。通过这种方式，作为关键字参数传递的不同参数可以被收集并放入一个字典中，字典的键是参数名，值是传递给这些参数的值。与非命名参数的集合参数（即“***
+    arguments**”）不同，关键字参数的集合参数必须*始终*放在函数定义中参数列表的*最后*。
 - en: 'Data Types of Function Arguments: Type Hint Annotations (Function Annotations)'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数参数的数据类型：类型提示注解（函数注解）
 - en: You have probably already noticed that the arguments of functions are *not typed*,
     that is, the data types of the arguments are not specified. Accordingly, Python
     cannot check whether a function is called with arguments of the correct type.
@@ -327,22 +463,31 @@
     who is not aware of the exact meaning of the individual arguments could, for example,
     specify a boolean value as the argument **greeting**, expecting it to be an option
     that determines whether a greeting message is displayed or not.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能已经注意到，函数的参数是*未指定类型*的，也就是说，参数的数据类型并没有明确说明。因此，Python无法检查一个函数是否使用了正确类型的参数。当我们编写**welcome()**函数时，我们自然假设**name**、**greeting**和**message**这些参数都是**字符串**，即**str**类型的参数。但其实根本不一定是这样！如果我们的函数用户不知道每个参数的具体含义，他们可能会指定一个布尔值作为**greeting**参数，期望它是一个决定是否显示问候消息的选项。
 - en: 'To counter this problem, Python has a concept called *type hints* (also known
     as *function annotations*). They are built into the function definition and specify
     the expected type of the argument. For our original **welcome()** function, this
     might look like this:'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了解决这个问题，Python引入了一个叫做*类型提示*（也称为*函数注解*）的概念。它们被内置于函数定义中，用来指定参数的预期类型。对于我们原始的**welcome()**函数，这可能看起来是这样的：
 - en: '**def** welcome(name: str, message: str,greeting: str = ''Welcome''):print(greeting,
     '', '', name, ''! '', message, sep = '''')'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** welcome(name: str, message: str, greeting: str = ''Welcome''):print(greeting,
+    '', '', name, ''! '', message, sep = '''')'
 - en: As you can see, each argument identifier is followed by a colon, followed by
     the type expected for that argument.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，每个参数标识符后面跟着一个冒号，之后是该参数预期的类型。
 - en: 'Now, it is by no means the case that Python automatically checks whether the
     user really adheres to the type default. The default is only indicative. Nevertheless,
     it is useful for two reasons: First, the type hints are also included in the automatically
@@ -350,108 +495,162 @@
     Second, there are development tools that evaluate these type hints. One of these
     tools is *PyCharm*. For example, if you try to call our **welcome()** function
     with a boolean value for the **greeting** argument:'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，Python 并不会自动检查用户是否真的遵守了类型默认值。默认值只是作为提示。然而，它有两个好处：首先，类型提示也会包含在自动生成的函数帮助文档中，并且对每个使用该函数的用户可见。其次，有些开发工具会评估这些类型提示。比如
+    *PyCharm* 就是一个这样的工具。例如，如果你尝试用布尔值作为 **greeting** 参数来调用我们的**welcome()**函数：
 - en: welcome('Sophie', 'Glad you could join us.', True)
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: welcome('Sophie', 'Glad you could join us.', True)
 - en: '*PyCharm* highlights the boolean value in the code editor window. If you hover
     over it, a small popup window will inform you of the error with the message **Expected
     type ''str'', got ''bool'' instead.**'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '*PyCharm* 在代码编辑窗口中高亮显示布尔值。如果你将鼠标悬停在其上，一个小弹窗会告知你错误，显示信息为 **Expected type ''str'',
+    got ''bool'' instead.**'
 - en: 23.1.3 Return Values
+  id: totrans-66
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.1.3 返回值
 - en: Our function **kelvin_to_celsius()** from the last section was passed a Kelvin
     temperature value as an argument, converted it to degrees Celsius and output the
     result on the screen. Of course, we could also forgo the output and simply *return*
     the calculated Celsius value instead. In this case, it is a function with a *return
     value*.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们上一节中的 **kelvin_to_celsius()** 函数接受一个开尔文温度值作为参数，将其转换为摄氏度并输出结果到屏幕上。当然，我们也可以不进行输出，而是直接*返回*计算出的摄氏度值。在这种情况下，它就是一个有*返回值*的函数。
 - en: The return is accomplished with the **return** statement.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回是通过 **return** 语句来实现的。
 - en: '**def** kelvin_to_celsius(kelvin: float):return kelvin - 273.15'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float):return kelvin - 273.15'
 - en: 'We can now call this function from our main program, store its result in a
     variable first and then output it to the (run) console:'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们可以从主程序中调用这个函数，首先将其结果存储在一个变量中，然后输出到（运行）控制台：
 - en: temp = kelvin_to_celsius(290)print(temp)
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: temp = kelvin_to_celsius(290)print(temp)
 - en: 'We have added a type hint to the argument **kelvin** in the function definition.
     We can do the same with the return value:'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在函数定义中的**kelvin**参数添加了类型提示。我们也可以对返回值做同样的处理：
 - en: '**def** kelvin_to_celsius(kelvin: float) -> float:return kelvin - 273.15'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float) -> float:return kelvin - 273.15'
 - en: 'To do this, the type of the return value is written after the actual head of
     the function with an arrow **->**; the colon again introduces the following code
     block, i.e., the function body (note: we had used the colon for type hints in
     the function arguments).'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 为此，返回值的类型在函数头部之后用箭头 **->** 写出；冒号再次引入后续的代码块，也就是函数体（注意：我们在函数参数中已经使用了冒号表示类型提示）。
 - en: 'Sometimes you will want to return more than one return value. In that case,
     it’s a good idea to wrap the different elements of the return value in a *tuple*.
     In the following, our **kelvin_to_celsius()** function is modified to return both
     the calculated Celsius and the original Kelvin value, as two elements of a tuple:'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时你可能希望返回多个返回值。在这种情况下，最好将返回值的不同元素封装在一个*元组*中。以下是修改后的**kelvin_to_celsius()**函数，它返回计算出的摄氏度和原始的开尔文值，作为元组中的两个元素：
 - en: '**def** kelvin_to_celsius(kelvin: float) -> float:return (kelvin, kelvin -
     273.15)'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** kelvin_to_celsius(kelvin: float) -> float:return (kelvin, kelvin -
+    273.15)'
 - en: 'The brackets around the two values can also be omitted and are only written
     here to make clear that a tuple is created. In fact, the **return** statement
     automatically creates a tuple if it is followed by several objects separated by
     commas. The elements of the tuple can be easily accessed after the function call,
     either by indexing or by “unpacking” the tuple directly in the assignment:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 包围两个值的括号可以省略，这里仅为了清楚地表示创建了一个元组。实际上，**return** 语句在后面跟着多个由逗号分隔的对象时，会自动创建一个元组。调用函数后，元组的元素可以通过索引访问，或者直接在赋值时“解包”元组：
 - en: temp = kelvin_to_celsius(290)print(temp[1])cel, kel = kelvin_to_celsius(290)print(kel)
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: temp = kelvin_to_celsius(290)print(temp[1])cel, kel = kelvin_to_celsius(290)print(kel)
 - en: The **return** statement automatically exits the function. Therefore, **return**
     should always be the last instruction in a function. All code after it would not
     be executed anyway.
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '**return** 语句自动退出函数。因此，**return** 应该始终是函数中的最后一条指令。它后面的所有代码无论如何都不会被执行。'
 - en: 23.1.4 Local and Global Variables
+  id: totrans-80
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.1.4 局部变量与全局变量
 - en: 'Consider the following program:'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 请考虑以下程序：
 - en: greet = 'Good morning'**def** welcome(name, message, greeting):greet = greeting
     + ', ' + name + '! ' + messageprint(greet)welcome('Sophie', 'Nice to have you
     with us!', 'Hello')print(greet)
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: greet = 'Good morning'**def** welcome(name, message, greeting):greet = greeting
+    + ', ' + name + '! ' + messageprint(greet)welcome('Sophie', 'Nice to have you
+    with us!', 'Hello')print(greet)
 - en: Think about what this code will output in the (run) console. Do you have an
     idea? Then try it out in Python. Was your expectation correct?
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 想一想，这段代码在（运行）控制台中会输出什么。你有一个想法吗？然后在Python中试试。你的预期正确吗？
 - en: 'If you start the program, the following is output:'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你启动程序，以下内容将被输出：
 - en: Hello, Sophie! Nice to have you with us!Good morning
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: Hello, Sophie! Nice to have you with us!Good morning
 - en: The interesting question now is why the variable **greet**, when we **print()**
     it, still has the value **'Good morning'**, which we assigned to it at the beginning
     of the program. Before we print its value, we call the function **welcome()**,
     which changes the value of **greet**, in our example to **"Hello, Sophie! Nice
     to have you with us!"**. Shouldn’t **greet** contain this value at the end of
     the program?
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在有一个有趣的问题，为什么当我们**打印**变量**greet**时，它仍然保持**'Good morning'**的值，而这个值是我们在程序开始时赋给它的。在打印它的值之前，我们调用了**welcome()**函数，这个函数改变了**greet**的值，在我们的示例中变成了**"Hello,
+    Sophie! Nice to have you with us!"**。难道**greet**在程序结束时不应该包含这个值吗？
 - en: The solution to the puzzle is that the variable **greet** in our main program
     and the variable **greet** in the **welcome()** function are ultimately *two different*
     variables. The variable **greet**, which we create in the function body of **welcome()**,
@@ -463,17 +662,25 @@
     in the main program. We cannot get to the variable of the same name in the main
     program from within the function; the variable defined in the function is “in
     the way”, so to speak.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个谜题的解决方案是，我们主程序中的变量**greet**和**welcome()**函数中的变量**greet**本质上是*两个不同*的变量。我们在**welcome()**函数体内创建的变量**greet**只在这个代码块内存在，它的*作用域*被限制在**welcome()**函数中。然而，每当我们在**welcome()**函数体内访问变量**greet**时，我们操作的是在该代码块中创建的变量，而不是我们在主程序中定义的变量。所以你可以说，**welcome()**函数中的变量**greet**“隐藏”了主程序中同名的变量。我们无法从函数内部访问主程序中同名的变量；可以说，函数内定义的变量“挡住了”主程序中的变量。
 - en: 'However, there is a way to access the variable of the main program. Consider
     the following, slightly adapted code:'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，有一种方法可以访问主程序中的变量。请看以下略作修改的代码：
 - en: greet = 'Good morning'**def** welcome(name, message, greeting):global greetgreet
     = greeting + ', ' + name + '! ' + messageprint(greeting)welcome('Sophie', 'Nice
     to have you with us!', 'Hello')print(greet)
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: greet = 'Good morning'**def** welcome(name, message, greeting):global greetgreet
+    = greeting + ', ' + name + '! ' + messageprint(greeting)welcome('Sophie', 'Nice
+    to have you with us!', 'Hello')print(greet)
 - en: As you can see, we have only added the **global greeting** statement to the
     **welcome()** function. The effect of this is that Python does not create a new
     variable that is only valid within the **welcome()** function—this scope is also
@@ -483,8 +690,10 @@
     namespace of the function, which ceases to exist as soon as the function is exited
     (try it out and change all occurrences of **greet** to a different identifier
     within the function).
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们仅在**welcome()**函数中添加了**global greeting**语句。其效果是，Python不会创建一个仅在**welcome()**函数内有效的新变量——这个作用域也称为函数的*命名空间*。相反，它会在全局命名空间中查找一个同名的变量；如果找到了，就使用这个变量，否则在函数的较小命名空间中创建一个额外的变量，这个变量在函数退出后就会消失（试试看，并在函数内将所有**greet**的出现改为不同的标识符）。
 - en: 'You might now argue that the situation in our example is somewhat artificial
     and that its problems are ultimately only due to the fact that variables with
     the same name are used in the definition of the function and in the main program.
@@ -504,46 +713,64 @@
     its environment (in the form of the status variable). Such *side effects* are
     generally avoided to make the function more independent of the code that calls
     it.'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 你现在可能会认为我们示例中的情况有些人为，且其问题最终只是由于在函数定义和主程序中使用了相同名称的变量。然而，设想一下，如果你想从函数内部修改一个*全局*状态变量，即在主程序的命名空间中定义的变量，例如，指示当前正在处理的文档是否已经保存的变量。这个状态变量当然应该独立于函数存在，并且在你的函数退出后，当所有*局部*变量（即在函数内部定义的变量，更准确地说是：在其命名空间中的变量）早已被删除时，依然可用。如果你在函数中没有使用`global`语句而访问了这个假定的全局状态变量，那么在函数的命名空间中将创建一个同名的局部变量，这个局部变量会在函数执行完毕后消失。全局状态变量则不受影响。只有通过使用**global**语句，你才能向Python明确表示你正在操作全局变量，而不是在函数内部创建一个新的局部变量。这样，你的函数就能改变它的环境（以状态变量的形式）。通常，*副作用*是被避免的，以使函数更加独立于调用它的代码。
 - en: 23.1 [20 min]
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 23.1 [20 min]
 - en: Write a function called **create_website()** that takes as arguments a title,
     a heading, and a text (each as strings), creates an HTML document (i.e., ultimately
     a simple web page) from them, and saves it in a file called **website.html**.
     Document your function as much as possible.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 编写一个名为**create_website()**的函数，该函数接受标题、标题文本和文本（每个参数为字符串）作为参数，基于这些内容创建一个HTML文档（即最终生成一个简单的网页），并将其保存在名为**website.html**的文件中。尽可能多地为你的函数编写文档。
 - en: 'An HTML document has the following basic structure (the indentations are only
     for better clarification of the structure; they do not have to be written into
     the file):'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个HTML文档具有以下基本结构（缩进仅用于更好地说明结构；不必在文件中写入缩进）：
 - en: '**<html>****<head>****<title>**Here is the title of the website**</title>****</head>****<body>****<h1>**Here
     is a headline**</h1>****<p>**Here is a text**</p>****</body>****</html>**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<html>****<head>****<title>**这是网站的标题**</title>****</head>****<body>****<h1>**这是一个标题**</h1>****<p>**这里是一段文字**</p>****</body>****</html>**'
 - en: Ultimately, the HTML document is a collection of elements such as **h1** (for
     header 1) or **p** for paragraph. The beginning and end of the elements are marked
     by tags, whereby the end tags correspond to the beginning tags, supplemented by
     a leading slash. Between the start and end tags is the content, whereby HTML elements
     can also contain other HTML elements (for example, the enclosing **html** element
     contains the elements **head** and **body**, which in turn can contain other elements).
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 最终，HTML文档是由如**h1**（用于标题1）或**p**（用于段落）等元素组成的。这些元素的开始和结束通过标签标记，其中结束标签对应开始标签，并以斜杠开头。在开始标签和结束标签之间是内容，HTML元素也可以包含其他HTML元素（例如，封闭的**html**元素包含**head**和**body**元素，而它们又可以包含其他元素）。
 - en: The function **create_website()** is supposed to create such a HTML document,
     “build in” the information passed as arguments and save the whole thing as **website.html**.
     After that you can view this file with your web browser!
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '**create_website()**函数应当创建这样的HTML文档，将传递的参数信息“嵌入”其中，并将整个文档保存为**website.html**。之后，你可以用浏览器查看这个文件！'
 - en: 23.2 [10 min]
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 23.2 [10 min]
 - en: 'The following two functions have errors. Rewrite the functions so that they
     are syntactically correct and serve their purpose:'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下两个函数有错误。请重写这些函数，使其语法正确并实现其功能：
 - en: '(a)**from** random import ***def** dice() -> int:*'''''' Generates a random
     number analogous to a dice roll ''''''*dice_result = randint(1,6)(b)**def** create_phonenumber(country:
     str, areacode: str) : -> str*''''''Creates a formatted phone number based on its
@@ -551,13 +778,22 @@
     ''1'', ''DE'': ''49'', ''FR'': ''33'',''AT'': ''43'', ''NL'': ''31'', ''BE'':''32'',''PL'':
     ''48'', ''DK'': ''45'', ''CZ'': ''42''}return ''+'' + countries_dict[country]
     + areacode + number23.3 [5 min]'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '(a)**from** random import ***def** dice() -> int:*'''''' 生成一个类似骰子投掷的随机数 ''''''*dice_result
+    = randint(1,6)(b)**def** create_phonenumber(country: str, areacode: str) : ->
+    str*''''''根据其组成部分创建格式化的电话号码；country是国家的ISO代码''''''*countries_dict = {''US'': ''1'',
+    ''DE'': ''49'', ''FR'': ''33'',''AT'': ''43'', ''NL'': ''31'', ''BE'':''32'',''PL'':
+    ''48'', ''DK'': ''45'', ''CZ'': ''42''}return ''+'' + countries_dict[country]
+    + areacode + number23.3 [5 min]'
 - en: Develop a function **deal_with_myself()** that deals only with itself, taking
     a variable number of named (i.e., keyword) arguments and printing first their
     names and then their values to the screen.
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 编写一个**deal_with_myself()**函数，该函数只处理自身，接收多个命名（即关键字）参数，并先打印它们的名称，再打印它们的值到屏幕上。
 - en: '23.4 [5 min]What output does the following program produce, and why?**from**
     datetime **import** *total_sales = 0.00last_sale = 0.00**def** new_sale(amount,
     article):**global** total_saleslast_sale = amounttotal_sales = total_sales + amountcurrenttime
@@ -565,18 +801,29 @@
     sale: '' + str(round(amount, 2)) + '' dollars with article number '' +article
     + ''.'')new_sale(10.99, ''US07011981'')new_sale(24.99, ''CA25101878'')print(''Total
     sales: '' + str(total_sales))print(''Last sale: '' + str(last_sale))'
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 23.4 [5 min]以下程序的输出是什么？为什么？**from** datetime **import** *total_sales = 0.00last_sale
+    = 0.00**def** new_sale(amount, article):**global** total_saleslast_sale = amounttotal_sales
+    = total_sales + amountcurrenttime = datetime.now()print(currenttime.strftime('%Y-%m-%d
+    %H:%M:%S') + ' -- 新销售：' + str(round(amount, 2)) + ' 美元，商品编号：' + article + '.')new_sale(10.99,
+    'US07011981')new_sale(24.99, 'CA25101878')print('总销售额：' + str(total_sales))print('最近的销售额：'
+    + str(last_sale))
 - en: 23.2 Using Functions as Class Methods of Objects
+  id: totrans-103
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 23.2 将函数作为对象的类方法使用
 - en: In many places we have already worked with functions that are part of classes
     as a matter of course. As you know, such functions are also called *methods* (if
     you are no longer familiar with this, it is best to go back and review ► Sect.
     [11.​7.​4](474412_1_En_11_Chapter.xhtml#Sec14)).
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 在许多地方，我们已经理所当然地使用了作为类一部分的函数。正如你所知，这些函数也被称为*方法*（如果你对此不再熟悉，最好回去复习一下► Sect. [11.​7.​4](474412_1_En_11_Chapter.xhtml#Sec14)）。
 - en: For example, when we set the arrangement of the controls of our **tkinter**
     user interface with **grid()**, we had call a method like **mybutton.grid(row
     = 1, column = 4, sticky = 'news')** (see the calculator example in ► Sect. [22.​2.​6](474412_1_En_22_Chapter.xhtml#Sec20)).
@@ -585,92 +832,136 @@
     methods we want to call, we attach the function call to the identifier of the
     object in question using the dot operator. So in general, method calls have the
     form ***object*****.*****method*****(…)**.
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，当我们用**grid()**设置**tkinter**用户界面的控件排列时，我们需要调用类似**mybutton.grid(row = 1, column
+    = 4, sticky = 'news')**的方法（见计算器示例 ► Sect. [22.​2.​6](474412_1_En_22_Chapter.xhtml#Sec20)）。在这个例子中，我们调用了**mybutton**对象的方法，该对象是**tkinter**类**Button**的一个实例。为了让Python知道我们要调用哪个对象的方法，我们使用点操作符将函数调用附加到对象的标识符上。所以通常，方法调用的形式是***object*****.*****method*****(…)**。
 - en: 'Since methods are nothing more than normal functions that we can use to work
     with the object they belong to, we don’t really need to discuss them separately
     here. However, we should take a brief look at three special topics in connection
     with methods, namely:'
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于方法不过是我们用来处理所属对象的普通函数，我们在此并不需要单独讨论它们。然而，我们应该简要了解与方法相关的三个特殊话题，具体包括：
 - en: How methods are *defined* as part of classes
+  id: totrans-107
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 方法是如何作为类的一部分被*定义*的
 - en: What special role *constructor methods* play in this
+  id: totrans-108
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 构造方法在其中扮演了什么特殊角色
 - en: What useful *standard methods* classes in Python have that we can adapt for
     our purposes
+  id: totrans-109
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Python中类有哪些有用的*标准方法*，我们可以根据需要加以调整
 - en: Defining Methods as Part of ClassesIn ► Sect. [21.​7](474412_1_En_21_Chapter.xhtml#Sec23),
     we had defined a class **Product** as follows.**class** Product:name = ''description
     = ''item_number = ''manufacturer = ''price = 0.0
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 将方法定义为类的一部分在► Sect. [21.​7](474412_1_En_21_Chapter.xhtml#Sec23)，我们定义了一个**Product**类，代码如下：**class**
+    Product:name = ''description = ''item_number = ''manufacturer = ''price = 0.0
 - en: 'This class consists solely of properties/attributes. Suppose we now wanted
     to give our class a special **show()** method that displays the properties of
     a product in a nice way. To do this, we would simply have to extend the code block
     of the class with the definition of the method:'
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 该类仅由属性/特性组成。假设我们现在想为我们的类添加一个特别的 **show()** 方法，以美观的方式显示产品的属性。为此，我们只需将方法的定义扩展到类的代码块中：
 - en: '**class** Product:name = ''''description = ''''item_number = ''''manufacturer
     = ''''price = 0.0**def** show(self):print(''Product:'', self.name,''\nDescription:'',
     self.description,''\nItemnumber:'', self.item_number,''\nManufacturer:'', self.manufacturer,''\nPrice:'',
     self.price, ''\n'')'
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: '**class** 产品:name = ''''description = ''''item_number = ''''manufacturer =
+    ''''price = 0.0**def** show(self):print(''产品:'', self.name,''\n描述:'', self.description,''\n商品编号:'',
+    self.item_number,''\n制造商:'', self.manufacturer,''\n价格:'', self.price, ''\n'')'
 - en: 'As you can see, the function definition header is indented the same way as
     the attributes. The **show()** function is thus part of the class definition of
     **Product**. For all objects of type **Product**, the method can be called from
     now on. For example, we could define the following product:'
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，函数定义头部的缩进方式与属性相同。**show()** 函数因此成为 **Product** 类定义的一部分。对于所有 **Product**
+    类型的对象，从现在起都可以调用该方法。例如，我们可以定义以下产品：
 - en: p = Product()p.price = 10.99p.name = 'Garden shovel'.
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: p = 产品()p.price = 10.99p.name = '园艺铲'。
 - en: 'To display the product properties, we can then conveniently call our self-defined
     method:'
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了显示产品属性，我们可以方便地调用我们自定义的方法：
 - en: p.show()
+  id: totrans-116
   prefs: []
   type: TYPE_NORMAL
+  zh: p.show()
 - en: 'This results in a cleanly structured output:'
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: 这会生成一个结构清晰的输出：
 - en: 'Product: Garden shovelDescription:Article number:Manufacturer:Price: 10.99'
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: '产品: 园艺铲描述:商品编号:制造商:价格: 10.99'
 - en: The properties to which we have not explicitly assigned values (such as **description**)
     are displayed with their default values (i.e. “empty” string).
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于我们没有显式赋值的属性（例如**description**），它们会显示其默认值（即“空”字符串）。
 - en: You may have noticed the **self** argument in the definition of our **show()**
     method. **self** always represents the object for which the method is called.
     This way, we can conveniently access the properties (and possibly other methods)
     of the current class instance for which our method is called. This argument does
     not necessarily have to be called **self** (it just has to be first in the argument
     list), but it is good practice to use the easily understandable identifier **self**.
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能注意到我们在 **show()** 方法定义中的 **self** 参数。**self** 始终代表调用该方法的对象。这样，我们可以方便地访问当前类实例的属性（以及可能的其他方法）。这个参数不一定要叫
+    **self**（它只需要是参数列表中的第一个参数），但使用易于理解的标识符 **self** 是一种良好的实践。
 - en: Methods, like properties, are also inherited. In ► Sect. [21.​7.​2](474412_1_En_21_Chapter.xhtml#Sec25)
     we derived a class **Book** from the class **Product**, i.e., a special type of
     product. This class inherited all the properties of the parent class, and also
     had additional properties that are only relevant for books, such as the number
     of pages. Inheritance of methods works in a similar way.
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法和属性一样，也是可以继承的。在►第[21.7.2节](474412_1_En_21_Chapter.xhtml#Sec25)中，我们从 **Product**
+    类派生了一个 **Book** 类，也就是一种特别类型的产品。这个类继承了父类的所有属性，还拥有一些仅对书籍相关的额外属性，比如页数。方法的继承方式也类似。
 - en: There is also the possibility to *overload* methods. This means that the more
     special class (in our case **Book**) has its own **show()** method, which perhaps
     also displays the special properties of books like author and number of pages.
     Thus, both the parent class and the class derived from it now each have a method
     **show()**.
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 还可以进行方法的*重载*。这意味着更特殊的类（在我们的例子中是 **Book**）有自己的 **show()** 方法，它可能还会显示书籍的特殊属性，比如作者和页数。因此，父类和从父类派生出来的类现在都有各自的
+    **show()** 方法。
 - en: When we call the **show()** method for an object of type **Book**, Python first
     looks to see if that *class itself* has a corresponding method; if so, it executes
     it. However, if **Book** itself does not have a **show()** method, it checks whether
@@ -680,109 +971,160 @@
     specific to that class. The user can simply call the same method every time and
     does not have to deal with the specifics of the different classes. A great strength
     of object-oriented programming!
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们调用**Book**类型对象的**show()**方法时，Python 首先会查看该*类本身*是否有对应的方法；如果有，它就会执行。如果**Book**本身没有**show()**方法，它会检查类层次结构中的下一个更高类，即父类**Product**，是否有这样的一个方法。通过这种方式，可以在类层次结构中的不同层级为类提供同名的方法，但每个方法的行为是特定于该类的。用户每次只需调用相同的方法，而无需处理不同类的具体细节。这是面向对象编程的一个巨大优势！
 - en: The Special Role of the Constructor Method
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: 构造函数方法的特殊作用
 - en: In the example above, we had created an instance of the **Product** class using
     its default constructor **Product()**. This simply returns a new object of that
     class. However, we can alternatively define our *own* constructor, perhaps taking
     some arguments, such as the name of the product and its price as the two most
     important properties. The constructor would then assign the values passed as arguments
     to the corresponding attributes and return the object defined in this way.
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用其默认构造函数**Product()**创建了一个**Product**类的实例。这个构造函数仅仅返回该类的一个新对象。然而，我们也可以定义我们*自己的*构造函数，可能会接受一些参数，例如产品名称和价格这两个最重要的属性。构造函数随后会将作为参数传入的值赋给相应的属性，并返回这样定义的对象。
 - en: 'We create our own constructor by adapting the default **__init__()** method
     (two underscores each!) So, we would add the following method definition to our
     class definition:'
+  id: totrans-126
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过修改默认的**__init__()**方法来创建我们自己的构造函数（每个下划线两次！）。因此，我们将把以下方法定义添加到我们的类定义中：
 - en: '**def** __init__(self, name, price):self.name = nameself.price = price'
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** __init__(self, name, price):self.name = nameself.price = price'
 - en: 'The constructor function takes **self** as the first argument, in this case
     the object that is created by it. We have defined the further arguments freely.
     With this, we could now also create the previously used product with the name
     **"garden shovel"** at a price of **10.99** as follows (**self** does not have
     to be specified in the call, because, fortunately, Python takes care of that itself):'
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: 构造函数接收**self**作为第一个参数，在这种情况下是由它创建的对象。我们自由地定义了其他参数。通过这样，我们现在也可以按照以下方式创建之前使用的产品，名称为**"garden
+    shovel"**，价格为**10.99**（**self**在调用时不需要指定，因为幸运的是，Python 会自己处理）：
 - en: p = Product('garden shovel', 10.99)
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: p = Product('garden shovel', 10.99)
 - en: Note that we are not calling the **__init__()** constructor function by its
     name at all, but the constructor of the class, whose identifier is identical to
     that of the class. In the background, however, Python then calls the **__init__()**
     method, either the default version, or, if we have overloaded it, our own variant.
     Normally, you won’t call **__init__()** yourself unless you want to call the constructor
     of the parent class from within the constructor of a derived class.
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们并没有通过其名称直接调用**__init__()**构造函数，而是调用了类的构造函数，其标识符与类本身的标识符相同。然而，在后台，Python
+    会调用**__init__()**方法，要么是默认版本，要么是如果我们重载了它的话，我们自己的变体。通常，除非你想在派生类的构造函数中调用父类的构造函数，否则你不会自己调用**__init__()**。
 - en: Two Useful Standard Methods of Classes
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 类的两个有用的标准方法
 - en: 'If you create an object of our class **Product** in the Python console (you
     have to execute the definition of the class in the console first!) and then enter
     the name of the object, for example **p**, you get a rather unattractive output:'
+  id: totrans-132
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你在 Python 控制台中创建了我们类**Product**的一个对象（你必须先在控制台中执行类定义！），然后输入对象的名称，例如 **p**，你会得到一个相当不美观的输出：
 - en: '**>** p**<__main__.product at 0x1ff91106048>**'
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** p**<__main__.product at 0x1ff91106048>**'
 - en: Fortunately, this can be changed, and we can do so by overloading the default
     **__repr__()** method. This method is called whenever the user enters the identifier
     of an object in the console. It returns the string to be displayed in the console.
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: 幸运的是，这可以改变，我们可以通过重载默认的**__repr__()**方法来实现。当用户在控制台中输入一个对象的标识符时，就会调用这个方法。它返回要在控制台显示的字符串。
 - en: 'We could overload the method by adding a corresponding method definition to
     our **Product** class definition, for example:'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以通过向 **Product** 类定义中添加相应的方法定义来重载该方法，例如：
 - en: '**def** __repr__(self):return ''Product: '' + self.name + ''\nPrice: '' +str(self.price)'
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** __repr__(self): return ''产品: '' + self.name + ''\n价格: '' + str(self.price)'
 - en: 'If we now enter the identifier of our object into the console, we get a nicer
     output (note: after adjusting the class definition, you need to create a *new*
     object of this class **Product** so that it has the new method **__repr()__**):'
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们现在将对象的标识符输入到控制台，我们会得到一个更好看的输出（注意：在调整类定义后，你需要创建一个*新的* **Product** 类对象，以便它拥有新的
+    **__repr()__** 方法）：
 - en: '**>** pProduct: Garden shovelPrice: 10.99'
+  id: totrans-138
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** p产品: 花园铲价格: 10.99'
 - en: 'Similarly, we can determine what should happen when the user calls the **print()**
     function and tries to display our object. **print()** automatically calls the
     **__str__()** method in the background and outputs its return value. Thus, in
     the definition of our **Product** class, we could overload the **__str__()** method
     as follows:'
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似地，我们可以确定当用户调用 **print()** 函数并尝试显示我们的对象时应该发生什么。**print()** 会自动调用 **__str__()**
+    方法并输出其返回值。因此，在我们的 **Product** 类的定义中，我们可以如下重载 **__str__()** 方法：
 - en: '**def** __str__(self):return "Product ''" + self.name + "'' ($" + str(self.price)'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** __str__(self): return "产品 ''" + self.name + "''（$" + str(self.price)'
 - en: 'Then we can call the **print()** method with our object **p** as an argument
     and get a prettier representation:'
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们可以将 **print()** 方法与我们的对象 **p** 作为参数调用，获得更美观的输出：
 - en: '**>** print(p)Product "Garden shovel" ($10.99)'
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** print(p)产品 "花园铲"（$10.99）'
 - en: 23.3 Working with Modules and Packages
+  id: totrans-143
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 23.3 使用模块和包
 - en: 23.3.1 Modularizing Program Code
+  id: totrans-144
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.3.1 模块化程序代码
 - en: Python allows you to offload code to other files for better reuse. For example,
     you could combine functions or entire classes that you have developed and want
     to use in different programs into one Python file and then access them from other
     programs. Such files, which hold outsourced program code, are called *modules*.
     A module is therefore nothing more than program code that has been combined into
     its own Python file for reuse.
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: Python 允许你将代码移至其他文件，以便更好地重复使用。例如，你可以将已经开发的并且希望在不同程序中使用的函数或整个类组合到一个 Python 文件中，然后从其他程序中访问它们。这样的文件，包含外包的程序代码，被称为*模块*。因此，模块不过是将程序代码组合到自己的
+    Python 文件中以便重用。
 - en: Several modules with related content can be combined into a *package*. While
     a module is technically nothing more than a Python (**.py**) *file*, a package
     is a *directory* containing *several* modules, i.e., several **.py** files. For
@@ -792,65 +1134,97 @@
     Of course, **__init__.py** may also contain code itself. A good example of this
     is the package **tkinter**, of which we have already made extensive use. ◘ Figure
     [23.1](#Fig1) shows the directory structure of this package.![](../images/474412_1_En_23_Chapter/474412_1_En_23_Fig1_HTML.jpg)
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: 具有相关内容的多个模块可以组合成一个*包*。虽然模块从技术上讲仅仅是一个 Python（**.py**）*文件*，但包是一个*目录*，其中包含*多个*模块，即多个
+    **.py** 文件。为了让 Python 知道这个目录应该是一个包，该目录中还必须有一个名为 **__init__.py**（双下划线！）的文件。这个文件可以为空，它仅告诉
+    Python 这个目录应该被视为包。当然，**__init__.py** 文件也可以包含代码。一个很好的例子就是我们已经广泛使用的 **tkinter**
+    包。图 [23.1](#Fig1) 显示了这个包的目录结构。![](../images/474412_1_En_23_Chapter/474412_1_En_23_Fig1_HTML.jpg)
 - en: A screenshot of a Python directory. It lists the names of Python files along
     with their modification date, type, and size. The files include font dot p y,
     tix dot p y, and d n d dot p y.
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 一张 Python 目录的截图。它列出了 Python 文件的名称、修改日期、类型和大小。文件包括 font.py、tix.py 和 dnd.py。
 - en: Fig. 23.1
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 图 23.1
 - en: Directory structure of the Python module **tkinter**
+  id: totrans-149
   prefs: []
   type: TYPE_NORMAL
+  zh: Python 模块 **tkinter** 的目录结构
 - en: Here you can also see that the file **__init__.py** is pretty large, so it is
     by no means just an empty shell but contains quite a lot of code.
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里你还可以看到，**__init__.py** 文件相当大，因此它绝对不仅仅是一个空壳，而是包含了相当多的代码。
 - en: 23.3.2 Importing Elements from Modules
+  id: totrans-151
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.3.2 从模块导入元素
 - en: After we have seen that modules and packages allow us to extract program code
     from a program, the question naturally arises as to exactly how we can access
     the extracted program code, i.e., the classes and functions of module. After all,
     their program code is no longer in our main program file, so it has to be made
     “available” somehow. This making available is called *importing* and is something
     we have already done several times without discussing it in detail.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们看到模块和包允许我们从程序中提取代码后，接下来自然会产生一个问题，那就是我们该如何访问提取出来的程序代码，即模块中的类和函数。毕竟，它们的代码已经不在我们的主程序文件中，因此必须以某种方式使其“可用”。这种使代码“可用”的过程叫做*导入*，这是我们已经做过多次，但没有详细讨论的事情。
 - en: Import Selected Classes
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: 导入选定的类
 - en: 'In Python, import statements look like this:'
+  id: totrans-154
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Python中，导入语句是这样的：
 - en: '**from** tkinter **import** Tk, Button, Label**from** tkinter.font **import**
     Font'
+  id: totrans-155
   prefs: []
   type: TYPE_NORMAL
+  zh: '**from** tkinter **import** Tk, Button, Label **from** tkinter.font **import**
+    Font'
 - en: 'You can see that these follow the structure:'
+  id: totrans-156
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以看到这些遵循了以下结构：
 - en: '**from** *modulname_or_packagename* **import** *classlist*'
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: '**from** *modulname_or_packagename* **import** *classlist*'
 - en: For example, the first statement imports the classes **Tk**, **Button**, and
     **Label** from the **tkinter** module. The second statement imports the class
     **Font** from the module **font**, which belongs to the package **tkinter** (therefore
     **tkinter.font**).
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，第一个语句从**tkinter**模块中导入了**Tk**、**Button**和**Label**类。第二个语句从**font**模块中导入了**Font**类，而该模块属于**tkinter**包（因此是**tkinter.font**）。
 - en: If you take another look at the directory structure of the **tkinter** package
     (◘ Fig. [23.1](#Fig1)), you will see that there is indeed a file **font.py**,
     the module **font**, from which we import the class **Font** with the second statement.
     On your hard disk in the Python installation, find the path **\Lib\tkinter**,
     and open the file **font.py**. In it you will find, among other things, a definition
     of the class **Font** that we import.
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你再看看**tkinter**包的目录结构（◘ 图 [23.1](#Fig1)），你会看到确实有一个名为**font.py**的文件，即模块**font**，我们从中导入了**Font**类。你可以在Python安装路径下找到**\Lib\tkinter**，并打开**font.py**文件。在其中，你会发现定义了**Font**类的代码，正是我们导入的这个类。
 - en: 'Now, what about the first import statement? Here we import three classes, apparently
     directly from the package **tkinter**. But which file contains these three classes?
     You have probably already guessed: These classes are in the **__init__.py** file,
@@ -858,58 +1232,87 @@
     the classes with an **import** statement, we can use them in our program, without
     further ado, simply by using their identifier, for example by calling the constructor
     method of the **Tk** class: **win = Tk()**.'
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么，第一个导入语句是什么呢？在这里我们直接从包**tkinter**导入了三个类。但这三个类到底在哪个文件中呢？你可能已经猜到了：这些类位于**__init__.py**文件中，你可以通过打开这个文件轻松查看。当我们通过**import**语句导入这些类后，我们可以在程序中使用它们，只需直接使用它们的标识符，例如调用**Tk**类的构造方法：**win
+    = Tk()**。
 - en: Import the Entire Contents of a Module
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: 导入模块的全部内容
 - en: 'Instead of explicitly specifying the list of classes we want to import, we
     could have used a *wildcard* and just imported *all* classes that way:'
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们本可以不显式指定要导入的类列表，而是使用一个*通配符*，直接导入*所有*类：
 - en: '**from** tkinter **import** *'
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: '**from** tkinter **import** *'
 - en: This is exactly how we did it for simplicity in the last chapter. However, this
     approach is frowned upon among Python programmers because you don’t know exactly
     what you are importing, and this may lead to naming conflicts with other classes
     that you have already used in your code. The controlled approach with explicit
     specification of the classes to be imported is therefore usually preferred.
+  id: totrans-164
   prefs: []
   type: TYPE_NORMAL
+  zh: 这正是我们为了简化起见，在上一章中所做的。然而，这种做法在Python程序员中并不被推崇，因为你并不知道自己究竟导入了什么，这可能会导致与代码中已经使用的其他类发生命名冲突。因此，通常更倾向于使用明确指定要导入类的受控方法。
 - en: Import the Entire Module
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 导入整个模块
 - en: 'Another way of importing is to simply import the entire module:'
+  id: totrans-166
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种导入方式是直接导入整个模块：
 - en: '**import** tkinter **as** tk'
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: '**import** tkinter **as** tk'
 - en: 'The last part of the statement, **as tk**, can also be omitted. However, using
     **as** makes it easier to access the module, especially if the module name is
     long. This is because with this type of import, the module name *must always*
     be included when accessing the module’s classes, for example:'
+  id: totrans-168
   prefs: []
   type: TYPE_NORMAL
+  zh: 语句的最后部分，**as tk**，也可以省略。然而，使用**as**使得访问模块变得更容易，特别是当模块名称很长时。这是因为使用这种导入方式时，在访问模块的类时，*必须始终*包含模块名称，例如：
 - en: clear_button = tkinter.Button(win,text = 'Clear',command = clear_press)
+  id: totrans-169
   prefs: []
   type: TYPE_NORMAL
+  zh: clear_button = tkinter.Button(win,text = '清除',command = clear_press)
 - en: 'When using renaming with the help of **as**, this shortens to:'
+  id: totrans-170
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**as**进行重命名时，简化为：
 - en: clear_button = tk.Button(win,text = 'Clear',command = clear_press)
+  id: totrans-171
   prefs: []
   type: TYPE_NORMAL
+  zh: clear_button = tk.Button(win,text = '清除',command = clear_press)
 - en: '**as**, by the way, can also be used to “rename” individual classes imported
     with **from** ***module*** **import** ***class***; this is useful, especially
     to avoid naming conflicts with existing classes (possibly developed by yourself!)'
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: '**as**，顺便提一下，也可以用来“重命名”通过**from** ***module*** **import** ***class***导入的单个类；这在避免与现有类（可能是你自己开发的类）发生命名冲突时尤其有用！'
 - en: '23.3.3 Using the Community: The Python Package Index (PyPI)'
+  id: totrans-173
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 23.3.3 使用社区：Python包索引（PyPI）
 - en: Python comes with a number of out of the box modules and packages, including
     the already used package **tkinter**. In addition to the packages installed by
     default, the *Python Package Index* (*PyPI*) at ► [https://​pypi.​org/​](https://pypi.org/)
@@ -924,19 +1327,26 @@
     the package. An example of such a *PyPI* page is ► [https://​pypi.​org/​project/​numpy/​](https://pypi.org/project/numpy/),
     the page of the well-known package **NumPy**, which adds data types to Python
     for efficient work with multidimensional arrays.
+  id: totrans-174
   prefs: []
   type: TYPE_NORMAL
+  zh: Python自带了许多开箱即用的模块和包，包括已经使用的包**tkinter**。除了默认安装的包，*Python包索引*（*PyPI*）位于► [https://​pypi.​org/​](https://pypi.org/)提供了几乎所有想得到的任务所需的各种包。每个包都有自己的页面，提供一些关于该包的重要信息，例如作者、许可证、使用该包所需的Python版本等。通常还会提供该包的简短描述，这对于判断一个名字听起来不错的包是否符合预期的目的非常重要。然而，*PyPI*页面上的包描述往往比较简略，因此一些包会在*PyPI*页面上链接到自己的主页，提供关于该包的更详细信息。一个这样的*PyPI*页面示例是►
+    [https://​pypi.​org/​project/​numpy/​](https://pypi.org/project/numpy/)，这是著名的**NumPy**包的页面，该包为Python添加了数据类型，以高效地处理多维数组。
 - en: The *Python Package Index* offers an incredible number of packages. However,
     since the packages vary greatly in scope and quality, it is advisable not to simply
     “search” the *Python Package Index,* but to first find interesting “package candidates”
     on the Internet in the relevant discussion forums, on blogs and other websites
     and then try them out. If necessary, simply install several packages for the same
     purpose.
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: '*Python包索引*提供了大量的包。然而，由于包的范围和质量差异很大，因此建议不要仅仅“搜索”*Python包索引*，而是先在相关的讨论论坛、博客和其他网站上寻找有趣的“包候选项”，然后进行尝试。如有必要，可以同时安装多个包以实现同一目的。'
 - en: Installing Packages with PyCharm
+  id: totrans-176
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用PyCharm安装包
 - en: Once you have found a package you want to use, you must install the package
     before you can use it. In *PyCharm*, you can do this via the graphical user interface
     by going to the *Settings* dialogue (click the gear button in the title bar of
@@ -944,63 +1354,97 @@
     will see a list of packages that are currently available. By clicking on the small
     plus button, you will get to a dialog where you can select and install a package
     from the *Python Package Index*.
+  id: totrans-177
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦你找到了想要使用的包，在使用之前必须先安装该包。在*PyCharm*中，你可以通过图形用户界面进行安装，方法是打开*设置*对话框（点击PyCharm应用窗口标题栏中的齿轮按钮），然后选择*项目*
+    | *项目解释器*。在这里，你将看到当前可用的包列表。点击小加号按钮，你将进入一个对话框，可以从*Python包索引*中选择并安装一个包。
 - en: Installing Packages with pip
+  id: totrans-178
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用pip安装包
 - en: 'If you prefer to work via the console of the operating system rather than via
     the graphical user interface of *PyCharm*, you can use **pip**, a program that
     allows the administration of packages. By the way, **pip** is a recursive abbreviation,
     it contains itself in the long form: *pip installs packages*.'
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你更倾向于通过操作系统的控制台而不是*PyCharm*的图形界面工作，你可以使用**pip**，这是一种用于包管理的程序。顺便提一下，**pip**是一个递归缩写，它在全称中包含了自己：*pip
+    installs packages*。
 - en: 'If you want to work with **pip**, you must first make sure that it is installed.
     To do this, change to the **scripts** directory of your Python installation. If
     you are working with Microsoft Windows and have installed Python in **C:\python37**,
     **pip** has the path **C:\python37\Scripts\pip.exe**. If **pip** is not there,
     change to the directory where **python.exe** is located (typically **C:\python37**
     in our example) and execute the following statement:'
+  id: totrans-180
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想使用**pip**，首先必须确保它已经安装。为此，请切换到你的 Python 安装目录中的**scripts**目录。如果你正在使用微软 Windows，并且将
+    Python 安装在**C:\python37**，则**pip**的路径为**C:\python37\Scripts\pip.exe**。如果**pip**不在此目录中，请切换到**python.exe**所在的目录（通常是**C:\python37**，如我们的示例所示），然后执行以下命令：
 - en: python -m ensurepip --default-pip
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: python -m ensurepip --default-pip
 - en: '**pip** checks itself whether it is up to date. If this is not the case, you
     can easily update to the current version:'
+  id: totrans-182
   prefs: []
   type: TYPE_NORMAL
+  zh: '**pip**会自行检查它是否是最新版本。如果不是，你可以轻松更新到最新版本：'
 - en: python -m pip install --upgrade pip
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: python -m pip install --upgrade pip
 - en: 'After that, you install packages with **pip** by executing the **pip install**
     ***packagename*** statement, for example:'
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后，你可以通过执行**pip install** ***packagename***命令来安装包，例如：
 - en: pip install NumPy
+  id: totrans-185
   prefs: []
   type: TYPE_NORMAL
+  zh: pip install NumPy
 - en: 'But **pip** can do much more. You can display information about a package with
     **pip show**, for example for **NumPy**:'
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: 但**pip**能做的远不止这些。你可以使用**pip show**显示包的信息，例如显示**NumPy**的信息：
 - en: pip show NumPy
+  id: totrans-187
   prefs: []
   type: TYPE_NORMAL
+  zh: pip show NumPy
 - en: 'With **pip deinstall** ***packagename*** you can also uninstall a package,
     with **pip search** you can search the *Python Package Index* directly from the
     command line, for example:'
+  id: totrans-188
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**pip deinstall** ***packagename*** 你也可以卸载一个包，使用**pip search**你可以直接从命令行搜索*Python
+    包索引*，例如：
 - en: pip search webscraping
+  id: totrans-189
   prefs: []
   type: TYPE_NORMAL
+  zh: pip search webscraping
 - en: For help with **pip** and its many options, use the command
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: 要获得有关**pip**及其众多选项的帮助，请使用以下命令：
 - en: pip -horpip –helpVirtual Environments
+  id: totrans-191
   prefs: []
   type: TYPE_NORMAL
+  zh: pip -horpip –help虚拟环境
 - en: Python can install the package into a *virtual environment* if needed. Then
     the package is not added to the general package library but installed in a separate
     library for your current project. This allows you to work with different versions
@@ -1011,8 +1455,10 @@
     made possible by the fact that you can also specify the version to be installed
     when you install packages, so that you do not necessarily have to use the latest
     version.
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果需要，Python 可以将包安装到*虚拟环境*中。这样，包不会被添加到通用的包库中，而是安装在当前项目的独立库中。这允许你在不同的项目中使用相同包的不同版本，这在某些情况下非常重要。例如，如果你的项目需要旧版本的包，因为它无法与当前版本兼容时，虚拟环境就能派上用场。使用*虚拟环境*，你可以在当前项目中运行项目的同时，在其他地方使用包的当前版本。这个特性得以实现的原因是，在安装包时，你还可以指定要安装的版本，这样就不一定需要使用最新版本。
 - en: By the way, the same is true for Python itself. You can specify which Python
     interpreter you want to work with. With Python version 3.x, some significant changes
     have been made to the language definition compared to the older 2.x versions,
@@ -1022,120 +1468,174 @@
     developed under Python 2.x will still be executable without the need for extensive
     rebuilding. When you create a virtual environment, the interpreter you want to
     work with is also copied into the virtual environment.
+  id: totrans-193
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，Python 本身也可以这样操作。你可以指定希望使用的 Python 解释器。对于 Python 3.x 版本，相比于较旧的 2.x 版本，语言定义发生了一些重要变化，而在
+    Python 2.x 下开发的 Python 项目不一定能在 3.x 版本下完全运行。在*PyCharm*中，你可以轻松指定要在当前项目中使用的*项目解释器*。这样，即使是旧的
+    Python 2.x 项目，在不需要大规模重构的情况下，仍然可以运行。当你创建虚拟环境时，你要使用的解释器也会被复制到虚拟环境中。
 - en: But of course, you can also select a project interpreter without creating a
     virtual environment. So, if you simply want to work with the Python 2.x interpreter
     and the packages installed for that interpreter (in its “main” installation),
     you can simply switch the project interpreter in *PyCharm* to that interpreter.
+  id: totrans-194
   prefs: []
   type: TYPE_NORMAL
+  zh: 当然，你也可以在不创建虚拟环境的情况下选择项目解释器。因此，如果你仅仅想使用Python 2.x解释器和为该解释器（在其“主”安装中）安装的包，你可以简单地将*PyCharm*中的项目解释器切换为该解释器。
 - en: In any case, it is recommended to refrain from creating a virtual environment
     right from the start of your project, unless you absolutely need one (which, as
     a rule, should not be the case).
+  id: totrans-195
   prefs: []
   type: TYPE_NORMAL
+  zh: 无论如何，建议不要从项目一开始就创建虚拟环境，除非你确实需要一个（通常情况下不应如此）。
 - en: 23.4 Summary
+  id: totrans-196
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 23.4 小结
 - en: In this chapter, we saw how functions are defined and used in Python; we also
     looked at how modules and packages work and learned about the *Python Package
     Index* (*PyPI*) as an important source of useful program code.
+  id: totrans-197
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们学习了如何在Python中定义和使用函数；我们还了解了模块和包的工作原理，并且学习了*Python包索引*（*PyPI*）作为一个重要的有用程序代码来源。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-198
   prefs: []
   type: TYPE_NORMAL
+  zh: 请务必从本章中记住以下几点：
 - en: Functions are defined in Python with the **def** statement and consist of the
     function header, containing the function’s identifier and arguments, and the function
     body, the (indented) block of code that is executed when the function is called.
+  id: totrans-199
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数在Python中通过**def**语句定义，包含函数头部，其中包含函数的标识符和参数，和函数体，即在函数调用时执行的（缩进）代码块。
 - en: Optional arguments are assigned their default value in the function header of
     the function definition (***argument*** **=** ***default_value***).
+  id: totrans-200
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可选参数在函数定义的函数头部会被赋予默认值（***argument*** **=** ***default_value***）。
 - en: 'The function arguments are in the function definition without data type, but
     can be provided with a type hint of the form: **datatype**, which is not binding,
     but is processed by many IDEs and is also displayed in the help for the function;
     in addition to function arguments, the return values of the function can also
     be provided with type hints of the form **−> datatype**.'
+  id: totrans-201
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数参数在函数定义中没有数据类型，但可以提供类型提示，形式为：**datatype**，这不是强制性的，但许多IDE会处理这个提示，并且它也会显示在函数的帮助文档中；除了函数参数外，函数的返回值也可以提供类型提示，形式为**−>
+    datatype**。
 - en: Return values are returned with the **return** keyword.
+  id: totrans-202
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回值通过**return**关键字返回。
 - en: Variables defined within functions, like function arguments, are local variables
     and therefore can only be used within the code block of the function; if you want
     to access a global variable from within a function, you must use the keyword **global**.
+  id: totrans-203
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在函数内部定义的变量（如函数参数）是局部变量，因此只能在函数的代码块内使用；如果你想在函数内部访问全局变量，必须使用关键字**global**。
 - en: Even if a function has no arguments, the round (but in this case empty) argument
     brackets must be written when it is called (as well as when it is defined).
+  id: totrans-204
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 即使一个函数没有参数，在调用时也必须写上圆括号（虽然此时为空括号）（定义时也是如此）。
 - en: When calling a function, the arguments can also be passed as keyword arguments,
     that is, with their names (in the form ***argument*** **=** ***value***); then
     the order of the arguments does not matter.
+  id: totrans-205
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 调用函数时，参数也可以作为关键字参数传递，即使用它们的名称（形式为***argument*** **=** ***value***）；这样，参数的顺序就不再重要。
 - en: Python code can be grouped into modules, and multiple modules can be grouped
     into packages.
+  id: totrans-206
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Python代码可以被分组为模块，多个模块可以被分组为包。
 - en: Classes from modules used in the program must first be imported, either by explicitly
     specifying the classes to be imported in the form **from** ***modulename_or_packagename***
     **import** ***classlist*** (recommended procedure) or by importing *all* classes
     in the form **from** ***modulename_or_packagename*** **import ***; also, the module
     can be imported with a statement of the form **import** ***modulename_or_packagename***.
+  id: totrans-207
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 程序中使用的模块中的类必须先被导入，可以通过显式指定要导入的类的形式**from** ***modulename_or_packagename*** **import**
+    ***classlist***（推荐做法），或者通过导入*所有*类的形式**from** ***modulename_or_packagename*** **import
+    ***；同样，也可以使用**import** ***modulename_or_packagename***的语句导入模块。
 - en: The most important source for Python modules is the *Python Package Index* (*PyPI*);
     here you can find solutions for many different programming tasks. Researching
     for a suitable package is always worthwhile before you start programming the functionality
     you are looking for yourself.
+  id: totrans-208
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Python 模块最重要的来源是 *Python 包索引* (*PyPI*)；在这里你可以找到许多不同编程任务的解决方案。在开始自己编写所需功能之前，研究一下是否有合适的包总是值得的。
 - en: The installation of modules of the *PyPI is* done either with the help of the
     command line program **pip** or via the an IDE like *PyCharm*.
+  id: totrans-209
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*PyPI* 模块的安装可以通过命令行程序 **pip** 或通过像 *PyCharm* 这样的集成开发环境（IDE）来完成。'
 - en: 23.5 Solutions to the Exercises
+  id: totrans-210
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 23.5 练习解答
 - en: Exercise 23.1
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 23.1
 - en: 'The function **create_website()** could look like this:'
+  id: totrans-212
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数 **create_website()** 可能如下所示：
 - en: '**def** create_website(title: str, header: str, text: str):'''''' Creates a
     simple website and saves it as website.html.Arguments:-- title: Title of the website--
     header: Header text-- text: The actual content''''''html_content = ''<html><head><title>''
     + title +''</title></head><body><h1>'' +header + ''</h1><p>'' + text +''</p></body></html>''html_file
     = open(''C:\website.html'', ''w'')html_file.write(html_content)html_file.close()'
+  id: totrans-213
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** create_website(title: str, header: str, text: str):'''''' 创建一个简单的网站并将其保存为
+    website.html。参数：-- title: 网站标题 -- header: 标题文本 -- text: 实际内容''''''html_content
+    = ''<html><head><title>'' + title +''</title></head><body><h1>'' +header + ''</h1><p>''
+    + text +''</p></body></html>''html_file = open(''C:\website.html'', ''w'')html_file.write(html_content)html_file.close()'
 - en: 'A possible call would then be:'
+  id: totrans-214
   prefs: []
   type: TYPE_NORMAL
+  zh: 可能的调用方式是：
 - en: create_website(My first Python website', 'Section 1','Here could be a longer
     text')
+  id: totrans-215
   prefs: []
   type: TYPE_NORMAL
+  zh: create_website('我的第一个 Python 网站', '第 1 章', '这里可以是更长的文本')
 - en: The function is called with three string arguments for title, heading and text
     content of the website to be created. It does not have a return value. Instead,
     it generates the HTML code of the website as string variable **html_content**
@@ -1145,8 +1645,11 @@
     step by step to the file without already completely assembling it at the beginning.
     If you now call the finished function, you can open the website it generates in
     your web browser afterwards.
+  id: totrans-216
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数使用三个字符串参数：网站的标题、标题和文本内容。它没有返回值，而是生成网站的 HTML 代码，存储在字符串变量 **html_content**
+    中，然后写入文件 **website.html**。如果不先将文件内容生成一个大字符串再写入文件，也可以通过多次使用 **write()** 语句一步步将文件内容写入，而不必一开始就将所有内容拼接好。如果你现在调用这个完成的函数，之后可以在网页浏览器中打开它生成的网站。
 - en: In addition to the actual function, however, the task also required documentation.
     For this purpose, we first work with a docstring. It briefly describes what the
     function does and what its arguments mean. If you copy the function to the Python
@@ -1154,15 +1657,23 @@
     the function’s help, which is fed from exactly this docstring. For further documentation,
     we have included type hints for the arguments in the function header. A commenting
     of the code in the function body was omitted because the code is quite simple.
+  id: totrans-217
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了实际的函数，任务还要求提供文档说明。为此，我们首先使用了文档字符串（docstring）。它简要描述了函数的功能以及它的参数含义。如果你将函数复制到
+    Python 控制台并执行，可以使用 **help(create_website)** 来查看该函数的帮助信息，这些信息正是由这段文档字符串提供的。为了进一步文档化，我们在函数头部加入了类型提示（type
+    hints）。由于代码比较简单，因此函数体内的代码没有加注释。
 - en: Exercise 23.2
+  id: totrans-218
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 23.2
 - en: (a)
+  id: totrans-219
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (a)
 - en: The function **dice()** generates a random number with the help of the function
     **randint()** imported from the module **random**. This random number is stored
     in the integer variable **dice_result**. However, we forgot to return the result
@@ -1171,13 +1682,19 @@
     every time. It indicates that the function returns no value. However, if you now
     add the missing **return** statement, you will get back a random integer value
     between 1 and 6, just like rolling dice.
+  id: totrans-220
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 函数 **dice()** 通过导入模块 **random** 中的 **randint()** 函数生成一个随机数。这个随机数存储在整数变量 **dice_result**
+    中。然而，我们忘记用 **return** 返回结果。如果你调用这个函数并捕获它的返回值到一个变量中，或者将它输出到控制台，你会发现每次得到的都是特殊值 **None**。这意味着函数没有返回任何值。然而，如果你现在添加缺失的
+    **return** 语句，你将得到一个介于 1 到 6 之间的随机整数值，就像掷骰子一样。
 - en: (b)
+  id: totrans-221
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: (b)
 - en: 'The function **create_phonenumber()** suffers from two problems: First, the
     colon in the function header is placed *before* the type hint, although it should
     actually be placed at the end of the function header after all, it introduces
@@ -1187,25 +1704,37 @@
     header. Of course, the code of the function cannot access an argument that is
     not passed to the function. After these corrections, the function can then be
     called to generate a nicely formatted phone number, for example in this call:'
+  id: totrans-222
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 函数**create_phonenumber()**存在两个问题：首先，函数头中的冒号被放置在*类型提示之前*，但实际上应该放在函数头的末尾，紧跟其后的是引入函数体的代码块。其次，参数**number**在函数体内被用作实际的订阅者线路号码，且没有前缀。然而，它在函数头的参数列表中根本没有出现。显然，函数的代码无法访问未传入的参数。经过这些修正后，该函数可以被调用以生成格式良好的电话号码，例如在以下调用中：
 - en: print(create_phone_number('DE', '171', '3456789'))
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: print(create_phone_number('DE', '171', '3456789'))
 - en: The country code **'DE'** is translated into the corresponding country code
     with the help of a dictionary.
+  id: totrans-224
   prefs: []
   type: TYPE_NORMAL
+  zh: 国家代码**'DE'**通过字典的帮助被转换为相应的国家代码。
 - en: Exercise 23.3
+  id: totrans-225
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 23.3
 - en: 'The function **deal_with_myself()** could look like this:'
+  id: totrans-226
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数**deal_with_myself()**的代码可能是这样的：
 - en: '**def** deal_with_myself(**args):print(list(args.keys()))print(list(args.values()))'
+  id: totrans-227
   prefs: []
   type: TYPE_NORMAL
+  zh: '**def** deal_with_myself(**args):print(list(args.keys()))print(list(args.values()))'
 - en: 'As you recall, a principally indefinite list of named, or keyword, arguments
     can be accessed with an argument prefixed with two asterisks in the function header.
     This argument is then a dictionary with the names of the arguments as keys and
@@ -1213,20 +1742,29 @@
     can use the **keys()** and **values()** methods to get the keys, that is, the
     argument names and their values. A call to this function might then look like
     this:'
+  id: totrans-228
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所回忆的，基本上不定的命名参数或关键字参数可以通过在函数头中使用带有两个星号的参数来访问。这个参数是一个字典，字典的键是参数名称，值是作为字典条目值传递的参数值。因此，我们可以使用**keys()**和**values()**方法来获取键，也就是参数名称及其值。该函数的调用可能看起来像这样：
 - en: deal_with_myself(first_argument = 'An str argument',still_an_argument2 = 5)Exercise
     23.4
+  id: totrans-229
   prefs: []
   type: TYPE_NORMAL
+  zh: deal_with_myself(first_argument = '一个字符串参数',still_an_argument2 = 5) 练习 23.4
 - en: 'This program, which “books” new sales, generates the following output:'
+  id: totrans-230
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个“预定”新销售的程序生成如下输出：
 - en: '24.08.2019 12:48:24 – New sale: 10.99 dollars with article number US07011981.24.08.2019
     12:48:24 -- New sale: 24.99 dollars with article number CA25101878.Total sales:
     35.98Last sale: 0.0'
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 24.08.2019 12:48:24 – 新销售：10.99美元，商品编号US07011981. 24.08.2019 12:48:24 – 新销售：24.99美元，商品编号CA25101878.
+    总销售额：35.98 最后一笔销售：0.0
 - en: The first two outputs are generated directly by the **new_sale()** function.
     The following two outputs, namely on the total turnover and the turnover of the
     last sale, are simply outputs of the variables **total_sales** and **last_sale**.
@@ -1246,5 +1784,7 @@
     do so with a **global** statement, as we did for **total_sales**. This way Python
     knows that we don’t want to create a local variable but write to the global variable
     of the same name that was created outside the function.
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: 前两个输出是由**new_sale()**函数直接生成的。接下来的两个输出，即总营业额和最后一笔销售额，仅仅是**total_sales**和**last_sale**变量的输出。这两个变量是在主程序中创建的，初始值默认为**0.00**。然后，函数尝试更改这些变量，对于**total_sales**变量，它似乎成功了。函数将每一笔新增销售额的值加到**new_sale()**的当前值上。我们两笔销售的总和确实是35.98。那么**last_sale**呢？尽管这个变量在**new_sale()**函数的代码中也被赋了一个新值，但它仍然保持着程序开始时初始化时的值。发生了什么？这两个变量，一个在开始时初始化，另一个在**new_sale()**函数体内使用，是两个不同的对象。函数体内使用的变量是一个*局部*变量，它在函数结束时会消失。对这个变量的值赋值不会影响在程序开始时初始化的、函数外部的变量。如果我们想要改变这个变量，我们必须通过**global**语句告诉Python，像我们为**total_sales**所做的那样。这样，Python就知道我们不是要创建一个局部变量，而是要修改在函数外部创建的同名全局变量。

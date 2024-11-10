@@ -1,94 +1,144 @@
 - en: '| Recipe 52 | Matching Non-ASCII Words with the Unicode Property Escape |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 52 | 使用 Unicode 属性转义匹配非 ASCII 单词 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Let’s assume you want to search for a file with a specific extension and extract
     the filename. This task is similar to Recipe 31, [*Extracting a Matched Value
     with the Capturing Group*](f_0042.xhtml#rcp.capturing_group_p2), where you matched
     a file with a .pdf extension.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想要搜索一个具有特定扩展名的文件并提取文件名。这个任务类似于食谱 31，[*使用捕获组提取匹配值*](f_0042.xhtml#rcp.capturing_group_p2)，你在那里匹配了一个扩展名为
+    .pdf 的文件。
 - en: 'Now you want to match a filename that has non-ASCII characters. It’s not uncommon
     for people to save files in their own language, but your current script is unable
     to match non-ASCII letters:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你想要匹配一个包含非 ASCII 字符的文件名。人们保存文件时使用自己语言的文件名并不罕见，但你当前的脚本无法匹配非 ASCII 字母：
 - en: '[part_2/unicode_property_escapes_p2/upe_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex1.js)'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/unicode_property_escapes_p2/upe_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex1.js)'
 - en: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
 - en: '![images/upe_p2_ex1.png](images/upe_p2_ex1.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![images/upe_p2_ex1.png](images/upe_p2_ex1.png)'
 - en: You need a solution that allows you to match non-ASCII words.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个能够匹配非 ASCII 单词的解决方案。
 - en: Solution
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a combination of Unicode property escapes to match Unicode word characters
     in the same way \w matches ASCII word characters:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 Unicode 属性转义的组合来匹配 Unicode 字符，可以像 \w 匹配 ASCII 字符一样匹配 Unicode 字符：
 - en: '[part_2/unicode_property_escapes_p2/upe_p2_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex2.js)'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/unicode_property_escapes_p2/upe_p2_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/unicode_property_escapes_p2/upe_p2_ex2.js)'
 - en: '|   | **const** re = */**([\p**{Alpha}**\p**{Pc}**\p**{Mark}**\p**{Nd}**\p**{Join_Control}**]**+**)\.**pdf**\b**/*u;
     |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**([\p**{Alpha}**\p**{Pc}**\p**{Mark}**\p**{Nd}**\p**{Join_Control}**]**+**)\.**pdf**\b**/*u;
+    |'
 - en: '![images/upe_p2_ex2.png](images/upe_p2_ex2.png)'
+  id: totrans-12
   prefs: []
   type: TYPE_IMG
+  zh: '![images/upe_p2_ex2.png](images/upe_p2_ex2.png)'
 - en: Now you can match a filename in any language!
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你可以匹配任何语言的文件名了！
 - en: Discussion
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The \w character class matches any alphanumeric character from the basic Latin
     alphabet, including the underscore. To match a similar range of characters but
     in Unicode, we need to use multiple property escapes:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: \w 字符类匹配任何来自基本拉丁字母表的字母数字字符，包括下划线。为了匹配类似范围的 Unicode 字符，我们需要使用多个属性转义：
 - en: \p{Alpha} is short for Alphabetic and matches any character with the Alphabetic
     property
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Alpha} 是字母（Alphabetic）的缩写，用于匹配任何具有字母属性的字符
 - en: \p{Pc} is an abbreviation for Connector_Punctuation, which matches a connecting
     punctuation mark, like an underscore
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Pc} 是连接标点符号（Connector_Punctuation）的缩写，用于匹配连接标点符号，如下划线
 - en: \p{Mark} matches a combining mark
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Mark} 匹配组合符号
 - en: \p{Nd} is an abbreviation for Decimal_Number and matches a decimal digit
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Nd} 是十进制数字（Decimal_Number）的缩写，用于匹配一个十进制数字
 - en: \p{Join_Control} matches format control characters that have functions for control
     of cursive joining and ligation
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: \p{Join_Control} 匹配具有控制草书连接和连字功能的格式控制字符
 - en: In the Unicode Standard, each character is assigned a set of properties and
     property values. The Unicode property escape enables us to match a character based
     on a particular property. For example, the letter “A” has an Alphabetic property
     with a value of Yes, which means we can match it with \p{Alpha} or \p{Alphabetic}.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Unicode 标准中，每个字符都会分配一组属性和属性值。Unicode 属性转义符使我们能够基于特定属性匹配字符。例如，字母“A”具有一个值为“是”的字母属性，这意味着我们可以使用
+    \p{Alpha} 或 \p{Alphabetic} 来匹配它。
 - en: To see the properties of a particular character, visit the Unicode character
     database and enter the character in the search bar.^([[30]](f_0064.xhtml#FOOTNOTE-30))
     For a list of supported property escapes, refer to the Unicode specification.^([[31]](f_0064.xhtml#FOOTNOTE-31))
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 要查看特定字符的属性，请访问 Unicode 字符数据库，并在搜索栏中输入该字符。^([[30]](f_0064.xhtml#FOOTNOTE-30))
+    若要查看支持的属性转义符列表，请参考 Unicode 规范。^([[31]](f_0064.xhtml#FOOTNOTE-31))

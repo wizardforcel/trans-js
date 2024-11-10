@@ -1,206 +1,317 @@
 - en: '| Recipe 61 | Removing Duplicate Spaces |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 61 | 移除重复空格 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you have a website with a blog section that allows guest posts. As
     a reviewer, you have noticed a common mistake in the submitted posts: double spaces
     between words. To address this issue, you want to create a function that automatically
     identifies and corrects this error by replacing double spaces with a single space.'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个带有博客部分的网站，允许游客发布文章。作为审阅者，你注意到提交的文章中常常有一个常见错误：单词之间有双空格。为了解决这个问题，你希望创建一个函数，自动识别并纠正这个错误，将双空格替换为单空格。
 - en: 'A quick and dirty way to convert double spaces to a single space is to use
     the replaceAll() method like this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 一种简单直接的方法，将双空格转换为单空格，是使用 replaceAll() 方法，如下所示：
 - en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex1.js)'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_spaces/removing_dup_spaces_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex1.js)'
 - en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
     |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"没有阳光的一天就像你知道的，夜晚。"*; |'
 - en: '|   |  |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replaceAll(*" "*, *" "*); |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replaceAll(*" "*, *" "*); |'
 - en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "没有阳光的一天就像你知道的，夜晚。"* |'
 - en: 'The first argument you pass to replaceAll() is the pattern to be replaced by
     the second argument. While replaceAll() is effective at converting double spaces
     to single spaces, it fails in cases where there are more than two spaces between
     words:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 你传递给 replaceAll() 的第一个参数是要被第二个参数替换的模式。虽然 replaceAll() 方法能有效地将双空格转换为单空格，但当单词之间有超过两个空格时，它会失效：
 - en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex2.js)'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_spaces/removing_dup_spaces_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex2.js)'
 - en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
     |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"没有阳光的一天就像你知道的，夜晚。"*; |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replaceAll(*" "*, *" "*); |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replaceAll(*" "*, *" "*); |'
 - en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "没有阳光的一天就像你知道的，夜晚。"* |'
 - en: You need a solution that can replace repeated spaces, not just double spaces.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，可以替换重复的空格，而不仅仅是替换双空格。
 - en: Solution
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Split the input string by space, store the resulting substrings in an array,
     remove any empty array items, and then combine the remaining elements using a
     single space:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输入字符串按空格分割，将结果子字符串存入数组，移除空数组项，然后使用单个空格将剩余元素组合起来：
 - en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex3.js)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_spaces/removing_dup_spaces_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex3.js)'
 - en: '|   | **function** replaceRepeatedSpaces(str) { |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** replaceRepeatedSpaces(str) { |'
 - en: '|   | **return** str.split(*" "*).filter(i=>i).join(*" "*); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.split(*" "*).filter(i=>i).join(*" "*); |'
 - en: '|   | } |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
     |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"没有阳光的一天就像，你知道的，夜晚。"*; |'
 - en: '|   |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | replaceRepeatedSpaces(str); |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | replaceRepeatedSpaces(str); |'
 - en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "没有阳光的一天就像，你知道的，夜晚。"* |'
 - en: This code takes a string and removes any instances of consecutive spaces, then
     returns the modified string with a single space character between each word.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码接受一个字符串并移除连续空格，然后返回修改后的字符串，单词之间用一个空格分隔。
 - en: Discussion
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In this function, we take a string and split it into an array of individual
     words using the split(" ") method. We then use the filter(i => i) method to remove
     any empty or falsy values from the resulting array. The filter() method creates
     a new array containing all the elements of the original array that pass a certain
     condition defined by a callback function.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个函数中，我们将字符串拆分成单独单词的数组，使用 split(" ") 方法。然后我们使用 filter(i => i) 方法从结果数组中移除任何空的或伪值（falsy）的元素。filter()
+    方法创建一个新数组，包含所有通过回调函数定义的条件的原始数组元素。
 - en: Remember that the callback function needs to return either true or false. In
     this case, we’re using the arrow function to just return the value from the array
     itself. Since an empty string is falsy, it is implicitly converted to false and
     gets removed from the array.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 记住，回调函数需要返回 true 或 false。在这种情况下，我们使用箭头函数直接返回数组中的值。由于空字符串是伪值（falsy），它会被隐式转换为
+    false 并从数组中移除。
 - en: '| What Are Truthy and Falsy Values? |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 什么是真值和伪值？ |'
 - en: '| --- |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Truthy values
     are those that are considered true when evaluated as a Boolean, while falsy values
     are considered false. Here are the values considered falsy in JavaScript:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 伪值（falsy）是当作为布尔值进行评估时被认为是
+    false 的值，而真值（truthy）是被认为是 true 的值。以下是 JavaScript 中被认为是伪值的值：'
 - en: 0 - The number zero
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 0 - 数字零
 - en: 0n - The BigInt zero
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 0n - BigInt 类型的零
 - en: '"" - An empty string'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '"" - 空字符串'
 - en: null - Represents the absence of any value
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: null - 表示没有任何值
 - en: undefined - Represents an undefined value
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: undefined - 表示未定义的值
 - en: NaN - Stands for "Not a Number" and represents an invalid or unrepresentable
     value
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: NaN - 代表 "不是一个数字"，表示无效或无法表示的值
 - en: All other values, including non-empty strings, non-zero numbers, arrays, objects,
     and functions, are considered truthy. |
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有其他值，包括非空字符串、非零数字、数组、对象和函数，都被认为是真值（truthy）。
 - en: After filtering, we are left with an array of words that we can join together
     using a single space. If you need to process a large amount of text, using regex
     can be slightly faster than using JavaScript’s methods. However, for most other
     cases, the performance difference is minimal.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 经过过滤后，我们得到一个单词数组，可以使用单个空格将它们连接起来。如果需要处理大量文本，使用正则表达式可能比使用 JavaScript 方法稍微快一些。不过，对于大多数其他情况，性能差异可以忽略不计。
 - en: 'Here’s an example of how to implement the solution using regex:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个使用正则表达式实现解决方案的示例：
 - en: '[part_3/removing_dup_spaces/removing_dup_spaces_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex4.js)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_spaces/removing_dup_spaces_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_spaces/removing_dup_spaces_ex4.js)'
 - en: '|   | **function** replaceRepeatedSpaces(str) { |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** replaceRepeatedSpaces(str) { |'
 - en: '|   | **return** str.replace(*/ +/g*,*" "*); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(*/ +/g*,*" "*); |'
 - en: '|   | } |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str = *"A day without sunshine is like, you know, night."*;
     |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"没有阳光的一天就像，你知道的，夜晚。"*; |'
 - en: '|   |  |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | replaceRepeatedSpaces(str); |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | replaceRepeatedSpaces(str); |'
 - en: '|   | *// → "A day without sunshine is like, you know, night."* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "没有阳光的一天就像，你知道的，夜晚。"* |'
 - en: It’s important to keep in mind that this recipe replaces only space characters
     and not all whitespace characters. A space character is what you get when you
     press the spacebar on your keyboard, while a whitespace character can represent
     a space, tab, new line, form feed, carriage return, or other similar characters.
     So, although a space character is a type of whitespace character, there are various
     other types of whitespace characters.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要记住的是，这个方法只替换空格字符，而不是所有空白字符。空格字符是你按下键盘空格键时产生的字符，而空白字符可以是空格、制表符、换行符、换页符、回车符或其他类似的字符。所以，虽然空格字符是空白字符的一种类型，但还有许多其他类型的空白字符。
 - en: When it comes to replacing whitespace characters, using regex can be a better
     option because it’s more concise. You’ll learn more about whitespace characters
     in the next recipe.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 当涉及到替换空白字符时，使用正则表达式可能是一个更好的选择，因为它更加简洁。你将在下一个方法中学习更多关于空白字符的内容。

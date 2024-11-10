@@ -4,137 +4,163 @@
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 第12章：跨语言的内存管理
 - en: 第12.1节：理解`stack`和`heap`分配
   id: totrans-1
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第12.1节：理解`stack`和`heap`分配
 - en: 内存管理是编程语言中的一个关键方面，因为它直接影响程序执行期间内存的分配和释放。内存管理中的一个基本概念是`stack`和`heap`分配之间的区别。
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 内存管理是编程语言中的一个关键方面，因为它直接影响程序执行期间内存的分配和释放。内存管理中的一个基本概念是`stack`和`heap`分配之间的区别。
 - en: '`Stack`分配'
   id: totrans-3
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Stack`分配'
 - en: '`Stack`内存是一种遵循后进先出（LIFO）分配方案的内存区域。它通常用于存储局部变量、函数调用信息以及管理函数执行。`Stack`分配速度快且可预测，因为内存的分配和释放以已知的顺序进行。'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Stack`内存是一种遵循后进先出（LIFO）分配方案的内存区域。它通常用于存储局部变量、函数调用信息以及管理函数执行。`Stack`分配速度快且可预测，因为内存的分配和释放以已知的顺序进行。'
 - en: 在像`C`和`C++`这样的语言中，当您在函数内声明一个局部变量时，它通常是在`stack`上分配的。
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在像`C`和`C++`这样的语言中，当您在函数内声明一个局部变量时，它通常是在`stack`上分配的。
 - en: '`void foo() {`'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`void foo() {`'
 - en: '`int x = 42;` // `x`是在`stack`上分配的'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int x = 42;` // `x`是在`stack`上分配的'
 - en: '`}`'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`Stack`内存的大小是有限的，其作用域通常仅限于函数调用的持续时间。当函数退出时，为其局部变量在`stack`上分配的内存会自动释放。'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Stack`内存的大小是有限的，其作用域通常仅限于函数调用的持续时间。当函数退出时，为其局部变量在`stack`上分配的内存会自动释放。'
 - en: '`Heap`分配'
   id: totrans-10
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Heap`分配'
 - en: 另一方面，`heap`内存是一种用于动态内存分配的内存区域。它不受与`stack`相同的后进先出约束，适合管理大小和生命周期各异的数据结构。`Heap`内存由程序员显式管理，正确分配和释放内存对于避免内存泄漏或访问违规至关重要。
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一方面，`heap`内存是一种用于动态内存分配的内存区域。它不受与`stack`相同的后进先出约束，适合管理大小和生命周期各异的数据结构。`Heap`内存由程序员显式管理，正确分配和释放内存对于避免内存泄漏或访问违规至关重要。
 - en: 像`C`和`C++`这样的语言提供了像`malloc`和`free`这样的函数，用于在`heap`上分配和释放内存。
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像`C`和`C++`这样的语言提供了像`malloc`和`free`这样的函数，用于在`heap`上分配和释放内存。
 - en: '`int *arr = (int *)malloc(5 * sizeof(int));` // 在`heap`上分配一个数组'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int *arr = (int *)malloc(5 * sizeof(int));` // 在`heap`上分配一个数组'
 - en: '`free(arr);` // 当不再需要时释放内存'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`free(arr);` // 当不再需要时释放内存'
 - en: '`Heap`内存允许动态内存分配，可以超出单个函数或块的作用域，适用于链表、树以及具有复杂生命周期的对象等数据结构。'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Heap`内存允许动态内存分配，可以超出单个函数或块的作用域，适用于链表、树以及具有复杂生命周期的对象等数据结构。'
 - en: 在`stack`和`heap`之间选择
   id: totrans-16
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 在`stack`和`heap`之间选择
 - en: '`stack`和`heap`分配之间的选择取决于您的程序需求：'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`stack`和`heap`分配之间的选择取决于您的程序需求：'
 - en: •           对于具有可预测生命周期的短命对象，使用`stack`分配。
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           对于具有可预测生命周期的短命对象，使用`stack`分配。
 - en: •           使用`heap`分配用于动态或较长生命周期的对象。
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           使用`heap`分配用于动态或较长生命周期的对象。
 - en: •           使用`heap`内存时要谨慎，因为需要手动管理以防止内存泄漏。
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           使用`heap`内存时要谨慎，因为需要手动管理以防止内存泄漏。
 - en: 理解`stack`和`heap`内存之间的差异对于编写高效和健壮的程序至关重要。它还在不同编程语言编写的软件的性能和可靠性中发挥着重要作用。
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 理解`stack`和`heap`内存之间的差异对于编写高效和健壮的程序至关重要。它还在不同编程语言编写的软件的性能和可靠性中发挥着重要作用。
 - en: '* * *'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 第12.2节：自动与手动内存管理
   id: totrans-23
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第12.2节：自动与手动内存管理
 - en: 编程语言中的内存管理可以分为两种主要方法：自动内存管理（垃圾收集）和手动内存管理。每种方法都有其优缺点，选择它们之间通常取决于语言的设计目标和程序员的偏好。
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 编程语言中的内存管理可以分为两种主要方法：自动内存管理（垃圾收集）和手动内存管理。每种方法都有其优缺点，选择它们之间通常取决于语言的设计目标和程序员的偏好。
 - en: Automatic Memory Management (Garbage Collection)
   id: totrans-25
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 自动内存管理（垃圾回收）
 - en: Automatic memory management, commonly referred to as garbage collection, is
     a memory management technique used by languages like `Java`, `Python`, `C#`, and
     `JavaScript`. In this approach, the language runtime system automatically tracks
@@ -144,6 +170,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 自动内存管理，通常称为垃圾回收，是`Java`、`Python`、`C#`和`JavaScript`等语言使用的一种内存管理技术。在这种方法中，语言运行时系统会自动追踪并回收不再使用的内存，减轻程序员在内存分配和释放方面的负担。
 - en: Garbage collection uses algorithms to identify and collect memory that can no
     longer be accessed by the program. This includes memory occupied by objects that
     are no longer referenced, cyclic references, and other unreachable memory.
@@ -151,44 +178,52 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 垃圾回收使用算法来识别和回收程序无法访问的内存。这包括不再被引用的对象、循环引用以及其他无法访问的内存。
 - en: 'Here’s a simplified example in `Python`:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个简化的`Python`示例：
 - en: Automatic memory management (`Python`)
   id: totrans-29
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 自动内存管理（`Python`）
 - en: '`def create_and_use_list():`'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def create_and_use_list():`'
 - en: '`my_list = [1, 2, 3]`  # List created'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`my_list = [1, 2, 3]`  # 创建列表'
 - en: '`print(my_list[0])`    # List used'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print(my_list[0])`    # 使用列表'
 - en: '`create_and_use_list()` # List goes out of scope and becomes eligible for garbage
     collection'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`create_and_use_list()` # 列表超出作用域并变为垃圾回收对象'
 - en: In this example, when the `create_and_use_list` function completes, the `my_list`
     object goes out of scope, becomes unreachable, and is eventually garbage collected.
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，当`create_and_use_list`函数完成时，`my_list`对象超出了作用域，变得无法访问，最终被垃圾回收。
 - en: Automatic memory management helps prevent common memory-related bugs such as
     memory leaks and dangling pointers. However, it can introduce some runtime overhead
     due to the need for garbage collection algorithms, which may briefly pause program
@@ -197,12 +232,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 自动内存管理有助于防止常见的内存相关错误，如内存泄漏和悬挂指针。然而，由于需要垃圾回收算法，它可能会引入一些运行时开销，在回收过程中可能会短暂暂停程序执行。
 - en: Manual Memory Management
   id: totrans-36
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 手动内存管理
 - en: Manual memory management requires programmers to explicitly allocate and deallocate
     memory. Languages like `C` and `C++` rely on manual memory management, giving
     programmers fine-grained control over memory usage.
@@ -210,6 +247,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 手动内存管理要求程序员显式地分配和释放内存。像`C`和`C++`这样的语言依赖手动内存管理，使程序员能够对内存使用进行精细控制。
 - en: In languages with manual memory management, memory allocation is typically done
     using functions like `malloc` (allocate) and deallocation using `free` (deallocate).
     Programmers are responsible for ensuring that memory is properly allocated and
@@ -218,21 +256,25 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在手动内存管理的语言中，内存分配通常通过`malloc`（分配）等函数完成，内存释放则通过`free`（释放）等函数进行。程序员负责确保内存正确分配和释放，这可能容易出错，但能提供更可预测的性能。
 - en: '`// Manual memory management (C)`'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 手动内存管理（C）`'
 - en: '`int *arr = (int *)malloc(5 * sizeof(int));`  // Memory allocation'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int *arr = (int *)malloc(5 * sizeof(int));`  // 内存分配'
 - en: '`free(arr);`  // Memory deallocation'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`free(arr);`  // 内存释放'
 - en: Manual memory management can be efficient when done correctly, but it also presents
     challenges such as memory leaks, double frees, and dangling pointers. Programs
     written in languages with manual memory management require careful memory management
@@ -241,12 +283,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 手动内存管理在正确执行时可以高效，但也带来了内存泄漏、双重释放和悬挂指针等挑战。在使用手动内存管理的语言中编写的程序需要小心谨慎的内存管理实践，以避免这些问题。
 - en: Choosing Between Approaches
   id: totrans-43
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 选择方法
 - en: The choice between automatic and manual memory management depends on factors
     such as language design goals, programmer experience, and project requirements.
     Languages with automatic memory management are often chosen for productivity and
@@ -257,568 +301,678 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 自动内存管理和手动内存管理的选择取决于语言设计目标、程序员经验和项目需求等因素。具有自动内存管理的语言通常更适合提高生产力和安全性，而具有手动内存管理的语言则更适合性能要求高的应用程序和系统编程。混合方法，如`C++`中的智能指针，试图结合两者的优点。
 - en: '*** '
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '*** '
 - en: 'Section 12.3: Garbage Collection Mechanisms in `Java` and `Python`'
   id: totrans-46
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第12.3节：`Java`和`Python`中的垃圾回收机制
 - en: 垃圾回收是现代编程语言中内存管理的一个关键方面。它有助于防止内存泄漏，并确保在内存不再需要时有效地回收内存。在本节中，我们将探讨垃圾回收在两种流行语言中的工作原理：Java和Python。
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 垃圾回收是现代编程语言中内存管理的一个关键方面。它有助于防止内存泄漏，并确保在内存不再需要时有效地回收内存。在本节中，我们将探讨垃圾回收在两种流行语言中的工作原理：Java和Python。
 - en: '`Garbage Collection in Java`'
   id: totrans-48
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Garbage Collection in Java`'
 - en: Java采用自动垃圾回收来管理内存。它使用多种技术来识别和回收不可达对象。Java中使用的最常见的垃圾回收算法是代际垃圾回收。
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Java采用自动垃圾回收来管理内存。它使用多种技术来识别和回收不可达对象。Java中使用的最常见的垃圾回收算法是代际垃圾回收。
 - en: 在代际垃圾回收中，内存被分为两个主要区域：年轻代和老年代。新对象在年轻代分配。当年轻代填满时，会触发一次小规模垃圾回收以回收内存。存活经过多次小规模收集的对象最终会被提升到老年代。大规模垃圾回收较少发生，并在老年代进行。
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在代际垃圾回收中，内存被分为两个主要区域：年轻代和老年代。新对象在年轻代分配。当年轻代填满时，会触发一次小规模垃圾回收以回收内存。存活经过多次小规模收集的对象最终会被提升到老年代。大规模垃圾回收较少发生，并在老年代进行。
 - en: 这是Java中的一个简单示例：
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是Java中的一个简单示例：
 - en: // Java中的垃圾回收
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: // Java中的垃圾回收
 - en: '`class MyClass {`'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`class MyClass {`'
 - en: '`public void finalize() {`'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public void finalize() {`'
 - en: '`System.out.println("Object finalized");`'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`System.out.println("Object finalized");`'
 - en: '`}`'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`public class GarbageCollectionDemo {`'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public class GarbageCollectionDemo {`'
 - en: '`public static void main(String[] args) {`'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public static void main(String[] args) {`'
 - en: '`MyClass obj1 = new MyClass();`'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`MyClass obj1 = new MyClass();`'
 - en: '`MyClass obj2 = new MyClass();`'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`MyClass obj2 = new MyClass();`'
 - en: '`obj1 = null;`  // 使`obj1`有资格进行垃圾回收'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`obj1 = null;`  // 使`obj1`有资格进行垃圾回收'
 - en: '`System.gc();`  // 建议JVM运行垃圾回收'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`System.gc();`  // 建议JVM运行垃圾回收'
 - en: '`}`'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: 在这个例子中，我们创建了两个`MyClass`对象，然后将`obj1`设置为`null`使其有资格进行垃圾回收。然后我们建议JVM运行垃圾回收，使用`System.gc()`。当JVM决定收集垃圾时，它会在回收内存之前调用有资格对象的`finalize`方法。
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们创建了两个`MyClass`对象，然后将`obj1`设置为`null`使其有资格进行垃圾回收。然后我们建议JVM运行垃圾回收，使用`System.gc()`。当JVM决定收集垃圾时，它会在回收内存之前调用有资格对象的`finalize`方法。
 - en: '`Garbage Collection in Python`'
   id: totrans-67
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Garbage Collection in Python`'
 - en: Python也使用自动垃圾回收，但采用不同的机制。Python使用引用计数技术，并结合循环检测器。
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Python也使用自动垃圾回收，但采用不同的机制。Python使用引用计数技术，并结合循环检测器。
 - en: 引用计数跟踪指向对象的引用数量。当一个对象的引用计数降到零时，这意味着该对象不再可访问，可以安全地回收。
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 引用计数跟踪指向对象的引用数量。当一个对象的引用计数降到零时，这意味着该对象不再可访问，可以安全地回收。
 - en: '`Garbage collection in Python`'
   id: totrans-70
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Garbage collection in Python`'
 - en: '`import gc`'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import gc`'
 - en: '`class MyClass:`'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`class MyClass:`'
 - en: '`def __del__(self):`'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def __del__(self):`'
 - en: '`print("Object finalized")`'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print("Object finalized")`'
 - en: '`obj1 = MyClass()`'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`obj1 = MyClass()`'
 - en: '`obj2 = obj1` # 创建对`obj1`的引用'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`obj2 = obj1` # 创建对`obj1`的引用'
 - en: '`del obj1` # Decrease reference count of `obj1`'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`del obj1` # 减少`obj1`的引用计数'
 - en: 明确运行垃圾回收
   id: totrans-78
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 明确运行垃圾回收
 - en: '`gc.collect()`'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`gc.collect()`'
 - en: 在这个Python示例中，我们创建了一个`MyClass`的实例，用`obj2`创建了一个对它的引用，然后删除了`obj1`。对象的引用计数减少，当我们明确运行`gc.collect()`时，Python的垃圾回收器回收了内存。
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个Python示例中，我们创建了一个`MyClass`的实例，用`obj2`创建了一个对它的引用，然后删除了`obj1`。对象的引用计数减少，当我们明确运行`gc.collect()`时，Python的垃圾回收器回收了内存。
 - en: Python的循环检测器用于检测和打破引用循环，确保即使在复杂的数据结构中，内存也能得到正确释放。
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Python的循环检测器用于检测和打破引用循环，确保即使在复杂的数据结构中，内存也能得到正确释放。
 - en: Java和Python通过垃圾收集提供自动内存管理，减轻了开发人员手动进行内存分配和释放的负担，从而减少了与内存相关的错误风险。然而，理解底层机制可以帮助优化内存使用并避免常见的陷阱。
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Java和Python通过垃圾收集提供自动内存管理，减轻了开发人员手动进行内存分配和释放的负担，从而减少了与内存相关的错误风险。然而，理解底层机制可以帮助优化内存使用并避免常见的陷阱。
 - en: '* * *'
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 第12.4节：C和C++中的内存泄漏和管理
   id: totrans-84
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第12.4节：C和C++中的内存泄漏和管理
 - en: C和C++中的内存管理与具有垃圾收集的语言（如Java和Python）显著不同。虽然它提供了对内存的更多控制，但如果处理不当，也会引入内存泄漏和未定义行为的风险。
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: C和C++中的内存管理与具有垃圾收集的语言（如Java和Python）显著不同。虽然它提供了对内存的更多控制，但如果处理不当，也会引入内存泄漏和未定义行为的风险。
 - en: C和C++中的内存泄漏
   id: totrans-86
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: C和C++中的内存泄漏
 - en: 在C和C++中，开发人员通过使用像`malloc`、`calloc`、`realloc`和`free`这样的函数显式控制内存的分配和释放。当开发人员忘记显式释放内存时，这种控制可能导致内存泄漏。内存泄漏发生在分配的内存不再可达但尚未被释放时，导致程序随着时间的推移消耗越来越多的内存。
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在C和C++中，开发人员通过使用像`malloc`、`calloc`、`realloc`和`free`这样的函数显式控制内存的分配和释放。当开发人员忘记显式释放内存时，这种控制可能导致内存泄漏。内存泄漏发生在分配的内存不再可达但尚未被释放时，导致程序随着时间的推移消耗越来越多的内存。
 - en: 这里有一个C语言的示例，演示内存泄漏：
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个C语言的示例，演示内存泄漏：
 - en: '`#include <stdio.h>`'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`#include <stdio.h>`'
 - en: '`#include <stdlib.h>`'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`#include <stdlib.h>`'
 - en: '`int main() {`'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int main() {`'
 - en: '`int *arr = (int *)malloc(5 * sizeof(int)); // Allocate memory for an integer
     array`'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int *arr = (int *)malloc(5 * sizeof(int)); // 为一个整数数组分配内存`'
 - en: '`if (arr == NULL) {`'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`if (arr == NULL) {`'
 - en: '`perror("Memory allocation failed");`'
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`perror("Memory allocation failed");`'
 - en: '`return 1;`'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return 1;`'
 - en: '`}`'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`// Perform some operations with arr`'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 执行一些与arr相关的操作`'
 - en: '`// Memory leak: Forgot to free the allocated memory`'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 内存泄漏：忘记释放已分配的内存`'
 - en: '`// free(arr);`'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// free(arr);`'
 - en: '`return 0;`'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return 0;`'
 - en: '`}`'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: 在这个例子中，内存是通过`malloc`为一个整数数组分配的，但代码忘记使用`free`释放内存。这导致了内存泄漏，因为分配的内存从未被释放。
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，内存是通过`malloc`为一个整数数组分配的，但代码忘记使用`free`释放内存。这导致了内存泄漏，因为分配的内存从未被释放。
 - en: C和C++中的管理策略
   id: totrans-103
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: C和C++中的管理策略
 - en: 为了有效管理C和C++中的内存，遵循最佳实践至关重要：
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了有效管理C和C++中的内存，遵循最佳实践至关重要：
 - en: 始终释放分配的内存：确保每次使用像`malloc`这样的函数进行内存分配时，都有相应的`free`来释放不再需要的内存。
   id: totrans-105
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 始终释放分配的内存：确保每次使用像`malloc`这样的函数进行内存分配时，都有相应的`free`来释放不再需要的内存。
 - en: 使用智能指针（C++）：在C++中，您可以使用像`std::shared_ptr`和`std::unique_ptr`这样的智能指针来自动管理内存。它们在不再被引用时自动释放内存，从而减少内存泄漏的风险。
   id: totrans-106
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用智能指针（C++）：在C++中，您可以使用像`std::shared_ptr`和`std::unique_ptr`这样的智能指针来自动管理内存。它们在不再被引用时自动释放内存，从而减少内存泄漏的风险。
 - en: Valgrind（C/C++）：像Valgrind这样的工具可以帮助检测C和C++程序中的内存泄漏和其他内存相关问题。在开发期间通过Valgrind运行代码可以早期捕获内存泄漏。
   id: totrans-107
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: Valgrind（C/C++）：像Valgrind这样的工具可以帮助检测C和C++程序中的内存泄漏和其他内存相关问题。在开发期间通过Valgrind运行代码可以早期捕获内存泄漏。
 - en: RAII（资源获取即初始化）：在C++中，RAII原则涉及在构造函数中获取内存等资源，并在析构函数中释放它们。RAII可以帮助确保在对象超出作用域时自动管理资源。
   id: totrans-108
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: RAII（资源获取即初始化）：在C++中，RAII原则涉及在构造函数中获取内存等资源，并在析构函数中释放它们。RAII可以帮助确保在对象超出作用域时自动管理资源。
 - en: 静态分析工具：使用静态分析工具分析代码中的潜在内存泄漏和未定义行为。
   id: totrans-109
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 静态分析工具：使用静态分析工具分析代码中的潜在内存泄漏和未定义行为。
 - en: 在C和C++中，内存管理需要谨慎和细致的注意。虽然这些语言提供了更大的内存控制，但开发者必须对正确分配和释放内存负责，以避免泄漏并确保程序的稳定性。
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在C和C++中，内存管理需要谨慎和细致的注意。虽然这些语言提供了更大的内存控制，但开发者必须对正确分配和释放内存负责，以避免泄漏并确保程序的稳定性。
 - en: '`* * *`'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`* * *`'
 - en: '`Section 12.5: Best Practices for Efficient Memory Usage`'
   id: totrans-112
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Section 12.5: Best Practices for Efficient Memory Usage`'
 - en: 高效的内存使用在编程中至关重要，因为它直接影响应用程序的性能和稳定性。在本节中，我们将探讨在各种编程语言中高效管理内存的最佳实践，重点关注C和C++。
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 高效的内存使用在编程中至关重要，因为它直接影响应用程序的性能和稳定性。在本节中，我们将探讨在各种编程语言中高效管理内存的最佳实践，重点关注C和C++。
 - en: '`1.` 使用栈内存（`Stack Memory`）时要适当'
   id: totrans-114
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`1.` 使用栈内存（`Stack Memory`）时要适当'
 - en: 栈内存的分配和释放速度比堆内存快。对小型、短生命周期的变量（如函数内的局部变量）使用栈。这些变量在超出作用域时会自动释放，从而降低内存泄漏的风险。
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 栈内存的分配和释放速度比堆内存快。对小型、短生命周期的变量（如函数内的局部变量）使用栈。这些变量在超出作用域时会自动释放，从而降低内存泄漏的风险。
 - en: '`void exampleFunction() {`'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`void exampleFunction() {`'
 - en: '`int x = 5; // x是栈变量`'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int x = 5; // x是栈变量`'
 - en: '`// ...`'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// ...`'
 - en: '`}` // x在函数退出时会自动释放'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}` // x在函数退出时会自动释放'
 - en: '`2.` 限制动态内存分配（`Dynamic Memory Allocation`）'
   id: totrans-120
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`2.` 限制动态内存分配（`Dynamic Memory Allocation`）'
 - en: 动态内存分配（例如，使用`malloc`或`new`）应谨慎使用。频繁的动态内存分配和释放可能导致碎片化和内存开销。相反，当最大大小已知时，可以考虑使用固定大小的数组或数据结构。
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 动态内存分配（例如，使用`malloc`或`new`）应谨慎使用。频繁的动态内存分配和释放可能导致碎片化和内存开销。相反，当最大大小已知时，可以考虑使用固定大小的数组或数据结构。
 - en: '`3.` 避免内存泄漏（`Memory Leaks`）'
   id: totrans-122
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`3.` 避免内存泄漏（`Memory Leaks`）'
 - en: 始终在不再需要时释放已分配的内存。在C和C++中，使用`free`或`delete`。在具有垃圾回收的语言中，依靠垃圾收集器回收内存。像`Valgrind`这样的工具可以帮助在开发过程中检测内存泄漏。
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 始终在不再需要时释放已分配的内存。在C和C++中，使用`free`或`delete`。在具有垃圾回收的语言中，依靠垃圾收集器回收内存。像`Valgrind`这样的工具可以帮助在开发过程中检测内存泄漏。
 - en: '`4.` 在C++中使用RAII（`Use RAII in C++`）'
   id: totrans-124
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`4.` 在C++中使用RAII（`Use RAII in C++`）'
 - en: 在C++中，拥抱RAII（`Resource Acquisition Is Initialization`）原则。它涉及在对象的构造函数和析构函数中获取和释放资源。RAII确保资源（包括内存）在对象超出作用域时得到正确管理。
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在C++中，拥抱RAII（`Resource Acquisition Is Initialization`）原则。它涉及在对象的构造函数和析构函数中获取和释放资源。RAII确保资源（包括内存）在对象超出作用域时得到正确管理。
 - en: '`class ResourceWrapper {`'
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`class ResourceWrapper {`'
 - en: '`public:`'
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public:`'
 - en: '`ResourceWrapper() {`'
   id: totrans-128
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`ResourceWrapper() {`'
 - en: '`// 获取资源，例如，分配内存`'
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 获取资源，例如，分配内存`'
 - en: '`}`'
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`~ResourceWrapper() {`'
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`~ResourceWrapper() {`'
 - en: '`// 释放资源，例如，释放内存`'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 释放资源，例如，释放内存`'
 - en: '`}`'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`};`'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`};`'
 - en: '`5.` 使用智能指针（`Employ Smart Pointers (C++)`）'
   id: totrans-135
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`5.` 使用智能指针（`Employ Smart Pointers (C++)`）'
 - en: 在C++中，优先使用智能指针（`smart pointers`），例如`std::shared_ptr`和`std::unique_ptr`，而不是原始指针（`raw
     pointers`）。智能指针自动管理内存，减少内存泄漏的可能性，并确保及时释放。
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在C++中，优先使用智能指针（`smart pointers`），例如`std::shared_ptr`和`std::unique_ptr`，而不是原始指针（`raw
+    pointers`）。智能指针自动管理内存，减少内存泄漏的可能性，并确保及时释放。
 - en: '`std::shared_ptr<int> shared = std::make_shared<int>(42);`'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`std::shared_ptr<int> shared = std::make_shared<int>(42);`'
 - en: '`std::unique_ptr<int> unique = std::make_unique<int>(42);`'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`std::unique_ptr<int> unique = std::make_unique<int>(42);`'
 - en: '`6.` 性能分析与优化（`Profile and Optimize`）'
   id: totrans-139
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`6.` 性能分析与优化（`Profile and Optimize`）'
 - en: 使用性能分析工具识别代码中的内存瓶颈。性能分析器帮助定位内存分配过多或效率低下的区域。一旦识别出来，可以相应地优化内存使用。
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用性能分析工具识别代码中的内存瓶颈。性能分析器帮助定位内存分配过多或效率低下的区域。一旦识别出来，可以相应地优化内存使用。
 - en: '`7.` 避免全局变量（`Avoid Global Variables`）'
   id: totrans-141
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`7.` 避免全局变量（`Avoid Global Variables`）'
 - en: 全局变量在程序执行期间可以一直存在于内存中，导致不必要的内存消耗。尽量减少全局变量的使用，并在可能的情况下优先使用局部作用域。
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 全局变量在程序执行期间可以一直存在于内存中，导致不必要的内存消耗。尽量减少全局变量的使用，并在可能的情况下优先使用局部作用域。
 - en: '`8.` 检查分配函数的返回值（`Check Return Values of Allocation Functions`）'
   id: totrans-143
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`8.` 检查分配函数的返回值（`Check Return Values of Allocation Functions`）'
 - en: 在动态分配内存时，总是检查分配函数（例如`malloc`、`new`）的返回值，以确保它们成功。未能这样做可能会导致未定义的行为。
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在动态分配内存时，总是检查分配函数（例如`malloc`、`new`）的返回值，以确保它们成功。未能这样做可能会导致未定义的行为。
 - en: '`int *ptr = (int *)malloc(sizeof(int));`'
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int *ptr = (int *)malloc(sizeof(int));`'
 - en: '`if (ptr == NULL) {`'
   id: totrans-146
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`if (ptr == NULL) {`'
 - en: '`// Allocation failed, handle the error`'
   id: totrans-147
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`// 分配失败，处理错误`'
 - en: '`}`'
   id: totrans-148
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: 9\. `Release Resources in Error Handling Paths`
   id: totrans-149
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 9\. `Release Resources in Error Handling Paths`
 - en: 当处理错误或异常时，确保任何分配的资源，包括内存，得到妥善释放。未能在错误路径中释放资源可能导致资源泄漏。
   id: totrans-150
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当处理错误或异常时，确保任何分配的资源，包括内存，得到妥善释放。未能在错误路径中释放资源可能导致资源泄漏。
 - en: 高效的内存管理是开发人员必须掌握的基本技能，无论他们使用哪种编程语言。遵循这些最佳实践，可以编写出不仅节省内存，而且最小化内存相关问题（如泄漏和碎片化）风险的代码，最终使软件更加健壮和高效。
   id: totrans-151
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 高效的内存管理是开发人员必须掌握的基本技能，无论他们使用哪种编程语言。遵循这些最佳实践，可以编写出不仅节省内存，而且最小化内存相关问题（如泄漏和碎片化）风险的代码，最终使软件更加健壮和高效。
 - en: '*** '
   id: totrans-152
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '*** '

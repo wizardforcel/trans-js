@@ -1,205 +1,316 @@
 - en: '| Recipe 54 | Validating Email Addresses |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| Recipe 54 | 验证电子邮件地址 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you have a form on your website or app that asks the user for an email
     address. Whether it’s for sending newsletters, regular communication, password
     recovery, or any other purpose, ensuring that you have the correct email address
     is crucial before proceeding—to minimize the number of emails returned as undeliverable.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的网页或应用程序上有一个表单，要求用户提供一个电子邮件地址。无论是用于发送新闻通讯、常规沟通、密码恢复还是其他目的，在继续操作之前确保你获得了正确的电子邮件地址至关重要——这样可以尽量减少退回的无法送达的邮件数量。
 - en: What you need is a mechanism to check that the entered text conforms to a valid
     email address format.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要的是一个机制来检查输入的文本是否符合有效的电子邮件地址格式。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'If your form is on a website, you can start by setting up the built-in HTML5
     form features. First, ensure that your input element has a type attribute with
     a value of “email”:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你的表单在一个网站上，你可以从设置内建的 HTML5 表单功能开始。首先，确保你的输入元素具有一个类型属性，值为“email”：
 - en: '[part_3/validating_email/email_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex1.xhtml)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_email/email_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex1.xhtml)'
 - en: '|   | <form> |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | <form> |'
 - en: '|   | <label for=*"Email"*>Email:</label> |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | <label for=*"Email"*>邮箱：</label> |'
 - en: '|   | <input type=*"email"* id=*"Email"*> |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input type=*"email"* id=*"Email"*> |'
 - en: '|   | <input type=*"submit"*> |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input type=*"submit"*> |'
 - en: '|   | </form> |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | </form> |'
 - en: 'Email inputs usually catch the most obvious errors that the user makes when
     typing their email. To enforce mandatory input, the easiest validation tool is
     the required attribute. To implement it, include the attribute right before the
     closing input tag:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 电子邮件输入通常能捕捉到用户在输入电子邮件时最明显的错误。为了强制要求输入，最简单的验证工具是“required”属性。为了实现这一点，可以在闭合的输入标签前加入该属性：
 - en: '[part_3/validating_email/email_ex2.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.xhtml)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_email/email_ex2.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.xhtml)'
 - en: '|   | <form> |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | <form> |'
 - en: '|   | <label for=*"Email"*>Email:</label> |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | <label for=*"Email"*>邮箱：</label> |'
 - en: '|   | <input type=*"email"* id=*"Email"* required> |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input type=*"email"* id=*"Email"* required> |'
 - en: '|   | <input type=*"submit"*> |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input type=*"submit"*> |'
 - en: '|   | </form> |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | </form> |'
 - en: 'On the server-side, verify that the input has an at sign (@) that’s preceded
     and followed by non-whitespace characters:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在服务器端，验证输入的电子邮件地址是否包含“@”符号，并且符号前后都是非空白字符：
 - en: '[part_3/validating_email/email_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.js)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/validating_email/email_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/validating_email/email_ex2.js)'
 - en: '|   | **function** isValidEmail(str) { |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** isValidEmail(str) { |'
 - en: '|   | **const** re = */^**\S**+@**\S**+$/*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */^**\S**+@**\S**+$/*; |'
 - en: '|   | **return** re.test(str); |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** re.test(str); |'
 - en: '|   | } |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | isValidEmail(*"faraz@"*); *// → false* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidEmail(*"faraz@"*); *// → false* |'
 - en: '|   | isValidEmail(*"@abcd"*); *// → false* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidEmail(*"@abcd"*); *// → false* |'
 - en: '|   | isValidEmail(*"faraz@somewhere.com"*); *// → true* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidEmail(*"faraz@somewhere.com"*); *// → true* |'
 - en: This pattern performs a check similar to the HTML mechanism for validating emails.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个模式执行的检查类似于 HTML 机制中验证电子邮件的过程。
 - en: Discussion
+  id: totrans-30
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Designing web forms has always been challenging for programmers. Although coding
     the form itself is straightforward, verifying that every input has a logical and
     acceptable value poses a greater difficulty, and communicating any issues to the
     user can be a headache. Client-side form validation helps users identify and correct
     errors in their form submissions more quickly.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 设计网页表单一直是程序员面临的挑战。虽然表单本身的编码相对简单，但验证每个输入值是否符合逻辑和可接受的要求则更具难度，而且将任何问题传达给用户也可能是一个头痛问题。客户端表单验证有助于用户更快地识别和修正表单提交中的错误。
 - en: But, it’s important to understand that relying solely on client-side validation
     may not provide comprehensive security. To ensure maximum security, your applications
     must perform security checks on form data on both the server-side and client-side.
     And regex is often the preferred tool for programmers to perform that task.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，重要的是要理解，仅依赖客户端验证可能无法提供全面的安全性。为了确保最大限度的安全性，你的应用程序必须在服务器端和客户端都对表单数据执行安全检查。而正则表达式通常是程序员用来执行此任务的首选工具。
 - en: In most cases, the regex patterns you come across on the internet are excessively
     limiting for email address verification. Some developers recommend checking the
     input to conform to the RFC 5322 standard. RFC 5322 defines the structure and
     syntax of email messages, which includes the email addresses.^([[32]](f_0087.xhtml#FOOTNOTE-32))
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在大多数情况下，你在互联网上遇到的正则表达式模式对于电子邮件地址验证来说过于限制。一些开发者建议检查输入是否符合 RFC 5322 标准。RFC 5322
+    定义了电子邮件消息的结构和语法，其中包括电子邮件地址。^([[32]](f_0087.xhtml#FOOTNOTE-32))
 - en: 'To do that, you’ll need a regex like this:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了实现这一点，你需要一个像这样的正则表达式：
 - en: '|   | const re = /(?:[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+
     |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | const re = /(?:[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{&#124;}~-]+
+    |'
 - en: '|   | )*&#124;"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]&#124;\\[\x01-\x09\x0b\x
     |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | )*&#124;"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]&#124;\\[\x01-\x09\x0b\x
+    |'
 - en: '|   | 0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9
     |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | 0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9
+    |'
 - en: '|   | -]*[a-z0-9])?&#124;\[(?:(?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9]))\.){3}(
     |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | -]*[a-z0-9])?&#124;\[(?:(?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9]))\.){3}(
+    |'
 - en: '|   | ?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9])&#124;[a-z0-9-]*[a-z0-9]:(?:[\x01
     |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | ?:(2(5[0-5]&#124;[0-4][0-9])&#124;1[0-9][0-9]&#124;[1-9]?[0-9])&#124;[a-z0-9-]*[a-z0-9]:(?:[\x01
+    |'
 - en: '|   | -\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]&#124;\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\
     |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | -\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]&#124;\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\
+    |'
 - en: '|   | ])/; |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | ])/; |'
 - en: This regex is equally intimidating to developers who are unfamiliar with regular
     expressions and those who are proficient in them! But even validating an email
     address according to the RFC standard doesn’t provide any information about the
     existence of the address at the given domain or the true ownership of the address.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式对于那些不熟悉正则表达式的开发人员来说同样令人生畏，对于那些熟练掌握正则表达式的人也不例外！但是，即使按照 RFC 标准验证电子邮件地址，也无法提供关于该地址在给定域名上是否存在或该地址的真实所有权的信息。
 - en: According to RFC 5322, qwerty@qwerty.qwerty is a valid email address. However,
     it’s not considered valid if the definition of a valid email address specifies
     that it must accept email. This is because there is no top-level domain called
     qwerty.^([[33]](f_0087.xhtml#FOOTNOTE-33))
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据 RFC 5322，qwerty@qwerty.qwerty 是一个有效的电子邮件地址。然而，如果有效电子邮件地址的定义要求它必须能够接收邮件，那么它就不被视为有效。这是因为并没有名为
+    qwerty 的顶级域名。^([[33]](f_0087.xhtml#FOOTNOTE-33))
 - en: Previously, it was logical to restrict the top-level domain to two-letter pairings
     for country codes and to perform a complete enumeration of generic top-level domains,
     like com|net|org|mil|edu. But as new top-level domains are added frequently, such
     patterns that were once valid quickly become outdated.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 以前，限制顶级域名为两字母组合的国家代码，并对通用顶级域名（如 com|net|org|mil|edu）进行完全列举是合乎逻辑的。但是，随着新的顶级域名的频繁增加，曾经有效的这些模式很快就会过时。
 - en: Basically, you can’t be sure if david@somewhere.com can actually get emails
     unless you send one and see if it goes through. Even in this scenario, it’s uncertain
     whether the absence of a reply indicates that the domain somewhere.com is discreetly
     getting rid of emails sent to non-existent mail addresses, or if David himself
     deleted them, or if his spam filter intercepted them.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，除非你发送邮件并查看是否能够发送成功，否则无法确定 david@somewhere.com 是否能够接收到邮件。即使在这种情况下，是否没有回复也不能确定是因为
+    somewhere.com 域名悄悄地将发送到不存在邮件地址的邮件丢弃，还是 David 本人删除了邮件，或者是他的垃圾邮件过滤器拦截了邮件。
 - en: A reliable email validation tool will do more than just check the syntax of
     the email address or ping a mail server. This process involves sending a message
     to the email address entered, which includes a confirmation token. Confirmation
     tokens are the only way to verify that the email address entered is correct.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个可靠的电子邮件验证工具不仅仅是检查电子邮件地址的语法或向邮件服务器发送 Ping 请求。这个过程涉及向输入的电子邮件地址发送一条包含确认令牌的消息。确认令牌是验证输入的电子邮件地址是否正确的唯一方式。
 - en: That’s why the majority of mailing lists rely on this mechanism to authenticate
     sign-ups. Because anyone can enter ceo@microsoft.com, which could be technically
     valid, yet it’s improbable that the person at the receiving end is the actual
     CEO.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么大多数邮件列表依赖这个机制来验证注册信息的原因。因为任何人都可以输入 ceo@microsoft.com，这在技术上可能是有效的，但接收方不太可能是实际的
+    CEO。
 - en: Because you need to send a confirmation email to verify whether an address exists
     or not, you have the option to choose a less strict regular expression. It may
     be better to let some invalid addresses pass through than to inconvenience people
     by blocking valid ones. Even though the solution in this recipe allows characters
     like %#$ that aren’t typically found in email addresses, it’s efficient and uncomplicated.
     Additionally, it will not prevent a legitimate email address from being accepted.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 因为你需要发送确认邮件来验证一个地址是否存在，你可以选择一个不那么严格的正则表达式。让一些无效地址通过，可能比阻止有效地址更好，这样就不会给人们带来不便。即使这个方案允许像
+    %#$ 这样的字符——这些字符通常在电子邮件地址中是不会出现的——它依然高效且简洁。此外，它也不会阻止一个合法的电子邮件地址被接受。
 - en: If you want to add complexity to your regex, my suggestion would be to notify
     the user that there could be an issue with the email address rather than making
     it forbidden.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想为正则表达式增加复杂度，我建议你通知用户电子邮件地址可能存在问题，而不是直接将其视为禁用。

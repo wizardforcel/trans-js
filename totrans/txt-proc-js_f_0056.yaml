@@ -1,151 +1,242 @@
 - en: '| Recipe 45 | Modifying an Existing Regex Literal |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 45 | 修改现有的正则表达式字面量 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you want to take your teammate’s regular expression literal and modify
     it for use in another part of the code. You don’t want to alter the original regex
     because it has passed all tests for the job it was intended for.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想要修改你队友的正则表达式字面量，以便在代码的其他部分使用。你不想改变原始的正则表达式，因为它已经通过了所有的测试，适用于它最初的用途。
 - en: You need a solution that enables you to modify a copy of an existing regex literal.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，能够修改现有正则表达式字面量的副本。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the source and flags properties to retrieve the original regex parts. And
     construct a new RegExp object with those parts:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 `source` 和 `flags` 属性来获取原始正则表达式的部分。然后使用这些部分构造一个新的 `RegExp` 对象：
 - en: '[part_2/modifying_regex/modifying_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/modifying_regex/modifying_regex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex1.js)'
 - en: '|   | *// Pattern to match a filename with .png extension* |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配带有 .png 扩展名的文件名的模式* |'
 - en: '|   | **const** origRegex = */**\b(\w**+**)\.**png**\b**/*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** origRegex = */**\b(\w**+**)\.**png**\b**/*; |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Pattern to match a filename with .png or .PNG extension* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配带有 .png 或 .PNG 扩展名的文件名的模式* |'
 - en: '|   | **const** newRegex = **new** RegExp(origRegex.source, origRegex.flags
     + *"i"*); |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** newRegex = **new** RegExp(origRegex.source, origRegex.flags
+    + *"i"*); |'
 - en: Hooray! You have successfully added the i flag to the regex pattern.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 太棒了！你已经成功将 `i` 标志添加到正则表达式模式中。
 - en: Discussion
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'JavaScript provides the flags property for reading all flags used in a regex:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 提供了 `flags` 属性，用于读取正则表达式中使用的所有标志：
 - en: '[part_2/modifying_regex/modifying_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex2.js)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/modifying_regex/modifying_regex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex2.js)'
 - en: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*u; |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*u; |'
 - en: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*; |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re1.flags); *// → giu* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.flags); *// → giu* |'
 - en: '|   | console.log(re2.flags); *// → ""* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re2.flags); *// → ""* |'
 - en: 'Notice how the order of flags changes when reading them. The flags property
     always ignores the order of the original pattern and lists them in a fixed order:
     “gimuy.” If the pattern has no flags, the return value will be an empty string.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意当读取标志时，标志的顺序是如何变化的。`flags` 属性总是忽略原始模式的顺序，并以固定顺序列出它们：“gimuy”。如果模式没有标志，返回值将是一个空字符串。
 - en: 'Similarly, the source property gets us the pattern enclosed between the forward
     slashes:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，`source` 属性获取我们被正斜杠包围的模式：
 - en: '[part_2/modifying_regex/modifying_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex3.js)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/modifying_regex/modifying_regex_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex3.js)'
 - en: '|   | **const** re = */**\b(\w**+**)\.**png**\b**/ig*u; |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(\w**+**)\.**png**\b**/ig*u; |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.source); *// → \b(\w+)\.png\b* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.source); *// → \b(\w+)\.png\b* |'
 - en: 'We can also check if a specific flag is applied to a regex. For example, to
     see if the global flag g is set, we can read the global property:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以检查特定的标志是否应用于正则表达式。例如，要查看 `global` 标志 `g` 是否设置，我们可以读取 `global` 属性：
 - en: '[part_2/modifying_regex/modifying_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex4.js)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/modifying_regex/modifying_regex_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/modifying_regex/modifying_regex_ex4.js)'
 - en: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*; |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = */**\b(\w**+**)\.**png**\b**/ig*; |'
 - en: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*u; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */**\b(\w**+**)\.**png**\b**/*u; |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re1.global); *// → true* |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re1.global); *// → true* |'
 - en: '|   | console.log(re2.global); *// → false* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re2.global); *// → false* |'
 - en: 'The following table lists all supported flags along with their corresponding
     properties. Note that all these properties are read-only:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表列出了所有支持的标志及其对应的属性。请注意，这些属性都是只读的：
 - en: '| Flag | Corresponding Property |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| 标志 | 对应的属性 |'
 - en: '| --- | --- |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| d | hasIndices |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| d | hasIndices |'
 - en: '| g | global |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| g | global |'
 - en: '| i | ignoreCase |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| i | ignoreCase |'
 - en: '| m | multiline |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| m | multiline |'
 - en: '| s | dotAll |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| s | dotAll |'
 - en: '| u | unicode |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '| u | unicode |'
 - en: '| y | sticky |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '| y | sticky |'
 - en: Use the flags property to retrieve the flags of a regex object. And use the
     source property to retrieve the source text of a regex object. Remember, the returned
     value by source is without the two forward slashes on the sides or flags. These
     properties are mainly helpful when you want to construct a new pattern from an
     existing one.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 `flags` 属性来获取正则表达式对象的标志。使用 `source` 属性来获取正则表达式对象的源文本。记住，`source` 返回的值不包括两侧的正斜杠或标志。这个属性在你想从现有模式构建新模式时非常有用。

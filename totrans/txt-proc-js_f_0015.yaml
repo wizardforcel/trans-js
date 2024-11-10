@@ -1,110 +1,161 @@
 - en: '| Recipe 5 | Converting Color Names to Hexadecimal Values with the Canvas Element
     |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 5 | 使用画布元素将颜色名称转换为十六进制值 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you’re working on a drawing application that works with hexadecimal
     (hex) color codes. You want to provide a field that lets users enter a color name
     to be converted to its hex equivalence automatically.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你正在开发一个绘图应用程序，该程序支持十六进制（hex）颜色代码。你希望提供一个字段，让用户输入颜色名称，并自动将其转换为相应的十六进制值。
 - en: You need a solution for converting colors into their hex representation.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，将颜色转换为其十六进制表示。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Create a temporary HTML canvas element, obtain its 2D context, and use the
     fillStyle property to convert the color:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个临时的 HTML 画布元素，获取其 2D 上下文，并使用 `fillStyle` 属性来转换颜色：
 - en: '[part_1/converting_color_to_hex/color_to_hex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/converting_color_to_hex/color_to_hex_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/converting_color_to_hex/color_to_hex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/converting_color_to_hex/color_to_hex_ex1.js)'
 - en: '|   | **function** convertColorToHex(color) { |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** convertColorToHex(color) { |'
 - en: '|   | **const** canvas = document.createElement(*"canvas"*); |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** canvas = document.createElement(*"canvas"*); |'
 - en: '|   | **const** ctx = canvas.getContext(*"2d"*); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** ctx = canvas.getContext(*"2d"*); |'
 - en: '|   | ctx.fillStyle = color; |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | ctx.fillStyle = color; |'
 - en: '|   | **return** ctx.fillStyle.toUpperCase(); |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** ctx.fillStyle.toUpperCase(); |'
 - en: '|   | } |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | convertColorToHex(*"Khaki"*); *// → "#F0E68C"* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | convertColorToHex(*"Khaki"*); *// → "#F0E68C"* |'
 - en: This function accepts a string containing a web color name and converts it into
     its corresponding hex value.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数接受一个包含网页颜色名称的字符串，并将其转换为对应的十六进制值。
 - en: Discussion
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Hexadecimal notation is commonly used to specify colors in programs and web
     development because it provides a compact and efficient way to represent a wide
     range of colors.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 十六进制表示法通常用于程序和网页开发中指定颜色，因为它提供了一种紧凑且高效的方式来表示各种颜色。
 - en: 'In hex notation, colors are made of a combination of red, green, and blue (RGB)
     values, each represented by a two-digit hex number (00 to FF), with the first
     two digits representing the intensity of red, the next two digits representing
     the intensity of green, and the last two digits representing the intensity of
     blue. For example, the color white is represented by the hex code #FFFFFF, which
     has maximum values for all three colors.'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '在十六进制表示法中，颜色由红、绿、蓝（RGB）值的组合构成，每个值由两位十六进制数（00 到 FF）表示，前两位表示红色的强度，接下来的两位表示绿色的强度，最后两位表示蓝色的强度。例如，白色的颜色代码是
+    #FFFFFF，它表示所有三种颜色的最大值。'
 - en: In this solution, we define a function that takes in a single parameter called
     color, which should be a string representing a color. Inside the function, we
     create a new HTML canvas element by using the document.createElement() method.
     This method creates an HTML element based on the tag name provided as the argument.
     In this case, we use the tag name “canvas” to create a canvas element.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个解决方案中，我们定义了一个函数，该函数接受一个名为color的参数，这个参数应该是一个表示颜色的字符串。在函数内部，我们使用document.createElement()方法创建一个新的HTML画布元素。这个方法根据提供的标签名称作为参数创建一个HTML元素。在这里，我们使用标签名称“canvas”来创建一个画布元素。
 - en: Next, we create a context object for the canvas using the getContext() method.
     We specify that the context object should be for a two-dimensional canvas by passing
     “2d” as an argument. We then set the fillStyle property of the context object
     to the parameter that was passed to the function. This sets the color that will
     be used to fill any shapes drawn on the canvas.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们使用getContext()方法为画布创建一个上下文对象。我们通过传递“2d”作为参数来指定上下文对象应该用于二维画布。然后，我们将上下文对象的fillStyle属性设置为传递给函数的参数。这将设置用于填充任何绘制在画布上的形状的颜色。
 - en: 'Now we can read the fillStyle property of the context object to get the hex
     value of the color. When we call the function with the argument Khaki, it will
     create a canvas element, set the fillStyle to Khaki, and return the hex value
     of the color #F0E68C. Note that this function does not actually draw anything
     on the canvas—it only creates the canvas element and sets the fillStyle.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，我们可以读取上下文对象的fillStyle属性来获取颜色的十六进制值。当我们使用参数Khaki调用这个函数时，它将创建一个画布元素，设置fillStyle为Khaki，并返回颜色的十六进制值#F0E68C。注意，这个函数实际上并没有在画布上绘制任何内容——它只会创建画布元素并设置fillStyle。
 - en: Before returning the hex value from the function, we used the toUpperCase()
     method to convert the hex letters to uppercase. In JavaScript and CSS, hex colors
     can be written using either uppercase or lowercase letters. Both uppercase and
     lowercase hex letters represent the same values.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在从函数返回十六进制值之前，我们使用了toUpperCase()方法将十六进制字母转换为大写字母。在JavaScript和CSS中，十六进制颜色可以使用大写或小写字母表示。大写字母和小写字母表示的十六进制颜色值是相同的。
 - en: But, it’s common practice to use uppercase letters for hex colors because it
     can make the code easier to read and differentiate from other text in the code.
     Ultimately, the choice between the two styles is a matter of personal preference
     or style guide.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，通常的做法是使用大写字母表示十六进制颜色，因为这可以使代码更容易阅读，并且与代码中的其他文本有所区分。最终，选择这两种风格中的哪一种是个人偏好或风格指南的问题。
 - en: By converting color names to hex notation, we can specify a color in a way that
     can be used across different software platforms and devices. A list of web colors
     and their hex equivalent is available on Wikipedia.^([[7]](f_0032.xhtml#FOOTNOTE-7))
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过将颜色名称转换为十六进制表示法，我们可以指定一种颜色，这种表示法可以在不同的软件平台和设备上使用。有关网页颜色及其十六进制等效值的列表可以在维基百科上找到。^([[7]](f_0032.xhtml#FOOTNOTE-7))

@@ -1,192 +1,302 @@
 - en: '| Recipe 47 | Testing a Pattern with the Positive Lookahead |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱47 | 使用正向前瞻测试模式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose your task is to fix a mistake in several documents that inaccurately
     list a company’s revenue in dollars, instead of euros. You need to find all instances
     of “$90.3 million” and replace “$” with “€.”
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是修正多个文档中的错误，这些文档错误地列出了公司的收入为美元，而不是欧元。你需要找到所有“$90.3百万”的实例，并将“$”替换为“€”。
 - en: 'So, what you need is a regex pattern that finds “$90.3 million” in a sentence
     such as this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，你需要的是一个正则表达式模式，用来在类似这样的句子中找到“$90.3百万”：
 - en: '|   | "The Company posted a September quarter record revenue of $90.3 million,
     |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | "公司发布了九月季度创纪录的收入为$90.3百万， |'
 - en: '|   | up 8 percent year over year." |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | 上涨8%的年同比增长。" |'
 - en: But you want to match and replace only the currency sign, not the entire string.
     You need a way to exclude “90.3 million” from the match result.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 但你只想匹配和替换货币符号，而不是整个字符串。你需要一种方法来排除“90.3百万”不在匹配结果中。
 - en: Solution
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a positive lookahead denoted by (?= ... ) to match the part of the string
     that you don’t want to include in the result:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用正向前瞻 (?= ... ) 来匹配你不想包括在结果中的字符串部分：
 - en: '[part_2/positive_lookahead/positive_lookahead_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex1.js)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/positive_lookahead/positive_lookahead_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex1.js)'
 - en: '|   | **const** str = *`The Company posted a September quarter record revenue*
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`公司发布了九月季度创纪录的收入* |'
 - en: '|   | *of $90.3 million, up 8 percent year over year.`*; |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | *为$90.3百万，上涨8%的年同比增长。`*; |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re = */**\$(?=**90**\.**3**\s**million**)**/ig*; |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\$(?=**90**\.**3**\s**million**)**/ig*; |'
 - en: '|   |  |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Replace only $ with €* |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 只替换$为€* |'
 - en: '|   | str.replace(re, *"€"*); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"€"*); |'
 - en: '|   | *// → "The Company posted a September quarter record revenue \n* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "公司发布了九月季度创纪录的收入\n* |'
 - en: '|   | *// of €90.3 million, up 8 percent year over year."* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 的€90.3百万，上涨8%的年同比增长。"* |'
 - en: With the (?= ... ) syntax, you require a pattern to appear after the regex match
     without including it in the match.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 (?= ... ) 语法，你需要一个模式出现在正则表达式匹配之后，但不包括它在匹配中。
 - en: Discussion
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Lookaheads are non-capturing groups that allow us to match a pattern based on
     the substring that follows the pattern. For a positive lookahead match to be successful,
     it must match a pattern followed by the pattern in subexpression.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 前瞻断言是非捕获组，它允许我们基于模式后面的子字符串来匹配模式。为了使正向前瞻匹配成功，它必须匹配一个模式，后跟子表达式中的模式。
 - en: Notice the output of match() in the following code, which is only “$.”
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意以下代码中match()的输出结果，它仅为“$”。
 - en: '[part_2/positive_lookahead/positive_lookahead_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex2.js)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/positive_lookahead/positive_lookahead_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex2.js)'
 - en: '|   | **const** str = *"$90.3 million"*; |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"$90.3 million"*; |'
 - en: '|   | **const** re = */**\$(?=**90**\.**3**\s**million**)**/*; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\$(?=**90**\.**3**\s**million**)**/*; |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.match(re)[0]; *// → "$"* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.match(re)[0]; *// → "$"* |'
 - en: When using a lookahead, the subexpression is not included in the result. It
     also can’t be referenced with a backreference.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用前瞻时，子表达式不会包含在结果中，也不能通过反向引用来引用。
 - en: There’s a workaround, though. If you place capturing parentheses around the
     expression in the lookahead like (?=(regex)), you can capture the match in lookarounds,
     too. Wrapping the entire lookahead in parentheses won’t work because when the
     capturing group wants to store the match, the lookahead will already have discarded
     it.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 不过，也有解决方法。如果你将捕获括号放在前瞻表达式中，如(?=(regex))，你也可以在lookarounds中捕获匹配。将整个前瞻表达式用括号包裹是行不通的，因为当捕获组试图存储匹配时，前瞻已经丢弃了它。
 - en: 'Don’t confuse capturing and matching. The positive lookahead assertion (?=
     ... ) and the non-capturing group (?: ... ) serve different purposes. While both
     don’t capture the substring they match, the non-capturing group includes the substring
     in the overall match, while the positive lookahead assertion does not.'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '不要混淆捕获和匹配。正向前瞻断言 (?= ... ) 和非捕获组 (?: ... ) 各自有不同的作用。虽然两者都不会捕获它们匹配的子字符串，但非捕获组会将该子字符串包括在整体匹配中，而正向前瞻断言则不会。'
 - en: 'For example, if we rewrite the solution in this recipe to substitute a non-capturing
     group for the lookahead assertion, the entire match gets replaced:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 举个例子，如果我们重写本食谱中的解决方案，将非捕获组替换为前瞻断言，整个匹配将被替换：
 - en: '[part_2/positive_lookahead/positive_lookahead_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex3.js)'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/positive_lookahead/positive_lookahead_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/positive_lookahead/positive_lookahead_ex3.js)'
 - en: '|   | **const** str = *`The Company posted a September quarter record revenue*
     |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`公司公布了九月季度创纪录的收入* |'
 - en: '|   | *of $90.3 million, up 8 percent year over year.`*; |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *的$90.3百万，同比增长8%。`*; |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re = */**\$(?:**90**\.**3**\s**million**)**/ig*; |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\$(?:**90**\.**3**\s**million**)**/ig*; |'
 - en: '|   |  |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"€"*); |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"€"*); |'
 - en: '|   | *// → "The Company posted a September quarter record revenue \n* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "公司公布了九月季度创纪录的收入 \n* |'
 - en: '|   | *// of €, up 8 percent year over year."* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// of €, year over year增长8%."* |'
 - en: For more on non-capturing groups, see Recipe 31, [*Extracting a Matched Value
     with the Capturing Group*](f_0042.xhtml#rcp.capturing_group_p2).
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 要了解更多关于非捕获组的内容，请参见第31条，[*使用捕获组提取匹配值*](f_0042.xhtml#rcp.capturing_group_p2)。
 - en: 'Now, let’s dig a bit deeper into the regex pattern:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，让我们深入了解正则表达式模式：
 - en: '|   | /\$(?=90\.3\smillion)/ig |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\$(?=90\.3\smillion)/ig |'
 - en: '|   |  |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \$ matches the character "$" literally |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \$ 匹配字符 "$" |'
 - en: '|   | ● (?=90.3\smillion) positive lookahead |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?=90.3\smillion) 正向前瞻 |'
 - en: '|   | ○ 90 matches the characters "90" literally |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 90 匹配字符 "90" |'
 - en: '|   | ○ \. matches the character "." literally |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \. 匹配字符 "." |'
 - en: '|   | ○ 3 matches the character "3" literally |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 3 字面匹配字符 "3" |'
 - en: '|   | ○ \s matches any whitespace character |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配任何空白字符 |'
 - en: '|   | ○ million matches the characters "million" literally |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ million 字面匹配字符 "million" |'
 - en: '|   | Flags |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | Flags |'
 - en: '|   | ● i case-insensitive match |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● i 不区分大小写匹配 |'
 - en: '|   | ● g global match |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● g 全局匹配 |'
 - en: 'Use a lookahead to inspect whether it’s possible to match a specific string
     without actually matching it. You have two types of lookaheads at your disposal:
     positive lookahead and negative lookahead. The positive lookahead is denoted by
@@ -194,5 +304,8 @@
     On the other hand, negative lookahead, which we will focus on in the next recipe,
     is denoted by (?! ... ), and it guarantees that a pattern is not followed by another
     pattern.'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用预查来检查是否可以匹配一个特定的字符串，而不实际进行匹配。你可以使用两种类型的预查：正向预查和负向预查。正向预查用`(?= ... )`语法表示，它确保一个模式后面跟着另一个模式。另一方面，负向预查（我们将在下一个示例中重点介绍）用`(?!
+    ... )`表示，它保证一个模式后面不跟着另一个模式。

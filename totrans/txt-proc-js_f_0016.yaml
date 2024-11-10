@@ -1,84 +1,130 @@
 - en: '| Recipe 6 | Adding Transparency to Hex Colors |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 6 | 向十六进制颜色添加透明度 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you want to add a semi-transparent overlay to some elements of your
     app. For example, you may have a prompt that asks the reader to log in before
     proceeding, and you may want to include a semi-transparent white color around
     the prompt to blur the remainder of the page.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想为应用中的某些元素添加半透明的叠加层。例如，你可能会有一个提示，要求读者在继续之前先登录，你可能希望在提示周围加入半透明的白色，使页面的其余部分模糊。
 - en: If you use a normal hexadecimal color, the overlay will completely obscure the
     content underneath it. If you use the CSS opacity, it will set the opacity of
     the element as a whole, including its contents.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你使用普通的十六进制颜色，叠加层将完全遮挡其下方的内容。如果你使用 CSS 的透明度，它将设置整个元素的透明度，包括其内容。
 - en: You need a solution that lets you add transparency to a hex color.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个解决方案，允许你向十六进制颜色添加透明度。
 - en: Solution
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Write a function that accepts a hex value and a percentage as input parameters.
     The function should convert the percentage into a hex value and then add it to
     the original hex value:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 编写一个函数，该函数接受一个十六进制值和一个百分比作为输入参数。该函数应该将百分比转换为十六进制值，然后将其添加到原始的十六进制值中：
 - en: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex1.js)'
 - en: '|   | **function** addAlphaToHex(hex, percent) { |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** addAlphaToHex(hex, percent) { |'
 - en: '|   | **const** decimal = percent / 100; |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** decimal = percent / 100; |'
 - en: '|   | **const** rgb = Math.round(decimal * 255); |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** rgb = Math.round(decimal * 255); |'
 - en: '|   | **const** alpha = rgb.toString(16).toUpperCase(); |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** alpha = rgb.toString(16).toUpperCase(); |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **if** (alpha.length === 1) { |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (alpha.length === 1) { |'
 - en: '|   | alpha = *"0"* + alpha; |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | alpha = *"0"* + alpha; |'
 - en: '|   | } |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** hex + alpha; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** hex + alpha; |'
 - en: '|   | } |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
 - en: This function returns an eight-character hex value that includes the alpha level.
     In this case, the return value is a white hex color (#FFFFFF) with 70 percent
     opacity (#FFFFFFB3).
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数返回一个包含透明度级别的八字符十六进制值。在此情况下，返回值是具有 70% 透明度的白色十六进制颜色（#FFFFFFB3）。
 - en: Discussion
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Previously, developers had to convert a hex color to either an RGBA or HSLA
     color value to set opacity. This conversion was necessary because the alpha channel
     in the RGBA or HSLA value could be used to determine the level of opacity. However,
@@ -86,76 +132,117 @@
     by adding new four (#rgba) and eight (#rrggbbaa) character hex notations that
     include the alpha level. So, developers no longer need to convert the hex color
     to another format in order to set opacity.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以前，开发者必须将十六进制颜色值转换为 RGBA 或 HSLA 颜色值以设置透明度。这个转换是必要的，因为 RGBA 或 HSLA 值中的 alpha
+    通道可以用来确定透明度的级别。然而，随着 CSS 色彩模块第 4 级的引入，问题已经得到解决，通过新增包含 alpha 值的四位（#rgba）和八位（#rrggbbaa）十六进制表示法。因此，开发者不再需要将十六进制颜色转换为其他格式以设置透明度。
 - en: 'The rr, gg, bb, and aa in the notation represent the hexadecimal values for
     the red, green, blue, and alpha components respectively, ranging from 00 to FF.
     The alpha value determines the opacity of the color, with 00 representing a fully
     transparent color and FF representing a fully opaque color. For example, the color
     #FF0000FF is a fully opaque red color, while the color #FF000000 is a fully transparent
     red color.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '该表示法中的 rr、gg、bb 和 aa 分别代表红色、绿色、蓝色和 alpha 组件的十六进制值，范围从 00 到 FF。alpha 值决定了颜色的透明度，其中
+    00 代表完全透明的颜色，FF 代表完全不透明的颜色。例如，颜色 #FF0000FF 是完全不透明的红色，而颜色 #FF000000 是完全透明的红色。'
 - en: 'Our function addAlphaToHex() takes two parameters: hex and percent. The function’s
     purpose is to convert the percentage value to its corresponding hex representation
     and append it as an alpha value to the given hex. Within the function, we first
     calculate the decimal value of the percentage by dividing it by 100. Then we multiply
     the resulting decimal by 255 and round the result using Math.round() to obtain
     an RGB value.'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的函数 `addAlphaToHex()` 接受两个参数：hex 和 percent。该函数的目的是将百分比值转换为相应的十六进制表示，并将其作为
+    alpha 值附加到给定的十六进制颜色上。在函数内部，我们首先通过将百分比除以 100 来计算百分比的十进制值。然后，我们将结果乘以 255，并使用 `Math.round()`
+    函数四舍五入结果，以获得一个 RGB 值。
 - en: Next, we convert the RGB value to a hexadecimal string using the toString()
     method with a radix of 16 (that is, base 16). We then convert the string to uppercase
     using the toUpperCase() method. After that, we check if the hex is only one character
     long. If it is, we add a leading zero using the string concatenation operator
     (+), so that it’s two characters long. Finally, we return the original value parameter
     concatenated with the alpha hex value.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们使用 `toString()` 方法将 RGB 值转换为十六进制字符串，并使用基数 16（即，16进制）。然后，我们使用 `toUpperCase()`
+    方法将字符串转换为大写字母。之后，我们检查十六进制值是否只有一个字符长。如果是，我们通过字符串拼接运算符（+）添加一个前导零，使其长度为两个字符。最后，我们返回原始的值参数并与
+    alpha 十六进制值拼接在一起。
 - en: 'If you want to write your JavaScript code as compact as possible, you can use
     the following version:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你希望尽可能紧凑地编写 JavaScript 代码，可以使用以下版本：
 - en: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_transparency_to_hex/adding_transparency_to_hex_ex2.js)'
 - en: '|   | **function** addAlphaToHex(hex, percent) { |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addAlphaToHex(hex, percent) { |'
 - en: '|   | **const** alpha = Math.round(percent / 100 * 255).toString(16) |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** alpha = Math.round(percent / 100 * 255).toString(16) |'
 - en: '|   | .toUpperCase().padStart(2, *"0"*); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | .toUpperCase().padStart(2, *"0"*); |'
 - en: '|   | **return** hex + alpha; |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** hex + alpha; |'
 - en: '|   | } |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | addAlphaToHex(*"#FFFFFF"*, 70); *// → "#FFFFFFB3"* |'
 - en: This version combines the rgb and alpha constants into one line and uses padStart()
     to add a leading zero if necessary. The first parameter of padStart() defines
     the length of the resulting string once the given string has been padded, so padStart(2,
     "0") ensures the hex string is always two characters long.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个版本将 rgb 和 alpha 常量合并为一行，并使用 padStart() 在必要时添加前导零。padStart() 的第一个参数定义了给定字符串在填充后结果字符串的长度，因此
+    padStart(2, "0") 确保十六进制字符串始终为两位数。
 - en: 'If you want to view your colors in different formats, you can use the Chrome/Edge
     DevTools. Open the DevTools panel and navigate to the styles section to find the
     color you want to check. Then, click the box located to the left of the color
     to directly adjust its values:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想以不同的格式查看颜色，可以使用 Chrome/Edge 开发者工具。打开开发者工具面板并导航到样式部分，找到你想查看的颜色。然后，点击颜色左侧的框，直接调整其值：
 - en: '![images/src/adding_transparency_to_hex/hex.png](images/src/adding_transparency_to_hex/hex.png)'
+  id: totrans-38
   prefs: []
   type: TYPE_IMG
+  zh: '![images/src/adding_transparency_to_hex/hex.png](images/src/adding_transparency_to_hex/hex.png)'
 - en: You can also hold the Shift key and click on the box to switch between different
     format options, with the values automatically converted.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以按住 Shift 键并点击框，切换不同的格式选项，值会自动转换。

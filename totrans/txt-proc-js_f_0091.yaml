@@ -1,215 +1,347 @@
 - en: exec()
+  id: totrans-0
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: exec()
 - en: 'The exec() method executes a search on a string. If it finds a match, it returns
     an array containing the search result. If not, it returns null. Here is an example:'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: exec() 方法在字符串上执行搜索。如果找到匹配项，它将返回一个包含搜索结果的数组。如果没有找到，它将返回 null。以下是一个例子：
 - en: '[appendix/methods/methods_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex1.js)'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '[appendix/methods/methods_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex1.js)'
 - en: '|   | **const** str = *"About 100ft"*; |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"About 100ft"*; |'
 - en: '|   | **const** re = */**(\d**+**)**ft/*; |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(\d**+**)**ft/*; |'
 - en: '|   |  |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.exec(str)); |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str)); |'
 - en: '|   | *// → ["100ft", "100", index: 6, input: "About 100ft", groups: undefined]*
     |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["100ft", "100", index: 6, input: "About 100ft", groups: undefined]*
+    |'
 - en: 'The resulting array contains the matched string as the first item. If there
     are any capturing groups within the match, they are listed from index 1\. The
     array also comes with three properties:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 生成的数组将匹配的字符串作为第一个元素。如果匹配中有捕获组，它们将按从索引1开始的顺序列出。该数组还具有三个属性：
 - en: index provides the index of the match
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: index 提供匹配项的索引
 - en: input gets you the original string
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: input 返回原始字符串
 - en: groups lists named capturing groups (if there are any)
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: groups 列出命名的捕获组（如果有的话）
 - en: 'If you use a global flag, exec() will use the value of lastIndex as the starting
     position to begin searching the string. With each call to exec(), the lastIndex
     property gets changed to reflect the position that follows the last character
     in the match. Let’s look at an example:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果使用全局标志，exec() 将使用 lastIndex 的值作为起始位置来开始搜索字符串。每次调用 exec() 时，lastIndex 属性会更改，以反映匹配项中最后一个字符后的位置。让我们来看一个例子：
 - en: '[appendix/methods/methods_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex2.js)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[appendix/methods/methods_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex2.js)'
 - en: '|   | **const** str = *"8, 9, 10, 11"*; |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"8, 9, 10, 11"*; |'
 - en: '|   | **const** re = */**\d\d**/g*; |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\d\d**/g*; |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.lastIndex); |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.lastIndex); |'
 - en: '|   | *// → 0* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 0* |'
 - en: '|   |  |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.exec(str)); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str)); |'
 - en: '|   | *// → ["10", index: 6, input: "8, 9, 10, 11", groups: undefined]* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["10", index: 6, input: "8, 9, 10, 11", groups: undefined]* |'
 - en: '|   | console.log(re.lastIndex); |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.lastIndex); |'
 - en: '|   | *// → 8* |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 8* |'
 - en: '|   |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.exec(str)); |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str)); |'
 - en: '|   | *// → ["11", index: 10, input: "8, 9, 10, 11", groups: undefined]* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["11", index: 10, input: "8, 9, 10, 11", groups: undefined]* |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.lastIndex); |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.lastIndex); |'
 - en: '|   | *// → 12* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 12* |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.exec(str)); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(str)); |'
 - en: '|   | *// → null* |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → null* |'
 - en: '|   |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.lastIndex); |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.lastIndex); |'
 - en: '|   | *// → 0* |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 0* |'
 - en: In this code, we call exec() multiple times to find successive matches in the
     same string. When the method cannot find more matches, it returns null and resets
     the value of lastIndex to 0.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们多次调用exec()来查找同一字符串中的连续匹配项。当方法无法找到更多匹配项时，它会返回null，并将lastIndex的值重置为0。
 - en: 'We can also manually modify the value of lastIndex to change the starting position
     of exec(). For example, let’s say we have a numbered list like this:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以手动修改lastIndex的值，以改变exec()的起始位置。例如，假设我们有一个这样的编号列表：
 - en: '|   | 1\. 123 |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1\. 123 |'
 - en: '|   | 2\. 4355 |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | 2\. 4355 |'
 - en: '|   | 3\. 764989 |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | 3\. 764989 |'
 - en: 'And we want to write a regex to retrieve the value of each item. With lastIndex,
     we can perform the search only at the position where the data we want is located
     and greatly simplify the regex pattern:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们希望编写一个正则表达式来检索每个项目的值。使用lastIndex，我们可以仅在目标数据所在的位置进行搜索，从而大大简化正则表达式模式：
 - en: '[appendix/methods/methods_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex3.js)'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '[appendix/methods/methods_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/appendix/methods/methods_ex3.js)'
 - en: '|   | **const** str = |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`1\. 123* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`1\. 123* |'
 - en: '|   | *2\. 4355* |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | *2\. 4355* |'
 - en: '|   | *3\. 764989`*; |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | *3\. 764989`*; |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re = */**\d**+/g*; |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\d**+/g*; |'
 - en: '|   |  |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Split the string into lines* |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将字符串拆分为多行* |'
 - en: '|   | **const** arr = str.split(*"***\***n"*); |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** arr = str.split(*"***\***n"*); |'
 - en: '|   |  |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Loop over the lines and apply regex* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 遍历每一行并应用正则表达式* |'
 - en: '|   | arr.forEach(line => { |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | arr.forEach(line => { |'
 - en: '|   | re.lastIndex = 2; |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.lastIndex = 2; |'
 - en: '|   | console.log(re.exec(line)[0]); |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.exec(line)[0]); |'
 - en: '|   | }); |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// → 123* |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 123* |'
 - en: '|   | *// → 4355* |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 4355* |'
 - en: '|   | *// → 764989* |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 764989* |'
 - en: '| Two Separate Families |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '| 两个独立的家庭 |'
 - en: '| --- |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | test() and
     exec() are properties of the RegEx object, so you should call them as a method
     of a regular expression. Conversely, match(), matchAll(), replace(), replaceAll(),
     split(), and search() are properties of the String object, and you should call
     them on a string. |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | test()和exec()是RegEx对象的属性，因此你应该将它们作为正则表达式的方法来调用。相反，match()、matchAll()、replace()、replaceAll()、split()和search()是String对象的属性，应该在字符串上调用。
+    |'

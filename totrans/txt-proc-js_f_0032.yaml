@@ -1,390 +1,625 @@
 - en: '| Recipe 22 | Copying Text to Clipboard with the Clipboard API |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 例子22 | 使用剪贴板API复制文本到剪贴板 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you have a cooking website that provides recipes for different meals,
     and you want to provide readers with the option of copying the ingredients of
     the recipes to their clipboard so that they can create a shopping list. To achieve
     this, you need to create a button that, when clicked, copies the list of ingredients
     to the clipboard.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个提供各种食谱的烹饪网站，你希望为读者提供一个复制食谱食材到剪贴板的选项，以便他们可以创建购物清单。为此，你需要创建一个按钮，点击时将食材列表复制到剪贴板。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'First, set up your HTML elements. You need a button that triggers a JavaScript
     code. Remember, your program should not attempt to read or write the user’s clipboard
     without permission. So, creating a button that clearly states it copies data to
     the clipboard is the first step:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，设置你的HTML元素。你需要一个按钮来触发JavaScript代码。记住，程序在没有用户许可的情况下不应该尝试读取或写入剪贴板。因此，创建一个明确表示会将数据复制到剪贴板的按钮是第一步：
 - en: '[part_1/copying_to_clipboard/clipboard_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.xhtml)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/copying_to_clipboard/clipboard_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.xhtml)'
 - en: '|   | *<!doctype html>* |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | *<!doctype html>* |'
 - en: '|   | <html lang=*"en-us"*> |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | <html lang=*"zh-cn"*> |'
 - en: '|   | <head> |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | <head> |'
 - en: '|   | <meta charset=*"utf-8"*> |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta charset=*"utf-8"*> |'
 - en: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | <meta name=*"viewport"* content=*"width=device-width, initial-scale=1"*>
+    |'
 - en: '|   | <script src=*"clipboard_ex1.js"* defer></script> |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | <script src=*"clipboard_ex1.js"* defer></script> |'
 - en: '|   | </head> |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | </head> |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | <body> |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | <body> |'
 - en: '|   | <ul id=*"ingredients"*> |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | <ul id=*"ingredients"*> |'
 - en: '|   | <li>1 cup olive oil</li> |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>1杯橄榄油</li> |'
 - en: '|   | <li>4 garlic cloves</li> |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>4瓣大蒜</li> |'
 - en: '|   | <li>1 tablespoon ground cumin</li> |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>1汤匙磨碎孜然</li> |'
 - en: '|   | <li>1 tablespoon chili powder</li> |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>1汤匙辣椒粉</li> |'
 - en: '|   | <li>2 cans beans</li> |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>2罐豆类</li> |'
 - en: '|   | <li>1 can crushed tomatoes</li> |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | <li>1罐压碎的番茄</li> |'
 - en: '|   | </ul> |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | </ul> |'
 - en: '|   | <button id=*"copyBtn"* type=*"button"*>Copy Ingredients to Cliboard</button>
     |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | <button id=*"copyBtn"* type=*"button"*>复制食材到剪贴板</button> |'
 - en: '|   | </body> |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | </body> |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | </html> |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | </html> |'
 - en: 'Next, locate the button using getElementById() or querySelector(), and add
     an event listener to it. As soon as the button is clicked, you want to grab the
     ingredients list and extract its text:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，使用getElementById()或querySelector()定位按钮，并为其添加事件监听器。按钮点击后，你需要抓取食材列表并提取其文本：
 - en: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
 - en: '|   | document.querySelector(*"#copyBtn"*).addEventListener(*"click"*, () =>
     { |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | document.querySelector(*"#copyBtn"*).addEventListener(*"click"*, () =>
+    { |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Select the list elements* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 选择列表元素* |'
 - en: '|   | **const** nodeList = document.querySelectorAll(*"#ingredients li"*);
     |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** nodeList = document.querySelectorAll(*"#ingredients li"*);
+    |'
 - en: '|   |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Create a variable that will hold the text to be sent to clipboard*
     |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 创建一个变量，用于保存将发送到剪贴板的文本* |'
 - en: '|   | **let** textList = *""*; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** textList = *""*; |'
 - en: '|   |  |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Append the text of each li element to textList* |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将每个 li 元素的文本附加到 textList* |'
 - en: '|   | nodeList.forEach(li => { |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | nodeList.forEach(li => { |'
 - en: '|   | textList += *`** ${li.textContent} *\n`*; |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | textList += *`** ${li.textContent} *\n`*; |'
 - en: '|   | }); |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Append the current URL to textList* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将当前 URL 附加到 textList* |'
 - en: '|   | textList += *"View recipe at "* + window.location.href; |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | textList += *"查看食谱： "* + window.location.href; |'
 - en: '|   | writeToClipboard(textList); |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | writeToClipboard(textList); |'
 - en: '|   | }); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: 'Now, define the function responsible for writing the list to the clipboard:'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，定义一个负责将列表写入剪贴板的函数：
 - en: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/copying_to_clipboard/clipboard_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/copying_to_clipboard/clipboard_ex1.js)'
 - en: '|   | **function** writeToClipboard(text){ |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** writeToClipboard(text){ |'
 - en: '|   | navigator.clipboard.writeText(text).then(() => { |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | navigator.clipboard.writeText(text).then(() => { |'
 - en: '|   | console.log(*"Copying to clipboard was successful!"*); |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"复制到剪贴板成功！"*); |'
 - en: '|   | }, (err) => { |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | }, (err) => { |'
 - en: '|   | console.error(*"Unable to copy text: "*, err); |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.error(*"无法复制文本: "*, err); |'
 - en: '|   | }); |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | } |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: The main part of the function is the writeText() property of the Clipboard interface.
     This property returns a promise, so you need to use a then() to handle its result
     (alternatively, you can use await).
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数的主要部分是 Clipboard 接口的 writeText() 属性。该属性返回一个 promise，因此你需要使用 then() 来处理其结果（或者，你也可以使用
+    await）。
 - en: If your code successfully writes the string to the clipboard, you’ll get a fulfilled
     promise, and the code logs a message to the console. If not, you’ll get an error.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你的代码成功将字符串写入剪贴板，你将获得一个已完成的 promise，代码会在控制台输出一条信息。如果失败，则会出现错误。
 - en: Discussion
+  id: totrans-57
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Besides readText() and writeText(), the clipboard API provides two other methods
     for reading and writing non-text data, such as images, to the user clipboard:
     read() and write(). While readText() and writeText() work on all browsers, the
     support for read() and write() is spotty. So be sure to check browser support
     before you use them in your projects.^([[22]](#FOOTNOTE-22))'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了 readText() 和 writeText() 外，剪贴板 API 还提供了其他两个方法，用于读取和写入非文本数据，如图像，至用户剪贴板：read()
+    和 write()。虽然 readText() 和 writeText() 在所有浏览器中均可使用，但 read() 和 write() 的支持情况不稳定。因此，在你的项目中使用这些方法之前，请务必检查浏览器的支持情况。^([[22]](#FOOTNOTE-22))
 - en: 'When working with the Clipboard API, you might get an error like this:'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用 Clipboard API 时，你可能会遇到如下错误：
 - en: '|   | DOMException: Clipboard write was blocked due to lack **of** user activation.
     |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | DOMException: 由于缺乏**用户激活**，剪贴板写入被阻止。 |'
 - en: This error is from the Firefox console and indicates you’re attempting to write
     to the clipboard programmatically, but there hasn’t been any user interaction
     with the page, such as clicking on a button. Errors like this are essential for
     keeping developers’ access to the clipboard in check.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个错误来自Firefox控制台，表示你正试图通过编程方式写入剪贴板，但页面没有任何用户交互，比如点击按钮。像这样的错误对于限制开发者对剪贴板的访问非常重要。
 - en: 'Other important factors to consider when using the clipboard API are as follows:'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用剪贴板API时需要考虑的其他重要因素如下：
 - en: You may write text to the clipboard without permission, but to read from it,
     you always need to get user permission (the browser usually pops up a permission
     dialogue automatically)
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你可以在没有权限的情况下将文本写入剪贴板，但要从剪贴板读取内容时，始终需要获取用户的许可（浏览器通常会自动弹出许可对话框）
 - en: You can access the clipboard only if the page is the active browser tab
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有当页面是当前活动的浏览器标签时，才能访问剪贴板
 - en: The Clipboard API is available only in secure contexts (HTTPS)
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 剪贴板API仅在安全环境（HTTPS）中可用
 - en: Previously, the only way to access the clipboard was through the Web API document.execCommand()
     method. But because this method is synchronous and blocks the browser when reading/writing
     large data, browser vendors have deprecated it in favor of the clipboard API.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 以前，访问剪贴板的唯一方法是通过Web API的document.execCommand()方法。但由于此方法是同步的，并且在读取/写入大量数据时会阻塞浏览器，因此浏览器供应商已弃用该方法，转而支持剪贴板API。
 - en: Use the Clipboard interface to provide a smoother experience for your users
     when they need to copy code snippets, activation keys, tokens, verification codes,
     etc., but always be explicit about when and what you store in their clipboard.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用剪贴板接口可以为用户提供更流畅的体验，尤其是在他们需要复制代码片段、激活密钥、令牌、验证码等时，但一定要明确说明何时以及存储何种内容到剪贴板。
 - en: Wrapping Up
+  id: totrans-68
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 总结
 - en: Anything you want to do with text, JavaScript is up to the job. In the first
     part of this book, you learned how to handle entangled text using JavaScript’s
     built-in methods. This involved sifting through the data and extracting the relevant
     information, formatting different data types, handling Unicode characters, and
     more.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 无论你想对文本做什么，JavaScript都能胜任。在本书的第一部分，你学习了如何使用JavaScript的内置方法处理复杂的文本。这包括筛选数据、提取相关信息、格式化不同的数据类型、处理Unicode字符等。
 - en: In the second part, you will focus on JavaScript’s implementation of regular
     expressions. You will explore the syntax in detail and examine several examples
     to understand their application.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二部分，你将专注于JavaScript中正则表达式的实现。你将详细探索语法，并通过多个示例来理解它们的应用。
 - en: Footnotes
+  id: totrans-71
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 脚注
 - en: '[[2]](f_0013.xhtml#FNPTR-2)'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[2]](f_0013.xhtml#FNPTR-2)'
 - en: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
 - en: '[[3]](f_0013.xhtml#FNPTR-3)'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[3]](f_0013.xhtml#FNPTR-3)'
 - en: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
 - en: '[[4]](f_0013.xhtml#FNPTR-4)'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[4]](f_0013.xhtml#FNPTR-4)'
 - en: '[https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc](https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc)'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc](https://medium.com/pragmatic-programmers/at-method-in-javascript-54544ec93ccc)'
 - en: '[[5]](f_0014.xhtml#FNPTR-5)'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[5]](f_0014.xhtml#FNPTR-5)'
 - en: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/tc39/proposal-relative-indexing-method#polyfill](https://github.com/tc39/proposal-relative-indexing-method#polyfill)'
 - en: '[[6]](f_0014.xhtml#FNPTR-6)'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[6]](f_0014.xhtml#FNPTR-6)'
 - en: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://mzl.la/3FKyJMr](https://mzl.la/3FKyJMr)'
 - en: '[[7]](f_0015.xhtml#FNPTR-7)'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[7]](f_0015.xhtml#FNPTR-7)'
 - en: '[https://en.wikipedia.org/wiki/Web_colors](https://en.wikipedia.org/wiki/Web_colors)'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A2%91%E9%A6%96%E5%85%89%E8%89%B2](https://zh.wikipedia.org/wiki/%E7%BD%91%E9%A2%91%E9%A6%96%E5%85%89%E8%89%B2)'
 - en: '[[8]](f_0019.xhtml#FNPTR-8)'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[8]](f_0019.xhtml#FNPTR-8)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)'
 - en: '[[9]](f_0019.xhtml#FNPTR-9)'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[9]](f_0019.xhtml#FNPTR-9)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)'
 - en: '[[10]](f_0023.xhtml#FNPTR-10)'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[10]](f_0023.xhtml#FNPTR-10)'
 - en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
 - en: '[[11]](f_0023.xhtml#FNPTR-11)'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[11]](f_0023.xhtml#FNPTR-11)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date)'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date/Date](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date/Date)'
 - en: '[[12]](f_0023.xhtml#FNPTR-12)'
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[12]](f_0023.xhtml#FNPTR-12)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)'
 - en: '[[13]](f_0024.xhtml#FNPTR-13)'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[13]](f_0024.xhtml#FNPTR-13)'
 - en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
 - en: '[[14]](f_0026.xhtml#FNPTR-14)'
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[14]](f_0026.xhtml#FNPTR-14)'
 - en: '[https://caniuse.com/mdn-javascript_builtins_intl_listformat_format](https://caniuse.com/mdn-javascript_builtins_intl_listformat_format)'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://caniuse.com/mdn-javascript_builtins_intl_listformat_format](https://caniuse.com/mdn-javascript_builtins_intl_listformat_format)'
 - en: '[[15]](f_0026.xhtml#FNPTR-15)'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[15]](f_0026.xhtml#FNPTR-15)'
 - en: '[https://github.com/wessberg/intl-list-format](https://github.com/wessberg/intl-list-format)'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/wessberg/intl-list-format](https://github.com/wessberg/intl-list-format)'
 - en: '[[16]](f_0026.xhtml#FNPTR-16)'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[16]](f_0026.xhtml#FNPTR-16)'
 - en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
 - en: '[[17]](f_0028.xhtml#FNPTR-17)'
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[17]](f_0028.xhtml#FNPTR-17)'
 - en: '[https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment](https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment)'
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment](https://caniuse.com/mdn-javascript_builtins_intl_segmenter_segment)'
 - en: '[[18]](f_0028.xhtml#FNPTR-18)'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[18]](f_0028.xhtml#FNPTR-18)'
 - en: '[https://github.com/flmnt/graphemer](https://github.com/flmnt/graphemer)'
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/flmnt/graphemer](https://github.com/flmnt/graphemer)'
 - en: '[[19]](f_0029.xhtml#FNPTR-19)'
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[19]](f_0029.xhtml#FNPTR-19)'
 - en: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility)'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter#browser_compatibility)'
 - en: '[[20]](f_0029.xhtml#FNPTR-20)'
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[20]](f_0029.xhtml#FNPTR-20)'
 - en: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry)'
 - en: '[[21]](f_0031.xhtml#FNPTR-21)'
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[21]](f_0031.xhtml#FNPTR-21)'
 - en: '[https://caniuse.com/mdn-javascript_builtins_string_normalize](https://caniuse.com/mdn-javascript_builtins_string_normalize)'
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://caniuse.com/mdn-javascript_builtins_string_normalize](https://caniuse.com/mdn-javascript_builtins_string_normalize)'
 - en: '[[22]](#FNPTR-22)'
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: '[[22]](#FNPTR-22)'
 - en: '[https://caniuse.com/?search=Clipboard](https://caniuse.com/?search=Clipboard)'
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://caniuse.com/?search=Clipboard](https://caniuse.com/?search=Clipboard)'
 - en: Copyright © 2024, The Pragmatic Bookshelf.
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: 版权所有 © 2024, The Pragmatic Bookshelf.

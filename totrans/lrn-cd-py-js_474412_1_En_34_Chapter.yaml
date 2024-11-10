@@ -1,91 +1,135 @@
 - en: © The Author(s), under exclusive license to Springer Fachmedien Wiesbaden GmbH,
     part of Springer Nature 2024J. L. ZuckarelliLearn coding with Python and JavaScript
     [https://doi.org/10.1007/978-3-658-42912-6_34](https://doi.org/10.1007/978-3-658-42912-6_34)
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: © 作者，Springer Fachmedien Wiesbaden GmbH 独家授权，Springer Nature 旗下公司 2024 J. L.
+    Zuckarelli 《用 Python 和 JavaScript 学习编程》 [https://doi.org/10.1007/978-3-658-42912-6_34](https://doi.org/10.1007/978-3-658-42912-6_34)
 - en: '34. Conditional Statements & Event Handling: How Do I Control the Program Flow
     and Make the Program React to User Actions and Other Events?'
+  id: totrans-1
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 34. 条件语句与事件处理：如何控制程序流程并使程序对用户操作及其他事件作出响应？
 - en: Joachim L. Zuckarelli^([1](#Aff2)  )(1)München, GermanyOverview
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Joachim L. Zuckarelli^([1](#Aff2) )(1) 德国慕尼黑概述
 - en: 'Previously, we have encountered two ways to guide the course of program execution:
     through linear decision-making with If-Else mechanisms and by responding to actions
     with event handlers. We will proceed to investigate these two methods in greater
     detail.'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 之前，我们已经遇到过两种引导程序执行流程的方法：通过 If-Else 机制进行线性决策，以及通过事件处理程序响应操作。接下来我们将更详细地研究这两种方法。
 - en: 'In this chapter you will learn:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，你将学习：
 - en: how to use conditions with the help of If-Else constructs to branch into different
     parts of the program code
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何利用 If-Else 语句中的条件在程序代码的不同部分之间进行分支
 - en: how to formulate conditions and link them with each other using logical operators
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何构造条件，并使用逻辑运算符将它们相互链接
 - en: how to use the conditional operator? instead of an If-Else constructs, and when
     that makes sense
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用条件运算符？而不是使用 If-Else 语句，当这种做法有意义时
 - en: how to use Switch-Case constructs to efficiently check many similarly structured
     conditions and branch accordingly
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用 Switch-Case 语句有效地检查多个结构相似的条件并相应地分支
 - en: how to use event handlers to process events
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何使用事件处理程序来处理事件
 - en: what the main types of events are and how to evaluate information about an event
     that has occurred
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主要的事件类型是什么，以及如何评估已经发生的事件的信息
 - en: 34.1 If-Else Constructs
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 34.1 If-Else 语句
 - en: Formulation with the Help of the Keywords if and else
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 if 和 else 关键字进行的构造
 - en: 'In the example of the Kelvin-Celsius conversion from ► Sect. [32.​5.​2](474412_1_En_32_Chapter.xhtml#Sec13),
     the function **convert()**, which was event-driven when the user clicked on the
     corresponding button, checked whether degrees Celsius should be converted to Kelvin,
     or vice versa—namely, the user could specify this with the help of two radio buttons.
     The code of the function looked like this:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在开尔文-摄氏度转换的示例中（见►节 [32.​5.​2](474412_1_En_32_Chapter.xhtml#Sec13)），**convert()**
+    函数是基于用户点击相应按钮触发的事件，该函数检查应该将摄氏度转换为开尔文，还是反之——即用户可以通过两个单选按钮来指定这一点。该函数的代码如下：
 - en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
     direction = document.getElementsByName(''direction'');**if**(direction[0].checked
     == **true**) {document.write(`<p>${temp} Kelvin are${temp - 273.15} degrees Celsius.<p>`);}**else**
     {document.write(`<p>${temp} degrees Celsius are${temp + 273.15} Kelvin.<p>`);}}'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {document.write(`<p>${temp} 开尔文是${temp - 273.15} 摄氏度。</p>`);}**else**
+    {document.write(`<p>${temp} 摄氏度是${temp + 273.15} 开尔文。</p>`);}}'
 - en: 'Here you can clearly see the branching within the code of the function: **if
     direction[0].checked == true** (i.e. radio button number 1 is checked) *then*
     a conversion from Kelvin to Celsius takes place, otherwise (**else**) Celsius
     is converted to Kelvin.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里你可以清楚地看到函数代码中的分支：**如果 direction[0].checked == true**（即单选按钮 1 被选中），*那么*会发生从开尔文到摄氏度的转换，否则（**else**）会将摄氏度转换为开尔文。
 - en: 'The general structure of the If-Else construct looks like this:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: If-Else 语句的一般结构如下：
 - en: '**if**(condition) {*// Instructions*}**else** {*// Instructions*}'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**if**(condition) {*// 指令*}**else** {*// 指令*}'
 - en: '**condition** is an expression that can be evaluated to **true** or **false**.
     Often the expressions are *comparisons* like in the example. Note that in JavaScript
     (as in many other programming languages—Python is no exception) the equality operator
     is written as **==** and the inequality operator as **!=** (i.e. “not equal”).'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**条件**是一个可以评估为**真**或**假**的表达式。通常，这些表达式是像示例中的*比较*。请注意，在 JavaScript（与许多其他编程语言一样——Python
+    也不例外）中，等号运算符写作 **==**，不等号运算符写作 **!=**（即“不同”）。'
 - en: In JavaScript, a comparison with **true** or **false** can also be omitted.
     So instead of writing **if(direction[0].checked == true)** as in the example above,
     **if(direction[0].checked)** would have sufficed, because **direction[0].checked**
@@ -95,8 +139,12 @@
     or **false**. For example, instead of **if(x>5)** you could write if**((x>5) ==
     true)**; **(x>5)** is an expression that can be **true** or **false**, depending
     on the value **x** takes.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中，和**true**或**false**的比较也可以省略。因此，像上面的例子中写的**if(direction[0].checked
+    == true)**，实际上只需写**if(direction[0].checked)**即可，因为**direction[0].checked**是一个可以被评估为**true**或**false**的表达式；默认情况下，比较**true**会自动进行，即使我们没有显式写出它。毕竟，其他的比较也是可以评估为**true**或**false**的表达式。例如，**if(x>5)**，你也可以写成**if((x>5)
+    == true)**；**(x>5)**是一个可以根据**x**的值评估为**true**或**false**的表达式。
 - en: By the way, the special values **null**, **undefined**, and **NaN** are always
     evaluated as **false** in conditions. Some functions may return one of these values,
     so if your expression to be checked consists of a call to such a function, you
@@ -104,16 +152,20 @@
     case of such a return. Strings are always considered **true** (even if the string
     is **'false'** or **'0'**, so there is no implicit conversion here), numbers are
     always considered **true** unless they are the **0**, which is evaluated as **false**.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便提一下，特殊值**null**、**undefined**和**NaN**在条件判断中总是被视为**false**。有些函数可能返回这些值，因此如果你检查的表达式包含调用这些函数的语句，你应该考虑在这种返回值情况下，程序是否按照你预期的方式进行分支。字符串总是被视为**true**（即使字符串是**'false'**或**'0'**，这里没有隐式转换），数字总是被视为**true**，除非它们是**0**，这时会被视为**false**。
 - en: Please note that the condition—unlike in Python, for example—must always be
     enclosed in *round brackets.* Within the expression to be checked, additional
     parentheses can be used. This is especially advisable if you use complicated expressions
     with many operators and you do not know exactly in which order the operators are
     processed. To ensure a certain order then, it does not hurt to use enough parentheses.
     Better one bracket too many than one too few!
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，条件——与例如 Python 中的情况不同——必须始终用*圆括号*括起来。在需要检查的表达式中，可以使用额外的括号。如果你使用的是包含许多运算符的复杂表达式，而且不确定运算符的处理顺序，那么特别建议使用额外的括号。为了确保顺序正确，使用足够的括号是没有坏处的。宁可多用一个括号，也不要少用一个！
 - en: 'This also applies when you are working with compound conditions, i.e., conditions
     that are composed of several sub conditions. The sub conditions are then linked
     with each other using the logical operators **&&** (logical *AND*) and **||**
@@ -130,8 +182,13 @@
     of **age <= 68 || sex == ''f''** being evaluated as a sub condition; nevertheless,
     the notation with the parentheses makes it clear what belongs together here and
     thus increases the readability of the program code.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你处理复合条件时，这一点也适用，即条件由多个子条件组成。子条件之间使用逻辑运算符**&&**（逻辑*与*）和**||**（逻辑*或*）连接。例如，如果你想检查变量**age**是否在18到68之间，适当的条件应该是：**if(age
+    >= 18 && age <= 68)**。如果你还希望条件考虑到该人的性别，并且如果该人是女性或年龄在18到68之间时始终为真，你可以将条件写成：**if((age
+    >= 18 && age <= 68) || sex == 'f')**。注意这里的括号，我们使用它们确保**(age >= 18 && age <= 68)**首先作为子条件进行评估。这里本不需要这些括号，因为逻辑*与*和*或*运算符按从左到右的顺序处理，因此**age
+    <= 68 || sex == 'f'**不会被误评估为子条件；然而，使用带括号的表示法可以明确地表达哪些部分是一起的，从而提高程序代码的可读性。
 - en: 'The third logical operator missing is the logical *NOT*, which is written as
     **!** in JavaScript and flips the truth of a statement. In contrast to the logical
     *AND* and the logical *OR*, the logical *NOT* is a *unary* operator, i.e., it
@@ -148,39 +205,57 @@
     by **!**. Thus, in case of a male, the expression !**sex == ''m''** is reduced
     to **false == ''m''**, a logical statement, which itself is false, because **"m"**
     as a string has the truth value **true**.'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 缺少的第三个逻辑运算符是逻辑*非*，在JavaScript中表示为**!**，用于翻转语句的真值。与逻辑*与*和逻辑*或*不同，逻辑*非*是一个*一元*运算符，即它只需要一个操作数（即需要翻转真值的表达式）。逻辑*与*和逻辑*或*是二元运算符，它们将两个操作数（此处为逻辑表达式）连接在一起。借助**!**运算符，我们可以将条件**if((age
+    >= 18 && age <=68) || sex == 'f')**写为**if((age >= 18 && age <=68) || !(sex ==
+    'm'))**。这里**!(sex == 'm')**表示语句**sex == 'm'**不应该为真。相反，sex必须是**'f'**（至少在我们假设性别为两种时）。顺便说一句，否定表达式的括号不能省略，因为否则**!**运算符只会作用于**sex**；然而，**sex**作为字符串总是有逻辑值**true**，它会被**!**运算符转换为**false**。因此，在男性情况下，表达式**!sex
+    == 'm'**会简化为**false == 'm'**，这本身是一个错误的逻辑语句，因为**"m"**作为字符串的真值是**true**。
 - en: After the **if** condition and after the **else** keyword, which introduces
     the alternate branch that is executed whenever the **if** condition evaluates
     to **false**, there follows a block of code in curly braces. If the block contains
     only a single statement, the curly braces can be omitted (so you could have done
     that in our opening example).
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在**if**条件之后和**else**关键字之后，**else**关键字引入了一个备用分支，当**if**条件计算为**false**时，该分支会被执行。接着是一个用大括号包围的代码块。如果该代码块只包含一条语句，则大括号可以省略（因此你可以在我们开头的示例中省略它）。
 - en: The entire **else** branch can also be omitted. The minimal form of the If-else
     construct thus contains only an **if** branch. If the condition to whose execution
     it is linked does not apply, nothing happens. The program continues to run normally,
     starting with the first statement after the code block of the **if** branch.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 整个**else**分支也可以省略。因此，If-else结构的最简形式只包含一个**if**分支。如果与其执行相关的条件不成立，则什么也不会发生。程序会继续正常运行，从**if**分支的代码块后的第一条语句开始执行。
 - en: Formulation with the Help of the Condition Operator?
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用条件运算符的表达方式?
 - en: A special kind of branching is the conditional operator **?**. It is a *ternary*
     operator, i.e., an operator that, unlike the *unary* operator **!** (the logical
     *NOT*) or the binary operators **&&** (the logical *AND*) and **||** (the logical
     *OR*), processes *three* operands, hence the name *ternary*. It checks a condition
     and returns either the first or the second as the result of two expressions, depending
     on whether the condition was met or not.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 一种特殊的分支形式是条件运算符**?**。它是一个*三元*运算符，即一个处理*三个*操作数的运算符，这与*一元*运算符**!**（逻辑*非*）或二元运算符**&&**（逻辑*与*）和**||**（逻辑*或*）不同。因此它的名字是*三元*。它检查一个条件，根据条件是否成立，返回两个表达式中的第一个或第二个作为结果。
 - en: 'Consider the following example, which we will run in the console for simplicity:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 请考虑以下示例，为了简单起见，我们将在控制台中运行它：
 - en: '**>** name = ''Anderson''**>** sex = ''m''> console.log("Hello", (sex == ''f'')
     ? ''woman'' : ''man'', name)'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** name = ''Anderson''**>** sex = ''m''> console.log("Hello", (sex == ''f'')
+    ? ''woman'' : ''man'', name)'
 - en: Here, depending on whether the person is female or male, the salutation is adjusted
     accordingly. The condition **(sex == 'f')** is checked; if this is true, the operator
     returns the expression after the question mark, otherwise the expression after
@@ -188,54 +263,84 @@
     **?** ***returnIf*** **:** ***returnElse***. This concise formulation is advantageous
     because it provides a more compact way of branching that is easier to integrate
     with other statements.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，根据性别是女性还是男性，问候语会相应调整。检查条件 **(sex == 'f')**；如果为真，则操作符返回问号后面的表达式，否则返回冒号后的表达式。条件操作符的一般形式为
+    ***condition*** **?** ***returnIf*** **:** ***returnElse***。这种简洁的写法具有优势，因为它提供了一种更紧凑的分支方式，便于与其他语句结合。
 - en: 34.1 [3 min]
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 34.1 [3 分钟]
 - en: How can we easily show that strings in conditions always evaluate to **false**?
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们如何能轻松地证明字符串在条件语句中总是评估为 **false**？
 - en: 34.2 [5 min]
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 34.2 [5 分钟]
 - en: Reword the salutation example so that it no longer uses the conditional operator?:,
     but instead uses a traditional If-Else construct.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 重新编写问候语的例子，使其不再使用条件操作符 `?:`，而是使用传统的 If-Else 构造。
 - en: 34.3 [5 min]
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 34.3 [5 分钟]
 - en: Rewrite the function **convert()** for converting temperatures between Kelvin
     and degrees Celsius so that Kelvin temperatures below 0 K and Celsius temperatures
     below absolute zero of −273.15 °C (= 0 K) are acknowledged with an error message.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 重新编写 **convert()** 函数，用于在开尔文与摄氏度之间转换温度，以便当开尔文温度低于 0 K 或摄氏温度低于绝对零度 −273.15°C
+    (= 0 K) 时，能够显示错误信息。
 - en: 34.2 Switch-Case Constructs
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 34.2 Switch-Case 语句
 - en: 'Sometimes you want to check many similar conditions at once; then a nested
     If-Else construct is possible, but it quickly becomes very confusing. This is
     why JavaScript, like many other languages, has a Switch-Case construct. For example,
     suppose you wanted to determine the number of days for a given month. With nested
     If-Else constructs, the readability and maintainability of the program code would
     suffer significantly. It is simpler with **switch**:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时你可能希望一次检查多个相似的条件；这时可以使用嵌套的 If-Else 语句，但它会迅速变得非常混乱。因此，像许多其他语言一样，JavaScript
+    提供了 Switch-Case 构造。例如，假设你想确定某个月份的天数。如果使用嵌套的 If-Else 构造，程序代码的可读性和可维护性将会大大降低。而使用
+    **switch** 则更加简洁：
 - en: month = 'December';switch(month) {case 'January', 'March', 'May', 'July', 'August','October','December':days
     = 31;break;case 'April', 'June', 'September', 'November':days = 30;break;case
     'February':days = 28;break;default:days = -1;break;}
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 'month = ''December''; switch(month) { case ''January'', ''March'', ''May'',
+    ''July'', ''August'', ''October'', ''December'': days = 31; break; case ''April'',
+    ''June'', ''September'', ''November'': days = 30; break; case ''February'': days
+    = 28; break; default: days = -1; break; }'
 - en: The **switch** statement is passed the expression to be checked in parentheses.
     The individual cases are then introduced with **case**. Several cases can also
     be checked at once, as we do here in the example. After the colon for each checked
     case, you see the statements that are to be executed when that case occurs; in
     our example, only the variable **days** is set to the corresponding number of
     days. The statement block for each case ends with the keyword **break**.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**switch** 语句在括号中传递待检查的表达式。各个条件分支通过 **case** 进行引入。多个条件可以一次性检查，正如我们在这个例子中所做的那样。每个被检查的条件后面的冒号表示当该条件成立时要执行的语句；在我们的例子中，只有变量
+    **days** 被设置为相应的天数。每个条件语句块以 **break** 关键字结束。'
 - en: During execution, the interpreter determines the value of the expression to
     be checked and jumps directly to the corresponding statement block. After the
     statement block has been processed, program execution continues after the **switch**
@@ -243,38 +348,55 @@
     the **default** block is executed, but this is optional and can therefore be omitted.
     If the **default** is omitted and none of the cases apply, execution continues
     directly after the Switch-Case construct.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在执行过程中，解释器会确定待检查表达式的值，并直接跳转到相应的语句块。语句块处理完毕后，程序执行将继续进入 **switch** 代码块之后的部分，代码块是用大括号括起来的。如果没有任何条件匹配，**default**
+    语句块将被执行，但它是可选的，因此也可以省略。如果省略了 **default** 且没有任何条件匹配，程序将直接跳过 Switch-Case 构造，继续执行后续代码。
 - en: 34.3 Events
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 34.3 事件
 - en: Besides the If-Else and Switch-case constructs, *events* are an important way
     to control the program flow; in fact, in JavaScript they are the most important
     form of flow control of all.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了 If-Else 和 Switch-case 构造外，*事件* 是控制程序流程的重要方式；事实上，在 JavaScript 中，它们是所有流程控制中最重要的形式。
 - en: Insert Event Handlers Directly into the HTML Code
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 将事件处理程序直接插入到 HTML 代码中
 - en: We have already worked with events when we attached event handlers to form elements
     such as buttons in ► Chap. [32](474412_1_En_32_Chapter.xhtml), for example, to
     be able to react to a user click. In this section, we’ll take a closer look at
     working with events.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们之前已经处理过事件，例如，当我们为表单元素（如按钮）附加事件处理器时，在► 第[32](474412_1_En_32_Chapter.xhtml)章中，为了能够响应用户点击事件。在本节中，我们将更深入地了解如何处理事件。
 - en: 'The following HTML code is an excerpt from our color picker application from
     ► Sect. [32.​7](474412_1_En_32_Chapter.xhtml#Sec18):'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下 HTML 代码摘自我们的颜色选择器应用程序，来自► 第[32.​7](474412_1_En_32_Chapter.xhtml#Sec18)节：
 - en: '**<input** id="colorRedRange" type="range" value="255"min="0" max="255" oninput="adjustColor()"**>**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<input** id="colorRedRange" type="range" value="255" min="0" max="255" oninput="adjustColor()"**>**'
 - en: Here, for a **range input** element, i.e. a slider, we had set the property
     **oninput** to the event handler **adjustColor()**. Whenever the user moves the
     slider, this function we developed is called and can react to the user input.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，对于**范围输入**元素，即滑块，我们将属性**oninput**设置为事件处理器**adjustColor()**。每当用户移动滑块时，我们开发的这个函数就会被调用，并能响应用户的输入。
 - en: The event covered here by an event handler is called **input**; by convention,
     the corresponding property of the HTML element is named **oninput**¸ so the event
     name is always prefixed with **on**. We have seen that elsewhere, for example,
@@ -286,18 +408,28 @@
     then it’s not really recommended, because it makes maintaining the code more difficult.
     So, normally at this point you will see the call to an event handler, as in our
     example.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里的事件由事件处理器处理，称为**input**；按照惯例，HTML 元素的相应属性命名为**oninput**，因此事件名称总是以**on**为前缀。我们在其他地方也见过类似的情况，例如**onclick**。赋值给该属性的是我们的事件处理器，或者更准确地说，是对事件处理器的*调用*——通过圆括号可以轻松识别。我们本可以在这里直接输入更多的
+    JavaScript 代码，例如**oninput = "alert('Change!'); console.log('Change!')"**。然而，这种方法仅推荐用于非常短的代码段，即使是那样，它也不太推荐，因为它会使代码的维护变得更加困难。因此，通常在这个时候，你会看到对事件处理器的调用，就像我们示例中所示的那样。
 - en: Assign Event Handlers via HTML Element Properties in JavaScript Code
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过 HTML 元素属性在 JavaScript 代码中分配事件处理器
 - en: 'Next, let’s look at the following simple example. First, the HTML document:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，让我们看一下以下的简单示例。首先是 HTML 文档：
 - en: '**<!DOCTYPE html>****<html>****<body>****<form>****<input** id="myinput" type="text"**>****</form>****<script**
     src="eventtest.js"**></script>****</body>****</html>**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**<!DOCTYPE html>****<html>****<body>****<form>****<input** id="myinput" type="text"**>****</form>****<script**
+    src="eventtest.js"**></script>****</body>****</html>**'
 - en: Here we just create a text input field with the ID **myinput**. You may have
     noticed that this time we have included the script at the very end of the body
     in the HTML document. The reason is that, as you will see in a moment, we access
@@ -306,29 +438,42 @@
     elements of the pages do not yet exist at this early stage. Accordingly, the script
     would run into an error (try it out and watch the error messages in the JavaScript
     console).
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们只是创建了一个带有 ID **myinput** 的文本输入字段。你可能已经注意到，这次我们将脚本包含在 HTML 文档的 body 部分的最后。原因是，如你所见，我们在脚本中直接访问了网页元素。如果我们把脚本放在最前面，早期的页面元素尚未存在，那时我们就无法访问它们。因此，脚本会发生错误（可以试一下并查看
+    JavaScript 控制台中的错误信息）。
 - en: 'The program logic is in the JavaScript file **eventtest.js**:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 程序逻辑位于 JavaScript 文件**eventtest.js**中：
 - en: '**function** mouseclick(e) {console.log(''It was clicked. '');console.log(''X:
     '', e.x, ''\nY: '', e.y);}**var** inpField = document.getElementById(''myinput'');inpField.onclick
     = mouseclick;'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** mouseclick(e) {console.log(''被点击了。'');console.log(''X: '', e.x,
+    ''\nY: '', e.y);}**var** inpField = document.getElementById(''myinput'');inpField.onclick
+    = mouseclick;'
 - en: In this JavaScript code, first the input field of the web page is selected below.
     Then, the **onclick** property of this element is assigned the **mouseclick()**
     function defined above. More precisely, the **mouseclick** function *object* is
     assigned to the property. Note that there is no call to the function here, hence
     no round brackets after the function name.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段JavaScript代码中，首先选择了网页下方的输入框元素。然后，将该元素的**onclick**属性赋值为上述定义的**mouseclick()**函数。更准确地说，是将**mouseclick**函数的*对象*赋值给了该属性。请注意，这里并没有调用函数，因此函数名后面没有圆括号。
 - en: The **onclick** property of our **inpField** object is an example of how JavaScript
     objects representing HTML elements have event handler properties whose names are
     formed using the same logic as for the HTML elements themselves, i.e., the **on*****event***
     schema with **event** being the specific event that triggers the event handler.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的**inpField**对象的**onclick**属性是一个示例，展示了JavaScript对象表示HTML元素时，事件处理器属性的命名规则。这些属性的名称遵循与HTML元素相同的逻辑，即使用**on*****event***模式，其中**event**是触发事件处理器的特定事件。
 - en: The event we process here is the **click** event. The processing is done by
     our event handler **mouseclick()**. As you can see, **mouseclick()** takes a parameter,
     an *event object*, that describes the event in more detail. Depending on which
@@ -338,8 +483,10 @@
     of this and output this information in the console. If you want to know what properties
     the event object has for a particular event, just display it in the console with
     **console.log(e)**.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在这里处理的事件是**click**事件。事件的处理是通过我们的事件处理器**mouseclick()**完成的。正如你所看到的，**mouseclick()**函数接受一个参数，即描述事件的*事件对象*，它提供了更多关于事件的细节。根据处理的事件不同，事件对象的构成也会有所不同。在**click**事件的情况下，该对象包括**x**和**y**等属性，这些属性表示点击发生的位置。我们利用这些信息，并将其输出到控制台。如果你想知道某个特定事件的事件对象具有哪些属性，只需在控制台中使用**console.log(e)**来显示它。
 - en: When we had “wired” the event handlers directly in the HTML code with the HTML
     elements, the event handlers were called without an event object, for example
     with **oninput="adjustColors()"**. We could not have passed an event object here
@@ -352,8 +499,11 @@
     one, and even define the function without this parameter at all, is thanks to
     JavaScript’s flexible handling of function parameters, which we have already dealt
     with in ► Sect. [33.​1.​3](474412_1_En_33_Chapter.xhtml#Sec4).
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们在HTML代码中直接将事件处理器与HTML元素“绑定”时，事件处理器是没有事件对象的调用方式，例如使用**oninput="adjustColors()"**。在这种情况下，我们根本无法传递事件对象。这并不是问题，因为在这些示例中，我们并不需要访问事件的属性。然而，如果我们想要这样做，我们本可以在事件处理器中访问标准的**event**对象，它会提供给我们所需的信息。严格来说，我们根本不需要参数**e**，可以始终使用标准对象**event**来工作。我们可以在没有事件对象的情况下调用应该传入事件对象的函数，甚至可以定义没有该参数的函数，这要归功于JavaScript灵活的函数参数处理方式，我们已经在►
+    Sect. [33.​1.​3](474412_1_En_33_Chapter.xhtml#Sec4)中讨论过。
 - en: The **click** event is not the only event related to mouse clicks. With **mousedown**
     and **mouseup**, two events are available that are always triggered when a mouse
     button is pressed or released. The event objects of these two events have the
@@ -366,28 +516,44 @@
     mouse movements, you should take a closer look at the event **mousemove.** Since
     it is triggered by even the smallest mouse movement, it is better not to attach
     extensive code to this event.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**click** 事件并不是唯一与鼠标点击相关的事件。通过 **mousedown** 和 **mouseup**，有两个事件总是在鼠标按钮被按下或释放时触发。这两个事件的事件对象具有
+    **buttons** 属性，用于指示使用了哪个鼠标按钮——1表示左键，2表示右键。**click** 事件是在 **mousedown** 和 **mouseup**
+    之后触发的。在双击的情况下，第二个 **click event** 的事件对象中的 **detail** 属性值为2，表示这是一个双击事件。无论如何，在这种情况下，事件
+    **dblclick** 也会被触发。如果你对点击事件不感兴趣，而是对鼠标移动感兴趣，那么你应该仔细查看 **mousemove** 事件。由于它会在鼠标有任何微小移动时触发，所以最好不要在这个事件上附加大量代码。'
 - en: Add Event Handlers with addEventListener()
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 addEventListener() 添加事件处理器
 - en: 'The third way to attach an event handler to an event is to call the **addEventListener()**
     method of the JavaScript object that represents the HTML element in question.
     This is exactly what we do in the following example, where we process input in
     our input field using the **keypress** event. The JavaScript code of our **eventtest.js**
     file thus looks like this:'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 将事件处理器附加到事件的第三种方法是调用表示该 HTML 元素的 JavaScript 对象的 **addEventListener()** 方法。这正是我们在以下示例中所做的，其中我们使用
+    **keypress** 事件来处理输入框中的输入。我们 **eventtest.js** 文件中的 JavaScript 代码如下所示：
 - en: '**function** showKeyPress(e) {**if**(e.key != ''a'') inpField.value = inpField.value
     + e.key;e.preventDefault();}**var** inpField = document.getElementById(''myinput'');inpField.addEventListener(''keypress'',
     showKeyPress);'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** showKeyPress(e) {**if**(e.key != ''a'') inpField.value = inpField.value
+    + e.key;e.preventDefault();}**var** inpField = document.getElementById(''myinput'');inpField.addEventListener(''keypress'',
+    showKeyPress);'
 - en: The Event Handler is installed in this example with the **addEventListener()**
     method (event listener is a synonym for event handler). The method is called with
     the name of the event and the event handler object as argument.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 事件处理器在本例中通过 **addEventListener()** 方法进行安装（事件监听器是事件处理器的同义词）。这个方法调用时传入事件名称和事件处理器对象作为参数。
 - en: Our event handler **showKeyPress()** causes the entered character to be displayed
     in the input field, but only if it is not an **"a"**. So, in a sense, the **a**’s
     are filtered out (try it out!). To do this, we make use of the **key** property
@@ -400,8 +566,12 @@
     associated with such an event. So, this way you could also, for example, suppress
     the default behavior of opening a context menu when you click the right mouse
     button.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的事件处理器 **showKeyPress()** 会使输入的字符显示在输入框中，但只有当输入的字符不是 **"a"** 时才会显示。所以，从某种意义上说，**a**
+    被过滤掉了（试试看！）。为了实现这一点，我们利用了事件对象中的 **key** 属性，它包含了输入的字符。现在，输入框的性质是输入的字符会被显示出来。这是输入框的标准行为，由浏览器提供。但是如果我们想过滤输入的字符，就必须以某种方式阻止这个默认行为。这正是我们通过调用事件对象的
+    **preventDefault()** 方法来做到的。它会阻止浏览器执行与该事件关联的默认行为。因此，你也可以通过这种方式抑制例如右键点击时打开上下文菜单的默认行为。
 - en: Analogous to **click** and the two “detail events” **mousedown** and **mouseup**
     for mouse clicks, there are also special events for keystrokes with the names
     **keydown** and **keyup**. Unlike **keypress**, which is triggered only when displayable
@@ -413,22 +583,35 @@
     character, e.g. <CTRL> + <S>, then **key** contains the character; if *only* the
     special key was pressed, however, **key** contains a string such as **control**,
     **shift**, or **alt**.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似于鼠标点击的**click**事件以及两个“详细事件”**mousedown**和**mouseup**，对于按键操作也有特殊的事件，分别是 **keydown**
+    和 **keyup**。与 **keypress** 只有在输入可显示字符时才会触发不同，**keydown** 和 **keyup** 只要按下*任何*键都会触发。通过
+    **console.log()** 显示一次 **keydown** 或 **keyup** 的事件对象。你会看到，带有 **ctrlKey**、**shiftKey**
+    和 **altKey** 的特殊**布尔**属性可以指示是否按下了任何特殊键。如果按下了一个特殊键并与字符组合，例如 <CTRL> + <S>，那么 **key**
+    中包含该字符；如果*仅*按下了特殊键，**key** 中则包含像 **control**、**shift** 或 **alt** 这样的字符串。
 - en: For the events, get an overview of the information provided and a sense of when
     (and how often) the events are triggered by outputting the event objects to the
     console.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于事件，通过将事件对象输出到控制台，可以概览提供的信息，并了解事件触发的时机（以及触发频率）。
 - en: By the way, with **addEventListener()** you could attach several event handlers
     for the same event to the same object. With the method **removeEventListener()**,
     which has the same parameters as **addEventListener()**, you can then “disconnect”
     an event handler again.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 顺便说一下，使用 **addEventListener()** 可以为同一事件附加多个事件处理程序到同一对象。使用方法 **removeEventListener()**，它与
+    **addEventListener()** 具有相同的参数，你可以将事件处理程序“断开”。
 - en: Other Events
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 其他事件
 - en: JavaScript knows numerous other events in addition to those mentioned here.
     Not only HTML elements can be carriers of events. The document (standard object
     **document**) and the browser window (standard object **window**) also have events;
@@ -438,128 +621,185 @@
     object identifier followed by **.on** in the JavaScript console, and the pop-up
     list of object properties will take you directly to the available events (whose
     property names all start with **on**).
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了这里提到的事件，JavaScript 还知道许多其他事件。并非只有 HTML 元素可以作为事件的承载者，文档（标准对象 **document**）和浏览器窗口（标准对象
+    **window**）也有事件；例如，**resize** 事件在浏览器窗口大小改变时触发，**beforeunload** 事件在离开网页（跳转到其他 URL）时触发。如果你想了解一个对象支持哪些事件，可以在
+    JavaScript 控制台中输入对象标识符后跟 **.on**，弹出的对象属性列表会直接带你到可用事件（这些属性名称都以 **on** 开头）。
 - en: 34.4 Summary
+  id: totrans-71
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 34.4 总结
 - en: In this chapter, we looked at how to branch in program flow depending on conditions
     and events.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 本章我们讨论了如何根据条件和事件在程序流程中进行分支。
 - en: 'Be sure to take the following points from this chapter:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 一定要记住本章的以下要点：
 - en: If-Else constructs have the general form **if(*****condition*****) {** ***codeIf***
     **} else {** ***codeOtherwise*** **}**, where the **else** branch is optional.
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: If-Else 结构的一般形式是 **if(*****condition*****) {** ***codeIf*** **} else {** ***codeOtherwise***
+    **}**，其中**else**分支是可选的。
 - en: The condition is an expression that can be evaluated as **true** or **false**;
     the special values **null**, **undefined** and **NaN** are always considered **false**,
     strings are always considered **true**; the same is **true** for numbers except
     **0**.
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 条件是可以被评估为**真**或**假**的表达式；特殊值**null**、**undefined**和**NaN**总是被视为**假**，字符串总是被视为**真**；数字也是如此，除了**0**以外。
 - en: A condition can be composed of several sub-conditions that are linked with the
     logical operators **&&** (logical *AND*), **||** (logical *OR*) and **!** (logical
     *NOT*) operators.
+  id: totrans-76
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个条件可以由多个子条件组成，这些子条件通过逻辑运算符 **&&**（逻辑*与*）、**||**（逻辑*或*）和 **!**（逻辑*非*）连接。
 - en: In addition to the usual numeric comparison operators **>**, **>=**, **<** and
     **<=,** the operators **==** and **!=** (unequal) are used to formulate conditions.
+  id: totrans-77
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 除了常见的数字比较运算符 **>**、**>=**、**<** 和 **<=**，还可以使用运算符 **==** 和 **!=**（不等）来构造条件。
 - en: The condition operator **?** allows efficient formulations of branches in the
     form **condition ?** ***returnIf*** **:** ***returnOtherwise*** and is useful
     when a value is to be decided on the basis of a condition.
+  id: totrans-78
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 条件运算符**?**允许以**condition ?** ***returnIf*** **:** ***returnOtherwise*** 的形式高效地编写分支，适用于当值需要根据条件来决定时。
 - en: Switch-Case constructs of the form **switch(*****expression*****) { case** ***expression1*****:**
     ***statement1*****; …; break; … case** ***experssionN*****:** ***statementN*****;
     … ; break; default:** ***statementDefault*****; … ; break; }** are well suited
     when an expression (for example, the value of a variable) is to be tested for
     many similar conditions. A deeply nested and therefore confusing If-Else construct
     can be avoided in this way. The **default** branch is optional.
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 形式为**switch(*****expression*****) { case** ***expression1*****:** ***statement1*****;
+    …; break; … case** ***experssionN*****:** ***statementN*****; … ; break; default:**
+    ***statementDefault*****; … ; break; }**的Switch-Case结构非常适合在需要测试一个表达式（例如，变量的值）是否符合多个相似条件时使用。通过这种方式，可以避免深度嵌套且因此会导致混乱的If-Else结构。**default**分支是可选的。
 - en: Event handlers are functions that are automatically called whenever an event
     occurs.
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 事件处理程序是当事件发生时自动调用的函数。
 - en: Event handlers can be set directly in the HTML code of the Web page for an HTML
     element with a property assignment of the form **one*****event*** **= "*****eventHandler*****()"**,
     or they can be installed dynamically in the JavaScript code with the **addEventListener(*****eventName*****,**
     ***eventHandlerObject*****)** method of an HTML element object.
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 事件处理程序可以直接在网页的HTML代码中设置，方法是将HTML元素的属性赋值为**one*****event*** **= "*****eventHandler*****()"**，也可以通过HTML元素对象的**addEventListener(*****eventName*****,**
+    ***eventHandlerObject*****)**方法在JavaScript代码中动态安装。
 - en: The most important events are mouse and keyboard events, of which there are
     different types, which are triggered by certain constellations of actions (such
     as one double-click = two clicks) or partial actions (such as releasing a mouse
     button or pressing down a keyboard key).
+  id: totrans-82
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最重要的事件是鼠标和键盘事件，其中有不同类型，这些事件由特定的动作组合触发（例如，一次双击 = 两次点击）或部分动作触发（例如，松开鼠标按钮或按下键盘键）。
 - en: Event handlers are automatically passed an event object whose properties describe
     the event in more detail (for example, exactly which key was pressed on the keyboard,
     or at which position on the screen a mouse click occurred); even if your event
     handler does not provide an argument at all, you can always access the default
     **event** argument in its code.
+  id: totrans-83
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 事件处理程序会自动传递一个事件对象，该对象的属性描述了事件的更多细节（例如，确切地是哪一个键在键盘上被按下，或者鼠标点击发生在屏幕的哪个位置）；即使你的事件处理程序根本没有提供任何参数，你也始终可以在代码中访问默认的**event**参数。
 - en: 34.5 Solutions to the Exercises
+  id: totrans-84
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 34.5 练习的解决方案
 - en: Exercise 34.1
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 34.1
 - en: 'A simple way to show that strings always evaluate to **true** is to run a condition
     like the following in the JavaScript console:'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 显示字符串始终评估为**true**的一个简单方法是在JavaScript控制台中运行如下条件：
 - en: '**>** if(''A string'') console.log(''Is true'')Is true'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**>** if(''A string'') console.log(''Is true'')Is true'
 - en: Interestingly, a condition of the form **if('A string' == true)** would not
     have resulted in an output. This is because the string itself does not have the
     value **true**, of course (it is just a string and has the value stored in the
     string). However, if it actually has *to be* evaluated as **true** or **false**,
     because a *logical expression* is expected at the corresponding position, it is
     always considered **true**.
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 有趣的是，像**if('A string' == true)**这样的条件不会产生输出。这是因为字符串本身并不具有**true**的值，当然（它只是一个字符串，存储的是字符串中的值）。然而，如果它必须作为**true**或**false**来进行评估，因为在相应的位置需要一个*逻辑表达式*，它总是被认为是**true**。
 - en: Exercise 34.2
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 34.2
 - en: 'One solution might look like this:'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中一种解决方案可能如下所示：
 - en: '**if**(sex == ''m'') salutation = ''Mr''**else** salutation = ''Ms'';console.log(''Hello'',
     salutation, name);'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**if**(sex == ''m'') salutation = ''Mr''**else** salutation = ''Ms'';console.log(''Hello'',
+    salutation, name);'
 - en: Because only one statement follows in each of the code blocks of the **if**
     and **else** branch, the curly braces can be omitted here. The same applies to
     the previous tasks, but note, however, the omission of the braces leads to a more
     confusing code.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 因为在**if**和**else**分支的每个代码块中仅有一条语句，所以可以省略大括号。前面的任务同样适用这一规则，但请注意，省略大括号会导致代码变得更加混乱。
 - en: Exercise 34.3
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 练习 34.3
 - en: 'One solution might look like this:'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中一种解决方案可能如下所示：
 - en: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
     direction = document.getElementsByName(''direction'');**if**(direction[0].checked
     == **true**) {**if**(temp >= 0) {document.write(`<p>${temp} Kelvin are${temp -
@@ -567,5 +807,11 @@
     to be greaterthan or equal to zero.'');}}**else** {**if**(temp >= -273.15) {document.write(`<p>${temp}
     degrees Celsius are${temp + 273.15} Kelvin.<p>`);}**else** {alert(''The Celsius
     temperature must be greateror equal to 273.15.'');}}}'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**function** convert() {**var** temp = Number(document.getElementById(''temp'').value);**var**
+    direction = document.getElementsByName(''direction'');**if**(direction[0].checked
+    == **true**) {**if**(temp >= 0) {document.write(`<p>${temp} 开尔文温度等于${temp - 273.15}
+    摄氏度。<p>`);}**else** {alert(''开尔文温度需要大于或等于零。'');}}**else** {**if**(temp >= -273.15)
+    {document.write(`<p>${temp} 摄氏度等于${temp + 273.15} 开尔文。<p>`);}**else** {alert(''摄氏温度必须大于或等于-273.15。'');}}}'

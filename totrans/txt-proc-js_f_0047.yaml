@@ -1,286 +1,462 @@
 - en: '| Recipe 36 | Using a Function as the Replacement Pattern |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 36 | 使用函数作为替换模式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose your task is to improve an online real-estate marketplace that lists
     property specifications in square feet. You need to write a code that finds square
     feet values and provides a square meter version in parentheses so that international
     buyers can easily understand them.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是改进一个在线房地产市场，该市场以平方英尺列出物业规格。你需要编写一段代码，查找平方英尺的数值，并提供一个括号中的平方米版本，以便国际买家能轻松理解。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Start with creating a function that converts a square feet value to a square
     meter (m2):'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 从创建一个将平方英尺值转换为平方米（m2）的函数开始：
 - en: '|   | function convertToM2(sqft) { |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | function convertToM2(sqft) { |'
 - en: '|   |  |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | // remove non-digit characters |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | // 移除非数字字符 |'
 - en: '|   | sqft = sqft.replace(/\D/g, ""); |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | sqft = sqft.replace(/\D/g, ""); |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | // convert sqft to m2 |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | // 将平方英尺转换为平方米 |'
 - en: '|   | const m2 = sqft * 0.0929; |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | const m2 = sqft * 0.0929; |'
 - en: '|   |  |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | // round to two decimal places and return it |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | // 四舍五入到两位小数并返回 |'
 - en: '|   | return m2.toFixed(2); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | return m2.toFixed(2); |'
 - en: '|   | } |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: Now, you need a function that receives a string as input and scans it for digits
     followed by units such as “sqft,” “sq. ft,” or “sq ft.” Once a match is found,
     you want to call the convertToM2() function to convert the value into square meters,
     and then append the converted result to the original matched value.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，你需要一个接收字符串作为输入并扫描其中包含数字和单位（如“sqft”，“sq. ft.”或“sq ft.”）的函数。一旦找到匹配项，你希望调用 convertToM2()
+    函数将值转换为平方米，然后将转换后的结果附加到原始匹配项后面。
 - en: 'That’s where using a function as the replacement argument comes in:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这时，使用函数作为替换参数就派上用场了：
 - en: '|   | function appendM2ToSqft(str) { |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | function appendM2ToSqft(str) { |'
 - en: '|   | return str.replace(/\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig, (match) => {
     |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | return str.replace(/\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig, (match) => {
+    |'
 - en: '|   | return `${match} (${convertToM2(match)} m2)`; |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | return `${match} (${convertToM2(match)} m2)`; |'
 - en: '|   | }); |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | } |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: 'Here’s how the final code looks like:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是最终代码的样子：
 - en: '[part_2/replacement_fn/replacement_fn_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex1.js)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_fn/replacement_fn_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex1.js)'
 - en: '|   | **const** str = *"3 Beds, 2.5 baths, 1,850 Sq. Ft"*; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"3 Beds, 2.5 baths, 1,850 Sq. Ft"*; |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Convert sqft to m2* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将平方英尺转换为平方米* |'
 - en: '|   | **function** convertToM2(sqft) { |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** convertToM2(sqft) { |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove non-digit characters* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 移除非数字字符* |'
 - en: '|   | sqft = sqft.replace(*/**\D**/g*, *""*); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | sqft = sqft.replace(*/**\D**/g*, *""*); |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Convert sqft to m2* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将平方英尺转换为平方米* |'
 - en: '|   | **const** m2 = sqft * 0.0929; |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** m2 = sqft * 0.0929; |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Round to two decimal places and return it* |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 四舍五入到两位小数并返回结果* |'
 - en: '|   | **return** m2.toFixed(2); |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** m2.toFixed(2); |'
 - en: '|   | } |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Match sqft in the string, have it converted to m2,* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配字符串中的平方英尺，并将其转换为平方米，* |'
 - en: '|   | *// wrap parentheses around the result, and append it to sqft* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将结果括在括号中，并将其附加到sqft* |'
 - en: '|   | **function** appendM2ToSqft(str) { |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** appendM2ToSqft(str) { |'
 - en: '|   | **return** str.replace(*/**\d**+,**?\d**+**\s(**sqft&#124;sq**\.?\s**ft**)**/ig*,
     (match) => { |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(*/**\d**+,**?\d**+**\s(**sqft&#124;sq**\.?\s**ft**)**/ig*,
+    (match) => { |'
 - en: '|   | **return** *`*${match} *(*${convertToM2(match)} *m2)`*; |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** *`*${match} *(*${convertToM2(match)} *m2)`*; |'
 - en: '|   | }); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | } |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | appendM2ToSqft(str); |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | appendM2ToSqft(str); |'
 - en: '|   | *// → "3 Beds, 2.5 baths, 1,850 Sq. Ft (171.86 m2)"* |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "3 Beds, 2.5 baths, 1,850 Sq. Ft (171.86 m2)"* |'
 - en: Using this code, you can list the size of a property in both square feet and
     square meters.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这段代码，你可以列出房产的面积，既包括平方英尺，也包括平方米。
 - en: Discussion
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Let’s start with examining the regex pattern:'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从检查正则表达式模式开始：
 - en: '|   | /\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\d+,?\d+\s(sqft&#124;sq\.?\sft)/ig |'
 - en: '|   |  |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \d matches a digit |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \d 匹配数字 |'
 - en: '|   | ○ + matches the previous token between one and unlimited times |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个符号，匹配次数为一次或无限次 |'
 - en: '|   | ● , matches the character "," literally |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● , 字面匹配字符"," |'
 - en: '|   | ○ ? matches the previous token zero or one time |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前一个符号零次或一次 |'
 - en: '|   | ● \d matches a digit |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \d 匹配数字 |'
 - en: '|   | ○ + matches the previous token between one and unlimited times |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个符号，匹配次数为一次或无限次 |'
 - en: '|   | ● \s matches any whitespace character |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \s 匹配任意空白字符 |'
 - en: '|   | ● (sqft&#124;sq.? ft) 1st capturing group |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (sqft&#124;sq.? ft) 第一个捕获组 |'
 - en: '|   | ○ sqft 1st alternative |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ sqft 第一个备选项 |'
 - en: '|   | ○ sqft matches the characters "sqft" literally |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ sqft 字面匹配字符"sqft" |'
 - en: '|   | ○ sq\.?\sft 2nd alternative |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ sq\.?\sft 第二个备选项 |'
 - en: '|   | ○ sq matches the characters "sq" literally |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ sq 字面匹配字符"sq" |'
 - en: '|   | ○ \. matches a period literally |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \. 字面匹配句号 |'
 - en: '|   | ○ ? matches the previous token zero or one time |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前一个符号零次或一次 |'
 - en: '|   | ○ \s matches any whitespace character |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \s 匹配任意空白字符 |'
 - en: '|   | ○ ft matches the characters "ft" literally |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ft 字面匹配字符"ft" |'
 - en: '|   | ● Flags |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ i enables case-insensitive matching |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ i 启用不区分大小写的匹配 |'
 - en: '|   | ○ g enables global matching, which indicates we want to look for all
     |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g 启用全局匹配，表示我们要查找所有匹配项 |'
 - en: '|   | matches, rather than stopping after the first match |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | 匹配，而不是在第一次匹配后停止 |'
 - en: The replace() method accepts either a string or a function as the replacement
     argument. If you use a function, it gets executed for every match, and its output
     becomes the replacement text.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: replace() 方法接受字符串或函数作为替换参数。如果使用函数，它将在每次匹配时执行，并且其输出将成为替换文本。
 - en: 'The replacement function has the following syntax:'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 替换函数具有以下语法：
 - en: '[part_2/replacement_fn/replacement_fn_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex2.js)'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/replacement_fn/replacement_fn_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/replacement_fn/replacement_fn_ex2.js)'
 - en: '|   | **function** replacer(match, p1, p2, */* …, */* pN, offset, string, groups)
     { |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** replacer(match, p1, p2, */* …, */* pN, offset, string, groups)
+    { |'
 - en: '|   | **return** replacement; |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** replacement; |'
 - en: '|   | } |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: The first parameter contains the matched string (similar to $&). If there are
     capturing groups, they will be available next to the first parameter (p1, p2,
     /* …, */ pN).
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个参数包含匹配的字符串（类似于$&）。如果存在捕获组，它们将在第一个参数后面提供（p1, p2, /* …, */ pN）。
 - en: The next parameter provides the offset of the matched string. So, if you had
     “Hello” as a string and “ll” as a search pattern, the offset would be 3\. There’s
     also a string parameter containing the entire supplied string.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一个参数提供匹配字符串的偏移量。例如，如果你有字符串“Hello”和搜索模式“ll”，偏移量将是3。还有一个字符串参数，包含整个提供的字符串。
 - en: Finally, the groups parameter will be available if you have at least one named
     capturing group in the pattern. In this recipe, we’re only using the first parameter,
     so we leave out other parameters.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，如果你的模式中至少有一个命名捕获组，则groups参数将可用。在这个示例中，我们只使用第一个参数，因此省略了其他参数。
 - en: Inside the replacer function, we use a template literal to get the value of
     match and pass it to the convertToM2() function. convertToM2() first strips the
     string of non-digit characters by replacing them with an empty string. Then it
     performs the conversion and returns the result. The outcome is a string containing
     a square meter value in parentheses that’s appended to the original matched string.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 在replacer函数内部，我们使用模板字面量来获取匹配项的值，并将其传递给convertToM2()函数。convertToM2()首先通过用空字符串替换非数字字符来去除字符串中的非数字字符。然后，它执行转换并返回结果。最终的输出是一个包含平方米值的字符串，值被括号括起来并附加到原始匹配字符串后面。
 - en: Take advantage of a replacement function when you need to perform calculations
     or process the matched value in the replacement string.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你需要在替换字符串中执行计算或处理匹配值时，可以利用替换函数。

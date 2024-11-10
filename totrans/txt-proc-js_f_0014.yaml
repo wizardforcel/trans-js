@@ -1,416 +1,662 @@
 - en: '| Recipe 4 | Extracting Lists from Text with slice() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方4 | 使用slice()从文本中提取列表 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you run an online shop selling thousands of different clothes. You’re
     tasked with making the products searchable by color. The problem is the available
     colors for each product are listed as a sentence in the product description. You
     need a way to find and extract those colors programmatically to build a searchable
     database.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你经营一家在线商店，销售成千上万种不同的衣物。你的任务是通过颜色让商品可以搜索。问题是每个产品的可用颜色都以一句话形式列出在产品描述中。你需要一种方法来编程提取这些颜色，以便建立一个可搜索的数据库。
 - en: 'So if you have a product description like this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果你有这样的产品描述：
 - en: '|   | Feel confident in even the most unforeseen weather conditions with these
     |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 这些防水越野跑鞋帮助你在最不可预见的天气条件下保持干爽。|'
 - en: '|   | waterproof trail-running shoes helping you stay dry. Available in four
     new |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | 防水越野跑鞋帮助你保持干爽。提供四种新颜色。|'
 - en: '|   | colors: Velvet Brown, Black, Golden Moss, Medium Blue. |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | 颜色：天鹅绒棕色，黑色，金色苔藓，中蓝色。 |'
 - en: 'You want to extract the colors and store them in an array like this:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 你想提取这些颜色并将其存储在像这样的数组中：
 - en: '|   | [*"Velvet Brown"*, *"Black"*, *"Golden Moss"*, *"Medium Blue"*] |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"天鹅绒棕色"*, *"黑色"*, *"金色苔藓"*, *"中蓝色"*] |'
 - en: The list you want to extract may also come in different variations. It could
     have a forward slash (/) between items rather than a comma. Or it could have extra
     words such as “and,” “or,” “etc.” that you don’t want to end up in your array.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 你想提取的列表可能还有不同的变化。它可能在项之间使用斜杠(/)而不是逗号。或者它可能包含一些额外的词汇，如“和”、“或”、“等等”，这些词你不希望出现在数组中。
 - en: In this recipe, we first build a function that extracts simple lists and then
     enhance the function to handle more complex lists.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个方法中，我们首先构建一个提取简单列表的函数，然后增强该函数以处理更复杂的列表。
 - en: Solution
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'This recipe involves two steps: first, finding the sentence containing the
     list of colors, and second, extracting each color and storing it in an array.
     You can perform the first step using the indexOf() method. The list of colors
     comes after a colon (:). Locate it with indexOf() and store the resulting index
     in a constant. Next, locate the first period that follows the colon and store
     the index in another constant:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个方法包含两个步骤：首先，找到包含颜色列表的句子，其次，提取每个颜色并将其存储在一个数组中。你可以使用indexOf()方法执行第一步。颜色列表出现在冒号(:)后面。通过indexOf()定位它，并将结果索引存储在一个常量中。接下来，找到紧随冒号后的第一个句号，并将其索引存储在另一个常量中：
 - en: '|   | **const** str = *`Feel confident in even the most unforeseen weather
     conditions* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`即使在最不可预见的天气条件下，也能让你信心满满` |'
 - en: '|   | *with these waterproof trail-running shoes helping you stay dry. Available*
     |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | *使用这些防水越野跑鞋帮助你保持干爽。可用的* |'
 - en: '|   | *in four new colors: Velvet Brown, Black, Golden Moss, Medium Blue.`*;
     |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | *以四种新颜色提供：天鹅绒棕色，黑色，金色苔藓，中蓝色。`*; |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** start = str.indexOf(*":"*); |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** start = str.indexOf(*":"*); |'
 - en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** end = str.indexOf(*"."*, start); |'
 - en: 'Now, you have two indexes that mark the beginning and end of the list in the
     string. Pass them to the slice() method to extract the list:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，你有两个索引，分别标记了列表在字符串中的开始和结束位置。将它们传递给slice()方法来提取列表：
 - en: '|   | **const** list = str.slice(start + 2, end); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** list = str.slice(start + 2, end); |'
 - en: '|   | *// "Velvet Brown, Black, Golden Moss, Medium Blue"* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// "Velvet Brown, Black, Golden Moss, Medium Blue"* |'
 - en: The arguments you pass to slice() specify the string’s start and end index to
     be returned. To offset the colon and the space at the beginning of the string,
     increase the start index by 2\. The end index tells slice() to extract up to but
     not including the character at that index, so there’s no need to subtract from
     it.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 你传递给slice()的方法参数指定了字符串的起始和结束索引。为了偏移字符串开头的冒号和空格，将起始索引增加2。结束索引告诉slice()提取到该索引位置，但不包括该位置，因此不需要从结束索引中减去任何值。
 - en: 'Now comes the second step, where you need to convert the comma-separated list
     into an array. There are a couple of ways to do this in JavaScript. The long approach
     is to look for commas in a loop and add each item to an array. The more straightforward
     approach is to use the split() method. With split(), you can define where each
     split in a string should occur and quickly get an array of items:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来是第二步，你需要将逗号分隔的列表转换为一个数组。JavaScript中有几种方法可以实现这一点。较长的方式是通过循环查找逗号，并将每个项添加到数组中。更直接的方法是使用split()方法。通过split()，你可以定义字符串中每个分隔的位置，并迅速得到一个项的数组：
 - en: '|   | **const** colors = list.split(*", "*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** colors = list.split(*", "*); |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(colors); |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(colors); |'
 - en: '|   | *// → [ "Velvet Brown", "Black", "Golden Moss", "Medium Blue" ]* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "Velvet Brown", "Black", "Golden Moss", "Medium Blue" ]* |'
 - en: In this code, you’re telling split() to use a comma followed by a space as a
     separator. The result is an array of colors with no extra space or commas to worry
     about.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，你告诉split()使用逗号后跟空格作为分隔符。结果是一个没有额外空格或逗号的颜色数组，避免了不必要的麻烦。
 - en: 'Here’s the final code put together in a function so you can reuse it:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是将代码组织成一个函数的最终版本，这样你就可以重用它：
 - en: '[part_1/extracting_lists/slice_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex1.js)'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/extracting_lists/slice_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex1.js)'
 - en: '|   | **const** str = *`Feel confident in even the most unforeseen weather
     conditions* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`即使在最无法预见的天气条件下也能保持信心`* |'
 - en: '|   | *with these waterproof trail-running shoes helping you stay dry. Available*
     |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | *这款防水越野跑鞋帮助你保持干爽。提供* |'
 - en: '|   | *in four new colors: Velvet Brown, Black, Golden Moss, Medium Blue.`*;
     |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *以四种新颜色：Velvet Brown, Black, Golden Moss, Medium Blue.`*; |'
 - en: '|   |  |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** extractList(str) { |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractList(str) { |'
 - en: '|   | **const** start = str.indexOf(*":"*); |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** start = str.indexOf(*":"*); |'
 - en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** end = str.indexOf(*"."*, start); |'
 - en: '|   | **const** list = str.slice(start + 2, end); |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** list = str.slice(start + 2, end); |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** list.split(*", "*); |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** list.split(*", "*); |'
 - en: '|   | } |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(str); |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(str); |'
 - en: '|   | *// → [ "Velvet Brown", "Black", "Golden Moss", "Medium Blue" ]* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "天鹅绒棕", "黑色", "金色苔藓", "中蓝色" ]* |'
 - en: Discussion
+  id: totrans-45
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: If the list you want to extract has extra words, such as “and,” “or,” “etc.,”
     or uses a forward slash (/) rather than a comma, then you need a more advanced
     function. You probably won’t find “etc.” in a list of available color options
     for a product, but we have included it here so that you can remove it from other
     types of lists, if needed.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想提取的列表中有额外的词语，如“和”，“或”，“等等”，或者使用斜杠（/）而不是逗号，那么你需要一个更高级的功能。你可能不会在某个产品的可选颜色列表中看到“等等”，但我们在这里包括它，以便在其他类型的列表中需要时可以将其移除。
 - en: 'Consider this example:'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看这个例子：
 - en: '[part_1/extracting_lists/slice_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex2.js)'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/extracting_lists/slice_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex2.js)'
 - en: '|   | **function** extractList(str) { |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractList(str) { |'
 - en: '|   | **const** start = str.indexOf(*":"*); |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** start = str.indexOf(*":"*); |'
 - en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** end = str.indexOf(*"."*, start); |'
 - en: '|   | **const** list = str.slice(start + 2, end); |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** list = str.slice(start + 2, end); |'
 - en: '|   |  |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** list.split(*", "*); |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** list.split(*", "*); |'
 - en: '|   | } |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available in three colors: red, black, and blue."*); |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"可提供三种颜色：红色，黑色和蓝色。"*); |'
 - en: '|   | *// → [ "red", "black", "and blue" ]* |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "红色", "黑色", "和 蓝色" ]* |'
 - en: '|   |  |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available colors: Red/Black/Blue."*); |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"可用颜色：红色/黑色/蓝色。"*); |'
 - en: '|   | *// → "Red/Black/Blue"* |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "红色/黑色/蓝色"* |'
 - en: '|   |  |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available colors: Red, Black, Blue, etc."*); |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"可用颜色：红色，黑色，蓝色，等等。"*); |'
 - en: '|   | *// → [ "Red", "Black", "Blue", "etc" ]* |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "红色", "黑色", "蓝色", "等等" ]* |'
 - en: 'This function isn’t equipped to handle such lists properly. Let’s revise it!
     You first need to check whether the list has a comma or a forward slash:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数没有正确处理这类列表的能力。我们来修改它！你首先需要检查列表中是否有逗号或斜杠：
 - en: '|   | list.includes(*","*) ? list.split(*", "*) : list.split(*''/''*); |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | list.includes(*","*) ? list.split(*", "*) : list.split(*''/''*); |'
 - en: The includes() method checks if the list contains a comma. If so, it returns
     true, and the ternary operator executes list.split(", "). If not, the operator
     executes list.split("/").
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: includes() 方法检查列表中是否包含逗号。如果是，它返回 true，三元操作符执行 list.split(", ")。如果不是，则操作符执行 list.split("/")。
 - en: 'Next, remove “etc” from the resulting array:'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，从结果数组中移除“等等”：
 - en: '|   | arr.at(-1) === *"etc"* ? arr.pop() : **null**; |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | arr.at(-1) === *"等等"* ? arr.pop() : **null**; |'
 - en: at(-1) gets the last item in the array. If it has a value of “etc,” pop() removes
     it. You could use a filter() here, but since “etc” is usually the last item in
     the array, it’s more efficient to check only the last item’s value.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: at(-1) 获取数组中的最后一个项。如果它的值是“等等”，pop() 会将其移除。你也可以在这里使用 filter()，但是因为“等等”通常是数组中的最后一个项，所以只检查最后一项的值更加高效。
 - en: '| Browser Compatibility |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | Older
     browsers do not support the at() method. To ensure your app can be accessed by
     users with older browsers, you should use a polyfill.^([[5]](f_0032.xhtml#FOOTNOTE-5))
     In the Node environment, you’ll need a minimum Node version of 16.6.0.^([[6]](f_0032.xhtml#FOOTNOTE-6))
     |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | 老版本的浏览器不支持
+    at() 方法。为了确保你的应用能够被老旧浏览器用户访问，你应该使用补丁程序。^([[5]](f_0032.xhtml#FOOTNOTE-5)) 在 Node
+    环境中，最低需要 Node 版本 16.6.0。^([[6]](f_0032.xhtml#FOOTNOTE-6)) |'
 - en: 'To remove “and”/”or,” you can use map(), like this:'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了移除“and”/“or”，你可以使用 map()，如下所示：
 - en: '|   | **return** arr.map(word => { |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** arr.map(word => { |'
 - en: '|   | **if** (word.startsWith(*"and "*)) { |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (word.startsWith(*"and "*)) { |'
 - en: '|   | **return** word.slice(4); |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word.slice(4); |'
 - en: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
 - en: '|   | **return** word.slice(3); |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word.slice(3); |'
 - en: '|   | } **else** { |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | **return** word; |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word; |'
 - en: '|   | } |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | }); |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: When you call map(), it executes a function on every element in the array. Use
     the startsWith() method to check if there’s an extra “and” or “or” at the beginning
     of an item and remove it with slice().
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你调用 map() 时，它会对数组中的每个元素执行一个函数。使用 startsWith() 方法检查项目开头是否有多余的“and”或“or”，并使用
+    slice() 方法将其移除。
 - en: 'Your revised function should look like this:'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的修订函数应该如下所示：
 - en: '[part_1/extracting_lists/slice_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex3.js)'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/extracting_lists/slice_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/extracting_lists/slice_ex3.js)'
 - en: '|   | **function** extractList(str) { |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractList(str) { |'
 - en: '|   | **const** start = str.indexOf(*":"*); |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** start = str.indexOf(*":"*); |'
 - en: '|   | **const** end = str.indexOf(*"."*, start); |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** end = str.indexOf(*"."*, start); |'
 - en: '|   | **const** list = str.slice(start + 2, end); |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** list = str.slice(start + 2, end); |'
 - en: '|   |  |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Split the string by comma or forward slash* |'
+  id: totrans-92
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 按逗号或斜杠分割字符串* |'
 - en: '|   | **const** arr = list.includes(*","*) ? list.split(*", "*) : list.split(*"/"*);
     |'
+  id: totrans-93
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** arr = list.includes(*","*) ? list.split(*", "*) : list.split(*"/"*);
+    |'
 - en: '|   |  |'
+  id: totrans-94
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove "etc"* |'
+  id: totrans-95
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 移除 "etc"* |'
 - en: '|   | arr.at(-1) === *"etc"* ? arr.pop() : **null**; |'
+  id: totrans-96
   prefs: []
   type: TYPE_TB
+  zh: '|   | arr.at(-1) === *"etc"* ? arr.pop() : **null**; |'
 - en: '|   |  |'
+  id: totrans-97
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove and/or* |'
+  id: totrans-98
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 移除 and/or* |'
 - en: '|   | **return** arr.map(word => { |'
+  id: totrans-99
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** arr.map(word => { |'
 - en: '|   | **if** (word.startsWith(*"and "*)) { |'
+  id: totrans-100
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (word.startsWith(*"and "*)) { |'
 - en: '|   | **return** word.slice(4); |'
+  id: totrans-101
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word.slice(4); |'
 - en: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
+  id: totrans-102
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** **if** (word.startsWith(*"or "*)) { |'
 - en: '|   | **return** word.slice(3); |'
+  id: totrans-103
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word.slice(3); |'
 - en: '|   | } **else** { |'
+  id: totrans-104
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | **return** word; |'
+  id: totrans-105
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** word; |'
 - en: '|   | } |'
+  id: totrans-106
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | }); |'
+  id: totrans-107
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | } |'
+  id: totrans-108
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-109
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available in three colors: red, black, and blue."*); |'
+  id: totrans-110
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"Available in three colors: red, black, and blue."*); |'
 - en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  id: totrans-111
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "Red", "Black", "Blue" ]* |'
 - en: '|   |  |'
+  id: totrans-112
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available colors: Red/Black/Blue."*); |'
+  id: totrans-113
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"Available colors: Red/Black/Blue."*); |'
 - en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  id: totrans-114
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "红色", "黑色", "蓝色" ]* |'
 - en: '|   |  |'
+  id: totrans-115
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractList(*"Available colors: Red, Black, Blue, etc."*); |'
+  id: totrans-116
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractList(*"可用颜色：红色，黑色，蓝色，等等。"*); |'
 - en: '|   | *// → [ "Red", "Black", "Blue" ]* |'
+  id: totrans-117
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → [ "红色", "黑色", "蓝色" ]* |'
 - en: You might be wondering why not use replaceAll() to remove any “and,” “or,” “etc.”
     from the text before splitting it into an array. It’s because there could be a
     color name containing these letters, such as “Macaroni and Cheese” (yes, that’s
     a color name).
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能会想，为什么不使用 `replaceAll()` 方法先将文本中的“and”，“or”，“etc.”等删除，再将其分割成数组？这是因为可能会有包含这些字母的颜色名称，例如“Macaroni
+    and Cheese”（是的，这是一个颜色名称）。
 - en: 'Take advantage of the slice() method to extract a section of a string or an
     array. The second argument is optional: omit it to get the rest of the string.
     Use split() when you need to divide a string into an array of substrings, and
     finally, use map() to weed out any unwanted part of the resulting array.'
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用 `slice()` 方法提取字符串或数组的某个部分。第二个参数是可选的：如果省略它，将返回字符串的其余部分。使用 `split()` 方法将字符串分割成子字符串数组，最后，使用
+    `map()` 方法剔除数组中任何不需要的部分。

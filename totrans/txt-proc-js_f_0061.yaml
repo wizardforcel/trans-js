@@ -1,99 +1,157 @@
 - en: '| Recipe 50 | Testing a Pattern with the Negative Lookbehind |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 50 | 使用否定回顾测试模式 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you’re searching hospital records for a patient named Smith, but most
     of the data you get from search results is about Dr. Smith. You need a regex that
     matches “Smith” but excludes “Dr. Smith.”
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你正在搜索医院记录，寻找名为Smith的病人，但大多数从搜索结果中得到的数据是关于Dr. Smith的。你需要一个正则表达式，它匹配“Smith”，但排除“Dr.
+    Smith”。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use a negative lookbehind assertion denoted by (?<! ... ):'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用否定回顾断言，表示为(?<! ... )：
 - en: '[part_2/negative_lookbehind/negative_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/negative_lookbehind/negative_lookbehind_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/negative_lookbehind/negative_lookbehind_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/negative_lookbehind/negative_lookbehind_ex1.js)'
 - en: '|   | **const** re = */**(?<**!Dr**\.\s)**Smith/*; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**!Dr**\.\s)**Smith/*; |'
 - en: '|   |  |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(re.test(*"Dr. Smith"*)); *// → false* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(*"Dr. Smith"*)); *// → false* |'
 - en: '|   | console.log(re.test(*"Mr. Smith"*)); *// → true* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(*"Mr. Smith"*)); *// → true* |'
 - en: '|   | console.log(re.test(*"John Smith"*)); *// → true* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(re.test(*"John Smith"*)); *// → true* |'
 - en: Your regex now finds all records containing “Smith” except for “Dr. Smith.”
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的正则表达式现在会找到所有包含“Smith”的记录，但不包括“Dr. Smith”。
 - en: Discussion
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The negative version of lookbehind asserts that the pattern within the lookbehind
     does not precede a pattern. In this case, we’re using it to ensure that the word
     “Smith” isn’t preceded by an uppercase D, a lowercase r, a period (.), and a whitespace
     character (\s). You must use a backslash to escape the period; otherwise, the
     regex engine will interpret it as a metacharacter.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 否定版本的回顾符号用于断言回顾中的模式前面没有某个模式。在这种情况下，我们使用它来确保单词“Smith”前面没有大写字母D、小写字母r、句点（.）和空格字符（\s）。你必须使用反斜杠来转义句点；否则，正则引擎会将其解释为元字符。
 - en: '| Not Just at the Beginning |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| 不仅仅在开始时 |'
 - en: '| --- |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | Lookbehinds can
     be used anywhere in the regex, not just at the beginning. |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 回顾符号可以在正则表达式中的任何位置使用，而不仅仅是在开始处。
+    |'
 - en: '![images/aside-icons/info.png](images/aside-icons/info.png)'
+  id: totrans-17
   prefs: []
   type: TYPE_IMG
+  zh: '![images/aside-icons/info.png](images/aside-icons/info.png)'
 - en: 'In addition to lookarounds, regular expressions provide several types of groups
     that are constructed using a pair of parentheses, with the opening parenthesis
     immediately followed by a question mark. For easier comparison, we’ve summarized
     the syntax for these groups in the following table. Keep this table bookmarked—it’s
     sure to come in handy:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了回顾符号，正则表达式还提供了几种类型的组，它们是通过一对括号构造的，开括号后面紧跟着一个问号。为了方便比较，我们总结了这些组的语法，表格如下。记得将此表格收藏——它一定会派上用场：
 - en: '| Metacharacter | Meaning |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 元字符 | 含义 |'
 - en: '| --- | --- |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| ( ... ) | Capturing group |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| ( ... ) | 捕获组 |'
 - en: '| (?: ... ) | Non-capturing group |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| (?: ... ) | 非捕获组 |'
 - en: '| (?= ... ) | Positive lookahead |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| (?= ... ) | 正向前瞻 |'
 - en: '| (?! ... ) | Negative lookahead |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| (?! ... ) | 否定前瞻 |'
 - en: '| (?<= ... ) | Positive lookbehind |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| (?<= ... ) | 正向回顾 |'
 - en: '| (?<! ... ) | Negative lookbehind |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| (?<! ... ) | 负向前瞻 |'
 - en: The takeaway from this recipe is to use a negative lookbehind when you want
     to match a pattern not preceded by a specific pattern.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这份技巧的关键是当你想匹配一个没有被特定模式前置的模式时，使用负向前瞻。

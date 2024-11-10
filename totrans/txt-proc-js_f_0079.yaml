@@ -1,191 +1,297 @@
 - en: '| Recipe 67 | Striping Invalid Characters from Filenames |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 67 | 从文件名中剥离无效字符 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you operate a file hosting service. To ensure a smooth download process,
     you should avoid certain characters in the filenames of the files being provided
     for download. In iOS and macOS, the filename cannot contain a colon (:), while
     Android and Windows OS have stricter restrictions and do not allow the use of
     <, >, :, ", /, \, |, ?, and * in filenames.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你经营一个文件托管服务。为了确保顺畅的下载过程，应该避免在提供下载的文件名中使用某些字符。在iOS和macOS中，文件名不能包含冒号（:），而Android和Windows操作系统则有更严格的限制，不允许在文件名中使用<,
+    >, :, ", /, \, |, ?, 和*。
 - en: The reason is that the OS uses these characters for enclosing paths in quotes,
     marking off drives and directories, indicating wildcards and command line redirection,
     etc. Moreover, there are certain words that Windows uses as reserved names for
     internal purposes, and as a result, they cannot be used as filenames.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 原因是操作系统使用这些字符来将路径括起来，用引号标记驱动器和目录，表示通配符和命令行重定向等。此外，Windows有一些特定的保留名称，用于内部目的，因此不能将它们用作文件名。
 - en: 'These reserved names are as follows:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些保留名称如下：
 - en: '|   | LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
 - en: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
 - en: '|   | CON, PRN, AUX, NUL |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | CON, PRN, AUX, NUL |'
 - en: When attempting to download a file with invalid characters in its name, Windows
     will automatically replace those characters with an underscore, without any warning
     to the user. To avoid such issues, you may want to create a script that can detect
     problematic characters in a filename and notify the user to resolve them before
     proceeding with the download.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 当尝试下载文件时，如果文件名中包含无效字符，Windows会自动将这些字符替换为下划线，而不会向用户发出任何警告。为避免此类问题，你可以创建一个脚本，检测文件名中存在的问题字符，并在继续下载之前通知用户解决这些问题。
 - en: Solution
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'To improve readability and maintainability, it’s easier to test each list of
     characters and words separately, rather than merging them and using a single regex.
     Create a function that accepts a filename as an input, tests each regex against
     it, and returns true if the tests pass:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了提高可读性和可维护性，最好分别测试每个字符和单词的列表，而不是将它们合并并使用单一的正则表达式。创建一个接受文件名作为输入的函数，逐一测试每个正则表达式，并在测试通过时返回true：
 - en: '[part_3/striping_invalid_characters/striping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/striping_invalid_characters/striping_ex1.js)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/striping_invalid_characters/striping_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/striping_invalid_characters/striping_ex1.js)'
 - en: '|   | **let** reservedNames = |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** reservedNames = |'
 - en: '|   | *`LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9,* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9,* |'
 - en: '|   | *COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9,* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | *COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9,* |'
 - en: '|   | *CON, PRN, AUX, NUL`*; |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | *CON, PRN, AUX, NUL`*; |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Create an array from the reservedNames string* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 从reservedNames字符串创建一个数组* |'
 - en: '|   | reservedNames = reservedNames.split(*/,**\s**/*); |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | reservedNames = reservedNames.split(*/,**\s**/*); |'
 - en: '|   |  |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** isValidFilename(name) { |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** isValidFilename(name) { |'
 - en: '|   | **const** re1 = **new** RegExp(*`^(*${reservedNames.join(*"&#124;"*)}*)$`*,
     *"i"*); |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = **new** RegExp(*`^(*${reservedNames.join(*"&#124;"*)}*)$`*,
+    *"i"*); |'
 - en: '|   | **const** re2 = */**[**<>:"**/\\**&#124;?***]**/*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */**[**<>:"**/\\**&#124;?***]**/*; |'
 - en: '|   | **return** !(re1.test(name) &#124;&#124; re2.test(name)); |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** !(re1.test(name) &#124;&#124; re2.test(name)); |'
 - en: '|   | } |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | isValidFilename(*"COM1"*); *// → false* |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"COM1"*); *// → false* |'
 - en: '|   | isValidFilename(*"com1"*); *// → false* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"com1"*); *// → false* |'
 - en: '|   | isValidFilename(*"com1_"*); *// → true* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"com1_"*); *// → true* |'
 - en: '|   | isValidFilename(*"@com1"*); *// → true* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"@com1"*); *// → true* |'
 - en: '|   | isValidFilename(*"]-:"*); *// → false* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"]-:"*); *// → false* |'
 - en: '|   | isValidFilename(*"<myfile>"*); *// → false* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | isValidFilename(*"<myfile>"*); *// → false* |'
 - en: Success!
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功！
 - en: Discussion
+  id: totrans-33
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'To start with, prepare an array containing the invalid characters/names. If
     you’re like me and don’t feel like creating the array by typing, you can use the
     split() method to separate the reserved names and store them in the array. The
     result will be as follows:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，准备一个包含无效字符/名称的数组。如果你像我一样不想通过键入来创建数组，可以使用split()方法将保留名称分开并存储到数组中。结果如下：
 - en: '|   | let reservedNames = |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | let reservedNames = |'
 - en: '|   | `LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | `LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, |'
 - en: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, |'
 - en: '|   | CON, PRN, AUX, NUL`; |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | CON, PRN, AUX, NUL`; |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | reservedNames.split(/,\s/); |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | reservedNames.split(/,\s/); |'
 - en: '|   | // → ["LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8",
     "LPT9", |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | // → ["LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8",
+    "LPT9", |'
 - en: '|   | // "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
     |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | // "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+    |'
 - en: '|   | // "CON", "PRN", "AUX", "NUL"] |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | // "CON", "PRN", "AUX", "NUL"] |'
 - en: 'Inside the isValidFilename() function, we use the RegExp constructor to join
     the items of the resulting array with a pipe symbol to form alternations like
     this: LPT1|LPT2|LPT3...'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在isValidFilename()函数内部，我们使用RegExp构造函数将结果数组中的项与管道符连接，形成类似LPT1|LPT2|LPT3...的交替表达式：
 - en: 'If you want to avoid creating the pattern dynamically, you don’t have to type
     each name separately. Instead, take advantage of a character class to define a
     range:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你不想动态创建模式，可以避免逐个输入每个名称。相反，利用字符类定义一个范围：
 - en: '|   | /^(LPT[1-9]&#124;COM[1-9]&#124;CON&#124;PRN&#124;AUX&#124;NUL)$/i |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | /^(LPT[1-9]&#124;COM[1-9]&#124;CON&#124;PRN&#124;AUX&#124;NUL)$/i |'
 - en: A filename with these words is invalid only if it doesn’t contain additional
     characters. For example, “LPT1” is an invalid filename, but not “LPT1z” or “ALPT1.”
     The caret symbol (^) at the start of the pattern asserts the beginning of the
     string and ensures that no other characters precede the desired string match.
     Similarly, the dollar symbol ($) asserts the end of the string.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 只有当文件名包含这些词语且没有额外字符时，才是无效的。例如，“LPT1”是一个无效的文件名，但“LPT1z”或“ALPT1”则不是。模式开头的插入符号（^）表示字符串的开始，并确保没有其他字符出现在目标字符串匹配之前。类似地，美元符号（$）表示字符串的结束。
 - en: The second pattern, which lists reserved characters, consists of only nine characters.
     So, it’s sufficient to include them in a character class using square brackets
     []. A character class matches any single character that appears between the brackets,
     so we can check if any of those characters exist in the given string.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个模式列出了保留字符，包含的只有九个字符。因此，使用方括号[]将它们包含在字符类中就足够了。字符类匹配方括号中出现的任何单个字符，因此我们可以检查给定字符串中是否包含这些字符。
 - en: Inside character classes, the backslash is considered a metacharacter and, therefore,
     requires escaping with another backslash. But, all other characters are treated
     as literal characters.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在字符类内部，反斜杠被视为元字符，因此需要用另一个反斜杠进行转义。但所有其他字符都被视为字面字符。
 - en: Filenames may contain characters that are not allowed by the operating system
     or filesystem. By using a regex pattern, we can detect those characters and provide
     a problem-free download process.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件名可能包含操作系统或文件系统不允许的字符。通过使用正则表达式模式，我们可以检测这些字符，并提供一个无问题的下载过程。

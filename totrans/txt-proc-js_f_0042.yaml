@@ -1,131 +1,205 @@
 - en: '| Recipe 31 | Extracting a Matched Value with the Capturing Group |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 方案 31 | 使用捕获组提取匹配值 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you need to search for a file with a .pdf extension and extract only
     the filename without the extension. Typically, regular expressions return the
     entire matched string, but you want a solution that enables you to identify and
     extract a specific part of the matched string for further processing.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你需要查找一个以 .pdf 为扩展名的文件，并且只提取文件名而不包括扩展名。通常情况下，正则表达式会返回整个匹配的字符串，但你需要一个解决方案，能够识别并提取匹配字符串的特定部分，以便进一步处理。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Place a pair of parentheses around the specific part of the pattern that you
     want to extract:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 将一对圆括号围绕你想提取的模式的特定部分：
 - en: '[part_2/capturing_group_p2/capturing_group_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/capturing_group_p2/capturing_group_p2_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/capturing_group_p2/capturing_group_p2_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/capturing_group_p2/capturing_group_p2_ex1.js)'
 - en: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(\w**+**)\.**pdf**\b**/*; |'
 - en: '|   | **const** str = *"Please download data_p2x53.pdf"*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"Please download data_p2x53.pdf"*; |'
 - en: '|   |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** result = str.match(re); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** result = str.match(re); |'
 - en: '|   |  |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **if** (result) { |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (result) { |'
 - en: '|   | console.log(result[1]) |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(result[1]) |'
 - en: '|   | } **else** { |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | console.error(*"No match found."*); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.error(*"没有找到匹配项。"*); |'
 - en: '|   | } |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Logs:* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志:* |'
 - en: '|   | *// → data_p2x53* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → data_p2x53* |'
 - en: You can now access the filename by referencing the second item of the resulting
     array.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 你现在可以通过引用结果数组中的第二个项来访问文件名。
 - en: Discussion
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In this example, we used the match() method instead of test(). Unlike test(),
     which gives a yes/no as an answer (a Boolean value) indicating whether or not
     a match is found, match() provides more detailed information in the form of an
     array. We can access the substring captured by the capturing group in the regex
     using the second element of the resulting array (result[1]). Since JavaScript
     arrays are zero-indexed, the second element is available at index 1.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们使用了 match() 方法，而不是 test()。与 test() 返回是/否（布尔值）表示是否找到匹配不同，match() 返回更详细的信息，形式为一个数组。我们可以通过结果数组的第二个元素（result[1]）访问正则表达式中捕获组提取的子字符串。由于
+    JavaScript 数组是从零开始索引的，所以第二个元素在索引 1 处。
 - en: Pay attention to the type of value that match() is called on. Unlike test(),
     which is a property of the RegEx object, match() is a property of the String object
     and so must be called on a string.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意调用 match() 方法的值类型。与 test() 不同，test() 是 RegEx 对象的一个属性，而 match() 是 String 对象的一个属性，因此必须在字符串上调用
+    match()。
 - en: 'Now, let’s examine the regex:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，我们来分析正则表达式：
 - en: '|   | /\b(\w+)\.pdf\b/ |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\b(\w+)\.pdf\b/ |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \b asserts the position at a word boundary |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 在单词边界处断言位置 |'
 - en: '|   | ● (\w+) 1st capturing group |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (\w+) 第一个捕获组 |'
 - en: '|   | ○ \w matches any word character |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \w 匹配任何单词字符 |'
 - en: '|   | ○ + matches the previous token one or more times |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个符号一次或多次 |'
 - en: '|   | ● \. matches the period character . literally |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \. 匹配字面上的句点字符 . |'
 - en: '|   | ● pdf matches the characters pdf literally |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● pdf 匹配字面上的字符 pdf |'
 - en: '|   | ● \b asserts a word boundary |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 确定单词边界 |'
 - en: The regex pattern starts with a word boundary (\b), which means the match must
     occur at the beginning of a word. Next, we use (\w+) to match one or more word
     characters. The parentheses around \w+ signal that this group should be captured
     and made available for further use.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式模式以单词边界 (\b) 开始，这意味着匹配必须发生在一个单词的开头。接下来，我们使用 (\w+) 来匹配一个或多个单词字符。围绕 \w+ 的括号表示该组应该被捕获，并供后续使用。
 - en: After that, we use .pdf to match the literal characters “.pdf,” and once again
     use \b to match a word boundary, ensuring the “.pdf” is at the end of a word.
     Putting it all together, this regex matches any word that ends with “.pdf” characters.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 接着，我们使用 .pdf 来匹配字面上的字符“.pdf”，并再次使用 \b 来匹配一个单词边界，确保“.pdf”出现在单词的结尾。将这些部分结合起来，这个正则表达式可以匹配任何以“.pdf”结尾的单词。
 - en: Parentheses are a versatile tool in regex. They not only let us group tokens
     and apply quantifiers to them but also enable us to extract matched values for
     further processing. But the meaning of parentheses can change if we place special
     characters right after the opening bracket. The next recipe explains more.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 括号是正则表达式中的一种多用途工具。它们不仅可以将符号分组并应用量词，还可以让我们提取匹配的值以便进一步处理。但如果在括号后面紧跟特殊字符，括号的含义可能会发生变化。下一个示例将进一步解释这一点。

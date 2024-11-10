@@ -1,278 +1,441 @@
 - en: '| Recipe 16 | Creating Language-Sensitive Lists with Intl.ListFormat() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: 食谱 16 | 使用 Intl.ListFormat() 创建语言敏感型列表 |
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Let’s say you have a gaming app and want to display the top three players of
     the week based on their scores. Because your app is available in multiple languages,
     you need a function that can format the list automatically based on the user’s
     language preference. It’s fairly common to have a series of items like this stored
     in an array that you need to format as a sentence in different languages.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个游戏应用，想根据玩家的分数显示本周的前三名。由于你的应用支持多语言，你需要一个可以根据用户语言偏好自动格式化列表的函数。通常，这类项目会以数组形式存储，你需要根据不同的语言格式化成句子。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the Intl.ListFormat() constructor:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 Intl.ListFormat() 构造函数：
 - en: '[part_1/creating_lists/ListFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/creating_lists/ListFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex1.js)'
 - en: '| 1:  | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '| 1:  | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
 - en: '| -  | **const** msg = *"Congratulations to this week''s winners: "*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **const** msg = *"恭喜本周的获胜者："*; |'
 - en: '| -  |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | **function** getFormattedList(lang, arr) { |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **function** getFormattedList(lang, arr) { |'
 - en: '| 5:  | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '| 5:  | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
 - en: '| -  | **return** formatter.format(arr); |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '| -  | **return** formatter.format(arr); |'
 - en: '| -  | } |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| -  | } |'
 - en: '| -  |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| -  |  |'
 - en: '| -  | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| -  | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
 - en: '| 10:  |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| 10:  |  |'
 - en: '| -  | *// logs:* |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// 日志：* |'
 - en: '| -  | *// → Congratulations to this week''s winners: Kraken, Boss99, and Ninja*
     |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| -  | *// → 恭喜本周的获胜者：Kraken、Boss99 和 Ninja* |'
 - en: This function returns a formatted string representation of the array items based
     on the specified language.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数会根据指定的语言返回数组项的格式化字符串表示。
 - en: '| Browser Compatibility |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | Support
     for ListFormat was added in Safari 14.1 on macOS and Safari 14.5 on iOS.^([[14]](f_0032.xhtml#FOOTNOTE-14))
     So, although all modern browsers support ListFormat, users who haven’t updated
     their browsers for a while won’t be able to run your app. For maximum compatibility,
     use this API with a polyfill,^([[15]](f_0032.xhtml#FOOTNOTE-15)) or on the server
     side (available since Node version 13.0.0). |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/important.png](images/aside-icons/important.png) | ListFormat
+    支持已在 macOS 的 Safari 14.1 和 iOS 的 Safari 14.5 中添加。^([[14]](f_0032.xhtml#FOOTNOTE-14))
+    因此，尽管所有现代浏览器都支持 ListFormat，但一些没有及时更新浏览器的用户将无法运行你的应用。为了最大程度兼容，使用该 API 时可以配合 polyfill，^([[15]](f_0032.xhtml#FOOTNOTE-15))
+    或者在服务器端使用（自 Node 版本 13.0.0 起可用）。 |'
 - en: Discussion
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The ECMAScript Internationalization API enables us to develop applications that
     can adapt to different languages. To access this API, we use the Intl namespace.
     In the example, we used the Intl.ListFormat() constructor of the API, which provides
     a straightforward way to format lists in a way that is culturally appropriate.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: ECMAScript国际化API使我们能够开发可以适应不同语言的应用程序。要访问这个API，我们使用Intl命名空间。在这个示例中，我们使用了API的Intl.ListFormat()构造函数，它提供了一种简单的方式来以文化上适当的方式格式化列表。
 - en: 'We begin by creating a function called getFormattedList() that takes two arguments:
     lang and arr. lang is a BCP 47 language tag that represents the language code
     of the locale to be used for formatting the list, and arr is an array of items
     to be formatted.^([[16]](f_0032.xhtml#FOOTNOTE-16))'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先创建一个名为getFormattedList()的函数，接受两个参数：lang和arr。lang是一个BCP 47语言标签，表示用于格式化列表的语言代码，而arr是需要格式化的项数组。^([[16]](f_0032.xhtml#FOOTNOTE-16))
 - en: 'Inside the function, we create an instance of Intl.ListFormat, which takes
     two arguments: lang and an options object. In this case, we want to format the
     list for the English language, so we pass “en” as the language tag. The options
     object specifies the type of conjunction to be used to join the items in the list.
     We specify that the conjunction “and” should be used to join the items in the
     list by setting {type: "conjunction"}.'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '在函数内部，我们创建了一个Intl.ListFormat的实例，它接受两个参数：lang和options对象。在这个例子中，我们希望将列表格式化为英文，因此我们传入“en”作为语言标签。options对象指定了用于连接列表项的连接词类型。我们通过设置{type:
+    "conjunction"}来指定使用“and”作为连接词。'
 - en: Finally, we call the formatter.format(arr) method on the Intl.ListFormat object
     with the arr argument passed in. This method returns a formatted string representation
     of the array items based on the specified language and conjunction type that we
     set earlier.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们在Intl.ListFormat对象上调用formatter.format(arr)方法，并传入arr参数。这个方法会根据我们之前设置的语言和连接词类型返回一个格式化后的数组项字符串表示。
 - en: To format the list in a different language, we can simply pass the relevant
     language tag to the function. For instance, if we want to format the list in Spanish,
     we can call the function with the argument “es.”
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 要在不同的语言中格式化列表，我们只需要将相关的语言标签传递给函数。例如，如果我们想要将列表格式化为西班牙语，我们可以传入“es”作为参数来调用函数。
 - en: 'Here is an example output of the function when the language argument is set
     to “es”:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是当语言参数设置为“es”时，函数的输出示例：
 - en: '[part_1/creating_lists/ListFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex2.js)'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/creating_lists/ListFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex2.js)'
 - en: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*, *"Ninja"*]; |'
 - en: '|   | **const** msg = *"Felicidades a los ganadores de esta semana: "*; |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** msg = *"恭喜本周的获胜者："*; |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** getFormattedList(lang, arr) { |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedList(lang, arr) { |'
 - en: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
     |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
 - en: '|   | **return** formatter.format(arr); |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** formatter.format(arr); |'
 - en: '|   | } |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(msg + getFormattedList(*"es"*, topPlayers)); |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(msg + getFormattedList(*"es"*, topPlayers)); |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// logs:* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志:* |'
 - en: '|   | *// → Felicidades a los ganadores de esta semana: Kraken, Boss99 y Ninja*
     |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 恭喜本周的获胜者：Kraken、Boss99 和 Ninja* |'
 - en: 'The Intl.ListFormat() constructor comes in handy even if we want to format
     lists only in English because it eliminates possible grammatical errors. For example,
     if we have only two items in an array, it won’t add a comma before “and”:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使我们只想在英文中格式化列表，Intl.ListFormat() 构造函数也非常有用，因为它避免了可能的语法错误。例如，如果数组中只有两个项，它不会在“and”前加上逗号：
 - en: '[part_1/creating_lists/ListFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex3.js)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/creating_lists/ListFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex3.js)'
 - en: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*]; |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** topPlayers = [*"Kraken"*, *"Boss99"*]; |'
 - en: '|   | **const** msg = *"Congratulations to this week''s winners: "*; |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** msg = *"恭喜本周的获胜者： "*; |'
 - en: '|   | **function** getFormattedList(lang, arr) { |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedList(lang, arr) { |'
 - en: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
     |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.ListFormat(lang, {type: *"conjunction"*});
+    |'
 - en: '|   | **return** formatter.format(arr); |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** formatter.format(arr); |'
 - en: '|   | } |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(msg + getFormattedList(*"en"*, topPlayers)); |'
 - en: '|   |  |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// logs:* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志:* |'
 - en: '|   | *// → Congratulations to this week''s winners: Kraken and Boss99* |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 恭喜本周的获胜者：Kraken 和 Boss99* |'
 - en: The second argument of the ListFormat method is optional and lets us set options
     such as the style and type of grouping. The default value of type is a conjunction,
     but if we want to do an “or”-based grouping of the list items, we can use disjunction.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: ListFormat 方法的第二个参数是可选的，允许我们设置诸如样式和分组类型等选项。默认的类型是连接词，但如果我们想对列表项进行基于“或”的分组，则可以使用析取。
 - en: 'For example, perhaps we want to ask players which honorary title they prefer:
     Legendary, Mighty, or Bold. So then the app will append that title to their name
     like “Faraz the Mighty”:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 比如，我们可能想询问玩家们更喜欢哪种荣誉称号：传奇、强大或勇敢。然后，应用程序会将该称号附加到他们的名字上，如“Faraz the Mighty”：
 - en: '[part_1/creating_lists/ListFormat_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex4.js)'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/creating_lists/ListFormat_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex4.js)'
 - en: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
 - en: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"disjunction"*});
     |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"disjunction"*});
+    |'
 - en: '|   |  |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(*"Which honorary title do you prefer? "* + |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"你更喜欢哪个荣誉称号？ "* + |'
 - en: '|   | formatter.format(titles)); |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | formatter.format(titles)); |'
 - en: '|   |  |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// logs:* |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志:* |'
 - en: '|   | *// → Which honorary title do you prefer? Legendary, Mighty, or Bold*
     |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 你更喜欢哪个荣誉称号？传奇的、强大的，还是大胆的* |'
 - en: 'There’s also an option that lets us group the list items as a unit:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有一个选项可以让我们将列表项作为一个整体分组：
 - en: '[part_1/creating_lists/ListFormat_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex5.js)'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/creating_lists/ListFormat_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/creating_lists/ListFormat_ex5.js)'
 - en: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** titles = [*"Legendary"*, *"Mighty"*, *"Bold"*]; |'
 - en: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"unit"*});
     |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** formatter = **new** Intl.ListFormat(*"en"*, {type: *"unit"*});
+    |'
 - en: '|   |  |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(formatter.format(titles)); |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(formatter.format(titles)); |'
 - en: '|   |  |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// logs:* |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志:* |'
 - en: '|   | *// → Legendary, Mighty, Bold* |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → 传奇的、强大的、大胆的* |'
 - en: This example sets the value of type as unit, so it formats the list with no
     “and” or “or.”
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个示例将类型的值设置为单元，因此它格式化列表时不使用“和”或“或”。
 - en: Whenever you want to list a series of items in a sentence, consider using the
     ListFormat constructor, as it properly takes care of punctuation in English or
     other languages.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 每当你想在句子中列举一系列项目时，可以考虑使用 ListFormat 构造函数，因为它能正确处理英语或其他语言中的标点符号。

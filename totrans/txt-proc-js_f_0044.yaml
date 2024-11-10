@@ -1,182 +1,289 @@
 - en: '| Recipe 33 | Reading Groups with Ease Using Named Capturing Groups |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 食谱 33 | 使用命名捕获组轻松读取组 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you need to find the exact time when an error occurred by searching
     through a log file. You know that the time is in the format of hours, minutes,
     seconds, and AM/PM indicator (HH:MM:SS XM). To extract each time segment, you
     create a pattern that can recognize and capture each segment separately. However,
     as the number of groups in the pattern increases, the already cryptic regex syntax
     becomes even harder to read. Consider this example:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你需要通过搜索日志文件来找出错误发生的确切时间。你知道时间的格式是小时、分钟、秒钟以及AM/PM标识符（HH:MM:SS XM）。为了提取每个时间段，你创建了一个可以识别并单独捕获每个段的模式。然而，随着模式中捕获组数量的增加，本已晦涩的正则表达式语法变得更加难以阅读。考虑这个例子：
 - en: '[part_2/named_capturing_group/ncg_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex1.js)'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/named_capturing_group/ncg_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex1.js)'
 - en: '|   | **const** re = */**(\d{2})**:**(\d{2})**:**(\d{2})\s(\w{2})**/*; |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(\d{2})**:**(\d{2})**:**(\d{2})\s(\w{2})**/*; |'
 - en: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
 - en: '|   |  |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(match[1]); |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[1]); |'
 - en: '|   | console.log(match[2]); |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[2]); |'
 - en: '|   | console.log(match[3]); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[3]); |'
 - en: '|   | console.log(match[4]); |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[4]); |'
 - en: Which one of these matches represents minutes? And which one represents seconds?
     Using a more expressive syntax to group the segments can greatly reduce the chances
     of encountering issues in your code.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些匹配项中，哪一个表示分钟？哪一个表示秒钟？使用更具表现力的语法来分组各个部分，可以大大减少代码中出现问题的可能性。
 - en: Solution
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use named capturing groups:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用命名捕获组：
 - en: '[part_2/named_capturing_group/ncg_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex2.js)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/named_capturing_group/ncg_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex2.js)'
 - en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s(?<**period>**\w{2})**/*;
     |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s(?<**period>**\w{2})**/*;
+    |'
 - en: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = *"09:30:00 AM"*.match(re); |'
 - en: '|   |  |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(match.groups.hour); *// → 09* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match.groups.hour); *// → 09* |'
 - en: '|   | console.log(match.groups.min); *// → 30* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match.groups.min); *// → 30* |'
 - en: '|   | console.log(match.groups.sec); *// → 00* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match.groups.sec); *// → 00* |'
 - en: '|   | console.log(match.groups.period); *// → AM* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match.groups.period); *// → AM* |'
 - en: A named capturing group uses a more extended syntax in the form of (?<name>...).
     So, patterns with multiple capturing groups can be read and edited with less difficulty.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 命名捕获组使用更为扩展的语法形式 `(?<name>...)`。因此，带有多个捕获组的模式可以更容易地读取和编辑。
 - en: Discussion
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Named capturing groups is a syntax introduced in ES2018\. A valid capturing
     group name must be an alphanumeric sequence starting with a letter. To avoid name
     collision with existing property names, JavaScript assigns all named groups to
     a separate object called groups.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 命名捕获组是ES2018引入的一种语法。有效的捕获组名称必须是一个以字母开头的字母数字序列。为了避免与现有属性名称发生冲突，JavaScript将所有命名组分配给一个单独的对象，称为groups。
 - en: 'If a pattern has an optional named capturing group that does not participate
     in the match, it will still create a property for that group on the groups object.
     Let’s make the last capturing group in our code optional by placing a question
     mark after it to see what happens:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果一个模式有一个可选的命名捕获组且该组没有参与匹配，它仍然会在groups对象中为该组创建一个属性。让我们通过在代码中的最后一个捕获组后面加上问号，使其变为可选，以看看会发生什么：
 - en: '[part_2/named_capturing_group/ncg_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex3.js)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/named_capturing_group/ncg_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex3.js)'
 - en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s?(?<**period>**\w{2})?**/*;
     |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**min>**\d{2})**:**(?<**sec>**\d{2})\s?(?<**period>**\w{2})?**/*;
+    |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// A timestamp without AM/PM* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 无AM/PM的时间戳* |'
 - en: '|   | **const** str = *"09:30:00"*; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"09:30:00"*; |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** match = str.match(re); |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = str.match(re); |'
 - en: '|   |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(match.groups); |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match.groups); |'
 - en: '|   | *// → {hour: "09", min: "30", sec: "00", period: undefined}* |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → {hour: "09", min: "30", sec: "00", period: undefined}* |'
 - en: 'In this example, period doesn’t participate in the match, but it’s still included
     in the groups object. Even if there is no named group in the regex, the groups
     object will be available in the result:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，period没有参与匹配，但它仍然被包含在groups对象中。即使正则表达式中没有命名组，groups对象仍会在结果中可用。
 - en: '[part_2/named_capturing_group/ncg_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex4.js)'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/named_capturing_group/ncg_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex4.js)'
 - en: '|   | **const** re = */**\w**+/*; |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\w**+/*; |'
 - en: '|   | **const** match = *"abc"*.match(re); |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = *"abc"*.match(re); |'
 - en: '|   |  |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(*"groups"* **in** match); *// → true* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"groups"* **in** match); *// → true* |'
 - en: 'It’s also possible to use numbered references to access named groups. Of course,
     employing numbered references would defeat the purpose of our recipe (reading
     the value of groups with ease). However, you may find numbered references useful
     when you want to improve the readability of the regex part of your code only:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以使用数字引用来访问命名组。当然，使用数字引用会破坏我们方法的目的（轻松读取组的值）。然而，当你只想提高代码中正则部分的可读性时，数字引用可能会非常有用：
 - en: '[part_2/named_capturing_group/ncg_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex5.js)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/named_capturing_group/ncg_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/named_capturing_group/ncg_ex5.js)'
 - en: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**minute>**\d{2})**:**(?<**second>**\d{2})**/*;
     |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**hour>**\d{2})**:**(?<**minute>**\d{2})**:**(?<**second>**\d{2})**/*;
+    |'
 - en: '|   | **const** match = *"09:30:00"*.match(re); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** match = *"09:30:00"*.match(re); |'
 - en: '|   |  |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(match[0]); *// → 09:30:00* |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[0]); *// → 09:30:00* |'
 - en: '|   | console.log(match[1]); *// → 09* |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[1]); *// → 09* |'
 - en: '|   | console.log(match[2]); *// → 30* |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[2]); *// → 30* |'
 - en: '|   | console.log(match[3]); *// → 00* |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(match[3]); *// → 00* |'
 - en: Take advantage of the named capturing group syntax when writing patterns with
     multiple capturing groups to easily edit the pattern and read the result.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用命名捕获组语法，在编写包含多个捕获组的模式时，可以轻松编辑模式并读取结果。

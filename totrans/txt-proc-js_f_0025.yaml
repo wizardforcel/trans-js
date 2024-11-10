@@ -1,135 +1,206 @@
 - en: '| Recipe 15 | Adding Thousand Separators to Numbers with Intl.NumberFormat()
     |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 15 | 使用 Intl.NumberFormat() 为数字添加千位分隔符 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you aim to add a thousands separator to numbers consisting of four or
     more digits. Perhaps you are retrieving financial data from a database to use
     in an article for a finance publication that is published in multiple languages.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你希望为四位或更多位的数字添加千位分隔符。也许你正在从数据库中提取财务数据，以便在一个多语言出版的财经杂志中使用。
 - en: Thousand separators are used in many different languages and countries to make
     large numbers easier to read. However, the character used as the thousand separator
     can vary across languages and cultures.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 千位分隔符在许多不同的语言和国家中使用，以使大数字更易读。然而，作为千位分隔符使用的字符在不同的语言和文化中可能会有所不同。
 - en: 'For example, let’s say you have the following string:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 举个例子，假设你有以下字符串：
 - en: '|   | 1000000000 |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1000000000 |'
 - en: 'And you’d like to format it as:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 你希望将其格式化为：
 - en: '|   | 1,000,000,000 |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1,000,000,000 |'
 - en: You need to write code to add thousand separators programmatically to the number.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要编写代码以编程方式为数字添加千位分隔符。
 - en: Solution
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the Intl.NumberFormat() constructor:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 Intl.NumberFormat() 构造函数：
 - en: '[part_1/adding_thousand_separators/adding_thousand_separators_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_thousand_separators/adding_thousand_separators_ex1.js)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/adding_thousand_separators/adding_thousand_separators_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_thousand_separators/adding_thousand_separators_ex1.js)'
 - en: '|   | **function** addThousandSeparator(num, locale) { |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addThousandSeparator(num, locale) { |'
 - en: '|   | **const** numFormat = **new** Intl.NumberFormat(locale); |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** numFormat = **new** Intl.NumberFormat(locale); |'
 - en: '|   | **return** numFormat.format(num); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** numFormat.format(num); |'
 - en: '|   | } |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | addThousandSeparator(1000000000, *"en"*); |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | addThousandSeparator(1000000000, *"en"*); |'
 - en: '|   | *// → "1,000,000,000"* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "1,000,000,000"* |'
 - en: In this code, new Intl.NumberFormat() creates a NumberFormat object. Then, the
     format() method is called on the object, passing the “en” argument to specify
     the English language. The function returns a formatted string with thousand separators
     added based on the locale.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，new Intl.NumberFormat() 创建了一个 NumberFormat 对象。然后，在该对象上调用 format() 方法，并传入“en”参数来指定使用英语。该函数返回一个格式化后的字符串，添加了千位分隔符，依据地区设置。
 - en: Discussion
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Including thousand separators in numerical values is an easy way to enhance
     the clarity and visual appeal of your data. But, it’s crucial to verify the type
     of the content before proceeding.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在数值中包含千位分隔符是一种简单的方式，可以增强数据的清晰度和视觉吸引力。但在继续之前，必须验证内容的类型。
 - en: The comma (,) is commonly used as a thousand separator in English-speaking countries
     and many other countries. For example, 10,000,000 represents ten million. However,
     in many European countries, such as Germany, Greece, and Italy, the period (.)
     is used as the thousand separator and the comma (,) is used as the decimal separator.
     So, to represent ten million, they use 10.000.000.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 逗号（,）在英语国家和许多其他国家通常用作千位分隔符。例如，10,000,000表示一千万。然而，在许多欧洲国家，如德国、希腊和意大利，使用句点（.）作为千位分隔符，而逗号（,）用作小数点分隔符。因此，要表示一千万，他们使用10.000.000。
 - en: In some countries, other symbols or characters are used as the thousand separator.
     For example, the Indian numbering system uses a comma-like symbol called a “separator”
     to separate groups of digits. While the Chinese and Japanese numeral systems use
     different characters to represent thousands, millions, and other large numbers.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在一些国家，使用其他符号或字符作为千位分隔符。例如，印度的数字系统使用类似逗号的符号，称为“分隔符”，来分隔数字组。而中文和日文的数字系统使用不同的字符来表示千、万、百万等大数。
 - en: Generally, numbers that are less than 1000 don’t need separators. Also, numbers
     in scientific notation, postal codes, and phones do not require separators for
     clarity. As a result, documents and data that consist of such numbers may not
     be suitable for automatic comma inclusion.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 通常，小于1000的数字不需要分隔符。另外，科学计数法表示的数字、邮政编码和电话号码通常不需要分隔符以保持清晰。因此，由这些数字组成的文档和数据可能不适合自动插入逗号。
 - en: 'The solution in this recipe can be adapted to add thousand separators to numbers
     in various numeral systems. For instance, to include thousand separators following
     the German language conventions, you can pass “de-DE” (a BCP-47 language tag)
     to the NumberFormat() constructor, as shown below:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 本示例中的解决方案可以适应不同数字系统的千位分隔符。例如，为了按照德国语言习惯添加千位分隔符，你可以将“de-DE”（一个BCP-47语言标签）传递给NumberFormat()构造函数，如下所示：
 - en: '[part_1/adding_thousand_separators/adding_thousand_separators_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_thousand_separators/adding_thousand_separators_ex2.js)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/adding_thousand_separators/adding_thousand_separators_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/adding_thousand_separators/adding_thousand_separators_ex2.js)'
 - en: '|   | **function** addThousandSeparator(num, locale) { |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** addThousandSeparator(num, locale) { |'
 - en: '|   | **const** numFormat = **new** Intl.NumberFormat(locale); |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** numFormat = **new** Intl.NumberFormat(locale); |'
 - en: '|   | **return** numFormat.format(num); |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** numFormat.format(num); |'
 - en: '|   | } |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | addThousandSeparator(1000000000, *"de-DE"*); |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | addThousandSeparator(1000000000, *"de-DE"*); |'
 - en: '|   | *// → "1.000.000.000"* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "1.000.000.000"* |'
 - en: Remember, the thousand separator character is not universal and may differ across
     countries and written languages. Also, the specific formatting conventions may
     vary depending on the context, such as in scientific notation, where commas are
     generally not used. To extract a number with thousand separators from a string,
     see Recipe 69, [*Matching Formatted Numbers with Thousand Separators*](f_0081.xhtml#rcp.matching_thousand_separators).
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 请记住，千位分隔符并不是通用的，不同国家和书写语言中可能有所不同。同时，具体的格式化约定也可能根据上下文有所变化，例如在科学记数法中，通常不使用逗号。要从字符串中提取带有千位分隔符的数字，请参见配方69，[
+    *匹配带有千位分隔符的数字*](f_0081.xhtml#rcp.matching_thousand_separators)。

@@ -1,258 +1,415 @@
 - en: '| Recipe 14 | Formatting Currencies with Intl.NumberFormat() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '|   食谱 14 | 使用Intl.NumberFormat()格式化货币 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine you run an online shop that delivers products to various countries.
     You want to display the prices of the items in the currency of the user’s location.
     So, for example, if a visitor from Canada chooses to view a monitor priced at
     $499 in U.S. dollars, you want to automatically 1) convert the price from USD
     to CAD and 2) format the currency according to CAD.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你经营一家在线商店，向多个国家/地区提供商品。你希望以用户所在位置的货币显示商品价格。例如，如果一位来自加拿大的访客选择查看一款价格为499美元的显示器，你希望自动
+    1) 将价格从美元（USD）转换为加元（CAD），并 2) 按照加元格式化货币。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: First, you need to obtain the exchange rate between the U.S. dollar (USD) and
     the Canadian dollar (CAD). Since the rate can vary constantly, you should use
     an online API that gives you real-time data for the currencies you want to convert.
     These services usually require a paid subscription.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，你需要获得美元（USD）和加元（CAD）之间的汇率。由于汇率可能会不断变化，你应该使用一个提供实时数据的在线API来获取你想要转换的货币。这些服务通常需要付费订阅。
 - en: In this recipe, we’ll use the free service available at exchangerate.host, which
     updates the exchange rates only once a day. You can send a fetch request to the
     API by specifying the currencies you want to convert as parameters.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本示例中，我们将使用exchangerate.host提供的免费服务，该服务每天只更新一次汇率。你可以通过指定你想要转换的货币作为参数，向API发送请求。
 - en: 'Once the fetch is successful, read and parse the data using the json() method,
     like this:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦获取数据成功，使用json()方法读取并解析数据，如下所示：
 - en: '|   | **async** **function** getExchangeRate(**from**, to) { |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **async** **function** getExchangeRate(**from**, to) { |'
 - en: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
     |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
+    |'
 - en: '|   | **let** response = **await** fetch(api); |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** response = **await** fetch(api); |'
 - en: '|   | response = **await** response.json(); |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | response = **await** response.json(); |'
 - en: '|   | **return** response.info.rate; |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** response.info.rate; |'
 - en: '|   | } |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** exchangeRate = getExchangeRate(*"USD"*, *"CAD"*); |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** exchangeRate = getExchangeRate(*"USD"*, *"CAD"*); |'
 - en: 'Now that you have an exchange rate for your target currency, you need a way
     to format it. Pass the ISO code of the currency you want to convert to the Intl.NumberFormat()
     constructor as an option. This will return an object that has a format() method
     which you can use to format any amount:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你已经获得了目标货币的汇率，你需要一种方法来格式化它。将你想要转换的货币的ISO代码作为选项传递给`Intl.NumberFormat()`构造函数。这样将返回一个包含`format()`方法的对象，你可以使用它来格式化任意金额：
 - en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getFormattedCurrency(currency, amount) { |'
 - en: '|   | **return** **new** Intl.NumberFormat(*"en-US"*, { |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** **new** Intl.NumberFormat(*"en-US"*, { |'
 - en: '|   | style: *"currency"*, |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | style: *"currency"*, |'
 - en: '|   | currency: currency, |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | currency: currency, |'
 - en: '|   | }).format(amount); |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | }).format(amount); |'
 - en: '|   | } |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | getFormattedCurrency(*"CAD"*, exchangeRate * 499) |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | getFormattedCurrency(*"CAD"*, exchangeRate * 499) |'
 - en: 'After some cleanup, your final code should look like this:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 清理后，你的最终代码应该如下所示：
 - en: '[part_1/formatting_currencies/NumberFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex1.js)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/formatting_currencies/NumberFormat_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex1.js)'
 - en: '|   | **const** USDprice = 499; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** USDprice = 499; |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **async** **function** getExchangeRate(**from**, to) { |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **异步** **函数** getExchangeRate(**from**, to) { |'
 - en: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
     |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** api = *`https://api.exchangerate.host/convert?from=*${**from**}*&to=*${to}*`*;
+    |'
 - en: '|   | **let** response = **await** fetch(api); |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** response = **await** fetch(api); |'
 - en: '|   | response = **await** response.json(); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | response = **await** response.json(); |'
 - en: '|   | **return** response.info.rate; |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** response.info.rate; |'
 - en: '|   | } |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** getFormattedCurrency(currency, amount) { |'
 - en: '|   | **return** **new** Intl.NumberFormat(*"en-CA"*, { |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** **new** Intl.NumberFormat(*"en-CA"*, { |'
 - en: '|   | style: *"currency"*, |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | style: *"currency"*, |'
 - en: '|   | currency: currency, |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | currency: currency, |'
 - en: '|   | }).format(amount); |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | }).format(amount); |'
 - en: '|   | } |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | getExchangeRate(*"USD"*, *"CAD"*).then(exchangeRate => { |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | getExchangeRate(*"USD"*, *"CAD"*).then(exchangeRate => { |'
 - en: '|   | console.log(getFormattedCurrency(*"CAD"*, exchangeRate * USDprice));
     |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(getFormattedCurrency(*"CAD"*, exchangeRate * USDprice));
+    |'
 - en: '|   | }); |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Logs something like:* |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出类似以下内容:* |'
 - en: '|   | *// → CA$679.31* |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → CA$679.31* |'
 - en: '| TypeError |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '| 类型错误 |'
 - en: '| --- |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/error.png](images/aside-icons/error.png) | If you’re
     getting an error like “TypeError: Failed to fetch,” it’s likely because you’re
     running the code in your browser’s console. Unless you’re on https://exchangerate.host/,
     your browser’s security mechanism will block the request. Try executing the code
     in an HTML document or the Node environment (requires Node v18). |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/error.png](images/aside-icons/error.png) | 如果你遇到类似“TypeError:
+    Failed to fetch”的错误，很可能是因为你在浏览器控制台中运行代码。除非你在 https://exchangerate.host/ 上，否则浏览器的安全机制会阻止请求。尝试在
+    HTML 文档中或 Node 环境中执行代码（需要 Node v18）。 |'
 - en: Discussion
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: As with every other method in the Internationalization API, Intl.NumberFormat()
     takes a BCP 47 language tag as its first argument.^([[13]](f_0032.xhtml#FOOTNOTE-13))
     Here, the language tag tells the method what locale to use when formatting currencies,
     which is useful when you want to offer your website in multiple languages.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 和国际化 API 中的其他方法一样，Intl.NumberFormat() 接受一个 BCP 47 语言标签作为它的第一个参数。^([[13]](f_0032.xhtml#FOOTNOTE-13))
+    在这里，语言标签告诉方法在格式化货币时使用哪种区域设置，这在你想要为你的网站提供多语言支持时非常有用。
 - en: 'For example, if you pass “ar” as a language tag, the resulting number will
     be in the Arabic alphabet:'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你传递“ar”作为语言标签，返回的数字将使用阿拉伯字母：
 - en: '[part_1/formatting_currencies/NumberFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex2.js)'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/formatting_currencies/NumberFormat_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex2.js)'
 - en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** getFormattedCurrency(currency, amount) { |'
 - en: '|   | **return** **new** Intl.NumberFormat(*"ar"*, { |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** **new** Intl.NumberFormat(*"ar"*, { |'
 - en: '|   | style: *"currency"*, |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | style: *"货币"*, |'
 - en: '|   | currency: currency, |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | currency: currency, |'
 - en: '|   | }).format(amount); |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | }).format(amount); |'
 - en: '|   | } |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '![images/NumberFormat_ex2.png](images/NumberFormat_ex2.png)'
+  id: totrans-61
   prefs: []
   type: TYPE_IMG
+  zh: '![images/NumberFormat_ex2.png](images/NumberFormat_ex2.png)'
 - en: You can further refine how the currency is displayed by setting options in the
     second argument. A useful option is signDisplay which lets you set when to display
     the sign for the number.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以通过设置第二个参数中的选项，进一步调整货币的显示方式。一项有用的选项是 signDisplay，它让你可以设置何时显示数字的符号。
 - en: 'By default, the function displays a sign for negative numbers only (including
     negative zero, which is a negative number that has been rounded to zero). If you
     want to always display the sign, such as when indicating a change in balance,
     you should use “always”:'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 默认情况下，函数仅在负数（包括负零，即四舍五入为零的负数）时显示符号。如果你希望始终显示符号，比如表示余额变动时，应该使用“始终”：
 - en: '[part_1/formatting_currencies/NumberFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex3.js)'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/formatting_currencies/NumberFormat_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/formatting_currencies/NumberFormat_ex3.js)'
 - en: '|   | **function** getFormattedCurrency(currency, amount) { |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** getFormattedCurrency(currency, amount) { |'
 - en: '|   | **return** **new** Intl.NumberFormat(*"en"*, { |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** **new** Intl.NumberFormat(*"en"*, { |'
 - en: '|   | style: *"currency"*, |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | style: *"货币"*, |'
 - en: '|   | currency: currency, |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | currency: currency, |'
 - en: '|   | signDisplay: *"always"* |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | signDisplay: *"始终"* |'
 - en: '|   | }).format(amount); |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | }).format(amount); |'
 - en: '|   | } |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | getFormattedCurrency(*"USD"*, 499); *// → "+$499.00"* |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | getFormattedCurrency(*"USD"*, 499); *// → "+$499.00"* |'
 - en: The Intl.NumberFormat() constructor makes it easy to deal with numbers in JavaScript.
     Remember to take advantage of it whenever you need to format currencies.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: Intl.NumberFormat() 构造函数使得在 JavaScript 中处理数字变得简单。记得在需要格式化货币时充分利用它。

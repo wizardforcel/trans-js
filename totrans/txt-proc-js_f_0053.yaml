@@ -1,180 +1,292 @@
 - en: '| Recipe 42 | Forcing . to Match Newline Characters with the s Flag |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: 配方 42 | 强制 . 匹配换行符的 s 标志
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you want to write a script that removes all comments from JavaScript
     files to reduce their file size. Removing single-line comments is easy: just find
     a line that starts with double forward slashes and delete the entire line.'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想编写一个脚本，用于从 JavaScript 文件中删除所有注释，以减小文件的大小。删除单行注释很容易：只需找到以双斜杠开头的行并删除整行。
 - en: But removing block comments with the /* */ syntax that may span multiple lines
     is a bit trickier. You might expect a pattern like /\/\*.*\*\// to work because
     it finds a /* followed by any character until it reaches */.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，删除可能跨越多行的 /* */ 语法块注释要复杂一些。你可能会认为像 /\/\*.*\*\// 这样的模式可以工作，因为它会找到 /* 后面跟着任何字符直到
+    */。
 - en: 'But, the full stop token in this pattern won’t match line break characters,
     so the regex could fail:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是，这个模式中的点号符号不会匹配换行符，因此正则表达式可能会失败：
 - en: '[part_2/flag_dotall/dotall_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex1.js)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_dotall/dotall_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex1.js)'
 - en: '|   | **const** re = */**\/\***.***?\*\/**/*; |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\/\***.***?\*\/**/*; |'
 - en: '|   |  |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** comment = *`/* this* |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** comment = *`/* 这个* |'
 - en: '|   | *is a multiline* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | *是多行* |'
 - en: '|   | *comment */`*; |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | *注释 */`*; |'
 - en: '|   |  |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(comment); *// → false* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(comment); *// → false* |'
 - en: 'An old workaround is to use two opposite shorthand character classes, such
     as [\w\W]. Since all characters are either word characters or non-word characters,
     the character class will match any character, including \r and \n:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个旧的解决方法是使用两个相反的简写字符类，例如 [\w\W]。由于所有字符要么是单词字符，要么是非单词字符，因此该字符类将匹配任何字符，包括 \r 和
+    \n：
 - en: Fortunately, ES2018 introduced the dotAll mode that fixes this problem more
     elegantly.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 幸运的是，ES2018 引入了 dotAll 模式，更优雅地解决了这个问题。
 - en: Solution
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Append the s flag to the end of your pattern like this:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 将 s 标志附加到模式的末尾，像这样：
 - en: '[part_2/flag_dotall/dotall_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex2.js)'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_dotall/dotall_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex2.js)'
 - en: '|   | **const** re = */**\/\***.***?\*\/**/*s; |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\/\***.***?\*\/**/*s; |'
 - en: '|   |  |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** comment = *`/* this* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** comment = *`/* 这个* |'
 - en: '|   | *is a multiline* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *是多行* |'
 - en: '|   | *comment */`*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | *注释 */`*; |'
 - en: '|   |  |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(comment); *// → true* |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(comment); *// → true* |'
 - en: 'Your regex now can match block comments that span multiple lines of text. Now,
     let’s take advantage of this feature to build a function that takes a string and
     removes all JavaScript comments from it:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，你的正则表达式可以匹配跨越多行的块注释。现在，让我们利用这个功能构建一个函数，该函数接受一个字符串并删除其中所有的 JavaScript 注释：
 - en: '[part_2/flag_dotall/dotall_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex3.js)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_dotall/dotall_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_dotall/dotall_ex3.js)'
 - en: '|   | *// Remove js comments* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 删除 js 注释* |'
 - en: '|   | **function** removeComments(str) { |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** removeComments(str) { |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Match block comments (/*...*/)* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配块注释（/*...*/）* |'
 - en: '|   | **const** re1 = */**\/\***.***?\*\/**/*sg; |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = */**\/\***.***?\*\/**/*sg; |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Match single line comments (//...)* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 匹配单行注释（//...）* |'
 - en: '|   | **const** re2 = */**\/\/\s**.+/g*; |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */**\/\/\s**.+/g*; |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Remove comments* |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 移除注释* |'
 - en: '|   | **let** code = str.replace(re1, *""*); |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **let** code = str.replace(re1, *""*); |'
 - en: '|   | code = code.replace(re2, *""*); |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | code = code.replace(re2, *""*); |'
 - en: '|   |  |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** code; |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** code; |'
 - en: '|   | } |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** jsCode = |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** jsCode = |'
 - en: '|   | *`// a variable* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`// 一个变量* |'
 - en: '|   | *let abc = 123;* |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | *let abc = 123;* |'
 - en: '|   | */* another* |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | */* 另一个* |'
 - en: '|   | *variable */* |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | *变量 */* |'
 - en: '|   | *let def = 456;`*; |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | *let def = 456;`*; |'
 - en: '|   |  |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(removeComments(jsCode)); |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(removeComments(jsCode)); |'
 - en: '|   | *//* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | *//* |'
 - en: '|   | *// let abc = 123;* |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// let abc = 123;* |'
 - en: '|   | *//* |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | *//* |'
 - en: '|   | *// let def = 456;* |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// let def = 456;* |'
 - en: Note that in some cases, this solution might not be able to remove JavaScript
     comments accurately. For example, double forward slashes (//) enclosed in a string
     is not a comment anymore, but regex doesn’t see them that way and removes them.
@@ -182,123 +294,190 @@
     JavaScript interpreter, but that’s not the case with regex. To strip comments
     from JavaScript more accurately, you can take advantage of an AST parser, such
     as acorn.^([[26]](f_0064.xhtml#FOOTNOTE-26))
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在某些情况下，这种解决方案可能无法准确地移除 JavaScript 注释。例如，字符串中的双斜杠（//）不再是注释，但正则表达式并不会这样识别并会将其移除。或者，块注释中的*/不会在
+    JavaScript 解释器看来结束注释，但在正则表达式中却是结束符。为了更准确地去除 JavaScript 注释，您可以利用抽象语法树（AST）解析器，例如
+    acorn。^([[26]](f_0064.xhtml#FOOTNOTE-26))
 - en: Discussion
+  id: totrans-56
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The beauty of using a flag to change how the full stop works is that it lets
     us activate the mode on a per-regex basis. This way, existing regular expression
     patterns that rely on the old behavior of the full stop won’t be affected.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用标志来改变句点的工作方式的好处在于，它允许我们在每个正则表达式的基础上激活该模式。这样，依赖于旧有句点行为的现有正则表达式模式就不会受到影响。
 - en: In this recipe, we created a function that removes both single-line and block
     JavaScript comments from a given string. To avoid overcomplicating the regex,
     we used two different patterns to match each type of comment separately. After
     finding all matches, we replaced them with an empty string, and returned the modified
     string.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个方案中，我们创建了一个函数，用于从给定字符串中移除单行和块注释。为了避免正则表达式过于复杂，我们使用了两种不同的模式分别匹配每种类型的注释。找到所有匹配项后，我们将其替换为空字符串，并返回修改后的字符串。
 - en: 'The first pattern matches a multiline comment that starts with /* and ends
     with */. Since forward slashes are also used to delimit regular expressions in
     JavaScript, we need to escape it with a backslash to match a literal forward slash.
     Similarly, we need to escape the asterisk with a backslash to match a literal
     asterisk:'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个模式匹配以 `/*` 开头并以 `*/` 结尾的多行注释。由于正斜杠也用于在 JavaScript 中界定正则表达式，我们需要使用反斜杠对它进行转义，以匹配字面意义上的正斜杠。类似地，我们需要对星号进行转义，以匹配字面意义上的星号：
 - en: '|   | /\/\*.*?\*\//sg |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\/\*.*?\*\//sg |'
 - en: '|   |  |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \/ matches the character / literally |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \/ 匹配字符 / 字面意思 |'
 - en: '|   | ● \* matches the character * literally |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \* 匹配字符 * 字面意思 |'
 - en: '|   | ● . matches any character |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● . 匹配任何字符 |'
 - en: '|   | ○ *? matches the previous token between zero and unlimited times, as
     few |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ *? 匹配前一个标记出现零次到无限次，尽可能少 |'
 - en: '|   | times as possible (lazy) |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | 尽可能多次（懒惰模式） |'
 - en: '|   | ● \* matches the character * literally |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \* 匹配字符 * 字面意思 |'
 - en: '|   | ● \/ matches the character / literally |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \/ 匹配字符 / 字面意思 |'
 - en: '|   | ● Flags |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ s: enables matching newline characters |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ s: 启用匹配换行符 |'
 - en: '|   | ○ g: enables searching for all matches |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g: 启用查找所有匹配项 |'
 - en: We use .*? to match any sequence of characters, including line breaks, but as
     few as possible. The ? makes the * lazy. This is important because we want to
     match only the content of the comment and not any subsequent comments.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用 `.*?` 来匹配任何字符序列，包括换行符，但尽可能少。`?` 使得 `*` 变成懒惰模式。这一点很重要，因为我们只想匹配注释的内容，而不匹配任何后续的注释。
 - en: Next, we use \*\/ to match a literal asterisk followed by a forward slash. The
     s flag at the end of the pattern enables the “dot all” mode. Without this flag,
     the . wouldn’t match line breaks, and the regex wouldn’t match multiline comments.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们使用 `*\/` 来匹配一个字面意思的星号后跟一个正斜杠。模式末尾的 `s` 标志启用“dot all”模式。如果没有这个标志，`.` 就无法匹配换行符，正则表达式也无法匹配多行注释。
 - en: 'The second regex matches any sequence of characters that begins with two forward
     slashes (“//”) followed by a whitespace character, and then followed by one or
     more of any character except a newline character. We need to escape each forward
     slash by adding a backslash before it:'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个正则表达式匹配以两个正斜杠（“//”）开头，后跟一个空白字符，然后是一个或多个非换行字符的任何字符序列。我们需要通过在每个正斜杠前加上反斜杠来转义它：
 - en: '|   | /\/\/\s.+/g |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\/\/\s.+/g |'
 - en: '|   |  |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \/ matches the character / literally |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \/ 匹配字符 / 字面意思 |'
 - en: '|   | ● \/ matches the character / literally |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \/ 匹配字符 / 字面意思 |'
 - en: '|   | ● \s matches any whitespace character |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \s 匹配任何空白字符 |'
 - en: '|   | ● . matches any character |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● . 匹配任何字符 |'
 - en: '|   | ○ + matches the previous token between one and unlimited times, as many
     |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ + 匹配前一个标记出现一次到无限次，尽可能多 |'
 - en: '|   | times as possible (greedy) |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '|   | 尽可能多次（贪婪模式） |'
 - en: '|   | ● Flags |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ g: enables searching for all matches |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g: 启用查找所有匹配项 |'
 - en: We use “.+” to match everything until the end of the line. It’s not necessary
     to add any extra expression to make the matching stop at the end of the line.
     Just be sure that the s flag is not set for this regex.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用 “.+” 来匹配直到行尾的所有内容。没有必要添加额外的表达式来使匹配停止在行尾。只需确保此正则表达式没有设置 `s` 标志。
 - en: The full stop is perhaps the most commonly used metacharacter in the regular
     expression. By default, it matches any single character except for line-break
     characters. But more often than not, we want to match line breaks, too. The dotAll
     mode offers a simple remedy to this problem that can be activated by the s flag.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 句号可能是正则表达式中最常用的元字符。默认情况下，它匹配除换行符以外的任何单个字符。但大多数情况下，我们也希望匹配换行符。dotAll 模式提供了一个简单的解决方法，可以通过
+    `s` 标志来激活。

@@ -1,138 +1,222 @@
 - en: '| Recipe 7 | Removing HTML Tags from Text with DOMParser() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 7 | 使用 DOMParser() 从文本中移除 HTML 标签 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine you’ve written a web scraper that collects news from the web. The text
     you grab may contain unwanted HTML elements, like <span>, <img>, <a>, etc.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你写了一个网页爬虫，用来从网络收集新闻。你抓取的文本可能包含不需要的 HTML 元素，比如 <span>、<img>、<a> 等。
 - en: What’s worse, it may contain injected JavaScript code that automatically gets
     executed once you put it on your website. What you need is a function that safely
     removes all unwanted elements from the text.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 更糟糕的是，它可能包含注入的 JavaScript 代码，一旦你将其放到网站上，这些代码会自动执行。你需要的是一个安全地移除文本中所有不需要的元素的函数。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the parseFromString() method from the DOMParser() interface to parse the
     string. Once you parse the string, you can use the textContent property to get
     the text free from any extra HTML tags:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 DOMParser() 接口中的 parseFromString() 方法来解析字符串。一旦解析了字符串，你就可以使用 textContent 属性获取不带任何多余
+    HTML 标签的文本：
 - en: '[part_1/removing_html_tags/DOMParser_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/removing_html_tags/DOMParser_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex1.js)'
 - en: '|   | **function** stripHTML(html){ |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** stripHTML(html){ |'
 - en: '|   | **const** doc = **new** DOMParser().parseFromString(html, *"text/html"*);
     |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** doc = **new** DOMParser().parseFromString(html, *"text/html"*);
+    |'
 - en: '|   | **return** doc.body.textContent &#124;&#124; *""*; |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** doc.body.textContent &#124;&#124; *""*; |'
 - en: '|   | } |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
     Rises''*; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
+    Rises''*; |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | stripHTML(rawText); *// → "Fed Signals Smaller Rises"* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | stripHTML(rawText); *// → "美联储信号较小的加息"* |'
 - en: The DOMParser interface lets you parse XML or HTML code from a string into a
     DOM Document. In this case, you want to parse HTML, so you pass text/html as the
     second argument. The result is an HTMLDocument whose text you can extract with
     textContent.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: DOMParser 接口允许你将字符串中的 XML 或 HTML 代码解析为 DOM 文档。在这个例子中，你需要解析 HTML，所以你将 "text/html"
+    作为第二个参数传入。结果是一个 HTMLDocument，你可以使用 textContent 提取其中的文本。
 - en: '| DOMParser() in Node |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| Node 中的 DOMParser() |'
 - en: '| --- |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | The DOMParser()
     interface is not available in the Node environment. |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | DOMParser()
+    接口在 Node 环境中不可用。 |'
 - en: Discussion
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The textContent property is available on all text and element nodes. So why
     parse HTML when you can create a temporary element on the page and get its textContent?
     Consider this example:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: textContent 属性可以在所有文本和元素节点上使用。那么，为什么不直接在页面上创建一个临时元素来获取它的 textContent，而非解析 HTML
+    呢？请参考这个例子：
 - en: '[part_1/removing_html_tags/DOMParser_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex2.js)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/removing_html_tags/DOMParser_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex2.js)'
 - en: '|   | *// Don''t use this* |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 不要使用这个* |'
 - en: '|   | **function** stripHTML(html) { |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** stripHTML(html) { |'
 - en: '|   | **const** tmp = document.createElement(*"DIV"*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** tmp = document.createElement(*"DIV"*); |'
 - en: '|   | tmp.innerHTML = html; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | tmp.innerHTML = html; |'
 - en: '|   | **return** tmp.textContent &#124;&#124; *""*; |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** tmp.textContent &#124;&#124; *""*; |'
 - en: '|   | } |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
     Rises''*; |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** rawText = *''<a href="">Fed</a> Signals<img src="n.png"> Smaller
+    Rises''*; |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | stripHTML(rawText); *// → "Fed Signals Smaller Rises"* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | stripHTML(rawText); *// → "Fed Signals Smaller Rises"* |'
 - en: At first glance, this code seems like a more efficient solution because it doesn’t
     involve parsing the string. But if the source contains malicious code, you’ll
     leave your code wide open to attacks.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 初看之下，这段代码似乎是更高效的解决方案，因为它没有涉及字符串解析。但如果源代码中包含恶意代码，你就会让你的代码暴露在攻击之下。
 - en: 'Try to strip the following text from HTML, and you’ll see that the JavaScript
     code hidden in the onerror attribute gets executed:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试从 HTML 中剥离以下文本，你会发现 onerror 属性中隐藏的 JavaScript 代码被执行了：
 - en: '[part_1/removing_html_tags/DOMParser_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex3.js)'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/removing_html_tags/DOMParser_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/removing_html_tags/DOMParser_ex3.js)'
 - en: '|   | **const** rawText = *"<img onerror=''alert(**\"**execute JS here**\"**)''
     src=untrusted>"*; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** rawText = *"<img onerror=''alert(**\"**execute JS here**\"**)''
+    src=untrusted>"*; |'
 - en: Although you’re inserting the text into a temporary tag, the browser still loads
     the image, and the embedded JavaScript code gets a chance to rear its head.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管你将文本插入了一个临时标签中，浏览器仍然会加载图片，嵌入的 JavaScript 代码有机会被触发。
 - en: Remember to remove HTML tags from the text when scraping and using text from
     external sources. A quick way to do that is to use the DOMParser interface to
     parse the data and then extract text with textContent.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在抓取和使用外部来源的文本时，记得移除 HTML 标签。一种快速的方法是使用 DOMParser 接口解析数据，然后通过 textContent 提取文本。

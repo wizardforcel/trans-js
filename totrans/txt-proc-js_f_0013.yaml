@@ -1,265 +1,425 @@
 - en: '| Recipe 3 | Matching the Beginning or End of a String with startsWith() and
     endsWith() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| Recipe 3 | 使用 startsWith() 和 endsWith() 匹配字符串的开始或结尾 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Let’s assume you have a database of articles about pet care and your task is
     to compile a list of questions that are answered in the articles. Suppose the
     articles are formatted in the Markdown language and the questions are all in level
     2 heading tags (preceded with ##).'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '假设你有一个关于宠物护理的文章数据库，你的任务是整理出在文章中得到解答的问题列表。假设这些文章是使用 Markdown 格式编写的，且所有问题都使用二级标题标签（以
+    ## 开头）。'
 - en: How would you write a code that distinguishes a heading from a normal sentence?
     And what would you use if you wanted to filter those that are questions? You need
     a solution that lets you check the characters at the beginning and end of a string.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 你会怎么编写代码来区分标题和普通句子？如果你想过滤掉那些问题句子，应该使用什么？你需要一种方法，可以检查字符串的开始和结束字符。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'First, we’ll use the startsWith() method to determine if the string begins
     with ##:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '首先，我们将使用 startsWith() 方法来判断字符串是否以 ## 开头：'
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex1.js)'
 - en: '|   | **const** str1 = *"## Why is chocolate bad for your dog?"*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str1 = *"## 为什么巧克力对你的狗不好？"*; |'
 - en: '|   | **const** str2 = *"# 10 Amazing Dog Facts"*; |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str2 = *"# 10 个惊人的狗狗事实"*; |'
 - en: '|   | **const** searchStr = *"##"*; |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchStr = *"##"*; |'
 - en: '|   |  |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str1.startsWith(searchStr); *// → true* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | str1.startsWith(searchStr); *// → true* |'
 - en: '|   | str2.startsWith(searchStr); *// → false* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | str2.startsWith(searchStr); *// → false* |'
 - en: 'Then we’ll use the endsWith() method to check if the string ends with a question
     mark:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将使用 endsWith() 方法来检查字符串是否以问号结尾：
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex2.js)'
 - en: '|   | **const** str1 = *"## Why is chocolate bad for your dog?"*; |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str1 = *"## 为什么巧克力对你的狗不好？"*; |'
 - en: '|   | **const** str2 = *"## Best way to trim your dog''s nails"*; |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str2 = *"## 如何修剪狗狗的指甲"*; |'
 - en: '|   | **const** searchStr = *"?"*; |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchStr = *"?"*; |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str1.endsWith(searchStr); *// → true* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | str1.endsWith(searchStr); *// → true* |'
 - en: '|   | str2.endsWith(searchStr); *// → false* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | str2.endsWith(searchStr); *// → false* |'
 - en: 'Now that we know startsWith() and endsWith() produce the result we want, let’s
     create a function that performs both these operations at the same time:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们知道 startsWith() 和 endsWith() 方法能产生我们想要的结果，接下来我们创建一个同时执行这两个操作的函数：
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js)'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex3.js)'
 - en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** startsWithEndsWith(str, start, end) { |'
 - en: '|   | **if** ((str.startsWith(start) === **true**) && (str.endsWith(end) ===
     **true**)) { |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **如果** ((str.startsWith(start) === **true**) && (str.endsWith(end) ===
+    **true**)) { |'
 - en: '|   | **return** **true**; |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** **true**; |'
 - en: '|   | } **else** { |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **否则** { |'
 - en: '|   | **return** **false**; |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** **false**; |'
 - en: '|   | } |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | } |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: 'We can also simplify the function by removing the if statement. The logical
     AND (&&) operator returns true if both startsWith() and endsWith() return true,
     so we can get the same result in a single statement:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以通过去除 if 语句来简化函数。逻辑与（&&）运算符会在 startsWith() 和 endsWith() 都返回 true 时返回 true，因此我们可以通过一个语句获得相同的结果：
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js)'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex4.js)'
 - en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** startsWithEndsWith(str, start, end) { |'
 - en: '|   | **return** str.startsWith(start) && str.endsWith(end); |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** str.startsWith(start) && str.endsWith(end); |'
 - en: '|   | } |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: 'This code works fine for testing a string containing a single sentence, but
     we want to extract level 2 Markdown headings from an article. So, we need a way
     to pass each line of the article to our function. Divide the string at line breaks
     by calling split("\n"), then loop over the resulting array with forEach() and
     pass each line to startsWithEndsWith():'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码对于测试包含单一句子的字符串效果很好，但我们希望从文章中提取二级 Markdown 标题。因此，我们需要一种方法，将文章的每一行传递给我们的函数。通过调用
+    split("\n") 将字符串按换行符分割，然后使用 forEach() 遍历结果数组，并将每一行传递给 startsWithEndsWith()：
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js)'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex5.js)'
 - en: '|   | **const** str = |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`## Why is chocolate bad for your dog?* |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`## 为什么巧克力对你的狗有害？* |'
 - en: '|   | *Some text ...* |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | *一些文本 ...* |'
 - en: '|   | *## Best way to trim your dog''s nails* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *## 给你的狗修剪指甲的最佳方法* |'
 - en: '|   | *More text ...* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | *更多文本 ...* |'
 - en: '|   | *## Are there human foods that are safe for dogs?* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | *## 是否有对狗安全的人类食物？* |'
 - en: '|   | *...`*; |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | *...`*; |'
 - en: '|   |  |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** startsWithEndsWith(str, start, end) { |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** startsWithEndsWith(str, start, end) { |'
 - en: '|   | **return** str.startsWith(start) && str.endsWith(end); |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** str.startsWith(start) && str.endsWith(end); |'
 - en: '|   | } |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.split(*"***\***n"*).forEach(str => { |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.split(*"***\***n"*).forEach(str => { |'
 - en: '|   | **if** (startsWithEndsWith(str, *"##"*, *"?"*)) { |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (startsWithEndsWith(str, *"##"*, *"?"*)) { |'
 - en: '|   | console.log(str); |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(str); |'
 - en: '|   | }; |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | }; |'
 - en: '|   | }); |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// logs:* |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 输出日志：* |'
 - en: '|   | *// → ## Why is chocolate bad for your dog?* |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ## 为什么巧克力对狗有害？* |'
 - en: '|   | *// → ## Are there human foods that are safe for dogs?* |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ## 是否有对狗狗安全的人类食物？* |'
 - en: Success!
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 成功！
 - en: '| Browser Compatibility |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Safari 15.4,
     released on March 15, 2022, joined the party a little later than other leading
     browsers, as it incorporated at() after its major competitors had already done
     so. For backward compatibility with older browser versions, you need to use a
     polyfill.^([[2]](f_0032.xhtml#FOOTNOTE-2)) In the Node environment, you’ll need
     a minimum Node version of 16.6.0.^([[3]](f_0032.xhtml#FOOTNOTE-3)) |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Safari 15.4
+    版本于 2022 年 3 月 15 日发布，稍晚于其他主流浏览器加入该功能，因为它在其他竞争对手已实现 at() 后才加入。为了与旧版浏览器兼容，你需要使用
+    polyfill。^([[2]](f_0032.xhtml#FOOTNOTE-2)) 在 Node 环境中，你需要至少 Node 版本 16.6.0。^([[3]](f_0032.xhtml#FOOTNOTE-3))
+    |'
 - en: Discussion
+  id: totrans-62
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In JavaScript, there are often multiple ways to complete a task. As a programmer,
     you should usually strive to use the most efficient tool for the job. But you
     should also take into account the reliability and readability of your code, which
     are more important in most projects.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中，完成任务的方法通常有多种。作为程序员，你通常应该努力使用最有效的工具来完成工作。但你也应该考虑代码的可靠性和可读性，这在大多数项目中更为重要。
 - en: An alternative way to get the last character of a string is to use the at()
     method. It’s compact and fast! But browser support isn’t quite there yet, so you
     might find your code broken in older browsers.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 获取字符串最后一个字符的另一种方法是使用 at() 方法。它简洁且快速！但是浏览器的支持还不完全，因此你可能会在较旧的浏览器中发现代码无法运行。
 - en: 'With at(), you can retrieve a single character at a position in a string like
     this:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 at() 方法，你可以像这样获取字符串中某个位置的单个字符：
 - en: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js)'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/matching_with_startsWith_endsWith/startsWith_endsWith_ex6.js)'
 - en: '|   | **const** str = *"Do dogs dream?"*; |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *"狗狗会做梦吗？"*; |'
 - en: '|   |  |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.at(-1); *// → "?"* |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.at(-1); *// → "?"* |'
 - en: '|   | str.at(-2); *// → "m"* |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.at(-2); *// → "m"* |'
 - en: When calling at() with a negative number, the method counts back from the end
     of the string. So, -1 gets you the last character, -2 gets you the second to last
     character, and so on.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 当使用负数调用 at() 时，该方法会从字符串的末尾开始计数。因此，-1 获取的是最后一个字符，-2 获取的是倒数第二个字符，依此类推。
 - en: '| Calling at() on Arrays |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '| 调用 at() 方法处理数组 |'
 - en: '| --- |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | You can also
     use at() with JavaScript arrays. Check out my article on Medium to learn more.^([[4]](f_0032.xhtml#FOOTNOTE-4))
     |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 你还可以在 JavaScript
+    数组中使用 at()。查看我在 Medium 上的文章了解更多内容。^([[4]](f_0032.xhtml#FOOTNOTE-4)) |'
 - en: While startsWith() lets you check characters at a string’s beginning, endsWith()
     lets you determine if a string ends with specific characters. If you want to get
     the value of only a single character, then at() is a compact alternative you may
     use, but be sure to check browser support.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然 startsWith() 让你检查字符串开头的字符，endsWith() 让你判断一个字符串是否以特定字符结尾。如果你只想获取单个字符的值，那么
+    at() 是一个简洁的替代方案，但请确保检查浏览器的支持情况。

@@ -1,191 +1,296 @@
 - en: '| Recipe 72 | Highlighting Text in Real Time |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| Recipe 72 | 实时高亮文本 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you want to add a search functionality to your application that behaves
     similarly to Google Chrome’s “find in page” tool. With this feature, as the user
     types their search query into the search field, Chrome highlights the corresponding
     text on the page in real time. This enables users to quickly locate the information
     they are searching for without having to manually scan the entire page.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想在应用程序中添加一个类似于 Google Chrome “页面查找”工具的搜索功能。使用此功能时，当用户在搜索框中输入查询时，Chrome 会实时高亮显示页面上的相应文本。这使得用户能够迅速定位他们正在寻找的信息，而无需手动扫描整个页面。
 - en: Solution
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Define an HTML page with an input element and a div element containing some
     text. The input element should have an ID of “search-input,” and the div element
     should have an ID of “search-results”:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 定义一个包含输入元素和包含一些文本的 div 元素的 HTML 页面。输入元素的 ID 应为“search-input”，div 元素的 ID 应为“search-results”：
 - en: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml)'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.xhtml)'
 - en: '|   | *<!DOCTYPE html>* |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | *<!DOCTYPE html>* |'
 - en: '|   | <html> |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | <html> |'
 - en: '|   | <head> |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | <head> |'
 - en: '|   | <script src=*"highlighting_in_realtime_ex1.js"* defer></script> |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | <script src=*"highlighting_in_realtime_ex1.js"* defer></script> |'
 - en: '|   | </head> |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | </head> |'
 - en: '|   | <body> |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | <body> |'
 - en: '|   | <input type=*"text"* id=*"search-input"* placeholder=*"Search..."*> |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | <input type=*"text"* id=*"search-input"* placeholder=*"搜索..."*> |'
 - en: '|   | <div id=*"search-results"*>Snakes are quite the characters. Have you
     seen |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | <div id=*"search-results"*>蛇可是非常有个性的。你见过'
 - en: '|   | their fashion sense? It''s all stripes and scales, like they''re trying
     to |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | 它们的穿衣品味如何？全是条纹和鳞片，仿佛它们在努力 |'
 - en: '|   | be both a zebra and a dragon at the same time. But don''t let their smooth
     |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | 既能是斑马，又能是龙。但不要让它们的平滑 |'
 - en: '|   | moves fool you—snakes can be quite hiss-terical when they want to be.
     |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | 别让它们的动作骗了你——蛇在需要时可真是“嘶嘶”大作。 |'
 - en: '|   | </div> |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | </div> |'
 - en: '|   | </body> |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | </body> |'
 - en: '|   | </html> |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | </html> |'
 - en: 'Now, create the JavaScript code that takes the input and highlights the text:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，创建 JavaScript 代码，获取输入并高亮显示文本：
 - en: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/highlighting_in_realtime/highlighting_in_realtime_ex1.js)'
 - en: '|   | **const** searchInput = document.querySelector(*"#search-input"*); |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchInput = document.querySelector(*"#search-input"*); |'
 - en: '|   | **const** searchResults = document.querySelector(*"#search-results"*);
     |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchResults = document.querySelector(*"#search-results"*);
+    |'
 - en: '|   | **const** content = searchResults.innerHTML; |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** content = searchResults.innerHTML; |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** highlightText() { |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** highlightText() { |'
 - en: '|   | **const** searchText = searchInput.value.trim().toLowerCase(); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchText = searchInput.value.trim().toLowerCase(); |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **if** (searchText.length > 0) { |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **if** (searchText.length > 0) { |'
 - en: '|   | **const** searchRegex = **new** RegExp(searchText, *"gi"*); |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** searchRegex = **new** RegExp(searchText, *"gi"*); |'
 - en: '|   | **const** highlightedText = content.replace(searchRegex, *"<mark>$&</mark>"*);
     |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** highlightedText = content.replace(searchRegex, *"<mark>$&</mark>"*);
+    |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | searchResults.innerHTML = highlightedText; |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | searchResults.innerHTML = highlightedText; |'
 - en: '|   | } **else** { |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | } **else** { |'
 - en: '|   | searchResults.innerHTML = content; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | searchResults.innerHTML = content; |'
 - en: '|   | } |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | } |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | searchInput.addEventListener(*"input"*, highlightText); |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | searchInput.addEventListener(*"input"*, highlightText); |'
 - en: This code creates a live search functionality that highlights all occurrences
     of the search term in the “search-results” div element as the user types in the
     input field.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码创建了一个实时搜索功能，用户在输入框中键入时，所有匹配的搜索词都会在“search-results”div元素中高亮显示。
 - en: Discussion
+  id: totrans-41
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The JavaScript code starts by creating references to the input, div, and the
     content of the div element. We add an event listener to the input element using
     the addEventListener() method. The event listener listens for changes to the input
     value and triggers the highlightText() function when the input changes.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript代码首先创建了对输入框、div元素及其内容的引用。我们使用addEventListener()方法为输入框元素添加了一个事件监听器。该事件监听器会监听输入框值的变化，并在输入变化时触发highlightText()函数。
 - en: Inside highlightText(), we retrieve the value entered into the searchInput element,
     remove any leading or trailing whitespace characters, convert the remaining string
     value to lowercase, and store the result in the searchText variable.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 在highlightText()函数内部，我们获取输入框中的值，去除前后空白字符，将剩余的字符串转换为小写，并将结果存储在searchText变量中。
 - en: Next, we check if the length of searchText is greater than zero. If so, we create
     a regex object using the given input. We also pass the g and i flags as the second
     parameter to indicate that the regex should match all occurrences globally and
     be case-insensitive.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们检查searchText的长度是否大于零。如果是，我们使用给定的输入创建一个正则表达式对象。我们还将g和i标志作为第二个参数传递，表示正则表达式应该全局匹配所有出现的地方，并且不区分大小写。
 - en: Using the replace() method on the content variable, we replace all occurrences
     of the search text with the same text wrapped in an HTML <mark> tag. Finally,
     we update the innerHTML property of the searchResults element to display the highlighted
     text.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用content变量的replace()方法，我们将所有搜索文本的出现位置替换为用HTML <mark>标签包裹的相同文本。最后，我们更新searchResults元素的innerHTML属性，以显示高亮的文本。
 - en: If the length of searchText is zero, we set the innerHTML property to the original
     content variable, which displays the text as it was initially. This step is essential
     because if the user deletes the entire search term, the text shouldn’t have highlights
     anymore.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果 `searchText` 的长度为零，我们将 `innerHTML` 属性设置为原始内容变量，这样就会显示文本的初始内容。这个步骤至关重要，因为如果用户删除了整个搜索词，文本就不应该再有高亮。
 - en: Users are increasingly expecting interactive and dynamic interfaces that respond
     to their actions in real time. One such feature that has become popular is real-time
     text highlighting. Take advantage of it to make it easier for your users to find
     the information they need.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 用户越来越期待能够实时响应他们操作的互动和动态界面。实时文本高亮就是其中一个日益流行的功能。利用这一点，可以使您的用户更容易找到他们需要的信息。
 - en: '| Protecting Your App from ReDoS Attacks |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '| 保护您的应用免受 ReDoS 攻击 |'
 - en: '| --- |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Be careful
     when reusing the text provided by the user in your regex pattern. If you fail
     to sanitize the text properly, your app may become vulnerable to ReDoS attacks.
     To learn more, see Recipe 66, [*Escaping a String for Use in a Regex*](f_0078.xhtml#rcp.escaping_metacharacters).
     |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | 当在正则表达式模式中重新使用用户提供的文本时，请小心。如果没有正确清理文本，您的应用可能会受到
+    ReDoS 攻击的威胁。要了解更多信息，请参见配方 66，[*在正则表达式中转义字符串*](f_0078.xhtml#rcp.escaping_metacharacters)。'

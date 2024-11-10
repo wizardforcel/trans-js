@@ -1,336 +1,524 @@
 - en: '| Recipe 29 | Repeating Part of a Regex with Quantifiers |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 方案 29 | 使用量词重复正则表达式的一部分 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you want to add an option to your program that allows users to log in
     with a PIN code. The main benefit of using a PIN instead of a password is faster
     login. I tend to put my computer to sleep when I’m away, even for a short time.
     Conveniently, my OS lets me log in quickly with only a PIN code.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想在程序中添加一个选项，允许用户使用 PIN 码登录。使用 PIN 码而不是密码的主要好处是更快的登录。我通常在离开时把电脑设为休眠，即使是短时间的离开。方便的是，我的操作系统让我仅通过
+    PIN 码就能快速登录。
 - en: Say you want to implement a similar feature for your application. You need to
     write a regex pattern that 1) validates the input is digits and 2) ensures the
     number of digits is between 4 and 6 characters.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想为你的应用程序实现类似的功能。你需要编写一个正则表达式模式，1）验证输入是数字，2）确保数字的位数在 4 到 6 位之间。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Place a pair of curly brackets after the \d character class to specify how
     many times the digits should occur:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 `\d` 字符类后面加上一对大括号，指定数字应出现的次数：
 - en: '[part_2/quantifiers/quantifiers_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex1.js)'
 - en: '|   | **const** re = */^**\d{4,6}**$/*; |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */^**\d{4,6}**$/*; |'
 - en: '|   |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"107"*); *// → false* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"107"*); *// → false* |'
 - en: '|   | re.test(*"1077"*); *// → true* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"1077"*); *// → true* |'
 - en: '|   | re.test(*"107781"*); *// → true* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"107781"*); *// → true* |'
 - en: '|   | re.test(*"1077815"*); *// → false* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"1077815"*); *// → false* |'
 - en: The pattern {n,m} lets us match the preceding item at least n times and at most
     m times (n and m must be positive integers).
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 模式 `{n,m}` 允许我们将前面的项匹配至少 `n` 次，最多 `m` 次（`n` 和 `m` 必须是正整数）。
 - en: The regex in this code begins with a caret (^) and ends with a dollar symbol
     ($). We don’t want to match anything other than a 4-6 digit input, so we delimit
     the pattern with ^ and $ (for further explanation of how caret and dollar work,
     see Recipe 24, [*Asserting the Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar)).
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码中的正则表达式以插入符号（`^`）开头，以美元符号（`$`）结尾。我们不想匹配除 4 到 6 位数字输入之外的任何内容，因此我们使用 `^` 和
+    `$` 来限定模式（关于插入符号和美元符号的进一步解释，请参见第 24 章，[*使用 ^ 和 $ 断言字符串的开始和结束*](f_0035.xhtml#rcp.dollar)）。
 - en: 'Without $, this pattern would match a string like “107781pass”:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果没有 `$`，这个模式会匹配类似“107781pass”这样的字符串：
 - en: '[part_2/quantifiers/quantifiers_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex2.js)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex2.js)'
 - en: '|   | /**\**d{4,6}*/.test**(**"107781pass"**)**; /*/ **→** **true** |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | /**\**d{4,6}*/.test**(**"107781pass"**)**; /*/ **→** **true** |'
 - en: Discussion
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: We can match a token or group repeatedly using a quantifier. {4} is a quantifier
     that tells the regex engine to match its preceding item precisely four times.
     So, the pattern [0-5]{4} is equivalent to [0-5][0-5][0-5][0-5], but is easier
     to read and write.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用量词重复匹配一个标记或组。{4} 是一个量词，它告诉正则表达式引擎精确地匹配它前面的项目四次。因此，模式[0-5]{4} 相当于[0-5][0-5][0-5][0-5]，但更容易阅读和编写。
 - en: 'If we use a quantifier to repeat a character class, the entire character class
     will be repeated, not just the character it matches. For example, the pattern
     [car]{3} matches three consecutive characters made of “c,” “a,” and “r”:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们使用量词重复字符类，那么整个字符类将被重复，而不仅仅是它所匹配的字符。例如，模式[car]{3} 匹配的是三个连续的字符，分别是“c”、“a”和“r”：
 - en: '[part_2/quantifiers/quantifiers_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex3.js)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex3.js)'
 - en: '|   | **const** re = */**[**car**]{3}**/*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**[**car**]{3}**/*; |'
 - en: '|   |  |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"car"*); *// → true* |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"car"*); *// → true* |'
 - en: '|   | re.test(*"arc"*); *// → true* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"arc"*); *// → true* |'
 - en: '|   | re.test(*"carbon"*); *// → true (matches the first three characters)*
     |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"carbon"*); *// → true（匹配前面三个字符）* |'
 - en: To repeat the same character matched by a character class, we can use a backreference
     (discussed later in Recipe 46, [*Referencing a Matched String with the Backreference*](f_0057.xhtml#rcp.backreference)).
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 要重复字符类匹配到的相同字符，我们可以使用回溯引用（将在第46条配方中讨论，[*使用回溯引用引用匹配字符串*](f_0057.xhtml#rcp.backreference)）。
 - en: 'A character class is the only place in regex where quantifiers don’t have a
     special meaning. For example, /[c{3}]/ matches a single character that’s a “c,”
     “{“, “3”, or “}”. To take away the special meaning of a quantifier outside a character
     class, we must escape it with a backslash. For instance:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符类是正则表达式中唯一一个量词没有特殊含义的地方。例如，/[c{3}]/ 匹配的是一个字符，可能是“c”、“{”、“3”或“}”。为了去除量词在字符类外的特殊含义，我们必须用反斜杠对其进行转义。例如：
 - en: '[part_2/quantifiers/quantifiers_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex4.js)'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex4.js)'
 - en: '|   | **const** re = */**\{**7**\}**/*; |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\{**7**\}**/*; |'
 - en: '|   |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"{7}"*); *// → true* |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"{7}"*); *// → true* |'
 - en: '|   | re.test(*"7"*); *// → false* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"7"*); *// → false* |'
 - en: '|   | re.test(*"abc"*); *// → false* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"abc"*); *// → false* |'
 - en: In this pattern, \{ matches the character { literally. Without a backslash,
     { would indicate the beginning of a quantifier.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个模式中，\{ 字符表示字面上的左花括号“{”。如果没有反斜杠，{ 则表示量词的开始。
 - en: Although curly brackets are a common type of quantifier used in regex, there
     are other quantifiers available as well. The following section provides information
     about these additional quantifiers.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管花括号是正则表达式中常见的一种量词，但也有其他类型的量词可供使用。以下部分将提供关于这些额外量词的信息。
 - en: Types of Quantifiers
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 量词的类型
 - en: 'Quantifiers specify the number of occurrences of a character, group, or character
     class to match. There are six forms of quantifiers in regex: zero or more (*),
     one or more (+), zero or one (?), exactly n times {n}, at least n times {n,},
     and from n to m times {n,m}. Let’s look at each and how you might use them.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 量词指定字符、字符组或字符类要匹配的出现次数。正则表达式中有六种量词形式：零次或多次（*），一次或多次（+），零次或一次（?），恰好 n 次 {n}，至少
+    n 次 {n,}，以及从 n 到 m 次 {n,m}。让我们来看看每种形式以及如何使用它们。
 - en: Zero or More (*)
+  id: totrans-39
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 零个或多个（*）
 - en: 'An asterisk matches zero or more sequences of the preceding item. Let’s say
     we want to match all verb forms of the word “play,” including “played,” “plays,”
     and “playing.” By using a quantifier after the character class (\w), we can tell
     regex to match “play” and any character that might come after it as long as it’s
     a word character:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 星号（*）匹配前一个项目的零次或多次序列。假设我们想匹配“play”一词的所有动词形式，包括“played”、“plays”和“playing”。通过在字符类（\w）后使用量词，我们可以告诉正则表达式匹配“play”以及任何可能跟在它后面的字符，只要它是一个单词字符：
 - en: '[part_2/quantifiers/quantifiers_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex5.js)'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex5.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex5.js)'
 - en: '|   | **const** re = */**\b**play**\w*****\b**/*; |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**play**\w*****\b**/*; |'
 - en: '|   |  |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"He plays for Cleveland"*); *// → true* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"他为克里夫兰队效力"*); *// → true* |'
 - en: '|   | re.test(*"France is playing England tomorrow."*); *// → true* |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"法国明天将与英格兰队比赛。"*); *// → true* |'
 - en: '|   | re.test(*"Evans played very well."*); *// → true* |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"埃文斯踢得非常好。"*); *// → true* |'
 - en: '|   | re.test(*"Let''s play a different game"*); *// → true* |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"我们来玩个不同的游戏"*); *// → true* |'
 - en: Note that this pattern also matches words like “playful” and “playground.” To
     limit the match to a set of specific words, we can use a vertical bar (see Recipe
     26, [*Matching One of Several Alternatives with the Vertical Bar (|)*](f_0037.xhtml#rcp.vertical_bar)).
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，这个模式也会匹配像“playful”和“playground”这样的单词。为了将匹配限制为一组特定的单词，我们可以使用竖线（请参见食谱26，[*使用竖线（|）匹配多个选择之一*](f_0037.xhtml#rcp.vertical_bar)）。
 - en: One or More (+)
+  id: totrans-49
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 一次或多次（+）
 - en: 'A plus sign matches one or more sequences of the preceding item. For example,
     the regular expression /Go+al/ attempts to match the letter G followed by one
     or more instances of the letter o, followed by the letters a and l:'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 加号（+）匹配前一个项目的一个或多个序列。例如，正则表达式 /Go+al/ 尝试匹配字母 G 后跟一个或多个字母 o，然后是字母 a 和 l：
 - en: '[part_2/quantifiers/quantifiers_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex6.js)'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex6.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex6.js)'
 - en: '|   | **const** re = */Go+al!/*; |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Go+al!/*; |'
 - en: '|   |  |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"Gooooooooal!"*); *// → true* |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Gooooooooal!"*); *// → true* |'
 - en: '|   | re.test(*"Goal!"*); *// → true* |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Goal!"*); *// → true* |'
 - en: '|   | re.test(*"Gal!"*); *// → false (expects at least one instance of o)*
     |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Gal!"*); *// → false (预期至少有一个字母 o)* |'
 - en: Zero or One (?)
+  id: totrans-57
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 零或一（?）
 - en: 'A question mark matches zero or one occurrence of the preceding item. For example,
     if we wanted to match the word “apple” or its plural form, “apples,” we’d write
     \apples?\. This pattern tells the regex engine to match the word “apple” followed
     by zero or one instance of the letter “s”:'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 问号匹配前一个项目零次或一次出现。例如，如果我们想匹配单词“apple”或其复数形式“apples”，我们可以写成\apples?\. 这个模式告诉正则表达式引擎匹配单词“apple”，后面跟着零次或一次字母“s”：
 - en: '[part_2/quantifiers/quantifiers_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex7.js)'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex7.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex7.js)'
 - en: '|   | **const** re = */apples**?**/*; |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */apples**?**/*; |'
 - en: '|   |  |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"An apple a day keeps the doctor away"*); *// → true* |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"每天一个苹果，医生远离我"*); *// → true* |'
 - en: '|   | re.test(*"Peel and core the apples"*); *// → true* |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"削皮并去核苹果"*); *// → true* |'
 - en: Exactly n Times {n}
+  id: totrans-64
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 正好 n 次 {n}
 - en: 'Specifies how often the preceding item can be repeated. n must be a positive
     integer. For example, we can use /\b\w{3}\b/ to match any three-letter word in
     a string:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 指定前一个项目可以重复的次数。n必须是正整数。例如，我们可以使用/\b\w{3}\b/来匹配字符串中的任何三字母单词：
 - en: '[part_2/quantifiers/quantifiers_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex8.js)'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex8.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex8.js)'
 - en: '|   | **const** re = */**\b\w{3}\b**/*; |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b\w{3}\b**/*; |'
 - en: '|   |  |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"A car accident."*); *// → true* |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"一次车祸"*); *// → true* |'
 - en: '|   | re.test(*"A driver''s license"*); *// → false* |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"一张驾驶执照"*); *// → false* |'
 - en: From n to m Times {n,m}
+  id: totrans-71
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 从 n 到 m 次 {n,m}
 - en: 'Matches the preceding item at least n times and at most m times. n and m must
     be positive integers. We have already seen this pattern in action. But, let’s
     take a look at another example to better understand how it works:'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配前一个项目至少 n 次，最多 m 次。n 和 m 必须是正整数。我们已经看过这个模式的应用。但是，为了更好地理解它是如何工作的，让我们看另一个例子：
 - en: '[part_2/quantifiers/quantifiers_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex10.js)'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex10.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex10.js)'
 - en: '|   | **const** re = */**\b**im**{1,2}\w*****?**/*; |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**im**{1,2}\w*****?**/*; |'
 - en: '|   |  |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"immaculate"*); *// → true* |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"完美无瑕的"*); *// → true* |'
 - en: '|   | re.test(*"impact"*); *// → true* |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"冲击"*); *// → true* |'
 - en: '|   | re.test(*"insane"*); *// → false* |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"疯狂的"*); *// → false* |'
 - en: Here, the pattern attempts to match a word boundary, followed by the letter
     “i,” followed by one or two instances of the letter “m.” As a result, it matches
     any word that begins with “im” or “imm.”
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，模式尝试匹配单词边界，后跟字母“i”，然后是一个或两个字母“m”。因此，它可以匹配任何以“im”或“imm”开头的单词。
 - en: At Least n Times {n,}
+  id: totrans-80
   prefs:
   - PREF_H4
   type: TYPE_NORMAL
+  zh: 至少 n 次 {n,}
 - en: '{n,} is similar to {n,m} in that it matches the preceding item at least n times,
     but it doesn’t have a second parameter. For example, the regular expression /\d{2,}/
     matches two or more digits:'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: '{n,} 类似于 {n,m}，它会匹配前面的项目至少 n 次，但没有第二个参数。例如，正则表达式 /\d{2,}/ 匹配两个或更多数字：'
 - en: '[part_2/quantifiers/quantifiers_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex9.js)'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/quantifiers/quantifiers_ex9.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/quantifiers/quantifiers_ex9.js)'
 - en: '|   | **const** re = */**\d{2,}**/*; |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\d{2,}**/*; |'
 - en: '|   |  |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(*"1"*); *// → false* |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"1"*); *// → false* |'
 - en: '|   | re.test(*"12"*); *// → true* |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"12"*); *// → true* |'
 - en: '|   | re.test(*"123"*); *// → true* |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"123"*); *// → true* |'
 - en: '| Similar Quantifiers |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '| 相似的量词 |'
 - en: '| --- |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '--- |'
 - en: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | The pattern {1,}
     is equivalent to the quantifier +, {0,} is equivalent to *, and {0,1} is equivalent
     to ?. |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/tip.png](images/aside-icons/tip.png) | 模式 {1,} 等价于量词
+    +，{0,} 等价于 *，而 {0,1} 等价于 ?。 |'
 - en: Use quantifiers to specify the numbers of characters or expressions to match.
     Different types of quantifiers let you precisely set how many times the preceding
     item should be matched.
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用量词来指定要匹配的字符或表达式的数量。不同类型的量词允许你精确地设置前面的项目应当匹配多少次。

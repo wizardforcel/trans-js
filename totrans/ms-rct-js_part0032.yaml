@@ -1,8 +1,10 @@
 - en: 'Chapter 11: Working with APIs'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第11章：与API的工作
 - en: In Chapter 10, we explored modern JavaScript features introduced in ES6 and
     beyond, which have greatly improved the language's expressiveness and maintainability.
     Now, let's dive into the world of APIs (Application Programming Interfaces). APIs
@@ -13,332 +15,502 @@
     and build dynamic and feature-rich web applications. In this chapter, we will
     explore the concepts of APIs, how to interact with them, and how to consume data
     using various methods.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第10章中，我们探讨了ES6及以后版本引入的现代JavaScript特性，这些特性极大地提高了语言的表现力和可维护性。现在，让我们深入了解API（应用程序编程接口）的世界。API使不同的软件系统能够相互通信和互动，允许开发者在应用程序中访问并使用外部服务、数据或功能。与API的工作是网页开发者的基本技能，因为它使他们能够集成强大的服务、从远程服务器获取数据，并构建动态和功能丰富的网页应用程序。在本章中，我们将探索API的概念，如何与它们互动，以及如何通过各种方法消费数据。
 - en: 1\. What is an API?
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1. 什么是API？
 - en: An API, or Application Programming Interface, is a set of rules and protocols
     that allows different software systems to communicate with each other. APIs define
     the methods and data formats that applications can use to request and exchange
     information. APIs can be used to interact with remote servers, access databases,
     integrate third-party services, and perform various other tasks.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: API（应用程序编程接口）是一组规则和协议，允许不同的软件系统相互通信。API定义了应用程序可以使用的方法和数据格式，用于请求和交换信息。API可以用于与远程服务器互动、访问数据库、集成第三方服务以及执行各种其他任务。
 - en: 2\. Types of APIs
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2. API的类型
 - en: 'There are several types of APIs, each serving different purposes:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: API有几种类型，每种类型的用途不同：
 - en: 'a. Web APIs:'
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: a. Web API：
 - en: Web APIs are APIs that are exposed over the internet and can be accessed using
     HTTP requests. These APIs are commonly used in web development to fetch data,
     perform CRUD (Create, Read, Update, Delete) operations, and interact with various
     services.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: Web API是通过互联网暴露的API，可以通过HTTP请求访问。这些API通常用于网页开发中，用于获取数据、执行CRUD（创建、读取、更新、删除）操作，以及与各种服务交互。
 - en: 'b. RESTful APIs:'
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: b. RESTful API：
 - en: REST (Representational State Transfer) is an architectural style for designing
     networked applications. RESTful APIs adhere to the principles of REST and use
     standard HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: REST（表述性状态转移）是一种设计网络应用程序的架构风格。RESTful API遵循REST原则，并使用标准的HTTP方法（GET、POST、PUT、DELETE）对资源进行操作。
 - en: 'c. SOAP APIs:'
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: c. SOAP API：
 - en: SOAP (Simple Object Access Protocol) is a protocol for exchanging structured
     information in the implementation of web services. SOAP APIs use XML to represent
     data and rely on the HTTP protocol for communication.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: SOAP（简单对象访问协议）是一种用于在实现 Web 服务中交换结构化信息的协议。SOAP API 使用 XML 来表示数据，并依赖 HTTP 协议进行通信。
 - en: 'd. GraphQL APIs:'
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: d. GraphQL API：
 - en: GraphQL is a query language for APIs that allows clients to request only the
     data they need. Unlike traditional REST APIs, GraphQL APIs allow clients to specify
     the exact data they want to retrieve, making them more efficient and flexible.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: GraphQL 是一种用于 API 的查询语言，允许客户端仅请求所需的数据。与传统的 REST API 不同，GraphQL API 允许客户端指定他们希望检索的确切数据，从而使其更加高效和灵活。
 - en: 3\. API Requests and Responses
+  id: totrans-14
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3. API 请求和响应
 - en: When interacting with an API, developers send requests to the API's endpoints,
     specifying the desired operation and any required data. The API processes the
     request and sends back a response, which contains the requested data or information
     about the success or failure of the operation.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 与 API 交互时，开发者向 API 的端点发送请求，指定所需的操作和任何必需的数据。API 处理请求并返回响应，响应中包含请求的数据或有关操作成功与否的信息。
 - en: 'a. HTTP Methods:'
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: a. HTTP 方法：
 - en: 'API requests are typically made using standard HTTP methods:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: API 请求通常使用标准的 HTTP 方法：
 - en: '- GET: Used to retrieve data from the server.'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '- GET: 用于从服务器检索数据。'
 - en: '- POST: Used to send data to the server to create new resources.'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '- POST: 用于向服务器发送数据以创建新资源。'
 - en: '- PUT: Used to update existing resources on the server.'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '- PUT: 用于更新服务器上的现有资源。'
 - en: '- DELETE: Used to remove resources from the server.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '- DELETE: 用于从服务器移除资源。'
 - en: 'b. Request Headers:'
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: b. 请求头：
 - en: Request headers provide additional information about the request, such as authentication
     tokens, content types, and user-agent details.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 请求头提供了有关请求的附加信息，例如身份验证令牌、内容类型和用户代理详细信息。
 - en: 'c. Request Parameters:'
+  id: totrans-24
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: c. 请求参数：
 - en: Request parameters are used to pass data to the server in the URL or request
     body.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 请求参数用于将数据传递给服务器，通常通过 URL 或请求体传递。
 - en: 'd. Response Status Codes:'
+  id: totrans-26
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: d. 响应状态码：
 - en: 'API responses include status codes that indicate the result of the request.
     Common status codes include:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: API 响应包括状态码，指示请求的结果。常见的状态码包括：
 - en: '- 200 OK: The request was successful.'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 200 OK: 请求成功。'
 - en: '- 201 Created: The request resulted in the creation of a new resource.'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 201 Created: 请求导致了新资源的创建。'
 - en: '- 400 Bad Request: The request was invalid or malformed.'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 400 Bad Request: 请求无效或格式错误。'
 - en: '- 401 Unauthorized: The request requires authentication.'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 401 Unauthorized: 请求需要身份验证。'
 - en: '- 404 Not Found: The requested resource was not found.'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 404 Not Found: 请求的资源未找到。'
 - en: '- 500 Internal Server Error: The server encountered an error while processing
     the request.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 500 Internal Server Error: 服务器在处理请求时遇到错误。'
 - en: 4\. Consuming APIs with JavaScript
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4. 使用 JavaScript 消耗 API
 - en: 'JavaScript provides several methods to consume APIs and retrieve data from
     remote servers. Let''s explore some of the common techniques:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript 提供了多种方法来消费 API 并从远程服务器获取数据。我们来看看一些常见的技术：
 - en: 'a. Fetch API:'
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: a. Fetch API：
 - en: The Fetch API is a modern JavaScript API that allows you to make network requests
     and handle responses using promises. It is widely used for making HTTP requests
     to APIs.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: Fetch API 是一种现代的 JavaScript API，允许你发起网络请求并使用 promises 处理响应。它广泛用于向 API 发起 HTTP
+    请求。
 - en: '[PRE0]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In the above example, we use the Fetch API to make a GET request to the API
     endpoint and log the retrieved data.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用 Fetch API 向 API 端点发起 GET 请求，并记录检索到的数据。
 - en: 'b. XMLHttpRequest:'
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: b. XMLHttpRequest：
 - en: XMLHttpRequest is an older API that provides the ability to make network requests,
     though it is not as commonly used as Fetch API.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: XMLHttpRequest 是一个较老的 API，提供了发起网络请求的能力，尽管它不像 Fetch API 那样常用。
 - en: '[PRE1]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above example, we use XMLHttpRequest to make a GET request and handle
     the response.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用 XMLHttpRequest 发起 GET 请求并处理响应。
 - en: 'c. Axios:'
+  id: totrans-44
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: c. Axios：
 - en: Axios is a popular third-party library for making HTTP requests in JavaScript.
     It provides a simple and convenient interface for working with APIs.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: Axios 是一个流行的第三方库，用于在 JavaScript 中进行 HTTP 请求。它提供了一个简单方便的接口来与 API 进行交互。
 - en: '[PRE2]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above example, we use Axios to make a GET request and log the retrieved
     data.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用 Axios 发起 GET 请求并记录检索到的数据。
 - en: 5\. Working with API Authentication
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5\. API 认证操作
 - en: 'Many APIs require authentication to ensure that only authorized users or applications
     can access their resources. There are different methods of API authentication,
     including:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 许多 API 需要认证，以确保只有授权的用户或应用程序能够访问它们的资源。API 认证有多种方法，包括：
 - en: 'a. API Key:'
+  id: totrans-50
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: a. API 密钥：
 - en: An API key is a unique identifier that developers include in their API requests
     to identify themselves and gain access to the API's resources.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: API 密钥是一个唯一标识符，开发者在 API 请求中包含该密钥，以标识自己并获取对 API 资源的访问权限。
 - en: '[PRE3]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above example, we include the API key in the request URL as a query parameter.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们将 API 密钥作为查询参数包含在请求 URL 中。
 - en: 'b. OAuth:'
+  id: totrans-54
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: b. OAuth：
 - en: OAuth (Open Authorization) is a more secure and complex authentication protocol
     used for accessing third-party APIs on behalf of a user.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: OAuth（开放授权）是一种更安全且复杂的认证协议，用于代表用户访问第三方 API。
 - en: 6\. Working with Pagination and Filtering
+  id: totrans-56
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6\. 分页和筛选操作
 - en: APIs often return large sets of data that need to be paginated or filtered to
     retrieve specific information efficiently.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: API 通常返回大量数据，这些数据需要分页或筛选以高效地检索特定信息。
 - en: 'a. Pagination:'
+  id: totrans-58
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: a. 分页：
 - en: Pagination allows you to retrieve data in chunks or pages, reducing the amount
     of data transferred in each request.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 分页允许你按块或按页检索数据，从而减少每次请求中传输的数据量。
 - en: '[PRE4]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above example, we use pagination to request the second page of data with
     a page size of 10.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用分页来请求第二页数据，每页大小为 10 条。
 - en: 'b. Filtering:'
+  id: totrans-62
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: b. 筛选：
 - en: Filtering allows you to specify criteria for retrieving data that match certain
     conditions.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 过滤功能允许你指定检索符合特定条件的数据的标准。
 - en: '[PRE5]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above example, we use filtering to request data related to the "electronics"
     category.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们使用过滤来请求与“电子产品”类别相关的数据。
 - en: 7\. CORS (Cross-Origin Resource Sharing)
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7\. CORS（跨源资源共享）
 - en: CORS is a security feature implemented by web browsers that prevents web pages
     from making requests to a different domain than the one that served the web page.
     APIs may need to support CORS to allow requests from other domains.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: CORS 是浏览器实施的一项安全功能，它防止网页向与提供网页的域不同的域发出请求。API 可能需要支持 CORS，以允许来自其他域的请求。
 - en: 8\. Error Handling with APIs
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 8\. API 错误处理
 - en: When working with APIs, it's essential to handle errors gracefully and provide
     meaningful feedback to users.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用 API 时，必须优雅地处理错误并向用户提供有意义的反馈。
 - en: '[PRE6]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above example, we handle errors with Fetch API and throw an error if
     the network response is not OK.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们使用 Fetch API 处理错误，并在网络响应不正常时抛出错误。
 - en: 9\. API Best Practices
+  id: totrans-72
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9\. API 最佳实践
 - en: 'When working with APIs, consider the following best practices:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用 API 时，考虑以下最佳实践：
 - en: '- Always use secure HTTPS when making API requests to ensure data privacy and
     security.'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在进行 API 请求时始终使用安全的 HTTPS，以确保数据的隐私和安全。'
 - en: '- Implement proper error handling to provide meaningful feedback to users.'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 实现适当的错误处理，向用户提供有意义的反馈。'
 - en: '- Respect rate limits and usage quotas set by the API provider to avoid being
     blocked.'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 尊重 API 提供者设定的速率限制和使用配额，以避免被封锁。'
 - en: '- Cache API responses when appropriate to reduce unnecessary requests and improve
     performance.'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在适当情况下缓存 API 响应，以减少不必要的请求并提高性能。'
 - en: '- Minimize the data returned from the API to reduce bandwidth usage and improve
     efficiency.'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 减少从 API 返回的数据量，以降低带宽使用并提高效率。'
 - en: 'Conclusion:'
+  id: totrans-79
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论：
 - en: In this chapter, we explored the world of APIs, which are essential for web
     developers to interact with external services and fetch data from remote servers.
     We learned about the different types of APIs, such as Web APIs, RESTful APIs,
     SOAP APIs, and GraphQL APIs, and their respective purposes.
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们探索了 API 的世界，API 对于 web 开发者与外部服务交互并从远程服务器获取数据至关重要。我们了解了不同类型的 API，如 Web
+    API、RESTful API、SOAP API 和 GraphQL API，以及它们各自的用途。
 - en: We explored various methods to consume APIs using JavaScript, including the
     Fetch API, XMLHttpRequest, and Axios. These methods allow us to make HTTP requests
     and handle responses efficiently.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们探索了多种使用 JavaScript 调用 API 的方法，包括 Fetch API、XMLHttpRequest 和 Axios。这些方法使我们能够高效地发出
+    HTTP 请求并处理响应。
 - en: Additionally, we discussed API authentication using API keys and OAuth, as well
     as how to work with pagination and filtering to retrieve specific data from APIs.
     We touched on CORS and the importance of error handling when interacting with
     APIs.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，我们讨论了使用 API 密钥和 OAuth 进行 API 认证，以及如何使用分页和过滤功能从 API 中检索特定数据。我们还简要提及了 CORS
+    和在与 API 交互时错误处理的重要性。
 - en: By mastering API concepts and integration techniques, you can build powerful
     and dynamic web applications that leverage external services and data sources.
     As you continue your journey as a web developer, practice working with APIs to
     gain hands-on experience and improve your skills.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过掌握API概念和集成技术，你可以构建强大而动态的Web应用程序，利用外部服务和数据源。随着你作为Web开发者的不断进步，实践使用API以获得实际经验并提升你的技能。

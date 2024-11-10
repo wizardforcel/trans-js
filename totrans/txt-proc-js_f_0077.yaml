@@ -1,137 +1,219 @@
 - en: '| Recipe 65 | Extracting Text Enclosed in Single Quotes |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 65 | 提取被单引号括起来的文本 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose the data source for your mini-game widget lists the nicknames in single
     quotes rather than double quotes. Extracting the text within single quotes can
     be more challenging compared to double quotes because the nickname itself could
     contain an apostrophe.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的迷你游戏小部件的数据源列出了昵称时使用的是单引号，而不是双引号。提取单引号中的文本比提取双引号中的文本更具挑战性，因为昵称本身可能包含撇号。
 - en: 'For example:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如：
 - en: '|   | Michael Eugene Archer, also known as ''D''Angelo'' |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 迈克尔·尤金·阿彻，亦称为 ''D''Angelo'' |'
 - en: You need a solution that can accurately identify a pair of single quotation
     marks while distinguishing them from an apostrophe.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个能够准确识别一对单引号，并将其与撇号区分开的解决方案。
 - en: Solution
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Take advantage of lookarounds:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用正向与反向查找：
 - en: '[part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_single_quotes/single_quoted_text_ex1.js)'
 - en: '|   | **const** str = |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`1\. Michael Eugene Archer, also known as ''D''Angelo''* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`1\. 迈克尔·尤金·阿彻，亦称为 ''D''Angelo''* |'
 - en: '|   | *2\. Scarlett Johansson, also known as ''Scarjo''* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | *2\. スカーレット・ヨハンソン，亦称为 ''Scarjo''* |'
 - en: '|   | *3\. Bradley Cooper, also known as ''Coop''* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | *3\. 布拉德利·库珀，亦称为 ''Coop''* |'
 - en: '|   | *4\. Jennifer Lawrence, also known as ''Nitro''* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | *4\. 詹妮弗·劳伦斯，亦称为 ''Nitro''* |'
 - en: '|   | *5\. Hugh Jackman, also known as ''Sticks''* |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | *5\. 休·杰克曼，亦称为 ''Sticks''* |'
 - en: '|   | *6\. Tom Hardy, also known as ''Weasel''`*; |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | *6\. 汤姆·哈迪，亦称为 ''Weasel''`*; |'
 - en: '|   |  |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **function** extractQuotes(str) { |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractQuotes(str) { |'
 - en: '|   | **const** re = */**(?<**!**\w)**''**(**.+**?)**''**(?!\w)**/g*; |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**(?<**!**\w)**''**(**.+**?)**''**(?!\w)**/g*; |'
 - en: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
 - en: '|   |  |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** quotes; |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** quotes; |'
 - en: '|   | } |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractQuotes(str); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractQuotes(str); |'
 - en: '|   | *// → ["D''Angelo", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["D''Angelo", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
 - en: This solution allows you to capture single quoted strings that are not part
     of larger words or surrounded by other word characters.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 该解决方案可以捕获那些不属于更大单词或被其他单词字符包围的单引号字符串。
 - en: Discussion
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Let’s examine the regex step by step:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们一步步地分析这个正则表达式：
 - en: '|   | /(?<!\w)''(.+?)''(?!\w)/ |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | /(?<!\w)''(.+?)''(?!\w)/ |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● (?<!\w) negative lookbehind: asserts that the regex inside does not
     match |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?<!\w) 负向查找：确保正则表达式内部不匹配 |'
 - en: '|   | ○ \w matches any word character |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \w 匹配任何单词字符 |'
 - en: '|   | ● '' matches the character '' literally |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● '' 字符字面上匹配 '' |'
 - en: '|   | ● (.+?) 1st capturing group |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (.+?) 第一个捕获组 |'
 - en: '|   | ○ . matches any character (except for line terminators) |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ . 匹配任何字符（除了行终止符） |'
 - en: '|   | ○ +? matches the previous token between one and unlimited times, as few
     |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ +? 匹配前面的标记一次或多次，尽可能少 |'
 - en: '|   | times as possible (lazy) |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | 次数尽可能少（懒惰） |'
 - en: '|   | ● '' matches the character '' literally |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● '' 字面匹配字符 '' |'
 - en: '|   | ● (?!\w) negative lookahead: asserts that the regex inside does not match
     |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?!\w) 负向前瞻：断言括号内的正则表达式不匹配 |'
 - en: '|   | ○ \w matches any word character |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \w 匹配任何单词字符 |'
 - en: The regex begins with a negative lookbehind to match an opening single quote
     that isn’t preceded by a word character (a letter, a digit, or underscore). As
     a result, it won’t match words like “What’s.” Next, (.+?) matches any character
@@ -140,9 +222,14 @@
     38, [*Creating Lazy Quantifiers with the Question Mark*](f_0049.xhtml#rcp.lazy)).
     Without the question mark, the pattern would match the last closing quotation
     mark in the string.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式以负向后顾开始，匹配一个没有被字母、数字或下划线等单词字符所预先跟随的单引号。因此，它不会匹配像“What's”这样的词。接下来，(.+?)
+    匹配一个或多个字符。问号使得匹配变得非贪婪，这意味着量词尽可能少地匹配前面的内容（见第38条，[*通过问号创建懒量词*](f_0049.xhtml#rcp.lazy)）。如果没有问号，模式将匹配字符串中的最后一个闭合引号。
 - en: Finally, ’(?!\w) matches a single quote that’s not followed by a word character—thanks
     to the negative lookahead.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，’(?!\w) 匹配一个单引号，且后面不能跟随字母、数字或下划线——这是由于负向前瞻的作用。

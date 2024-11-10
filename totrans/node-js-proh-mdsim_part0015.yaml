@@ -1,102 +1,152 @@
 - en: 'Chapter 11: Enabling Comments'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第 11 章：启用评论
 - en: In this chapter, we will implement the ability for users to leave comments on
     blog posts. Enabling comments will encourage discussion and engagement within
     our blogging application. Let's dive in and add this exciting feature!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将实现用户在博客文章中发表评论的功能。启用评论将鼓励讨论和互动，增加我们的博客应用的活跃度。让我们一起实现这个令人兴奋的功能！
 - en: 11.1 Comment Model
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.1 评论模型
 - en: 'To support comments, we need to create a Comment model. Open the `models/comment.js`
     file and add the following code:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了支持评论，我们需要创建一个 Comment 模型。打开 `models/comment.js` 文件并添加以下代码：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this code, we define the structure of a comment using Mongoose's Schema.
     A comment belongs to a specific post (`postId`) and is associated with an author
     (`author`). The `content` field holds the actual comment text, and `createdAt`
     stores the timestamp of when the comment was created.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们使用 Mongoose 的 Schema 定义了评论的结构。每条评论都属于一个特定的帖子（`postId`），并与作者（`author`）关联。`content`
+    字段保存实际的评论文本，`createdAt` 字段存储评论创建的时间戳。
 - en: 11.2 Comment Routes
+  id: totrans-6
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.2 评论路由
 - en: 'Now, let''s create the routes for handling comments in the `routes/comments.js`
     file:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，让我们在 `routes/comments.js` 文件中创建处理评论的路由：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the code above, we define two routes. The first route (`/create`) handles
     the creation of a new comment. It requires authentication (`authenticate` middleware)
     to ensure only logged-in users can leave comments. We extract the `postId` and
     `content` from the request body. Then, we check if the associated post exists.
     If the post is found, we create a new comment instance, set the appropriate values,
     and save it to the database.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，我们定义了两条路由。第一条路由（`/create`）处理新评论的创建。它需要身份验证（`authenticate` 中间件），确保只有登录用户才能发表评论。我们从请求体中提取
+    `postId` 和 `content`。然后，我们检查关联的帖子是否存在。如果帖子存在，我们创建一个新的评论实例，设置相应的值，并将其保存到数据库中。
 - en: The second route (`/post/:postId`) fetches all the comments associated with
     a specific post. We extract the `postId` from the request parameters and use it
     to find the comments. The `populate()` method is used to replace the `author`
     ID with the actual `username` of the comment author.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二条路由（`/post/:postId`）获取与特定帖子关联的所有评论。我们从请求参数中提取 `postId` 并用它来查找评论。`populate()`
+    方法用于将 `author` 的 ID 替换为评论作者的实际 `username`。
 - en: 11.3 Updating the Post Model
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.3 更新帖子模型
 - en: 'To enable seamless retrieval of comments for a post, we''ll update the Post
     model. Open the `models/post.js` file and modify it as follows:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了能够无缝地获取与帖子关联的评论，我们将更新 Post 模型。打开 `models/post.js` 文件并按如下方式修改：
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this updated code, we add a `comments` field to the post schema. It's an
     array of comment IDs, referencing the Comment model.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段更新后的代码中，我们在帖子模式中添加了一个 `comments` 字段。它是一个评论 ID 的数组，引用 Comment 模型。
 - en: 11.4 Updating the Post Routes
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.4 更新帖子路由
 - en: 'To associate comments with posts, we need to modify the Post routes as well.
     Open the `routes/posts.js` file and make the following changes:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了将评论与帖子关联起来，我们还需要修改 Post 路由。打开 `routes/posts.js` 文件并进行以下更改：
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the first route (`/:postId`), we add the `populate('comments')` method to
     retrieve the comments associated with the post. This ensures that when we fetch
     a single post, we also retrieve its comments.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第一个路由（`/:postId`）中，我们添加了`populate('comments')`方法来获取与帖子关联的评论。这确保了当我们获取单个帖子时，也能获取到它的评论。
 - en: 'The second route (`/:postId`) handles the update of a post. We extract the
     `postId`, `title`, and `content` from the request body. We use `findByIdAndUpdate`
     to find the post by ID and update its title and content. The `{ new: true }` option
     ensures that the updated post is returned as the response.'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '第二个路由（`/:postId`）处理帖子的更新。我们从请求体中提取`postId`、`title`和`content`。我们使用`findByIdAndUpdate`根据ID查找帖子并更新其标题和内容。`{
+    new: true }`选项确保返回更新后的帖子作为响应。'
 - en: 11.5 Summary
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.5 总结
 - en: Great job! In this chapter, we implemented the comment feature in our blogging
     application. Users can now leave comments on posts, fostering discussion and engagement.
     We created the Comment model, added comment routes for creating and fetching comments,
     and associated comments with posts.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 做得好！在本章中，我们在博客应用程序中实现了评论功能。用户现在可以在帖子下留下评论，从而促进讨论和互动。我们创建了评论模型，添加了用于创建和获取评论的路由，并将评论与帖子关联起来。
 - en: The ability to leave comments adds an interactive element to our application,
     making it more dynamic and engaging for users.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 留下评论的功能为我们的应用程序增加了互动性，使其更加动态和吸引用户。

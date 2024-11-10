@@ -1,131 +1,191 @@
 - en: 'Chapter 9: Implementing User Authentication and Authorization'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第9章：实现用户认证和授权
 - en: In this chapter, we'll focus on implementing user authentication and authorization
     to secure our blogging application. User authentication ensures that only registered
     users can access certain features, while authorization controls the level of access
     and permissions granted to each user. Let's dive in!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将重点实现用户认证和授权，以确保我们的博客应用程序的安全性。用户认证确保只有注册用户才能访问某些功能，而授权则控制每个用户的访问级别和权限。让我们开始吧！
 - en: 9.1 User Model and Registration
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.1 用户模型和注册
 - en: 'First, let''s update our User model to include authentication-related fields.
     In the `models/user.js` file, modify the code as follows:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，让我们更新我们的用户模型，以包含与认证相关的字段。在`models/user.js`文件中，修改代码如下：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here, we add the `username`, `email`, and `password` fields to the user schema.
     The `username` and `email` fields are marked as `required` and `unique`, ensuring
     each user has a unique username and email address. The `password` field will store
     the hashed password for security.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们将`username`、`email`和`password`字段添加到用户模式中。`username`和`email`字段被标记为`required`（必填）和`unique`（唯一），确保每个用户拥有唯一的用户名和电子邮件地址。`password`字段将存储哈希后的密码以确保安全。
 - en: 'To enable user registration, we''ll create a registration route in the `routes/users.js`
     file. Add the following code:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了启用用户注册，我们将在`routes/users.js`文件中创建一个注册路由。添加以下代码：
 - en: '[PRE1]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this code, we handle the `POST` request to the `/register` endpoint. First,
     we check if the provided username or email already exists in the database. If
     a user with the same username or email is found, we return a 409 status code with
     an error message.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们处理对`/register`端点的`POST`请求。首先，我们检查提供的用户名或电子邮件是否已经存在于数据库中。如果找到具有相同用户名或电子邮件的用户，我们返回409状态码并附带错误信息。
 - en: If the username and email are unique, we hash the password using bcrypt with
     a cost factor of 10 for security. Then, we create a new user instance with the
     hashed password and save it to the database.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果用户名和电子邮件唯一，我们使用bcrypt对密码进行哈希处理，安全性设定成本因子为10。然后，我们创建一个带有哈希密码的新用户实例，并将其保存到数据库中。
 - en: 9.2 User Login and Authentication
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.2 用户登录与认证
 - en: 'Next, let''s implement user login functionality. Update the `routes/users.js`
     file with the following code:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，让我们实现用户登录功能。更新`routes/users.js`文件，添加以下代码：
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this code, we handle the `POST` request to the `/login` endpoint. First,
     we check if a user with the provided username exists in the database. If not,
     we return a 401 status code with an error message.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们处理对`/login`端点的`POST`请求。首先，我们检查数据库中是否存在提供的用户名。如果没有，我们返回401状态码并附带错误信息。
 - en: If the user is found, we compare the provided password with the stored hashed
     password using bcrypt. If the passwords match, we generate a JSON Web Token (JWT)
     using the `jsonwebtoken` library. The JWT will be used for authentication and
     authorization purposes.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果找到该用户，我们使用bcrypt比较提供的密码和存储的哈希密码。如果密码匹配，我们使用`jsonwebtoken`库生成一个JSON Web令牌（JWT）。该JWT将用于认证和授权目的。
 - en: The token is then returned as a response to the client.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后，令牌作为响应返回给客户端。
 - en: 9.3 Protecting Routes with Authentication Middleware
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.3 使用身份验证中间件保护路由
 - en: 'To protect certain routes and allow only authenticated users to access them,
     we''ll create an authentication middleware. In the `middleware/auth.js` file,
     add the following code:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了保护某些路由并允许只有经过认证的用户访问它们，我们将创建一个身份验证中间件。在`middleware/auth.js`文件中，添加以下代码：
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this code, we define an authentication middleware function called `authenticate`.
     This middleware checks if a JWT token is present in the `Authorization` header
     of the request. If no token is found, we return a 401 status code with an "Unauthorized"
     error message.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了一个名为`authenticate`的身份验证中间件函数。该中间件检查请求的`Authorization`头中是否存在JWT令牌。如果没有找到令牌，我们返回一个401状态码，并附带“未授权”错误信息。
 - en: If a token is present, we verify it using the same secret key used for token
     generation. If the token is valid, we extract the username from the decoded token
     and set it in the `req.user` property for future use.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果存在令牌，我们使用与令牌生成相同的密钥进行验证。如果令牌有效，我们从解码后的令牌中提取用户名，并将其设置在`req.user`属性中以供后续使用。
 - en: 9.4 Protecting Routes and Implementing Authorization
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.4 保护路由并实现授权
 - en: 'Now that we have the authentication middleware, we can protect our routes and
     implement authorization. In the `routes/posts.js` file, update the code as follows:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，我们已经有了身份验证中间件，可以保护路由并实现授权。在`routes/posts.js`文件中，更新代码如下：
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In this code, we apply the `authenticate` middleware to the `/create`, `/update`,
     and `/delete` routes. This ensures that only authenticated users can access these
     routes. The `req.user` property, which contains the username of the authenticated
     user, can be used for authorization logic.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们将`authenticate`中间件应用于`/create`、`/update`和`/delete`路由。这确保了只有经过认证的用户可以访问这些路由。包含已认证用户用户名的`req.user`属性可以用于授权逻辑。
 - en: Now, only authenticated users will be able to create, update, or delete blog
     posts.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，只有经过认证的用户才能创建、更新或删除博客文章。
 - en: 9.5 Summary
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.5 总结
 - en: Great job! In this chapter, we implemented user authentication and authorization
     in our blogging application. We created a registration route for users to sign
     up, a login route for users to authenticate, and protected certain
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 做得好！在这一章中，我们在博客应用中实现了用户认证和授权。我们为用户创建了一个注册路由，供用户注册，一个登录路由，供用户进行身份验证，并保护了某些
 - en: routes to ensure only authenticated users can access them.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 路由已被保护，确保只有经过认证的用户可以访问它们。
 - en: We also implemented a simple authorization mechanism by using the username extracted
     from the JWT token. This lays the foundation for building more granular access
     control and permission systems in the future.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还通过使用从JWT令牌中提取的用户名实现了一个简单的授权机制。这为未来构建更细粒度的访问控制和权限系统奠定了基础。

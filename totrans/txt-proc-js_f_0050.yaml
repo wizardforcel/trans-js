@@ -1,153 +1,236 @@
 - en: '| Recipe 39 | Global and Case-Insensitive Matching with the g and i Flags |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 例子 39 | 使用 g 和 i 标志进行全局和不区分大小写的匹配 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose your task is creating a U.S. version of an existing company website.
     You need to search the content of web pages, find instances of the word “tyre,”
     including its plural form “tyres,” and replace each with its American spelling
     “tire.” The search must ignore the letter case, so it matches “Tyre” at the beginning
     of sentences as well.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是为一个现有公司网站创建美国版。你需要搜索网页内容，找到“tyre”一词的所有实例，包括它的复数形式“tyres”，并将它们每个都替换为美国拼写的“tire”。搜索必须忽略字母大小写，因此也能匹配句首的“Tyre”。
 - en: Another requirement is to find all possible matches in the string. So, rather
     than stopping the search as soon as a match is found, the engine must continue
     looking for more matches in the rest of the string. Doing all these manually takes
     a lot of time. Fortunately, regex flags are here to save the day.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个要求是找到字符串中所有可能的匹配项。所以，搜索不能在找到第一个匹配项后就停止，而是必须继续在剩余的字符串中查找更多匹配项。手动完成这些操作需要很多时间。幸运的是，正则表达式的标志可以解决这个问题。
 - en: '| One More Time? |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '| 再来一次？ |'
 - en: '| --- |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | You have already
     seen the i and g flags in action in the previous recipes. This recipe looks at
     them one more time to solidify your understanding of them. |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 你已经在前面的示例中看到过
+    i 和 g 标志的作用。这个例子会再讲解一次它们，帮助你加深理解。 |'
 - en: Solution
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Place i and g at the end of the pattern:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在模式末尾添加 i 和 g：
 - en: '[part_2/flag_global_insensitive/gi_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_global_insensitive/gi_ex1.js)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_global_insensitive/gi_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_global_insensitive/gi_ex1.js)'
 - en: '|   | **const** str = *`Tyre pressure is expressed as pounds per square inch*
     |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`轮胎气压以每平方英寸磅（PSI）表示* |'
 - en: '|   | *(PSI). Proper tyre pressure is necessary for optimal handling.* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | *(PSI)。适当的轮胎气压对于最佳操控非常重要。* |'
 - en: '|   | *It''s important to inspect your tyres every month for wear.`*; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | *每月检查轮胎的磨损情况很重要。`*; |'
 - en: '|   |  |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re = */**\b(**t**)**yre**(**s**)?\b**/gi*; |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b(**t**)**yre**(**s**)?\b**/gi*; |'
 - en: '|   |  |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.replace(re, *"$1ire$2"*); |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.replace(re, *"$1ire$2"*); |'
 - en: '|   | *// → "Tire pressure is expressed as pounds per square inch (PSI).* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "轮胎气压以每平方英寸磅（PSI）表示。* |'
 - en: '|   | *// Proper tire pressure is necessary for optimal handling. It''s important*
     |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 合适的轮胎气压对于最佳操控非常重要。它很重要* |'
 - en: '|   | *// to inspect your tires every month for wear."* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 每月检查轮胎的磨损情况。"* |'
 - en: Mission accomplished! All instances of “tyre” in the string are replaced with
     “tire.”
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 任务完成！字符串中的所有“tyre”都已被替换为“tire”。
 - en: Discussion
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: In regex literals, it’s possible to specify options by adding single-letter
     flags, also known as modifiers, following the forward slash that terminates the
     pattern. Normally, the replace() method replaces only the first occurrence of
     the specified pattern in a string. But here, we’re using the global search flag
     (g), which instructs the engine to continue searching for other pattern occurrences.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在正则表达式字面量中，可以通过在模式后面的斜杠添加单字母标志（也称为修饰符）来指定选项。通常，replace()方法仅替换字符串中指定模式的第一个出现。但在这里，我们使用了全局搜索标志（g），它指示引擎继续搜索其他模式的出现。
 - en: 'The i flag complements the g flag by asking the engine to perform the match
     in a case-insensitive manner. Here’s how each token in this regex works:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: i标志与g标志互补，要求引擎以不区分大小写的方式进行匹配。以下是正则表达式中每个标记的作用：
 - en: '|   | /\b(t)yre(s)?\b/gi |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\b(t)yre(s)?\b/gi |'
 - en: '|   |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \b asserts the position at a word boundary |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b表示单词边界的位置 |'
 - en: '|   | ● (t) 1st capturing group |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (t) 第一个捕获组 |'
 - en: '|   | ○ t matches the character "t" literally |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ t字面匹配字符"t" |'
 - en: '|   | ● yre matches the characters "yre" literally |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● yre字面匹配字符"yre" |'
 - en: '|   | ● (s)? 2nd capturing group |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (s)? 第二个捕获组 |'
 - en: '|   | ○ s matches the character "s" literally |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ s字面匹配字符"s" |'
 - en: '|   | ○ ? matches the previous token between zero or one time (greedy) |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ?表示前一个标记匹配零次或一次（贪婪模式） |'
 - en: '|   | ● \b asserts the position at a word boundary |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b表示单词边界的位置 |'
 - en: '|   | ● Flags |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ g global match |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g全局匹配 |'
 - en: '|   | ○ i case-insensitive match |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ i不区分大小写的匹配 |'
 - en: Pay attention to the special characters $1 and $2 in the second argument of
     replace(). These characters have special meanings when used in the replacement
     string. The pattern $n includes the value matched by the nth captured group.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意replace()方法第二个参数中的特殊字符$1和$2。这些字符在替换字符串中有特殊含义。模式$1表示第一个捕获组匹配到的值。
 - en: Here, $1 refers to the character matched by the first capturing group, and $2
     refers to the character matched by the second capturing group. So, if the pattern
     matches the word “Tyre” with a capital “T,” that specific word will be replaced
     with “Tire.”
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，$1指的是第一个捕获组匹配到的字符，$2指的是第二个捕获组匹配到的字符。因此，如果模式匹配到以大写字母“T”开头的单词“Tyre”，该单词会被替换为“Tire”。
 - en: Similarly, if the pattern matches the optional “s” in the word “tyres,” that
     word will be replaced with “tires.” To learn more about special replacement patterns,
     see Recipe 34, [*Using Special Replacement Patterns*](f_0045.xhtml#rcp.replacement_patterns).
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似地，如果模式匹配到单词“tyres”中的可选“s”，该单词将被替换为“tires”。欲了解更多关于特殊替换模式的信息，请参见第34条[*使用特殊替换模式*](f_0045.xhtml#rcp.replacement_patterns)。
 - en: JavaScript’s regular expression flavor supports seven optional flags, including
     d, g, i, m, s, u, and y. Similar to g, these flags are placed after the closing
     delimiter in the literal form, or passed as the second argument to the RegExp()
     constructor. We’ll look at each of these flags in the recipes that follow.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript的正则表达式风格支持七个可选标志，包括d、g、i、m、s、u和y。与g类似，这些标志可以放在字面量的闭合定界符后面，或者作为第二个参数传递给RegExp()构造函数。我们将在接下来的教程中逐一介绍这些标志。

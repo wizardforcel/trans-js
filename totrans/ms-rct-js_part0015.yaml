@@ -1,279 +1,414 @@
 - en: 'Chapter 11: Redux for Advanced State Management'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第 11 章：Redux 进行高级状态管理
 - en: As React applications grow in complexity, so does the need for efficient state
     management. Redux is a powerful library that provides a centralized and predictable
     state management solution for React and other JavaScript applications. In this
     chapter, we will delve into Redux and explore how it can be used to handle advanced
     state management scenarios.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 随着 React 应用的复杂性增加，对于高效状态管理的需求也在增加。Redux 是一个强大的库，为 React 和其他 JavaScript 应用提供了集中的、可预测的状态管理解决方案。在本章中，我们将深入研究
+    Redux，并探索如何使用它来处理高级状态管理场景。
 - en: The Need for Advanced State Management
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 高级状态管理的需求
 - en: 'In React applications, managing state becomes increasingly challenging as components
     grow in number and complexity. While React''s built-in state management (using
     `useState` and `useReducer`) is sufficient for many cases, it has limitations
     when it comes to:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 React 应用中，随着组件数量和复杂性的增加，管理状态变得越来越具有挑战性。虽然 React 内建的状态管理（使用 `useState` 和 `useReducer`）在很多情况下足够使用，但在以下方面仍然存在局限性：
 - en: '1\. **Shared State**: Passing state between deeply nested components, also
     known as "prop drilling," can lead to messy and error-prone code.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **共享状态**：在深层嵌套的组件之间传递状态，也就是所谓的“属性钻井”，可能导致代码混乱且容易出错。
 - en: '2\. **Complex State Logic**: Handling state transitions, side effects, and
     asynchronous operations within components can result in unmanageable code.'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **复杂的状态逻辑**：在组件内处理状态转变、副作用和异步操作，可能导致代码变得难以管理。
 - en: '3\. **Predictable State Updates**: Ensuring that state updates follow a consistent
     and predictable pattern across your application can be challenging.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **可预测的状态更新**：确保状态更新在整个应用中遵循一致和可预测的模式可能具有挑战性。
 - en: '4\. **Time-Travel Debugging**: Debugging and tracing state changes over time
     can be complex without specialized tools.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **时间旅行调试**：如果没有专业工具，调试和追踪状态变化可能会变得非常复杂。
 - en: Redux addresses these challenges by providing a centralized state store, a clear
     pattern for state updates, and powerful debugging capabilities.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 通过提供一个集中的状态存储、清晰的状态更新模式和强大的调试功能，来解决这些挑战。
 - en: Understanding Redux Core Concepts
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 理解 Redux 核心概念
 - en: 'Redux operates on a few fundamental principles and concepts that are crucial
     to grasp before diving into its implementation:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 基于几个基本的原则和概念，这些概念对于在深入实现之前理解 Redux 至关重要。
 - en: 1\. **Store**
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 1\. **存储**
 - en: The central piece of Redux is the **store**, which acts as a single source of
     truth for the application's state. The store holds the current state and provides
     methods for reading and updating it.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 的核心部分是 **store**，它充当应用程序状态的单一真理源。store 保持当前状态并提供读取和更新它的方法。
 - en: 2\. **Actions**
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 2\. **动作**
 - en: '**Actions** are plain JavaScript objects that describe changes to the state.
     They must have a `type` property that specifies the type of action being performed.
     Actions are typically created by functions known as action creators.'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**动作**是描述状态变化的普通 JavaScript 对象。它们必须具有一个 `type` 属性，用于指定正在执行的动作类型。动作通常通过被称为动作创建器的函数来创建。'
 - en: 3\. **Reducers**
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 3\. **Reducer**
 - en: '**Reducers** are pure functions that define how the state should change in
     response to an action. They take the current state and an action as input and
     return a new state. Reducers should be kept simple and predictable.'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Reducer**是纯函数，定义了在响应动作时状态如何变化。它们以当前状态和一个动作作为输入，并返回一个新的状态。Reducer 应该保持简单且可预测。'
 - en: 4\. **Dispatch**
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 4\. **分发**
 - en: The **dispatch** function is used to send actions to the Redux store. When an
     action is dispatched, it triggers a state update through the reducers.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**dispatch** 函数用于向 Redux 存储发送动作。当一个动作被分发时，它会通过 reducer 触发状态更新。'
 - en: 5\. **Selectors**
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 5\. **选择器**
 - en: '**Selectors** are functions that allow you to extract specific pieces of data
     from the Redux store. They are useful for retrieving data from the store in a
     structured way.'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**选择器**是函数，用于从 Redux 存储中提取特定的数据。它们在以结构化的方式从存储中检索数据时非常有用。'
 - en: 6\. **Middleware**
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6\. **中间件**
 - en: '**Middleware** is a way to extend Redux''s functionality. Middleware can intercept
     and process actions before they reach the reducers. Common use cases for middleware
     include logging, asynchronous operations, and routing.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**中间件**是扩展 Redux 功能的一种方式。中间件可以在动作到达 reducer 之前拦截和处理它们。中间件的常见使用场景包括日志记录、异步操作和路由。'
 - en: 7\. **Provider**
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 7\. **Provider**
 - en: The **Provider** component from the `react-redux` library is used to wrap the
     root of the React component tree. It ensures that the Redux store is available
     to all components in the tree.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '`react-redux` 库中的**Provider**组件用于包裹 React 组件树的根节点。它确保 Redux 存储对树中的所有组件可用。'
 - en: 'Example: Creating a Redux Store'
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 示例：创建一个 Redux 存储
 - en: Let's walk through an example of setting up a Redux store and using it in a
     React application. In this example, we'll create a simple counter application.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个示例来演示如何设置 Redux 存储并在 React 应用程序中使用它。在这个示例中，我们将创建一个简单的计数器应用。
 - en: '[PRE0]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'In this example:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中：
 - en: '- We define Redux actions to increment and decrement the counter and create
     a reducer to handle these actions.'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们定义 Redux 动作来递增和递减计数器，并创建一个 reducer 来处理这些动作。'
 - en: '- We create a Redux store using `createStore` and the reducer.'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用 `createStore` 和 reducer 创建 Redux 存储。'
 - en: '- The `Provider` component wraps the entire application, making the store available
     to all components.'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `Provider` 组件包裹整个应用程序，使得存储对所有组件可用。'
 - en: '- The `Counter` component uses `useSelector` to select the count from the store
     and `useDispatch` to dispatch actions.'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `Counter` 组件使用 `useSelector` 从存储中选择计数值，并使用 `useDispatch` 来分发动作。'
 - en: Advanced Redux Concepts
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 高级 Redux 概念
 - en: 'Redux provides advanced capabilities for handling complex state management
     scenarios:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 提供了强大的功能来处理复杂的状态管理场景：
 - en: 1\. **Async Actions**
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 1\. **异步操作**
 - en: Redux can handle asynchronous actions using middleware like Redux Thunk or Redux
     Saga. This is crucial for tasks like data fetching.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 可以使用 Redux Thunk 或 Redux Saga 等中间件来处理异步操作。这对于数据获取等任务至关重要。
 - en: 2\. **Redux Toolkit**
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 2\. **Redux 工具包**
 - en: The Redux Toolkit package simplifies Redux setup by providing utilities like
     `createSlice`, which generates action creators and reducers automatically. It
     also includes a pre-configured store setup.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 工具包通过提供诸如 `createSlice` 的工具来简化 Redux 设置，该工具自动生成 action 创建器和 reducer。它还包含预配置的
+    store 设置。
 - en: 3\. **Immutable State**
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 3\. **不可变状态**
 - en: Redux encourages the use of immutability when updating state. Libraries like
     Immer can simplify the process of creating immutable updates.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 鼓励在更新状态时使用不可变性。像 Immer 这样的库可以简化创建不可变更新的过程。
 - en: 4\. **Middleware**
+  id: totrans-41
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 4\. **中间件**
 - en: Middleware allows you to extend Redux's behavior. Common middleware includes
     Redux Thunk for handling asynchronous actions and Redux Logger for logging state
     changes.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 中间件允许你扩展 Redux 的行为。常见的中间件包括用于处理异步操作的 Redux Thunk 和用于记录状态变化的 Redux Logger。
 - en: 5\. **Selectors and Reselect**
+  id: totrans-43
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 5\. **选择器和 Reselect**
 - en: Selectors help in efficiently extracting data from the Redux store. Libraries
     like Reselect optimize selectors by memoizing results.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 选择器有助于高效地从 Redux 存储中提取数据。像 Reselect 这样的库通过记忆化结果来优化选择器。
 - en: 6\. **Normalized State**
+  id: totrans-45
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6\. **规范化状态**
 - en: In applications with complex data structures, normalizing state can simplify
     updates and improve performance. Libraries like Normalizr assist in managing normalized
     data.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 在具有复杂数据结构的应用中，规范化状态可以简化更新并提高性能。像 Normalizr 这样的库有助于管理规范化数据。
 - en: Best Practices for Advanced Redux
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 高级 Redux 最佳实践
 - en: 'To effectively use Redux for advanced state management, consider these best
     practices:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了有效使用 Redux 进行高级状态管理，可以考虑以下最佳实践：
 - en: 1\. **Keep State Shape Simple**
+  id: totrans-49
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 1\. **保持状态结构简单**
 - en: Strive for a simple and flat state shape. Avoid deeply nested structures that
     can make updates and selectors complex.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 力求保持简单和平坦的状态结构。避免深度嵌套的结构，这会使更新和选择器变得复杂。
 - en: 2\. **Use Redux Toolkit**
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 2\. **使用 Redux 工具包**
 - en: When starting a new Redux project, consider using Redux Toolkit to simplify
     setup and reduce boilerplate code.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 当开始一个新的 Redux 项目时，可以考虑使用 Redux 工具包来简化设置并减少样板代码。
 - en: 3\. **Async Actions with Thunk or Saga**
+  id: totrans-53
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 3\. **使用 Thunk 或 Saga 进行异步操作**
 - en: When dealing with asynchronous actions, choose a middleware like Redux Thunk
     or Redux Saga based on your project's needs.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理异步操作时，根据项目需求选择 Redux Thunk 或 Redux Saga 作为中间件。
 - en: 4\. **Structured Folder Layout**
+  id: totrans-55
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 4\. **结构化文件夹布局**
 - en: Organize your Redux-related files into a structured folder layout, grouping
     actions, reducers, selectors, and middleware separately.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 将与 Redux 相关的文件组织成结构化的文件夹布局，将 actions、reducers、selectors 和中间件分开管理。
 - en: 5\. **Testing**
+  id: totrans-57
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 5\. **测试**
 - en: Write unit tests for reducers, actions, and selectors to ensure they behave
     as expected. Consider using testing libraries like Jest and Enzyme.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 为 reducers、actions 和 selectors 编写单元测试，确保它们按预期工作。可以考虑使用像 Jest 和 Enzyme 这样的测试库。
 - en: 6\. **
+  id: totrans-59
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6\. **
 - en: Logging**
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志**
 - en: Use middleware like Redux Logger to log state changes during development, aiding
     in debugging.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 在开发过程中使用像 Redux Logger 这样的中间件记录状态变化，帮助调试。
 - en: 7\. **Avoid Overusing Redux**
+  id: totrans-62
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 7. **避免过度使用 Redux**
 - en: While Redux is a powerful tool, avoid using it for small-scale state management
     scenarios where React's local state or context may be sufficient.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然 Redux 是一个强大的工具，但应避免在小规模状态管理场景中使用它，因为 React 的局部状态或上下文可能已经足够。
 - en: Conclusion
+  id: totrans-64
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论
 - en: Redux is a valuable tool for advanced state management in React applications.
     By embracing its core concepts, utilizing middleware for asynchronous actions,
     and following best practices, you can maintain a predictable and efficient state
     management system even in complex applications. Redux's debugging capabilities
     and support for time-travel debugging make it a solid choice for large-scale projects
     where robust state management is essential.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: Redux 是 React 应用程序中进行高级状态管理的宝贵工具。通过掌握其核心概念，使用中间件处理异步操作，并遵循最佳实践，即使在复杂的应用程序中，你也可以保持一个可预测且高效的状态管理系统。Redux
+    的调试功能和对时间旅行调试的支持，使它成为大规模项目中进行强健状态管理的理想选择。

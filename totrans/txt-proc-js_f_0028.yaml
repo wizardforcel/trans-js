@@ -1,71 +1,110 @@
 - en: '| Recipe 18 | Counting Unicode Characters with Intl.Segmenter() |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 18 | 使用 Intl.Segmenter() 计算 Unicode 字符数 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Let’s say you have an app that requires user registration and includes a text
     input for the user’s bio. The bio may be in any language and include emojis. You
     want to limit the length of the bio to precisely 120 characters. So, you need
     to calculate the length of the string. Easy! Use the length() method to get the
     number of characters:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个需要用户注册的应用，其中包含一个文本输入框用于填写用户的个人简介。这个简介可以是任何语言，并且可能包含表情符号。你希望将简介的长度精确限制为
+    120 个字符。因此，你需要计算字符串的长度。很简单！使用 length() 方法来获取字符的数量：
 - en: '![images/char_segmenter_ex1.png](images/char_segmenter_ex1.png)'
+  id: totrans-3
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex1.png](images/char_segmenter_ex1.png)'
 - en: This is probably not the result you expected. Strings in JavaScript are based
     on UTF-16, which represents characters using one or two 16-bit integers. Some
     characters, such as the Chinese character for kǒu cái (eloquence) and the cat
     emoji, require two 16-bit units (surrogate pairs) to encode. The length() method
     gives you the number of UTF-16 code units in a string, not the number of characters.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 这可能不是你期望的结果。JavaScript 中的字符串是基于 UTF-16 的，它使用一个或两个 16 位的整数来表示字符。有些字符，比如“口才”中的“口”和猫咪表情符号，需要两个
+    16 位的单元（代理对）来编码。length() 方法给出的是字符串中 UTF-16 代码单元的数量，而不是字符的数量。
 - en: '| Supplementary Characters |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '| 补充字符 |'
 - en: '| --- |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Characters
     that are made of a pair of 16-bit surrogate code units are known as supplementary
     characters. |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 由一对 16 位代理代码单元组成的字符被称为补充字符。
+    |'
 - en: Solution
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the Intl.Segmenter() constructor:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 Intl.Segmenter() 构造函数：
 - en: '[part_1/counting_characters/char_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex2.js)'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/counting_characters/char_segmenter_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex2.js)'
 - en: '|   | **function** getLength(str) { |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | **函数** getLength(str) { |'
 - en: '|   | **return** [...**new** Intl.Segmenter().segment(str)].length; |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | **返回** [...**new** Intl.Segmenter().segment(str)].length; |'
 - en: '|   | } |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '![images/char_segmenter_ex2.png](images/char_segmenter_ex2.png)'
+  id: totrans-14
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex2.png](images/char_segmenter_ex2.png)'
 - en: This function returns the number of Unicode segments in the input string. In
     other words, it determines the length of the given string based on the number
     of Unicode characters, rather than the number of code units.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 此函数返回输入字符串中的 Unicode 段数。换句话说，它根据 Unicode 字符的数量而非代码单元的数量来确定给定字符串的长度。
 - en: '| Browser Compatibility |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| 浏览器兼容性 |'
 - en: '| --- |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Segmenter()
     is a part of the Internationalization API. While most browsers have supported
     the Internationalization API features for years, Segmenter() is a relatively newer
@@ -76,169 +115,263 @@
     to emulate the behavior of Segmenter() in browsers, because doing so requires
     lots of language-specific rules.Until browser support is more solid, you can run
     Intl.Segmenter() on the server side (supported since Node 16). |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | Segmenter()
+    是国际化 API 的一部分。虽然大多数浏览器已经支持国际化 API 的特性多年，但 Segmenter() 是一个相对较新的特性，目前在 Firefox 中不受支持（截至本文撰写时）。^([[17]](f_0032.xhtml#FOOTNOTE-17))有一些
+    Unicode 感知库，比如 Graphemer，可以让你将 JavaScript 字符串拆分成单独的字母，^([[18]](f_0032.xhtml#FOOTNOTE-18))但它们的结果与
+    Segmenter 的结果并不完全一致。目前没有完美的方法来模拟 Segmenter() 在浏览器中的行为，因为这需要大量语言特定的规则。在浏览器的支持更加稳固之前，你可以在服务器端运行
+    Intl.Segmenter()（从 Node 16 开始支持）。 |'
 - en: Discussion
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: The Intl.Segmenter() constructor allows us to segment a string according to
     a specified locale and granularity. In this case, we are using the default implementation,
     so we call the method with no arguments. Because Intl.Segmenter() is a constructor,
     we need to call it with the new keyword.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: Intl.Segmenter() 构造函数允许我们根据指定的语言环境和粒度对字符串进行分段。在这个例子中，我们使用默认实现，因此我们调用该方法时不传递任何参数。由于
+    Intl.Segmenter() 是一个构造函数，我们需要使用 new 关键字来调用它。
 - en: The returned object has a segment() method, which accepts a single-string argument.
     The method segments the string, as its name suggests, meaning that it splits the
     string into user-perceived character boundaries. Because the returned value is
     an iterator, we can use the spread syntax (...) to expand the object into its
     elements. The spread syntax consists of three dots in a row, and lets us quickly
     create an array from the iterator.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回的对象有一个 segment() 方法，该方法接受一个单一的字符串参数。正如其名字所示，该方法将字符串分段，意味着它将字符串拆分为用户感知的字符边界。由于返回值是一个迭代器，我们可以使用展开语法
+    (...) 将对象展开为其元素。展开语法由三个连续的点组成，可以让我们迅速从迭代器中创建一个数组。
 - en: 'Finally, we calculate the length of the array to get the number of Unicode
     characters in the string. If you find the code to be too cryptic, you can use
     this version instead:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们计算数组的长度，以获得字符串中 Unicode 字符的数量。如果你觉得代码过于晦涩，可以使用这个版本代替：
 - en: '[part_1/counting_characters/char_segmenter_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex3.js)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/counting_characters/char_segmenter_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex3.js)'
 - en: '|   | **function** getLength(str) { |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** getLength(str) { |'
 - en: '|   | *// Create a an instance of segmenter* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 创建一个 segmenter 实例* |'
 - en: '|   | **const** Segmenter = **new** Intl.Segmenter(); |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** Segmenter = **new** Intl.Segmenter(); |'
 - en: '|   |  |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Segment the string* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 对字符串进行分段* |'
 - en: '|   | **const** segment = Segmenter.segment(str); |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** segment = Segmenter.segment(str); |'
 - en: '|   |  |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Convert it into an array* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 将其转换为数组* |'
 - en: '|   | **const** arr = Array.**from**(segment); |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** arr = Array.**from**(segment); |'
 - en: '|   |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Return the number of characters* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 返回字符的数量* |'
 - en: '|   | **return** arr.length; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** arr.length; |'
 - en: '|   | } |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '![images/char_segmenter_ex3.png](images/char_segmenter_ex3.png)'
+  id: totrans-37
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex3.png](images/char_segmenter_ex3.png)'
 - en: 'This version of the code does the exact same operations as the first. You’ll
     probably come across code that uses other techniques to count the number of characters
     in a string. One technique is to convert the string into an array of characters
     and then count the number of elements in the array:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码与第一段代码执行相同的操作。你可能会遇到使用其他技巧来计算字符串中字符数的代码。一种方法是将字符串转换为字符数组，然后计算数组中元素的数量：
 - en: '![images/char_segmenter_ex4.png](images/char_segmenter_ex4.png)'
+  id: totrans-39
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex4.png](images/char_segmenter_ex4.png)'
 - en: 'This trick works because strings since ES2015 have built-in iterators that
     are Unicode-aware and automatically treat a supplementary character as a single
     value. However, counting the number of characters in a string is not always as
     simple. In some cases, this technique could give you an inaccurate result. For
     example:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个技巧有效是因为自 ES2015 起，字符串内置了 Unicode 感知的迭代器，并自动将补充字符当作单一值处理。然而，计算字符串中的字符数并不总是那么简单。在某些情况下，这种方法可能会给出不准确的结果。例如：
 - en: '![images/char_segmenter_ex5.png](images/char_segmenter_ex5.png)'
+  id: totrans-41
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex5.png](images/char_segmenter_ex5.png)'
 - en: 'The family emoji above is known as an Emoji ZWJ Sequence that’s made of three
     independent emojis:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的家庭表情符号是一个 Emoji ZWJ 序列，由三个独立的表情符号组成：
 - en: '![images/char_segmenter_ex6.png](images/char_segmenter_ex6.png)'
+  id: totrans-43
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex6.png](images/char_segmenter_ex6.png)'
 - en: These emojis are shown in their connected forms when a zero-width joiner (ZWJ)
     is placed between them. ZWJ is a non-printing character that causes characters
     or emojis to be shown in their connected forms on supported platforms.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 当在它们之间放置一个零宽连接符（ZWJ）时，这些表情符号会以连接的形式显示。ZWJ 是一个不可打印字符，它会导致字符或表情符号在支持的平台上以连接的形式显示。
 - en: 'In the example above, the length of the emoji is 5 because we’re counting every
     ZWJ too. The following code snippet should make this clearer:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的例子中，表情符号的长度为 5，因为我们计算了每个零宽连接符（ZWJ）。以下代码片段可以让这一点更清楚：
 - en: '![images/char_segmenter_ex7.png](images/char_segmenter_ex7.png)'
+  id: totrans-46
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex7.png](images/char_segmenter_ex7.png)'
 - en: The empty strings in the result represent ZWJ characters. Since ZWJs are non-printable,
     they are displayed as empty strings.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 结果中的空字符串表示 ZWJ 字符。由于 ZWJ 是不可打印的，它们会显示为空字符串。
 - en: 'Another issue is that some characters look the same but have different code
     points, and thus are not equal. Consider the following code:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个问题是，一些字符看起来相同，但它们的代码点不同，因此它们不相等。请看以下代码：
 - en: '![images/char_segmenter_ex8.png](images/char_segmenter_ex8.png)'
+  id: totrans-49
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex8.png](images/char_segmenter_ex8.png)'
 - en: 'The character assigned to str1 may look exactly the same as the character assigned
     to str2, but in reality, they’re different characters. The character in the first
     string has a code point of U+00E9 (LATIN SMALL LETTER E WITH ACUTE), while the
     second character consists of two separate code points, including U+0065 (LATIN
     SMALL LETTER E) and U+0301 (COMBINING ACUTE ACCENT):'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 分配给 str1 的字符可能与分配给 str2 的字符看起来完全相同，但实际上它们是不同的字符。第一个字符串中的字符的代码点是 U+00E9（拉丁小写字母
+    E 带有重音符号），而第二个字符由两个独立的代码点组成，包括 U+0065（拉丁小写字母 E）和 U+0301（组合重音符号）：
 - en: '|   | console.log(*"***\***u00E9"*); *// → é* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"***\***u00E9"*); *// → é* |'
 - en: '|   | console.log(*"***\***u0065***\***u0301"*); *// → é* |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(*"***\***u0065***\***u0301"*); *// → é* |'
 - en: 'This explains why the length of the second string is two. Fortunately, the
     Internationalization API is smart enough to count such characters as a single
     character. Compare:'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 这解释了为什么第二个字符串的长度是 2。幸运的是，国际化 API 足够智能，可以将这种字符视为单个字符来计算。对比一下：
 - en: '![images/char_segmenter_ex9.png](images/char_segmenter_ex9.png)'
+  id: totrans-54
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex9.png](images/char_segmenter_ex9.png)'
 - en: 'Recall from the previous recipe that charAt() cannot handle supplementary characters.
     Let’s take advantage of Intl.Segmenter() to write a function that remedies this
     shortcoming:'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 回顾前一个食谱，我们知道 charAt() 不能处理补充字符。让我们利用 Intl.Segmenter() 编写一个函数来解决这个问题：
 - en: '[part_1/counting_characters/char_segmenter_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex4.js)'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/counting_characters/char_segmenter_ex4.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/counting_characters/char_segmenter_ex4.js)'
 - en: '|   | *// charAt() alternative* |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// charAt() 替代方法* |'
 - en: '![images/char_segmenter_ex10.png](images/char_segmenter_ex10.png)'
+  id: totrans-58
   prefs: []
   type: TYPE_IMG
+  zh: '![images/char_segmenter_ex10.png](images/char_segmenter_ex10.png)'
 - en: This function is very similar to our first function in this recipe, except that
     it uses [index]["segment"] rather than .length. The expression [index] gets us
     the character wrapped in an object, and ["segment"] refers to the property of
     the object that holds the character.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数与我们在本食谱中看到的第一个函数非常相似，不同之处在于它使用了[index]["segment"]，而不是.length。表达式[index]可以让我们获取被对象包装的字符，["segment"]则是指对象中包含字符的属性。
 - en: Use the Intl.Segmenter() constructor whenever you want to get the length of
     a string that contains Unicode characters. But counting characters isn’t the only
     thing that you can do with Intl.Segmenter(). In the next recipe, we’ll look at
     using the API to count the number of words in a string.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 每当你需要获取包含 Unicode 字符的字符串长度时，可以使用Intl.Segmenter()构造函数。但字符计数并不是Intl.Segmenter()唯一的功能。在下一个食谱中，我们将学习如何使用这个
+    API 来计算字符串中的单词数。

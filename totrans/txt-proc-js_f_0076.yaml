@@ -1,137 +1,213 @@
 - en: '| Recipe 64 | Extracting Text Enclosed in Double Quotes |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 方案 64 | 提取双引号括起来的文本 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you have a movie review website, and you want to incorporate a mini-game
     widget into your page. The game prompts readers to guess the name of a celebrity
     based on a given nickname.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个电影评论网站，并且你想在页面上嵌入一个迷你游戏小部件。这个游戏会提示读者根据给定的昵称猜测名人的名字。
 - en: 'Your data source consists of a string that contains a list of celebrity names
     along with their corresponding nicknames, all enclosed in double quotation marks,
     like this:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 数据源是一个包含名人姓名及其对应昵称的字符串，所有内容都被双引号括起来，像这样：
 - en: '|   | 1\. Dwayne Johnson, also known as "The Rock" |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 1\. 德维恩·约翰逊，也被称为"巨石" |'
 - en: '|   | 2\. Scarlett Johansson, also known as "Scarjo" |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | 2\. 薇诺娜·约翰逊，也被称为"Scarjo" |'
 - en: '|   | 3\. Bradley Cooper, also known as "Coop" |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | 3\. 布莱德利·库珀，也被称为"库普" |'
 - en: '|   | 4\. Jennifer Lawrence, also known as "Nitro" |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | 4\. 詹妮弗·劳伦斯，也被称为"炸药" |'
 - en: '|   | 5\. Hugh Jackman, also known as "Sticks" |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | 5\. 雨果·杰克曼，也被称为"棍子" |'
 - en: '|   | 6\. Tom Hardy, also known as "Weasel" |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | 6\. 汤姆·哈迪，也被称为"黄鼠狼" |'
 - en: 'Your initial task is to extract the quoted texts from the string, so you can
     build an array of nicknames:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的初始任务是从字符串中提取引用文本，以便构建一个包含昵称的数组：
 - en: '|   | ["The Rock", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"] |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["巨石", "Scarjo", "库普", "炸药", "棍子", "黄鼠狼"] |'
 - en: What you need is a way to detect a pair of quotation marks and extract the text
     within them.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要做的是检测一对引号并提取其中的文本。
 - en: Solution
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Add double quotes to the beginning and end of a regex pattern, and use a negated
     character class to match characters that are not double quotes:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 向正则表达式模式的开始和结尾添加双引号，并使用否定字符类匹配非双引号字符：
 - en: '[part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/extracting_text_in_double_quotes/double_quoted_text_ex1.js)'
 - en: '|   | **const** str = |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`1\. Dwayne Johnson, also known as "The Rock"* |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`1\. 德维恩·约翰逊，也被称为"巨石"* |'
 - en: '|   | *2\. Scarlett Johansson, also known as "Scarjo"* |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | *2\. 薇诺娜·约翰逊，也被称为"Scarjo"* |'
 - en: '|   | *3\. Bradley Cooper, also known as "Coop"* |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | *3\. 布莱德利·库珀，也被称为"库普"* |'
 - en: '|   | *4\. Jennifer Lawrence, also known as "Nitro"* |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | *4\. 詹妮弗·劳伦斯，也被称为"炸药"* |'
 - en: '|   | *5\. Hugh Jackman, also known as "Sticks"* |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | *5\. 雨果·杰克曼，也被称为"棍子"* |'
 - en: '|   | *6\. Tom Hardy, also known as "Weasel"`*; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | *6\. 汤姆·哈迪，也被称为"黄鼠狼"`*; |'
 - en: '|   | **function** extractQuotes(str) { |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** extractQuotes(str) { |'
 - en: '|   | **const** re = */"**([^**"**]*****)**"/g*; |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */"**([^**"**]*****)**"/g*; |'
 - en: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** quotes = [...str.matchAll(re)].map(value => value[1]); |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **return** quotes; |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** quotes; |'
 - en: '|   | } |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | extractQuotes(str); |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | extractQuotes(str); |'
 - en: '|   | *// → ["The Rock", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → ["The Rock", "Scarjo", "Coop", "Nitro", "Sticks", "Weasel"]* |'
 - en: This function returns an array of quoted text without including the quotes in
     the result.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数返回一个包含引用文本的数组，但结果中不包括引号。
 - en: Discussion
+  id: totrans-33
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: Double quotes don’t have a special meaning in regular expressions, so we just
     add them to the pattern. Next, we use [^"] to match any character that’s not double
     quotes, and append a * to repeat the class zero or more times. The pattern ends
     in a " to match the closing double quotes.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 双引号在正则表达式中没有特殊含义，因此我们只是将其添加到模式中。接下来，我们使用`[^"]`来匹配任何不是双引号的字符，并追加一个`*`来使该类重复零次或多次。该模式以一个双引号结束，用于匹配结束的双引号。
 - en: To retrieve the capturing groups of all matches, we use the matchAll() method.
     Because matchAll() returns an iterator, we can use the spread syntax (…) to unpack
     the object and generate an array from the outcome. This way we can use array methods
     on it.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了获取所有匹配的捕获组，我们使用`matchAll()`方法。由于`matchAll()`返回一个迭代器，我们可以使用扩展语法（…）来解包对象，并从结果中生成一个数组。这样我们就可以在其上使用数组方法。
 - en: 'Since we have a capturing group in the regex pattern, each match result contains
     an array with two elements: the entire matched substring and the content inside
     the quotes. By using value[1], we access the second element of the array, which
     corresponds to the content inside the quotes. Then we store them in the quotes
     array.'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于我们的正则表达式模式中有一个捕获组，每个匹配结果都包含一个有两个元素的数组：整个匹配的子字符串和引号中的内容。通过使用`value[1]`，我们访问数组的第二个元素，这对应于引号中的内容。然后，我们将这些内容存储在`quotes`数组中。
 - en: Matching a string enclosed in single quotes can be slightly more challenging
     as the text within the quotes may contain an apostrophe, such as in ‘I can’t.’
     The next recipe provides a solution for extracting text enclosed in single quotes.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配单引号括起来的字符串可能稍微有些挑战，因为引号中的文本可能包含撇号，例如在‘I can’t.’中。下一个示例提供了解决方案，用于提取被单引号括起来的文本。

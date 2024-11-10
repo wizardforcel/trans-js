@@ -1,297 +1,455 @@
 - en: 'Chapter 8: React Router and Navigation'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第8章：React Router 和导航
 - en: React Router is a powerful library for adding client-side routing and navigation
     to your React applications. It allows you to create single-page applications (SPAs)
     with multiple views or pages that can be navigated seamlessly without full page
     reloads. In this chapter, we will explore how to set up and use React Router to
     create dynamic and responsive navigation in your React projects.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: React Router 是一个强大的库，用于为你的 React 应用程序添加客户端路由和导航。它允许你创建单页面应用（SPA），并能在多个视图或页面之间无缝切换，且不需要完全刷新页面。在本章中，我们将探讨如何配置和使用
+    React Router 来创建动态和响应式的导航。
 - en: Introduction to React Router
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: React Router 简介
 - en: React Router is a popular routing library for React applications that provides
     a declarative way to manage the application's URL and navigate between different
     views. It helps you build SPAs by rendering components based on the current URL,
     all while maintaining a smooth user experience.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: React Router 是一个流行的 React 应用路由库，它提供了一种声明式的方式来管理应用程序的 URL，并在不同视图之间进行导航。它帮助你通过根据当前
+    URL 渲染组件来构建单页面应用（SPA），同时保持平滑的用户体验。
 - en: Key Concepts in React Router
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: React Router 的关键概念
 - en: 'Before we dive into the practical implementation of React Router, let''s familiarize
     ourselves with some key concepts:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们深入 React Router 的实际实现之前，先让我们熟悉一些关键概念：
 - en: '1\. **Route**: A `Route` is a component provided by React Router that renders
     UI based on the current location. It matches a URL path to a specific component
     and renders that component when the path matches.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **路由**：`Route` 是 React Router 提供的一个组件，它根据当前的位置渲染 UI。它将 URL 路径匹配到特定的组件，当路径匹配时就渲染该组件。
 - en: '2\. **BrowserRouter**: `BrowserRouter` is one of the router components that
     should be wrapped around your application. It uses HTML5 history''s pushState
     and replaceState methods to keep your UI in sync with the URL.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **BrowserRouter**：`BrowserRouter` 是需要包裹在应用程序外部的路由组件之一。它使用 HTML5 历史记录的 pushState
+    和 replaceState 方法来保持 UI 与 URL 同步。
 - en: '3\. **Route Parameters**: Route parameters allow you to capture dynamic segments
     of the URL, making your routes more flexible. For example, you can have a route
     like `/users/:id`, where `:id` represents a parameter that can change.'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **路由参数**：路由参数允许你捕获 URL 中的动态部分，使路由更加灵活。例如，你可以有一个像 `/users/:id` 这样的路由，其中 `:id`
+    代表一个可以变化的参数。
 - en: '4\. **Link**: The `Link` component is used for navigation. It renders an anchor
     tag (`<a>`) with the appropriate URL and ensures that the entire page does not
     reload when navigating between views.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **链接**：`Link` 组件用于导航。它渲染一个锚点标签（`<a>`），并带有合适的 URL，确保在不同视图之间导航时，整个页面不会重新加载。
 - en: Now that we have a basic understanding of these concepts, let's set up React
     Router in a React application and create some navigation examples.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们对这些概念有了基本了解，接下来我们在 React 应用程序中配置 React Router，并创建一些导航示例。
 - en: Setting Up React Router
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 配置 React Router
 - en: 'To get started with React Router, you need to install it as a dependency in
     your project. You can do this using npm or yarn:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 要开始使用 React Router，你需要将其作为依赖项安装到你的项目中。你可以使用 npm 或 yarn 来完成此操作：
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Once React Router is installed, you can begin configuring your routes and navigation.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦安装了 React Router，你就可以开始配置你的路由和导航。
 - en: Basic Usage of React Router
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: React Router 的基本用法
 - en: 'Here''s a simple example of how to set up basic routing in a React application:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个简单的示例，展示了如何在 React 应用中设置基本的路由：
 - en: 1\. Import the necessary components from `react-router-dom`.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 1. 从 `react-router-dom` 导入必要的组件。
 - en: 2\. Wrap your entire application in a `BrowserRouter` component to enable routing.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 2. 将整个应用程序包裹在 `BrowserRouter` 组件中以启用路由。
 - en: 3\. Define your routes using the `Route` component. Each `Route` component takes
     a `path` prop that defines the URL path it should match and a `component` prop
     that specifies the component to render when the URL matches.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 3. 使用 `Route` 组件定义你的路由。每个 `Route` 组件都有一个 `path` 属性，用于定义它应该匹配的 URL 路径，还有一个 `component`
+    属性，用于指定当 URL 匹配时渲染的组件。
 - en: 4\. Use the `Link` component for navigation.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 4. 使用 `Link` 组件进行导航。
 - en: 'Let''s create a basic example to illustrate these steps:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们创建一个基本示例来说明这些步骤：
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'In this example:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中：
 - en: '- We import the necessary components from `react-router-dom`.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们从 `react-router-dom` 导入了必要的组件。'
 - en: '- We wrap our entire application in a `Router` component.'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们将整个应用程序包裹在 `Router` 组件中。'
 - en: '- We define two routes: one for the home page (`/`) and one for the about page
     (`/about`). The `exact` prop is used for the home route to ensure it only matches
     when the URL is exactly `/`.'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们定义了两个路由：一个是首页路由（`/`），另一个是关于页面路由（`/about`）。首页路由使用 `exact` 属性，确保它只在 URL 完全是
+    `/` 时才匹配。'
 - en: '- We use the `Link` component to navigate between views, ensuring that the
     page does not fully reload when we switch between them.'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用 `Link` 组件在视图之间进行导航，确保在切换视图时页面不会完全重新加载。'
 - en: With this setup, you can create a basic navigation structure for your React
     application.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这个设置，你可以为 React 应用创建一个基本的导航结构。
 - en: Route Parameters
+  id: totrans-29
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 路由参数
 - en: 'Route parameters allow you to capture dynamic segments of the URL. Let''s create
     an example where we display user profiles based on their IDs from the URL:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 路由参数允许你捕获 URL 中的动态部分。让我们创建一个示例，根据 URL 中的 ID 显示用户的个人资料：
 - en: '[PRE2]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'In this example:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中：
 - en: '- We define a `UserProfile` component that uses route parameters to determine
     which user''s profile to display. The `match.params` object contains the route
     parameters.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们定义了一个 `UserProfile` 组件，使用路由参数来确定显示哪个用户的个人资料。`match.params` 对象包含了路由参数。'
 - en: '- We iterate over the `users` array and create links to each user''s profile
     using their IDs in the URL.'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们遍历 `users` 数组，并使用每个用户的 ID 在 URL 中创建指向用户个人资料的链接。'
 - en: '- The `Route` component with the path `/user/:id` captures the user''s ID as
     a route parameter.'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '`Route` 组件的路径 `/user/:id` 将用户的 ID 捕获为路由参数。'
 - en: '- When a user clicks a link, the `UserProfile` component is rendered with the
     appropriate user data.'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 当用户点击链接时，`UserProfile` 组件将根据相应的用户数据进行渲染。'
 - en: Nested Routes and Layouts
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 嵌套路由和布局
 - en: React Router allows you to create nested routes, enabling more complex navigation
     structures. You can use this feature to create layouts that are consistent across
     multiple views while changing the content dynamically.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: React Router 允许你创建嵌套路由，从而实现更复杂的导航结构。你可以利用这一特性创建多个视图中内容动态变化的同时，保持布局的一致性。
 - en: Nested Routes Example
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 嵌套路由示例
 - en: Let's create an example of nested routes to illustrate how they work. We'll
     have a layout with a header and sidebar that remains consistent across different
     sections of an app, while the content changes based on the selected route.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们创建一个嵌套路由的示例，来展示它们是如何工作的。我们将设置一个带有头部和侧边栏的布局，头部和侧边栏在应用的不同部分保持一致，而内容会根据所选路由动态变化。
 - en: '[PRE3]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'In this example:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中：
 - en: '- We have three views: Home, About, and Contact, each represented by a component.'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们有三个视图：主页、关于和联系我们，每个视图都由一个组件表示。'
 - en: '- We create a `Sidebar` component that contains navigation links to these views.'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们创建了一个包含导航链接的 `Sidebar` 组件，用于跳转到这些视图。'
 - en: '- We create a `Layout` component that includes a header and a sidebar. The
     `children` prop represents the content that will be displayed within the layout.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们创建了一个包含头部和侧边栏的 `Layout` 组件。`children` prop 代表将在布局内显示的内容。'
 - en: '- Within the `App` component, we set up nested routes under the path `/app`.
     These nested routes render the appropriate view components within the `Layout`.'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在 `App` 组件中，我们在路径 `/app` 下设置了嵌套路由。这些嵌套路由在 `Layout` 内渲染相应的视图组件。'
 - en: With this setup, we have a consistent layout for our app, with a changing content
     area based on the selected route.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 有了这个设置，我们的应用有一个一致的布局，内容区域会根据所选路由的不同而变化。
 - en: Programmatic Navigation
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 编程式导航
 - en: In addition to using `Link` components for navigation, you can also perform
     programmatic navigation in response to user actions or other events.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了使用 `Link` 组件进行导航外，你还可以根据用户的操作或其他事件执行编程式导航。
 - en: 'React Router provides a `history` object that allows you to navigate programmatically.
     Here''s an example of how to use it:'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: React Router 提供了一个 `history` 对象，允许你进行编程式导航。以下是一个如何使用它的示例：
 - en: '[PRE4]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'In this example:'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中：
 - en: '- We use the `history` object that React Router provides as a prop to the `About`
     component.'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用 React Router 提供的 `history` 对象作为 prop 传递给 `About` 组件。'
 - en: '- Inside the `About` component, we define a `navigateToHome` function that
     uses `history.push(''/'')` to navigate to the home page.'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 在 `About` 组件中，我们定义了一个 `navigateToHome` 函数，它使用 `history.push(''/'')` 来跳转到主页。'
 - en: '- We also have a button in the `Home` component that triggers the `navigateToAbout`
     function to navigate to the about page.'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们还在 `Home` 组件中添加了一个按钮，当点击时触发 `navigateToAbout` 函数，跳转到关于页面。'
 - en: With programmatic navigation, you can control the flow of your application based
     on user interactions or other events.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过编程式导航，你可以根据用户的交互或其他事件控制应用程序的流程。
 - en: Protected Routes and Authentication
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 受保护路由和身份验证
 - en: In real-world applications, you often need to protect certain routes to ensure
     that only authenticated users can access them. React Router allows you to implement
     protected routes easily.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 在实际应用中，您通常需要保护某些路由，以确保只有经过身份验证的用户才能访问它们。React Router 使您能够轻松实现受保护的路由。
 - en: 'Here''s an example of how to create a protected route:'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是如何创建受保护路由的示例：
 - en: '[PRE5]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'In this example:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此示例中：
 - en: '- We use a `isAuthenticated` state variable to keep track of whether the user
     is authenticated.'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 我们使用`isAuthenticated`状态变量来跟踪用户是否已认证。'
 - en: '- The `Login` component provides a way to simulate a successful login. It sets
     a token in `localStorage` and updates the `isAuthenticated` state.'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `Login` 组件提供了一种模拟成功登录的方法。它在 `localStorage` 中设置了一个令牌，并更新了 `isAuthenticated`
+    状态。'
 - en: '- The `/dashboard` route is protected. If the user is not authenticated, they
     will be redirected to the `/login` page.'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '- `/dashboard` 路由是受保护的。如果用户未经过身份验证，他们将被重定向到 `/login` 页面。'
 - en: '- The `Redirect` component from React Router is used for redirection.'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '- 使用React Router的`Redirect`组件进行重定向。'
 - en: With this setup, you can implement authentication and protected routes in your
     application.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用此设置，您可以在应用程序中实现身份验证和受保护的路由。
 - en: Conclusion and Best Practices
+  id: totrans-67
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论与最佳实践
 - en: 'React Router is a powerful tool for handling navigation and routing in your
     React applications. Here are some best practices and key takeaways:'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: React Router 是一个强大的工具，用于处理 React 应用中的导航和路由。以下是一些最佳实践和关键要点：
 - en: '1\. **Use React Router for Navigation**: React Router simplifies client-side
     navigation and allows you to create SPAs with dynamic content.'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **使用 React Router 进行导航**：React Router 简化了客户端导航，并允许您创建具有动态内容的单页应用（SPA）。
 - en: '2\. **Nested Routes for Layouts**: Consider using nested routes to create consistent
     layouts with changing content.'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **用于布局的嵌套路由**：考虑使用嵌套路由来创建一致的布局和变化的内容。
 - en: '3\. **Programmatic Navigation**: Use the `history` object for programmatic
     navigation in response to user actions or events.'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **编程导航**：使用 `history` 对象根据用户操作或事件进行编程导航。
 - en: '4\. **Protected Routes**: Implement protected routes for authentication and
     authorization purposes, ensuring that only authorized users can access certain
     views.'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **受保护的路由**：实现受保护的路由，用于身份验证和授权，确保只有授权用户才能访问某些视图。
 - en: '5\. **Error Handling**: Handle errors gracefully when routes or views are not
     found. You can use a `<Route>` with no `path` to create a "Not Found" page.'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **错误处理**：当路由或视图未找到时，优雅地处理错误。您可以使用没有 `path` 的 `<Route>` 创建一个 "未找到" 页面。
 - en: By mastering React Router, you can create complex and interactive web applications
     with efficient navigation. It's a crucial tool for building modern SPAs that provide
     a seamless user experience. In the next chapter, we'll explore more advanced topics
     in React development, including state management with Redux and the use of middleware
     for asynchronous actions.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过掌握 React Router，你可以创建复杂且交互性强的网页应用，并实现高效的导航。它是构建现代单页应用（SPA）不可或缺的工具，可以提供流畅的用户体验。在下一章中，我们将探索
+    React 开发中的更高级主题，包括使用 Redux 进行状态管理以及使用中间件处理异步操作。

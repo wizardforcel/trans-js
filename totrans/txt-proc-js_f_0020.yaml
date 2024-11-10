@@ -1,194 +1,308 @@
 - en: '| Recipe 10 | Generating HTML Tables from an Array of Arrays |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 10 | 从数组的数组生成 HTML 表格 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose your task is to generate reports or summaries of data that are stored
     in an array of arrays. For instance, you may need to create a summary of performance
     metrics for a company across multiple financial quarters from an array like this:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你的任务是生成报告或摘要，内容来自存储在数组中的数据。例如，你可能需要创建一个公司的业绩摘要，包含多个财务季度的数据，格式如下：
 - en: '|   | const data = [ |'
+  id: totrans-3
   prefs: []
   type: TYPE_TB
+  zh: '|   | const data = [ |'
 - en: '|   | ["Quarter", "Revenue", "Eps"], |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["季度", "收入", "每股收益"], |'
 - en: '|   | ["Q1 FY22", 45962, 2.71], |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["Q1 财年22季度", 45962, 2.71], |'
 - en: '|   | ["Q2 FY22", 44845, 2.71], |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["Q2 财年22季度", 44845, 2.71], |'
 - en: '|   | ["Q3 FY22", 46151, 2.03], |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["Q3 财年22季度", 46151, 2.03], |'
 - en: '|   | ["Q4 FY22", 46822, 2.11], |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["Q4 财年22季度", 46822, 2.11], |'
 - en: '|   | ["Q1 FY23", 45215, 2.64] |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | ["Q1 财年23季度", 45215, 2.64] |'
 - en: '|   | ]; |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | ]; |'
 - en: Your objective is to convert the array into an HTML table so that you can present
     the data in a structured and organized format.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 你的目标是将这个数组转换为 HTML 表格，以便以结构化和有组织的方式展示数据。
 - en: Solution
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the following function:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用以下函数：
 - en: '[part_1/generating_html_table_v1/html_table_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/generating_html_table_v1/html_table_v1_ex1.js)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_1/generating_html_table_v1/html_table_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_1/generating_html_table_v1/html_table_v1_ex1.js)'
 - en: '|   | **const** data = [ |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** data = [ |'
 - en: '|   | [*"Quarter"*, *"Revenue"*, *"Eps"*], |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"季度"*, *"收入"*, *"每股收益"*], |'
 - en: '|   | [*"Q1 FY22"*, 45962, 2.71], |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"Q1 财年22季度"*, 45962, 2.71], |'
 - en: '|   | [*"Q2 FY22"*, 44845, 2.71], |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"Q2 财年22季度"*, 44845, 2.71], |'
 - en: '|   | [*"Q3 FY22"*, 46151, 2.03], |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"Q3 财年22季度"*, 46151, 2.03], |'
 - en: '|   | [*"Q4 FY22"*, 46822, 2.11], |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"Q4 财年22季度"*, 46822, 2.11], |'
 - en: '|   | [*"Q1 FY23"*, 45215, 2.64] |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | [*"Q1 财年23季度"*, 45215, 2.64] |'
 - en: '|   | ]; |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | ]; |'
 - en: '|   | **function** createTable(data) { |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** createTable(data) { |'
 - en: '|   | **const** table = document.createElement(*"table"*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** table = document.createElement(*"table"*); |'
 - en: '|   | **const** thead = table.createTHead(); |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** thead = table.createTHead(); |'
 - en: '|   | **const** tbody = table.createTBody(); |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** tbody = table.createTBody(); |'
 - en: '|   | **const** headerRow = thead.insertRow(); |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** headerRow = thead.insertRow(); |'
 - en: '|   |  |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Create table head* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 创建表格头部* |'
 - en: '|   | data[0].forEach(item => { |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | data[0].forEach(item => { |'
 - en: '|   | **const** th = document.createElement(*"th"*); |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** th = document.createElement(*"th"*); |'
 - en: '|   | th.innerText = item; |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | th.innerText = item; |'
 - en: '|   | headerRow.appendChild(th); |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | headerRow.appendChild(th); |'
 - en: '|   | }); |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Create table body* |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 创建表格主体* |'
 - en: '|   | data.slice(1).forEach(rowData => { |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | data.slice(1).forEach(rowData => { |'
 - en: '|   | **const** row = tbody.insertRow(); |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** row = tbody.insertRow(); |'
 - en: '|   | rowData.forEach(item => { |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | rowData.forEach(item => { |'
 - en: '|   | **const** cell = row.insertCell(); |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** cell = row.insertCell(); |'
 - en: '|   | cell.innerText = item; |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | cell.innerText = item; |'
 - en: '|   | }); |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   | }); |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | }); |'
 - en: '|   |  |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | document.body.appendChild(table); |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | document.body.appendChild(table); |'
 - en: '|   | } |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | createTable(data); |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | createTable(data); |'
 - en: 'The createTable() function takes an array of arrays as its argument and creates
     an HTML table with the data. Here’s the output after applying some basic styling:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: createTable()函数接受一个数组的数组作为参数，并使用这些数据创建一个HTML表格。以下是应用一些基本样式后的输出：
 - en: '![images/generating_html_table_v1.png](images/generating_html_table_v1.png)'
+  id: totrans-50
   prefs: []
   type: TYPE_IMG
+  zh: '![images/generating_html_table_v1.png](images/generating_html_table_v1.png)'
 - en: Discussion
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'We begin by creating an HTML table element using the createElement() method.
     We then create three more elements: a thead element (to hold the table header
     row), a tbody element (to hold the table body rows), and a row element (to hold
     the thead data).'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先使用createElement()方法创建一个HTML表格元素。然后创建三个更多的元素：一个thead元素（用来容纳表头行），一个tbody元素（用来容纳表体行），以及一个行元素（用来容纳thead数据）。
 - en: In this recipe, we assume that the column headers for the table are contained
     in the first sub-array of the data array. So, we loop through each item in the
     first sub-array, create a new th element using the createElement() method, set
     the innerText property of the th element to the current item, and append the th
     element to the previously created header row.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们假设表格的列标题包含在数据数组的第一个子数组中。因此，我们遍历第一个子数组中的每个项，使用createElement()方法创建一个新的th元素，将th元素的innerText属性设置为当前项，并将th元素附加到先前创建的表头行。
 - en: After creating the header row, we then loop through each sub-array of the data
     array except the first one (in other words, all the rows of data except the header
     row). We use the slice() method to set aside the first sub-array. For each row,
     we create a new tr element within the tbody element and loop through each item
     in the rowData, creating a new td element for each item, and setting its innerText
     property to the current item.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 在创建表头行之后，我们遍历数据数组中的每个子数组，除了第一个子数组（换句话说，就是除表头行之外的所有数据行）。我们使用slice()方法将第一个子数组分隔出来。对于每一行，我们在tbody元素中创建一个新的tr元素，并遍历该行数据中的每一项，为每个项目创建一个新的td元素，并将其innerText属性设置为当前项。
 - en: Finally, we append the entire table element (including the header and body rows)
     to the body of the HTML document using the appendChild() method. Make sure to
     modify this line to append the data to the element you want.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，我们使用appendChild()方法将整个表格元素（包括表头和表体行）附加到HTML文档的主体部分。确保修改这一行，将数据附加到你想要的元素。
 - en: If you have data in an array that you want to display in a tabular format on
     a web page, converting it to an HTML table can make it easier for users to read
     and understand.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有一个数组中的数据，想要在网页上以表格形式展示，将其转换为HTML表格可以让用户更容易阅读和理解。

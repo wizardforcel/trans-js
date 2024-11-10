@@ -1,97 +1,143 @@
 - en: 'Chapter 10: Enhancing User Experience'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第10章：提升用户体验
 - en: In this chapter, we will focus on enhancing the user experience of our blogging
     application by implementing features such as user profiles and post liking. These
     features will allow users to personalize their accounts and interact with posts
     in a more engaging way. Let's get started!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们将重点提升博客应用的用户体验，实施如用户个人资料和帖子点赞等功能。这些功能将允许用户个性化他们的账户，并以更具互动性的方式与帖子互动。让我们开始吧！
 - en: 10.1 User Profiles
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.1 用户个人资料
 - en: 'To provide users with personalized profiles, we''ll update the User model and
     create a user profile route. Let''s begin by modifying the `models/user.js` file:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了提供个性化的用户资料，我们将更新用户模型并创建用户资料路由。我们从修改`models/user.js`文件开始：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'In this code, we added two new fields to the user schema: `bio` and `avatar`.
     The `bio` field will store a short bio or description of the user, while the `avatar`
     field will hold the URL of the user''s profile picture.'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们向用户模式中添加了两个新字段：`bio`和`avatar`。`bio`字段将存储用户的简短简介或描述，而`avatar`字段将保存用户头像的URL。
 - en: 'Next, let''s create a user profile route in the `routes/users.js` file:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，让我们在`routes/users.js`文件中创建一个用户个人资料路由：
 - en: '[PRE1]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this code, we created a `GET` route for fetching the user profile. We use
     the `authenticate` middleware to ensure that only authenticated users can access
     this route. The `req.user` property contains the authenticated user's username.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们创建了一个`GET`路由用于获取用户个人资料。我们使用`authenticate`中间件来确保只有经过身份验证的用户可以访问此路由。`req.user`属性包含已认证用户的用户名。
 - en: Inside the route handler, we use `findOne` to find the user based on the username.
     We exclude the `password` field from the retrieved user object for security. If
     the user is found, we send the user object as the response.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在路由处理函数中，我们使用`findOne`方法根据用户名查找用户。我们从检索到的用户对象中排除了`password`字段以确保安全。如果找到了用户，我们将返回用户对象作为响应。
 - en: 10.2 Post Liking
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.2 帖子点赞
 - en: 'To allow users to like posts and interact with the content, we''ll update the
     Post model and create a like route. Let''s start by modifying the `models/post.js`
     file:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了让用户能够点赞帖子并与内容互动，我们将更新帖子模型并创建点赞路由。我们从修改`models/post.js`文件开始：
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this code, we added a `likes` field to the post schema, which will store
     the number of likes a post has received.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们向帖子模式中添加了一个`likes`字段，用于存储帖子收到的点赞数量。
 - en: 'Next, let''s create a like route in the `routes/posts.js` file:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，让我们在`routes/posts.js`文件中创建一个点赞路由：
 - en: '[PRE3]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this code, we created a `PUT` route for liking a post. The `authenticate`
     middleware ensures that only authenticated users can access this route. We extract
     the `postId` from the request parameters.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们创建了一个`PUT`路由用于点赞帖子。`authenticate`中间件确保只有经过身份验证的用户可以访问此路由。我们从请求参数中提取`postId`。
 - en: Inside the route handler, we first find the post based on the `postId`. If the
     post is not found, we return a 404 status code with an error message.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在路由处理函数中，我们首先根据`postId`查找帖子。如果未找到帖子，我们将返回404状态码和错误信息。
 - en: Next, we check if the user has already liked the post by checking if their username
     is present in the `likes` array of the post. If they have already liked the post,
     we return a 400 status code with an error message.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们通过检查用户的用户名是否出现在帖子的`likes`数组中，来判断用户是否已经点赞。如果用户已经点赞，我们将返回一个400状态码，并附带错误信息。
 - en: If the user has not liked the post, we increment the `likesCount` field and
     add the user's username to the `likes` array. We then save the updated post and
     send a success message as the response.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果用户还没有点赞该帖子，我们将递增`likesCount`字段，并将用户的用户名添加到`likes`数组中。然后，我们保存更新后的帖子，并作为响应发送成功信息。
 - en: 10.3 Summary
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.3 总结
 - en: Congratulations! In this chapter, we implemented user profiles and post liking
     features to enhance the user experience of our blogging application. Users can
     now personalize their profiles with a bio and avatar, as well as interact with
     posts by liking them.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 恭喜！在本章中，我们实现了用户资料和帖子点赞功能，以增强博客应用的用户体验。用户现在可以通过个人简介和头像个性化他们的资料，并通过点赞与帖子互动。
 - en: These features add a layer of personalization and engagement, making the application
     more enjoyable for users.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些功能增加了个性化和互动性，使得应用变得更加有趣和用户友好。

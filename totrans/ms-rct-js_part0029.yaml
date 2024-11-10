@@ -1,8 +1,10 @@
 - en: 'Chapter 8: Asynchronous JavaScript and Promises'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第8章：异步JavaScript和Promises
 - en: In Chapter 7, we explored DOM manipulation and events, which allowed us to create
     dynamic and interactive web applications. Now, we will delve into asynchronous
     JavaScript and promises. Asynchronous programming is a crucial aspect of modern
@@ -12,168 +14,254 @@
     asynchronous operations. Understanding asynchronous JavaScript and promises is
     essential for building efficient and responsive web applications. Let's dive in
     and explore the world of asynchronous JavaScript and promises!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第7章中，我们探讨了DOM操作和事件，这使我们能够创建动态和互动的Web应用程序。现在，我们将深入研究异步JavaScript和Promises。异步编程是现代Web开发中的一个关键方面，它使我们能够处理诸如从服务器获取数据或执行动画等耗时任务，而不阻塞主线程。ES6引入的Promises提供了一种更结构化和优雅的方式来管理异步操作。理解异步JavaScript和Promises对于构建高效且响应迅速的Web应用程序至关重要。让我们深入探索异步JavaScript和Promises的世界吧！
 - en: 'Asynchronous JavaScript: Understanding the Event Loop'
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 异步JavaScript：理解事件循环
 - en: JavaScript is single-threaded, meaning it executes one operation at a time.
     Asynchronous programming allows us to perform tasks without waiting for the result,
     making our applications more responsive.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: JavaScript是单线程的，这意味着它一次只执行一个操作。异步编程允许我们在不等待结果的情况下执行任务，使我们的应用程序更加响应。
 - en: 'setTimeout() Function:'
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: setTimeout()函数：
 - en: The `setTimeout()` function is a common example of asynchronous programming.
     It schedules a function to be executed after a specified delay in milliseconds.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: '`setTimeout()`函数是异步编程的常见示例。它将一个函数安排在指定的延迟时间后执行，单位是毫秒。'
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'In the above example, the output will be:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，输出将是：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The `setTimeout()` function allows the "Delayed execution after 2000ms" message
     to be printed after the delay, without blocking the main thread.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '`setTimeout()`函数允许“延迟2000毫秒后执行”的消息在延迟后打印出来，而不会阻塞主线程。'
 - en: 'Callback Functions:'
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 回调函数：
 - en: Callbacks are a fundamental part of asynchronous programming. They are functions
     passed as arguments to other functions and executed after the completion of a
     task.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 回调函数是异步编程的一个基本部分。它们是作为参数传递给其他函数的函数，并在任务完成后执行。
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above example, `fetchData()` simulates fetching data from a server with
     a delay of 1000ms. Once the data is fetched, the `processData()` function is called
     with the fetched data as an argument.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，`fetchData()`模拟了从服务器获取数据，延迟1000毫秒。一旦数据被获取，`processData()`函数会使用获取的数据作为参数被调用。
 - en: 'Callback Hell:'
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 回调地狱：
 - en: Asynchronous operations often involve multiple nested callbacks, leading to
     a phenomenon known as "callback hell" or "pyramid of doom," which can make code
     difficult to read and maintain.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 异步操作通常涉及多个嵌套的回调函数，导致一种现象，被称为“回调地狱”或“死亡金字塔”，这可能使代码难以阅读和维护。
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above example, we have three asynchronous functions that need to be executed
     in sequence. Nested callbacks create a difficult-to-read code structure.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们有三个需要按顺序执行的异步函数。嵌套回调会导致代码结构难以阅读。
 - en: 'Introducing Promises: A Structured Approach'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 引入 Promise：一种结构化的方法
 - en: Promises were introduced in ES6 to provide a more organized way to handle asynchronous
     operations and avoid callback hell.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: Promise 在 ES6 中引入，用于提供一种更有组织的方式来处理异步操作，避免回调地狱。
 - en: 'Creating a Promise:'
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 创建一个 Promise：
 - en: 'A promise is an object representing the eventual completion (or failure) of
     an asynchronous operation, and it has three states: pending, fulfilled, or rejected.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: Promise 是一个表示异步操作最终完成（或失败）的对象，它有三种状态：待定（pending）、已完成（fulfilled）或已拒绝（rejected）。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above example, we create a `fetchData` promise that resolves with the
     fetched data after a delay of 1000ms. The `then()` method is used to handle the
     fulfilled state of the promise and retrieve the data.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们创建了一个 `fetchData` promise，它会在延迟 1000 毫秒后解析并返回获取的数据。`then()` 方法用于处理
+    promise 的成功状态并获取数据。
 - en: 'Handling Errors with Promises:'
+  id: totrans-24
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 Promise 处理错误：
 - en: Promises also allow us to handle errors using the `reject()` method and the
     `catch()` method.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: Promise 还允许我们使用 `reject()` 方法和 `catch()` 方法来处理错误。
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above example, we create a promise that rejects with an error message
     after a delay of 1000ms. The `catch()` method is used to handle the rejected state
     of the promise and log the error.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们创建了一个 promise，在延迟 1000 毫秒后拒绝并返回错误信息。`catch()` 方法用于处理 promise 的拒绝状态并记录错误。
 - en: 'Chaining Promises:'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 链式调用 Promise：
 - en: One of the most powerful features of promises is the ability to chain multiple
     asynchronous operations together.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: Promise 最强大的特性之一是能够将多个异步操作链式连接起来。
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above example, we create three functions, each returning a promise. The
     `then()` method is used to chain the promises together, and the result is passed
     from one step to the next.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们创建了三个函数，每个函数返回一个 promise。`then()` 方法用于将 promises 链接在一起，结果从一个步骤传递到下一个步骤。
 - en: 'Using async/await: Simplifying Asynchronous Code'
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 使用 async/await：简化异步代码
 - en: ES8 introduced async/await, a syntactical feature that simplifies writing asynchronous
     code using promises.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: ES8 引入了 async/await，这是一个语法特性，用于简化使用 promise 编写异步代码。
 - en: 'Using async/await:'
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 async/await：
 - en: With async/await, we can write asynchronous code in a more synchronous-like
     style, making it easier to read and maintain.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 async/await，我们可以用更类似同步代码的风格编写异步代码，这使得代码更易于阅读和维护。
 - en: '[PRE7]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In the above example, we define an `async` function `getData()` that uses the
     `await` keyword to wait for the `fetchData()` promise to be resolved.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们定义了一个 `async` 函数 `getData()`，它使用 `await` 关键字等待 `fetchData()` promise
+    被解析。
 - en: 'Error Handling with async/await:'
+  id: totrans-38
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 async/await 进行错误处理：
 - en: We can use `try/catch` blocks to handle errors when using async/await.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用 `try/catch` 块来处理使用 async/await 时的错误。
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above example, the `try` block handles the resolved data, and the `catch`
     block handles the rejected error.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，`try` 块处理已解决的数据，`catch` 块处理被拒绝的错误。
 - en: 'Conclusion:'
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论：
 - en: In this chapter, we explored asynchronous JavaScript and promises, a fundamental
     concept in modern web development. Asynchronous programming allows us to perform
     time-consuming tasks without blocking the main thread, making web applications
@@ -181,10 +269,16 @@
     operations, avoiding callback hell and simplifying error handling. Additionally,
     async/await is a powerful syntactical feature that further simplifies writing
     asynchronous code, making it more readable and maintainable.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们探讨了异步 JavaScript 和 Promise，这是现代 web 开发中的基本概念。异步编程允许我们在不阻塞主线程的情况下执行耗时任务，使
+    web 应用程序更加响应迅速。Promise 提供了一种结构化且优雅的方式来管理异步操作，避免了回调地狱，并简化了错误处理。此外，async/await 是一种强大的语法特性，它进一步简化了异步代码的编写，使其更易读和易于维护。
 - en: By mastering asynchronous JavaScript and promises, you can build efficient and
     responsive web applications that handle complex tasks gracefully. Understanding
     these concepts is essential for becoming a proficient JavaScript developer.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过掌握异步 JavaScript 和 Promise，你可以构建高效且响应迅速的 web 应用程序，优雅地处理复杂任务。理解这些概念对于成为一名熟练的
+    JavaScript 开发者至关重要。

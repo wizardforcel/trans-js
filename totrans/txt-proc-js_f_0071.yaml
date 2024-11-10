@@ -1,234 +1,377 @@
 - en: '| Recipe 59 | Removing Duplicate Lines |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '|   | 食谱59 | 删除重复行 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Suppose you need to display team rankings on a website, but your data was imported
     from another source and there were errors during the import process. So now, your
     new document has consecutive duplicate lines.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你需要在网站上显示球队排名，但你的数据是从另一个来源导入的，并且在导入过程中出现了错误。现在，你的新文档中有连续的重复行。
 - en: 'For instance, let’s say your imported data consists of the lines below:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 举个例子，假设你导入的数据包含以下几行：
 - en: '|   | Team Power Rankings |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | 团队排名 |'
 - en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   | #1 克利夫兰骑士 45-28 |'
 - en: '|   | #2 Philadelphia 76ers 48-22 |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | #2 费城76人 48-22 |'
 - en: '|   | #2 Philadelphia 76ers 48-22 |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | #2 费城76人 48-22 |'
 - en: '|   | #3 Memphis Grizzlies 43-27 |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | #3 孟菲斯灰熊 43-27 |'
 - en: '|   | #4 Boston Celtics 49-23 |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | #4 波士顿凯尔特人 49-23 |'
 - en: '|   | #4 Boston Celtics 49-23 |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | #4 波士顿凯尔特人 49-23 |'
 - en: '|   | #4 Boston Celtics 49-23 |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | #4 波士顿凯尔特人 49-23 |'
 - en: 'Before you display the rankings, you need to remove the duplicates so that
     it gets displayed like this:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在显示排名之前，你需要删除重复项，以便它以如下方式显示：
 - en: '|   | Team Power Rankings |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | 团队排名 |'
 - en: '|   | #1 Cleveland Cavaliers 45-28 |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   | #1 克利夫兰骑士 45-28 |'
 - en: '|   | #2 Philadelphia 76ers 48-22 |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | #2 费城76人 48-22 |'
 - en: '|   | #3 Memphis Grizzlies 43-27 |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '|   | #3 孟菲斯灰熊 43-27 |'
 - en: '|   | #4 Boston Celtics 49-23 |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | #4 波士顿凯尔特人 49-23 |'
 - en: You need a regex that can detect two identical lines and remove one of them.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要一个正则表达式，它能够检测到两行相同并删除其中一行。
 - en: Solution
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'Use the following function:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用以下函数：
 - en: '[part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_3/removing_dup_lines_v1/dup_lines_v1_ex1.js)'
 - en: '|   | **function** removeDuplicateLines(str) { |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **function** removeDuplicateLines(str) { |'
 - en: '|   | **const** re = */^**(**.***)(?:\r?\n\1)**+$/mg*; |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */^**(**.***)(?:\r?\n\1)**+$/mg*; |'
 - en: '|   | **return** str.replace(re, *"$1"*); |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | **return** str.replace(re, *"$1"*); |'
 - en: '|   | } |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** str = |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = |'
 - en: '|   | *`Team Power Rankings* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`团队排名* |'
 - en: '|   | *#1 Cleveland Cavaliers 45-28* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#1 克利夫兰骑士 45-28* |'
 - en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#2 费城76人 48-22* |'
 - en: '|   | *#2 Philadelphia 76ers 48-22* |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#2 费城76人 48-22* |'
 - en: '|   | *#3 Memphis Grizzlies 43-27* |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#3 孟菲斯灰熊 43-27* |'
 - en: '|   | *#4 Boston Celtics 49-23* |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#4 波士顿凯尔特人 49-23* |'
 - en: '|   | *#4 Boston Celtics 49-23* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#4 波士顿凯尔特人 49-23* |'
 - en: '|   | *#4 Boston Celtics 49-23`*; |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '|   | *#4 波士顿凯尔特人 49-23`*; |'
 - en: '|   |  |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** result = removeDuplicateLines(str); |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** result = removeDuplicateLines(str); |'
 - en: '|   |  |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | console.log(result); |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '|   | console.log(result); |'
 - en: '|   | *// Team Power Rankings* |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 团队排名* |'
 - en: '|   | *// #1 Cleveland Cavaliers 45-28* |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// #1 克利夫兰骑士 45-28* |'
 - en: '|   | *// #2 Philadelphia 76ers 48-22* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// #2 费城76人 48-22* |'
 - en: '|   | *// #3 Memphis Grizzlies 43-27* |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// #3 孟菲斯灰熊 43-27* |'
 - en: '|   | *// #4 Boston Celtics 49-23* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// #4 波士顿凯尔特人 49-23* |'
 - en: This will output the string with any duplicate lines removed.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将输出去除重复行后的字符串。
 - en: Discussion
+  id: totrans-46
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: To match the beginning of a line using regex, we use the symbol ^ at the start.
     Typically, ^ only matches the start of the string, so it’s important to enable
     the multiline flag (m) to ensure that ^ and $ match at line breaks. Also make
     sure you don’t use the dotAll flag (s) that allows the dot to match line breaks
     because that would lead to the regex matching the whole string.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 要使用正则表达式匹配行的开始，我们在开头使用符号 ^。通常，^ 只匹配字符串的开始，因此启用多行标志 (m) 是很重要的，这样 ^ 和 $ 才能在换行符处匹配。此外，确保不要使用
+    dotAll 标志 (s)，因为它允许点符号匹配换行符，否则会导致正则表达式匹配整个字符串。
 - en: We use a pair of parentheses containing .* to match the complete content of
     a line, including empty lines. Since the parentheses are a capturing group, we
     can later refer to the matched value with a backreference.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用一对括号包含 .* 来匹配一整行的内容，包括空行。由于括号是一个捕获组，我们可以稍后使用反向引用来引用匹配的值。
 - en: 'Within a non-capturing group (?: ... ), we have used the pattern \r?\n\1 to
     identify line separators found in Unix and Unix-like systems (\n) or Windows/DOS
     (\r\n) text files. Next, we attempt to match the line that was previously matched
     with the backreference \1.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '在一个非捕获组 (?: ... ) 中，我们使用模式 \r?\n\1 来识别在 Unix 和类 Unix 系统（\n）或 Windows/DOS（\r\n）文本文件中找到的行分隔符。接下来，我们尝试匹配之前匹配的行，使用反向引用
+    \1。'
 - en: If the line at that position does not match, the matching process fails and
     the regex engine proceeds to the next match attempt. Conversely, if a match is
     found, we use the + quantifier to repeat the group, which consists of a line break
     and backreference, to match any subsequent identical lines.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果该位置的行不匹配，匹配过程失败，正则引擎将继续尝试下一个匹配。相反，如果找到匹配项，我们使用 + 量词来重复该组，该组由换行符和反向引用组成，用于匹配任何后续的相同行。
 - en: 'Below is the breakdown of the regex pattern:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是正则表达式模式的分解：
 - en: '|   | /^(.*)(?:\r?\n\1)+$/mg; |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | /^(.*)(?:\r?\n\1)+$/mg; |'
 - en: '|   |  |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● ^ asserts the start of a line |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● ^ 确认行的开始 |'
 - en: '|   | ● (.*) 1st capturing group |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (.*) 第一个捕获组 |'
 - en: '|   | ○ . matches any character except for line terminators |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ . 匹配除行终止符之外的任意字符 |'
 - en: '|   | ○ * matches the previous token zero or more times |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前一个符号零次或多次 |'
 - en: '|   | ● (?:\r?\n\1) non-capturing group |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (?:\r?\n\1) 非捕获组 |'
 - en: '|   | ○ \r matches a carriage return |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \r 匹配回车符 |'
 - en: '|   | ○ ? matches the previous token zero or one time |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前一个符号零次或一次 |'
 - en: '|   | ○ \n matches a line-feed (newline) character |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \n 匹配换行符（newline）字符 |'
 - en: '|   | ○ \1 matches the same text matched by the 1st capturing group |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ \1 匹配由第一个捕获组匹配的相同文本 |'
 - en: '|   | ● + matches the previous token one or more times |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● + 匹配前一个符号一次或多次 |'
 - en: '|   | ● $ asserts the end of a line |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● $ 确认行的结束 |'
 - en: '|   | ● Flags |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ m: enables multiline, allowing ^ and $ to match line start and end
     |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ m: 启用多行模式，使 ^ 和 $ 匹配行的开始和结束 |'
 - en: '|   | ○ g: enables global matching, which returns all matches |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ g: 启用全局匹配，返回所有匹配项 |'
 - en: Because we are performing a search and replace operation, the complete match,
     which includes the original line and any line breaks, is eliminated from the string.
     To restore the initial line, we use the special replacement pattern $1 in the
     second argument of replace().
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于我们正在执行搜索和替换操作，完整匹配项（包括原始行和任何换行符）会从字符串中删除。为了恢复初始行，我们在 `replace()` 的第二个参数中使用特殊的替换模式
+    $1。
 - en: Removing duplicate lines with this technique is fast, but it won’t remove duplicate
     lines that are separated by other lines. The next recipe shows you how to do that
     with JavaScript’s built-in methods.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这种技术删除重复行很快，但它不会删除由其他行隔开的重复行。下一个示例将向你展示如何使用 JavaScript 的内置方法做到这一点。

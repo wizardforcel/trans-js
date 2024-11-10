@@ -1,122 +1,179 @@
 - en: 'Chapter 7: Adding Commenting Functionality'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第7章：添加评论功能
 - en: In this chapter, we will enhance our blogging application by adding the ability
     for users to comment on blog posts. Comments provide a way for users to engage
     with the content and share their thoughts. Let's dive into implementing commenting
     functionality!
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这一章中，我们将通过添加用户对博客文章发表评论的功能来增强我们的博客应用。评论为用户提供了与内容互动并分享想法的方式。让我们深入了解实现评论功能吧！
 - en: 7.1 Creating a Comment Model
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.1 创建评论模型
 - en: 'To begin, let''s create a new model called `Comment` to represent comments
     on blog posts. In the `models/comment.js` file, add the following code:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，让我们创建一个新的模型`Comment`，用于表示博客文章上的评论。在`models/comment.js`文件中，添加以下代码：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this code, we define the `Comment` schema with the `content` field to store
     the comment content, the `postId` field to establish a relationship with the corresponding
     blog post, and the `createdAt` field to store the creation date of the comment.
     We export the `Comment` model for use in other parts of our application.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了`Comment`模式，其中包括`content`字段用于存储评论内容，`postId`字段用于与相应的博客文章建立关系，以及`createdAt`字段用于存储评论的创建日期。我们导出了`Comment`模型，以便在应用的其他部分使用。
 - en: 7.2 Adding Comment Creation Route
+  id: totrans-6
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.2 添加评论创建路由
 - en: 'Next, let''s add a route to handle the creation of comments. In the `routes/comments.js`
     file, add the following code:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，让我们添加一个路由来处理评论的创建。在`routes/comments.js`文件中，添加以下代码：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this code, we define a route to handle the creation of comments. We extract
     the `content` and `postId` from the request body and validate that both fields
     are provided. If not, we return a 400 status code with an error message.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了一个路由来处理评论的创建。我们从请求体中提取`content`和`postId`，并验证这两个字段是否存在。如果没有提供，我们返回一个400状态码和错误信息。
 - en: We create a new instance of the `Comment` model with the extracted data and
     save it to the database using the `save` method. If the save operation is successful,
     we return a 201 status code with a success message. Otherwise, we return a 500
     status code with an error message.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用提取的数据创建一个新的`Comment`模型实例，并通过`save`方法将其保存到数据库中。如果保存操作成功，我们返回一个201状态码和成功信息。否则，我们返回一个500状态码和错误信息。
 - en: 7.3 Retrieving Comments for a Post
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.3 获取某个帖子的评论
 - en: 'To retrieve all comments for a specific blog post, we''ll add a route that
     takes a post ID as a parameter. In the `routes/comments.js` file, add the following
     code:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了获取特定博客文章的所有评论，我们将添加一个路由，该路由接受一个帖子ID作为参数。在`routes/comments.js`文件中，添加以下代码：
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this code, we define a route that accepts the
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们定义了一个接受
 - en: '`postId` as a parameter. We use the `Comment` model''s `find` method to retrieve
     all comments associated with the specified post ID. If the retrieval is successful,
     we return a 200 status code with the array of comments. If there''s an error,
     we return a 500 status code with an error message.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '`postId`作为参数。我们使用`Comment`模型的`find`方法来获取所有与指定帖子ID相关联的评论。如果获取成功，我们返回一个200状态码和评论数组。如果发生错误，我们返回一个500状态码和错误信息。'
 - en: 7.4 Displaying Comments in the Frontend
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.4 在前端展示评论
 - en: 'To display the comments on the blog post page in the frontend, update your
     blog post template (e.g., `views/post.ejs`) to include the following code:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了在前端的博客页面展示评论，更新你的博客帖子模板（例如，`views/post.ejs`），并加入以下代码：
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this code, we iterate over the `comments` array passed from the server and
     display each comment's content and creation date. We also provide a comment form
     that includes a hidden field for the post ID and a textarea for entering the comment
     content.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们遍历服务器传递的`comments`数组，并显示每条评论的内容和创建日期。我们还提供了一个评论表单，其中包含一个隐藏的帖子 ID 字段和一个用于输入评论内容的文本框。
 - en: 7.5 Enhancing the User Experience
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.5 提升用户体验
 - en: 'To improve the user experience, we can add some JavaScript functionality to
     enable the submission of comments via AJAX and dynamically update the comments
     section. Add the following code to your frontend JavaScript file (e.g., `public/js/main.js`):'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了提升用户体验，我们可以添加一些 JavaScript 功能，支持通过 AJAX 提交评论，并动态更新评论区。将以下代码添加到你的前端 JavaScript
+    文件中（例如，`public/js/main.js`）：
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In this code, we add an event listener to the comment form's submit event. When
     the form is submitted, we prevent the default form submission behavior and extract
     the comment content and post ID.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这段代码中，我们为评论表单的提交事件添加了一个事件监听器。当表单提交时，我们会阻止默认的表单提交行为，并提取评论内容和帖子 ID。
 - en: We then send a POST request to the `/
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们发送一个 POST 请求到`/`
 - en: comments/create` endpoint with the comment data as JSON. If the request is successful,
     we clear the comment form and fetch the updated comments for the post. The `updateComments`
     function is called to dynamically update the comments section with the new comments.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将评论数据作为 JSON 发送到`comments/create`端点。如果请求成功，我们清空评论表单，并获取更新后的评论内容。然后调用`updateComments`函数，动态更新评论区，展示新评论。
 - en: 7.6 Summary
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.6 小结
 - en: Congratulations! In this chapter, we successfully implemented commenting functionality
     in our blogging application. Users can now comment on blog posts, and the comments
     are stored in the database. We also enhanced the user experience by dynamically
     updating the comments section without requiring a page refresh.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 恭喜！在本章中，我们成功实现了博客应用中的评论功能。用户现在可以对博客帖子发表评论，评论会存储在数据库中。我们还通过动态更新评论区、无需刷新页面，增强了用户体验。

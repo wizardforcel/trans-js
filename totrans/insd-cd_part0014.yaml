@@ -4,6 +4,7 @@
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 第13章：并发与并行
 - en: In this chapter, we delve into the fascinating world of concurrency and parallelism
     in programming. Concurrency and parallelism are essential concepts that enable
     a program to perform multiple tasks simultaneously, making efficient use of modern
@@ -14,24 +15,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本章中，我们将深入探讨编程中的并发与并行。并发和并行是使程序能够同时执行多个任务的核心概念，它们能充分利用现代多核处理器的优势。我们将探讨并发的基础、多线程、异步编程、同步问题以及并发编程在现实世界中的应用。
 - en: 'Section 13.1: Basics of Concurrency and Parallelism'
   id: totrans-2
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第13.1节：并发与并行基础
 - en: 'Concurrency and parallelism are often used interchangeably, but they represent
     distinct concepts in the world of programming:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 并发和并行常常被交替使用，但它们在编程领域代表着不同的概念：
 - en: Concurrency
   id: totrans-4
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 并发
 - en: Concurrency refers to the ability of a program to manage multiple tasks seemingly
     simultaneously. It doesn’t necessarily mean that tasks run in parallel, but it
     gives the illusion of overlapping execution. Concurrency is particularly useful
@@ -40,6 +45,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 并发指的是程序能够管理多个任务看似同时执行的能力。它不一定意味着任务是并行运行的，但它给人一种任务重叠执行的假象。并发在任务需要等待外部事件或资源的情况下尤其有用。
 - en: For example, in a web server, multiple clients may request resources simultaneously.
     Concurrency allows the server to handle these requests without waiting for one
     to complete before starting the next.
@@ -47,12 +53,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，在一个Web服务器中，多个客户端可能同时请求资源。并发允许服务器在不需要等待一个请求完成后才开始下一个请求的情况下处理这些请求。
 - en: Parallelism
   id: totrans-7
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 并行
 - en: Parallelism involves the actual simultaneous execution of multiple tasks, usually
     leveraging multiple CPU cores or processors. Parallelism aims to achieve true
     simultaneous execution for performance improvement.
@@ -60,6 +68,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 并行涉及到多个任务的实际同时执行，通常是通过多个CPU核心或处理器来实现。并行旨在通过实现真正的同时执行来提升性能。
 - en: In parallel processing, tasks are divided into smaller subtasks, each of which
     can be executed concurrently on separate processors or cores. This can significantly
     speed up computations for tasks that are inherently parallelizable.
@@ -67,101 +76,120 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在并行处理过程中，任务被划分为更小的子任务，每个子任务可以在不同的处理器或核心上并行执行。这可以显著加速那些本身可以并行化的任务的计算速度。
 - en: 'Let’s look at a code snippet in Python that demonstrates a concurrent program
     using the `threading` module:'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看一下一个使用`threading`模块实现并发程序的Python代码片段：
 - en: '`import threading`'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`def print_numbers():`'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def print_numbers():`'
 - en: '`for i in range(1, 6):`'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for i in range(1, 6):`'
 - en: '`print(f"Number {i}")`'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print(f"Number {i}")`'
 - en: '`def print_letters():`'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def print_letters():`'
 - en: '`for letter in ''abcde'':`'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for letter in ''abcde'':`'
 - en: '`print(f"Letter {letter}")`'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print(f"Letter {letter}")`'
 - en: Create two threads
   id: totrans-18
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建两个线程
 - en: '`thread1 = threading.Thread(target=print_numbers)`'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1 = threading.Thread(target=print_numbers)`'
 - en: '`thread2 = threading.Thread(target=print_letters)`'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2 = threading.Thread(target=print_letters)`'
 - en: Start the threads
   id: totrans-21
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 启动线程
 - en: '`thread1.start()`'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.start()`'
 - en: '`thread2.start()`'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.start()`'
 - en: Wait for both threads to finish
   id: totrans-24
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 等待两个线程完成
 - en: '`thread1.join()`'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.join()`'
 - en: '`thread2.join()`'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.join()`'
 - en: In this example, two threads are created, each executing a different function
     concurrently.
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，创建了两个线程，每个线程并发执行不同的函数。
 - en: Concurrency and parallelism are essential for improving program performance,
     responsiveness, and resource utilization. However, managing concurrent access
     to shared resources and handling synchronization are challenges that must be addressed
@@ -171,17 +199,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 并发和并行对提升程序性能、响应性和资源利用率至关重要。然而，管理对共享资源的并发访问和处理同步问题是必须解决的挑战，否则可能会出现竞争条件和死锁等问题，我们将在后面的章节中进一步探讨这些问题。
 - en: '* * *'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 'Section 13.2: Multithreading in Java and C++'
   id: totrans-30
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第13.2节：Java和C++中的多线程
 - en: Multithreading is a powerful concept that allows programs to perform multiple
     tasks concurrently, making efficient use of modern hardware. In this section,
     we will explore multithreading in `Java` and `C++`, two popular programming languages
@@ -190,277 +221,330 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 多线程是一个强大的概念，它使得程序能够并发执行多个任务，充分利用现代硬件的性能。在本节中，我们将探讨`Java`和`C++`这两种广泛支持多线程应用的流行编程语言中的多线程概念。
 - en: Java Multithreading
   id: totrans-32
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: Java多线程
 - en: '`Java`提供了内置的多线程支持，通过`java.lang.Thread`类。要在`Java`中创建一个多线程应用程序，通常遵循以下步骤：'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Java`提供了内置的多线程支持，通过`java.lang.Thread`类。要在`Java`中创建一个多线程应用程序，通常遵循以下步骤：'
 - en: 创建一个扩展`Thread`类或实现`Runnable`接口的类。
   id: totrans-34
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建一个扩展`Thread`类或实现`Runnable`接口的类。
 - en: 重写类中的`run()`方法。该方法将包含线程执行的代码。
   id: totrans-35
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 重写类中的`run()`方法。该方法将包含线程执行的代码。
 - en: 创建一个类，扩展`Thread`类或实现`Runnable`接口，并调用`start()`方法以开始线程的执行。
   id: totrans-36
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建一个类，扩展`Thread`类或实现`Runnable`接口，并调用`start()`方法以开始线程的执行。
 - en: 这是一个简单的`Java`示例：
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个简单的`Java`示例：
 - en: '`class MyThread extends Thread {`'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`class MyThread extends Thread {`'
 - en: '`public void run() {`'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public void run() {`'
 - en: '`for (int i = 0; i < 5; i++) {`'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for (int i = 0; i < 5; i++) {`'
 - en: '`System.out.println("Thread 1: " + i);`'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`System.out.println("线程 1: " + i);`'
 - en: '`}`'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`public class Main {`'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public class Main {`'
 - en: '`public static void main(String[] args) {`'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`public static void main(String[] args) {`'
 - en: '`MyThread thread1 = new MyThread();`'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`MyThread thread1 = new MyThread();`'
 - en: '`thread1.start();`'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.start();`'
 - en: '`for (int i = 0; i < 5; i++) {`'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for (int i = 0; i < 5; i++) {`'
 - en: '`System.out.println("Main Thread: " + i);`'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`System.out.println("主线程: " + i);`'
 - en: '`}`'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: 在这个示例中，我们创建了一个扩展`Thread`的`MyThread`类，并重写了`run()`方法。然后我们创建这个类的实例并启动它。主线程和自定义线程并发运行。
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们创建了一个扩展`Thread`的`MyThread`类，并重写了`run()`方法。然后我们创建这个类的实例并启动它。主线程和自定义线程并发运行。
 - en: '`C++`多线程'
   id: totrans-55
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`C++`多线程'
 - en: '`C++`也支持通过标准库的`<thread>`头文件进行多线程编程。要在`C++`中创建一个多线程应用程序，可以遵循以下步骤：'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`C++`也支持通过标准库的`<thread>`头文件进行多线程编程。要在`C++`中创建一个多线程应用程序，可以遵循以下步骤：'
 - en: 包含`<thread>`头文件。
   id: totrans-57
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 包含`<thread>`头文件。
 - en: 创建一个函数或lambda，表示线程执行的代码。
   id: totrans-58
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建一个函数或lambda，表示线程执行的代码。
 - en: 创建一个`std::thread`对象并将您的函数或lambda作为参数传递。
   id: totrans-59
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建一个`std::thread`对象并将您的函数或lambda作为参数传递。
 - en: 调用线程对象的`join()`方法以等待线程完成其执行。
   id: totrans-60
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用线程对象的`join()`方法以等待线程完成其执行。
 - en: 这是一个简单的`C++`示例：
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个简单的`C++`示例：
 - en: '`#include <iostream>`'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`#include <iostream>`'
 - en: '`#include <thread>`'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`#include <thread>`'
 - en: '`void myFunction() {`'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`void myFunction() {`'
 - en: '`for (int i = 0; i < 5; i++) {`'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for (int i = 0; i < 5; i++) {`'
 - en: '`std::cout << "Thread 1: " << i << std::endl;`'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`std::cout << "线程 1: " << i << std::endl;`'
 - en: '`}`'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`int main() {`'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`int main() {`'
 - en: '`std::thread thread1(myFunction);`'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`std::thread thread1(myFunction);`'
 - en: '`for (int i = 0; i < 5; i++) {`'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for (int i = 0; i < 5; i++) {`'
 - en: '`std::cout << "Main Thread: " << i << std::endl;`'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`std::cout << "主线程: " << i << std::endl;`'
 - en: '`}`'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`thread1.join();`'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.join();`'
 - en: '`return 0;`'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return 0;`'
 - en: '`}`'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: 在这个`C++`示例中，我们定义了`myFunction()`函数，创建了一个名为`thread1`的`std::thread`对象，并将其与主线程连接。
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个`C++`示例中，我们定义了`myFunction()`函数，创建了一个名为`thread1`的`std::thread`对象，并将其与主线程连接。
 - en: '`Java`和`C++`都提供了强大的多线程特性，使它们成为开发并发应用程序的合适选择。然而，管理线程同步和避免竞争条件至关重要，我们将在后面的部分进一步探讨。'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Java`和`C++`都提供了强大的多线程特性，使它们成为开发并发应用程序的合适选择。然而，管理线程同步和避免竞争条件至关重要，我们将在后面的部分进一步探讨。'
 - en: '* * *'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 第13.3节：`JavaScript`和`Python`中的异步编程
   id: totrans-80
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第13.3节：`JavaScript`和`Python`中的异步编程
 - en: 异步编程对于构建响应式和高效的应用程序至关重要，特别是在任务可能需要时间完成的场景中，例如网络请求或文件I/O。`JavaScript`和`Python`是两种在处理异步操作方面表现突出的编程语言，采用不同的机制。
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 异步编程对于构建响应式和高效的应用程序至关重要，特别是在任务可能需要时间完成的场景中，例如网络请求或文件I/O。`JavaScript`和`Python`是两种在处理异步操作方面表现突出的编程语言，采用不同的机制。
 - en: '`JavaScript`中的异步编程'
   id: totrans-82
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`JavaScript`中的异步编程'
 - en: 在`JavaScript`中，异步编程通常通过回调、承诺和`async/await`实现。
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在`JavaScript`中，异步编程通常通过回调、承诺和`async/await`实现。
 - en: '`Callbacks: Callbacks are functions passed as arguments to other functions.
     They are executed when an asynchronous operation completes. Callbacks can lead
     to callback hell or the “pyramid of doom” when dealing with multiple asynchronous
@@ -470,51 +554,61 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`回调函数：回调函数是作为参数传递给其他函数的函数。当异步操作完成时，会执行回调函数。当处理多个异步操作时，回调函数可能会导致回调地狱或“死亡金字塔”问题。`'
 - en: '`function fetchData(callback) {`'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`function fetchData(callback) {`'
 - en: '`setTimeout(() => {`'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`setTimeout(() => {`'
 - en: '`const data = "Async data";`'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`const data = "异步数据";`'
 - en: '`callback(data);`'
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`callback(data);`'
 - en: '`}, 1000);`'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}, 1000);`'
 - en: '`}`'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`fetchData((data) => {`'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fetchData((data) => {`'
 - en: '`console.log(data);`'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`console.log(data);`'
 - en: '`});`'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`});`'
 - en: '`Promises: Promises provide a more structured way to handle asynchronous code.
     They represent a value that may be available now, in the future, or never. Promises
     allow chaining and error handling, making code more readable.`'
@@ -523,81 +617,98 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Promises: Promises 提供了一种更有结构的方式来处理异步代码。它们表示一个值，该值可能现在可用、未来可用，或者永远不可用。Promises
+    允许链式调用和错误处理，使代码更具可读性。`'
 - en: '`function fetchData() {`'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`function fetchData() {`'
 - en: '`return new Promise((resolve, reject) => {`'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return new Promise((resolve, reject) => {`'
 - en: '`setTimeout(() => {`'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`setTimeout(() => {`'
 - en: '`const data = "Async data";`'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`const data = "异步数据";`'
 - en: '`resolve(data);`'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`resolve(data);`'
 - en: '`}, 1000);`'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}, 1000);`'
 - en: '`});`'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`});`'
 - en: '`}`'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`fetchData()`'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fetchData()`'
 - en: '`.then((data) => {`'
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`.then((data) => {`'
 - en: '`console.log(data);`'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`console.log(data);`'
 - en: '`})`'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`})`'
 - en: '`.catch((error) => {`'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`.catch((error) => {`'
 - en: '`console.error(error);`'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`console.error(error);`'
 - en: '`});`'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`});`'
 - en: '`Async/Await: Introduced in ECMAScript 2017, async/await is a syntactical improvement
     over promises. It makes asynchronous code appear more like synchronous code, enhancing
     readability.`'
@@ -606,103 +717,123 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Async/Await: 引入于 ECMAScript 2017，async/await 是对 promises 的语法改进。它使异步代码看起来更像同步代码，从而提高了可读性。`'
 - en: '`async function fetchData() {`'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async function fetchData() {`'
 - en: '`return new Promise((resolve) => {`'
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return new Promise((resolve) => {`'
 - en: '`setTimeout(() => {`'
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`setTimeout(() => {`'
 - en: '`const data = "Async data";`'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`const data = "异步数据";`'
 - en: '`resolve(data);`'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`resolve(data);`'
 - en: '`}, 1000);`'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}, 1000);`'
 - en: '`});`'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`});`'
 - en: '`}`'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`async function main() {`'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async function main() {`'
 - en: '`try {`'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`try {`'
 - en: '`const data = await fetchData();`'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`const data = await fetchData();`'
 - en: '`console.log(data);`'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`console.log(data);`'
 - en: '`} catch (error) {`'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`} catch (error) {`'
 - en: '`console.error(error);`'
   id: totrans-124
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`console.error(error);`'
 - en: '`}`'
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`}`'
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`}`'
 - en: '`main();`'
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`main();`'
 - en: '`Asynchronous Programming in Python`'
   id: totrans-128
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Python中的异步编程`'
 - en: '`Python also provides several mechanisms for asynchronous programming, including
     callbacks, threading, and the asyncio library for more advanced asynchronous operations.`'
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Python 还提供了多种异步编程机制，包括回调、线程和 asyncio 库，用于更高级的异步操作。`'
 - en: '`Callbacks: Similar to JavaScript, Python can use callback functions to handle
     asynchronous tasks. Libraries like asyncio provide utilities for creating and
     managing callbacks.`'
@@ -711,46 +842,55 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`回调函数：类似于 JavaScript，Python 也可以使用回调函数来处理异步任务。像 asyncio 这样的库提供了创建和管理回调的工具。`'
 - en: '`import time`'
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import time`'
 - en: '`def fetch_data(callback):`'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def fetch_data(callback):`'
 - en: '`time.sleep(1)  # Simulate async operation`'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`time.sleep(1)  # 模拟异步操作`'
 - en: '`data = "Async data"`'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`data = "Async data"`'
 - en: '`callback(data)`'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`callback(data)`'
 - en: '`def data_handler(data):`'
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def data_handler(data):`'
 - en: '`print(data)`'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print(data)`'
 - en: '`fetch_data(data_handler)`'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`fetch_data(data_handler)`'
 - en: '`Threading: Python supports threading for concurrent execution. Threads are
     suitable for I/O-bound tasks but may not utilize multiple CPU cores effectively
     due to the Global Interpreter Lock (GIL).`'
@@ -759,71 +899,85 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`线程：Python 支持线程用于并发执行。线程适用于 I/O 密集型任务，但由于全局解释器锁（GIL），可能无法有效利用多个 CPU 核心。`'
 - en: '`import threading`'
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`def print_numbers():`'
   id: totrans-141
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def print_numbers():`'
 - en: '`for i in range(5):`'
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for i in range(5):`'
 - en: '`print("Thread 1:", i)`'
   id: totrans-143
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print("Thread 1:", i)`'
 - en: '`def print_letters():`'
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def print_letters():`'
 - en: '`for letter in "ABCDE":`'
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for letter in "ABCDE":`'
 - en: '`print("Thread 2:", letter)`'
   id: totrans-146
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print("Thread 2:", letter)`'
 - en: '`thread1 = threading.Thread(target=print_numbers)`'
   id: totrans-147
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1 = threading.Thread(target=print_numbers)`'
 - en: '`thread2 = threading.Thread(target=print_letters)`'
   id: totrans-148
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2 = threading.Thread(target=print_letters)`'
 - en: '`thread1.start()`'
   id: totrans-149
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.start()`'
 - en: '`thread2.start()`'
   id: totrans-150
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.start()`'
 - en: '`thread1.join()`'
   id: totrans-151
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.join()`'
 - en: '`thread2.join()`'
   id: totrans-152
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.join()`'
 - en: '`Asyncio: The asyncio library in Python provides a powerful framework for asynchronous
     programming. It allows developers to write asynchronous code using async/await
     syntax and manage asynchronous I/O operations efficiently.`'
@@ -832,387 +986,461 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Asyncio：Python 中的 asyncio 库提供了一个强大的异步编程框架。它允许开发人员使用 async/await 语法编写异步代码，并高效地管理异步
+    I/O 操作。`'
 - en: '`import asyncio`'
   id: totrans-154
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import asyncio`'
 - en: '`async def fetch_data():`'
   id: totrans-155
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async def fetch_data():`'
 - en: '`await asyncio.sleep(1)  # Simulate async operation`'
   id: totrans-156
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`await asyncio.sleep(1)  # 模拟异步操作`'
 - en: '`return "Async data"`'
   id: totrans-157
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`return "Async data"`'
 - en: '`async def main():`'
   id: totrans-158
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`async def main():`'
 - en: '`data = await fetch_data()`'
   id: totrans-159
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`data = await fetch_data()`'
 - en: '`print(data)`'
   id: totrans-160
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print(data)`'
 - en: '`asyncio.run(main())`'
   id: totrans-161
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`asyncio.run(main())`'
 - en: JavaScript 和 Python 都提供了对异步编程的强大支持，使开发人员能够创建响应迅速且高效的应用程序，有效处理并发任务。在这些语言之间的选择通常取决于项目的具体需求和用例。
   id: totrans-162
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: JavaScript 和 Python 都提供了对异步编程的强大支持，使开发人员能够创建响应迅速且高效的应用程序，有效处理并发任务。在这些语言之间的选择通常取决于项目的具体需求和用例。
 - en: '*** '
   id: totrans-163
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '*** '
 - en: 第 13.4 节：同步与竞争条件
   id: totrans-164
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第 13.4 节：同步与竞争条件
 - en: 在并发编程中，**同步**和**竞争条件**是重要的概念，必须理解和管理。它们涉及多个线程或进程访问共享资源的协调和交互。同步确保并发操作按可预测的顺序进行并避免冲突，而竞争条件则可能导致多线程或多进程程序中的意外和错误行为。
   id: totrans-165
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在并发编程中，**同步**和**竞争条件**是重要的概念，必须理解和管理。它们涉及多个线程或进程访问共享资源的协调和交互。同步确保并发操作按可预测的顺序进行并避免冲突，而竞争条件则可能导致多线程或多进程程序中的意外和错误行为。
 - en: '`Synchronization Mechanisms`'
   id: totrans-166
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`同步机制`'
 - en: 为了减轻竞争条件并确保在并发程序中正确的同步，使用了各种同步机制。以下是一些常见的机制：
   id: totrans-167
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了减轻竞争条件并确保在并发程序中正确的同步，使用了各种同步机制。以下是一些常见的机制：
 - en: '`Mutex (Mutual Exclusion)`：互斥锁用于保护临界区代码，防止多个线程同时执行。一次只能有一个线程获取互斥锁，确保对共享资源的独占访问。'
   id: totrans-168
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Mutex (互斥锁)`：互斥锁用于保护临界区代码，防止多个线程同时执行。一次只能有一个线程获取互斥锁，确保对共享资源的独占访问。'
 - en: '`import threading`'
   id: totrans-169
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`mutex = threading.Lock()`'
   id: totrans-170
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`mutex = threading.Lock()`'
 - en: '`def critical_section():`'
   id: totrans-171
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def critical_section():`'
 - en: '`with mutex:`'
   id: totrans-172
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`with mutex:`'
 - en: '`# 此代码受到互斥锁的保护`'
   id: totrans-173
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`# 此代码受到互斥锁的保护`'
 - en: '`# 只有一个线程可以一次执行它`'
   id: totrans-174
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`# 只有一个线程可以一次执行它`'
 - en: '`pass`'
   id: totrans-175
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`pass`'
 - en: '`Semaphore`：信号量用于控制对有限可用插槽的资源的访问。线程可以获取和释放信号量以访问资源，从而确保资源不会被过度使用。'
   id: totrans-176
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Semaphore`：信号量用于控制对有限可用插槽的资源的访问。线程可以获取和释放信号量以访问资源，从而确保资源不会被过度使用。'
 - en: '`import threading`'
   id: totrans-177
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`semaphore = threading.Semaphore(3) # 允许3个线程同时访问`'
   id: totrans-178
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`semaphore = threading.Semaphore(3) # 允许3个线程同时访问`'
 - en: '`def access_resource():`'
   id: totrans-179
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def access_resource():`'
 - en: '`with semaphore:`'
   id: totrans-180
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`with semaphore:`'
 - en: '`# 最多3个线程可以同时执行此代码`'
   id: totrans-181
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`# 最多3个线程可以同时执行此代码`'
 - en: '`pass`'
   id: totrans-182
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`pass`'
 - en: '`Condition Variable`：条件变量允许线程在特定条件满足之前等待。它们通常用于线程同步和信号传递。'
   id: totrans-183
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Condition Variable`：条件变量允许线程在特定条件满足之前等待。它们通常用于线程同步和信号传递。'
 - en: '`import threading`'
   id: totrans-184
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`condition = threading.Condition()`'
   id: totrans-185
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`condition = threading.Condition()`'
 - en: '`def wait_for_condition():`'
   id: totrans-186
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def wait_for_condition():`'
 - en: '`with condition:`'
   id: totrans-187
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`with condition:`'
 - en: '`while not some_condition:`'
   id: totrans-188
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`while not some_condition:`'
 - en: '`condition.wait()`'
   id: totrans-189
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`condition.wait()`'
 - en: '`# 当条件满足时继续执行`'
   id: totrans-190
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`# 当条件满足时继续执行`'
 - en: '`Race Conditions`'
   id: totrans-191
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`竞争条件`'
 - en: 竞争条件发生在多个线程或进程同时访问共享资源时，最终结果依赖于它们执行的相对时间。竞争条件可能导致不可预测和错误的结果。以下是一个 Python 示例：
   id: totrans-192
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 竞争条件发生在多个线程或进程同时访问共享资源时，最终结果依赖于它们执行的相对时间。竞争条件可能导致不可预测和错误的结果。以下是一个 Python 示例：
 - en: '`import threading`'
   id: totrans-193
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`import threading`'
 - en: '`counter = 0`'
   id: totrans-194
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`counter = 0`'
 - en: '`def increment_counter():`'
   id: totrans-195
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`def increment_counter():`'
 - en: '`global counter`'
   id: totrans-196
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`global counter`'
 - en: '`for _ in range(1000000):`'
   id: totrans-197
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`for _ in range(1000000):`'
 - en: '`counter += 1`'
   id: totrans-198
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`counter += 1`'
 - en: 创建两个线程以递增计数器
   id: totrans-199
   prefs:
   - PREF_H1
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建两个线程以递增计数器
 - en: '`thread1 = threading.Thread(target=increment_counter)`'
   id: totrans-200
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1 = threading.Thread(target=increment_counter)`'
 - en: '`thread2 = threading.Thread(target=increment_counter)`'
   id: totrans-201
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2 = threading.Thread(target=increment_counter)`'
 - en: '`thread1.start()`'
   id: totrans-202
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.start()`'
 - en: '`thread2.start()`'
   id: totrans-203
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.start()`'
 - en: '`thread1.join()`'
   id: totrans-204
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread1.join()`'
 - en: '`thread2.join()`'
   id: totrans-205
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`thread2.join()`'
 - en: '`print("Counter:", counter) # 由于竞争条件，结果可能不可预测`'
   id: totrans-206
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`print("Counter:", counter) # 由于竞争条件，结果可能不可预测`'
 - en: 在这个例子中，两个`threads`同时递增`counter`变量，导致竞争条件。最终的`counter`值是不可预测的，可能不是预期的`2000000`。
   id: totrans-207
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，两个`threads`同时递增`counter`变量，导致竞争条件。最终的`counter`值是不可预测的，可能不是预期的`2000000`。
 - en: 为了解决竞争条件，可以使用`mutexes`或`semaphores`等同步机制，以确保只有一个`thread`在任何时候访问共享资源。这防止了数据损坏并确保程序的正确性。
   id: totrans-208
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了解决竞争条件，可以使用`互斥锁`或`信号量`等同步机制，以确保只有一个`线程`在任何时候访问共享资源。这防止了数据损坏并确保程序的正确性。
 - en: 理解`synchronization mechanisms`并注意竞争条件对于开发健壮的并发应用程序至关重要，这些应用程序能够按预期运行并避免意外问题。
   id: totrans-209
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 理解`同步机制`并注意竞争条件对于开发健壮的并发应用程序至关重要，这些应用程序能够按预期运行并避免意外问题。
 - en: '* * *'
   id: totrans-210
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: '`Section 13.5`: `Real-World Applications of Concurrent Programming`'
   id: totrans-211
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`第13.5节`：`并发编程的现实世界应用`'
 - en: '`Concurrent programming`在现代软件开发中扮演着至关重要的角色，使应用程序能够高效利用多核处理器并同时处理多个任务。在本节中，我们将探讨现实世界的应用程序和场景，其中`concurrent
     programming`至关重要。'
   id: totrans-212
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`并发编程`在现代软件开发中扮演着至关重要的角色，使应用程序能够高效利用多核处理器并同时处理多个任务。在本节中，我们将探讨现实世界的应用程序和场景，其中`并发编程`至关重要。'
 - en: 1. `Web Servers`
   id: totrans-213
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 1. `Web 服务器`
 - en: '`Web servers`需要同时处理多个传入请求，确保高效处理和快速响应时间。每个传入请求通常在一个单独的`thread`或`process`中处理，使得服务器能够同时处理大量客户端。像`Node.js`、`Django`和`Apache`等技术使用`concurrent
     programming`来实现这一点。'
   id: totrans-214
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Web 服务器`需要同时处理多个传入请求，确保高效处理和快速响应时间。每个传入请求通常在一个单独的`线程`或`进程`中处理，使得服务器能够同时处理大量客户端。像`Node.js`、`Django`和`Apache`等技术使用`并发编程`来实现这一点。'
 - en: 2. `Video Game Engines`
   id: totrans-215
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 2. `视频游戏引擎`
 - en: '`Video game engines`需要复杂的仿真和渲染过程。`Concurrent programming`用于管理诸如物理仿真、AI行为和渲染等任务。`Multithreading`和`parallelism`帮助将这些任务分配到`CPU
     cores`以实现最佳性能。'
   id: totrans-216
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`视频游戏引擎`需要复杂的仿真和渲染过程。`并发编程`用于管理诸如物理仿真、AI行为和渲染等任务。`多线程`和`并行性`帮助将这些任务分配到`CPU核心`以实现最佳性能。'
 - en: 3. `Database Systems`
   id: totrans-217
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 3. `数据库系统`
 - en: '`Database systems`通常需要管理多个客户端连接并同时执行查询。`Concurrency control mechanisms`，如`locking`，有助于确保多用户数据库环境中的数据一致性和完整性。'
   id: totrans-218
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`数据库系统`通常需要管理多个客户端连接并同时执行查询。`并发控制机制`，如`锁定`，有助于确保多用户数据库环境中的数据一致性和完整性。'
 - en: 4. `Operating Systems`
   id: totrans-219
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 4. `操作系统`
 - en: '`Operating systems`本身就是并发实体。它们并发管理`processes`、`threads`和`hardware resources`，为运行应用程序提供响应迅速且高效的环境。`scheduler`、`file
     system`和`device drivers`是依赖于并发性的组件示例。'
   id: totrans-220
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`操作系统`本身就是并发实体。它们并发管理`进程`、`线程`和`硬件资源`，为运行应用程序提供响应迅速且高效的环境。`调度器`、`文件系统`和`设备驱动程序`是依赖于并发性的组件示例。'
 - en: 5. `Parallel Computing`
   id: totrans-221
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 5. `并行计算`
 - en: '`High-performance computing (HPC) applications`、`scientific simulations`和`data
     processing tasks`在`parallelism`和`concurrent programming`中受益匪浅。像`OpenMP`和`MPI`等技术使开发人员能够创建利用超级计算机和集群全部性能的并行应用程序。'
   id: totrans-222
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`高性能计算（HPC）应用`、`科学仿真`和`数据处理任务`在`并行性`和`并发编程`中受益匪浅。像`OpenMP`和`MPI`等技术使开发人员能够创建利用超级计算机和集群全部性能的并行应用程序。'
 - en: 6. `Networking`
   id: totrans-223
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 6. `网络`
 - en: '`Networking applications`，如`peer-to-peer file sharing`、`online gaming`和`real-time
     communication`，需要有效处理来自多个来源的数据流。`Concurrent programming`有助于高效管理网络连接和数据传输。'
   id: totrans-224
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`网络应用`，如`点对点文件共享`、`在线游戏`和`实时通信`，需要有效处理来自多个来源的数据流。`并发编程`有助于高效管理网络连接和数据传输。'
 - en: 7. `Financial Systems`
   id: totrans-225
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 7. `金融系统`
 - en: Financial systems process vast amounts of data, such as stock market trades
     and transactions. Concurrent programming ensures timely and accurate processing
     of financial data, allowing for real-time analytics and decision-making.
@@ -1220,12 +1448,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 金融系统处理大量数据，如股市交易和交易记录。并发编程确保金融数据的及时和准确处理，支持实时分析和决策制定。
 - en: 8\. `IoT` (Internet of Things)
   id: totrans-227
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 8. `物联网（IoT）`
 - en: '`IoT` devices often generate and transmit data concurrently. `Cloud-based IoT
     platforms` use concurrent programming to handle data ingestion, processing, and
     storage from numerous devices in real time.'
@@ -1233,12 +1463,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`物联网（IoT）`设备通常会并发生成和传输数据。`基于云的物联网平台`使用并发编程来处理来自众多设备的数据摄取、处理和存储。'
 - en: 9\. `Video Streaming`
   id: totrans-229
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 9. `视频流`
 - en: '`Video streaming services` need to transmit video and audio data to multiple
     viewers simultaneously. Concurrent programming optimizes the distribution of data
     and ensures a smooth streaming experience.'
@@ -1246,12 +1478,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`视频流服务`需要同时向多个观众传输视频和音频数据。并发编程优化了数据的分发，确保流畅的播放体验。'
 - en: 10\. `Search Engines`
   id: totrans-231
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 10. `搜索引擎`
 - en: '`Search engines` like `Google` index and retrieve web pages from the internet
     in parallel. Concurrent processing of search queries and distributed systems help
     provide fast and relevant search results.'
@@ -1259,6 +1493,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`搜索引擎`如`Google`会并行索引和检索互联网的网页。并发处理搜索查询和分布式系统帮助提供快速且相关的搜索结果。'
 - en: In conclusion, concurrent programming is an indispensable aspect of modern software
     development. It enables applications to efficiently utilize hardware resources,
     respond to user demands in real time, and handle large-scale data processing.
@@ -1269,23 +1504,27 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总之，`并发编程`是现代软件开发中不可或缺的方面。它使得应用程序能够高效地利用硬件资源，实时响应用户需求，并处理大规模的数据处理任务。理解并发编程的原理并选择合适的并发机制，对于构建健壮和可扩展的软件系统至关重要。
 - en: '* * *'
   id: totrans-234
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: '`Chapter 14`: `Libraries`, `Frameworks`, and `APIs`'
   id: totrans-235
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`第14章`：`库`、`框架`和`API`'
 - en: '`Section 14.1`: The Role of `Libraries` in Software Development'
   id: totrans-236
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`第14.1节`：`库`在软件开发中的作用'
 - en: '`Libraries`, `frameworks`, and `APIs` (Application Programming Interfaces)
     are fundamental components of modern software development. They play a pivotal
     role in simplifying and accelerating the software development process. In this
@@ -1295,6 +1534,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`库`、`框架`和`API`（应用程序编程接口）是现代软件开发中的基本组成部分。它们在简化和加速软件开发过程中起着至关重要的作用。在本节中，我们将重点讨论`库`的重要性以及它们如何帮助构建健壮且高效的软件。'
 - en: '`Libraries` are collections of pre-written code, functions, and routines that
     developers can use to perform common tasks without reinventing the wheel. They
     encapsulate specific functionalities, making them accessible through a well-defined
@@ -1304,6 +1544,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`库`是预先编写的代码、函数和例程的集合，开发者可以使用它们来执行常见任务，而无需重新发明轮子。它们封装了特定的功能，通过定义良好的接口使其可访问。以下是关于`库`在软件开发中重要性的几个关键点：'
 - en: '`Code Reusability`: `Libraries` promote code reusability. Developers can leverage
     existing `libraries` to solve common problems, saving time and effort. This reusability
     reduces redundancy in codebases and leads to more maintainable software.'
@@ -1312,6 +1553,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`代码重用性`：`库`促进了代码的重用。开发者可以利用现有的`库`来解决常见问题，从而节省时间和精力。这种重用性减少了代码库中的冗余，带来了更易维护的软件。'
 - en: '`Accelerated Development`: `Libraries` provide a shortcut to implementing complex
     features. Instead of writing code from scratch, developers can integrate `libraries`
     that have already solved similar challenges. This speeds up development cycles
@@ -1321,6 +1563,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`加速开发`：`库`为实现复杂功能提供了捷径。开发者无需从零开始编写代码，而是可以集成已经解决类似问题的`库`。这加快了开发周期，并能更快地推向市场。'
 - en: '`Reliability`: Established `libraries` have been tested and used by a wide
     developer community. This collective experience enhances the reliability of the
     code. Bugs and issues are often discovered and fixed quickly, reducing the risk
@@ -1330,48 +1573,56 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`可靠性`：成熟的`库`已经经过广泛开发者社区的测试和使用。这种集体经验增强了代码的可靠性。错误和问题通常会被迅速发现并修复，降低了关键故障的风险。'
 - en: 'Performance Optimization: 库通常针对性能进行了优化。它们由专注于效率和正确性的专家编写。利用经过良好优化的库可以显著提高应用程序的性能。'
   id: totrans-242
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 性能优化：库通常针对性能进行了优化。它们由专注于效率和正确性的专家编写。利用经过良好优化的库可以显著提升应用程序的性能。
 - en: 'Cross-Platform Compatibility: 许多库被设计为跨平台，这意味着它们可以在各种操作系统和平台上使用。这简化了面向多个环境的应用程序的开发过程。'
   id: totrans-243
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 跨平台兼容性：许多库被设计为跨平台使用，这意味着它们可以在各种操作系统和平台上运行。这简化了面向多个环境的应用程序的开发过程。
 - en: 'Ecosystem Support: 库通常是更大生态系统的一部分。例如，JavaScript库在Web开发中被广泛使用，而Python有一个丰富的数据科学和机器学习库生态系统。开发者可以从支持性的社区和丰富的资源中受益。'
   id: totrans-244
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 生态系统支持：库通常是更大生态系统的一部分。例如，JavaScript库在Web开发中被广泛使用，而Python有一个丰富的数据科学和机器学习库生态系统。开发者可以从支持性的社区和丰富的资源中受益。
 - en: 'Specialized Functionality: 库通常专注于特定的领域或功能。例如，有用于图形渲染、网络、密码学等的库。这种专业化使开发人员能够利用领域特定的专业知识。'
   id: totrans-245
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 专门功能：库通常专注于特定领域或功能。例如，有专门用于图形渲染、网络、密码学等的库。这种专业化使开发者能够利用特定领域的专业知识。
 - en: 'Interoperability: 库使不同软件组件之间的互操作性成为可能。它们提供标准化接口，供应用程序相互通信，无论底层技术如何。'
   id: totrans-246
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 互操作性：库使得不同软件组件之间的互操作性成为可能。它们提供标准化的接口，供应用程序相互通信，无论底层技术如何。
 - en: 'Reduced Complexity: 库将复杂操作抽象为简单的函数调用。这种抽象减少了开发人员的认知负担，使他们能够专注于更高级的应用程序逻辑，而不是低级细节。'
   id: totrans-247
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 降低复杂性：库将复杂操作抽象为简单的函数调用。这种抽象减少了开发人员的认知负担，使他们能够专注于更高级的应用程序逻辑，而不是低级细节。
 - en: 'Community Contributions: 开源库受益于全球开发者社区的贡献。这种协作方式确保库保持最新、安全，并适应不断变化的需求。'
   id: totrans-248
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 社区贡献：开源库受益于全球开发者社区的贡献。这种协作方式确保库保持最新、安全，并适应不断变化的需求。
 - en: In summary, libraries are indispensable tools in software development. They
     empower developers to build feature-rich, reliable, and performant applications
     while reducing development time and effort. As technology continues to evolve,
@@ -1380,17 +1631,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总结来说，库是软件开发中不可或缺的工具。它们使开发者能够构建功能丰富、可靠且高性能的应用程序，同时减少开发时间和精力。随着技术的不断进步，库将继续作为高效和有效的软件工程的基石。
 - en: '* * *'
   id: totrans-250
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 'Section 14.2: Popular Frameworks for Web Development'
   id: totrans-251
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14.2节：Web开发中的流行框架
 - en: Web development has evolved significantly over the years, and one of the key
     reasons behind this evolution is the availability of powerful frameworks. These
     frameworks provide developers with the tools, structure, and best practices needed
@@ -1400,231 +1654,272 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Web开发多年来经历了显著的发展，而这一演变的关键原因之一是强大框架的出现。这些框架为开发者提供了构建复杂Web应用程序所需的工具、结构和最佳实践。在本节中，我们将探讨一些在Web开发中常用的框架。
 - en: 'Angular: 开发并维护的`Angular`是一个强大的JavaScript框架，用于构建动态单页Web应用程序。它提供了双向数据绑定、依赖注入、路由、表单处理和测试的全面工具集等功能。`Angular`通过促进模块化和可维护性简化了复杂Web应用程序的开发。'
   id: totrans-253
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: Angular：由`Angular`开发并维护的框架是一个强大的JavaScript框架，用于构建动态单页Web应用程序。它提供了双向数据绑定、依赖注入、路由、表单处理和测试的全面工具集等功能。`Angular`通过促进模块化和可维护性简化了复杂Web应用程序的开发。
 - en: '`React`：由`Facebook`创建，`React`是一个用于构建用户界面的JavaScript库。虽然不是一个完整的框架，`React`在与其他库和工具结合使用时，被广泛应用于创建交互式和可重用的UI组件。其虚拟DOM和基于组件的架构使其在构建现代网页应用程序时高效。'
   id: totrans-254
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`React`：由`Facebook`创建，`React`是一个用于构建用户界面的JavaScript库。虽然不是一个完整的框架，`React`在与其他库和工具结合使用时，被广泛应用于创建交互式和可重用的UI组件。其虚拟DOM和基于组件的架构使其在构建现代网页应用程序时高效。'
 - en: '`Vue.js`：`Vue.js`是一个渐进式JavaScript框架，专注于网页应用程序的视图层。因其简单性和易于集成到现有项目中而闻名。`Vue.js`允许开发人员逐步采用其特性，是小型和大型应用程序的理想选择。'
   id: totrans-255
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Vue.js`：`Vue.js`是一个渐进式JavaScript框架，专注于网页应用程序的视图层。因其简单性和易于集成到现有项目中而闻名。`Vue.js`允许开发人员逐步采用其特性，是小型和大型应用程序的理想选择。'
 - en: '`Ruby on Rails`：通常称为`Rails`，`Ruby on Rails`是用Ruby编写的网页应用程序框架。它遵循约定优于配置（CoC）和不要重复自己（DRY）原则，强调简单性和生产力。`Rails`提供了一整套构建基于数据库的网页应用程序的强大工具。'
   id: totrans-256
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Ruby on Rails`：通常称为`Rails`，`Ruby on Rails`是用Ruby编写的网页应用程序框架。它遵循约定优于配置（CoC）和不要重复自己（DRY）原则，强调简单性和生产力。`Rails`提供了一整套构建基于数据库的网页应用程序的强大工具。'
 - en: '`Django`：`Django`是一个高级Python网页框架，优先考虑快速开发和简洁、务实的设计。它内置了一个ORM（对象关系映射）系统、身份验证和管理界面，简化了数据库驱动网页应用程序的开发。'
   id: totrans-257
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Django`：`Django`是一个高级Python网页框架，优先考虑快速开发和简洁、务实的设计。它内置了一个ORM（对象关系映射）系统、身份验证和管理界面，简化了数据库驱动网页应用程序的开发。'
 - en: '`Express.js`：`Express.js`是一个最小化且灵活的Node.js网页应用程序框架，提供了一套强大的功能，用于网页和移动应用程序。它常用于构建API和服务器端应用程序，以其简单性和速度而闻名。'
   id: totrans-258
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Express.js`：`Express.js`是一个最小化且灵活的Node.js网页应用程序框架，提供了一套强大的功能，用于网页和移动应用程序。它常用于构建API和服务器端应用程序，以其简单性和速度而闻名。'
 - en: '`Laravel`：`Laravel`是一个流行的PHP框架，以其优雅的语法和开发者友好的特性而著称。它简化了路由、身份验证、缓存和数据库管理等任务，使开发人员能够专注于构建功能丰富的网页应用程序。'
   id: totrans-259
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Laravel`：`Laravel`是一个流行的PHP框架，以其优雅的语法和开发者友好的特性而著称。它简化了路由、身份验证、缓存和数据库管理等任务，使开发人员能够专注于构建功能丰富的网页应用程序。'
 - en: '`Spring Boot`：`Spring Boot`是`Spring`框架的扩展，用于构建基于Java的网页应用程序。它旨在通过提供生产就绪的默认配置来简化开发过程，适合构建企业级应用程序。'
   id: totrans-260
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Spring Boot`：`Spring Boot`是`Spring`框架的扩展，用于构建基于Java的网页应用程序。它旨在通过提供生产就绪的默认配置来简化开发过程，适合构建企业级应用程序。'
 - en: '`Flask`：`Flask`是一个轻量级的Python网页框架，常被描述为微框架，因其简单性和极简主义而受到欢迎。它高度可扩展，适合小型到中型网页应用程序和API。'
   id: totrans-261
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Flask`：`Flask`是一个轻量级的Python网页框架，常被描述为微框架，因其简单性和极简主义而受到欢迎。它高度可扩展，适合小型到中型网页应用程序和API。'
 - en: '`ASP.NET Core`：由`Microsoft`开发，`ASP.NET Core`是一个跨平台框架，用于构建现代的、基于云的和互联网连接的应用程序。它支持多种编程语言，并包括用于构建网页API和网页应用程序的功能。'
   id: totrans-262
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '`ASP.NET Core`：由`Microsoft`开发，`ASP.NET Core`是一个跨平台框架，用于构建现代的、基于云的和互联网连接的应用程序。它支持多种编程语言，并包括用于构建网页API和网页应用程序的功能。'
 - en: 这些只是可用于Web开发的众多框架中的一些示例。框架的选择通常取决于编程语言偏好、项目需求、可扩展性以及开发团队对框架的熟悉程度。无论选择如何，框架在简化开发过程和确保创建健壮的Web应用中都起着至关重要的作用。
   id: totrans-263
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这些只是可用于Web开发的众多框架中的一些示例。框架的选择通常取决于编程语言偏好、项目需求、可扩展性以及开发团队对框架的熟悉程度。无论选择如何，框架在简化开发过程和确保创建健壮的Web应用中都起着至关重要的作用。
 - en: '* * *'
   id: totrans-264
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: 第14.3节：API集成与管理
   id: totrans-265
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14.3节：API集成与管理
 - en: 在现代Web开发中，应用程序通常依赖外部服务和数据源来增强其功能。这种集成是通过应用程序编程接口（`APIs`）实现的，它允许不同的软件系统相互通信。在这一节中，我们将探讨API集成的重要性及其在Web开发中的管理方式。
   id: totrans-266
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在现代Web开发中，应用程序通常依赖外部服务和数据源来增强其功能。这种集成是通过应用程序编程接口（`APIs`）实现的，它允许不同的软件系统相互通信。在这一节中，我们将探讨API集成的重要性及其在Web开发中的管理方式。
 - en: API集成的重要性
   id: totrans-267
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: API集成的重要性
 - en: APIs像桥梁一样连接不同的软件组件、服务和平台。它们使开发者能够在应用中利用现有的功能和数据，从而减少重新发明轮子的需要。以下是API集成重要性的几个关键原因：
   id: totrans-268
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: APIs像桥梁一样连接不同的软件组件、服务和平台。它们使开发者能够在应用中利用现有的功能和数据，从而减少重新发明轮子的需要。以下是API集成重要性的几个关键原因：
 - en: 访问外部服务：APIs提供对各种外部服务的访问，如社交媒体平台、支付网关、地图服务等。这种访问使开发者能够丰富他们的应用，添加一些从零开始构建会耗时或不切实际的功能。
   id: totrans-269
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 访问外部服务：APIs提供对各种外部服务的访问，如社交媒体平台、支付网关、地图服务等。这种访问使开发者能够丰富他们的应用，添加一些从零开始构建会耗时或不切实际的功能。
 - en: 数据增强：APIs允许应用从外部源获取实时数据。例如，天气应用可以使用APIs提供基于气象服务数据的当前天气状况和预报。
   id: totrans-270
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 数据增强：APIs允许应用从外部源获取实时数据。例如，天气应用可以使用APIs提供基于气象服务数据的当前天气状况和预报。
 - en: 改善用户体验：集成APIs可以通过提供额外的功能和特性来增强用户体验。例如，一个电子商务网站可以集成支付网关API以促进安全的在线交易。
   id: totrans-271
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 改善用户体验：集成APIs可以通过提供额外的功能和特性来增强用户体验。例如，一个电子商务网站可以集成支付网关API以促进安全的在线交易。
 - en: 可扩展性：API集成使应用能够有效地扩展，通过将某些任务卸载到专门的服务来实现。这种可扩展性对于处理增加的用户流量和数据处理需求至关重要。
   id: totrans-272
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 可扩展性：API集成使应用能够有效地扩展，通过将某些任务卸载到专门的服务来实现。这种可扩展性对于处理增加的用户流量和数据处理需求至关重要。
 - en: API管理
   id: totrans-273
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: API管理
 - en: 虽然API集成带来了众多好处，但它也面临与安全性、可扩展性和维护相关的挑战。API管理在解决这些挑战中发挥着至关重要的作用：
   id: totrans-274
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然API集成带来了众多好处，但它也面临与安全性、可扩展性和维护相关的挑战。API管理在解决这些挑战中发挥着至关重要的作用：
 - en: 安全性：APIs可能暴露敏感数据和功能。适当的认证和授权机制对于保护API端点至关重要，以确保只有经过授权的用户或应用才能访问它们。
   id: totrans-275
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 安全性：APIs可能暴露敏感数据和功能。适当的认证和授权机制对于保护API端点至关重要，以确保只有经过授权的用户或应用才能访问它们。
 - en: 速率限制：为了防止API的滥用或过度使用，可以应用速率限制。这限制了客户端在特定时间内可以发出的请求数量，从而确保公平使用和资源可用性。
   id: totrans-276
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 速率限制：为了防止API的滥用或过度使用，可以应用速率限制。这限制了客户端在特定时间内可以发出的请求数量，从而确保公平使用和资源可用性。
 - en: 文档：清晰全面的API文档对于希望集成API的开发者至关重要。文档应提供可用端点、请求参数、响应格式和使用示例的详细信息。
   id: totrans-277
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 文档：清晰全面的API文档对于希望集成API的开发者至关重要。文档应提供可用端点、请求参数、响应格式和使用示例的详细信息。
 - en: 监控与分析：API管理工具通常包含监控和分析功能。这些工具跟踪API使用情况，识别性能瓶颈，并提供有关API如何被利用的见解。
   id: totrans-278
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 监控与分析：API管理工具通常包含监控和分析功能。这些工具跟踪API使用情况，识别性能瓶颈，并提供有关API如何被利用的见解。
 - en: 版本控制：随着API的发展，维护向后兼容性以避免破坏现有集成至关重要。版本控制允许开发者指定他们希望使用的API版本。
   id: totrans-279
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 版本控制：随着API的发展，维护向后兼容性以避免破坏现有集成至关重要。版本控制允许开发者指定他们希望使用的API版本。
 - en: 流行的API管理工具
   id: totrans-280
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 流行的API管理工具
 - en: 有多种API管理工具和平台可用于简化集成和管理API的过程。一些流行的选项包括：
   id: totrans-281
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有多种API管理工具和平台可用于简化集成和管理API的过程。一些流行的选项包括：
 - en: '•            `Apigee`: 谷歌的`Apigee`提供一个综合的API管理平台，具有安全性、分析和开发者协作的功能。'
   id: totrans-282
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           `Apigee`：谷歌的`Apigee`提供一个综合的API管理平台，具有安全性、分析和开发者协作的功能。
 - en: '•            `AWS API Gateway`: 亚马逊网络服务提供一个托管的API网关服务，使创建、发布和监控API变得简单。'
   id: totrans-283
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           `AWS API Gateway`：亚马逊网络服务提供一个托管的API网关服务，使创建、发布和监控API变得简单。
 - en: '•            `Azure API Management`: 微软的`Azure API Management`提供一个构建、部署和扩展API的平台。'
   id: totrans-284
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           `Azure API Management`：微软的`Azure API Management`提供一个构建、部署和扩展API的平台。
 - en: '•            `Postman`: 虽然主要被认为是一个流行的API测试工具，但`Postman`也提供API协作和监控功能。'
   id: totrans-285
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           `Postman`：虽然主要被认为是一个流行的API测试工具，但`Postman`也提供API协作和监控功能。
 - en: '•            `Swagger (OpenAPI)`: `Swagger`是一个开源框架，用于设计、构建和文档化RESTful API。它提供了一种标准化的方式来描述API。'
   id: totrans-286
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: •           `Swagger (OpenAPI)`：`Swagger`是一个开源框架，用于设计、构建和文档化RESTful API。它提供了一种标准化的方式来描述API。
 - en: 总之，API集成是现代Web开发的一个基本方面，使应用程序能够访问外部服务和数据。有效的API管理对于维护安全性、可扩展性和开发者友好的体验至关重要。随着Web应用程序继续依赖外部API，API集成和管理的角色在软件开发环境中将变得更加重要。
   id: totrans-287
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总之，API集成是现代Web开发的一个基本方面，使应用程序能够访问外部服务和数据。有效的API管理对于维护安全性、可扩展性和开发者友好的体验至关重要。随着Web应用程序继续依赖外部API，API集成和管理的角色在软件开发环境中将变得更加重要。
 - en: '***'
   id: totrans-288
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '***'
 - en: 'Section 14.4: 跨语言兼容性与桥接'
   id: totrans-289
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14.4节：跨语言兼容性与桥接
 - en: 在编程语言多样化的环境中，常常会遇到不同语言需要在同一个软件项目中相互作用和协作的场景。这可能出于多种原因，例如利用现有库、使用具有不同优势的语言，或整合遗留代码。在本节中，我们将探讨实现跨语言兼容性和桥接所涉及的挑战和技术。
   id: totrans-290
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在编程语言多样化的环境中，常常会遇到不同语言需要在同一个软件项目中相互作用和协作的场景。这可能出于多种原因，例如利用现有库、使用具有不同优势的语言，或整合遗留代码。在本节中，我们将探讨实现跨语言兼容性和桥接所涉及的挑战和技术。
 - en: 为什么跨语言兼容性重要
   id: totrans-291
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 为什么跨语言兼容性重要
 - en: 跨语言兼容性对于多个原因至关重要：
   id: totrans-292
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 跨语言兼容性对于多个原因至关重要：
 - en: 'Leveraging Existing Code: Organizations may have invested heavily in codebases
     written in different languages. Reusing this code can save time and resources.'
   id: totrans-293
@@ -1632,120 +1927,142 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 利用现有代码：组织可能已经在用不同语言编写的代码库上进行了大量投资。重用这些代码可以节省时间和资源。
 - en: 专业化：一些语言在特定领域表现出色。例如，`C`和`C++`以其性能著称，而`Python`因其简单性而受到重视。结合这些语言可以让开发者利用它们的优势。
   id: totrans-294
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 专业化：一些语言在特定领域表现出色。例如，`C`和`C++`以其性能著称，而`Python`因其简单性而受到重视。结合这些语言可以让开发者利用它们的优势。
 - en: 遗留系统：遗留系统通常用不再广泛使用的语言编写。将这些系统与现代语言连接可以延长其生命周期和功能。
   id: totrans-295
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 遗留系统：遗留系统通常用不再广泛使用的语言编写。将这些系统与现代语言连接可以延长其生命周期和功能。
 - en: 互操作性：不同的语言可能会被选择用于项目的不同组件。例如，Web应用可能在前端使用`JavaScript`，而在后端服务器逻辑中使用`Python`。
   id: totrans-296
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 互操作性：不同的语言可能会被选择用于项目的不同组件。例如，Web应用可能在前端使用`JavaScript`，而在后端服务器逻辑中使用`Python`。
 - en: 跨语言兼容性的技术
   id: totrans-297
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 跨语言兼容性的技术
 - en: 实现跨语言兼容性通常涉及以下技术：
   id: totrans-298
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 实现跨语言兼容性通常涉及以下技术：
 - en: 1\. 外部函数接口（FFI）
   id: totrans-299
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 1\. 外部函数接口（FFI）
 - en: '`FFI`是一种机制，允许用一种语言编写的代码调用用另一种语言实现的函数。它提供了一种与本机代码接口的标准化方式。许多语言提供了`FFI`库或扩展以实现此目的。例如，`Python`有`ctypes`库用于调用`C`函数，而`Java`有`Java
     Native Interface (JNI)`用于与本机代码交互。'
   id: totrans-300
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`FFI`是一种机制，允许用一种语言编写的代码调用用另一种语言实现的函数。它提供了一种与本机代码接口的标准化方式。许多语言提供了`FFI`库或扩展以实现此目的。例如，`Python`有`ctypes`库用于调用`C`函数，而`Java`有`Java
+    Native Interface (JNI)`用于与本机代码交互。'
 - en: 2\. 语言绑定
   id: totrans-301
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 2\. 语言绑定
 - en: 语言绑定为与用另一种语言编写的库或框架交互提供了更高级的API。这些绑定通常基于目标语言的约定自动生成。例如，存在用于用`C`或`C++`编写的库的`Python`绑定，提供了符合`Python`习惯的接口，使得`Python`开发者更容易使用它们。
   id: totrans-302
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 语言绑定为与用另一种语言编写的库或框架交互提供了更高级的API。这些绑定通常基于目标语言的约定自动生成。例如，存在用于用`C`或`C++`编写的库的`Python`绑定，提供了符合`Python`习惯的接口，使得`Python`开发者更容易使用它们。
 - en: 3\. Web APIs
   id: totrans-303
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 3\. Web APIs
 - en: 在处理Web应用时，使用Web API可以有效实现跨语言兼容性。例如，`RESTful API`允许不同语言通过发送和接收标准化格式的数据（如`JSON`或`XML`）在`HTTP`上进行通信。这种方法是语言无关的，通常用于微服务架构中。
   id: totrans-304
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在处理Web应用时，使用Web API可以有效实现跨语言兼容性。例如，`RESTful API`允许不同语言通过发送和接收标准化格式的数据（如`JSON`或`XML`）在`HTTP`上进行通信。这种方法是语言无关的，通常用于微服务架构中。
 - en: 4\. 消息队列和协议
   id: totrans-305
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 4\. 消息队列和协议
 - en: 消息队列系统像`RabbitMQ`和协议像`MQTT`使得用不同语言编写的组件之间可以进行通信。这些系统允许消息异步交换，促进解耦和分布式架构。
   id: totrans-306
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 消息队列系统像`RabbitMQ`和协议像`MQTT`使得用不同语言编写的组件之间可以进行通信。这些系统允许消息异步交换，促进解耦和分布式架构。
 - en: 5\. 标准数据格式
   id: totrans-307
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 5\. 标准数据格式
 - en: 使用标准数据格式像`JSON`、`XML`、`Protocol Buffers`或`Apache Avro`可以使不同语言无缝交换数据。大多数编程语言都有用于解析和生成这些格式的库。
   id: totrans-308
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用标准数据格式像`JSON`、`XML`、`Protocol Buffers`或`Apache Avro`可以使不同语言无缝交换数据。大多数编程语言都有用于解析和生成这些格式的库。
 - en: 跨语言兼容性的挑战
   id: totrans-309
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 跨语言兼容性的挑战
 - en: 尽管跨语言兼容性很有价值，但它也伴随着挑战：
   id: totrans-310
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管跨语言兼容性很有价值，但它也伴随着挑战：
 - en: 数据类型不匹配：不同语言可能以不同方式表示数据类型。在语言之间映射数据类型可能容易出错。
   id: totrans-311
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 数据类型不匹配：不同语言可能以不同方式表示数据类型。在语言之间映射数据类型可能容易出错。
 - en: 内存管理：语言可能有不同的内存管理模型（例如，`C/C++`中的手动内存管理和`Python`中的自动内存管理）。在它们之间传递数据时必须谨慎。
   id: totrans-312
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 内存管理：语言可能有不同的内存管理模型（例如，`C/C++`中的手动内存管理和`Python`中的自动内存管理）。在它们之间传递数据时必须谨慎。
 - en: 错误处理：跨语言边界处理错误和异常可能很复杂，因为每种语言可能有其错误处理机制。
   id: totrans-313
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 错误处理：跨语言边界处理错误和异常可能很复杂，因为每种语言可能有其错误处理机制。
 - en: 'Performance Overhead: Interfacing between languages can introduce performance
     overhead, especially in situations where data needs to be converted or copied.'
   id: totrans-314
@@ -1753,6 +2070,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 性能开销：语言之间的接口可能会引入性能开销，特别是在需要转换或复制数据的情况下。
 - en: 'Debugging and Testing: Debugging and testing code that spans multiple languages
     can be challenging, as debugging tools may not seamlessly support all languages
     involved.'
@@ -1761,6 +2079,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 调试与测试：调试和测试跨多种语言的代码可能会很具挑战性，因为调试工具可能无法无缝支持所有相关语言。
 - en: In conclusion, achieving cross-language compatibility and bridging is crucial
     when building complex software systems that involve different languages. It enables
     developers to make the most of each language’s strengths and reuse existing code.
@@ -1772,17 +2091,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总之，实现跨语言兼容性和桥接在构建涉及多种语言的复杂软件系统时至关重要。它使开发人员能够充分利用每种语言的优势，并重用现有代码。然而，这也伴随着与数据类型、内存管理、错误处理、性能、调试和测试相关的挑战。仔细规划并考虑这些挑战对软件开发项目中的跨语言集成至关重要。
 - en: '`***`'
   id: totrans-317
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`***`'
 - en: 'Section 14.5: Evaluating and Choosing the Right Tools'
   id: totrans-318
   prefs:
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14.5节：评估和选择正确的工具
 - en: Selecting the appropriate libraries, frameworks, and APIs for your software
     project is a critical decision that can significantly impact its success. In this
     section, we’ll discuss the process of evaluating and choosing the right tools
@@ -1791,17 +2113,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 选择适当的库、框架和API是软件项目中的一个关键决策，这将对项目的成功产生重大影响。在本节中，我们将讨论评估和选择正确工具的过程。
 - en: The Importance of Tool Selection
   id: totrans-320
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 工具选择的重要性
 - en: 'Choosing the right tools is essential for several reasons:'
   id: totrans-321
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 选择合适的工具至关重要，原因如下：
 - en: 'Efficiency: The right tools can help developers work more efficiently, reducing
     development time and costs.'
   id: totrans-322
@@ -1809,6 +2134,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 效率：合适的工具可以帮助开发人员更高效地工作，减少开发时间和成本。
 - en: 'Functionality: Different tools offer varying levels of functionality. Selecting
     tools that align with your project’s requirements is crucial.'
   id: totrans-323
@@ -1816,6 +2142,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 功能：不同的工具提供不同级别的功能。选择与项目需求相符的工具至关重要。
 - en: 'Compatibility: Tools should be compatible with your existing technology stack.
     Incompatible tools can lead to integration issues and inefficiencies.'
   id: totrans-324
@@ -1823,6 +2150,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 兼容性：工具应与现有的技术栈兼容。不兼容的工具可能导致集成问题和低效。
 - en: 'Scalability: Tools should be capable of scaling with your project’s growth.
     Scalability ensures that your software can handle increased user loads and data.'
   id: totrans-325
@@ -1830,6 +2158,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 可扩展性：工具应能够随着项目的增长而扩展。可扩展性确保软件能够处理更多的用户负载和数据。
 - en: 'Community and Support: Tools with active communities and robust support systems
     are more likely to receive updates, bug fixes, and security patches.'
   id: totrans-326
@@ -1837,23 +2166,27 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 社区和支持：拥有活跃社区和强大支持系统的工具更有可能接收更新、修复漏洞和发布安全补丁。
 - en: Evaluating Tools
   id: totrans-327
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 评估工具
 - en: 'When evaluating tools, consider the following factors:'
   id: totrans-328
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在评估工具时，考虑以下因素：
 - en: 1\. Project Requirements
   id: totrans-329
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 1\. 项目需求
 - en: Start by understanding your project’s requirements. What functionality does
     your software need? What technologies are you already using? Your tool selection
     should align with these requirements.
@@ -1861,12 +2194,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先了解你项目的需求。你的软件需要什么功能？你已经在使用哪些技术？工具的选择应与这些需求保持一致。
 - en: 2\. User Experience
   id: totrans-331
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 2\. 用户体验
 - en: Consider the user experience your tool provides. Is it easy to use? Does it
     have a user-friendly interface? A tool that simplifies tasks for developers can
     boost productivity.
@@ -1874,36 +2209,42 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑工具提供的用户体验。它易于使用吗？是否有用户友好的界面？简化开发者任务的工具可以提高生产力。
 - en: 3\. Documentation
   id: totrans-333
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 3\. 文档
 - en: Check the quality and comprehensiveness of the tool’s documentation. Good documentation
     can save developers time and help them troubleshoot issues.
   id: totrans-334
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 检查工具文档的质量和全面性。好的文档可以节省开发者的时间，帮助他们解决问题。
 - en: 4\. Community and Support
   id: totrans-335
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 4\. 社区与支持
 - en: Evaluate the tool’s community and support. Are there active forums or mailing
     lists where developers can seek help? Are there regular updates and bug fixes?
   id: totrans-336
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 评估工具的社区和支持。是否有活跃的论坛或邮件列表供开发者寻求帮助？是否有定期的更新和修复？
 - en: 5\. Licensing and Costs
   id: totrans-337
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 5\. 许可与费用
 - en: Understand the licensing and costs associated with the tool. Some tools may
     be open source, while others require a licensing fee. Consider your budget and
     licensing constraints.
@@ -1911,72 +2252,84 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 了解工具的许可和费用。一些工具可能是开源的，而另一些则需要许可费用。考虑你的预算和许可限制。
 - en: '`6.` Performance'
   id: totrans-339
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`6.` 性能'
 - en: Performance is critical. Tools should not introduce significant performance
     overhead. Test the tool’s impact on your software’s performance before adoption.
   id: totrans-340
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 性能至关重要。工具不应引入显著的性能开销。在采用工具之前，测试其对软件性能的影响。
 - en: '`7.` Integration'
   id: totrans-341
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`7.` 集成'
 - en: Ensure that the tool integrates smoothly with your existing technology stack.
     Integration difficulties can lead to delays and compatibility issues.
   id: totrans-342
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 确保工具与你现有的技术栈无缝集成。集成困难可能导致延迟和兼容性问题。
 - en: '`8.` Security'
   id: totrans-343
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`8.` 安全性'
 - en: Security is paramount. Assess the tool’s security features and track record.
     Using insecure tools can lead to vulnerabilities in your software.
   id: totrans-344
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 安全性至关重要。评估工具的安全特性和历史记录。使用不安全的工具可能会导致软件中的漏洞。
 - en: '`9.` Vendor Lock-In'
   id: totrans-345
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`9.` 供应商锁定'
 - en: Be cautious of tools that create vendor lock-in, making it challenging to switch
     to alternatives. Favor tools that offer flexibility and interoperability.
   id: totrans-346
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 小心那些会造成供应商锁定的工具，这些工具可能使得切换到其他工具变得困难。优先选择那些提供灵活性和互操作性的工具。
 - en: '`10.` Scalability'
   id: totrans-347
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`10.` 可扩展性'
 - en: Consider the tool’s scalability. Can it handle your project’s growth? Scalability
     ensures your software remains responsive as user loads increase.
   id: totrans-348
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑工具的可扩展性。它能处理你项目的增长吗？可扩展性确保随着用户负载增加，你的软件仍能保持响应性。
 - en: Making the Decision
   id: totrans-349
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 做出决策
 - en: After evaluating tools based on these factors, create a shortlist of options
     that best meet your project’s requirements. Consider conducting proof-of-concept
     or pilot projects to assess how well the tools perform in your specific context.
@@ -1984,6 +2337,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在根据这些因素评估工具后，创建一个最佳符合项目需求的工具候选名单。考虑进行概念验证或试点项目，评估工具在你的特定环境中的表现。
 - en: Finally, involve your development team in the decision-making process. Developers
     who will be using the tools have valuable insights into their practicality and
     effectiveness.
@@ -1991,6 +2345,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，让你的开发团队参与决策过程。使用这些工具的开发人员对工具的实用性和有效性有宝贵的见解。
 - en: Remember that tool selection is not a one-time decision. As your project evolves,
     periodically reassess your toolset to ensure it continues to meet your needs.
     Making informed choices about the tools you use is crucial for the success of
@@ -1999,8 +2354,10 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 记住，工具选择不是一次性的决策。随着项目的进展，定期重新评估你的工具集，确保它继续满足你的需求。做出明智的工具选择对软件开发项目的成功至关重要。
 - en: '`* * *`'
   id: totrans-353
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`* * *`'

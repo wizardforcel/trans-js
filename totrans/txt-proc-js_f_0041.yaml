@@ -1,123 +1,196 @@
 - en: '| Recipe 30 | Treating Multiple Characters as a Single Unit with the Capturing
     Group |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 30 | 使用捕获组将多个字符视为一个单元 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: 'Suppose you want to search an archive of documents and retrieve those that
     mention a date in August. The only clue you have is that the date comes in four
     different styles. For example: “August 16,” “August 16th,” “Aug 16,” or “Aug 16th.”'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你想要搜索一个文档档案并检索出其中提到8月日期的文档。你唯一的线索是这些日期有四种不同的样式。例如：“August 16”，“August 16th”，“Aug
+    16”或者“Aug 16th”。
 - en: To match such a date with regex, you need a way to make “ust” in “August” and
     “th” in “16th” optional.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 要使用正则表达式匹配这样的日期，你需要一种方法，使得“August”中的“ust”和“16th”中的“th”变为可选。
 - en: Solution
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'To make certain letters optional, group them by enclosing them in parentheses
     and place a question mark after the group:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了使某些字母变为可选，你需要将它们分组，放在括号中，并在组后面加上问号：
 - en: '[part_2/capturing_group_p1/capturing_group_p1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/capturing_group_p1/capturing_group_p1_ex1.js)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/capturing_group_p1/capturing_group_p1_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/capturing_group_p1/capturing_group_p1_ex1.js)'
 - en: '|   | **const** re = */**\b**Aug**(**ust**)?\s\d{1,2}(**st&#124;nd&#124;rd&#124;th**)?\b**/*;
     |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */**\b**Aug**(**ust**)?\s\d{1,2}(**st&#124;nd&#124;rd&#124;th**)?\b**/*;
+    |'
 - en: '|   |  |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *// Grouping allows matching many alternatives* |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// 分组允许匹配多个备选项* |'
 - en: '|   | re.test(*"Aug 16"*); *// → true* |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Aug 16"*); *// → true* |'
 - en: '|   | re.test(*"August 16"*); *// → true* |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"August 16"*); *// → true* |'
 - en: '|   | re.test(*"Aug 16th"*); *// → true* |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"Aug 16th"*); *// → true* |'
 - en: '|   | re.test(*"August 16th"*); *// → true* |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(*"August 16th"*); *// → true* |'
 - en: This regex matches dates in the format of “Aug 1st,” “August 15th,” “Aug 22nd,”
     “August 31st,” etc. Please note that if the date contains typographical errors
     such as “August 16nd” or “Aug 1rd,” the pattern will still match them.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式匹配日期格式为“Aug 1st”，“August 15th”，“Aug 22nd”，“August 31st”等等。请注意，如果日期包含排版错误，比如“August
+    16nd”或者“Aug 1rd”，这个模式仍然会匹配。
 - en: Discussion
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'Let’s start by examining the pattern step by step:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们一步步来分析这个模式：
 - en: '|   | /\bAug(ust)?\s\d{1,2}(st&#124;nd&#124;rd&#124;th)?\b/ |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | /\bAug(ust)?\s\d{1,2}(st&#124;nd&#124;rd&#124;th)?\b/ |'
 - en: '|   |  |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● \b asserts a word boundary |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 断言单词边界 |'
 - en: '|   | ● Aug matches the characters Aug literally |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● Aug 匹配字面上的字符 Aug |'
 - en: '|   | ● (ust)? 1st capturing group |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (ust)? 第一个捕获组 |'
 - en: '|   | ○ ust matches the characters ust literally |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ust 匹配字面上的字符 ust |'
 - en: '|   | ○ ? matches the previous token zero or one time |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前面的标记零次或一次 |'
 - en: '|   | ● \s matches any whitespace character |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \s 匹配任何空白字符 |'
 - en: '|   | ● \d matches a digit |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \d 匹配一个数字 |'
 - en: '|   | ○ {1,2} matches the previous token 1 or 2 times |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ {1,2} 匹配前面的标记1次或2次 |'
 - en: '|   | ● (st&#124;nd&#124;rd&#124;th)? |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● (st&#124;nd&#124;rd&#124;th)? |'
 - en: '|   | ○ 1st alternative st: matches the characters st literally |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第一种备选项 st: 匹配字面上的字符 st |'
 - en: '|   | ○ 2nd alternative nd: matches the characters nd literally |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第二种备选项 nd: 匹配字面上的字符 nd |'
 - en: '|   | ○ 3rd alternative rd: matches the characters rd literally |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第三个备选项 rd：字面匹配字符 rd |'
 - en: '|   | ○ 4th alternative th: matches the characters th literally |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ 第四个备选项 th：字面匹配字符 th |'
 - en: '|   | ○ ? matches the previous token zero or one time |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ ? 匹配前一个符号零次或一次 |'
 - en: '|   | ● \b asserts a word boundary |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 断言一个单词边界 |'
 - en: The regex begins with a word boundary (\b), which allows us to match the beginning
     of a word. Then we use Aug(ust)? to match the string “Aug” followed by an optional
     “ust,” which tells the regex to match both “Aug” and “August” formats of the month.
     After that, we use \s to match a whitespace character (space, tab, etc.) after
     the month.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式以单词边界（\b）开始，这使我们能够匹配单词的开头。接着我们使用Aug(ust)?来匹配“Aug”字符串，后面跟一个可选的“ust”，这告诉正则表达式同时匹配“Aug”和“August”两种格式的月份。之后，我们使用\s来匹配月份后的空白字符（空格、制表符等）。
 - en: 'For the day of the month, we use \d{1,2} to match one or two digits. The curly
     braces with the range 1,2 ensure that only one or two digits are matched. Next,
     we use (st|nd|rd|th)? to match the suffix for the day of the month, including
@@ -125,28 +198,41 @@
     precedence: it matches either everything to the left or everything to the right
     of the vertical bar. In this case, we need to limit the reach of alternation by
     wrapping the characters in a pair of parentheses.'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于日期中的天数，我们使用\d{1,2}来匹配一位或两位数字。范围{1,2}确保只匹配一位或两位数字。接着，我们使用(st|nd|rd|th)?来匹配日期的后缀，包括“st”、“nd”、“rd”或“th”。在所有元字符中，竖线的优先级最低：它匹配竖线左边或右边的任何内容。在这种情况下，我们需要通过将字符括起来来限制选择的范围。
 - en: Then we use a question mark to make the suffix optional. Finally, we end the
     regex with a word boundary (\b) to match the end of a word.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们使用问号使后缀变为可选。最后，我们在正则表达式的结尾加上单词边界（\b），以匹配单词的结尾。
 - en: '| Don’t Use the Capturing Group in a Character Class |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| 不要在字符类中使用捕获组 |'
 - en: '| --- |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | It’s
     not possible to use the capturing group in a character class because parentheses
     inside a character class are treated as literal characters. For example, [x(y)]
     matches a single character out of x, (, y, and ). |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/warning.png](images/aside-icons/warning.png) | 在字符类中无法使用捕获组，因为字符类中的括号会被视为字面字符。例如，[x(y)]
+    会匹配字符x、(、y和)中的任意一个。 |'
 - en: Sometimes it’s useful to group a part of the regular expression and treat it
     as a single unit. You can do this by encapsulating the characters in parentheses.
     Grouping enables you to use quantifiers on the entire group, limit alternation
     to only a part of the pattern, or extract a matched value for further processing
     (which is the topic of our next recipe).
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时，分组正则表达式中的一部分并将其视为一个单独的单元是很有用的。你可以通过将字符封装在括号中来实现。分组使你能够对整个分组使用量词，限制交替只作用于模式的某部分，或者提取匹配的值以进行进一步处理（这也是我们下一个主题的内容）。

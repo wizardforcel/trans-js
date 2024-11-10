@@ -1,270 +1,438 @@
 - en: '| Recipe 41 | Forcing ^ and $ to Match at the Start and End of a Line with
     the m Flag |'
+  id: totrans-0
   prefs: []
   type: TYPE_TB
+  zh: '| 配方 41 | 使用 m 标志强制 ^ 和 $ 匹配行的开始和结束 |'
 - en: Task
+  id: totrans-1
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 任务
 - en: Imagine you have a database of movie subtitles and want to provide a search
     mechanism that returns complete lines containing a specific word. You have already
     seen how to assert the start and end of a string in Recipe 24, [*Asserting the
     Start or End of a String with ^ and $*](f_0035.xhtml#rcp.dollar).
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你有一个电影字幕数据库，并希望提供一个搜索机制，返回包含特定词汇的完整行。你已经在配方 24 中了解了如何确认字符串的开始和结束，[*使用 ^ 和
+    $ 确认字符串的开始或结束*](f_0035.xhtml#rcp.dollar)。
 - en: 'But this time, you want to assert the start and end of a line. So, if the search
     word is “McClaren” and the subtitle file contains these lines:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是这一次，你需要确认行的开始和结束。所以，如果搜索词是“McClaren”，而字幕文件中包含这些行：
 - en: '|   | ... |'
+  id: totrans-4
   prefs: []
   type: TYPE_TB
+  zh: '|   | ... |'
 - en: '|   |  |'
+  id: totrans-5
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | 491 |'
+  id: totrans-6
   prefs: []
   type: TYPE_TB
+  zh: '|   | 491 |'
 - en: '|   | 00:39:21,396 --> 00:39:23,481 |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '|   | 00:39:21,396 --> 00:39:23,481 |'
 - en: '|   | Soon as you can, get that plane ready. |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '|   | 尽快准备好那架飞机。 |'
 - en: '|   |  |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | 492 |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|   | 492 |'
 - en: '|   | 00:39:23,565 --> 00:39:27,485 |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '|   | 00:39:23,565 --> 00:39:27,485 |'
 - en: '|   | Dr. McClaren could lose his leg |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|   | 麦克拉伦博士可能会失去他的腿 |'
 - en: '|   | without proper medical attention. |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '|   | 如果没有得到适当的医疗照顾。 |'
 - en: '|   |  |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ... |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '|   | ... |'
 - en: 'You want to retrieve only the line containing “McClaren”:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 你只想提取包含“McClaren”的行：
 - en: '|   | Dr. McClaren could lose his leg |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '|   | 麦克拉伦博士可能会失去他的腿 |'
 - en: Solution
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解决方案
 - en: 'To retrieve a complete line, place a caret (^) at the beginning and a dollar
     symbol ($) at the end of your regex pattern. Then enable the multiline mode by
     setting the m flag:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 要提取完整的行，请在正则表达式模式的开头放置一个插入符号（^），并在结尾放置一个美元符号（$）。然后，通过设置 m 标志启用多行模式：
 - en: '[part_2/flag_multiline/multiline_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex1.js)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_multiline/multiline_ex1.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex1.js)'
 - en: '|   | **const** re = */^.***\b**McClaren**\b**.*$/m*; |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */^.***\b**McClaren**\b**.*$/m*; |'
 - en: '|   | **const** str = *`* |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`* |'
 - en: '|   | *491* |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '|   | *491* |'
 - en: '|   | *00:39:21,396 --> 00:39:23,481* |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '|   | *00:39:21,396 --> 00:39:23,481* |'
 - en: '|   | *Soon as you can, get that plane ready.* |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '|   | *尽快准备好那架飞机。* |'
 - en: '|   |  |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | *492* |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '|   | *492* |'
 - en: '|   | *00:39:23,565 --> 00:39:27,485* |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '|   | *00:39:23,565 --> 00:39:27,485* |'
 - en: '|   | *Dr. McClaren could lose his leg* |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '|   | *麦克拉伦博士可能会失去他的腿* |'
 - en: '|   | *without proper medical attention.* |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|   | *如果没有得到适当的医疗照顾。* |'
 - en: '|   | *`*; |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`*; |'
 - en: '|   |  |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | str.match(re)[0]; |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '|   | str.match(re)[0]; |'
 - en: '|   | *// → "Dr. McClaren could lose his leg"* |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '|   | *// → "麦克拉伦博士可能会失去他的腿"* |'
 - en: With the m flag, your regex is able to match the line of text containing the
     word “McClaren.”
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 m 标志后，你的正则表达式能够匹配包含“McClaren”这个词的整行文本。
 - en: '| Reading the File from a Server |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| 从服务器读取文件 |'
 - en: '| --- |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | Ideally, you’ll
     want to read a subtitle from your server, and a useful tool for that job is the
     fetch() method.^([[25]](f_0064.xhtml#FOOTNOTE-25)) |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 理想情况下，你会想从服务器读取一个字幕，一个有用的工具就是
+    `fetch()` 方法。^([[25]](f_0064.xhtml#FOOTNOTE-25)) |'
 - en: Discussion
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 讨论
 - en: 'The multiline flag allows the regex engine to process a string consisting of
     multiple lines. By default, caret (^) and dollar ($) assert the beginning and
     end of a string, but in multiline mode, they match the beginning and end of a
     line (delimited by non-printable characters like \n and \r). Compare:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 多行标志允许正则表达式引擎处理由多行组成的字符串。默认情况下，插入符号（^）和美元符号（$）表示字符串的开始和结束，但在多行模式下，它们匹配每一行的开始和结束（由不可打印字符如
+    \n 和 \r 限定）。对比：
 - en: '[part_2/flag_multiline/multiline_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex2.js)'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_multiline/multiline_ex2.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex2.js)'
 - en: '|   | **const** str = *`* |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`* |'
 - en: '|   | *Anderson* |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Anderson* |'
 - en: '|   | *Miller* |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Miller* |'
 - en: '|   | *McClaren* |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '|   | *McClaren* |'
 - en: '|   | *`*; |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`*; |'
 - en: '|   |  |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re1 = */^McClaren$/*; |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re1 = */^McClaren$/*; |'
 - en: '|   | **const** re2 = */^McClaren$/m*; |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re2 = */^McClaren$/m*; |'
 - en: '|   |  |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re1.test(str); *// → false* |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '|   | re1.test(str); *// → false* |'
 - en: '|   | re2.test(str); *// → true* |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '|   | re2.test(str); *// → true* |'
 - en: 'In this string, there’s a non-printable newline character at the end of each
     word, which indicates the end of a line of text and the start of a new one. You
     can confirm that by searching for the escape sequence (\n) in the string:'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个字符串中，每个单词的末尾都有一个不可打印的换行符，这标志着一行文本的结束和新一行的开始。你可以通过在字符串中搜索转义序列（\n）来确认这一点：
 - en: '[part_2/flag_multiline/multiline_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex3.js)'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '[part_2/flag_multiline/multiline_ex3.js](http://media.pragprog.com/titles/fkjavascript/code/part_2/flag_multiline/multiline_ex3.js)'
 - en: '|   | **const** str = *`* |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** str = *`* |'
 - en: '|   | *Anderson* |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Anderson* |'
 - en: '|   | *Miller* |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '|   | *Miller* |'
 - en: '|   | *McClaren* |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '|   | *McClaren* |'
 - en: '|   | *`*; |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '|   | *`*; |'
 - en: '|   |  |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | **const** re = */Anderson**\n**/*; |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '|   | **const** re = */Anderson**\n**/*; |'
 - en: '|   |  |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | re.test(str); *// → true* |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '|   | re.test(str); *// → true* |'
 - en: '| What Is a Non-printable Character? |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| 什么是不可打印字符？ |'
 - en: '| --- |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '--- |'
 - en: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | A non-printable
     character (also known as a control character) doesn’t represent a written symbol.
     Instead, it tells certain applications, such as web browsers, how a document is
     supposed to look. Non-printable characters are designed to indicate formatting
     actions such as horizontal tab, line feed, carriage return, etc. |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '| ![images/aside-icons/info.png](images/aside-icons/info.png) | 不可打印字符（也称为控制字符）并不代表书面符号。相反，它告诉某些应用程序（如网页浏览器）文档应该如何显示。不可打印字符用于指示格式化操作，如水平制表符、换行符、回车符等。
+    |'
 - en: 'Let’s dig a bit deeper into the regex pattern:'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们深入探讨一下正则表达式模式：
 - en: '|   | /^.*\bMcClaren\b.*$/m; |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '|   | /^.*\bMcClaren\b.*$/m; |'
 - en: '|   |  |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | ● ^ asserts the position at the start of a line |'
+  id: totrans-70
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● ^ 表示行首的位置 |'
 - en: '|   | ● . matches any character |'
+  id: totrans-71
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● . 匹配任意字符 |'
 - en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  id: totrans-72
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前一个标记出现零次或无限次 |'
 - en: '|   | ● \b asserts the position at a word boundary |'
+  id: totrans-73
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 表示单词边界的位置 |'
 - en: '|   | ● McClaren matches the characters "McClaren" literally |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● McClaren 匹配字符 "McClaren" |'
 - en: '|   | ● \b asserts the position at a word boundary |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● \b 表示单词边界的位置 |'
 - en: '|   | ● . matches any character |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● . 匹配任意字符 |'
 - en: '|   | ○ * matches the previous token between zero and unlimited times |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ * 匹配前一个标记出现零次或无限次 |'
 - en: '|   | ● $ asserts the position at the end of a line |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● $ 表示行尾的位置 |'
 - en: '|   | ● Flags |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|   | ● 标志 |'
 - en: '|   | ○ m enables multiline mode |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '|   | ○ m 启用多行模式 |'
 - en: The most important thing to remember from this recipe is to use the multiline
     flag (m) when you want to change the default behavior of the caret (^) and the
     dollar symbol ($) to match the beginning and end of a line.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 最重要的是，在你想改变默认行为时，要使用多行标志（m），这样可以改变插入符号（^）和美元符号（$）匹配行首和行尾的方式。

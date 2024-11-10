@@ -1,399 +1,587 @@
 - en: 'Chapter 13: Optimizing Performance in React'
+  id: totrans-0
   prefs:
   - PREF_H1
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 第13章：在React中优化性能
 - en: Performance optimization is a crucial aspect of building React applications.
     A well-optimized app not only provides a better user experience but also consumes
     fewer resources, making it more cost-effective to operate. In this chapter, we
     will explore various strategies and techniques to optimize the performance of
     your React applications.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 性能优化是构建React应用程序的关键方面。一个优化良好的应用程序不仅能提供更好的用户体验，还能消耗更少的资源，从而使其运营成本更低。在本章中，我们将探讨各种优化React应用程序性能的策略和技术。
 - en: Why Performance Matters
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么性能很重要
 - en: 'Before diving into optimization techniques, let''s understand why performance
     is so important in web development:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在深入探讨优化技术之前，让我们先了解为什么在网页开发中性能如此重要：
 - en: '1\. **User Experience**: A fast and responsive application improves user satisfaction.
     Slow-loading pages or unresponsive interfaces can frustrate users and drive them
     away.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **用户体验**：快速响应的应用程序提高用户满意度。加载缓慢的页面或不响应的界面会让用户感到沮丧，甚至可能导致他们离开。
 - en: '2\. **Conversion Rates**: Performance directly impacts conversion rates. Faster
     applications lead to higher engagement and conversion rates, which are critical
     for e-commerce and other online businesses.'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **转化率**：性能直接影响转化率。更快的应用程序能带来更高的用户参与度和转化率，这对电子商务和其他在线业务至关重要。
 - en: '3\. **SEO Ranking**: Search engines consider page speed when ranking websites.
     Faster sites are more likely to appear higher in search results, leading to increased
     organic traffic.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **SEO排名**：搜索引擎在排名网站时会考虑页面速度。加载更快的网站更有可能在搜索结果中排名更高，从而带来更多的自然流量。
 - en: '4\. **Cost Efficiency**: Well-optimized applications are more cost-efficient
     to host and operate. They require fewer server resources, resulting in lower hosting
     costs.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **成本效益**：优化良好的应用程序在托管和运营上更具成本效益。它们需要更少的服务器资源，从而降低托管成本。
 - en: '5\. **Mobile Users**: Mobile users, who make up a significant portion of internet
     traffic, have limited bandwidth and processing power. Optimizing for performance
     ensures a better experience for these users.'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **移动用户**：移动用户占据了互联网流量的一个重要部分，他们的带宽和处理能力有限。优化性能可以为这些用户提供更好的体验。
 - en: Performance Metrics
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 性能指标
 - en: 'To measure and improve performance, you need to understand the key metrics
     that impact user experience. Some of the essential performance metrics include:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 要衡量和提升性能，您需要理解那些影响用户体验的关键指标。一些重要的性能指标包括：
 - en: '1\. **Page Load Time**: The time it takes for a web page to fully load. Faster
     load times lead to better user engagement.'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **页面加载时间**：网页完全加载所需的时间。更快的加载时间能带来更好的用户参与度。
 - en: '2\. **Time to First Byte (TTFB)**: The time it takes for the server to respond
     to a request. A shorter TTFB improves perceived performance.'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **首字节时间（TTFB）**：服务器响应请求所需的时间。更短的TTFB能提升用户感知性能。
 - en: '3\. **First Contentful Paint (FCP)**: The time it takes for the first content
     element to be painted on the screen. A faster FCP makes the page feel more responsive.'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **首次内容绘制（FCP）**：首次内容元素在屏幕上绘制所需的时间。更快的FCP使页面感觉更加响应迅速。
 - en: '4\. **First Input Delay (FID)**: The delay between a user''s first interaction
     (e.g., clicking a button) and the application''s response. Minimizing FID enhances
     interactivity.'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **首次输入延迟（FID）**：用户首次交互（例如点击按钮）与应用响应之间的延迟。最小化FID可以增强交互性。
 - en: '5\. **Largest Contentful Paint (LCP)**: The time it takes for the largest content
     element to be fully visible. A quicker LCP leads to a more visually complete page.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **最大内容绘制（LCP）**：最大内容元素完全显示所需的时间。更快的LCP使页面看起来更完整。
 - en: '6\. **Total Blocking Time (TBT)**: The cumulative time that the main thread
     is blocked by long-running tasks. Reducing TBT improves interactivity.'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 6\. **总阻塞时间（TBT）**：主线程被长时间任务阻塞的累计时间。减少TBT可以提高交互性。
 - en: '7\. **Cumulative Layout Shift (CLS)**: A measure of visual stability. Minimizing
     CLS prevents elements from shifting unexpectedly during page load.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 7\. **累积布局偏移（CLS）**：衡量视觉稳定性。减少CLS可以防止页面加载过程中元素意外位移。
 - en: Performance Optimization Techniques
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 性能优化技术
 - en: Now, let's explore a range of performance optimization techniques and best practices
     you can apply to your React applications.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，让我们探索一系列可以应用于React应用程序的性能优化技术和最佳实践。
 - en: 1\. **Code Splitting**
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 1\. **代码拆分**
 - en: Code splitting is the practice of breaking your application's code into smaller
     bundles that are loaded on-demand. This reduces the initial bundle size, leading
     to faster page load times.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 代码拆分是一种将应用程序代码拆分为较小的包，并按需加载的做法。这样可以减少初始包的大小，从而加快页面加载速度。
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 2\. **Tree Shaking**
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 2\. **树摇（Tree Shaking）**
 - en: Tree shaking is a technique used by modern bundlers (e.g., Webpack) to eliminate
     dead code from the final bundle. It ensures that only the code that is actually
     used is included in the bundle, reducing its size.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 树摇是一种现代打包工具（如Webpack）使用的技术，通过删除最终包中的无用代码来减小其大小。它确保只有实际使用的代码才会被包含在包中。
 - en: 3\. **Optimize Images and Media**
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 3\. **优化图片和媒体**
 - en: Optimize images and other media assets to reduce their file size without compromising
     quality. Use modern image formats like WebP and lazy loading to defer the loading
     of offscreen images.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 优化图片和其他媒体资源，以减少文件大小，同时不影响质量。使用现代图片格式，如WebP，并采用延迟加载来推迟加载屏幕外的图片。
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 4\. **Minify and Compress Assets**
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 4\. **压缩和精简资源**
 - en: Minify your JavaScript, CSS, and HTML files to remove whitespace and reduce
     file size. Use gzip or Brotli compression to further reduce the size of assets
     served to the browser.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 压缩JavaScript、CSS和HTML文件，去除空白并减少文件大小。使用gzip或Brotli压缩进一步减小传送到浏览器的资源大小。
 - en: 5\. **Server-Side Rendering (SSR)**
+  id: totrans-30
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 5\. **服务器端渲染（SSR）**
 - en: Implement SSR to pre-render pages on the server and serve HTML to the browser.
     SSR can significantly reduce the time to first contentful paint and improve SEO.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 实现服务器端渲染（SSR）以在服务器上预渲染页面，并将 HTML 提供给浏览器。SSR 可以显著减少首次内容绘制时间，并改善 SEO。
 - en: 6\. **Client-Side Routing**
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 6\. **客户端路由**
 - en: Consider using client-side routing libraries like React Router for single-page
     applications (SPAs). They enable navigation without full page reloads, resulting
     in a smoother user experience.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑使用客户端路由库，如 React Router，来实现单页应用（SPA）。它们允许在不重新加载整个页面的情况下进行导航，从而提供更流畅的用户体验。
 - en: 7\. **Memoization**
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 7\. **记忆化**
 - en: Memoization is a technique for optimizing expensive computations or rendering
     in React components. Use the `React.memo` higher-order component or the `useMemo`
     hook to cache results and avoid unnecessary re-renders.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 记忆化（Memoization）是一种优化 React 组件中昂贵计算或渲染的技术。使用`React.memo`高阶组件或`useMemo`钩子来缓存结果，避免不必要的重新渲染。
 - en: '[PRE2]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 8\. **Debouncing and Throttling**
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 8\. **去抖动和节流**
 - en: When handling user input, debounce or throttle event handlers to limit the frequency
     of function calls. This prevents excessive rendering and improves performance,
     especially for search or filtering functionality.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理用户输入时，使用去抖动（debounce）或节流（throttle）事件处理器来限制函数调用的频率。这可以防止过度渲染，并提高性能，尤其是在搜索或筛选功能中。
 - en: '[PRE3]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 9\. **Virtualization**
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 9\. **虚拟化**
 - en: Virtualization is particularly useful for long lists or tables. It involves
     rendering only the visible items on the screen and dynamically loading additional
     items as the user scrolls.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 虚拟化对于长列表或表格特别有用。它只渲染屏幕上可见的项目，并在用户滚动时动态加载其他项目。
 - en: Popular libraries like `react-virtualized` and `react-window` provide components
     for implementing virtualized lists.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 像`react-virtualized`和`react-window`这样的流行库提供了实现虚拟化列表的组件。
 - en: '[PRE4]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 10\. **Lazy Loading Components**
+  id: totrans-44
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 10\. **懒加载组件**
 - en: Lazy loading allows you to load components only when they are needed. React
     provides the `React.lazy` function for this purpose.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 懒加载允许你仅在需要时加载组件。React 提供了`React.lazy`函数用于此目的。
 - en: '[PRE5]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 11\. **Optimize State Management**
+  id: totrans-47
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 11\. **优化状态管理**
 - en: Evaluate your state management approach. For smaller applications, React's built-in
     state management may be sufficient. For larger and more complex apps, consider
     using state management libraries like Redux or Mobx.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 评估你的状态管理方法。对于较小的应用，React 内置的状态管理可能已经足够。对于更大、更复杂的应用，考虑使用 Redux 或 Mobx 等状态管理库。
 - en: 12\. **Bundle Analysis**
+  id: totrans-49
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 12\. **打包分析**
 - en: Use bundle analysis tools like Webpack Bundle Analyzer to inspect the contents
     of your bundles. This helps identify large dependencies and potential areas for
     optimization
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用打包分析工具，如 Webpack Bundle Analyzer，检查打包文件的内容。这有助于识别大型依赖项和潜在的优化空间。
 - en: .
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: .
 - en: 13\. **Service Workers and Caching**
+  id: totrans-52
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 13\. **服务工作者和缓存**
 - en: Implement service workers to enable offline access and caching of assets. This
     can significantly improve the performance of your web app, especially on slower
     connections.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 实现服务工作者以启用离线访问和资源缓存。这可以显著提高你的网页应用的性能，尤其是在较慢的网络连接下。
 - en: 14\. **Use the React Profiler**
+  id: totrans-54
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 14\. **使用 React 性能分析器**
 - en: React provides a built-in profiler that helps you identify performance bottlenecks
     in your components. It allows you to measure the render time of components and
     identify unnecessary re-renders.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: React 提供了一个内置的性能分析器，帮助你识别组件中的性能瓶颈。它允许你衡量组件的渲染时间并找出不必要的重新渲染。
 - en: '[PRE6]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 15\. **Lazy-Load Third-Party Libraries**
+  id: totrans-57
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 15\. **延迟加载第三方库**
 - en: Load third-party libraries lazily to avoid blocking the initial load of your
     application. Use the `react-loadable` library or dynamic imports for this purpose.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 延迟加载第三方库，以避免阻塞应用的初始加载。可以使用 `react-loadable` 库或动态导入来实现这一点。
 - en: Performance Testing and Monitoring
+  id: totrans-59
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 性能测试与监控
 - en: 'Optimizing performance is an ongoing process that requires continuous testing
     and monitoring. Here are some tools and practices for performance testing and
     monitoring:'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 优化性能是一个持续的过程，需要不断的测试和监控。以下是一些性能测试和监控的工具与实践：
 - en: 1\. **Lighthouse**
+  id: totrans-61
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 1\. **Lighthouse**
 - en: Lighthouse is an open-source tool from Google that audits the performance, accessibility,
     and SEO of web pages. It provides actionable suggestions for improving your application's
     performance.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: Lighthouse 是 Google 提供的一个开源工具，用于审计网页的性能、可访问性和 SEO。它提供了针对提高应用性能的可操作建议。
 - en: 2\. **Web Vitals**
+  id: totrans-63
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 2\. **Web Vitals**
 - en: Web Vitals are a set of essential metrics that measure user-centric performance.
     They include metrics like Largest Contentful Paint (LCP), First Input Delay (FID),
     and Cumulative Layout Shift (CLS). Google uses these metrics for ranking websites.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: Web Vitals 是一组衡量用户体验性能的重要指标，包括最大内容绘制（LCP）、首次输入延迟（FID）和累计布局偏移（CLS）。Google 使用这些指标对网站进行排名。
 - en: 3\. **Real User Monitoring (RUM)**
+  id: totrans-65
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 3\. **真实用户监测 (RUM)**
 - en: RUM tools collect data on how real users interact with your application. Tools
     like Google Analytics and New Relic offer RUM features that help you understand
     the actual performance experienced by your users.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: RUM 工具收集真实用户与应用交互的数据。像 Google Analytics 和 New Relic 这样的工具提供 RUM 功能，帮助你了解用户实际体验的性能。
 - en: 4\. **Performance Budgets**
+  id: totrans-67
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 4\. **性能预算**
 - en: Set performance budgets to define acceptable thresholds for metrics like page
     load time, bundle size, and render times. This helps you prevent performance regressions.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 设置性能预算，定义诸如页面加载时间、打包大小和渲染时间等指标的可接受阈值。这有助于你防止性能回退。
 - en: 'Case Study: Optimizing an Image Gallery'
+  id: totrans-69
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 案例研究：优化图片画廊
 - en: Let's consider a case study where we optimize the performance of an image gallery
     component in a React application. The gallery initially loads all images at once,
     causing slow page load times and high resource consumption. We'll apply several
     optimization techniques to improve its performance.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们优化了一个 React 应用中的图像画廊组件性能。该画廊最初一次性加载所有图像，导致页面加载时间慢和资源消耗高。我们将应用几种优化技术来提升其性能。
 - en: 'Initial Implementation:'
+  id: totrans-71
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 初始实现：
 - en: '[PRE7]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Optimized Implementation:'
+  id: totrans-73
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 优化后的实现：
 - en: '1\. **Lazy Loading and Virtualization**:'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **懒加载和虚拟化**：
 - en: We implement lazy loading and virtualization using the `react-window` library
     to render only the visible images.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用 `react-window` 库实现懒加载和虚拟化，仅渲染可见的图像。
 - en: '[PRE8]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '2\. **Optimized Images**:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **优化图像**：
 - en: We optimize image loading by using modern image formats like WebP and enabling
     lazy loading.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过使用现代图像格式如 WebP 并启用懒加载来优化图像加载。
 - en: '[PRE9]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '3\. **Code Splitting**:'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **代码拆分**：
 - en: We split the gallery component into smaller, more manageable chunks using dynamic
     imports.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过动态导入将画廊组件拆分成更小、更易于管理的模块。
 - en: '[PRE10]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: These optimizations significantly improve the performance of the image gallery,
     resulting in faster page load times and a smoother user experience.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些优化显著提升了图像画廊的性能，带来了更快的页面加载速度和更流畅的用户体验。
 - en: Continuous Performance Optimization
+  id: totrans-84
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 持续的性能优化
 - en: 'Optimizing performance is an ongoing process that should be integrated into
     your development workflow. Here are some best practices for continuous performance
     optimization:'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 性能优化是一个持续的过程，应该融入到你的开发工作流中。以下是一些持续性能优化的最佳实践：
 - en: '1\. **Automated Testing**: Implement automated performance tests as part of
     your continuous integration pipeline. Tools like Lighthouse CI can help automate
     performance testing.'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 1\. **自动化测试**：将自动化性能测试作为持续集成流程的一部分。像 Lighthouse CI 这样的工具可以帮助自动化性能测试。
 - en: '2\. **Monitoring**: Continuously monitor your application''s performance in
     production using tools like Google Analytics and New Relic. Set up alerts for
     performance regressions.'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 2\. **监控**：使用 Google Analytics 和 New Relic 等工具，持续监控应用在生产环境中的性能，并为性能回退设置警报。
 - en: '3\. **Performance Budgets**: Establish and enforce performance budgets to prevent
     performance regressions. Use tools like Webpack Bundle Analyzer to track bundle
     sizes.'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 3\. **性能预算**：建立并执行性能预算，以防止性能回退。使用像 Webpack Bundle Analyzer 这样的工具来跟踪包的大小。
 - en: '4\. **Regular Audits**: Conduct regular performance audits to identify and
     address performance bottlenecks. These audits can help you stay proactive in optimizing
     your app.'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 4\. **定期审计**：进行定期的性能审计，以识别和解决性能瓶颈。这些审计有助于你保持主动，持续优化应用。
 - en: '5\. **Feedback Loops**: Gather feedback from real users to identify performance
     issues they encounter. Use tools like user surveys or feedback forms.'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 5\. **反馈循环**：收集真实用户的反馈，以识别他们遇到的性能问题。使用用户调查或反馈表单等工具。
 - en: '6\. **Optimization Sprints**: Dedicate sprints or development cycles to focus
     solely on performance optimization. This allows you to prioritize and tackle performance
     issues systematically.'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 6\. **优化冲刺**：将某些冲刺或开发周期专门用于性能优化。这可以帮助你系统性地优先处理和解决性能问题。
 - en: Conclusion
+  id: totrans-92
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 结论
 - en: Performance optimization is a critical aspect of building high-quality React
     applications. By implementing techniques like code splitting, lazy loading, image
     optimization, and continuous monitoring, you can create applications that load
     quickly, respond smoothly, and provide a positive user experience. Keep in mind
     that performance optimization is an ongoing process, and staying vigilant about
     performance will lead to better results and happier users.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 性能优化是构建高质量 React 应用程序的关键方面。通过实现诸如代码分割、懒加载、图像优化和持续监控等技术，你可以创建加载快速、响应流畅并提供良好用户体验的应用程序。请记住，性能优化是一个持续的过程，保持对性能的关注将带来更好的结果和更满意的用户。
