@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`优先队列`'
 - en: You learned about [`Queues`](f_0092.xhtml#sect.queues), and discovered that
     the queue is a list in which items are processed first in, first out (FIFO). Essentially,
     this means that data is inserted only at the end of the queue, and data is accessed
@@ -13,6 +14,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你了解过[`队列`](f_0092.xhtml#sect.queues)，并发现队列是一个按先进先出（FIFO）方式处理项目的列表。这意味着数据只能在队列末尾插入，数据只从队列前端访问和移除。在访问队列的数据时，我们优先考虑数据插入的顺序。
 - en: A priority queue is a list whose deletions and access are just like a classic
     queue but whose insertions are like an ordered array. So we only delete and access
     data from the front of the priority queue, but when we insert data, we always
@@ -21,6 +23,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 优先队列是一个列表，其删除和访问与经典队列相似，但插入操作则像有序数组。因此，我们只从优先队列的前端删除和访问数据，但插入数据时，我们始终确保数据保持特定顺序的排序。
 - en: One classic example of where a priority queue is helpful is an application that
     manages the triage system for a hospital emergency room. In the ER, we don’t treat
     people strictly in the order in which they arrived. Instead, we treat people in
@@ -31,6 +34,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 优先队列的一个经典应用示例是管理医院急诊室的分诊系统。在急诊室，我们不会严格按照到达顺序治疗病人，而是根据症状的严重程度来治疗病人。如果有人突然因危及生命的伤害到达，该患者将被置于队列前端，即使感冒的病人早几个小时到达。
 - en: 'Let’s say our triage system ranked the severity of a patient’s condition on
     a scale of 1 to 10, with 10 being the most critical. Our priority queue may look
     like this:'
@@ -38,11 +42,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们的分诊系统将病人病情的严重程度划分为1到10的等级，其中10为最危急。我们的优先队列可能看起来是这样的：
 - en: '![`images/heaps/initial_priority_queue.png`](images/heaps/initial_priority_queue.png)'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/heaps/initial_priority_queue.png`](images/heaps/initial_priority_queue.png)'
 - en: In determining the next patient to treat, we’ll always select the patient at
     the front of the priority queue since that person’s need is the most urgent. In
     this case, the next patient we’d treat is `Patient C`.
@@ -50,6 +56,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在确定下一个要治疗的病人时，我们将始终选择优先队列前端的病人，因为这个病人的需求最为紧急。在这种情况下，我们下一个要治疗的病人是`病人C`。
 - en: 'If a new patient now arrives with a condition severity of 3, we’ll initially
     place this patient at the appropriate spot within the priority queue. We’ll call
     this person `Patient E`:'
@@ -57,11 +64,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果现在有一位病人到达，病情严重程度为3，我们将首先将这位病人放置在优先队列的适当位置。我们称这位病人为`病人E`：
 - en: '![`images/heaps/add_e_to_priority_queue.png`](images/heaps/add_e_to_priority_queue.png)'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/heaps/add_e_to_priority_queue.png`](images/heaps/add_e_to_priority_queue.png)'
 - en: 'The priority queue is an example of an abstract data type—one that can be implemented
     using other, more fundamental, data structures. One straightforward way we can
     implement a priority queue is by using an ordered array; that is, we use an array
@@ -70,12 +79,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 优先队列是抽象数据类型的一个示例——可以使用其他更基本的数据结构来实现的一种类型。我们可以通过使用有序数组来实现优先队列；也就是说，我们使用一个数组并应用以下约束：
 - en: When we insert data, we ensure we always maintain proper order.
   id: totrans-10
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们插入数据时，我们确保始终保持正确的顺序。
 - en: Data can only be removed from the end of the array. (This will represent the
     front of the priority queue.)
   id: totrans-11
@@ -83,16 +94,19 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 数据只能从数组的末尾移除。（这将代表优先队列的前端。）
 - en: This approach is straightforward, but now let’s analyze its efficiency.
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种方法很简单，但现在让我们分析一下它的效率。
 - en: 'The priority queue has two primary operations: deletions and insertions.'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 优先队列有两个主要操作：删除和插入。
 - en: We saw in Chapter 1, [`Why Data Structures Matter`](f_0013.xhtml#chp.understanding_data_structures),
     that deleting from the front of an array is O(N) since we have to shift all the
     data over to fill the gap created at index `0`\. However, we’ve cleverly tweaked
@@ -103,12 +117,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们在第一章中看到，[`数据结构的重要性`](f_0013.xhtml#chp.understanding_data_structures)提到，从数组的前端删除是O(N)，因为我们必须移动所有数据以填补索引`0`处产生的空缺。然而，我们巧妙地调整了实现，考虑数组的末尾为优先队列的前端。这样，我们始终从数组的末尾删除，时间复杂度为O(1)。
 - en: With `O(1)` deletions, our priority queue is in good shape so far. But what
     about insertions?
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 目前，我们的优先队列删除操作的时间复杂度是`O(1)`，那么插入呢？
 - en: You learned that inserting into an ordered array is `O(N)` since we have to
     inspect up to all `N` elements of the array to determine where our new data should
     go. (And even if we find the correct spot early, we need to then shift all the
@@ -117,6 +133,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你了解到，插入有序数组的时间复杂度是`O(N)`，因为我们必须检查最多所有`N`个元素，以确定新数据应该放在哪里。（即使我们很早就找到了正确的位置，我们还需要将所有剩余数据向右移动。）
 - en: Our array-based priority queue, then, has deletions that are `O(1)` and insertions
     that are `O(N)`. If we expect there to be many items in our priority queue, the
     `O(N)` insertions may cause some real unwanted drag in our application.
@@ -124,6 +141,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，我们基于数组的优先队列删除操作是`O(1)`，插入操作是`O(N)`。如果我们预计优先队列中会有许多项目，`O(N)`的插入可能会在我们的应用中造成一些真正不必要的拖累。
 - en: Because of this, computer scientists discovered another data structure that
     serves as a more efficient foundation for the priority queue. This data structure
     is the `heap`.
@@ -131,3 +149,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，计算机科学家们发现了一种数据结构，作为优先队列更高效的基础。这种数据结构是`堆`。

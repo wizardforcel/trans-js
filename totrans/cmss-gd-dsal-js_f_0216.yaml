@@ -4,11 +4,13 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第11章
 - en: These are the solutions to the exercises found in the section [Exercises](f_0111.xhtml#learning.to.write.in.recursive.exercises).
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这些是[练习](f_0111.xhtml#learning.to.write.in.recursive.exercises)部分中找到的练习的解决方案。
 - en: Let’s call our function `characterCount`. The first step is to pretend that
     the `characterCount` function has already been implemented.
   id: totrans-2
@@ -16,6 +18,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将函数命名为`characterCount`。第一步是假装`characterCount`函数已经实现。
 - en: Next, we need to identify the subproblem. If our problem is the array `["ab",
     "c", "def", "ghij"]`, then our subproblem can be the same array missing one string.
     Let’s specifically say that our subproblem is the array minus the first string,
@@ -25,6 +28,8 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们需要识别子问题。如果我们的问题是数组`["ab", "c", "def", "ghij"]`，那么我们的子问题可以是少了一个字符串的同一个数组。我们具体说一下，我们的子问题是去掉第一个字符串后的数组，也就是`["c",
+    "def", "ghij"]`。
 - en: Now, let’s see what happens when we apply the “already-implemented” function
     on the subproblem. If we were to call `characterCount(["c", "def", "ghij"])`,
     we’d get a return value of 8 since there are eight characters in total.
@@ -33,6 +38,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，让我们看看在子问题上应用“已经实现”的函数会发生什么。如果我们调用`characterCount(["c", "def", "ghij"])`，我们会得到一个返回值8，因为总共有八个字符。
 - en: So to solve our original problem, all we have to do is add the length of the
     first string (`"ab"`) to the result of calling the `characterCount` function on
     the subproblem.
@@ -41,54 +47,63 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以，要解决我们最初的问题，我们只需将第一个字符串（`"ab"`）的长度加到调用`characterCount`函数的子问题结果上。
 - en: 'Here’s one possible implementation:'
   id: totrans-6
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个可能的实现：
 - en: '| ​  | `function` `characterCount`(array) { |'
   id: totrans-7
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` `characterCount`(array) { |'
 - en: '| ​  | `// Base case: when the array is empty:` |'
   id: totrans-8
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 基本情况：当数组为空时：` |'
 - en: '| ​  | `if` (array.length === 0) { `return` 0; } |'
   id: totrans-9
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 0) { `return` 0; } |'
 - en: '| ​  |  |'
   id: totrans-10
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` array[0].length + `characterCount`(array.slice(1)); |'
   id: totrans-11
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` array[0].length + `characterCount`(array.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-12
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | `export` `default` `characterCount`; |'
   id: totrans-13
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `export` `default` `characterCount`; |'
 - en: Note that our base case is an empty array, in which case there are zero characters
     to count.
   id: totrans-14
@@ -96,6 +111,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，我们的基本情况是一个空数组，在这种情况下没有字符可以计算。
 - en: First, let’s pretend the `selectEven` function already works. Next, let’s identify
     the subproblem. If we try to select all the even numbers in the example array
     `[1, 2, 3, 4, 5]`, we could say that the subproblem is all the numbers in the
@@ -106,6 +122,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，让我们假装`selectEven`函数已经正常工作。接下来，识别子问题。如果我们试图在示例数组`[1, 2, 3, 4, 5]`中选择所有的偶数，我们可以说子问题是数组中除了第一个数的所有数。所以我们假设`selectEven([2,
+    3, 4, 5])`已经正常工作并返回`[2, 4]`。
 - en: Since the first number in the array is 1, we don’t want to do anything other
     than return the `[2, 4]`. However, if the first number in the array was a 0, we’d
     want to return the `[2, 4]` with the 0 added to it.
@@ -114,72 +132,84 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为数组中的第一个数字是1，我们只想返回`[2, 4]`。然而，如果数组中的第一个数字是0，我们想返回`[2, 4]`并加上0。
 - en: Our base case is an empty array.
   id: totrans-17
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的基本情况是一个空数组。
 - en: 'Here’s one possible implementation:'
   id: totrans-18
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个可能的实现：
 - en: '| ​  | `function` `selectEven`(array) { |'
   id: totrans-19
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` `selectEven`(array) { |'
 - en: '| ​  | `if` (array.length === 0) { `return` []; } |'
   id: totrans-20
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 0) { `return` []; } |'
 - en: '| ​  |  |'
   id: totrans-21
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (array[0] % 2 === 0) { |'
   id: totrans-22
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array[0] % 2 === 0) { |'
 - en: '| ​  | `return` [array[0]].concat(`selectEven`(array.slice(1))); |'
   id: totrans-23
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` [array[0]].concat(`selectEven`(array.slice(1))); |'
 - en: '| ​  | } `else` { |'
   id: totrans-24
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` `selectEven`(array.slice(1)); |'
   id: totrans-25
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `selectEven`(array.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-26
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-27
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: The definition of a triangular number is n plus the previous number from the
     sequence, with n referring to the place where the number falls in the pattern.
     (For example, if we’re computing the sequence’s seventh number, then n is 7.)
@@ -190,36 +220,43 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 三角数的定义是n加上序列中的前一个数，n指的是数字在模式中的位置。（例如，如果我们在计算序列的第七个数字，那么n就是7。）如果我们的函数名为`triangle`，我们可以简单地表示为n
+    + `triangle`(n - 1)。基本情况是n为1。
 - en: '| ​  | `function` `triangle`(n) { |'
   id: totrans-29
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` `triangle`(n) { |'
 - en: '| ​  | `if` (n === 1) { `return` 1; } |'
   id: totrans-30
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (n === 1) { `return` 1; } |'
 - en: '| ​  |  |'
   id: totrans-31
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` n + `triangle`(n - 1); |'
   id: totrans-32
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` n + `triangle`(n - 1); |'
 - en: '| ​  | } |'
   id: totrans-33
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   Let’s pretend that our function, `indexOfX` has already been implemented.
     Next, let’s say the subproblem is our string minus its first character. For example,
     if our input string is `"hex"`， the subproblem is `"ex"`.'
@@ -228,6 +265,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   让我们假装我们的函数`indexOfX`已经实现。接下来，假设子问题是去掉第一个字符后的字符串。例如，如果我们的输入字符串是`"hex"`，那么子问题就是`"ex"`。'
 - en: '-   Now, `indexOfX("ex")` would return 1. To calculate the index of the `"x"`
     for the original string, we would add 1 to this since the additional `"h"` at
     the front of the string moves the `"x"` down one index. Here’s our code:'
@@ -236,42 +274,49 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   现在，`indexOfX("ex")`将返回1。要计算原始字符串中`"x"`的索引，我们需要在这个值上加1，因为字符串前面的额外`"h"`将`"x"`向下移动了一个索引。下面是我们的代码：'
 - en: '| ​  | `function` indexOfX(string) { |'
   id: totrans-36
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` indexOfX(string) { |'
 - en: '| ​  | `if` (string[0] === `''x''`) { `return` 0; } |'
   id: totrans-37
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string[0] === `''x''`) { `return` 0; } |'
 - en: '| ​  |  |'
   id: totrans-38
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` indexOfX(string.slice(1)) + 1; |'
   id: totrans-39
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` indexOfX(string.slice(1)) + 1; |'
 - en: '| ​  | } |'
   id: totrans-40
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   This exercise is similar to the staircase problem. Let’s break this down:'
   id: totrans-41
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这个练习类似于楼梯问题。让我们分解一下：'
 - en: '-   From the starting position, we have only two choices of movement. We can
     either move one space to the right or one space downward.'
   id: totrans-42
@@ -279,6 +324,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   从起始位置，我们只有两个移动选择。我们可以向右移动一个位置，或者向下移动一个位置。'
 - en: '-   What this means is that the total number of unique shortest paths will
     be the number of paths from the space to the right of `S` + the number of paths
     from the space below `S`.'
@@ -287,6 +333,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这意味着，唯一最短路径的总数将是从`S`右边空间的路径数 + 从`S`下方空间的路径数。'
 - en: '-   The number of paths from the space to the right of `S` is the same as calculating
     the paths in a grid of six columns and three rows, as you can see here:'
   id: totrans-44
@@ -294,12 +341,14 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   从`S`右边空间的路径数量等同于在一个六列三行的网格中计算路径，如下所示：'
 - en: '![images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png)'
   id: totrans-45
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_right_shaded.png)'
 - en: '-   The number of paths from the space below the `S` is the equivalent of the
     paths in a grid of seven columns and two rows:'
   id: totrans-46
@@ -307,18 +356,21 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   从`S`下方空间的路径数量等同于在一个七列两行的网格中的路径：'
 - en: '![images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png)'
   id: totrans-47
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png](images/learning_to_write_in_recursive/unique_paths_move_down_shaded.png)'
 - en: '-   Recursion allows us to express this beautifully:'
   id: totrans-48
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   递归允许我们优雅地表达这一点：'
 - en: '| ​  | `return` uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
     - 1); |'
   id: totrans-49
@@ -326,6 +378,8 @@
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
+    - 1); |'
 - en: '-   All we need to do now is add the base case. Possible base cases include
     when we have just one row or one column since in such cases there’s only one path
     available to us.'
@@ -334,42 +388,49 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   现在我们需要做的就是添加基本情况。可能的基本情况包括当我们只有一行或一列时，因为在这种情况下，我们只有一条路径可供选择。'
 - en: '-   Here’s the complete function:'
   id: totrans-51
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这是完整的函数：'
 - en: '| ​  | `function` uniquePaths(rows, columns) { |'
   id: totrans-52
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` uniquePaths(rows, columns) { |'
 - en: '| ​  | `if` (rows === 1 || columns === 1) { |'
   id: totrans-53
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (rows === 1 || columns === 1) { |'
 - en: '| ​  | `return` 1; |'
   id: totrans-54
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 1; |'
 - en: '| ​  | } |'
   id: totrans-55
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-56
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
     - 1); |'
   id: totrans-57
@@ -377,9 +438,12 @@
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` uniquePaths(rows - 1, columns) + uniquePaths(rows, columns
+    - 1); |'
 - en: '| ​  | } |'
   id: totrans-58
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'

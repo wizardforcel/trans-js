@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   用于组织的哈希表'
 - en: '-   Because hash tables keep data in pairs, they’re useful in many scenarios
     for organizing data.'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   由于哈希表以对的形式保存数据，因此在许多场景中都能有效组织数据。'
 - en: '-   Some data exists naturally in paired form. The fast-food menu and thesaurus
     scenarios from this chapter are classic examples. The menu contains each food
     item paired with its price. The thesaurus contains each word paired with its synonym.
@@ -19,222 +21,268 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   有些数据自然以成对形式存在。本章中的快餐菜单和同义词场景就是经典例子。菜单包含每种食物与其价格的配对。同义词词典包含每个单词与其同义词的配对。事实上，这也是
+    JavaScript 将哈希表称为字典的原因。字典是一种常见的成对数据形式；它是一个单词列表及其各自的定义。'
 - en: '-   Other examples of naturally paired data can include tallies, such as political
     candidates and the number of votes each received:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   其他自然成对数据的例子可以包括计数，如政治候选人及其获得的票数：'
 - en: '| ​  | `{​"Candidate A"​: 1402021, ​"Candidate B"​: 2321443, ​"Candidate C"​:
     432}` |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{​"候选人 A"​: 1402021, ​"候选人 B"​: 2321443, ​"候选人 C"​: 432}` |'
 - en: '-   An inventory tracking system, which keeps track of how much of each item
     is in supply, is another tally example:'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   一种库存跟踪系统，它跟踪每种物品的供应量，是另一个计数的例子：'
 - en: '| ​  | `{​"Yellow Shirt"​: 1203, ​"Blue Jeans"​: 598, ​"Green Felt Hat"​: 65}`
     |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{​"黄色衬衫"​: 1203, ​"蓝色牛仔裤"​: 598, ​"绿色毛毡帽"​: 65}` |'
 - en: '-   Hash tables are such a natural fit for paired data that we can even use
     them to simplify conditional logic in certain instances.'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   哈希表与成对数据非常契合，甚至可以在某些情况下简化条件逻辑。'
 - en: '-   Say we encounter a function that returns the meaning of common HTTP status
     code numbers:'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   假设我们遇到一个返回常见 HTTP 状态代码数字含义的函数：'
 - en: '| ​  | `function` statusCodeMeaning(number) { |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` statusCodeMeaning(number) { |'
 - en: '| ​  | `if` (number === 200) { |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (number === 200) { |'
 - en: '| ​  | `return` ​*''OK''*​; |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` ​*''正常''*​; |'
 - en: '| ​  | } `else` `if` (number === 301) { |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (number === 301) { |'
 - en: '| ​  | `return` ​*''Moved Permanently''*​; |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` ​*''永久移动''*​; |'
 - en: '| ​  | } `else` `if` (number === 401) { |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (number === 401) { |'
 - en: '| ​  | `return` ​*''Unauthorized''*​; |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` ​*''未授权''*​; |'
 - en: '| ​  | } `else` `if` (number === 404) { |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (number === 404) { |'
 - en: '| ​  | `return` ​*''Not Found''*​; |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` ​*''未找到''*​; |'
 - en: '| ​  | } `else` `if` (number === 500) { |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (number === 500) { |'
 - en: '| ​  | `return` ​*''Internal Server Error''*​; |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` ​*''内部服务器错误''*​; |'
 - en: '| ​  | } |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   If we think about this code, we’ll realize that the conditional logic revolves
     around paired data, namely, the status code numbers and their respective meanings.'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如果我们考虑这段代码，就会意识到条件逻辑围绕成对数据展开，即状态代码数字及其相应含义。'
 - en: '-   By using a hash table, we can completely eliminate the conditional logic:'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   通过使用哈希表，我们可以完全消除条件逻辑：'
 - en: '| ​  | `const` statusCodes = { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` statusCodes = { |'
 - en: '| ​  | 200: ​*''OK''*​, |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 200: ​*''正常''*​, |'
 - en: '| ​  | 301: ​*''Moved Permanently''*​, |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 301: ​*''永久移动''*​, |'
 - en: '| ​  | 401: ​*''Unauthorized''*​, |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 401: ​*''未授权''*​, |'
 - en: '| ​  | 404: ​*''Not Found''*​, |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 404: ​*''未找到''*​, |'
 - en: '| ​  | 500: ​*''Internal Server Error''*​, |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 500: ​*''内部服务器错误''*​, |'
 - en: '| ​  | }; |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | }; |'
 - en: '| ​  |  |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `function` statusCodeMeaning(number) { |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` statusCodeMeaning(number) { |'
 - en: '| ​  | `return` statusCodes[number]; |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` statusCodes[number]; |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   Another common use for hash tables is to represent objects that have various
     attributes. For example, here’s a representation of a dog:'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   哈希表的另一个常见用途是表示具有各种属性的对象。例如，以下是狗的表示：'
 - en: '| ​  | `{​"name"​: ​"Fido"​, ​"breed"​: ​"Pug"​, ​"age"​: 3, ​"gender"​: ​"Male"​}`
     |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{​"name"​: ​"Fido"​, ​"breed"​: ​"斗牛犬"​, ​"age"​: 3, ​"gender"​: ​"男性"​}`
+    |'
 - en: '-   As you can see, attributes are a kind of paired data, since the attribute
     name becomes the key, and the actual attribute becomes the value.'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如你所见，属性是一种成对的数据，因为属性名称成为键，而实际属性成为值。'
 - en: '-   We can create an entire list of dogs if we place multiple hash tables inside
     an array:'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如果我们在数组中放置多个哈希表，就可以创建一整套狗的列表：'
 - en: '| ​  | [ |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | [ |'
 - en: '| ​  | `{​"name"​: ​"Fido"​, ​"breed"​: ​"Pug"​, ​"age"​: 3, ​"gender"​: ​"Male"​},
     |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{​"name"​: ​"Fido"​, ​"breed"​: ​"斗牛犬"​, ​"age"​: 3, ​"gender"​: ​"男性"​},
+    |'
 - en: '| ​  | `{​"name"​: ​"Lady"​, ​"breed"​: ​"Poodle"​, ​"age"​: 6, ​"gender"​:
     ​"Female"​}, |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{​"name"​: ​"Lady"​, ​"breed"​: ​"贵宾犬"​, ​"age"​: 6, ​"gender"​: ​"女性"​},
+    |'
 - en: '| ​  | `{"name": "Spot", "breed": "Dalmatian", "age": 2, "gender": "Male"}`
     |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{"name": "Spot", "breed": "斑点犬", "age": 2, "gender": "男性"}` |'
 - en: '| ​  | ] |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ] |'

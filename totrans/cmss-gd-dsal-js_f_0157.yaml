@@ -4,11 +4,13 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆插入
 - en: 'To insert a new value into the heap, we perform the following algorithm:'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要将新值插入堆中，我们执行以下算法：
 - en: We create a node containing the new value and insert it at the next available
     rightmost spot in the bottom level. Thus, this value becomes the heap’s last node.
   id: totrans-2
@@ -16,12 +18,14 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们创建一个包含新值的节点，并将其插入到底层的下一个可用最右侧位置。因此，这个值成为堆的最后一个节点。
 - en: Next, we compare this new node with its parent node.
   id: totrans-3
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们将这个新节点与其父节点进行比较。
 - en: If the new node is greater than its parent node, we swap the new node with the
     parent node.
   id: totrans-4
@@ -29,6 +33,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果新节点大于其父节点，我们将新节点与父节点交换。
 - en: We repeat Step 3, effectively moving the new node up through the heap, until
     the new node has a parent whose value is greater than it.
   id: totrans-5
@@ -36,32 +41,38 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们重复第三步，有效地将新节点向上移动直到新节点的父节点的值大于它。
 - en: Let’s see this algorithm in action. Here’s what would happen if we were to insert
     a `40` into the heap.
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看看这个算法的实际操作。如果我们将`40`插入堆中，会发生什么。
 - en: 'Step 1: We add `40` as the heap’s last node:'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一步：我们将`40`添加为堆的最后一个节点：
 - en: '![images/heaps/add_40.png](images/heaps/add_40.png)'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/add_40.png](images/heaps/add_40.png)'
 - en: 'Note that doing the following would have been incorrect:'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，进行以下操作是不正确的：
 - en: '![images/heaps/incorrect_add_40.png](images/heaps/incorrect_add_40.png)'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/incorrect_add_40.png](images/heaps/incorrect_add_40.png)'
 - en: Placing the `40` as a child of the `12` node makes the tree incomplete since
     we’d now have a node to the right of an empty position. For a heap to remain a
     heap, it must always be complete.
@@ -69,34 +80,40 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将`40`放置为`12`节点的子节点会使树不完整，因为现在我们在一个空位置的右侧有一个节点。为了保持堆的性质，它必须始终是完整的。
 - en: 'Step 2: We compare the `40` with its parent node, which happens to be the `8`.
     Since the `40` is greater than the `8`, we swap the two nodes:'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二步：我们将`40`与其父节点进行比较，父节点是`8`。由于`40`大于`8`，我们交换这两个节点：
 - en: '![images/heaps/swap_40_with_8.png](images/heaps/swap_40_with_8.png)'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/swap_40_with_8.png](images/heaps/swap_40_with_8.png)'
 - en: 'Step 3: We compare the `40` with its new parent, the `25`. Since the `40` is
     greater than the `25`, we swap them:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第三步：我们将`40`与其新父节点`25`进行比较。由于`40`大于`25`，我们交换它们：
 - en: '![images/heaps/swap_40_with_25.png](images/heaps/swap_40_with_25.png)'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/swap_40_with_25.png](images/heaps/swap_40_with_25.png)'
 - en: 'Step 4: We compare the `40` to its parent, which is the `100`. Since the `40`
     is smaller than the `100`, we’re done!'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第四步：我们将`40`与其父节点`100`进行比较。由于`40`小于`100`，我们完成了！
 - en: This process of moving the new node up the heap, is called trickling the node
     up through the heap. Sometimes it moves up to the right, and sometimes it moves
     up to the left, but it always moves up until it settles into the correct position.
@@ -104,6 +121,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将新节点向上移动的过程称为在堆中向上滴落节点。有时它向右移动，有时向左移动，但它始终向上移动，直到安置在正确的位置。
 - en: The efficiency of inserting into a heap is `O(log N)`. As you saw in the previous
     chapter, for `N` nodes in any binary tree, the tree is organized into about `log(N)`
     rows. Since at most we’d have to trickle the new value up to the top row, this
@@ -112,3 +130,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 向堆中插入的效率为`O(log N)`。正如你在前一章中看到的，对于任何二叉树中的`N`个节点，该树大约组织成`log(N)`行。由于我们最多只需将新值向上滴落到顶层，这最多需要`log(N)`步。

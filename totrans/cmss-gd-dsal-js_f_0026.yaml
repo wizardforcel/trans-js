@@ -4,128 +4,154 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 搜索有序数组
 - en: 在前一章中，我描述了在经典数组中搜索特定值的过程：我们逐个检查每个单元格，从左到右，直到找到我们要寻找的值。我提到这个过程被称为线性搜索。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在前一章中，我描述了在经典数组中搜索特定值的过程：我们逐个检查每个单元格，从左到右，直到找到我们要寻找的值。我提到这个过程被称为线性搜索。
 - en: 让我们看看线性搜索在经典数组和有序数组之间的区别。
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看看线性搜索在经典数组和有序数组之间的区别。
 - en: 假设我们有一个常规数组`[17, 3, 75, 202, 80]`。如果我们要搜索值`22`——这个值在数组中实际上并不存在——我们需要搜索每一个元素，因为`22`可能在数组中的任何位置。我们只有在找到我们要寻找的值之前才能提前停止搜索。
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们有一个常规数组`[17, 3, 75, 202, 80]`。如果我们要搜索值`22`——这个值在数组中实际上并不存在——我们需要搜索每一个元素，因为`22`可能在数组中的任何位置。我们只有在找到我们要寻找的值之前才能提前停止搜索。
 - en: 然而，对于有序数组，我们可以提前停止搜索，即使值不在数组中。假设我们在有序数组`[3, 17, 75, 80, 202]`中搜索`22`。我们可以在到达`75`时停止搜索，因为在其右侧不可能有`22`。
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，对于有序数组，我们可以提前停止搜索，即使值不在数组中。假设我们在有序数组`[3, 17, 75, 80, 202]`中搜索`22`。我们可以在到达`75`时停止搜索，因为在其右侧不可能有`22`。
 - en: 下面是有序数组上线性搜索的JavaScript实现：
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是有序数组上线性搜索的JavaScript实现：
 - en: '| ​  | `function` `linearSearch`(`array`, `searchValue`) { |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` `linearSearch`(`array`, `searchValue`) { |'
 - en: '| ​  | `for` (`const` [index, element] `of` `array.entries()`) { |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` [index, element] `of` `array.entries()`) { |'
 - en: '| ​  | `if` (element === `searchValue`) { |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (element === `searchValue`) { |'
 - en: '| ​  | `return`​ `index`; |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `index`; |'
 - en: '| ​  | } `else` `if` (element > `searchValue`) { |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (element > `searchValue`) { |'
 - en: '| ​  | `break`; |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `break`; |'
 - en: '| ​  | } |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `null`; |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `null`; |'
 - en: '| ​  | } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这个方法接受两个参数：`array`是我们要搜索的有序数组，`searchValue`是我们要搜索的值。
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个方法接受两个参数：`array`是我们要搜索的有序数组，`searchValue`是我们要搜索的值。
 - en: 下面是如何使用这个函数在我们的示例数组中找到`22`：
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是如何使用这个函数在我们的示例数组中找到`22`：
 - en: '| ​  | `console.log(linearSearch([3, 17, 75, 80, 202], 22))` |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `console.log(linearSearch([3, 17, 75, 80, 202], 22))` |'
 - en: 如你所见，这个`linearSearch`方法会遍历数组中的每一个元素，寻找`searchValue`。一旦它正在遍历的元素大于`searchValue`，搜索就会停止，因为我们知道`searchValue`不可能在数组的更后面找到。
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如你所见，这个`linearSearch`方法会遍历数组中的每一个元素，寻找`searchValue`。一旦它正在遍历的元素大于`searchValue`，搜索就会停止，因为我们知道`searchValue`不可能在数组的更后面找到。
 - en: 在这种情况下，线性搜索在有序数组中可能比经典数组步骤更少。不过，如果我们要搜索的值恰好是数组中的最后一个值，或者根本不在数组中，我们仍然需要搜索每一个单元格。
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，线性搜索在有序数组中可能比经典数组步骤更少。不过，如果我们要搜索的值恰好是数组中的最后一个值，或者根本不在数组中，我们仍然需要搜索每一个单元格。
 - en: 初看之下，标准数组和有序数组在效率上并没有显著差异，至少在最坏情况下是如此。对于这两种数组，如果它们包含`N`个元素，线性搜索最多可能需要`N`步。
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 初看之下，标准数组和有序数组在效率上并没有显著差异，至少在最坏情况下是如此。对于这两种数组，如果它们包含`N`个元素，线性搜索最多可能需要`N`步。
 - en: 但我们即将释放一种如此强大的算法，它将让线性搜索黯然失色。
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但我们即将释放一种如此强大的算法，它将让线性搜索黯然失色。
 - en: 到现在为止，我们一直假设在有序数组中搜索值的唯一方法是线性搜索。然而，事实是，线性搜索仅仅是搜索值的一种可能算法，并不是我们可以使用的唯一算法。
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 到现在为止，我们一直假设在有序数组中搜索值的唯一方法是线性搜索。然而，事实是，线性搜索仅仅是搜索值的一种可能算法，并不是我们可以使用的唯一算法。
 - en: 有序数组相较于经典数组的一个大优势在于，有序数组允许使用另一种搜索算法。该算法称为`binary search`，它是一种比`linear search`快得多的算法。
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有序数组相较于经典数组的一个大优势在于，有序数组允许使用另一种搜索算法。该算法称为`binary search`，它是一种比`linear search`快得多的算法。

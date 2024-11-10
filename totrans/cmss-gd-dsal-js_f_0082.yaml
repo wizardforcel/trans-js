@@ -4,29 +4,34 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 创建高效的哈希表
 - en: 'Ultimately, a hash table’s efficiency depends on three factors:'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最终，哈希表的效率取决于三个因素：
 - en: How much data we’re storing in the hash table
   id: totrans-2
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们在哈希表中存储了多少数据
 - en: How many cells are available in the hash table
   id: totrans-3
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 哈希表中可用多少单元
 - en: Which hash function we’re using
   id: totrans-4
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们使用的是什么哈希函数
 - en: It makes sense why the first two factors are important. If you have a lot of
     data and only a few cells, there will be many collisions and the hash table will
     lose its efficiency. Let’s explore, however, why the hash function itself is important
@@ -35,6 +40,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 理解前两个因素为何重要是有道理的。如果您有大量数据而只有少数单元，就会产生许多碰撞，哈希表的效率将下降。然而，我们来探讨一下哈希函数本身为何对效率如此重要。
 - en: Let’s say we’re using a hash function that always produces a value that falls
     in the range from `1` to `9`。An example of this is a hash function that converts
     letters into their corresponding numbers and keeps adding the resulting digits
@@ -43,59 +49,70 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们使用的哈希函数总是产生一个值，该值在`1`到`9`之间。例如，一个哈希函数将字母转换为对应的数字，并不断将结果数字相加，直到得到一个单一的数字。
 - en: 'Take this example:'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 举个例子：
 - en: '`PUT = 16 + 21 + 20 = 57`'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`PUT = 16 + 21 + 20 = 57`'
 - en: 'Because `57` contains more than one digit, the hash function breaks up the
     `57` into `5 + 7`:'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为`57`包含多个数字，哈希函数将`57`拆分为`5 + 7`：
 - en: '`5 + 7 = 12`'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`5 + 7 = 12`'
 - en: '`12` also contains more than one digit, so it breaks up the `12` into `1 +
     2`:'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`12`也包含多个数字，因此将`12`拆分为`1 + 2`：'
 - en: '`1 + 2 = 3`'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`1 + 2 = 3`'
 - en: In the end, `PUT` hashes into `3`。
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最终，`PUT`哈希为`3`。
 - en: This hash function by its very nature will always return a number `1` through
     `9`。
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种哈希函数本质上总是返回一个`1`到`9`之间的数字。
 - en: 'Let’s return to our example hash table:'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们回到我们的示例哈希表：
 - en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
 - en: With this hash function, the computer would never even use cells `10` through
     `16` even though they exist. All data would be stuffed into cells `1` through
     `9`。
@@ -103,6 +120,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个哈希函数下，计算机甚至不会使用单元`10`到`16`，尽管它们存在。所有数据都将被填充到单元`1`到`9`中。
 - en: A good hash function, therefore, is one that distributes its data across all
     available cells. The more we can spread out our data, the fewer collisions we’ll
     have.
@@ -110,12 +128,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，一个好的哈希函数是将其数据均匀分配到所有可用单元中的函数。我们能将数据分散得越多，碰撞就会越少。
 - en: The Great Balancing Act
   id: totrans-19
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 大平衡法则
 - en: You learned that a hash table’s efficiency goes up as its number of collisions
     goes down. In theory, then, the best way to avoid collisions would be to have
     a hash table with a large number of cells. Imagine we want to store just five
@@ -125,12 +145,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你了解到哈希表的效率随着碰撞数量的减少而提高。因此，从理论上讲，避免碰撞的最佳方法是拥有一个单元数量较多的哈希表。想象一下，我们只想在哈希表中存储五个项目。一个包含1,000个单元的哈希表在这种情况下似乎是完美的，因为没有碰撞的可能性。
 - en: However, while avoiding collisions is important, we have to balance that with
     avoiding memory hogging as well.
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，虽然避免碰撞很重要，但我们也必须平衡避免占用过多内存的问题。
 - en: Although a hash table with `1,000` cells for our `five` pieces of data is great
     for avoiding collisions, we’d be using up `1,000` cells to store just `five` pieces
     of data, and that’s a poor use of memory.
@@ -138,12 +160,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管一个包含`1,000`个单元的哈希表对于存储我们的`五`个数据来说很适合避免碰撞，但我们却要用`1,000`个单元来存储仅仅`五`个数据，这样的内存使用效率很低。
 - en: This is the balancing act that a hash table must perform. A good hash table
     strikes a balance of avoiding collisions while not consuming lots of memory.
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是哈希表必须平衡的任务。一个好的哈希表在避免碰撞和不消耗过多内存之间取得平衡。
 - en: 'To accomplish this, computer scientists have developed the following rule of
     thumb: for every `seven` data elements stored in a hash table, it should have
     `ten` cells.'
@@ -151,35 +175,42 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了实现这一点，计算机科学家制定了以下经验法则：每存储`七`个数据元素，哈希表应该有`十`个单元。
 - en: So if you’re planning on storing `fourteen` elements, you’d want to have `twenty`
     available cells, and so on.
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，如果您打算存储`十四`个元素，您希望有`二十`个可用单元，依此类推。
 - en: This ratio of data to cells is called the load factor. Using this terminology,
     we’d say that the ideal load factor is `0.7` (`7` elements / `10` cells).
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种数据与单元的比例称为负载因子。使用这个术语，我们可以说理想的负载因子是`0.7`（`7`个元素 / `10`个单元）。
 - en: 如果您最初在哈希表中存储了七条数据，计算机可能会分配一个包含十个单元的哈希表。然而，当您开始添加更多数据时，计算机会通过添加更多单元和更改哈希函数来扩展哈希表，以便新数据能够均匀分布到新的单元中。
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果您最初在哈希表中存储了七条数据，计算机可能会分配一个包含十个单元的哈希表。然而，当您开始添加更多数据时，计算机会通过添加更多单元和更改哈希函数来扩展哈希表，以便新数据能够均匀分布到新的单元中。
 - en: 再次强调，哈希表的大部分内部管理由您使用的计算机语言负责。它决定哈希表的大小、使用哪个哈希函数，以及何时扩展哈希表。您可以合理地假设您的编程语言已经实现了其哈希表，以实现最佳性能。
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 再次强调，哈希表的大部分内部管理由您使用的计算机语言负责。它决定哈希表的大小、使用哪个哈希函数，以及何时扩展哈希表。您可以合理地假设您的编程语言已经实现了其哈希表，以实现最佳性能。
 - en: 现在我们已经看到哈希的工作原理，很明显它们具有 O(1) 的卓越查找效率。我们将很快利用这一知识来优化我们的代码以提高速度。
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们已经看到哈希的工作原理，很明显它们具有 O(1) 的卓越查找效率。我们将很快利用这一知识来优化我们的代码以提高速度。
 - en: 但让我们首先快速浏览哈希表在简单数据组织中的许多不同用例。
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但让我们首先快速浏览哈希表在简单数据组织中的许多不同用例。

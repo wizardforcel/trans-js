@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 划分
 - en: To partition an array is to take a random value from the array—which is then
     called the pivot—and make sure every number that is less than the pivot ends up
     to the left of the pivot and every number greater than the pivot ends up to the
@@ -13,16 +14,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对数组进行划分就是从数组中选取一个随机值——这个值称为基准值——确保所有小于基准值的数字位于基准值的左侧，而所有大于基准值的数字位于基准值的右侧。我们通过一个简单的算法完成划分，接下来的示例将描述这个算法。
 - en: 'Let’s say we have the following array:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们有以下数组：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png)'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_1.png)'
 - en: 'For consistency’s sake, we’ll always select the rightmost value to be our pivot
     (although we can technically choose other values). In this case, the number `3`
     is our pivot. We indicate this by circling it:'
@@ -30,28 +34,33 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了一致性，我们将始终选择最右边的值作为我们的基准值（尽管从技术上讲，我们可以选择其他值）。在这种情况下，数字`3`是我们的基准值。我们通过圈出它来表示：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png)'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_2.png)'
 - en: 'We then assign pointers—one to the leftmost value of the array, and one to
     the rightmost value of the array, excluding the pivot itself:'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们分配指针——一个指向数组的最左边的值，另一个指向数组的最右边的值，排除基准值本身：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
 - en: We’re now ready to begin the actual partition, which follows these steps. Don’t
     worry—the steps will become clearer shortly, when we walk through our example.
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在准备开始实际的划分，遵循以下步骤。别担心——这些步骤很快会变得更加清晰，当我们逐步讲解我们的示例时。
 - en: The left pointer continuously moves one cell to the right until it reaches a
     value that is greater than or equal to the pivot and then stops.
   id: totrans-9
@@ -59,6 +68,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 左指针不断向右移动一个单元，直到它找到一个大于或等于基准值的值并停止。
 - en: Then the right pointer continuously moves one cell to the left until it reaches
     a value that is less than or equal to the pivot and then stops. The right pointer
     will also stop if it reaches the beginning of the array.
@@ -67,6 +77,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后右指针不断向左移动一个单元，直到它找到一个小于或等于基准值的值并停止。如果右指针到达数组的开头，它也会停止。
 - en: Once the right pointer has stopped, we reach a crossroads. If the left pointer
     has reached (or gone beyond) the right pointer, we move on to Step 4. Otherwise,
     we swap the values that the left and right pointers are pointing to, and then
@@ -76,6 +87,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦右指针停止，我们就到达了一个十字路口。如果左指针已到达（或超出）右指针，我们就进入第4步。否则，我们交换左指针和右指针指向的值，然后回去重复步骤1、2和3。
 - en: Finally, we swap the pivot with the value that the left pointer is currently
     pointing to.
   id: totrans-12
@@ -83,6 +95,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，我们将基准值与左指针当前指向的值交换。
 - en: When we’re done with a partition, we are now assured that all values to the
     left of the pivot are less than the pivot, and all values to the right of the
     pivot are greater than it. And that means the pivot itself is now in its correct
@@ -92,37 +105,44 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们完成一个划分后，我们现在可以确保基准值左侧的所有值都小于基准值，右侧的所有值都大于基准值。这意味着基准值本身现在处于数组中的正确位置，尽管其他值尚未完全排序。
 - en: 'Let’s apply this to our example:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将其应用到我们的示例中：
 - en: 'Step 1: Compare the left pointer (now pointing to `0`) to our pivot (the value
     `3`):'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第1步：将左指针（现在指向`0`）与我们的基准值（值为`3`）进行比较：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_3.png)'
 - en: Since `0` is less than the pivot, the left pointer moves on in the next step.
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于`0`小于基准值，左指针在下一步继续移动。
 - en: 'Step 2: The left pointer moves on:'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第2步：左指针继续移动：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png)'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_4.png)'
 - en: We compare the left pointer (the `5`) to our pivot. Is the `5` lower than the
     pivot? It’s not, so the left pointer stops, and we activate the right pointer
     in our next step.
@@ -130,70 +150,83 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将左指针（`5`）与基准进行比较。`5`是否低于基准？不，所以左指针停止，并在下一步中激活右指针。
 - en: 'Step 3: Compare the right pointer (`6`) to our pivot. Is the value greater
     than the pivot? It is, so our pointer will move on in the next step.'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第3步：将右指针（`6`）与我们的基准进行比较。这个值是否大于基准？是的，因此我们的指针将在下一步中继续移动。
 - en: 'Step 4: The right pointer moves on:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第4步：右指针继续移动：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png)'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_5.png)'
 - en: We compare the right pointer (`1`) to our pivot. Is the value greater than the
     pivot? It’s not, so our right pointer stops.
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将右指针（`1`）与基准进行比较。这个值是否大于基准？不，所以我们的右指针停止。
 - en: 'Step 5: Since both pointers have stopped, we swap the values of the two pointers:'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第5步：由于两个指针都已停止，我们交换这两个指针的值：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png)'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_6.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_7.png)'
 - en: We then activate our left pointer again in the next step.
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后在下一步中再次激活我们的左指针。
 - en: 'Step 6: The left pointer moves on:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第6步：左指针继续移动：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png)'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_8.png)'
 - en: We compare the left pointer (`2`) to our pivot. Is the value less than the pivot?
     It is, so the left pointer moves on.
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将左指针（`2`）与基准进行比较。这个值是否小于基准？是的，因此左指针继续移动。
 - en: 'Step 7: The left pointer moves on to the next cell. Note that at this point,
     both the left and right pointers are pointing to the same value:'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第7步：左指针移动到下一个单元格。请注意，此时，左指针和右指针指向相同的值：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png)'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_9.png)'
 - en: We compare the left pointer to our pivot. Because our left pointer is pointing
     to a value that is greater than our pivot, it stops. At this point, since our
     left pointer has reached our right pointer, we’re done with moving pointers.
@@ -201,17 +234,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将左指针与基准进行比较。由于我们的左指针指向的值大于我们的基准，它停止了。此时，由于左指针已到达右指针，我们不再移动指针。
 - en: 'Step 8: For our final step of the partition, we swap the value that the left
     pointer is pointing to with the pivot:'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第8步：在我们的分区的最后一步中，我们将左指针指向的值与基准进行交换：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png)'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_10.png)![images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png](images/divide_and_conquer_code_in_turbo_mode/quicksort_11.png)'
 - en: Although our array isn’t completely sorted, we’ve successfully completed a partition;
     that is, since our pivot was the number `3`, all numbers that are less than `3`
     are to its left, while all numbers greater than `3` are to its right. This also
@@ -220,209 +256,250 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然我们的数组尚未完全排序，但我们已经成功完成了一次分区；也就是说，由于我们的基准是数字`3`，所有小于`3`的数字都在它的左侧，而所有大于`3`的数字都在它的右侧。这也意味着，根据定义，`3`现在在数组中的正确位置。
 - en: 'Code Implementation: Partitioning'
   id: totrans-37
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：分区
 - en: 'Following is an implementation of a `SortableArray` class in JavaScript that
     includes a `partition` method that partitions the array as we’ve described:'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下是一个在JavaScript中实现的`SortableArray`类，其中包括一个分区方法，按照我们描述的方式对数组进行分区：
 - en: '| ​  | `class` SortableArray { |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `class` SortableArray { |'
 - en: '| ​  | `constructor`(`array`) { |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `constructor`(`array`) { |'
 - en: '| ​  | `this`.array = `array`; |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.array = `array`; |'
 - en: '| ​  | } |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `partition(leftPointer, rightPointer) {` |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `partition(leftPointer, rightPointer) {` |'
 - en: '| ​  | `const` pivotIndex = `rightPointer`; |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` pivotIndex = `rightPointer`; |'
 - en: '| ​  | `const` pivot = `this`.array[pivotIndex]; |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` pivot = `this`.array[pivotIndex]; |'
 - en: '| ​  |  |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `rightPointer -= 1;` |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `rightPointer -= 1;` |'
 - en: '| ​  |  |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while` (`true`) { |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (`true`) { |'
 - en: '| ​  | `while` (`this`.array[`leftPointer`] < `pivot`) { |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (`this`.array[`leftPointer`] < `pivot`) { |'
 - en: '| ​  | `leftPointer += 1;` |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `leftPointer += 1;` |'
 - en: '| ​  | } |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
 - en: '| ​  | `rightPointer -= 1；` |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `rightPointer -= 1；` |'
 - en: '| ​  | `}` |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if (leftPointer >= rightPointer) {` |'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (leftPointer >= rightPointer) {` |'
 - en: '| ​  | `break`；|'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `break`；|'
 - en: '| ​  | `} else {` |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `} else {` |'
 - en: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
 - en: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
 - en: '| ​  | `leftPointer += 1；` |'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `leftPointer += 1；` |'
 - en: '| ​  | `}` |'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  | `}` |'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `[this].array[leftPointer], [this].array[pivotIndex]` = |'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[leftPointer], [this].array[pivotIndex]` = |'
 - en: '| ​  | `[this].array[pivotIndex], [this].array[leftPointer]`；|'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[pivotIndex], [this].array[leftPointer]`；|'
 - en: '| ​  |  |'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return leftPointer；` |'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return leftPointer；` |'
 - en: '| ​  | `}` |'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  | `}` |'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: Let’s break this code down a bit.
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们稍微分解一下这段代码。
 - en: 'The `partition` method accepts the starting points of the `left` and `right`
     pointers as parameters:'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`partition`方法接受`left`和`right`指针的起始点作为参数：'
 - en: '| ​  | `partition(leftPointer, rightPointer) {` |'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `partition(leftPointer, rightPointer) {` |'
 - en: When this method is first called on an array, these pointers will point to the
     left and right ends of the array, respectively. However, we’ll see that Quicksort
     will call this method on subsections of the array as well. Because of this, we
@@ -433,33 +510,39 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当此方法第一次在数组上调用时，这些指针将分别指向数组的左端和右端。然而，我们会看到快速排序还会在数组的子部分调用此方法。因此，我们不能总是假设`left`和`right`指针总是数组的两个极端，所以它们需要成为方法参数。等我解释完整的快速排序算法时，这一点会更清晰。
 - en: 'Next, we select our pivot, which is always the rightmost element in the range
     we’re dealing with:'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们选择我们的基准值，它始终是我们处理范围内最右边的元素：
 - en: '| ​  | `const pivotIndex = rightPointer；` |'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const pivotIndex = rightPointer；` |'
 - en: '| ​  | `const pivot = [this].array[pivotIndex]；` |'
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const pivot = [this].array[pivotIndex]；` |'
 - en: 'Once our pivot has been identified, we move the `rightPointer` to the item
     immediately left of the pivot:'
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦我们的基准值被确定，我们将`rightPointer`移动到基准值左侧的元素：
 - en: '| ​  | `rightPointer -= 1；` |'
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `rightPointer -= 1；` |'
 - en: 'We then begin a loop (`while (true)`) that will seem to run indefinitely. However,
     later within the loop is a `break` statement that will terminate the loop as soon
     as the `leftPointer` and `rightPointer` cross paths. Within this loop, we use
@@ -469,63 +552,75 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们开始一个循环（`while (true)`），看起来会无限运行。然而，在循环的后面有一个`break`语句，它将在`leftPointer`和`rightPointer`交叉时终止循环。在这个循环中，我们使用另一个循环继续将`leftPointer`向右移动，直到它达到一个大于或等于基准值的元素：
 - en: '| ​  | `while ([this].array[leftPointer] < pivot) {` |'
   id: totrans-84
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while ([this].array[leftPointer] < pivot) {` |'
 - en: '| ​  | `leftPointer += 1；` |'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `leftPointer += 1；` |'
 - en: '| ​  | `}` |'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: 'Similarly, we move the `rightPointer` to the left until it hits an item that
     is less than or equal to the pivot:'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 类似地，我们将`rightPointer`向左移动，直到它碰到一个小于或等于基准值的元素：
 - en: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while ([this].array[rightPointer] > pivot) {` |'
 - en: '| ​  | `rightPointer -= 1；` |'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `rightPointer -= 1；` |'
 - en: '| ​  | `}` |'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: 'Once the `leftPointer` and `rightPointer` have stopped moving, we check whether
     the two pointers have met:'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦`leftPointer`和`rightPointer`停止移动，我们检查两个指针是否相遇：
 - en: '| ​  | `if (leftPointer >= rightPointer) {` |'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (leftPointer >= rightPointer) {` |'
 - en: '| ​  | `break`；|'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `break`；|'
 - en: '| ​  | `}` |'
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: 'If they have, we exit the loop and get ready to swap out the pivot, which we’ll
     get to momentarily. However, if the two pointers have stopped but not yet met
     each other, we swap the values at the two pointers:'
@@ -533,44 +628,53 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果指针相遇了，我们就退出循环，准备交换基准值，稍后会详细介绍。然而，如果两个指针停止了但还没有相遇，我们就交换两个指针处的值：
 - en: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[leftPointer], [this].array[rightPointer]` = |'
 - en: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[this].array[rightPointer], [this].array[leftPointer]`；|'
 - en: 'We then move the `leftPointer` to get ready for the next round of left- and
     right-pointer movements:'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们移动`leftPointer`以准备下一轮的左指针和右指针移动：
 - en: '| ​  | `leftPointer += 1；` |'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `leftPointer += 1；` |'
 - en: 最后，一旦两个指针相遇，我们将`pivot`与`leftPointer`处的值交换：
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，一旦两个指针相遇，我们将`pivot`与`leftPointer`处的值交换：
 - en: '| ​  | [`this`.array[`leftPointer`], `this`.array[`pivotIndex`]] = |'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | [`this`.array[`leftPointer`], `this`.array[`pivotIndex`]] = |'
 - en: '| ​  | [`this`.array[`pivotIndex`], `this`.array[`leftPointer`]]; |'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | [`this`.array[`pivotIndex`], `this`.array[`leftPointer`]]; |'
 - en: 该方法通过返回`leftPointer`结束，因为这将被`Quicksort`算法所需（我将很快解释）。
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 该方法通过返回`leftPointer`结束，因为这将被`Quicksort`算法所需（我将很快解释）。

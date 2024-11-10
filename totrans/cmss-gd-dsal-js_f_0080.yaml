@@ -4,35 +4,41 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`哈希表查找`'
 - en: When we look up items from a hash table, we use a key to find its associated
     value. Let’s see how this works with our `Quickasaurus` example hash table.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们从哈希表中查找项目时，我们使用一个键来查找其关联的值。让我们看看在我们的 `Quickasaurus` 示例哈希表中这是如何工作的。
 - en: 'Suppose we want to look up the value associated with the key `"bad"`. In our
     code, we’d say this:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们想查找与键 `"bad"` 关联的值。在我们的代码中，我们会这样写：
 - en: '| ​ | `thesaurus["bad"]` |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​ | `thesaurus["bad"]` |'
 - en: 'To find the value associated with `"bad"`, the computer executes two simple
     steps:'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要查找与 `"bad"` 关联的值，计算机执行两个简单步骤：
 - en: 'The computer hashes the key we’re looking up: `BAD = 2 * 1 * 4 = 8`.'
   id: totrans-5
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 计算机对我们要查找的键进行哈希：`BAD = 2 * 1 * 4 = 8`。
 - en: Since the result is `8`, the computer looks inside cell `8` and returns the
     value stored there. In this case, that is the string `"evil"`.
   id: totrans-6
@@ -40,6 +46,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于结果是 `8`，计算机查看单元格 `8` 并返回存储在那里值。在这种情况下，就是字符串 `"evil"`。
 - en: Let’s take a step back and look at the big picture here. In a hash table, the
     placement of each value is determined by its key; that is, by hashing the key
     itself, we compute the index number where the key’s associated value should be
@@ -48,6 +55,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们退一步，从整体上看这个问题。在哈希表中，每个值的位置由其键决定；也就是说，通过对键本身进行哈希，我们计算出键的关联值应该放置的索引号。
 - en: Because the key determines the placement of the value, we use this principle
     to make lookups a cinch. When we have any key and want to find its value, the
     key itself tells us where the value will be found. Just as we hashed the key to
@@ -57,6 +65,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为键决定值的位置，所以我们利用这个原则使查找变得轻而易举。当我们有任何键并想要查找其值时，键本身会告诉我们值将在哪里找到。正如我们对键进行了哈希以将值插入适当的单元格，我们可以再次对键进行哈希，以找到我们之前放置该值的位置。
 - en: 'It now becomes clear why looking up a value in a hash table is typically O(1):
     it’s a process that takes a constant amount of time. The computer hashes the key,
     turns it into a number, and jumps to the index with that number to retrieve the
@@ -65,6 +74,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在变得清楚为什么在哈希表中查找一个值通常是 O(1)：这是一个需要恒定时间的过程。计算机对键进行哈希，将其转换为一个数字，然后跳到那个数字对应的索引以检索存储在那里值。
 - en: We can now understand why a hash table would yield faster lookups for our restaurant
     menu than an array. With an array, when we look up the price of a menu item, we
     would have to search through each cell until we find it. For an unordered array,
@@ -76,12 +86,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们可以理解为什么哈希表在查找餐厅菜单时比数组更快。当我们查找菜单项的价格时，如果使用数组，我们需要逐个检查每个单元格，直到找到它。对于无序数组，这可能需要
+    O(N) 的时间，对于有序数组，这可能需要 O(log N)。然而，使用哈希表时，我们可以将实际菜单项用作键，从而使查找变为 O(1)。这就是哈希表的魅力所在。
 - en: '`One-Directional Lookups`'
   id: totrans-11
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`单向查找`'
 - en: It’s important to point out that the ability to find any value within the hash
     table in a single step only works if we know the value’s key. If we tried to find
     a particular value without knowing its key, we’d still have to resort to searching
@@ -90,6 +103,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重要的是要指出，能够在哈希表中以单步找到任何值的能力仅在我们知道值的键时才有效。如果我们试图在不知道其键的情况下找到特定值，我们仍然必须遍历哈希表中的每一个键值对，这将是
+    O(N)。
 - en: Similarly, we can only do O(1) lookups when using a key to find the value. If,
     on the other hand, we want to use a value to find its associated key, we can’t
     take advantage of the hash table’s fast lookup ability.
@@ -97,6 +112,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，当使用键查找值时，我们才能进行 O(1) 的查找。另一方面，如果我们想使用一个值来查找其关联的键，就无法利用哈希表的快速查找能力。
 - en: 'This is because the whole premise of the hash table is that the key determines
     the value’s location. But this premise only works in one direction: we use the
     key to find the value. If we only had a value in hand, and wanted to find its
@@ -107,12 +123,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是因为哈希表的整个前提是键决定值的位置。但这个前提只在一个方向上有效：我们使用键来查找值。如果我们手中只有一个值，想要找到其对应的键，我们就没有办法快速访问那个键。我们只能遍历整个哈希表来寻找这个键，因为值并没有提供任何关于其键或我们可以在哪里找到它的信息。
 - en: Come to think of it, where are the keys stored? In the previous diagrams, we
     only saw how the values are stored in the `hash table`.
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 想想看，键存储在哪里？在之前的图示中，我们只看到了值如何存储在`hash table`中。
 - en: While this detail may vary from language to language, some languages store the
     keys next to the values themselves. This is useful in case of collisions, which
     I’ll discuss in the next section.
@@ -120,6 +138,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然这个细节可能因语言而异，但某些语言会将键存储在值本身旁边。这在发生冲突时非常有用，我将在下一节中讨论这个问题。
 - en: In any case, another aspect of the `hash table`’s one-directional nature is
     worth noting. Each key can exist only once in the `hash table`, but there can
     be multiple instances of a value.
@@ -127,6 +146,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 无论如何，值得注意的是`hash table`的单向特性。每个键在`hash table`中只能存在一次，但一个值可以有多个实例。
 - en: If we think about the menu example from the beginning of this chapter, we can’t
     have the `hamburger` listed twice (nor would we want to, as it only has one price).
     However, we could have multiple foods that cost `$2.50`.
@@ -134,9 +154,11 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们回想本章开头的菜单示例，我们不能将`hamburger`列出两次（我们也不希望这样，因为它只有一个价格）。然而，我们可以有多个价格为`$2.50`的食物。
 - en: In many languages, if we try to store a key-value pair where the key already
     exists, it simply overwrites the old value while keeping the same key.
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在许多语言中，如果我们尝试存储一个已经存在的键值对，它会简单地覆盖旧值，同时保持相同的键。

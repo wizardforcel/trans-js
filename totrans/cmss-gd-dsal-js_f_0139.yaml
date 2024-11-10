@@ -4,286 +4,344 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`双向链表`'
 - en: 链表有多种不同的变种。我们到目前为止讨论的链表是经典链表，但通过一些轻微的修改，我们可以赋予链表额外的超能力。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 链表有多种不同的变种。我们到目前为止讨论的链表是经典链表，但通过一些轻微的修改，我们可以赋予链表额外的超能力。
 - en: 链表的一种变体是双向链表。
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 链表的一种变体是双向链表。
 - en: 双向链表类似于链表，只是每个节点有两个链接——一个指向下一个节点，另一个指向上一个节点。此外，双向链表总是跟踪头节点和尾节点，而不仅仅是头节点。
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 双向链表类似于链表，只是每个节点有两个链接——一个指向下一个节点，另一个指向上一个节点。此外，双向链表总是跟踪头节点和尾节点，而不仅仅是头节点。
 - en: 这是双向链表的外观：
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是双向链表的外观：
 - en: '![images/pitting_linked_lists_against_arrays/doubly_linked_list.png](images/pitting_linked_lists_against_arrays/doubly_linked_list.png)'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/doubly_linked_list.png](images/pitting_linked_lists_against_arrays/doubly_linked_list.png)'
 - en: 我们可以像这样在 JavaScript 中实现双向链表的核心。首先，我们必须创建一种新的“双端”节点：
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以像这样在 JavaScript 中实现双向链表的核心。首先，我们必须创建一种新的“双端”节点：
 - en: '| ​  | `class Node {` |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `class Node {` |'
 - en: '| ​  | `constructor(data) {` |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `constructor(data) {` |'
 - en: '| ​  | `this.data = data;` |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this.data = data;` |'
 - en: '| ​  | `this.nextNode = null;` |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this.nextNode = null;` |'
 - en: '| ​  | `this.previousNode = null;` |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this.previousNode = null;` |'
 - en: '| ​  | } |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `export default Node;` |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `export default Node;` |'
 - en: 你会注意到每个节点现在不仅包含一个`nextNode`属性，还包含一个`previousNode`属性。
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你会注意到每个节点现在不仅包含一个`nextNode`属性，还包含一个`previousNode`属性。
 - en: 一旦我们有了这个，我们现在可以实现我们的双向链表：
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦我们有了这个，我们现在可以实现我们的双向链表：
 - en: '| ​  | `import Node from ''./double_ended_node.js'';` |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `import Node from ''./double_ended_node.js'';` |'
 - en: '| ​  |  |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `class DoublyLinkedList {` |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `class DoublyLinkedList {` |'
 - en: '| ​  | `constructor(firstNode=null, lastNode=null) {` |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `constructor(firstNode=null, lastNode=null) {` |'
 - en: '| ​  | `this.firstNode = firstNode;` |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this.firstNode = firstNode;` |'
 - en: '| ​  | `this.lastNode = lastNode;` |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this.lastNode = lastNode;` |'
 - en: '| ​  | } |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 由于双向链表总是知道它的头部和尾部，我们可以在一个步骤内访问它们，或者说是 O(1)。因此，正如我们可以在 O(1) 中从链表的开头读取、插入或删除一样，我们也可以在
     O(1) 中从链表的末尾执行相同的操作。
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于双向链表总是知道它的头部和尾部，我们可以在一个步骤内访问它们，或者说是 O(1)。因此，正如我们可以在 O(1) 中从链表的开头读取、插入或删除一样，我们也可以在
+    O(1) 中从链表的末尾执行相同的操作。
 - en: 这是在双向链表末尾插入的示意图：
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是在双向链表末尾插入的示意图：
 - en: '![images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png](images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png)'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png](images/pitting_linked_lists_against_arrays/insert_into_doubly_linked_list.png)'
 - en: 如你所见，我们创建了一个新节点（"Sue"），并让它的`previousNode`指向原来的`lastNode`（"Greg"）。然后我们将`lastNode`（"Greg"）的`nextNode`更改为指向这个新节点（"Sue"）。最后，我们将新节点（"Sue"）声明为链表的`lastNode`。
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如你所见，我们创建了一个新节点（"Sue"），并让它的`previousNode`指向原来的`lastNode`（"Greg"）。然后我们将`lastNode`（"Greg"）的`nextNode`更改为指向这个新节点（"Sue"）。最后，我们将新节点（"Sue"）声明为链表的`lastNode`。
 - en: 代码实现：双向链表插入
   id: totrans-30
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：双向链表插入
 - en: 接下来，我们将查看可以添加到`DoublyLinkedList`类的新`append`方法的实现。`append`方法并不是在链表中的任意位置插入值，而是简单地在链表的末尾添加一个新值。我们专注于追加，而不是经典插入，旨在突出显示向双向链表追加是多么简单和快速。以下是`append`方法：
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们将查看可以添加到`DoublyLinkedList`类的新`append`方法的实现。`append`方法并不是在链表中的任意位置插入值，而是简单地在链表的末尾添加一个新值。我们专注于追加，而不是经典插入，旨在突出显示向双向链表追加是多么简单和快速。以下是`append`方法：
 - en: '| ​  | `append(value) {` |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `append(value) {` |'
 - en: '| ​  | `const newNode = new Node(value);` |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const newNode = new Node(value);` |'
 - en: '| ​  |  |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if (!this.firstNode) {` |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (!this.firstNode) {` |'
 - en: '| ​  | ​`this`​.firstNode = `newNode`; |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.firstNode = `newNode`; |'
 - en: '| ​  | ​`this`​.lastNode = `newNode`; |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.lastNode = `newNode`; |'
 - en: '| ​  | } ​`else`​ { |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } ​`else`​ { |'
 - en: '| ​  | `newNode`.previousNode = ​`this`​.lastNode; |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `newNode`.previousNode = ​`this`​.lastNode; |'
 - en: '| ​  | ​`this`​.lastNode.nextNode = `newNode`; |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.lastNode.nextNode = `newNode`; |'
 - en: '| ​  | ​`this`​.lastNode = `newNode`; |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.lastNode = `newNode`; |'
 - en: '| ​  | } |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 让我们强调这个方法中最重要的部分。
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们强调这个方法中最重要的部分。
 - en: 首先，我们创建新的节点：
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们创建新的节点：
 - en: '| ​  | ​`const`​ `newNode` = ​`new`​ `Node(value)`; |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`const`​ `newNode` = ​`new`​ `Node(value)`; |'
 - en: 起初，我们的代码处理链表为空的情况。但让我们跳到追加到现有链表的情况。
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 起初，我们的代码处理链表为空的情况。但让我们跳到追加到现有链表的情况。
 - en: 我们将`newNode`的previousNode链接指向在此之前的最后一个节点：
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将`newNode`的previousNode链接指向在此之前的最后一个节点：
 - en: '| ​  | `newNode`.previousNode = ​`this`​.lastNode; |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `newNode`.previousNode = ​`this`​.lastNode; |'
 - en: 然后我们改变最后一个节点的链接（在此之前是`null`），并让它指向我们的`newNode`：
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们改变最后一个节点的链接（在此之前是`null`），并让它指向我们的`newNode`：
 - en: '| ​  | ​`this`​.lastNode.nextNode = `newNode`; |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.lastNode.nextNode = `newNode`; |'
 - en: 最后，我们告诉我们的`DoublyLinkedList`实例，它的最后一个节点是我们的`newNode`：
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，我们告诉我们的`DoublyLinkedList`实例，它的最后一个节点是我们的`newNode`：
 - en: '| ​  | ​`this`​.lastNode = `newNode`; |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.lastNode = `newNode`; |'
 - en: 向前和向后移动
   id: totrans-54
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 向前和向后移动
 - en: 在经典的链表中，我们只能向前移动；也就是说，我们可以访问第一个节点并跟随链接找到链表中的所有其他节点。但是我们无法向后移动，因为没有节点知道前一个节点是什么。
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在经典的链表中，我们只能向前移动；也就是说，我们可以访问第一个节点并跟随链接找到链表中的所有其他节点。但是我们无法向后移动，因为没有节点知道前一个节点是什么。
 - en: 一个双向链表允许更多的灵活性，因为我们可以向前和向后移动。实际上，我们甚至可以从尾部开始，向后移动到头部。
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一个双向链表允许更多的灵活性，因为我们可以向前和向后移动。实际上，我们甚至可以从尾部开始，向后移动到头部。

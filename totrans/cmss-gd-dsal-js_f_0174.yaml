@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 带值的字典树：更好的自动补全
 - en: If we think about it, a good autocomplete feature isn’t necessarily going to
     display every possible word the user might be intending to type. Showing, say,
     sixteen options would be overwhelming to the user, so we’d rather show just the
@@ -12,6 +13,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们考虑一下，一个好的自动补全功能不一定会显示用户可能打算输入的每一个单词。显示比如说十六个选项会让用户感到不知所措，因此我们宁愿只显示可用列表中最受欢迎的单词。
 - en: For example, if the user starts typing`“bal”`, the user might be intending to
     type`“ball”`，`“bald”`，or`“balance”`。Now, it’s also possible that the user is typing
     the obscure word`“balter”` (which means to dance clumsily, if you wanted to know)。However,
@@ -20,6 +22,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，如果用户开始输入`“bal”`，用户可能打算输入`“ball”`、`“bald”`或`“balance”`。现在，也有可能用户在输入生僻词`“balter”`（如果你想知道，它的意思是笨拙地跳舞）。然而，`“balter”`可能并不是用户想要的单词，因为它并不常见。
 - en: To display the most popular word options, we somehow need to store the word
     popularity data in our trie as well. And we’re in luck since we only need to make
     a slight modification to our trie to accomplish this。
@@ -27,6 +30,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要显示最受欢迎的单词选项，我们需要在字典树中存储单词流行程度的数据。幸运的是，我们只需对字典树进行稍微修改即可实现这一点。
 - en: In our current trie implementation, every time we’ve set an`"*"`key, we’ve made
     its value null. This is because we’ve only ever paid attention to the`"*"`key;
     the value carried no significance。
@@ -34,6 +38,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们当前的字典树实现中，每次我们设置`"*"`键时，其值都是空的。这是因为我们只关注`"*"`键；其值没有任何意义。
 - en: However, we can take advantage of these values to store additional data about
     the words themselves, such as how popular they are. To keep things simple, let’s
     work with a simple range of`1`to`10`，with`1`being the rarest kind of word, and`10`being
@@ -42,6 +47,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，我们可以利用这些值来存储有关单词本身的额外数据，例如它们的流行程度。为了简单起见，让我们使用一个从`1`到`10`的简单范围，其中`1`表示最稀有的单词，`10`则表示极为流行的单词。
 - en: Let’s say`“ball”`is a very popular word and has a popularity score of`10`。The
     word`“balance”`may be slightly less popular and have a score of`9`。The word`“bald”`is
     used even less often and has a score of`7`。And since`“balter”`is a hardly known
@@ -50,11 +56,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设`“ball”`是一个非常流行的单词，其流行度评分为`10`。单词`“balance”`可能稍微不那么流行，评分为`9`。而单词`“bald”`使用得更少，评分为`7`。由于`“balter”`是一个鲜为人知的单词，我们将其评分设为`1`。我们可以这样在字典树中存储这些评分：
 - en: '![`images/tries/weighted_trie.png`](images/tries/weighted_trie.png)'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/tries/weighted_trie.png`](images/tries/weighted_trie.png)'
 - en: By using a number as the value of each`"*"`key, we can effectively store each
     word’s popularity score. When we now collect all the words of the trie, we can
     collect their scores along with them and then sort the words in order of their
@@ -63,3 +71,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过将数字作为每个`"*"`键的值，我们可以有效地存储每个单词的流行度评分。当我们现在收集字典树中的所有单词时，我们可以同时收集它们的评分，然后按照流行度对单词进行排序。然后我们可以选择仅显示最受欢迎的单词选项。

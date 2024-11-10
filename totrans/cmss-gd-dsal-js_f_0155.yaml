@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆
 - en: Heaps are of several different types, but we’re going to focus on the binary
     heap.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆有几种不同类型，但我们将专注于二叉堆。
 - en: The binary heap is a specific kind of binary tree. As a reminder, a binary tree
     is a tree where each node has a maximum of two child nodes. (The binary search
     tree from the last chapter was one specific type of binary tree.)
@@ -17,6 +19,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 二叉堆是一种特定类型的二叉树。提醒一下，二叉树是每个节点最多有两个子节点的树。（上一章的二叉搜索树就是一种特定类型的二叉树。）
 - en: 'Now, even binary heaps come in two flavors: the `max-heap` and the `min-heap`.
     We’re going to work with the `max-heap` for now, but as you’ll see later, the
     difference between the two is trivial.'
@@ -24,17 +27,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，即使是二叉堆也有两种类型：`max-heap`和`min-heap`。我们现在将使用`max-heap`，但正如你稍后会看到的，两者之间的区别微不足道。
 - en: Going forward, I’m going to refer to this data structure simply as a heap, even
     though we’re specifically working with a binary `max-heap`.
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以后，我将简单地将这种数据结构称为堆，尽管我们具体在处理的是二叉`max-heap`。
 - en: 'The heap is a binary tree that maintains the following conditions:'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆是一种满足以下条件的二叉树：
 - en: The value of each node must be greater than each of its descendant nodes. This
     rule is known as the heap condition.
   id: totrans-6
@@ -42,62 +48,73 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个节点的值必须大于其每个后代节点的值。这个规则被称为堆条件。
 - en: The tree must be complete. (I’ll explain the meaning of this shortly.)
   id: totrans-7
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 该树必须是完整的。（我稍后会解释这个的意思。）
 - en: Let’s break down both of these conditions, starting with the heap condition.
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们先从堆条件开始，逐步解析这两个条件。
 - en: The Heap Condition
   id: totrans-9
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆条件
 - en: The heap condition says that each node’s value must be greater than each and
     every one of its descendants.
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆条件说明每个节点的值必须大于其每一个后代的值。
 - en: For example, the following tree meets the heap condition since each node is
     greater than any of its descendants, as shown in the `[diagram](#fig.ch16.basic_heap)`.
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，以下树满足堆条件，因为每个节点都大于其任何后代，如`[图示](#fig.ch16.basic_heap)`所示。
 - en: '![`images/heaps/basic_heap.png`](images/heaps/basic_heap.png)'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/heaps/basic_heap.png`](images/heaps/basic_heap.png)'
 - en: In this example, the root node of `100` has no descendant that is greater than
     it. Similarly, the `88` is greater than both of its children, and so is the `25`.
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，根节点`100`没有比它更大的后代。同样，`88`大于它的两个子节点，`25`也是如此。
 - en: 'The following tree isn’t a valid heap, because it doesn’t meet the heap condition:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下树不是一个有效的堆，因为它不满足堆条件：
 - en: '![`images/heaps/invalid_heap.png`](images/heaps/invalid_heap.png)'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/heaps/invalid_heap.png`](images/heaps/invalid_heap.png)'
 - en: As you can see, the `92` is greater than its parent of `88`\. This violates
     the heap condition.
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如你所见，`92`大于其父节点`88`，这违反了堆条件。
 - en: Note how the heap is structured very differently than the binary search tree.
     In a binary search tree, each node’s right child is greater than it. In a heap,
     however, a node never has any descendant that is greater than it. As they say,
@@ -106,6 +123,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意堆的结构与二叉搜索树非常不同。在二叉搜索树中，每个节点的右子节点都大于它。然而，在堆中，一个节点永远没有比它更大的后代。正如人们所说：“二叉搜索树不等于堆。”（大致是这样。）
 - en: We can also construct a heap that has the opposite heap condition, which is
     each node must contain a smaller value than any of its descendants. Such a heap
     is known as the `min-heap`, which I mentioned earlier. We’re going to continue
@@ -117,17 +135,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们也可以构建一个具有相反堆条件的堆，即每个节点的值必须小于其所有后代的值。这样的堆被称为`min-heap`，我之前提到过。我们将继续关注`max-heap`，其中每个节点必须大于其所有后代。归根结底，无论堆是`max-heap`还是`min-heap`都是微不足道的，因为这两种堆的其他特性是相同的；它们只是堆条件相反。否则，基本思想是相同的。
 - en: Complete Trees
   id: totrans-19
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 完全树
 - en: Now, let’s get to the second rule of heaps—that the tree needs to be complete.
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，让我们来看堆的第二个规则——树必须是完整的。
 - en: A complete tree is a tree that is completely filled with nodes; no nodes are
     missing. So if you read each level of the tree from left to right, all of the
     nodes are there. However, the bottom row can have empty positions, as long as
@@ -137,17 +158,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 完整树是一个完全用节点填充的树；没有缺失的节点。因此，如果你从左到右读取树的每一层，所有节点都是存在的。然而，底行可以有空位，只要这些空位右侧没有节点即可。这最好通过示例来说明。
 - en: 'The following tree is complete since each level (meaning, each row) of the
     tree is completely filled in with nodes:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下树是完整的，因为树的每一层（即每一行）都完全填充了节点：
 - en: '![images/heaps/complete_tree.png](images/heaps/complete_tree.png)'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/complete_tree.png](images/heaps/complete_tree.png)'
 - en: 'The following tree is not complete, since there’s an empty position on the
     third level (and other nodes exist on the third level to the right of that empty
     position):'
@@ -155,11 +179,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下树不是完整的，因为在第三层有一个空位置（而且在那个空位置右侧还有其他节点存在）：
 - en: '![images/heaps/incomplete_tree.png](images/heaps/incomplete_tree.png)'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/incomplete_tree.png](images/heaps/incomplete_tree.png)'
 - en: 'Now, the next tree is actually considered complete since its empty positions
     are limited to the bottom row and there aren’t any nodes found to the right of
     the empty positions:'
@@ -167,22 +193,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，下一个树实际上被认为是完整的，因为它的空位仅限于底行，并且在空位右侧没有找到任何节点：
 - en: '![images/heaps/also_complete_tree.png](images/heaps/also_complete_tree.png)'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/also_complete_tree.png](images/heaps/also_complete_tree.png)'
 - en: 'A heap, then, is a tree that meets the heap condition and is also complete.
     Here’s one more example of a heap:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 堆是满足堆条件并且也是完整的树。这里再给出一个堆的例子：
 - en: '![images/heaps/foundational_heap.png](images/heaps/foundational_heap.png)'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/heaps/foundational_heap.png](images/heaps/foundational_heap.png)'
 - en: This is a valid heap since each node is greater than any of its descendants
     and the tree is also complete. While it does have some gaps in the bottom row,
     these gaps are limited to the very right of the tree.
@@ -190,3 +220,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个有效的堆，因为每个节点都大于它的任何子孙节点，并且树也是完整的。尽管底行确实有一些空隙，但这些空隙仅限于树的最右侧。

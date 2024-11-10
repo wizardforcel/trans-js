@@ -4,454 +4,534 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14章
 - en: 这些是本节中找到的练习的解决方案[​*Exercises*​](f_0142.xhtml#pitting.linked.lists.against.arrays.exercises)。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这些是本节中找到的练习的解决方案[​*Exercises*​](f_0142.xhtml#pitting.linked.lists.against.arrays.exercises)。
 - en: 一种方法是使用简单的`while`循环：
   id: totrans-2
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 一种方法是使用简单的`while`循环：
 - en: '| ​  | printList() { |'
   id: totrans-3
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | printList() { |'
 - en: '| ​  | `let` currentNode = `this`.firstNode; |'
   id: totrans-4
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.firstNode; |'
 - en: '| ​  |  |'
   id: totrans-5
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while` (currentNode) { |'
   id: totrans-6
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentNode) { |'
 - en: '| ​  | console.log(currentNode.data); |'
   id: totrans-7
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | console.log(currentNode.data); |'
 - en: '| ​  | currentNode = currentNode.nextNode; |'
   id: totrans-8
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = currentNode.nextNode; |'
 - en: '| ​  | } |'
   id: totrans-9
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-10
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 使用双向链表，我们可以立即访问最后的节点，并通过它们的“前一个节点”链接访问前一个节点。这段代码基本上是上一个练习的反向：
   id: totrans-11
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用双向链表，我们可以立即访问最后的节点，并通过它们的“前一个节点”链接访问前一个节点。这段代码基本上是上一个练习的反向：
 - en: '| ​  | reversePrint() { |'
   id: totrans-12
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | reversePrint() { |'
 - en: '| ​  | `let` currentNode = `this`.lastNode; |'
   id: totrans-13
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.lastNode; |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while` (currentNode) { |'
   id: totrans-15
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentNode) { |'
 - en: '| ​  | console.log(currentNode.data); |'
   id: totrans-16
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | console.log(currentNode.data); |'
 - en: '| ​  | currentNode = currentNode.previousNode; |'
   id: totrans-17
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = currentNode.previousNode; |'
 - en: '| ​  | } |'
   id: totrans-18
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-19
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 在这里，我们使用`while`循环遍历每个节点。然而，在向前移动之前，我们使用节点的链接检查是否有下一个节点：
   id: totrans-20
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们使用`while`循环遍历每个节点。然而，在向前移动之前，我们使用节点的链接检查是否有下一个节点：
 - en: '| ​  | last() { |'
   id: totrans-21
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | last() { |'
 - en: '| ​  | `let` currentNode = `this`.firstNode; |'
   id: totrans-22
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.firstNode; |'
 - en: '| ​  |  |'
   id: totrans-23
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while` (currentNode.nextNode) { |'
   id: totrans-24
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentNode.nextNode) { |'
 - en: '| ​  | currentNode = currentNode.nextNode; |'
   id: totrans-25
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = currentNode.nextNode; |'
 - en: '| ​  | } |'
   id: totrans-26
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-27
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` currentNode.data; |'
   id: totrans-28
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` currentNode.data; |'
 - en: '| ​  | } |'
   id: totrans-29
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 有趣的是，这里有一个使用递归的替代实现：
   id: totrans-30
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 有趣的是，这里有一个使用递归的替代实现：
 - en: '| ​  | recursiveLast(currentNode = `null`) { |'
   id: totrans-31
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | recursiveLast(currentNode = `null`) { |'
 - en: '| ​  | `if` (!currentNode) { |'
   id: totrans-32
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!currentNode) { |'
 - en: '| ​  | currentNode = `this`.firstNode; |'
   id: totrans-33
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = `this`.firstNode; |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-35
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (currentNode.nextNode) { |'
   id: totrans-36
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (currentNode.nextNode) { |'
 - en: '| ​  | `return` `this`.recursiveLast(currentNode.nextNode); |'
   id: totrans-37
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `this`.recursiveLast(currentNode.nextNode); |'
 - en: '| ​  | } `else` { |'
   id: totrans-38
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` currentNode.data; |'
   id: totrans-39
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` currentNode.data; |'
 - en: '| ​  | } |'
   id: totrans-40
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-41
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 反转经典链表的一种方法是遍历链表，同时跟踪三个变量。
   id: totrans-42
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 反转经典链表的一种方法是遍历链表，同时跟踪三个变量。
 - en: 主要变量是`currentNode`，它是我们正在迭代的主要节点。我们还跟踪`next_node`，即紧接在`currentNode`之后的节点。同时，我们还跟踪`previousNode`，即紧接在`currentNode`之前的节点。请参见以下图示：
   id: totrans-43
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 主要变量是`currentNode`，它是我们正在迭代的主要节点。我们还跟踪`next_node`，即紧接在`currentNode`之后的节点。同时，我们还跟踪`previousNode`，即紧接在`currentNode`之前的节点。请参见以下图示：
 - en: '![images/pitting_linked_lists_against_arrays/solution_4_a.png](images/pitting_linked_lists_against_arrays/solution_4_a.png)'
   id: totrans-44
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/solution_4_a.png](images/pitting_linked_lists_against_arrays/solution_4_a.png)'
 - en: 注意，当我们第一次开始时，`currentNode`是第一个节点，`previousNode`指向`null`；在第一个节点之前没有节点。
   id: totrans-45
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意，当我们第一次开始时，`currentNode`是第一个节点，`previousNode`指向`null`；在第一个节点之前没有节点。
 - en: 一旦我们设置好三个变量，就开始我们的算法，这将启动一个循环。
   id: totrans-46
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦我们设置好三个变量，就开始我们的算法，这将启动一个循环。
 - en: 在循环内部，我们首先将`currentNode`的链接更改为指向`previousNode`：
   id: totrans-47
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 在循环内部，我们首先将`currentNode`的链接更改为指向`previousNode`：
 - en: '![images/pitting_linked_lists_against_arrays/solution_4_b.png](images/pitting_linked_lists_against_arrays/solution_4_b.png)'
   id: totrans-48
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/solution_4_b.png](images/pitting_linked_lists_against_arrays/solution_4_b.png)'
 - en: 然后我们将所有变量向右移动：
   id: totrans-49
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们将所有变量向右移动：
 - en: '![images/pitting_linked_lists_against_arrays/solution_4_c.png](images/pitting_linked_lists_against_arrays/solution_4_c.png)'
   id: totrans-50
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/solution_4_c.png](images/pitting_linked_lists_against_arrays/solution_4_c.png)'
 - en: 我们再次开始循环，重复这个过程，将`currentNode`的链接指向`previousNode`，直到我们到达列表的末尾。一旦我们到达末尾，列表将完全反转。
   id: totrans-51
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们再次开始循环，重复这个过程，将`currentNode`的链接指向`previousNode`，直到我们到达列表的末尾。一旦我们到达末尾，列表将完全反转。
 - en: 这是这个算法的实现：
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是这个算法的实现：
 - en: '|  | `reverse() {` |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `reverse() {` |'
 - en: '|  | `let previousNode = null;` |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `let previousNode = null;` |'
 - en: '|  | `let currentNode = this.firstNode;` |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `let currentNode = this.firstNode;` |'
 - en: '|  |  |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  |  |'
 - en: '|  | `while (currentNode) {` |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `while (currentNode) {` |'
 - en: '|  | `const nextNode = currentNode.nextNode;` |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `const nextNode = currentNode.nextNode;` |'
 - en: '|  | `currentNode.nextNode = previousNode;` |'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `currentNode.nextNode = previousNode;` |'
 - en: '|  |  |'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  |  |'
 - en: '|  | `previousNode = currentNode;` |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `previousNode = currentNode;` |'
 - en: '|  | `currentNode = nextNode;` |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `currentNode = nextNode;` |'
 - en: '|  | `}` |'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `}` |'
 - en: '|  |  |'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  |  |'
 - en: '|  | `this.firstNode = previousNode;` |'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `this.firstNode = previousNode;` |'
 - en: '|  | `}` |'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `}` |'
 - en: 信不信由你，我们可以在没有访问任何前驱节点的情况下删除一个中间节点。
   id: totrans-67
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 信不信由你，我们可以在没有访问任何前驱节点的情况下删除一个中间节点。
 - en: 下面是一个示例情况的图示。我们有四个节点，但我们只能访问节点`"b"`。这意味着我们无法访问节点`"a"`，因为在经典的链表中链接只指向前方。我们用虚线表示这一点；即我们无法访问虚线左侧的任何节点：
   id: totrans-68
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是一个示例情况的图示。我们有四个节点，但我们只能访问节点`"b"`。这意味着我们无法访问节点`"a"`，因为在经典的链表中链接只指向前方。我们用虚线表示这一点；即我们无法访问虚线左侧的任何节点：
 - en: '![`images/pitting_linked_lists_against_arrays/solution_5_a.png`](images/pitting_linked_lists_against_arrays/solution_5_a.png)'
   id: totrans-69
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/pitting_linked_lists_against_arrays/solution_5_a.png`](images/pitting_linked_lists_against_arrays/solution_5_a.png)'
 - en: 现在，这里是如何删除节点`"b"`的（尽管我们没有访问节点`"a"`）。为了清晰起见，我们将这个节点称为“访问节点”，因为这是我们能够访问的第一个节点。
   id: totrans-70
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，这里是如何删除节点`"b"`的（尽管我们没有访问节点`"a"`）。为了清晰起见，我们将这个节点称为“访问节点”，因为这是我们能够访问的第一个节点。
 - en: 首先，我们获取访问节点后的下一个节点，并将其数据复制到访问节点中，覆盖访问节点的数据。在我们的示例中，这意味着将字符串`"c"`复制到我们的访问节点：
   id: totrans-71
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们获取访问节点后的下一个节点，并将其数据复制到访问节点中，覆盖访问节点的数据。在我们的示例中，这意味着将字符串`"c"`复制到我们的访问节点：
 - en: '![`images/pitting_linked_lists_against_arrays/solution_5_b.png`](images/pitting_linked_lists_against_arrays/solution_5_b.png)'
   id: totrans-72
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/pitting_linked_lists_against_arrays/solution_5_b.png`](images/pitting_linked_lists_against_arrays/solution_5_b.png)'
 - en: 我们接着改变访问节点的链接，使其指向右侧两个节点的节点。这实际上删除了原来的`"c"`节点：
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们接着改变访问节点的链接，使其指向右侧两个节点的节点。这实际上删除了原来的`"c"`节点：
 - en: '![`images/pitting_linked_lists_against_arrays/solution_5_c.png`](images/pitting_linked_lists_against_arrays/solution_5_c.png)'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/pitting_linked_lists_against_arrays/solution_5_c.png`](images/pitting_linked_lists_against_arrays/solution_5_c.png)'
 - en: 这段代码简短而优雅：
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段代码简短而优雅：
 - en: '|  | `function deleteNode(node) {` |'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `function deleteNode(node) {` |'
 - en: '|  | `node.data = node.nextNode.data;` |'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `node.data = node.nextNode.data;` |'
 - en: '|  | `node.nextNode = node.nextNode.nextNode;` |'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `node.nextNode = node.nextNode.nextNode;` |'
 - en: '|  | `}` |'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `}` |'

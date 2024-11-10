@@ -4,67 +4,80 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 使用哈希函数进行哈希
 - en: 'Do you remember those secret codes you used as a kid to create and decipher
     messages? For example, here’s a simple way to map letters to numbers:'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你还记得小时候用来创建和解读信息的那些秘密代码吗？例如，这里有一个简单的方法可以将字母映射到数字：
 - en: '`A = 1`'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`A = 1`'
 - en: '`B = 2`'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`B = 2`'
 - en: '`C = 3`'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`C = 3`'
 - en: '`D = 4`'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`D = 4`'
 - en: '`E = 5`'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`E = 5`'
 - en: and so on. According to this code,
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 依此类推。根据这个代码，
 - en: '`ACE` converts to `135`,'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`ACE` 转换为 `135`，'
 - en: '`CAB` converts to `312`,'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`CAB` 转换为 `312`，'
 - en: '`DAB` converts to `412`,'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`DAB` 转换为 `412`，'
 - en: and
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以及
 - en: '`BAD` converts to `214`.'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`BAD` 转换为 `214`。'
 - en: This process of taking characters and converting them to numbers is known as
     hashing. And the code that is used to convert those letters into particular numbers
     is called a hash function.
@@ -72,6 +85,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将字符转换为数字的这个过程称为哈希。而将这些字母转换为特定数字的代码称为哈希函数。
 - en: 'Many other hash functions exist besides this one. Another example of a hash
     function may be to take each letter’s corresponding number and return the sum
     of all the numbers. If we did that, `BAD` would become the number `7`， following
@@ -80,21 +94,25 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 除了这个哈希函数，还有许多其他哈希函数。另一个哈希函数的例子可能是取每个字母对应的数字，并返回所有数字的总和。如果我们这样做，`BAD` 将变成数字 `7`，遵循一个两步过程：
 - en: 'Step 1: First, `BAD` converts to `214`.'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一步：首先，`BAD` 转换为 `214`。
 - en: 'Step 2: We then take each of these digits and get their sum:'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二步：然后我们将这些数字相加：
 - en: '`2 + 1 + 4 = 7`'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`2 + 1 + 4 = 7`'
 - en: 'Another example of a hash function may be to return the product of all the
     letters’ corresponding numbers. This would convert the word `BAD` into the number
     `8`:'
@@ -102,21 +120,25 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一个哈希函数的例子可能是返回所有字母对应数字的乘积。这将把单词 `BAD` 转换为数字 `8`：
 - en: 'Step 1: First, `BAD` converts to `214`.'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一步：首先，`BAD` 转换为 `214`。
 - en: 'Step 2: We then take the product of these digits:'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二步：然后我们将这些数字相乘：
 - en: '`2 * 1 * 4 = 8`'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`2 * 1 * 4 = 8`'
 - en: In our examples for the remainder of this chapter, we’re going to stick with
     this last version of the hash function. Real-world hash functions are more complex
     than this, but this multiplication hash function will keep our examples clear
@@ -125,6 +147,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本章的后续示例中，我们将坚持使用这个最后版本的哈希函数。现实世界中的哈希函数比这复杂，但这个乘法哈希函数将使我们的示例保持清晰和简单。
 - en: 'The truth is that a hash function needs to meet only one criterion to be valid:
     a hash function must convert the same string to the same number every single time
     it’s applied. If the hash function can return inconsistent results for a given
@@ -133,6 +156,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实上，哈希函数只需要满足一个标准才能有效：哈希函数必须在每次应用时将相同的字符串转换为相同的数字。如果哈希函数对给定字符串返回不一致的结果，它就是无效的。
 - en: Examples of invalid hash functions include functions that use random numbers
     or the current time as part of their calculation. With these functions, `BAD`
     might convert to `12` one time and `106` another time.
@@ -140,6 +164,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 无效哈希函数的例子包括使用随机数或当前时间作为计算一部分的函数。在这些函数中，`BAD` 可能一次转换为 `12`，另一次转换为 `106`。
 - en: With our multiplication hash function, however, `BAD` will always convert to
     `8`。 That’s because `B` is always `2`， `A` is always `1`， and `D` is always `4`。
     And `2 * 1 * 4` is always `8`。 There’s no way around this.
@@ -147,15 +172,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，使用我们的乘法哈希函数，`BAD` 将始终转换为 `8`。这是因为 `B` 始终是 `2`，`A` 始终是 `1`，而 `D` 始终是 `4`。而
+    `2 * 1 * 4` 始终是 `8`。这是无法改变的。
 - en: Note that with this hash function, `DAB` will also convert into `8` just as
     `BAD` will. This will cause some issues that I’ll address later.
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，使用这个哈希函数时，`DAB` 也将与 `BAD` 一样转换为 `8`。这将导致一些我稍后会提到的问题。
 - en: Armed with the concept of hash functions, we can now understand how a hash table
     works.
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有了哈希函数的概念，我们现在可以理解哈希表是如何工作的。

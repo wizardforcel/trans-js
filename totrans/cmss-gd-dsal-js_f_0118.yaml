@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`通过自底向上实现动态规划`'
 - en: I mentioned earlier that dynamic programming can be achieved through one of
     two techniques. We looked at one technique, memoization, which is quite nifty.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我之前提到动态规划可以通过两种技术之一来实现。我们看过一种技术，即记忆化，它相当巧妙。
 - en: The second technique, known as going bottom-up, is a lot less fancy and may
     not even seem like a technique at all. All going bottom-up means is to ditch recursion
     and use some other approach (like a loop) to solve the same problem.
@@ -17,6 +19,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二种技术，被称为自底向上，实际上要简单得多，甚至可能看起来根本不是一种技术。自底向上的意思就是放弃递归，使用其他方法（比如循环）来解决同样的问题。
 - en: The reason that going bottom-up is considered part of dynamic programming is
     because dynamic programming means taking a problem that could be solved recursively
     and ensuring that it doesn’t make duplicate calls for overlapping subproblems.
@@ -26,6 +29,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从下往上的方法被认为是动态规划的一部分，原因在于动态规划意味着将一个可以递归解决的问题转化为不对重叠子问题进行重复调用。使用迭代（即循环）而不是递归，从技术上讲，是实现这一点的一种方式。
 - en: Going bottom-up becomes more of a “technique” when the problem is more naturally
     solved with recursion. Generating Fibonacci numbers is one example where recursion
     is a neat, elegant solution. Having to solve the same problem with iteration may
@@ -35,89 +39,106 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当一个问题更自然地通过递归来解决时，自底向上变得更像是一种“技术”。生成斐波那契数列就是一个递归优雅解决方案的例子。用迭代方式解决同样的问题可能需要更多的脑力，因为迭代方法可能不那么直观。（想象一下用循环解决上一章的楼梯问题。呃。）
 - en: Let’s see how we might implement a bottom-up approach for our Fibonacci function.
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看看如何为我们的斐波那契函数实现一种自底向上的方法。
 - en: '`Bottom-Up Fibonacci`'
   id: totrans-6
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`自底向上的斐波那契`'
 - en: 'In the following bottom-up approach, we start with the first two Fibonacci
     numbers: `0` and `1`。We then use good ol’ iteration to build up the sequence:'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在下面的自底向上的方法中，我们从前两个斐波那契数字`0`和`1`开始。然后，我们利用老办法迭代来构建序列：
 - en: '| ​  | ​`function`​ `fib(n) {` |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `fib(n) {` |'
 - en: '| ​  | ​`if`​ (`n === 0) { ​`return`​ `0`; } |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`n === 0) { ​`return`​ `0`; } |'
 - en: '| ​  |  |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`let`​ `a = 0;` |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let`​ `a = 0;` |'
 - en: '| ​  | ​`let`​ `b = 1;` |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let`​ `b = 1;` |'
 - en: '| ​  |  |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
 - en: '| ​  | `[a, b] = [b, a + b];` |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[a, b] = [b, a + b];` |'
 - en: '| ​  | } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `b`; |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `b`; |'
 - en: '| ​  | } |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: The very first thing we do is return `0` if the input `n` is `0`。Officially，`fib(0)`
     should return `0`，so we easily dispense with that with a simple conditional statement.
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们首先做的就是如果输入`n`为`0`时返回`0`。正式来说，`fib(0)`应该返回`0`，所以我们通过一个简单的条件语句轻松处理了这个情况。
 - en: Now, we get to the meat of the code. We initialize variables `a` and `b` as
     `0` and `1` respectively, as those are the first two numbers of the Fibonacci
     sequence.
@@ -125,17 +146,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们进入代码的核心部分。我们将变量`a`和`b`分别初始化为`0`和`1`，因为这就是斐波那契数列的前两个数字。
 - en: 'We then start a loop so we can calculate each number of the sequence until
     we reach `n`:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们开始一个循环，以便在达到`n`之前计算序列中的每个数字：
 - en: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`let`​ `i = 1; i < n; i += 1) {` |'
 - en: 'To calculate the next number in the sequence, we need to add the two previous
     numbers together, namely `a + b`。We’ll update `b` to be this new number, since
     `b` always is supposed to point to the last number in the sequence. We also update
@@ -145,29 +169,34 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要计算序列中的下一个数字，我们需要将前两个数字相加，即`a + b`。我们将更新`b`为这个新数字，因为`b`始终指向序列中的最后一个数字。我们还将`a`更新为`b`之前的值，以便`a`继续指向倒数第二个数字。我们通过一次方便的交换来完成这一切：
 - en: '| ​  | `[a, b] = [b, a + b];` |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `[a, b] = [b, a + b];` |'
 - en: Because our code is a simple loop from `1` to `N`，our code takes `N` steps.
     Like the memoization approach, it’s `O(N)`。
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为我们的代码是从`1`到`N`的简单循环，所以我们的代码需要`N`步。与记忆化方法类似，它的时间复杂度是`O(N)`。
 - en: '`Memoization vs. Bottom-Up`'
   id: totrans-27
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`记忆化与自底向上`'
 - en: 'You’ve now seen the two primary techniques of dynamic programming: memoization
     and going bottom-up. Is one technique better than the other?'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在你已经看到了动态规划的两种主要技术：记忆化和自底向上。哪种技术更好呢？
 - en: Usually, it depends on the problem and why you’re using `recursion` in the first
     place。If `recursion` presents an elegant and intuitive solution to a given problem，you
     may want to stick with it and use `memoization` to deal with any overlapping subproblems。However,
@@ -176,6 +205,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通常，这取决于问题以及你为什么要使用`recursion`。如果`recursion`为特定问题提供了优雅而直观的解决方案，你可能会想继续使用它，并利用`memoization`来处理任何重叠的子问题。然而，如果`iterative`方法同样直观，你可能会选择使用它。
 - en: It’s important to point out that even with `memoization`，`recursion` does carry
     some extra overhead versus `iteration`。Specifically, with any `recursion`，the
     computer needs to keep track of all the calls in a `call stack`，which consumes
@@ -186,6 +216,9 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重要的是要指出，即使有`memoization`，`recursion`与`iteration`相比仍然会带来一些额外的开销。具体而言，使用任何`recursion`时，计算机需要在`call
+    stack`中跟踪所有的调用，这会消耗内存。`memoization`本身也需要使用`hash table`，这会在你的计算机上占用额外的空间。（关于这一点，更多内容请参见第19章，
+    [*处理空间限制*](f_0189.xhtml#chp.dealing_with_space_constraints)。）
 - en: Generally speaking, going `bottom-up` is often the better choice, unless the
     `recursive` solution is more intuitive。Where `recursion` is more intuitive, you
     can keep the `recursion` and keep it fast by using `memoization`。
@@ -193,3 +226,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一般来说，选择`bottom-up`方法通常是更好的选择，除非`recursive`解决方案更加直观。在`recursion`更直观的情况下，你可以保留`recursion`并通过使用`memoization`来保持其高效。

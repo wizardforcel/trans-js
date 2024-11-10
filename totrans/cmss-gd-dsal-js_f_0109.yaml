@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 变位词生成
 - en: To top off our conversation, let’s tackle our most complex recursive problem
     yet. We’re going to use everything we’ve got in our recursion toolbox to make
     this work.
@@ -11,6 +12,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了结束我们的讨论，让我们解决迄今为止最复杂的递归问题。我们将利用所有递归工具箱中的资源来使其生效。
 - en: 'We’re going to write a function that returns an array of all anagrams of a
     given string. An anagram is a reordering of all the characters within a string.
     For example, these are the anagrams of `"abc"`:'
@@ -18,42 +20,50 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将编写一个返回给定字符串所有变位词数组的函数。变位词是字符串内所有字符的重新排列。例如，`"abc"`的变位词如下：
 - en: '| ​  | `["abc",` |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `["abc",` |'
 - en: '| ​  | `"acb",` |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"acb",` |'
 - en: '| ​  | `"bac",` |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"bac",` |'
 - en: '| ​  | `"bca",` |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"bca",` |'
 - en: '| ​  | `"cab",` |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"cab",` |'
 - en: '| ​  | `"cba"]` |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"cba"]` |'
 - en: Now, let’s say we were to collect all the anagrams of the string `"abcd"`. Let’s
     apply our top-down mindset to this problem.
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，假设我们要收集字符串`"abcd"`的所有变位词。让我们对这个问题应用自上而下的思维方式。
 - en: 'Presumably, we could say that the subproblem of `"abcd"` is `"abc"`. The question
     then is this: if we had a working anagrams function that returned all the anagrams
     of `"abc"`, how can we use them to produce all the anagrams of `"abcd"`? Think
@@ -62,11 +72,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 可以说，`"abcd"`的子问题是`"abc"`。接下来是这个问题：如果我们有一个正常工作的anagrams函数返回所有`"abc"`的变位词，我们该如何利用它们生成`"abcd"`的所有变位词？想一想，看你能否提出任何方法。
 - en: Here’s the approach that occurred to me. (There are others, though.)
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是我想到的方法。（当然还有其他方法。）
 - en: 'If we had all six anagrams of `"abc"`, we can come up with every permutation
     of `"abcd"` if we stick the `"d"` in every possible spot within each anagram of
     `"abc"`:'
@@ -74,130 +86,156 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们有`"abc"`的所有六个变位词，我们可以通过在每个变位词的每个可能位置插入`"d"`来获得`"abcd"`的每个排列：
 - en: '![images/learning_to_write_in_recursive/d_anagram_placement.png](images/learning_to_write_in_recursive/d_anagram_placement.png)'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/learning_to_write_in_recursive/d_anagram_placement.png](images/learning_to_write_in_recursive/d_anagram_placement.png)'
 - en: 'Here is a JavaScript implementation of this algorithm. You’ll note that it’s
     certainly more involved than the previous examples in this chapter:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是该算法的JavaScript实现。你会注意到，它确实比本章前面的例子更复杂：
 - en: '| ​  | `function` anagramsOf(string) { |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` anagramsOf(string) { |'
 - en: '| ​  | `if` (string.length === 1) { `return` [string[0]]; } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string.length === 1) { `return` [string[0]]; } |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `const` collection = []; |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` collection = []; |'
 - en: '| ​  |  |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
 - en: '| ​  |  |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
 - en: '| ​  | `for` (`let` index = 0; index <= substringAnagram.length; index += 1)
     { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` index = 0; index <= substringAnagram.length; index += 1)
+    { |'
 - en: '| ​  | `const` newString = (substringAnagram.slice(0, index) |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` newString = (substringAnagram.slice(0, index) |'
 - en: '| ​  | `+ string[0]` |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `+ string[0]` |'
 - en: '| ​  | `+ substringAnagram.slice(index));` |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `+ substringAnagram.slice(index));` |'
 - en: '| ​  | collection.push(newString); |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | collection.push(newString); |'
 - en: '| ​  | `}` |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  | `}` |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` collection; |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` collection; |'
 - en: '| ​  | `}` |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: This code is not trivial, so let’s break it down. For now, we’ll skip over the
     base case.
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段代码并不简单，所以让我们分解一下。目前我们将跳过基本情况。
 - en: 'We start by creating an empty array in which we’ll collect the entire collection
     of anagrams:'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们首先创建一个空数组，用于收集所有变位词的集合：
 - en: '| ​  | `const` collection = []; |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` collection = []; |'
 - en: This is the same array we’ll return at the end of our function.
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是我们在函数结束时将返回的同一个数组。
 - en: 'Next, we grab the array of all anagrams from the substring of our string. This
     substring is the subproblem string—namely, from the second character until the
     end. For example, if the string is `"hello"`, the substring is `"ello"`:'
@@ -205,27 +243,32 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们从字符串的子字符串中获取所有变位词的数组。这个子字符串是子问题字符串——即，从第二个字符到末尾。例如，如果字符串是`"hello"`，子字符串就是`"ello"`：
 - en: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` substringAnagrams = anagramsOf(string.slice(1)); |'
 - en: Note how we use the top-down mentality to assume that the anagramsOf function
     already works on the substring.
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意我们如何使用自上而下的思维方式来假设anagramsOf函数已经在子字符串上正常工作。
 - en: 'We then iterate over each of the substringAnagrams:'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们遍历每个substringAnagrams：
 - en: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` substringAnagram `of` substringAnagrams) { |'
 - en: Before moving on, it’s worth noting at this point that we are using a combination
     of loops and recursion together. Using recursion doesn’t mean that you have to
     eliminate loops from your code altogether! We’re using each tool in the way that
@@ -234,6 +277,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在继续之前，值得注意的是，我们在此时使用了循环和递归的组合。使用递归并不意味着你必须完全消除代码中的循环！我们正在以最自然的方式使用每种工具来帮助我们解决当前的问题。
 - en: 'For each substring anagram, we iterate over each of its indexes—plus an extra
     index at the end. For each index, we create a brand-new string (called `newString`)
     and fill it with the substring anagram plus the first character of our current
@@ -242,27 +286,33 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于每个子字符串变体，我们遍历其每个索引—加上末尾的一个额外索引。对于每个索引，我们创建一个全新的字符串（称为 `newString`），并用子字符串变体加上当前字符串的第一个字符插入到当前索引处填充：
 - en: '| ​  | `for` (`let` index = `0`; index <= `substringAnagram.length`; index
     += `1`) { |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` index = `0`; index <= `substringAnagram.length`; index
+    += `1`) { |'
 - en: '| ​  | `const` `newString` = (`substringAnagram.slice(0, index) |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` `newString` = (`substringAnagram.slice(0, index) |'
 - en: '| ​  | + `string[0]` |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | + `string[0]` |'
 - en: '| ​  | + `substringAnagram.slice(index));` |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | + `substringAnagram.slice(index));` |'
 - en: 'For example, if the string is `"abcd"` and the substring anagram is `"bcd"`,
     we iterate over each index (plus an extra index at the end), which comes out to
     `0` through `3`, and create the following new strings:'
@@ -270,26 +320,31 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，如果字符串是 `"abcd"`，而子字符串变体是 `"bcd"`，我们遍历每个索引（加上末尾的一个额外索引），这将是 `0` 到 `3`，并创建以下新字符串：
 - en: '| ​  | `"abcd"`​ ​// inserted `''a''` at index `0`​ |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"abcd"`​ ​// 在索引 `0` 处插入 `''a''`​ |'
 - en: '| ​  | `"bacd"`​ ​// inserted `''a''` at index `1`​ |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"bacd"`​ ​// 在索引 `1` 处插入 `''a''`​ |'
 - en: '| ​  | `"bcad"`​ ​// inserted `''a''` at index `2`​ |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"bcad"`​ ​// 在索引 `2` 处插入 `''a''`​ |'
 - en: '| ​  | `"bcda"`​ ​// inserted `''a''` at index `3`​ |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"bcda"`​ ​// 在索引 `3` 处插入 `''a''`​ |'
 - en: Really, the substring anagram `"bcd"` doesn’t have an index `3`, but we iterate
     through index `3` so we can insert the `'a'` at the very end of the substring
     anagram.
@@ -297,33 +352,39 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实上，子字符串变体 `"bcd"` 并没有索引 `3`，但是我们遍历索引 `3` 以便能够将 `'a'` 插入到子字符串变体的最后。
 - en: 'Each `newString` represents a new anagram, so we add it to our collection:'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个 `newString` 代表一个新的变体，所以我们将其添加到我们的集合中：
 - en: '| ​  | `collection.push(newString);` |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `collection.push(newString);` |'
 - en: When we’re done, we return the collection of anagrams.
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们完成时，我们返回变体的集合。
 - en: The base case is where the substring contains only one character, in which case
     there’s only one anagram—the character itself!
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 基本情况是子字符串仅包含一个字符，在这种情况下只有一个变体—该字符本身！
 - en: The Efficiency of Anagram Generation
   id: totrans-58
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 变体生成的效率
 - en: As an aside, let’s stop for a moment to analyze the efficiency of our anagram-generating
     algorithm, since we’ll discover something interesting. In fact, the time complexity
     of generating anagrams is a new category of Big O that we haven’t encountered
@@ -332,12 +393,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 顺便提一下，让我们停下来分析一下我们的变体生成算法的效率，因为我们会发现一些有趣的事情。实际上，生成变体的时间复杂度是一个我们之前未遇到过的新类别的 Big
+    O。
 - en: If we think about how many anagrams we generate, we’ll notice an interesting
     pattern.
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们思考一下生成了多少变体，我们会注意到一个有趣的模式。
 - en: For a string containing three characters, we create permutations that start
     with each of the three characters. Each permutation then picks its middle character
     from one of the two remaining characters, and its last character from the last
@@ -346,70 +410,85 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于包含三个字符的字符串，我们创建以三个字符中的每一个字符开头的排列。每个排列然后从剩下的两个字符中选择中间字符，从剩下的最后一个字符中选择最后一个字符。这是
+    `3 * 2 * 1`，即 `六` 种排列。
 - en: 'Looking at this for other string lengths, we get:'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 查看其他字符串长度，我们得到：
 - en: '| ​  | `4` characters: `4 * 3 * 2 * 1` anagrams |'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `4` 个字符: `4 * 3 * 2 * 1` 个变体 |'
 - en: '| ​  | `5` characters: `5 * 4 * 3 * 2 * 1` anagrams |'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `5` 个字符: `5 * 4 * 3 * 2 * 1` 个变体 |'
 - en: '| ​  | `6` characters: `6 * 5 * 4 * 3 * 2 * 1` anagrams |'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `6` 个字符: `6 * 5 * 4 * 3 * 2 * 1` 个变体 |'
 - en: Do you recognize this pattern? It’s a factorial!
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你认出这个模式了吗？这是一个阶乘！
 - en: So if the string has six characters, the number of anagrams is whatever the
     factorial of `6` is. This is `6 * 5 * 4 * 3 * 2 * 1`, which computes to `720`.
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以如果字符串有六个字符，则变体的数量是 `6` 的阶乘。这是 `6 * 5 * 4 * 3 * 2 * 1`，计算得出 `720`。
 - en: The mathematical symbol for factorial is the exclamation point. So, factorial
     `6` is expressed as `6!`, and the factorial of `10` is expressed as `10!`.
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 阶乘的数学符号是感叹号。所以，阶乘 `6` 表示为 `6!`，而 `10` 的阶乘表示为 `10!`。
 - en: 记住，Big O表示对关键问题的回答：如果有`N`个数据元素，算法将需要多少步？在我们的情况下，`N`将是字符串的长度。
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 记住，Big O 表示对关键问题的回答：如果有 `N` 个数据元素，算法将需要多少步？在我们的情况下，`N` 将是字符串的长度。
 - en: 对于长度为`N`的字符串，我们生成`N!`个字谜。那么在Big O符号中，这表示为`O(N!)`。这也被称为阶乘时间。
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于长度为`N`的字符串，我们生成`N!`个字谜。那么在Big O符号中，这表示为`O(N!)`。这也被称为阶乘时间。
 - en: '`O(N!)`是我们在本书中遇到的最慢的Big O类别。让我们看看它与其他“慢”的Big O类别相比的样子，如图所示`[graph](#fig.ch11.big_o_factorial_graph)`。'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`O(N!)`是我们在本书中遇到的最慢的Big O类别。让我们看看它与其他“慢”的Big O类别相比的样子，如图所示`[graph](#fig.ch11.big_o_factorial_graph)`。'
 - en: '`![images/learning_to_write_in_recursive/big_o_factorial_graph.png](images/learning_to_write_in_recursive/big_o_factorial_graph.png)`'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '`![images/learning_to_write_in_recursive/big_o_factorial_graph.png](images/learning_to_write_in_recursive/big_o_factorial_graph.png)`'
 - en: 尽管`O(N!)`极其缓慢，但我们没有更好的选择，因为我们的任务是生成所有的字谜，而对于一个N字符的单词，确实有`N!`个字谜。
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管`O(N!)`极其缓慢，但我们没有更好的选择，因为我们的任务是生成所有的字谜，而对于一个N字符的单词，确实有`N!`个字谜。
 - en: 无论如何，递归在这个算法中发挥了关键作用，这是一个递归如何用于解决复杂问题的重要示例。
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 无论如何，递归在这个算法中发挥了关键作用，这是一个递归如何用于解决复杂问题的重要示例。

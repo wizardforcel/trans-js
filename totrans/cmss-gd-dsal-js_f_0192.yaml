@@ -4,48 +4,57 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 递归的隐性成本
 - en: 'We’ve dealt quite a bit with recursive algorithms in this book. Let’s look
     at a simple recursive function:'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本书中我们已经处理了相当多的递归算法。让我们看一个简单的递归函数：
 - en: '|   | `function recurse(n) {` |'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `function recurse(n) {` |'
 - en: '|   | `if (n < 0) { return; }` |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `if (n < 0) { return; }` |'
 - en: '|   |  |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   |  |'
 - en: '|   | `console.log(n);` |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `console.log(n);` |'
 - en: '|   | `recurse(n - 1);` |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `recurse(n - 1);` |'
 - en: '|   | } |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | } |'
 - en: This function accepts a number `n` and counts down to 0, printing each decrementing
     number along the way.
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个函数接受一个数字`n`并向下计数到0，在此过程中打印每一个递减的数字。
 - en: It’s a straightforward bit of recursion and seems harmless. Its speed is `O(N)`,
     as the function will run as many times as the argument `n`. And it doesn’t create
     any new data structures, so it doesn’t seem to take up any additional space.
@@ -53,11 +62,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个简单的递归，似乎无害。它的速度是`O(N)`，因为函数的运行次数与参数`n`相同。而且它没有创建任何新的数据结构，所以似乎不会占用额外的空间。
 - en: Or does it?
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 或者并非如此？
 - en: I explained how recursion works under the hood back in Chapter 10, [`Recursively
     Recurse with Recursion`](f_0096.xhtml#chp.recursion). You learned that each time
     a function recursively calls itself, an item is added to the call stack so that
@@ -66,6 +77,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我在第10章中解释了递归的内部工作原理，[`递归的递归`](f_0096.xhtml#chp.recursion)。你了解到，每次函数递归调用自身时，都会向调用栈添加一个项，以便计算机在内部函数完成后返回到外部函数。
 - en: If we pass the number 100 into our `recurse` function, it would add `recurse(100)`
     before proceeding to execute `recurse(99)`. And it would then add `recurse(99)`
     to the call stack before executing `recurse(98)`.
@@ -73,12 +85,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们将数字100传入我们的`recurse`函数，它会在执行`recurse(99)`之前添加`recurse(100)`。然后在执行`recurse(98)`之前，它会将`recurse(99)`添加到调用栈中。
 - en: The call stack would be at its peak when `recurse(-1)` is called, and there
     would be 101 items in the call stack, from `recurse(100)` down to `recurse(0)`.
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用栈将在调用`recurse(-1)`时达到峰值，调用栈中将有101个项，从`recurse(100)`到`recurse(0)`。
 - en: Now, even though the call stack will eventually get unwound, we do need enough
     memory to store these 101 items for at least some period of time. It emerges,
     then, that our recursive function takes up `O(N)` space. In this case, `N` is
@@ -88,6 +102,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，即使调用栈最终会被展开，我们仍然需要足够的内存来存储这101个项，至少在某段时间内。因此，我们的递归函数占用了`O(N)`的空间。在这种情况下，`N`是传递给函数的数字；如果我们传递数字100，则需要暂时在调用栈中存储大约100个函数调用。
 - en: 'An important principle emerges from all of this: a recursive function takes
     up a unit of space for each recursive call it makes. This is the sneaky way recursion
     can gobble up memory; even if our function doesn’t explicitly create new data,
@@ -96,24 +111,28 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从这一切中显现出一个重要原则：每次递归调用都会占用一个空间单元。这是递归悄然占用内存的方式；即使我们的函数并没有明确创建新的数据，递归本身也会向调用栈添加数据。
 - en: To properly calculate how much space a recursive function takes, we always need
     to figure out how big the call stack would be at its peak.
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要正确计算递归函数占用的空间，我们始终需要确定调用栈在峰值时有多大。
 - en: For our `recurse` function, the call stack will be about as large as whatever
     number `n` is.
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于我们的`recurse`函数，调用栈的大小将大约等于数字`n`的大小。
 - en: At first, this may seem a bit trivial. After all, our modern computers can handle
     a few items on the call stack, right? Well, let’s see.
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 起初，这看起来可能有点琐碎。毕竟，我们现代计算机可以处理几个调用栈项，对吧？好吧，让我们看看。
 - en: 'When I pass in the number 20,000 into the `recurse` function on my sleek, up-to-date
     laptop, my computer cannot process it. Now, 20,000 doesn’t seem like a very large
     number. But this is what happens when I run `recurse(20000)`:'
@@ -121,84 +140,101 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我在我的新潮、最新的笔记本电脑上将数字20,000传入`recurse`函数时，我的计算机无法处理它。现在，20,000似乎并不是一个很大的数字。但当我运行`recurse(20000)`时，发生了以下情况：
 - en: 'My computer prints the numbers from 20000 until 9120 and then terminates with
     this message:'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我的计算机从20000打印数字直到9120，然后以此消息终止：
 - en: '|   | `RangeError: Maximum call stack size exceeded` |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `RangeError: Maximum call stack size exceeded` |'
 - en: 由于递归从20000持续到大约9000（我将9120向下舍入），我们可以推测，当计算机内存耗尽时，调用栈的大小达到了约11,000。事实证明，我的计算机无法容忍包含超过11,000项的调用栈。
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于递归从20000持续到大约9000（我将9120向下舍入），我们可以推测，当计算机内存耗尽时，调用栈的大小达到了约11,000。事实证明，我的计算机无法容忍包含超过11,000项的调用栈。
 - en: 这是递归的一个巨大限制，因为我无法在一个大于11,000的数字上使用我美丽的`recurse`函数！
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是递归的一个巨大限制，因为我无法在一个大于11,000的数字上使用我美丽的`recurse`函数！
 - en: 让我们将其与简单的循环方法进行对比：
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将其与简单的循环方法进行对比：
 - en: '|   | `function` loop(n) { |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `function` loop(n) { |'
 - en: '|   | `while` (n >= 0) { |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `while` (n >= 0) { |'
 - en: '|   | `console.log(n);` |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `console.log(n);` |'
 - en: '|   | n -= 1; |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | n -= 1; |'
 - en: '|   | } |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | } |'
 - en: '|   | } |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | } |'
 - en: 这个函数使用基本的循环而不是递归来实现相同的目标。
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个函数使用基本的循环而不是递归来实现相同的目标。
 - en: 因为这个函数不使用递归，也不占用任何额外的内存，它可以处理大量数字，而不会导致计算机耗尽空间。这个函数在处理巨大数字时可能需要一些时间，但它能够完成任务，而不会像递归函数那样提前放弃。
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为这个函数不使用递归，也不占用任何额外的内存，它可以处理大量数字，而不会导致计算机耗尽空间。这个函数在处理巨大数字时可能需要一些时间，但它能够完成任务，而不会像递归函数那样提前放弃。
 - en: 考虑到这一点，我们现在可以理解为什么快速排序被认为占用O(log N)的空间。快速排序进行O(log N)次递归调用，因此在其峰值时调用栈的大小为log(N)。
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 考虑到这一点，我们现在可以理解为什么快速排序被认为占用O(log N)的空间。快速排序进行O(log N)次递归调用，因此在其峰值时调用栈的大小为log(N)。
 - en: 当我们可以使用递归来实现一个函数时，我们需要权衡递归的优点与缺点。递归让我们可以使用“神奇”的自上而下的思维方式，正如你在第11章[​*学习递归编程*​](f_0104.xhtml#chp.learning_to_write_in_recursive)中看到的，但我们也需要我们的函数完成任务。如果我们在处理大量数据，或者即使是像11,000这样的数字，递归可能并不合适。
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们可以使用递归来实现一个函数时，我们需要权衡递归的优点与缺点。递归让我们可以使用“神奇”的自上而下的思维方式，正如你在第11章[​*学习递归编程*​](f_0104.xhtml#chp.learning_to_write_in_recursive)中看到的，但我们也需要我们的函数完成任务。如果我们在处理大量数据，或者即使是像11,000这样的数字，递归可能并不合适。
 - en: 再次强调，这并不是要贬低递归。这只是意味着我们需要在每种情况下权衡每个算法的所有优缺点。
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 再次强调，这并不是要贬低递归。这只是意味着我们需要在每种情况下权衡每个算法的所有优缺点。

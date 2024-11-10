@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 插入排序的效率
 - en: 'Four types of steps occur in Insertion Sort: removals, comparisons, shifts,
     and insertions. To analyze the efficiency of Insertion Sort, we need to tally
     up each of these steps.'
@@ -11,6 +12,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 插入排序中发生了四种类型的步骤：移除、比较、移位和插入。为了分析插入排序的效率，我们需要统计每一种步骤。
 - en: First, let’s dig into comparisons. A comparison takes place each time we compare
     a value to the left of the gap with the `tempValue`. In a worst-case scenario,
     where the array is sorted in reverse order, we have to compare every number to
@@ -21,6 +23,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，让我们深入了解比较。每次我们将间隙左侧的值与`tempValue`进行比较时，都会发生比较。在最坏的情况下，数组按逆序排序，我们必须在每次遍历中将`tempValue`左侧的每个数字与`tempValue`进行比较。这是因为`tempValue`左侧的每个值总是大于`tempValue`，因此遍历将仅在间隙达到数组左端时结束。
 - en: During the first pass-through, in which `tempValue` is the value at index `1`,
     a maximum of one comparison is made since there’s only one value to the left of
     the `tempValue`. On the second pass-through, the maximum number of comparisons
@@ -32,42 +35,52 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在第一次遍历中，`tempValue` 是索引 `1` 的值，最多进行一次比较，因为`tempValue`左侧只有一个值。在第二次遍历中，进行的最大比较次数是二，依此类推。在最后一次遍历中，我们需要将
+    `tempValue` 与数组中除 `tempValue` 自身之外的每个值进行比较。换句话说，如果数组中有 `N` 个元素，那么在最后一次遍历中进行的最大比较次数是
+    `N - 1`。
 - en: 'We can, therefore, formulate the total number of comparisons as:'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，我们可以将总的比较次数公式化为：
 - en: '`1 + 2 + 3 + … + (N - 1)` comparisons.'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`1 + 2 + 3 + … + (N - 1)` 次比较。'
 - en: 'In our example array that contains `five` elements, that’s a maximum of:'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们包含 `five` 个元素的示例数组中，最多会有：
 - en: '`1 + 2 + 3 + 4 = 10` comparisons.'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`1 + 2 + 3 + 4 = 10` 次比较。'
 - en: 'For an array containing `10` elements, there would be:'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于一个包含 `10` 个元素的数组，会有：
 - en: '`1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45` comparisons.'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45` 次比较。'
 - en: For an array containing `20` elements, there would be a total of `190` comparisons,
     and so on.
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于一个包含 `20` 个元素的数组，总共会有 `190` 次比较，等等。
 - en: When examining this pattern, it emerges that for an array containing `N` elements,
     there are approximately `N² / 2` comparisons. (`10² / 2` is `50`, and `20² / 2`
     is `200`。We’ll look at this pattern more closely in the next chapter.)
@@ -75,11 +88,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当检查这一模式时，出现了一个规律：对于一个包含 `N` 个元素的数组，大约有 `N² / 2` 次比较。（`10² / 2` 是 `50`，`20² /
+    2` 是 `200`。我们将在下一章更仔细地观察这一模式。）
 - en: Let’s continue analyzing the other types of steps.
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们继续分析其他类型的步骤。
 - en: Shifts occur each time we move a value one cell to the right. When an array
     is sorted in reverse order, there will be as many shifts as there are comparisons
     since every comparison will force us to shift a value to the right.
@@ -87,31 +103,37 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每次我们将一个值向右移动一个单元格时，就会发生移位。当数组按逆序排序时，移位的次数与比较的次数相同，因为每个比较都迫使我们将一个值向右移。
 - en: 'Let’s add up comparisons and shifts for a worst-case scenario:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将最坏情况下的比较和移位相加：
 - en: '`N² / 2` comparisons'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`N² / 2` 次比较'
 - en: '`+ N² / 2` shifts'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`+ N² / 2` 次移位'
 - en: _____________________________
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: _____________________________
 - en: '`N²` steps'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`N²` 步骤'
 - en: Removing and inserting the `tempValue` from the array happens once per pass-through.
     Since there are always `N - 1` pass-throughs, we can conclude that there are `N
     - 1` removals and `N - 1` insertions.
@@ -119,117 +141,143 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从数组中移除并插入 `tempValue` 每次遍历时发生一次。由于总是有 `N - 1` 次遍历，我们可以得出 `N - 1` 次移除和 `N - 1`
+    次插入。
 - en: 'So now we’ve got:'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以现在我们得到了：
 - en: '`N²` comparisons and shifts combined'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`N²` 次比较和移位结合'
 - en: '`N - 1` removals'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`N - 1` 次移除'
 - en: '`+ N - 1` insertions'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`+ N - 1` 次插入'
 - en: _____________________________
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: _____________________________
 - en: '`N² + 2N - 2` steps'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`N² + 2N - 2` 步骤'
 - en: 'You’ve already learned one major rule of Big O: that Big O ignores constants.
     With this rule in mind, we’d—at first glance—simplify this to `O(N² + N)`.'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你已经学到大 O 的一个主要规则：大 O 忽略常数。考虑到这一规则，我们——乍一看——可以将其简化为 `O(N² + N)`。
 - en: 'However, I’ll now reveal another major rule of Big O:'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，我现在要揭示大 O 的另一个主要规则：
 - en: Big O notation only takes into account the highest order of `N` when we have
     multiple orders added together.
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 大 O 符号只考虑多个阶次相加时的最高阶次的 `N`。
 - en: 换句话说，如果我们有一个算法，其时间复杂度为`N⁴ + N³ + N² + N`步，我们只考虑`N⁴`为重要项——并称之为`O(N⁴)`。这是为什么呢？
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 换句话说，如果我们有一个算法，其时间复杂度为`N⁴ + N³ + N² + N`步，我们只考虑`N⁴`为重要项——并称之为`O(N⁴)`。这是为什么呢？
 - en: 看看下面的表格：
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 看看下面的表格：
 - en: '| N | N² | N³ | N⁴ |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| N | N² | N³ | N⁴ |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| 2 | 4 | 8 | 16 |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 2 | 4 | 8 | 16 |'
 - en: '| 5 | 25 | 125 | 625 |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 5 | 25 | 125 | 625 |'
 - en: '| 10 | 100 | 1,000 | 10,000 |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 10 | 100 | 1,000 | 10,000 |'
 - en: '| 100 | 10,000 | 1,000,000 | 100,000,000 |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 100 | 10,000 | 1,000,000 | 100,000,000 |'
 - en: 随着`N`的增加，`N⁴`变得远比任何其他阶数的重要，以至于较小的阶数被视为微不足道。例如，当我们查看表格的底行时，当我们添加`N⁴ + N³ + N²
     + N`时，总数为`101,010,100`。但我们可以将其四舍五入到`100,000,000`，这可以通过忽略`N`的较低阶数来实现。
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 随着`N`的增加，`N⁴`变得远比任何其他阶数的重要，以至于较小的阶数被视为微不足道。例如，当我们查看表格的底行时，当我们添加`N⁴ + N³ + N²
+    + N`时，总数为`101,010,100`。但我们可以将其四舍五入到`100,000,000`，这可以通过忽略`N`的较低阶数来实现。
 - en: 我们可以将这个概念应用于`Insertion Sort`。尽管我们已经将`Insertion Sort`简化到`N² + N`步，但我们通过丢弃低阶项进一步简化了这个表达式，将其简化为`O(N²)`。
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以将这个概念应用于`Insertion Sort`。尽管我们已经将`Insertion Sort`简化到`N² + N`步，但我们通过丢弃低阶项进一步简化了这个表达式，将其简化为`O(N²)`。
 - en: 在最坏情况下，`Insertion Sort`的时间复杂度与`Bubble Sort`和`Selection Sort`相同。它们都是`O(N²)`。
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在最坏情况下，`Insertion Sort`的时间复杂度与`Bubble Sort`和`Selection Sort`相同。它们都是`O(N²)`。
 - en: 我在上一章中提到，尽管`Bubble Sort`和`Selection Sort`都是`O(N²)`，但`Selection Sort`更快，因为`Selection
     Sort`有`N² / 2`步，而`Bubble Sort`则有`N²`步。乍一看，我们可能会说`Insertion Sort`和`Bubble Sort`一样慢，因为它也大约需要`N²`步。
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我在上一章中提到，尽管`Bubble Sort`和`Selection Sort`都是`O(N²)`，但`Selection Sort`更快，因为`Selection
+    Sort`有`N² / 2`步，而`Bubble Sort`则有`N²`步。乍一看，我们可能会说`Insertion Sort`和`Bubble Sort`一样慢，因为它也大约需要`N²`步。
 - en: 如果我在这里停止书籍，你可能会认为`Selection Sort`是三者中最佳的选择，因为它比`Bubble Sort`或`Insertion Sort`快两倍。但事实并没有那么简单。
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我在这里停止书籍，你可能会认为`Selection Sort`是三者中最佳的选择，因为它比`Bubble Sort`或`Insertion Sort`快两倍。但事实并没有那么简单。

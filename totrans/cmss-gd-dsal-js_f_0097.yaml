@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 递归而不是循环
 - en: Let’s say you work at NASA and need to program a countdown function for launching
     spacecraft. The particular function that you’re asked to write should accept a
     number—such as `10`—and display the numbers from `10` down to `0`.
@@ -11,126 +12,150 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设你在NASA工作，需要为发射航天器编写一个倒计时函数。你被要求编写的特定函数应该接受一个数字——例如 `10`——并显示从 `10` 到 `0` 的数字。
 - en: Take a moment and implement this function yourself. When you’re done, read on.
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 花点时间自己实现这个函数。当你完成后，继续往下读。
 - en: 'Odds are that you wrote a simple loop, along the lines of this implementation:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可能写了一个简单的循环，类似于这个实现：
 - en: '| ​  | `function` countdown(number) { |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` countdown(number) { |'
 - en: '| ​  | `while` (number >= 0) { |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (number >= 0) { |'
 - en: '| ​  | `console.log(number);` |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `console.log(number);` |'
 - en: '| ​  | `number -= 1;` |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `number -= 1;` |'
 - en: '| ​  | } |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Nothing is wrong with this implementation, but it may have never occurred to
     you that you don’t have to use a loop.
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个实现没有任何问题，但你可能从未想到过你不一定需要使用循环。
 - en: How?
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如何？
 - en: 'Let’s try recursion instead. Here’s a first attempt at using recursion to implement
     our countdown function:'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们试试递归。下面是使用递归实现倒计时函数的第一次尝试：
 - en: '| ​  | `function` countdown(number) { |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` countdown(number) { |'
 - en: '| ​  | `console.log(number);` |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `console.log(number);` |'
 - en: '| ​  |  |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `countdown(number - 1);` |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `countdown(number - 1);` |'
 - en: '| ​  | } |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Let’s walk through this code step by step.
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们一步一步地分析这段代码。
 - en: 'Step 1: We call `countdown(10)` so the argument variable `number` starts out
     as `10`.'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第1步：我们调用 `countdown(10)`，因此参数变量 `number` 开始时为 `10`。
 - en: 'Step 2: We print `number` (which contains the value `10`) to the console.'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第2步：我们将 `number`（其值为 `10`）打印到控制台。
 - en: 'Step 3: Before the countdown function is complete, it calls `countdown(9)`
     since `number - 1` is `9`.'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第3步：在倒计时函数完成之前，它调用 `countdown(9)`，因为 `number - 1` 是 `9`。
 - en: 'Step 4: `countdown(9)` begins running. In it, we print `number` (which is currently
     `9`) to the console.'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第4步：`countdown(9)` 开始运行。在其中，我们将当前的 `number`（此时为 `9`）打印到控制台。
 - en: 'Step 5: Before `countdown(9)` is complete, it calls `countdown(8)`.'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第5步：在 `countdown(9)` 完成之前，它调用 `countdown(8)`。
 - en: 'Step 6: `countdown(8)` begins running. We print `8` to the console.'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第6步：`countdown(8)` 开始运行。我们将 `8` 打印到控制台。
 - en: Before we continue stepping through the code, note how we’re using recursion
     to achieve our goal. We’re not using any loop constructs, but by simply having
     the `countdown` function call itself, we’re able to count down from `10` and print
@@ -139,6 +164,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在继续分析代码之前，请注意我们如何使用递归来实现我们的目标。我们没有使用任何循环结构，而是通过让 `countdown` 函数调用自身，我们能够从 `10`
+    开始倒计时，并将每个数字打印到控制台。
 - en: In almost any case in which you can use a loop, you can also use recursion.
     Now, just because you can use recursion doesn’t mean that you should use recursion.
     Recursion is a tool that allows for writing elegant code. In the preceding example,
@@ -149,3 +176,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在几乎所有可以使用循环的情况下，你也可以使用递归。不过，仅仅因为你可以使用递归，并不意味着你应该使用它。递归是一种能够编写优雅代码的工具。在前面的例子中，递归的方法并不一定比使用经典循环更美观或高效。然而，我们很快会遇到递归表现出色的例子。在此之前，让我们继续探索递归是如何工作的。

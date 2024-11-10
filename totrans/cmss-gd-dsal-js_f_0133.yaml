@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 读取
 - en: As you know, a computer can read from an array in O(1) time. But now let’s figure
     out the efficiency of reading from a linked list.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如你所知，计算机可以在 O(1) 时间内从数组中读取。但现在让我们计算从链表中读取的效率。
 - en: If you want to read, say, the value of the third item of a linked list, the
     computer cannot look it up in one step, because it wouldn’t immediately know where
     to find it in the computer’s memory. After all, each node of a linked list could
@@ -20,6 +22,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果你想读取链表中第三个项目的值，计算机不能一步到位，因为它不会立即知道在计算机内存中哪里可以找到它。毕竟，链表的每个节点可能在内存中的任何地方！我们的程序立即知道的只是链表第一个节点的内存地址；它并不知道其他节点的位置。
 - en: To read from the third node, then, the computer must go through a process. First,
     it accesses the first node. It then follows the first node’s link to the second
     node and then the second node’s link to the third node.
@@ -27,6 +30,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，要从第三个节点读取，计算机必须经历一个过程。首先，它访问第一个节点。然后，它跟随第一个节点的链接到第二个节点，再跟随第二个节点的链接到第三个节点。
 - en: To get to any node, then, we always need to start with the first node (the only
     node we initially have access to), and follow the chain of nodes until we reach
     the node we want.
@@ -34,6 +38,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，要到达任何节点，我们始终需要从第一个节点开始（这是我们最初可以访问的唯一节点），并沿着节点链一直走到我们想要的节点。
 - en: It turns out, then, that if we were to read from the last node in the list,
     it would take N steps for N nodes in the list. Linked lists having a worst-case
     read of O(N) is a major disadvantage when compared with arrays that can read any
@@ -43,103 +48,124 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 结果是，如果我们要从链表中的最后一个节点读取，所需的步骤将是 N 步，对于 N 个节点而言。与能够在 O(1) 时间内读取任何元素的数组相比，链表在最坏情况下读取时间为
+    O(N) 是一个主要的劣势。但是别担心，链表会有它们闪耀的时刻，正如我们很快会看到的。
 - en: 'Code Implementation: Linked List Reading'
   id: totrans-6
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：链表读取
 - en: 'Let’s go ahead and add a read method to our `LinkedList` class:'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们继续在 `LinkedList` 类中添加一个读取方法：
 - en: '| ​  | `read(index) {` |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `read(index) {` |'
 - en: '| ​  | `let` currentNode = `this`.firstNode; |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.firstNode; |'
 - en: '| ​  | `let` currentIndex = 0; |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentIndex = 0; |'
 - en: '| ​  | `while` (currentIndex < index) { |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentIndex < index) { |'
 - en: '| ​  | `currentNode = currentNode.nextNode;` |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode = currentNode.nextNode;` |'
 - en: '| ​  | `currentIndex += 1;` |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentIndex += 1;` |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (!currentNode) { |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!currentNode) { |'
 - en: '| ​  | `return` `null`; |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `null`; |'
 - en: '| ​  | } |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` currentNode.data; |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` currentNode.data; |'
 - en: '| ​  | } |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 'If we want to read the fourth node from a list, for example, we’d call our
     method by passing in the node’s index as follows:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们想从链表中读取第四个节点，例如，我们将通过传入节点的索引来调用我们的方法，如下所示：
 - en: '| ​  | `list.read(3);` |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `list.read(3);` |'
 - en: Let’s walk through how this method works.
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们逐步了解这个方法的工作原理。
 - en: 'First, we create a variable called `currentNode` that refers to the node we’re
     currently accessing. Since we’re going to start by accessing the head, we say
     this:'
@@ -147,59 +173,70 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们创建一个名为 `currentNode` 的变量，指向我们当前访问的节点。由于我们将从头节点开始访问，我们可以这样说：
 - en: '| ​  | `let` currentNode = `this`.firstNode; |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.firstNode; |'
 - en: Recall that `firstNode` is an instance variable of the `LinkedList` class.
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请回忆一下，`firstNode` 是 `LinkedList` 类的一个实例变量。
 - en: 'We also track the index of `currentNode` so that we can know when we reach
     the desired index. We start at 0 since the first node’s index is 0:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们还跟踪 `currentNode` 的索引，以便知道何时到达所需的索引。我们从 0 开始，因为第一个节点的索引是 0：
 - en: '| ​  | `let` currentIndex = 0; |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentIndex = 0; |'
 - en: 'We then launch a loop that runs while `currentIndex` is less than the index
     we’re attempting to read:'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们启动一个循环，只要 `currentIndex` 小于我们要读取的索引，就持续运行：
 - en: '| ​  | `while` (currentIndex < index) { |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentIndex < index) { |'
 - en: 'In each pass-through of the loop, we access the next node in the list and make
     it the new `currentNode`:'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在每次遍历循环中，我们访问链表中的下一个节点，并将其设为新的 `currentNode`：
 - en: '| ​  | `currentNode = currentNode.nextNode;` |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode = currentNode.nextNode;` |'
 - en: 'We also bump up the `currentIndex` by 1:'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们还将 `currentIndex` 增加 1：
 - en: '| ​  | `currentIndex += 1;` |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentIndex += 1;` |'
 - en: 'At the end of each pass-through, we check whether we’ve reached the end of
     the list, and we return `null` if the index we’re trying to read isn’t in our
     list:'
@@ -207,34 +244,42 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在每次遍历的末尾，我们检查是否已经到达链表的末尾，如果我们尝试读取的索引不在链表中，则返回 `null`：
 - en: '| ​  | `if` (!currentNode) { |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!currentNode) { |'
 - en: '| ​  | `return`​ `null`; |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `null`; |'
 - en: '| ​  | } |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这是有效的，因为列表的最后一个节点实际上会有一个`nextNode`为`null`，因为最后一个节点从未被分配自己的`nextNode`。这样，当`currentNode`指向最后一个节点时，我们执行`current
     = currentNode.nextNode`，`currentNode`就变成了`null`。
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是有效的，因为列表的最后一个节点实际上会有一个`nextNode`为`null`，因为最后一个节点从未被分配自己的`nextNode`。这样，当`currentNode`指向最后一个节点时，我们执行`current
+    = currentNode.nextNode`，`currentNode`就变成了`null`。
 - en: 最后，如果我们跳出循环，那是因为我们达到了期望的索引。我们可以通过以下方式返回节点的值：
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，如果我们跳出循环，那是因为我们达到了期望的索引。我们可以通过以下方式返回节点的值：
 - en: '| ​  | `return` currentNode.data; |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` currentNode.data; |'

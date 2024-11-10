@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 识别模式
 - en: One of the most helpful strategies for both code optimization and algorithm
     development in general is to find patterns within the problem at hand. Often,
     the discovery of a pattern can help you cut through all the complexity of a problem
@@ -12,12 +13,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于代码优化和算法开发而言，最有用的策略之一是发现当前问题中的模式。通常，发现一个模式可以帮助你突破问题的复杂性，并开发出简单的算法。
 - en: The Coin Game
   id: totrans-2
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 硬币游戏
 - en: 'Here’s a great example. A game I call “the coin game” has two players who compete
     in the following way: they start with a pile of coins, and each player has the
     choice of removing either one or two coins from the pile. The player who removes
@@ -26,6 +29,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个很好的例子。我称之为“硬币游戏”的游戏有两个玩家，他们以以下方式竞争：他们从一堆硬币开始，每个玩家可以选择从堆中移走一个或两个硬币。拿走最后一个硬币的玩家会输。好玩吧？
 - en: It turns out that this isn’t a game of random chance, and with the right strategy,
     you can force your opponent to take the last coin and lose the game. To make this
     clear, let’s start with some really small coin piles and see how the game plays
@@ -34,12 +38,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实证明，这并不是一场随机机会的游戏，凭借正确的策略，你可以迫使对手拿走最后一个硬币并输掉游戏。为了让这一点更清晰，我们从一些非常小的硬币堆开始，看看游戏是如何进行的。
 - en: If there’s just one coin in the pile, the player whose turn it is loses, since
     they have no choice but to take the last coin.
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果堆中只剩下一个硬币，轮到的玩家就会输，因为他们别无选择，只能拿走最后一个硬币。
 - en: If there are two coins left, the player whose turn it is can force a win. This
     is because they can take just one coin and thereby force their opponent to take
     the final coin.
@@ -47,6 +53,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果剩下两个硬币，轮到的玩家可以强制获胜。这是因为他们可以只拿走一个硬币，从而迫使对手拿走最后一个硬币。
 - en: When there are three coins remaining, the player whose turn it is can also force
     a win, since they can remove two coins, forcing their opponent to take the final
     coin.
@@ -54,6 +61,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当剩下三个硬币时，轮到的玩家也可以强制获胜，因为他们可以移走两个硬币，迫使对手拿走最后一个硬币。
 - en: Now, when there are four coins left, the current player is in trouble. If they
     remove one coin, the opponent is given a pile of three coins, which we established
     earlier can allow that player to force a win. Similarly, if the current player
@@ -63,6 +71,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，当剩下四个硬币时，当前玩家陷入困境。如果他们移走一个硬币，对手将得到三枚硬币，而我们之前已经确定，拥有这三枚硬币的玩家可以强制获胜。类似地，如果当前玩家移走两个硬币，剩下两个硬币的对手同样可以强制获胜。
 - en: If we were to write a function that calculated whether you can win the game
     when presented with a coin pile of a given size, what approach should we take?
     If we think about this carefully, we may realize we can use subproblems to help
@@ -72,117 +81,141 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们要编写一个函数，计算在给定大小的硬币堆中你是否可以赢得游戏，我们应该采取什么方法？仔细考虑后，我们可能会意识到可以利用子问题来帮助计算任何数量硬币的准确结果。这使得自顶向下的递归非常适合解决这个问题。
 - en: 'Here’s a JavaScript implementation of a recursive approach:'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个递归方法的 JavaScript 实现：
 - en: '| ​  | ​`function` gameWinner(numberOfCoins, currentPlayer=`*''you''*`) { |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function` gameWinner(numberOfCoins, currentPlayer=`*''你''*`) { |'
 - en: '| ​  | ​`let` nextPlayer; |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let` nextPlayer; |'
 - en: '| ​  |  |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`if` (numberOfCoins <= 0) { |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if` (numberOfCoins <= 0) { |'
 - en: '| ​  | ​`return` currentPlayer; |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return` currentPlayer; |'
 - en: '| ​  | } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`if` (currentPlayer === `*''you''*`) { |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if` (currentPlayer === `*''你''*`) { |'
 - en: '| ​  | nextPlayer = `*''them''*`; |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | nextPlayer = `*''他们''*`; |'
 - en: '| ​  | } `else` `if` (currentPlayer === `*''them''*`) { |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (currentPlayer === `*''他们''*`) { |'
 - en: '| ​  | nextPlayer = `*''you''*`; |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | nextPlayer = `*''你''*`; |'
 - en: '| ​  | } |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`if` (gameWinner(numberOfCoins - 1, nextPlayer) === currentPlayer |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if` (gameWinner(numberOfCoins - 1, nextPlayer) === currentPlayer |'
 - en: '| ​  | `||` gameWinner(numberOfCoins - 2, nextPlayer) === currentPlayer) {
     |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `||` gameWinner(numberOfCoins - 2, nextPlayer) === currentPlayer) {
+    |'
 - en: '| ​  | ​`return` currentPlayer; |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return` currentPlayer; |'
 - en: '| ​  | } `else` { |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | ​`return` nextPlayer; |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return` nextPlayer; |'
 - en: '| ​  | } |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: This `gameWinner`函数接受一个硬币数量和当前玩家（“you”或“them”）。然后该函数返回“you”或“them”作为游戏的赢家。当函数第一次被调用时，`currentPlayer`是“you”。
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个`gameWinner`函数接受一个硬币数量和当前玩家（“你”或“他们”）。然后该函数返回“你”或“他们”作为游戏的赢家。当函数第一次被调用时，`currentPlayer`是“你”。
 - en: We define our base case as when the `currentPlayer` is dealt 0 or fewer coins.
     This means the other player took the last coin and the current player, by default,
     won the game.
@@ -190,27 +223,32 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将基本情况定义为`currentPlayer`被分配到0个或更少的硬币。这意味着其他玩家拿走了最后一枚硬币，而当前玩家默认赢得了游戏。
 - en: We then define a `nextPlayer`变量，它跟踪下一个将要进行游戏的玩家。
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们定义一个`nextPlayer`变量，它跟踪下一个将要进行游戏的玩家。
 - en: Then we do our recursion. We recursively call our `gameWinner`函数在当前堆的硬币数量比当前堆小1和2的硬币堆上，看看下一个玩家在这些场景中会赢还是输。如果`nextPlayer`在这两种情况下都输，那么`currentPlayer`就会赢。
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们进行递归。我们递归调用我们的`gameWinner`函数，在当前堆的硬币数量比当前堆小1和2的硬币堆上，看看下一个玩家在这些场景中会赢还是输。如果`nextPlayer`在这两种情况下都输，那么`currentPlayer`就会赢。
 - en: This isn’t an easy algorithm, but we pulled it off. Now let’s see if we can
     optimize it.
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这不是一个简单的算法，但我们做到了。现在让我们看看能否优化它。
 - en: To satisfy our prereq, we first need to figure out our algorithm’s current speed.
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了满足我们的前提条件，我们首先需要弄清楚我们算法的当前速度。
 - en: You may have noticed that this function makes multiple recursive calls. If alarm
     bells are going off in your head, that’s for good reason. The time complexity
     of this function is a whopping `O(2^N)`，这可能是令人难以忍受的慢。
@@ -218,23 +256,27 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你可能已经注意到这个函数进行了多次递归调用。如果你脑海中响起了警报，那是有充分理由的。这个函数的时间复杂度高达`O(2^N)`，这可能是令人难以忍受的慢。
 - en: We can improve this by using the memoization technique you learned about in
     Chapter 12, `[*Dynamic Programming*](f_0112.xhtml#chp.dynamic_programming)`，这可以将速度提高到`O(N)`，其中`N`是起始堆中的硬币数量。这是一个巨大的改进。
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以通过使用你在第12章中学到的记忆化技术来改进这一点，`[*动态规划*](f_0112.xhtml#chp.dynamic_programming)`，这可以将速度提高到`O(N)`，其中`N`是起始堆中的硬币数量。这是一个巨大的改进。
 - en: But let’s see if we can push our algorithm’s speed even further.
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但让我们看看是否可以进一步提升算法的速度。
 - en: To determine whether we can optimize our algorithm further, we need to ask ourselves
     what we think the best-imaginable Big O is.
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要确定我们是否可以进一步优化我们的算法，我们需要问自己认为最佳的 Big O 是什么。
 - en: Because `N` is just a single number, I could conceive that we can make an algorithm
     that takes just `O(1)` time. Since we don’t actually have to touch `N` items in
     an array or anything like that, if someone told me they figured out an algorithm
@@ -243,17 +285,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为`N`只是一个单一的数字，我可以设想我们可以设计一个仅需`O(1)`时间的算法。由于我们实际上不需要处理`N`个项目在数组中或其他任何事情，如果有人告诉我他们为硬币游戏找到了一个仅需`O(1)`的算法，我会相信他们。所以让我们争取达到`O(1)`。
 - en: But how do we get there? This is where finding a pattern can help.
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但是我们怎么能做到这一点呢？这就是找到模式可以提供帮助的地方。
 - en: Generating Examples
   id: totrans-43
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 生成示例
 - en: While each problem has a unique pattern, I found a technique for finding patterns
     that helps across all problems—and that is to generate numerous examples. This
     means we should take a bunch of example inputs, calculate their respective outputs,
@@ -262,76 +307,91 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然每个问题都有独特的模式，但我发现了一种找到模式的技巧，这对所有问题都有帮助，那就是生成大量示例。这意味着我们应该取一些示例输入，计算它们各自的输出，看看是否能检测到一个模式。
 - en: Let’s apply this to our case.
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们把这个应用到我们的案例中。
 - en: 'If we map out who wins for coin piles of size 1 through 10, we get this table:'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们绘制出硬币堆大小为1到10时谁赢的情况，我们会得到这个表：
 - en: '| Number of Coins | Winner |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 硬币数量 | 胜利者 |'
 - en: '| --- | --- |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| 1 | Them |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 1 | 他们 |'
 - en: '| 2 | You |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 2 | 你 |'
 - en: '| 3 | You |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 3 | 你 |'
 - en: '| 4 | Them |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 4 | 他们 |'
 - en: '| 5 | You |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 5 | 你 |'
 - en: '| 6 | You |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 6 | 你 |'
 - en: '| 7 | Them |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 7 | 他们 |'
 - en: '| 8 | You |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 8 | 你 |'
 - en: '| 9 | You |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 9 | 你 |'
 - en: '| 10 | Them |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 10 | 他们 |'
 - en: The pattern becomes clear when we lay it out this way. Basically, starting with
     1 coin, every third number gives victory to the opponent. Otherwise, you are the
     winner.
@@ -339,6 +399,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们以这种方式列出时，模式变得清晰。基本上，从1个硬币开始，每第三个数字会让对手胜利。否则，你就是赢家。
 - en: 'So if we take the number of coins and subtract `1`, each `"them"` ends up at
     a number that is divisible by `3`\. At this point, then, we can determine who
     will win based on a single division calculation:'
@@ -346,53 +407,63 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以如果我们取硬币的数量并减去`1`，每个`"他们"`都会落在一个可被`3`整除的数字上。此时，我们可以根据一次简单的除法计算确定谁将获胜：
 - en: '| ​  | `function` gameWinner(`numberOfCoins`) { |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` gameWinner(`numberOfCoins`) { |'
 - en: '| ​  | `if` ((`numberOfCoins` - `1`) % `3` === `0`) { |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` ((`numberOfCoins` - `1`) % `3` === `0`) { |'
 - en: '| ​  | `return`​ `''them''`; |'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `''他们''`; |'
 - en: '| ​  | } `else` { |'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return`​ `''you''`; |'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `''你''`; |'
 - en: '| ​  | } |'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: This code is saying that if after subtracting `1`, the `numberOfCoins` is divisible
     by `3`, the winner is `"them"`. Otherwise, `"you"` are the winner.
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段代码的意思是，如果在减去`1`之后，`numberOfCoins`能被`3`整除，赢家就是`"他们"`。否则，`"你"`就是赢家。
 - en: Because this algorithm consists of a single mathematical operation, it’s `O(1)`
     in both time and space. It’s also a lot simpler! This is a real win-win-win.
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于这个算法只包含一个数学操作，它在时间和空间上都是`O(1)`。它也简单得多！这是一个真正的双赢。
 - en: By generating many examples of coin piles (as inputs) and seeing who’d win the
     game (as outputs), we were able to identify a pattern in how the coin game works.
     We were then able to use this pattern to cut to the heart of the problem and turn
@@ -401,62 +472,73 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过生成许多硬币堆（作为输入）并查看谁将赢得比赛（作为输出），我们能够识别出硬币游戏的工作模式。然后我们能够利用这个模式深入问题的核心，将一个缓慢的算法变为瞬时的。
 - en: The Sum Swap Problem
   id: totrans-71
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 和交换问题
 - en: Here’s an example where we can use both pattern recognition and magical lookups
     together to optimize an algorithm.
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个我们可以结合模式识别和神奇查找来优化算法的例子。
 - en: 'The next problem, known as the sum swap problem, goes like this:'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下一个问题，称为和交换问题，描述如下：
 - en: 'We want to write a `function` that accepts two arrays of integers. As an example,
     let’s say these are our arrays:'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们想要编写一个接受两个整数数组的`function`。举个例子，假设这些就是我们的数组：
 - en: '![images/tips_for_code_optimization/two_arrays.png](images/tips_for_code_optimization/two_arrays.png)'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tips_for_code_optimization/two_arrays.png](images/tips_for_code_optimization/two_arrays.png)'
 - en: Currently, the numbers in `array1` add up to `20`, while the numbers in `array2`
     add up to `18`.
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当前，`array1`中的数字加起来为`20`，而`array2`中的数字加起来为`18`。
 - en: Our `function` needs to find one number from each array that can be swapped
     to cause the two array sums to be equal.
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的`function`需要找到来自每个数组的一个数字，交换后使两个数组的和相等。
 - en: 'In this example, if we swapped the `2` from `array1` and the `1` from `array2`,
     we’d get:'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，如果我们交换`array1`中的`2`和`array2`中的`1`，我们将得到：
 - en: '![images/tips_for_code_optimization/swap_2_and_1.png](images/tips_for_code_optimization/swap_2_and_1.png)'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tips_for_code_optimization/swap_2_and_1.png](images/tips_for_code_optimization/swap_2_and_1.png)'
 - en: And both arrays would now have the same sum—namely, `19`.
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这样，两者的和现在将相同——即`19`。
 - en: To keep things simple, our `function` won’t actually perform the swap but will
     return the two indexes that we’d have to swap. We can do this as an array containing
     the two indexes. So, in this case, we swapped index `2` of `array1` with index
@@ -466,6 +548,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了简单起见，我们的`function`实际上不会执行交换，而是返回我们需要交换的两个索引。我们可以用一个包含这两个索引的数组来实现。因此，在这种情况下，我们将`array1`的索引`2`与`array2`的索引`0`交换，所以我们将返回一个数组`[2,
+    0]`。如果没有可能的交换使得两个数组相等，我们将返回`null`。
 - en: One way we can write this algorithm is to use nested loops; that is, as our
     outer loop points to each number from `array1`, an inner loop can iterate over
     each number from `array2` and test the sums of each array if we were to swap the
@@ -474,12 +558,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以通过使用嵌套循环来编写这个算法；也就是说，当我们的外部循环指向`array1`中的每个数字时，内部循环可以遍历`array2`中的每个数字，并测试如果我们交换这两个数字，两个数组的和是否相等。
 - en: To begin optimizing this, we must first satisfy our prereq of knowing the Big
     O of our current algorithm.
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要开始优化这一点，我们必须首先满足知道我们当前算法的Big O的前提条件。
 - en: Because our nested-loops approach visits `M` numbers from the second array for
     each of the `N` numbers of the first array, this algorithm is `O(N * M)`. (I’m
     discussing `N` and `M` because the arrays may be two different sizes.)
@@ -487,12 +573,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于我们的嵌套循环方法对于第一个数组的每个`N`个数字都会访问第二个数组的`M`个数字，因此这个算法的复杂度是`O(N * M)`。（我之所以提到`N`和`M`，是因为这两个数组可能大小不同。）
 - en: Can we do better? To find out, let’s determine what we think the best-imaginable
     Big O may be.
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们能做得更好吗？为了找出答案，让我们确定我们认为的最佳可能Big O。
 - en: It would seem that we absolutely have to visit each number from the two arrays
     at least once since we need to be aware of what all the numbers are. But it’s
     possible that this may be all we need to do. If so, this would be `O(N + M)`。Let’s
@@ -501,6 +589,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 看起来我们绝对需要至少访问两个数组中的每个数字一次，因为我们需要了解所有数字。但这可能是我们需要做的全部。如果是这样的话，这将是`O(N + M)`。让我们将其视为我们最理想的Big
+    O，并朝这个目标努力。
 - en: Next, we need to try to dig up any patterns hidden within the problem. Again,
     the best technique to dig up patterns is to come up with numerous examples and
     look for patterns among them。
@@ -508,29 +598,34 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们需要尝试挖掘问题中隐藏的任何模式。同样，挖掘模式的最佳技术是提出多个示例并寻找它们之间的模式。
 - en: So let’s look at a number of different examples where swapping numbers will
     cause the two arrays to have equal sums, as shown in the [`diagram`](#fig.ch20.multiple_swap_examples)。
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，让我们看看几个不同的示例，交换数字将导致两个数组具有相等的和，如[`图示`](#fig.ch20.multiple_swap_examples)所示。
 - en: '![`images/tips_for_code_optimization/multiple_swap_examples.png`](images/tips_for_code_optimization/multiple_swap_examples.png)'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/tips_for_code_optimization/multiple_swap_examples.png`](images/tips_for_code_optimization/multiple_swap_examples.png)'
 - en: In looking at these examples, a few patterns begin to emerge. Some of these
     patterns may seem obvious, but let’s look at them anyway。
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在查看这些示例时，一些模式开始显现。有些模式可能看起来很明显，但我们还是来看看它们。
 - en: One pattern is that to achieve equal sums, the larger array needs to trade a
     larger number with a smaller number from the smaller array。
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一个模式是，为了实现相等的和，较大的数组需要用一个较大的数字与较小数组中的较小数字进行交换。
 - en: A second pattern is that with a single swap, each array’s sum changes by the
     same amount. For example, when we swap a `7` with a `4`，one array’s sum decreases
     by `3`，while the other array’s sum increases by `3`。
@@ -538,12 +633,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第二个模式是，通过单次交换，每个数组的和变化量是相同的。例如，当我们用一个`7`与一个`4`交换时，一个数组的和减少`3`，而另一个数组的和增加`3`。
 - en: A third interesting pattern is that the swaps always cause the two array sums
     to fall out exactly in the middle of where the two array sums began。
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第三个有趣的模式是，交换总是使两个数组的和恰好落在它们开始时的和的中间。
 - en: In the first case, for example, `array1` was `18` and `array2` was `12`。When
     making a correct swap, the two arrays land at `15`，which is exactly in the middle
     between `18` and `12`。
@@ -551,6 +648,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在第一个例子中，`array1`是`18`而`array2`是`12`。当进行正确的交换时，两个数组的和达到了`15`，正好是`18`和`12`之间的中间。
 - en: When we think about it further, this third pattern is a logical outgrowth of
     the other patterns. Since a swap causes the two arrays to shift their sums by
     the same amount, the only way to make their sums equal is to meet in the middle。
@@ -558,6 +656,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们进一步思考时，这第三种模式是其他模式的逻辑延伸。由于交换会使两个数组的和同样变化，因此使它们的和相等的唯一方法是相遇于中间。
 - en: Based on this, if we know the sums of the two arrays, we should be able to look
     at any number in one of the arrays and calculate what number it should be swapped
     with。
@@ -565,22 +664,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 基于此，如果我们知道两个数组的和，我们应该能够查看其中一个数组的任何数字并计算它应该与哪个数字交换。
 - en: Let’s take this example again：
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们再次考虑这个例子：
 - en: '![`images/tips_for_code_optimization/second_example.png`](images/tips_for_code_optimization/second_example.png)'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/tips_for_code_optimization/second_example.png`](images/tips_for_code_optimization/second_example.png)'
 - en: We know that for a swap to work successfully, we’ll need the two arrays’ sums
     to land in the middle. The exact middle between `18` and `12` is `15`。
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们知道，要使交换成功，两个数组的和需要落在中间。`18`和`12`之间的确切中间是`15`。
 - en: Let’s look at different numbers from `array1` and figure out what number we’d
     want to swap it with. We can call this other number its counterpart. Let’s start
     with the first number from `array1`，which is the number `5`。
@@ -588,6 +691,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们查看`array1`中的不同数字，找出我们想与其交换的数字。我们可以称这个数字为其对应数字。让我们从`array1`中的第一个数字开始，即数字`5`。
 - en: What number would we want to swap the `5` with? Well, we know that we want `array1`
     to decrease by `3`，and `array2` to increase by `3`，so we’d need to swap the `5`
     with a number `2`。It just so happens that `array2` doesn’t contain a `2`，so the
@@ -596,6 +700,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们想用哪个数字来与`5`交换呢？我们知道`array1`需要减少`3`，而`array2`需要增加`3`，所以我们需要将`5`与一个`2`交换。恰好`array2`中不包含`2`，因此`5`无法成功与`array2`中的任何数字交换。
 - en: If we look at the next number from `array1`，it’s a `3`。We’d have to swap this
     with a `0` from `array2` to get the two sums to be equal. Alas, a `0` doesn’t
     exist in `array2`。
@@ -603,240 +708,290 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们查看`array1`中的下一个数字，它是一个`3`。我们必须将其与`array2`中的`0`交换，以使两个和相等。可惜，`array2`中不存在`0`。
 - en: '`array1`中的最后一个数字是7。我们可以计算出我们想用4交换7，以使两个和都为15。幸运的是，`array2`中确实包含4，因此我们可以成功交换。'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`array1`中的最后一个数字是7。我们可以计算出我们想用4交换7，以使两个和都为15。幸运的是，`array2`中确实包含4，因此我们可以成功交换。'
 - en: 那么，我们如何在代码中表达这种模式呢？
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 那么，我们如何在代码中表达这种模式呢？
 - en: 好吧，我们可以首先使用这个计算来确定数组和需要移动多少：
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 好吧，我们可以首先使用这个计算来确定数组和需要移动多少：
 - en: '| ​  | `shiftAmount = Math.floor((sum1 - sum2) / 2);` |'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `shiftAmount = Math.floor((sum1 - sum2) / 2);` |'
 - en: 在这里，`sum1`是`array1`的和，而`sum2`是`array2`的和。如果`sum1`是18而`sum2`是12，我们得到的差是6。然后我们将其除以2以确定每个数组需要移动多少。这就是`shiftAmount`。
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，`sum1`是`array1`的和，而`sum2`是`array2`的和。如果`sum1`是18而`sum2`是12，我们得到的差是6。然后我们将其除以2以确定每个数组需要移动多少。这就是`shiftAmount`。
 - en: 在这种情况下，`shiftAmount`是3，这意味着`array2`需要增加3以达到目标和。（同样，`array1`需要减少3。）
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，`shiftAmount`是3，这意味着`array2`需要增加3以达到目标和。（同样，`array1`需要减少3。）
 - en: 所以我们可以通过首先计算两个数组的和来开始构建我们的算法。然后我们可以循环遍历其中一个数组的所有数字，并在另一个数组中寻找对应的数字。
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以我们可以通过首先计算两个数组的和来开始构建我们的算法。然后我们可以循环遍历其中一个数组的所有数字，并在另一个数组中寻找对应的数字。
 - en: 如果我们迭代`array2`中的每个数字，例如，我们知道当前数字必须与其对应的数字交换，该数字是当前数字加上`shiftAmount`。例如，如果当前数字是4，寻找其对应数字时我们加上`shiftAmount`（3），得到7。这意味着我们需要在`array1`中找到一个7来与当前数字交换。
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们迭代`array2`中的每个数字，例如，我们知道当前数字必须与其对应的数字交换，该数字是当前数字加上`shiftAmount`。例如，如果当前数字是4，寻找其对应数字时我们加上`shiftAmount`（3），得到7。这意味着我们需要在`array1`中找到一个7来与当前数字交换。
 - en: 所以，我们已经弄清楚，我们可以查看任一数组中的任何数字，并确切知道它在另一个数组中应该是什么对应数字。但这有什么帮助呢？难道我们仍然需要使用嵌套循环，使算法的复杂度为O(N
     * M)吗？这意味着对于一个数组中的每个数字，我们必须在整个另一个数组中搜索对应的数字。
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以，我们已经弄清楚，我们可以查看任一数组中的任何数字，并确切知道它在另一个数组中应该是什么对应数字。但这有什么帮助呢？难道我们仍然需要使用嵌套循环，使算法的复杂度为O(N
+    * M)吗？这意味着对于一个数组中的每个数字，我们必须在整个另一个数组中搜索对应的数字。
 - en: 这是我们可以调用神奇查找的地方，问自己：“如果我能以O(1)的时间神奇地找到所需的信息，我能让我的算法更快吗？”
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是我们可以调用神奇查找的地方，问自己：“如果我能以O(1)的时间神奇地找到所需的信息，我能让我的算法更快吗？”
 - en: 确实，如果我们能以O(1)的时间找到一个数字在另一个数组中的对应数字，我们的算法会快得多。我们可以通过采用通常的方法，即引入我们的老朋友哈希表来实现快速查找。
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 确实，如果我们能以O(1)的时间找到一个数字在另一个数组中的对应数字，我们的算法会快得多。我们可以通过采用通常的方法，即引入我们的老朋友哈希表来实现快速查找。
 - en: 如果我们首先将一个数组中的数字存储在哈希表中，那么在遍历另一个数组时，我们可以立即以O(1)的时间找到任何数字。
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们首先将一个数组中的数字存储在哈希表中，那么在遍历另一个数组时，我们可以立即以O(1)的时间找到任何数字。
 - en: 这是完整的代码：
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是完整的代码：
 - en: '| ​  | `function`​ `sumSwap(array1, array2) {` |'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function`​ `sumSwap(array1, array2) {` |'
 - en: '| ​  | `const`​ `hashTable = {};` |'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `hashTable = {};` |'
 - en: '| ​  | `let`​ `sum1 = 0;` |'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `sum1 = 0;` |'
 - en: '| ​  | `let`​ `sum2 = 0;` |'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `sum2 = 0;` |'
 - en: '| ​  |  |'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for`​ (`const`​ `[index, num]` ​`of`​ `array1.entries()) {` |'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for`​ (`const`​ `[index, num]` ​`of`​ `array1.entries()) {` |'
 - en: '| ​  | `sum1 += num;` |'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `sum1 += num;` |'
 - en: '| ​  | `hashTable[num] = index;` |'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `hashTable[num] = index;` |'
 - en: '| ​  | `}` |'
   id: totrans-124
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for`​ (`const`​ `num` ​`of`​ `array2) {` |'
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for`​ (`const`​ `num` ​`of`​ `array2) {` |'
 - en: '| ​  | `sum2 += num;` |'
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `sum2 += num;` |'
 - en: '| ​  | `}` |'
   id: totrans-128
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `// If the input consists of integers and the difference`​ |'
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 如果输入由整数构成且差值`​ |'
 - en: '| ​  | `// between the two sums is odd, it''s impossible to find`​ |'
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 两个和之间是奇数，因此不可能找到`​ |'
 - en: '| ​  | `// an integer smack in the middle, so no swap is possible:`​ |'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 一个正好在中间的整数，因此不可能进行交换：`​ |'
 - en: '| ​  | `if`​ (`Math.abs((sum1 - sum2) % 2) === 1) {` |'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ (`Math.abs((sum1 - sum2) % 2) === 1) {` |'
 - en: '| ​  | `return`​ `null`; |'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `null`; |'
 - en: '| ​  | `}` |'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `const`​ `shiftAmount` = `Math.floor((sum1 - sum2) / 2);` |'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `shiftAmount` = `Math.floor((sum1 - sum2) / 2);` |'
 - en: '| ​  |  |'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` [`index, num`] `of` `array2.entries()`) { |'
   id: totrans-139
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` [`index, num`] `of` `array2.entries()`) { |'
 - en: '| ​  | `if`(`hashTable[num + shiftAmount]` &#124;&#124; `hashTable[num + shiftAmount]
     === 0`) { |'
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`(`hashTable[num + shiftAmount]` &#124;&#124; `hashTable[num + shiftAmount]
+    === 0`) { |'
 - en: '| ​  | `return`​[`hashTable[num + shiftAmount], index]; |'
   id: totrans-141
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​[`hashTable[num + shiftAmount], index]; |'
 - en: '| ​  | } |'
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-143
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `null`; |'
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `null`; |'
 - en: '| ​  | } |'
   id: totrans-146
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这种方法比我们原来的`O(N * M)`方法快得多。如果我们认为`array1`为`N`，`array2`为`M`，我们可以说这个算法在`O(N + M)`时间内运行。虽然我们确实遍历`array2`两次，技术上是`2M`，但由于我们忽略常数，它变为`M`。
   id: totrans-147
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种方法比我们原来的`O(N * M)`方法快得多。如果我们认为`array1`为`N`，`array2`为`M`，我们可以说这个算法在`O(N + M)`时间内运行。虽然我们确实遍历`array2`两次，技术上是`2M`，但由于我们忽略常数，它变为`M`。
 - en: 这种方法占用额外的`O(N)`空间，因为我们将数组`array1`中的所有`N`个数字复制到哈希表中。再次强调，我们牺牲了空间来获得时间，但如果速度是我们的主要关注点，这是一项巨大的胜利。
   id: totrans-148
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种方法占用额外的`O(N)`空间，因为我们将数组`array1`中的所有`N`个数字复制到哈希表中。再次强调，我们牺牲了空间来获得时间，但如果速度是我们的主要关注点，这是一项巨大的胜利。
 - en: 无论如何，这是另一个例子，展示了发现模式如何让我们直击问题核心，并开发出简单快速的解决方案。
   id: totrans-149
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 无论如何，这是另一个例子，展示了发现模式如何让我们直击问题核心，并开发出简单快速的解决方案。

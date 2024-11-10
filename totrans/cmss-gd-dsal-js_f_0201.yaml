@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 更改数据结构
 - en: Another helpful optimization technique is to imagine what would happen if we
     stored our given data in an alternative data structure.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一个有帮助的优化技巧是想象如果我们将给定的数据存储在替代数据结构中会发生什么。
 - en: For example, we may be working on a problem where the data is given to us in
     the form of an array. However, reimagining that same data stored as a hash table,
     tree, or other data structure can sometimes reveal clever optimization opportunities.
@@ -17,6 +19,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，我们可能正在处理一个问题，数据以数组的形式提供给我们。然而，重新构想将相同数据存储为哈希表、树或其他数据结构，有时可以揭示巧妙的优化机会。
 - en: Our use of a hash table for the magical lookup technique earlier is a specific
     example of this. And we’re about to see that changing the data structure can be
     useful for other scenarios as well.
@@ -24,12 +27,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们之前使用哈希表进行神奇查找的例子就是一个具体实例。我们即将看到，改变数据结构在其他场景中也可能是有用的。
 - en: The Anagram Checker
   id: totrans-4
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 字母异位词检查器
 - en: Here’s one example. Let’s say we’re writing a function that determines whether
     two given strings are anagrams of one another. We encountered an anagram function
     before in `[*Anagram Generation*](f_0109.xhtml#sect.anagram-generation)`, but
@@ -40,6 +45,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里有一个例子。假设我们正在编写一个函数，用于确定给定的两个字符串是否是彼此的字母异位词。我们在`[*字母异位词生成*](f_0109.xhtml#sect.anagram-generation)`中遇到过字母异位词函数，但那里的函数是生成字符串的所有字母异位词。在这里，我们只是并排比较两个字符串。如果它们是字母异位词，则返回`true`，否则返回`false`。
 - en: Now, we could use the anagram-generating function to solve this problem; that
     is, we can produce all the anagrams of the first string and see if the second
     string matches any of those anagrams. However, since for `N` characters in the
@@ -49,12 +55,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们可以使用字母异位词生成函数来解决这个问题；也就是说，我们可以生成第一个字符串的所有字母异位词，看看第二个字符串是否与其中任何一个字母异位词匹配。然而，由于对于字符串中的`N`个字符，总会有`N!`个字母异位词，我们的算法将至少需要`O(N!)`的时间。这是灾难性的慢。
 - en: You know the drill. Before we proceed to optimize our code, we need to come
     up with our best-imaginable Big O.
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你知道流程。在我们继续优化代码之前，需要提出我们能想象到的最佳大O表示法。
 - en: Now, we certainly need to visit each character from both strings at least once.
     And since the input strings may be of different sizes, touching each character
     just once would be `O(N + M)`. As I couldn’t imagine a faster speed for the task
@@ -63,6 +71,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们当然需要至少访问一次两个字符串中的每个字符。由于输入字符串可能大小不同，仅触碰每个字符一次将是`O(N + M)`。因为我无法想象这个任务能更快的速度，所以这就是我们的目标。
 - en: In theory, we could put some code at the beginning of the function that immediately
     returns `false` if the two strings have different sizes, since it’s impossible
     for strings of different sizes to be anagrams. In that case, the speed we’d aim
@@ -72,17 +81,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 理论上，我们可以在函数开头放一些代码，如果两个字符串大小不同，立即返回`false`，因为不同大小的字符串不可能是字母异位词。在这种情况下，我们的目标速度将是`2N`，因为算法只会处理大小相同的字符串。这将简化为`O(N)`。
 - en: However, for the sake of this discussion, we’ll allow someone to input two strings
     that may be of different sizes, and so we’ll aim for `O(N + M)`.
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，为了讨论的目的，我们将允许输入两个可能大小不同的字符串，因此我们的目标是`O(N + M)`。
 - en: Let’s work our way there.
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们一步步来。
 - en: A second possible approach to our problem is to run nested loops to compare
     the two strings. Specifically, as an outer loop iterates over each character from
     the first string, we compare that character to every character of the second string.
@@ -94,6 +106,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 解决我们问题的第二种可能方法是运行嵌套循环来比较两个字符串。具体来说，外部循环遍历第一个字符串的每个字符时，我们将该字符与第二个字符串的每个字符进行比较。每次找到匹配时，我们从第二个字符串中删除一个字符。这里的想法是，如果第一个字符串的每个字符也出现在第二个字符串中，那么在完成外部循环时，我们将删除第二个字符串中的每个字符。
 - en: So, if by the time we finish looping, characters still remain from the second
     string, it means the strings aren’t anagrams. Also, if we’re still iterating over
     the first word but we’ve already deleted the entire second string, it also means
@@ -104,101 +117,121 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，如果在循环结束时，第二个字符串中仍然有字符，那么这意味着这两个字符串不是字母异位词。另外，如果我们还在迭代第一个单词，但已经删除了整个第二个字符串，这也意味着这两个字符串不是字母异位词。但是如果我们顺利到达循环末尾，并且第二个字符串已完全删除，我们可以得出结论：这两个字符串确实是字母异位词。
 - en: 'Here’s a JavaScript implementation of this:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个 JavaScript 实现：
 - en: '| ​  | `function` areAnagrams(`firstString`, `secondString`) { |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` areAnagrams(`firstString`, `secondString`) { |'
 - en: '| ​  | `const` `secondStringArray` = [...`secondString`]; |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` `secondStringArray` = [...`secondString`]; |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`let` i = 0; i < `firstString`.length; i += 1) { |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` i = 0; i < `firstString`.length; i += 1) { |'
 - en: '| ​  | `if` (`secondStringArray`.length === 0) { |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (`secondStringArray`.length === 0) { |'
 - en: '| ​  | `return` `false`; |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `false`; |'
 - en: '| ​  | } |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`let` j = 0; j < `secondStringArray`.length; j += 1) { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` j = 0; j < `secondStringArray`.length; j += 1) { |'
 - en: '| ​  | `if` (`firstString`[i] === `secondStringArray`[j]) { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (`firstString`[i] === `secondStringArray`[j]) { |'
 - en: '| ​  | `secondStringArray`.splice(j, 1); |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `secondStringArray`.splice(j, 1); |'
 - en: '| ​  | `break`; |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `break`; |'
 - en: '| ​  | } |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `secondStringArray`.length === 0; |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `secondStringArray`.length === 0; |'
 - en: '| ​  | } |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Now, it just so happens that deleting items from an array while you’re looping
     through it can be error prone; if you don’t do it right, it’s like sawing off
     the tree branch you’re sitting on. But even though we’ve handled that correctly,
@@ -208,6 +241,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，恰好在循环中删除数组中的项目可能会出错；如果你做错了，就像是在锯掉你坐着的树枝。但即使我们正确处理了这一点，我们的算法仍然运行在 O(`N` *
+    `M`) 的时间复杂度上。这比 O(`N!`) 快得多，但比我们追求的 O(`N` + `M`) 要慢得多。
 - en: An even faster approach would be to sort the two strings. If after sorting the
     two strings they’re exactly the same, it means they’re anagrams; otherwise, they’re
     not.
@@ -215,6 +250,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一种更快的方法是对两个字符串进行排序。如果排序后的两个字符串完全相同，则意味着它们是字母异位词；否则，它们就不是。
 - en: This approach will take O(`N` log `N`) for each string using a fast sorting
     algorithm like Quicksort. Since we may have two strings of different sizes, this
     adds up to be O(`N` log `N` + `M` log `M`). This is a nice improvement over O(`N`
@@ -223,6 +259,9 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这种方法使用快速排序算法（如快速排序）对每个字符串的时间复杂度为 O(`N` log `N`)。由于我们可能有两个不同大小的字符串，这样总的时间复杂度将变为
+    O(`N` log `N` + `M` log `M`)。这比 O(`N` * `M`) 有了很好的改进，但我们不能就此停下——我们要追求 O(`N` +
+    `M`)，记住了吗？
 - en: This is where using an alternative data structure can be extremely helpful.
     We’re dealing with strings, but let’s imagine that we’d store the string data
     in other types of data structures.
@@ -230,17 +269,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这时使用替代数据结构就非常有帮助。我们正在处理字符串，但我们可以想象将字符串数据存储在其他类型的数据结构中。
 - en: We could store a string as an array of single characters. But this doesn’t help
     us.
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以将字符串存储为单个字符的数组。但这对我们没有帮助。
 - en: Let’s next imagine the string as a hash table. What would that even look like?
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，让我们想象字符串作为哈希表。这看起来会是什么样子？
 - en: 'One possibility is to create a hash table where each character is a key, and
     the value is the number of occurrences of that character within the word. For
     example, the string `"balloon"` would look like so:'
@@ -248,17 +290,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一种可能性是创建一个哈希表，其中每个字符都是一个键，值是该字符在单词中出现的次数。例如，字符串 `"balloon"` 的哈希表看起来像这样：
 - en: '| ​  | {"b": 1, "a": 1, "l": 2, "o": 2, "n": 1} |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | {"b": 1, "a": 1, "l": 2, "o": 2, "n": 1} |'
 - en: This hash table indicates the string has one `"b"`, one `"a"`, two `"l"`s, two
     `"o"`s, and one `"n"`.
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个哈希表表明字符串中有一个 `"b"`，一个 `"a"`，两个 `"l"`，两个 `"o"`，和一个 `"n"`。
 - en: Now, this doesn’t tell us everything about the string. Namely, we couldn’t tell
     from the hash table the order of characters within the string. So there’s a bit
     of data loss in this regard.
@@ -266,6 +311,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，这并没有告诉我们字符串的所有信息。具体来说，我们无法从哈希表中得知字符在字符串中的顺序。因此在这方面有些数据丢失。
 - en: 'However, that data loss is exactly what we need to help us determine whether
     the two strings are anagrams: two strings turn out to be anagrams if they have
     the same number of each character, no matter what the order is.'
@@ -273,6 +319,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，数据丢失正是我们需要的，这有助于我们确定两个字符串是否是异位词：如果两个字符串的每个字符的数量相同，无论顺序如何，它们就会是异位词。
 - en: Take the words “rattles”, “startle”, and “starlet”. They all have two “t”s,
     one “a”, one “l”, one “e”, and one “s”—and that’s what allows them to be anagrams
     and easily reordered to become each other.
@@ -280,6 +327,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以“rattles”、“startle”和“starlet”这几个单词为例。它们都有两个“t”、一个“a”、一个“l”、一个“e”和一个“s”——这就是使它们成为异位词的原因，并且可以轻松地重新排列成彼此。
 - en: We can now write an algorithm that converts each string into a hash table that
     tallies the count of each type of character. Once we’ve converted the two strings
     into two hash tables, all that’s left is to compare the two hash tables. If they’re
@@ -288,143 +336,172 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在可以编写一个算法，将每个字符串转换为一个哈希表，以统计每种字符的数量。一旦我们将两个字符串转换为两个哈希表，剩下的就是比较这两个哈希表。如果它们相等，这意味着这两个字符串是异位词。
 - en: 'Here’s an implementation:'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是一个实现：
 - en: '| ​  | `const` objectsEqual = (o1, o2) => Object.keys(o1).length |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` objectsEqual = (o1, o2) => Object.keys(o1).length |'
 - en: '| ​  | === Object.keys(o2).length && Object.keys(o1).every((p) => o1[p] ===
     o2[p]); |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | === Object.keys(o2).length && Object.keys(o1).every((p) => o1[p] ===
+    o2[p]); |'
 - en: '| ​  |  |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `function` areAnagrams(firstString, secondString) { |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` areAnagrams(firstString, secondString) { |'
 - en: '| ​  | `const` firstWordHashTable = {}; |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` firstWordHashTable = {}; |'
 - en: '| ​  | `const` secondWordHashTable = {}; |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` secondWordHashTable = {}; |'
 - en: '| ​  |  |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` `char` `of` firstString) { |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` `char` `of` firstString) { |'
 - en: '| ​  | `if` (firstWordHashTable[`char`]) { |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (firstWordHashTable[`char`]) { |'
 - en: '| ​  | firstWordHashTable[`char`] += 1; |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | firstWordHashTable[`char`] += 1; |'
 - en: '| ​  | } `else` { |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | firstWordHashTable[`char`] = 1; |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | firstWordHashTable[`char`] = 1; |'
 - en: '| ​  | } |'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` `char` `of` secondString) { |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` `char` `of` secondString) { |'
 - en: '| ​  | `if` (secondWordHashTable[`char`]) { |'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (secondWordHashTable[`char`]) { |'
 - en: '| ​  | secondWordHashTable[`char`] += 1; |'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | secondWordHashTable[`char`] += 1; |'
 - en: '| ​  | } `else` { |'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | secondWordHashTable[`char`] = 1; |'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | secondWordHashTable[`char`] = 1; |'
 - en: '| ​  | } |'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` objectsEqual(firstWordHashTable, secondWordHashTable); |'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` objectsEqual(firstWordHashTable, secondWordHashTable); |'
 - en: '| ​  | } |'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: In this algorithm, we iterate over each character from both strings just once,
     which is `N + M` steps.
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个算法中，我们只需遍历两个字符串中的每个字符一次，总共是 `N + M` 步。
 - en: Note that at the beginning of the code, we’ve included a handy `objectsEqual`
     function that compares two JavaScript objects (hash tables) and tells us whether
     they’re identical in terms of keys and values. This takes up to another `N + M`
@@ -436,6 +513,9 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，在代码的开头，我们包含了一个方便的 `objectsEqual` 函数，用于比较两个 JavaScript 对象（哈希表），并告诉我们它们在键和值方面是否相同。这最多需要另外
+    `N + M` 步，因为我们需要遍历哈希表中的每个键值对，以确保这些对在两个哈希表中都存在。然而，这总共只需 `2(N + M)` 步，简化为 `O(N +
+    M)`。这比我们之前的任何方法都快得多。
 - en: To be fair, we’re taking up some extra space with the creation of these hash
     tables. Our previous suggestion of sorting the two strings and comparing them
     would take up no extra space if we did the sorting in place. But if speed is what
@@ -445,6 +525,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 公平地说，我们在创建这些哈希表时占用了额外的空间。如果我们在原地进行排序，之前建议的对两个字符串进行排序并比较的方法则不会占用额外空间。但如果速度是我们追求的目标，哈希表的方法是无与伦比的，因为我们只需遍历字符串中的每个字符一次。
 - en: By converting the strings into another data structure (in this case, hash tables),
     we were able to access the original data in such a way that allowed our algorithm
     to become blazing fast.
@@ -452,6 +533,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过将字符串转换为另一种数据结构（在这种情况下，哈希表），我们能够以一种方式访问原始数据，使我们的算法变得极其快速。
 - en: It’s not always obvious what new data structure to use, so it’s good to imagine
     how the current data may look if it were converted into a variety of formats and
     see if that reveals any optimizations. That being said, hash tables turn out very
@@ -460,12 +542,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 并不总是明显该使用什么新的数据结构，所以想象当前数据如果被转换成各种格式可能会是什么样子，这样可以看看是否能揭示出任何优化。话虽如此，哈希表通常是一个很好的选择，因此这是一个很好的起点。
 - en: Group Sorting
   id: totrans-77
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 分组排序
 - en: Here’s another example of how changing the data structure can allow us to optimize
     our code. Let’s say we have an array containing several different values and we
     want to reorder the data so that the same values are grouped together. However,
@@ -474,59 +558,70 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个改变数据结构如何优化代码的另一个例子。假设我们有一个包含多种不同值的数组，我们想要重新排序数据，以便相同的值聚在一起。然而，我们并不一定关心这些组的顺序。
 - en: 'For example, let’s say we have the following array:'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，假设我们有以下数组：
 - en: '| ​  | ["a", "c", "d", "b", "b", "c", "a", "d", "c", "b", "a", "d"] |'
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["a", "c", "d", "b", "b", "c", "a", "d", "c", "b", "a", "d"] |'
 - en: 'Our goal is to sort this into groups, like so:'
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的目标是将其分组，如下所示：
 - en: '| ​  | ["c", "c", "c", "a", "a", "a", "d", "d", "d", "b", "b", "b"] |'
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["c", "c", "c", "a", "a", "a", "d", "d", "d", "b", "b", "b"] |'
 - en: 'Again, we don’t care about the order of the groups, so these results would
     also be acceptable:'
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 再次强调，我们不关心组的顺序，因此这些结果也是可以接受的：
 - en: '| ​  | ["d", "d", "d", "c", "c", "c", "a", "a", "a", "b", "b", "b"] |'
   id: totrans-84
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["d", "d", "d", "c", "c", "c", "a", "a", "a", "b", "b", "b"] |'
 - en: '| ​  | ["b", "b", "b", "c", "c", "c", "a", "a", "a", "d", "d", "d"] |'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["b", "b", "b", "c", "c", "c", "a", "a", "a", "d", "d", "d"] |'
 - en: 'Now, any classic sorting algorithm would accomplish our task since we’d end
     up with this:'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，任何经典的排序算法都能完成我们的任务，因为我们最终会得到：
 - en: '| ​  | ["a", "a", "a", "b", "b", "b", "c", "c", "c", "d", "d", "d"] |'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["a", "a", "a", "b", "b", "b", "c", "c", "c", "d", "d", "d"] |'
 - en: As you know, the fastest sorting algorithms clock in at O(N log N). But can
     we do better?
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如你所知，最快的排序算法的时间复杂度为 O(N log N)。但我们能做得更好吗？
 - en: Let’s begin by coming up with the best-imaginable Big O. Since we know that
     there generally aren’t sorting algorithms faster than O(N log N), it may be difficult
     to imagine how we can sort something in a faster time.
@@ -534,6 +629,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们开始构思一个最佳的 Big O。由于我们知道通常没有比 O(N log N) 更快的排序算法，所以想象我们如何能在更短的时间内排序可能会很困难。
 - en: But since we’re not doing a precise sort, if someone told me that our task can
     be done in O(N) time, I suppose I’d believe them. We certainly can’t beat O(N),
     since we need to visit each value at least once. So let’s aim for O(N).
@@ -541,29 +637,35 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但由于我们并不是在进行精确排序，如果有人告诉我我们的任务可以在 O(N) 时间内完成，我想我会相信他们。我们当然不能超越 O(N)，因为我们至少需要访问每个值一次。所以我们就朝着
+    O(N) 的目标努力吧。
 - en: Let’s employ the technique we’ve been discussing and imagine our data in the
     form of another data structure.
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们运用我们讨论过的技术，并想象我们的数据以另一种数据结构的形式存在。
 - en: We may as well start with a hash table. What would our array of strings look
     like if it were a hash table?
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以从哈希表开始。如果我们的字符串数组是一个哈希表，它会是什么样子？
 - en: 'If we took a similar approach to what we did with the anagrams, we could represent
     our array in the following way:'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们采取类似于处理字谜的方式，我们可以用以下方式表示我们的数组：
 - en: '| ​  | {`"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | {`"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
 - en: 'As with our previous example, there’s some data loss: we couldn’t convert this
     hash table back into our original array, as we wouldn’t know the original order
     of all the strings.'
@@ -571,6 +673,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与之前的例子一样，这里也有一些数据丢失：我们无法将这个哈希表转换回我们原来的数组，因为我们不知道所有字符串的原始顺序。
 - en: However, for our purposes of grouping, this data loss doesn’t matter. In fact,
     the hash table contains all the data we need to create the grouped array we’re
     looking for.
@@ -578,6 +681,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，出于分组的目的，这种数据丢失并不重要。实际上，哈希表包含了我们需要创建所需分组数组的所有数据。
 - en: 'Specifically, we can iterate over each key-value pair within the hash table
     and use that data to populate an array with the correct number of each string.
     Here’s the code for this:'
@@ -585,203 +689,243 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 具体来说，我们可以遍历哈希表中的每一个键值对，并使用这些数据填充一个包含每个字符串正确数量的数组。下面是这段代码：
 - en: '| ​  | `function` groupSort(array) { |'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` groupSort(array) { |'
 - en: '| ​  | `const` hashTable = {}; |'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` hashTable = {}; |'
 - en: '| ​  | `const` newArray = []; |'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` newArray = []; |'
 - en: '| ​  |  |'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` ( `const` value `of` array) { |'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` ( `const` value `of` array) { |'
 - en: '| ​  | `if` (hashTable[value]) { |'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (hashTable[value]) { |'
 - en: '| ​  | hashTable[value] += 1; |'
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | hashTable[value] += 1; |'
 - en: '| ​  | } `else` { |'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `hashTable[value] = 1;` |'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `hashTable[value] = 1;` |'
 - en: '| ​  | } |'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
 - en: '| ​  | `const` count = `hashTable[key];` |'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` count = `hashTable[key];` |'
 - en: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
 - en: '| ​  | `newArray.push(key);` |'
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `newArray.push(key);` |'
 - en: '| ​  | } |'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `newArray`; |'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `newArray`; |'
 - en: '| ​  | } |'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Our `groupSort` function accepts an array and then begins by creating an empty
     `hashTable` and an empty `newArray`.
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的 `groupSort` 函数接受一个数组，然后开始创建一个空的 `hashTable` 和一个空的 `newArray`。
 - en: 'We first collect the tallies of each string and store them in the `hashTable`:'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们首先收集每个字符串的计数并将其存储在 `hashTable` 中：
 - en: '| ​  | `for` (`const` value `of` `array`) { |'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` value `of` `array`) { |'
 - en: '| ​  | `if` (`hashTable[value]`) { |'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (`hashTable[value]`) { |'
 - en: '| ​  | `hashTable[value] += 1;` |'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `hashTable[value] += 1;` |'
 - en: '| ​  | } `else` { |'
   id: totrans-124
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `hashTable[value] = 1;` |'
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `hashTable[value] = 1;` |'
 - en: '| ​  | } |'
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 'This creates the `hashTable` that looks like this:'
   id: totrans-128
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这会创建如下所示的 `hashTable`：
 - en: '| ​  | `{` `"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{` `"a"`: 3, `"c"`: 3, `"d"`: 3, `"b"`: 3} |'
 - en: 'Then we proceed to iterate over each key-value pair and use this data to populate
     the `newArray`:'
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们开始遍历每个键值对，利用这些数据填充 `newArray`：
 - en: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` key `of` `Object.keys(hashTable)) {` |'
 - en: '| ​  | `const` count = `hashTable[key];` |'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` count = `hashTable[key];` |'
 - en: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` i = 0; i < `count`; i += 1) { |'
 - en: '| ​  | `newArray.push(key);` |'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `newArray.push(key);` |'
 - en: '| ​  | } |'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 'So when we reach the pair `"a"`: 3, we add three `"a"`s to the `newArray`.
     And when we reach `"c"`: 3, we add three `"c"`s to the `newArray`, and so on.
     By the time we’re done, our `newArray` will contain all the strings organized
@@ -790,6 +934,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '所以当我们达到对 `"a"`: 3 的统计时，我们将三个 `"a"` 添加到 `newArray` 中。当我们达到 `"c"`: 3 时，我们将三个
+    `"c"` 添加到 `newArray` 中，依此类推。等到我们完成时，我们的 `newArray` 将包含所有分组的字符串。'
 - en: This algorithm takes just O(N) time, which is a significant optimization over
     the O(N log N) that sorting would have taken. We do use up O(N) space with the
     extra `hashTable` and `newArray`, although we could choose to overwrite the original
@@ -799,9 +945,12 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 该算法仅需 O(N) 的时间，这比排序所需的 O(N log N) 有显著的优化。我们确实使用了 O(N) 的空间来存储额外的 `hashTable`
+    和 `newArray`，尽管我们可以选择覆盖原始数组以节省额外的内存。也就是说，`hashTable` 占用的空间在最坏情况下仍将是 O(N)，当数组中的每个字符串都不同时。
 - en: But again, if speed is our goal, we achieved our best-imaginable Big O, which
     is a fantastic win.
   id: totrans-139
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但如果速度是我们的目标，我们达到了最佳的 Big O，这是一个了不起的胜利。

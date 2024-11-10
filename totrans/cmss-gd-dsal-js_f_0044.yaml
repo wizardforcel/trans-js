@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 二次问题
 - en: Here’s a practical example of where we can replace a slow `O(N²)` algorithm
     with a speedy `O(N)` one.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个实际示例，我们可以在这里用快速的 `O(N)` 算法替换慢的 `O(N²)` 算法。
 - en: Let’s say you’re working on a JavaScript application that analyzes the ratings
     people give to products, where users leave ratings from `0` to `10`. Specifically,
     you’re writing a function that checks whether an array of ratings contains any
@@ -19,6 +21,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设你正在开发一个分析人们对产品评分的 JavaScript 应用，用户的评分范围从 `0` 到 `10`。具体来说，你正在编写一个函数来检查评分数组中是否包含任何重复的数字。这将在软件的其他部分用于更复杂的计算。
 - en: For example, the array `[1, 5, 3, 9, 1, 4]` has two instances of the number
     `1`, so we’d return `true` to indicate that the array has a case of duplicate
     numbers.
@@ -26,57 +29,68 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，数组 `[1, 5, 3, 9, 1, 4]` 中有两个 `1`，因此我们会返回 `true`，以指示数组中存在重复数字。
 - en: 'One of the first approaches that may come to mind is the use of nested loops,
     as follows:'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 可能首先想到的方法之一是使用嵌套循环，如下所示：
 - en: '| ​  | `function` hasDuplicateValue(`array`) { |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` hasDuplicateValue(`array`) { |'
 - en: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
 - en: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
 - en: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { `return` `true`; } |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { `return` `true`; } |'
 - en: '| ​  | } |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `false`; |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `false`; |'
 - en: '| ​  | } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: In this function, we iterate through each value of the array using the variable
     `i`. As we focus on each value in `i`, we then run a second loop that looks through
     all the values in the array—using `j`—and checks if the values at positions `i`
@@ -88,12 +102,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个函数中，我们使用变量 `i` 遍历数组中的每个值。当我们关注 `i` 中的每个值时，我们会运行一个第二个循环，使用 `j` 查看数组中的所有值，并检查位置
+    `i` 和 `j` 的值是否相同。如果相同，则表示我们遇到了重复值，我们返回 `true`。如果我们完成所有循环而没有遇到任何重复项，我们返回 `false`，因为我们知道数组中没有重复项。
 - en: While this certainly works, is it efficient? Now that we know a bit about Big
     O notation, let’s take a step back and see what Big O would say about this function.
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然这确实有效，但效率如何？既然我们对大 O 符号有了一定了解，让我们退一步看看大 O 对这个函数的看法。
 - en: 'Remember that Big O expresses how many steps the algorithm takes relative to
     `N` data values. To apply this to our situation, we’d ask ourselves: for `N` values
     in the array provided to our `hasDuplicateValue` function, how many steps would
@@ -102,12 +119,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请记住，大 O 表示算法相对于 `N` 个数据值所需的步骤数。要将此应用于我们的情况，我们需要问自己：对于提供给我们 `hasDuplicateValue`
+    函数的 `N` 个值，我们的算法在最坏情况下将需要多少步骤？
 - en: To answer the preceding question, we need to analyze what steps our function
     takes as well as what the worst-case scenario would be.
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了回答前面的问题，我们需要分析我们的函数采取了哪些步骤，以及最坏的情况会是什么。
 - en: The preceding function has one type of step, namely comparisons. It repeatedly
     compares `array[i]` and `array[j]` to see if they are equal and therefore represent
     a duplicate pair. In a worst-case scenario, the array contains no duplicates,
@@ -117,6 +137,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 前面的函数有一种类型的步骤，即比较。它反复比较 `array[i]` 和 `array[j]` 以查看它们是否相等，因此表示一个重复对。在最坏的情况下，数组中没有重复项，这将迫使我们的代码完成所有循环并耗尽每个可能的比较，然后才返回
+    `false`。
 - en: Based on this, we can conclude that for `N` values in the array, our function
     would perform `N²` comparisons. This is because we perform an outer loop that
     must iterate `N` times to get through the entire array, and for each iteration,
@@ -126,95 +148,116 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 基于此，我们可以得出结论，对于数组中的 `N` 个值，我们的函数将执行 `N²` 次比较。这是因为我们执行一个外部循环，必须迭代 `N` 次以遍历整个数组，对于每次迭代，我们必须再用内部循环迭代
+    `N` 次。也就是说，`N` 步骤 * `N` 步骤，等于 `N²` 步骤，这使得我们的算法为 `O(N²)`。
 - en: 'We can actually prove that our function takes `N²` steps by adding some code
     to our function that tracks the algorithm’s number of steps:'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们实际上可以通过向函数添加一些代码来证明我们的函数需要 `N²` 步骤，这些代码跟踪算法的步骤数量：
 - en: '| ​  | `function` hasDuplicateValue(`array`) { |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` hasDuplicateValue(`array`) { |'
 - en: '| ​  | `let` steps = 0; `// count of steps` |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` steps = 0; `// count of steps` |'
 - en: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` i = 0; i < `array.length`; i += 1) { |'
 - en: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`let` j = 0; j < `array.length`; j += 1) { |'
 - en: '| ​  | `steps += 1;` `// increment number of steps` |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `steps += 1;` `// increment number of steps` |'
 - en: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (i !== j && `array[i]` === `array[j]`) { |'
 - en: '| ​  | `return`​ `true`; |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `true`; |'
 - en: '| ​  | } |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `console.log(steps);` `// print number of steps if no duplicates` |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `console.log(steps);` `// print number of steps if no duplicates` |'
 - en: '| ​  | `return`​ `false`; |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `false`; |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这段新增的代码将在没有重复项时打印出所用的步骤数。例如，如果我们运行`hasDuplicateValue([1, 4, 5, 2, 9])`，我们将在JavaScript控制台看到输出为25，这表明对数组中的五个元素进行了二十五次比较。如果我们对其他值进行测试，我们会看到输出始终是数组大小的平方。这是经典的
     O(N²)。
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段新增的代码将在没有重复项时打印出所用的步骤数。例如，如果我们运行`hasDuplicateValue([1, 4, 5, 2, 9])`，我们将在JavaScript控制台看到输出为25，这表明对数组中的五个元素进行了二十五次比较。如果我们对其他值进行测试，我们会看到输出始终是数组大小的平方。这是经典的
+    O(N²)。
 - en: 通常（但并不总是），当一个算法将一个循环嵌套在另一个循环中时，该算法是 O(N²)。因此，每当你看到一个嵌套循环时，O(N²)的警报应该在你的脑海中响起。
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通常（但并不总是），当一个算法将一个循环嵌套在另一个循环中时，该算法是 O(N²)。因此，每当你看到一个嵌套循环时，O(N²)的警报应该在你的脑海中响起。
 - en: 现在，我们的函数是 O(N²) 这一事实应该让我们警觉。这是因为 O(N²) 被认为是相对较慢的算法。每当你遇到一个慢算法时，花点时间考虑是否有更快的替代方案是值得的。可能没有更好的替代方案，但让我们首先确认一下。
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们的函数是 O(N²) 这一事实应该让我们警觉。这是因为 O(N²) 被认为是相对较慢的算法。每当你遇到一个慢算法时，花点时间考虑是否有更快的替代方案是值得的。可能没有更好的替代方案，但让我们首先确认一下。

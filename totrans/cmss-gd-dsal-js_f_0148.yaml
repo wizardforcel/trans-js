@@ -4,77 +4,91 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 删除操作
 - en: Deletion is the least straightforward operation within a binary search tree
     and requires some careful maneuvering.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在二叉搜索树中，删除操作是最不直接的操作，需要一些小心的处理。
 - en: 'Let’s say we want to delete the `4` from this binary search tree:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们想从这棵二叉搜索树中删除`4`：
 - en: '![images/binary_trees/bst_4.png](images/binary_trees/bst_4.png)'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_4.png](images/binary_trees/bst_4.png)'
 - en: First, we perform a search to find the `4`。 We won’t visualize this search again,
     since you’ve already got that down.
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们执行搜索以找到`4`。我们不再可视化这个搜索，因为你已经掌握了。
 - en: Once we find the `4`，we can delete it in one step：
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦找到`4`，我们可以一步删除它：
 - en: '![images/binary_trees/bst_16.png](images/binary_trees/bst_16.png)'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_16.png](images/binary_trees/bst_16.png)'
 - en: Well, that was simple. But let’s see what happens when we try to delete the
     `10`：
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 好吧，这很简单。但是让我们看看当我们尝试删除`10`时会发生什么：
 - en: '![images/binary_trees/bst_17.png](images/binary_trees/bst_17.png)'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_17.png](images/binary_trees/bst_17.png)'
 - en: We end up with an `11` that isn’t connected to the tree anymore. And we can’t
     have that, because we’d lose the `11` forever.
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们最终得到了一个不再与树连接的`11`。我们不能这样，因为我们会永远失去`11`。
 - en: 'However, to solve this problem, we can plug the `11` into where the `10` used
     to be:'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，为了解决这个问题，我们可以把`11`放入`10`曾经的位置：
 - en: '![images/binary_trees/bst_18.png](images/binary_trees/bst_18.png)'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_18.png](images/binary_trees/bst_18.png)'
 - en: 'So far, our deletion algorithm follows these rules:'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 到目前为止，我们的删除算法遵循以下规则：
 - en: If the node being deleted has no children, simply delete it.
   id: totrans-13
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果被删除的节点没有子节点，简单地将其删除。
 - en: If the node being deleted has one child, delete the node and plug the child
     into the spot where the deleted node was.
   id: totrans-14
@@ -82,23 +96,27 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果被删除的节点有一个子节点，删除该节点并将子节点放入被删除节点的位置。
 - en: Deleting a Node with Two Children
   id: totrans-15
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 删除一个有两个子节点的节点
 - en: Deleting a node that has two children is the most complex scenario. Let’s say
     we want to delete the `56` in this tree：
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 删除一个有两个子节点的节点是最复杂的情况。假设我们想在这棵树中删除`56`：
 - en: '![images/binary_trees/bst_19.png](images/binary_trees/bst_19.png)'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_19.png](images/binary_trees/bst_19.png)'
 - en: 'What are we going to do with its former children, `52` and `61`? We can’t move
     both of them to where the `56` was. This is where the next rule of the deletion
     algorithm comes into play:'
@@ -106,6 +124,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们将如何处理它之前的子节点`52`和`61`？我们不能把它们都移动到`56`的位置。这就是删除算法的下一个规则发挥作用的地方：
 - en: When deleting a node with two children, replace the deleted node with the successor
     node. The successor node is the child node whose value is the least of all values
     that are greater than the deleted node.
@@ -114,6 +133,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 当删除一个有两个子节点的节点时，用后继节点替换被删除的节点。后继节点是值大于被删除节点的所有值中最小的子节点。
 - en: 'That was a tricky sentence. To put it in other words: if we were to put the
     deleted node and all of its descendants in ascending order, the successor node
     would be the next number after the one we just deleted.'
@@ -121,6 +141,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 那是一个棘手的句子。换句话说：如果我们将被删除的节点及其所有后代按升序排列，后继节点就是我们刚刚删除的节点之后的下一个数字。
 - en: In this case, it’s easy to figure out which node is the successor since the
     deleted node had only two descendants. If we put the numbers `52-56-61` in ascending
     order, the next number after `56` is `61`.
@@ -128,34 +149,40 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，很容易找出哪个节点是后继，因为被删除的节点只有两个后代。如果我们将数字`52-56-61`按升序排列，`56`之后的下一个数字是`61`。
 - en: Once we find the successor node, we plug it into where the deleted node was.
     So we replace the `56` with the `61`：
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦找到后继节点，我们就把它放入被删除节点的位置。因此，我们用`61`替换`56`：
 - en: '![images/binary_trees/bst_20.png](images/binary_trees/bst_20.png)'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_20.png](images/binary_trees/bst_20.png)'
 - en: Finding the Successor Node
   id: totrans-24
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 查找后继节点
 - en: How does the computer find the successor node? This can be tricky when we delete
     a node high up in the tree.
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 计算机是如何找到后继节点的？当我们删除树中较高的节点时，这可能会很棘手。
 - en: 'Here’s the algorithm for finding the successor node:'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是查找后继节点的算法：
 - en: Visit the right child of the deleted value, and then keep on visiting the left
     child of each subsequent child until there are no more left children. The bottom
     value is the successor node.
@@ -164,60 +191,71 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 访问被删除值的右子节点，然后继续访问每个后续子节点的左子节点，直到没有更多的左子节点为止。最底部的值就是后继节点。
 - en: 'Let’s see this again in action in a more complex example. Let’s delete the
     root node:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们在一个更复杂的例子中再次看到这个过程。让我们删除根节点：
 - en: '![images/binary_trees/delete_root_node.png](images/binary_trees/delete_root_node.png)'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/delete_root_node.png](images/binary_trees/delete_root_node.png)'
 - en: We now need to plug the successor node into where the `50` was and turn it into
     the root node. So let’s find the successor node.
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在需要将后继节点插入`50`的位置，并将其转变为根节点。那么让我们找到后继节点。
 - en: 'To do this, we first visit the right child of the deleted node, and then keep
     descending leftward until we reach a node that doesn’t have a left child:'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为此，我们首先访问被删除节点的右子节点，然后继续向左下降，直到到达一个没有左子节点的节点：
 - en: '![images/binary_trees/bst_21.png](images/binary_trees/bst_21.png)'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_21.png](images/binary_trees/bst_21.png)'
 - en: It turns out that the `52` is the successor node.
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实证明，`52`是后继节点。
 - en: 'Now that we’ve found the successor node, we plug it into the node we deleted:'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们已经找到了后继节点，我们将其插入我们删除的节点中：
 - en: '![images/binary_trees/bst_22.png](images/binary_trees/bst_22.png)'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_22.png](images/binary_trees/bst_22.png)'
 - en: And we’re done!
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们完成了！
 - en: Successor Node with a Right Child
   id: totrans-37
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 具有右子节点的后继节点
 - en: 'We haven’t accounted for one case yet, though, and that’s where the successor
     node has a right child of its own. Let’s re-create the preceding tree but add
     a right child to the `52`:'
@@ -225,11 +263,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，我们还没有考虑到一种情况，那就是后继节点有自己的右子节点。让我们重建前面的树，但给`52`添加一个右子节点：
 - en: '![images/binary_trees/bst_23.png](images/binary_trees/bst_23.png)'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_23.png](images/binary_trees/bst_23.png)'
 - en: 'In this case, we can’t simply plug the successor node—the `52`—into the root,
     since we’d leave its child of `55` hanging. This leads us to one more rule for
     our deletion algorithm:'
@@ -237,6 +277,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，我们不能简单地将后继节点`52`插入根节点，因为那样会让它的子节点`55`悬空。这给我们的删除算法带来了一个新的规则：
 - en: If the successor node has a right child, after plugging the successor node into
     the spot of the deleted node, take the former right child of the successor node
     and place it where the successor node used to be.
@@ -245,39 +286,46 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果后继节点有一个右子节点，在将后继节点插入被删除节点的位置后，取后继节点的前右子节点并放置在后继节点曾经的位置。
 - en: That was another tricky sentence, so let’s walk through the steps.
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这又是一个棘手的句子，所以让我们一步步来。
 - en: 'First, we plug the successor node (`52`) into the root. This leaves the `55`
     dangling without a parent:'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们将后继节点（`52`）插入根节点。这使得`55`没有父节点而悬空：
 - en: '![images/binary_trees/bst_24.png](images/binary_trees/bst_24.png)'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_24.png](images/binary_trees/bst_24.png)'
 - en: 'Next, we place the `55` in the spot where the successor node used to be, which
     is the left child of the `61`:'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们将`55`放在后继节点曾经的位置，也就是`61`的左子节点：
 - en: '![images/binary_trees/bst_25.png](images/binary_trees/bst_25.png)'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_25.png](images/binary_trees/bst_25.png)'
 - en: Successor Node is a Right Child
   id: totrans-47
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 后继节点是右子节点
 - en: 'It can sometimes happen that the successor node is itself a right child. And
     sometimes this successor node can have a right child of its own. For example,
     in the following tree, if we delete the `3`, the `4` becomes the successor node,
@@ -286,11 +334,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有时会发生后继节点本身就是右子节点的情况。有时，这个后继节点可能还有自己的右子节点。例如，在以下树中，如果我们删除`3`，`4`就成为后继节点，因为`4`没有左子节点：
 - en: '![images/binary_trees/bst_15.png](images/binary_trees/bst_15.png)'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_15.png](images/binary_trees/bst_15.png)'
 - en: Here, when we plug the successor node into the spot where the deleted `3` was,
     we don’t make the `5` dangling and reattach it elsewhere. Instead, we simply keep
     the `5` as the `4`’s right child.
@@ -298,29 +348,34 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，当我们将后继节点插入被删除的`3`的位置时，我们不会让`5`悬空并在其他地方重新连接。相反，我们只是将`5`保留为`4`的右子节点。
 - en: And now we’re really done.
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们真的完成了。
 - en: The Complete Deletion Algorithm
   id: totrans-52
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 完整的删除算法
 - en: 'Putting all the steps together, here is the algorithm for deletion from a binary
     search tree:'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将所有步骤结合在一起，这就是从二叉搜索树中删除的算法：
 - en: If the node being deleted has no children, simply delete it.
   id: totrans-54
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果被删除的节点没有子节点，简单地删除它。
 - en: If the node being deleted has one child, delete the node and plug the child
     into the spot where the deleted node was.
   id: totrans-55
@@ -328,6 +383,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果被删除的节点有一个子节点，删除该节点并将子节点插入被删除节点的位置。
 - en: When deleting a node with two children, replace the deleted node with the successor
     node. The successor node is the child node whose value is the least of all values
     that are greater than the deleted node.
@@ -336,6 +392,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 当删除一个具有两个子节点的节点时，用后继节点替换被删除的节点。后继节点是值大于被删除节点的所有值中最小的子节点。
 - en: 'To find the successor node: visit the right child of the deleted node, and
     then keep on visiting the left child of each subsequent child until there are
     no more left children. The bottom node is the successor node. If the deleted node’s
@@ -346,6 +403,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 要找到继承节点：访问删除节点的右子节点，然后继续访问每个后续子节点的左子节点，直到没有更多左子节点。底部节点就是继承节点。如果删除节点的右子节点没有左子节点，删除节点的右子节点本身就成为继承节点。
 - en: If the successor node has a right child (and the successor node was itself a
     left child of its parent), after plugging the successor node into the spot of
     the deleted node, take the former right child of the successor node and turn it
@@ -355,12 +413,14 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果继承节点有右子节点（而且继承节点本身是其父节点的左子节点），在将继承节点插入删除节点的位置后，将继承节点的前右子节点变为前继承节点父节点的左子节点。
 - en: 'Code Implementation: Binary Search Tree Deletion'
   id: totrans-59
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：二叉搜索树删除
 - en: 'Here’s a JavaScript implementation of deletion from a binary search tree. The
     primary method here is `delete`, which in turn relies on a helper method called
     `replaceWithSuccessorNode`:'
@@ -368,572 +428,688 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个从二叉搜索树中删除的 JavaScript 实现。这里的主要方法是 `delete`，它依赖于一个名为 `replaceWithSuccessorNode`
+    的辅助方法：
 - en: '`function deleteNode(valueToDelete, node) {`'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`function deleteNode(valueToDelete, node) {`'
 - en: '`let currentNode = node;`'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let currentNode = node;`'
 - en: '`let parentOfCurrentNode;`'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let parentOfCurrentNode;`'
 - en: '`let childOfDeletedNode;`'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let childOfDeletedNode;`'
 - en: '`let nodeToDelete;`'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let nodeToDelete;`'
 - en: '``'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`while (currentNode) {`'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`while (currentNode) {`'
 - en: '`if (currentNode.value === valueToDelete) {`'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (currentNode.value === valueToDelete) {`'
 - en: '`nodeToDelete = currentNode;`'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`nodeToDelete = currentNode;`'
 - en: '`break;`'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`break;`'
 - en: '`}`'
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`parentOfCurrentNode = currentNode;`'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfCurrentNode = currentNode;`'
 - en: '`if (valueToDelete < currentNode.value) {`'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (valueToDelete < currentNode.value) {`'
 - en: '`currentNode = currentNode.leftChild;`'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`currentNode = currentNode.leftChild;`'
 - en: '`} else if (valueToDelete > currentNode.value) {`'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`} else if (valueToDelete > currentNode.value) {`'
 - en: '`currentNode = currentNode.rightChild;`'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`currentNode = currentNode.rightChild;`'
 - en: '`}`'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '`}`'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`if (!nodeToDelete) { return null; }`'
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (!nodeToDelete) { return null; }`'
 - en: '``'
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`if (nodeToDelete.leftChild && nodeToDelete.rightChild) {`'
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (nodeToDelete.leftChild && nodeToDelete.rightChild) {`'
 - en: '`replaceWithSuccessorNode(nodeToDelete);`'
   id: totrans-84
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`replaceWithSuccessorNode(nodeToDelete);`'
 - en: '`} else { // deleted node has 0 or 1 children`'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`} else { // deleted node has 0 or 1 children`'
 - en: '`childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`'
 - en: '``'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`if (!parentOfCurrentNode) {`'
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (!parentOfCurrentNode) {`'
 - en: '`nodeToDelete.value = childOfDeletedNode.value;`'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`nodeToDelete.value = childOfDeletedNode.value;`'
 - en: '`nodeToDelete.leftChild = childOfDeletedNode.leftChild;`'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`nodeToDelete.leftChild = childOfDeletedNode.leftChild;`'
 - en: '`nodeToDelete.rightChild = childOfDeletedNode.rightChild;`'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`nodeToDelete.rightChild = childOfDeletedNode.rightChild;`'
 - en: '`} else if (nodeToDelete === parentOfCurrentNode.leftChild) {`'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`} else if (nodeToDelete === parentOfCurrentNode.leftChild) {`'
 - en: '`parentOfCurrentNode.leftChild = childOfDeletedNode;`'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfCurrentNode.leftChild = childOfDeletedNode;`'
 - en: '`} else if (nodeToDelete === parentOfCurrentNode.rightChild) {`'
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`} else if (nodeToDelete === parentOfCurrentNode.rightChild) {`'
 - en: '`parentOfCurrentNode.rightChild = childOfDeletedNode;`'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfCurrentNode.rightChild = childOfDeletedNode;`'
 - en: '`}`'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '`}`'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`return nodeToDelete;`'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`return nodeToDelete;`'
 - en: '`}`'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`function replaceWithSuccessorNode(node) {`'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`function replaceWithSuccessorNode(node) {`'
 - en: '`let successorNode = node.rightChild;`'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let successorNode = node.rightChild;`'
 - en: '`let parentOfSuccessorNode;`'
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`let parentOfSuccessorNode;`'
 - en: '``'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`if (!successorNode.leftChild) {`'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (!successorNode.leftChild) {`'
 - en: '`node.value = successorNode.value;`'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`node.value = successorNode.value;`'
 - en: '`node.rightChild = successorNode.rightChild;`'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`node.rightChild = successorNode.rightChild;`'
 - en: '`return;`'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`return;`'
 - en: '`}`'
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`while (successorNode.leftChild) {`'
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`while (successorNode.leftChild) {`'
 - en: '`parentOfSuccessorNode = successorNode;`'
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfSuccessorNode = successorNode;`'
 - en: '`successorNode = successorNode.leftChild;`'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`successorNode = successorNode.leftChild;`'
 - en: '`}`'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`if (successorNode.rightChild) {`'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`if (successorNode.rightChild) {`'
 - en: '`parentOfSuccessorNode.leftChild = successorNode.rightChild;`'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfSuccessorNode.leftChild = successorNode.rightChild;`'
 - en: '`} else {`'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`} else {`'
 - en: '`parentOfSuccessorNode.leftChild = null;`'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`parentOfSuccessorNode.leftChild = null;`'
 - en: '`}`'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`}`'
 - en: '``'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '``'
 - en: '`node.value = successorNode.value;`'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`node.value = successorNode.value;`'
 - en: '`return successorNode;`'
   id: totrans-124
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '`return successorNode;`'
 - en: '| ​  | } |'
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这段代码相当多，但我们将一步步走过。
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段代码相当多，但我们将一步步走过。
 - en: 与搜索和插入相比，我们在没有递归的情况下编写了删除代码。虽然我们可以递归地编写删除方法，但我发现递归删除代码要比非递归的代码难以理解得多。相反，我们使用循环在树中移动。
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与搜索和插入相比，我们在没有递归的情况下编写了删除代码。虽然我们可以递归地编写删除方法，但我发现递归删除代码要比非递归的代码难以理解得多。相反，我们使用循环在树中移动。
 - en: 让我们开始逐步了解删除方法。
   id: totrans-128
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们开始逐步了解删除方法。
 - en: 当我们调用这个方法时，我们传入想要删除的值（valueToDelete）以及树的根节点（node）。
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们调用这个方法时，我们传入想要删除的值（valueToDelete）以及树的根节点（node）。
 - en: 一开始，我们创建了几个变量：
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一开始，我们创建了几个变量：
 - en: '| ​  | `let` currentNode = node; |'
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = node; |'
 - en: '| ​  | `let` parentOfCurrentNode; |'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` parentOfCurrentNode; |'
 - en: '| ​  | `let` childOfDeletedNode; |'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` childOfDeletedNode; |'
 - en: '| ​  | `let` nodeToDelete; |'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` nodeToDelete; |'
 - en: '`currentNode`最初指向根节点，但在我们向下移动树时会被更新，寻找要删除的值。`parentOfCurrentNode`，顾名思义，将追踪`currentNode`的父节点。`childOfDeletedNode`的情况也是如此。我们需要追踪这些变量的原因稍后会变得清楚。最后，`nodeToDelete`最终将指向我们要删除的节点。'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`currentNode`最初指向根节点，但在我们向下移动树时会被更新，寻找要删除的值。`parentOfCurrentNode`，顾名思义，将追踪`currentNode`的父节点。`childOfDeletedNode`的情况也是如此。我们需要追踪这些变量的原因稍后会变得清楚。最后，`nodeToDelete`最终将指向我们要删除的节点。'
 - en: 然后我们开始一个循环，在树中搜索`valueToDelete`。这本质上是一个搜索操作，但这次我们使用迭代而不是递归：
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们开始一个循环，在树中搜索`valueToDelete`。这本质上是一个搜索操作，但这次我们使用迭代而不是递归：
 - en: '| ​  | `while`(currentNode) { |'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while`(currentNode) { |'
 - en: '| ​  | `if`(currentNode.value === valueToDelete) { |'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`(currentNode.value === valueToDelete) { |'
 - en: '| ​  | nodeToDelete = currentNode; |'
   id: totrans-139
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | nodeToDelete = currentNode; |'
 - en: '| ​  | `break`; |'
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `break`; |'
 - en: '| ​  | } |'
   id: totrans-141
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | parentOfCurrentNode = currentNode; |'
   id: totrans-143
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | parentOfCurrentNode = currentNode; |'
 - en: '| ​  | `if`(valueToDelete < currentNode.value) { |'
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`(valueToDelete < currentNode.value) { |'
 - en: '| ​  | currentNode = currentNode.leftChild; |'
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = currentNode.leftChild; |'
 - en: '| ​  | } `else` `if`(valueToDelete > currentNode.value) { |'
   id: totrans-146
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if`(valueToDelete > currentNode.value) { |'
 - en: '| ​  | currentNode = currentNode.rightChild; |'
   id: totrans-147
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentNode = currentNode.rightChild; |'
 - en: '| ​  | } |'
   id: totrans-148
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-149
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这个代码片段在树中向下移动，随着我们搜索`valueToDelete`更新`currentNode`。如果我们没有找到它（当值不在树中时就是这种情况），循环会因`currentNode`为`null`而自动终止。
   id: totrans-150
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个代码片段在树中向下移动，随着我们搜索`valueToDelete`更新`currentNode`。如果我们没有找到它（当值不在树中时就是这种情况），循环会因`currentNode`为`null`而自动终止。
 - en: 然而，如果我们找到了`valueToDelete`，我们将`currentNode`声明为`nodeToDelete`并退出循环。注意，我们还跟踪`parentOfCurrentNode`，它现在是我们将要删除的节点的父节点。
   id: totrans-151
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，如果我们找到了`valueToDelete`，我们将`currentNode`声明为`nodeToDelete`并退出循环。注意，我们还跟踪`parentOfCurrentNode`，它现在是我们将要删除的节点的父节点。
 - en: 接下来，我们有这个代码片段：
   id: totrans-152
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们有这个代码片段：
 - en: '| ​  | `if`(!nodeToDelete) { `return` `null`; } |'
   id: totrans-153
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`(!nodeToDelete) { `return` `null`; } |'
 - en: 如果我们想要删除的值根本不在树中，则返回`null`。
   id: totrans-154
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们想要删除的值根本不在树中，则返回`null`。
 - en: 该方法的其余部分执行实际的删除操作。我们首先处理最复杂的情况，即我们要删除的节点有两个子节点：
   id: totrans-155
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 该方法的其余部分执行实际的删除操作。我们首先处理最复杂的情况，即我们要删除的节点有两个子节点：
 - en: '| ​  | `if`(nodeToDelete.leftChild && nodeToDelete.rightChild) { |'
   id: totrans-156
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`(nodeToDelete.leftChild && nodeToDelete.rightChild) { |'
 - en: '| ​  | replaceWithSuccessorNode(nodeToDelete); |'
   id: totrans-157
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | replaceWithSuccessorNode(nodeToDelete); |'
 - en: '| ​  | } |'
   id: totrans-158
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 在这里，我们将重任外包给`replaceWithSuccessorNode`辅助方法，稍后我们会分析它。与此同时，让我们继续。
   id: totrans-159
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们将重任外包给`replaceWithSuccessorNode`辅助方法，稍后我们会分析它。与此同时，让我们继续。
 - en: 接下来，我们处理被删除节点有0个或1个子节点的情况：
   id: totrans-160
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们处理被删除节点有0个或1个子节点的情况：
 - en: '| ​  | `else` { |'
   id: totrans-161
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `else` { |'
 - en: '| ​  | `childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`
     |'
   id: totrans-162
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `childOfDeletedNode = (nodeToDelete.leftChild || nodeToDelete.rightChild);`
+    |'
 - en: '| ​  |  |'
   id: totrans-163
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if (!parentOfCurrentNode) {` |'
   id: totrans-164
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (!parentOfCurrentNode) {` |'
 - en: '| ​  | `nodeToDelete.value = childOfDeletedNode.value;` |'
   id: totrans-165
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `nodeToDelete.value = childOfDeletedNode.value;` |'
 - en: '| ​  | `nodeToDelete.leftChild = childOfDeletedNode.leftChild;` |'
   id: totrans-166
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `nodeToDelete.leftChild = childOfDeletedNode.leftChild;` |'
 - en: '| ​  | `nodeToDelete.rightChild = childOfDeletedNode.rightChild;` |'
   id: totrans-167
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `nodeToDelete.rightChild = childOfDeletedNode.rightChild;` |'
 - en: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.leftChild) {` |'
   id: totrans-168
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.leftChild) {` |'
 - en: '| ​  | `parentOfCurrentNode.leftChild = childOfDeletedNode;` |'
   id: totrans-169
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `parentOfCurrentNode.leftChild = childOfDeletedNode;` |'
 - en: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.rightChild) {` |'
   id: totrans-170
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `} else if (nodeToDelete === parentOfCurrentNode.rightChild) {` |'
 - en: '| ​  | `parentOfCurrentNode.rightChild = childOfDeletedNode;` |'
   id: totrans-171
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `parentOfCurrentNode.rightChild = childOfDeletedNode;` |'
 - en: '| ​  | `}` |'
   id: totrans-172
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  | `}` |'
   id: totrans-173
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: Here, we first set a new variable called `childOfDeletedNode`, which will represent
     the deleted node’s child. In a case where the deleted node has no children, this
     variable will be set to `null`. This variable is crucial, for when we delete our
@@ -943,6 +1119,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们首先设置一个新变量`childOfDeletedNode`，表示被删除节点的子节点。如果被删除的节点没有子节点，则此变量将被设置为`null`。这个变量至关重要，因为在删除我们的`nodeToDelete`时，我们需要将其子节点放置在被删除节点原本的位置。
 - en: And that’s exactly what the code above does in the two `else if` clauses. It
     determines whether the deleted node was a left or right child of its parent, and
     attaches the `childOfDeletedNode` to the deleted node’s parent accordingly.
@@ -950,6 +1127,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 而这正是上面代码在两个`else if`子句中所做的。它确定被删除的节点是其父节点的左子节点还是右子节点，并相应地将`childOfDeletedNode`附加到被删除节点的父节点上。
 - en: The first clause in the `if` statement handles the case where we’re deleting
     the root node. To ensure that we mark the deleted root’s child as the new root,
     we overwrite the root with its child.
@@ -957,17 +1135,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`if`语句中的第一个子句处理删除根节点的情况。为了确保我们将被删除根节点的子节点标记为新根，我们用其子节点覆盖根节点。'
 - en: 'This brings us to the final line of our method, which simply returns the deleted
     node in case we may want to use it for some other purpose:'
   id: totrans-177
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这带我们到了方法的最后一行，它简单地返回被删除的节点，以防我们想将其用于其他目的：
 - en: '| ​  | `return nodeToDelete;` |'
   id: totrans-178
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return nodeToDelete;` |'
 - en: Let’s now return to the case where the deleted node had two children. Our previous
     code called the helper method `replaceWithSuccessorNode`, so let’s walk through
     that now.
@@ -975,82 +1156,98 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们回到被删除节点有两个子节点的情况。我们之前的代码调用了辅助方法 `replaceWithSuccessorNode`，现在我们来逐步分析它。
 - en: When calling this method, we pass in the node that we’ll be deleting, which
     will be called `node`.
   id: totrans-180
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 调用此方法时，我们传入要删除的节点，该节点将被称为 `node`。
 - en: 'Next, we identify the successor node using the following code:'
   id: totrans-181
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们使用以下代码识别后继节点：
 - en: '| ​  | `let successorNode = node.rightChild;` |'
   id: totrans-182
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let successorNode = node.rightChild;` |'
 - en: '| ​  | `let parentOfSuccessorNode;` |'
   id: totrans-183
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let parentOfSuccessorNode;` |'
 - en: '| ​  |  |'
   id: totrans-184
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if (!successorNode.leftChild) {` |'
   id: totrans-185
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (!successorNode.leftChild) {` |'
 - en: '| ​  | `node.value = successorNode.value;` |'
   id: totrans-186
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.value = successorNode.value;` |'
 - en: '| ​  | `node.rightChild = successorNode.rightChild;` |'
   id: totrans-187
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.rightChild = successorNode.rightChild;` |'
 - en: '| ​  | `return;` |'
   id: totrans-188
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return;` |'
 - en: '| ​  | `}` |'
   id: totrans-189
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-190
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while (successorNode.leftChild) {` |'
   id: totrans-191
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while (successorNode.leftChild) {` |'
 - en: '| ​  | `parentOfSuccessorNode = successorNode;` |'
   id: totrans-192
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `parentOfSuccessorNode = successorNode;` |'
 - en: '| ​  | `successorNode = successorNode.leftChild;` |'
   id: totrans-193
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `successorNode = successorNode.leftChild;` |'
 - en: '| ​  | `}` |'
   id: totrans-194
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: Here, we begin at the deleted node’s right child, and then move down the tree
     following left children until we can’t go any further. That bottom node is our
     successor node. We also keep track of the successor node’s parent.
@@ -1058,6 +1255,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们从被删除节点的右子节点开始，然后沿着左子节点向下移动，直到无法再继续。最底部的节点就是我们的后继节点。我们还跟踪后继节点的父节点。
 - en: However, in the case that the successor node happens to be the deleted node’s
     right child (which occurs when the deleted node’s right child has no left children),
     we simply plug the successor node into the spot where the deleted node was. If
@@ -1067,36 +1265,43 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，在后继节点恰好是被删除节点的右子节点的情况下（当被删除节点的右子节点没有左子节点时会发生这种情况），我们只需将后继节点放入被删除节点的位置。如果是这种情况，这就是我们所需的全部操作。但如果后继节点是其父节点的左子节点，我们就继续。
 - en: 'Next, we remove the successor node from its spot:'
   id: totrans-197
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们从其位置中移除后继节点：
 - en: '| ​  | `if` (successorNode.rightChild) { |'
   id: totrans-198
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (successorNode.rightChild) { |'
 - en: '| ​  | `parentOfSuccessorNode.leftChild = successorNode.rightChild;` |'
   id: totrans-199
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `parentOfSuccessorNode.leftChild = successorNode.rightChild;` |'
 - en: '| ​  | } `else` { |'
   id: totrans-200
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `parentOfSuccessorNode.leftChild = null;` |'
   id: totrans-201
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `parentOfSuccessorNode.leftChild = null;` |'
 - en: '| ​  | } |'
   id: totrans-202
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Our code deals with two possible cases. The second case (in the `else` clause)
     is the simpler case, which is when the successor node has no children. In that
     case, we wipe away the successor node by replacing it with `null`。
@@ -1104,12 +1309,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的代码处理了两种可能的情况。第二种情况（在 `else` 子句中）是较简单的情况，即后继节点没有子节点。在这种情况下，我们通过将后继节点替换为 `null`
+    来删除它。
 - en: In the more complex case, where the successor node has a right child, we place
     that right child in the spot where the successor node used to be.
   id: totrans-204
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在更复杂的情况下，如果后继节点有右子节点，我们将右子节点放在后继节点原来的位置。
 - en: We’ve successfully removed the successor node from the tree, but there’s one
     more critical step. Remember we didn’t initially set out to delete the successor
     node. Our entire goal was to delete the `node` from higher up in the tree.
@@ -1117,33 +1325,39 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们已经成功地从树中移除了后继节点，但还有一步关键的操作。请记住，我们最初并不打算删除后继节点。我们整个目标是删除树中更高位置的 `node`。
 - en: 'To do that, we plug the successor node into the spot of the node we’re deleting:'
   id: totrans-206
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了实现这一点，我们将后继节点插入要删除节点的位置：
 - en: '| ​  | `node.value = successorNode.value;` |'
   id: totrans-207
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.value = successorNode.value;` |'
 - en: Note that we don’t plug in the actual successor node; instead, we simply use
     its value to overwrite the value of `node`，effectively deleting `node`。
   id: totrans-208
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，我们并不直接插入实际的后继节点；相反，我们仅用其值覆盖 `node` 的值，有效地删除了 `node`。
 - en: And that’s it! It was a journey, but we did it.
   id: totrans-209
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 就这样！这是一个旅程，但我们做到了。
 - en: The Efficiency of Binary Search Tree Deletion
   id: totrans-210
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 二叉搜索树删除的效率
 - en: Like search and insertion, deleting from trees is also typically `O(log N)`。This
     is because deletion requires a search plus a few extra steps to deal with any
     hanging children。Contrast this with deleting a value from an ordered array, which
@@ -1153,3 +1367,5 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与搜索和插入一样，从树中删除节点通常也是 `O(log N)`。这是因为删除操作需要搜索以及一些额外步骤来处理任何悬挂的子节点。与此相比，从有序数组中删除一个值的复杂度是
+    `O(N`)，因为需要向左移动元素以填补被删除值的空缺。

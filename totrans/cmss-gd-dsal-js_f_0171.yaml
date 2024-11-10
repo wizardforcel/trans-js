@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: Trie 插入
 - en: Inserting a new word into a trie is similar to searching for an existing word.
     We first search to see if the word already exists in the trie. If it doesn’t,
     we insert the new word.
@@ -11,11 +12,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将新单词插入 trie 类似于搜索现有单词。我们首先检查该单词是否已存在于 trie 中。如果不存在，我们插入新单词。
 - en: 'Here’s how the algorithm goes:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 算法的步骤如下：
 - en: We establish a variable called `currentNode`. At the beginning of our algorithm,
     this points to the root node.
   id: totrans-3
@@ -23,6 +26,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们建立一个名为 `currentNode` 的变量。在算法开始时，这指向根节点。
 - en: We iterate over each character of our search string. Here, our search string
     represents the new word we’re inserting. We call it a search string since we’re
     also searching whether the string already exists in the trie.
@@ -31,6 +35,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们迭代搜索字符串的每个字符。在这里，我们的搜索字符串代表我们要插入的新单词。我们称之为搜索字符串，因为我们还要检查该字符串是否已存在于 trie 中。
 - en: As we point to each character of our search string, we look to see if the `currentNode`
     has a child with that character as a key.
   id: totrans-5
@@ -38,6 +43,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们指向搜索字符串的每个字符时，我们查看 `currentNode` 是否有以该字符为键的子节点。
 - en: If it does, we update the `currentNode` to become that child node, and we go
     back to Step 2, moving on to the next character of our search string.
   id: totrans-6
@@ -45,6 +51,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果存在，我们将 `currentNode` 更新为该子节点，然后回到第 2 步，继续处理我们搜索字符串的下一个字符。
 - en: If the `currentNode` does not have a child node that matches the current character,
     we create such a child node and update the `currentNode` to be this new node.
     We then go back to Step 2, moving on to the next character of our search string.
@@ -53,6 +60,8 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果 `currentNode` 没有匹配当前字符的子节点，我们就创建一个这样的子节点，并将 `currentNode` 更新为这个新节点。然后我们回到第
+    2 步，继续处理我们搜索字符串的下一个字符。
 - en: After we insert the final character of our new word, we add an `"*"` child to
     the last node to indicate the word is complete.
   id: totrans-8
@@ -60,23 +69,28 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们插入新单词的最后一个字符后，我们为最后一个节点添加一个 `"*"` 子节点，以表示单词已完成。
 - en: Let’s see this in action by inserting the word `"can"` into our earlier example
     trie.
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们通过将单词 `"can"` 插入到之前的示例 trie 中来看一下这个过程。
 - en: 'Setup: We set the `currentNode` to be the root node. We also point to the first
     character of our string, which is the `"c"`, as shown in the top [diagram](#fig.ch17.insert_point_to_c).'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 设置：我们将 `currentNode` 设置为根节点。我们还指向字符串的第一个字符，即 `"c"`，如顶部 [图示](#fig.ch17.insert_point_to_c)
+    所示。
 - en: '![images/tries/insert_point_to_c.png](images/tries/insert_point_to_c.png)'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/insert_point_to_c.png](images/tries/insert_point_to_c.png)'
 - en: 'Step 1: The root node has a `"c"` child key, so we turn that key’s value into
     the `currentNode`. We also point to the next character of our new word, the `"a"`,
     as shown in the bottom [diagram](#fig.ch17.insert_point_to_a).'
@@ -84,11 +98,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第 1 步：根节点有一个 `"c"` 子键，因此我们将该键的值设为 `currentNode`。我们还指向新单词的下一个字符，即 `"a"`，如底部 [图示](#fig.ch17.insert_point_to_a)
+    所示。
 - en: '![images/tries/insert_point_to_a.png](images/tries/insert_point_to_a.png)'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/insert_point_to_a.png](images/tries/insert_point_to_a.png)'
 - en: 'Step 2: We inspect the `currentNode` for a child with the key of `"a"`. There
     is one, so we make that the `currentNode` and point to the next character of our
     string, which is the `"n"`, as shown in the top [diagram](#fig.ch17.insert_point_to_n).'
@@ -96,162 +113,195 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第 2 步：我们检查 `currentNode` 是否有键为 `"a"` 的子节点。确实有一个，因此我们将其设为 `currentNode`，并指向我们字符串的下一个字符，即
+    `"n"`，如顶部 [图示](#fig.ch17.insert_point_to_n) 所示。
 - en: '![images/tries/insert_point_to_n.png](images/tries/insert_point_to_n.png)'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/insert_point_to_n.png](images/tries/insert_point_to_n.png)'
 - en: 'Step 3: The `currentNode` does not have an `"n"` so we need to create that
     child, as shown in the bottom [diagram](#fig.ch17.insert_n).'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第 3 步：`currentNode` 没有 `"n"`，所以我们需要创建这个子节点，如底部 [图示](#fig.ch17.insert_n) 所示。
 - en: '![images/tries/insert_n.png](images/tries/insert_n.png)'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/insert_n.png](images/tries/insert_n.png)'
 - en: 'Step 4: We’re done inserting `"can"` into our trie, so we cap it off with a
     child of `"*"`:'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第 4 步：我们已经完成了将 `"can"` 插入到我们的 trie 中，因此我们用一个 `"*"` 的子节点结束它：
 - en: '![images/tries/cap_off.png](images/tries/cap_off.png)'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/cap_off.png](images/tries/cap_off.png)'
 - en: And we’re done!
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们完成了！
 - en: 'Code Implementation: Trie Insertion'
   id: totrans-21
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：Trie 插入
 - en: 'Here’s the insert method for our `Trie` class. You’ll note that most of it
     looks the same as the earlier search method:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是我们 `Trie` 类的插入方法。你会注意到大部分内容与之前的搜索方法相似：
 - en: '| ​  | `insert`(word) { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `insert`(word) { |'
 - en: '| ​  | `let` `currentNode` = `this`.root; |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` `currentNode` = `this`.root; |'
 - en: '| ​  |  |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` `char` `of` word) { |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` `char` `of` word) { |'
 - en: '| ​  | `if` (`currentNode.children[` `char` `]) { |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (`currentNode.children[` `char` `]) { |'
 - en: '| ​  | `currentNode` = `currentNode.children[` `char` `]; |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode` = `currentNode.children[` `char` `]; |'
 - en: '| ​  | } `else` { |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `const` newNode = `new` TrieNode(); |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` newNode = `new` TrieNode(); |'
 - en: '| ​  | `currentNode.children[''char''] = newNode;` |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode.children[''char''] = newNode;` |'
 - en: '| ​  | `currentNode = newNode;` |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode = newNode;` |'
 - en: '| ​  | } |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `currentNode.children[''*''] = null;` |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode.children[''*''] = null;` |'
 - en: '| ​  | } |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 该方法的第一部分与搜索相同。当`currentNode`没有匹配当前字符的子节点时，它分叉。在这种情况下，我们向`currentNode`的哈希表中添加一个新的键值对，键为当前字符，值为一个新的`TrieNode`：
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 该方法的第一部分与搜索相同。当`currentNode`没有匹配当前字符的子节点时，它分叉。在这种情况下，我们向`currentNode`的哈希表中添加一个新的键值对，键为当前字符，值为一个新的`TrieNode`：
 - en: '| ​  | `const newNode = new TrieNode();` |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const newNode = new TrieNode();` |'
 - en: '| ​  | `currentNode.children[''char''] = newNode;` |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode.children[''char''] = newNode;` |'
 - en: 我们然后更新`currentNode`为这个新节点：
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们然后更新`currentNode`为这个新节点：
 - en: '| ​  | `currentNode = newNode;` |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode = newNode;` |'
 - en: 我们然后重复这个循环，直到插入新单词完成。一旦完成，我们向最终节点的哈希表中添加一个`"*"`键，值为`null`：
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们然后重复这个循环，直到插入新单词完成。一旦完成，我们向最终节点的哈希表中添加一个`"*"`键，值为`null`：
 - en: '| ​  | `currentNode.children[''*''] = null;` |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode.children[''*''] = null;` |'
 - en: 与搜索一样，字典树插入大约需要`O(K)`步。如果算上最后添加`"*"`，技术上是`K + 1`步，但因为我们省略常数，所以速度表示为`O(K)`。
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 与搜索一样，字典树插入大约需要`O(K)`步。如果算上最后添加`"*"`，技术上是`K + 1`步，但因为我们省略常数，所以速度表示为`O(K)`。

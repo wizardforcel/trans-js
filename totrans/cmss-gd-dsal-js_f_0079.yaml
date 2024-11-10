@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 建立一个有趣且有利可图的词库，但主要是为了盈利
 - en: On nights and weekends，you’re single-handedly working on a stealth startup that
     will take over the world. It’s…a thesaurus app. But this isn’t any old thesaurus
     app—this is `Quickasaurus`。And you know that it will totally disrupt the billion-dollar
@@ -14,22 +15,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在夜晚和周末，你正在单枪匹马地开发一个能够统治世界的隐形创业公司。它是……一个词库应用。但这不是任何普通的词库应用——这是`Quickasaurus`。你知道它将彻底颠覆十亿美金的词库市场。当用户在`Quickasaurus`中查找一个单词时，它只返回一个同义词，而不是像传统词库应用那样返回所有可能的同义词。
 - en: Since every word has an associated synonym，this is a great use case for a hash
     table. After all，a hash table is a list of paired items. Let’s get started.
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于每个单词都有一个关联的同义词，这对于哈希表来说是一个很好的用例。毕竟，哈希表是成对项目的列表。让我们开始吧。
 - en: 'We can represent our thesaurus using a hash table:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以用哈希表表示我们的词库：
 - en: '|   | `thesaurus = {};` |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `thesaurus = {};` |'
 - en: 'Under the hood, a hash table stores its data in a bunch of cells in a row,
     similar to an array. Each cell has a corresponding number, as shown in the following
     example:'
@@ -37,42 +42,50 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从底层看，哈希表将其数据存储在一排单元格中，类似于数组。每个单元格都有一个对应的编号，如下例所示：
 - en: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/blazing_fast_lookup_with_hashes/hash_1.png](images/blazing_fast_lookup_with_hashes/hash_1.png)'
 - en: (We left off index `0` since nothing would be stored there given our multiplication
     hash function.)
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （我们省略了索引`0`，因为根据我们的乘法哈希函数，那里不会存储任何内容。）
 - en: 'Let’s add our first entry into the hash table:'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们将第一个条目添加到哈希表中：
 - en: '|   | `thesaurus["bad"] = "evil"` |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `thesaurus["bad"] = "evil"` |'
 - en: 'In code, our hash table now looks like this:'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在代码中，我们的哈希表现在看起来是这样的：
 - en: '|   | `{"bad": "evil"}` |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `{"bad": "evil"}` |'
 - en: Let’s explore how the hash table stores this data.
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们深入探讨哈希表如何存储这些数据。
 - en: 'First, the computer applies the hash function to the key. Again, we’ll be using
     the multiplication hash function described previously. So this would compute as
     follows:'
@@ -80,87 +93,104 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，计算机将哈希函数应用于键。我们将使用之前描述的乘法哈希函数。所以计算如下：
 - en: '`BAD = 2 * 1 * 4 = 8`'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`BAD = 2 * 1 * 4 = 8`'
 - en: Since our key (`"bad"`）hashes into `8`，the computer places the value (`"evil"`)
     into cell `8`：
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于我们的键（`"bad"`）哈希到`8`，计算机将值（`"evil"`）放入单元格`8`：
 - en: '![images/blazing_fast_lookup_with_hashes/hash_2.png](images/blazing_fast_lookup_with_hashes/hash_2.png)'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/blazing_fast_lookup_with_hashes/hash_2.png](images/blazing_fast_lookup_with_hashes/hash_2.png)'
 - en: 'Now, let’s add another key-value pair:'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，让我们添加另一个键值对：
 - en: '|   | `thesaurus["cab"] = "taxi";` |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `thesaurus["cab"] = "taxi";` |'
 - en: 'Again, the computer hashes the key:'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 计算机再次对键进行哈希：
 - en: '`CAB = 3 * 1 * 2 = 6`'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`CAB = 3 * 1 * 2 = 6`'
 - en: Since the resulting value is `6`，the computer stores the value (`"taxi"`) inside
     cell `6`。
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于结果值是`6`，计算机将值（`"taxi"`）存储在单元格`6`中。
 - en: '![images/blazing_fast_lookup_with_hashes/hash_3.png](images/blazing_fast_lookup_with_hashes/hash_3.png)'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/blazing_fast_lookup_with_hashes/hash_3.png](images/blazing_fast_lookup_with_hashes/hash_3.png)'
 - en: 'Let’s add one more key-value pair:'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们再添加一个键值对：
 - en: '|   | `thesaurus["ace"] = "star";` |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `thesaurus["ace"] = "star";` |'
 - en: 'To sum up what’s happening here: for every key-value pair, each value is stored
     at the index of the key, after the key has been hashed.'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 总结一下这里发生的事情：对于每个键值对，每个值在键被哈希后存储在键的索引处。
 - en: '`ACE` hashes into `15`，since `ACE = 1 * 3 * 5 = 15`，so `"star"` gets placed
     into cell `15`:'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`ACE`哈希到`15`，因为`ACE = 1 * 3 * 5 = 15`，所以`"star"`被放入单元格`15`：'
 - en: '![images/blazing_fast_lookup_with_hashes/hash_4.png](images/blazing_fast_lookup_with_hashes/hash_4.png)'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/blazing_fast_lookup_with_hashes/hash_4.png](images/blazing_fast_lookup_with_hashes/hash_4.png)'
 - en: 'In code, our hash table currently looks like this:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在代码中，我们的哈希表目前看起来是这样的：
 - en: '|   | `{"bad": "evil", "cab": "taxi", "ace": "star"}` |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|   | `{"bad": "evil", "cab": "taxi", "ace": "star"}` |'

@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 自上而下的递归：一种新的思维方式
 - en: 'This brings us to the central point of this chapter: recursion shines when
     implementing a top-down approach because going top-down offers a new mental strategy
     for tackling a problem. That is, a recursive top-down approach allows one to think
@@ -12,6 +13,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这将我们带到本章的核心要点：在实现自上而下的方法时，递归表现出色，因为自上而下提供了一种全新的思维策略来解决问题。也就是说，递归的自上而下方法允许我们以完全不同的方式思考问题。
 - en: Specifically, when we go top-down, we get to mentally “kick the problem down
     the road.” We can free our mind from some of the nitty-gritty details we normally
     have to think about when going bottom-up.
@@ -19,17 +21,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 具体来说，当我们采取自上而下的方式时，我们可以在心理上“将问题推迟”。我们可以将思维从通常在自下而上过程中需要考虑的一些琐碎细节中解放出来。
 - en: 'To see what I mean, let’s take another look at the key line from our top-down
     `factorial` implementation:'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了说明我的意思，让我们再看一眼自上而下`factorial`实现中的关键行：
 - en: '| ​  | ​`return number * factorial(number - 1);` |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return number * factorial(number - 1);` |'
 - en: This line of code makes its calculation based on `factorial(number - 1)`. When
     we write this line of code, do we have to understand how the `factorial` function
     it’s calling works? Technically, we don’t. Whenever we write code that calls another
@@ -39,6 +44,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这行代码的计算基于`factorial(number - 1)`。当我们写这行代码时，我们必须理解它调用的`factorial`函数是如何工作的吗？从技术上讲，我们并不需要。每当我们编写调用另一个函数的代码时，我们假设该函数会返回正确的值，而不必理解其内部是如何工作的。
 - en: 'Here as well, when we calculate our answer based on calling the `factorial`
     function, we don’t need to understand how the `factorial` function works; we can
     just expect it to return the correct result. Of course, the weird part is that
@@ -49,6 +55,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，在我们基于调用`factorial`函数计算答案时，我们并不需要理解`factorial`函数是如何工作的；我们只需期待它返回正确的结果。当然，奇怪的是，我们就是编写`factorial`函数的人！这行代码存在于`factorial`函数内部。但这正是自上而下思维的伟大之处：在某种意义上，我们可以在不知道如何解决问题的情况下解决问题。
 - en: When we write “in recursive” to implement a top-down strategy, we get to relax
     our brains a little. We can even choose to ignore the details of how the calculation
     actually works. We get to say, “Let’s just rely on the subproblem to deal with
@@ -57,12 +64,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们以递归方式实施自上而下策略时，我们可以稍微放松大脑。我们甚至可以选择忽略计算实际如何工作的细节。我们可以说，“让我们依赖子问题来处理细节。”
 - en: The Top-Down Thought Process
   id: totrans-8
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 自上而下的思维过程
 - en: 'If you haven’t done a lot of top-down recursion before, it takes time and practice
     to learn to think in this way. I found that when tackling a top-down problem,
     it helps to think the following three thoughts:'
@@ -70,6 +79,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果你之前没有做过很多自上而下的递归，学习以这种方式思考需要时间和练习。我发现，当面对一个自上而下的问题时，思考以下三点是有帮助的：
 - en: Imagine that the function you’re writing has already been written by somebody
     else.
   id: totrans-10
@@ -77,30 +87,35 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 想象你正在编写的函数已经由其他人编写。
 - en: Identify the subproblem of the problem.
   id: totrans-11
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 确定问题的子问题。
 - en: See what happens when you call the function on the subproblem and go from there.
   id: totrans-12
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 看看当你在子问题上调用函数时会发生什么，并从那里开始。
 - en: While these steps sound vague at the moment, they’ll become more clear through
     the following examples.
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然这些步骤目前听起来很模糊，但通过以下示例，它们会变得更清晰。
 - en: Array Sum
   id: totrans-14
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 数组求和
 - en: Say we have to write a function called `sum` that sums up all the numbers in
     a given array. For example, if we pass the array `[1, 2, 3, 4, 5]` into the function,
     it’ll return `15`, which is the sum of those numbers.
@@ -108,6 +123,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们必须编写一个名为`sum`的函数，用于对给定数组中的所有数字求和。例如，如果我们将数组`[1, 2, 3, 4, 5]`传递给这个函数，它将返回`15`，即这些数字的总和。
 - en: The first thing we’ll do is imagine that the `sum` function has already been
     implemented. Admittedly, this takes a certain suspension of disbelief, since we
     know that we’re in the middle of writing this function as we speak! But let’s
@@ -116,6 +132,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们要做的第一件事是想象`sum`函数已经被实现。诚然，这需要一定程度的悬置怀疑，因为我们知道我们正处于编写这个函数的过程中！但是让我们尝试放手，假装`sum`函数已经可以正常工作。
 - en: Next, let’s identify the subproblem. This can be more of an art than a science,
     but practice will help you get better at it. In our case, we can say that the
     subproblem is the array `[2, 3, 4, 5]`—that is, all the numbers from the array
@@ -124,6 +141,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，让我们确定子问题。这更像是一种艺术而非科学，但练习会帮助你提高。在我们的例子中，我们可以说子问题是数组 `[2, 3, 4, 5]`——也就是说，数组中除第一个元素外的所有数字。
 - en: Finally, let’s see what happens when we apply the `sum` function to our subproblem.
     If the `sum` function “already works,” and the subproblem is `[2, 3, 4, 5]`, what
     happens when we call `sum([2, 3, 4, 5])`? Well, we get the sum of `2 + 3 + 4 +
@@ -132,59 +150,71 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，让我们看看当我们将 `sum` 函数应用于我们的子问题时会发生什么。如果 `sum` 函数“已经有效”，而子问题是 `[2, 3, 4, 5]`，当我们调用
+    `sum([2, 3, 4, 5])` 时会发生什么？好吧，我们得到 `2 + 3 + 4 + 5` 的和，即 `14`。
 - en: To solve our problem of finding the sum of `[1, 2, 3, 4, 5]` then, we can just
     add the first number, `1`, to the result of `sum([2, 3, 4, 5])`.
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了找到 `[1, 2, 3, 4, 5]` 的和，我们只需将第一个数字 `1` 加到 `sum([2, 3, 4, 5])` 的结果中。
 - en: 'In pseudocode, we’d write something like this:'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在伪代码中，我们会写成这样：
 - en: '| ​  | `return` `array[0] + sum(the remainder of the array)` |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `array[0] + sum(数组其余部分)` |'
 - en: 'In JavaScript, we can write this like so:'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在 JavaScript 中，我们可以这样写：
 - en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
 - en: (In JavaScript, the syntax `.slice(1)` returns a new array that has the contents
     of the original array starting from index 1 until the end.)
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （在 JavaScript 中，语法 `.slice(1)` 返回一个新数组，其内容是从索引 1 开始到末尾的原数组元素。）
 - en: 'Now, believe it or not, we’re done! Save for the base case, which we’ll get
     to in a moment, our `sum` function can be written like this:'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，信不信由你，我们完成了！除了我们稍后要处理的基本情况外，我们的 `sum` 函数可以写成这样：
 - en: '| ​  | `function`​ `sum(array) {` |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function`​ `sum(array) {` |'
 - en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
 - en: '| ​  | } |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Note that we didn’t think about how we’re going to add all the numbers together.
     All we did was imagine that someone else wrote the `sum` function for us, which
     we applied to the subproblem. We kicked the problem down the road, but in doing
@@ -193,6 +223,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意我们并没有考虑如何将所有数字相加。我们只是假想别人为我们写了 `sum` 函数，然后将其应用于子问题。我们将问题抛给了未来，但在这样做的过程中，我们解决了整个问题。
 - en: The last thing we need to do is handle the base case. That is, if each subproblem
     recursively calls its own subproblem, we will eventually reach the subproblem
     of `sum([5])`. This function will eventually try to add the `5` to the remainder
@@ -201,46 +232,56 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们需要做的最后一件事是处理基本情况。也就是说，如果每个子问题递归地调用它自己的子问题，我们最终会达到 `sum([5])` 的子问题。这个函数最终会尝试将
+    `5` 加到数组的其余部分，但数组中没有其他元素。
 - en: 'To deal with this, we can add the base case:'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了解决这个问题，我们可以添加基本情况：
 - en: '| ​  | `function`​ `sum(array) {` |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function`​ `sum(array) {` |'
 - en: '| ​  | `// Base case: only one element in the array:`​ |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 基本情况：数组中只有一个元素：`​ |'
 - en: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
 - en: '| ​  |  |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
 - en: '| ​  | } |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: And now we’re done.
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们完成了。
 - en: Technically, there’s another case we haven’t handled, and that’s if the input
     array is completely empty. Currently, our code will throw an error for such an
     input.
@@ -248,6 +289,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从技术上讲，还有一种情况我们尚未处理，那就是输入数组完全为空。目前，我们的代码会对这种输入抛出错误。
 - en: 'In this book, our code doesn’t necessarily attempt to handle every edge case.
     (For example, what if the input array contains strings instead of numbers?) However,
     we’ll sometimes put in a guard against an empty array by throwing an extra clause,
@@ -256,213 +298,255 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这本书中，我们的代码不一定会尝试处理每一个边缘情况。（例如，如果输入数组包含字符串而不是数字会怎样？）然而，我们有时会通过抛出一个额外的条件来防止空数组，如下所示：
 - en: '| ​  | `function`​ `sum(array) {` |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function`​ `sum(array) {` |'
 - en: '| ​  | `// If array is empty:`​ |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 如果数组为空：`​ |'
 - en: '| ​  | `if`​ `(array.length === 0) { `​ `return`​ `0; }` |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ `(array.length === 0) { `​ `return`​ `0; }` |'
 - en: '| ​  |  |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `// Primary base case:`​ |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 主要基本情况：`​ |'
 - en: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ `(array.length === 1) { `​ `return`​ `array[0]; }` |'
 - en: '| ​  |  |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return`​ `array[0] + sum(array.slice(1));` |'
 - en: '| ​  | } |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 我们现在在技术上有两个基本情况。数组为空的可能性本身就是一个基本情况，但只有在原始输入为空时才会触发。另一方面，长度为1的数组是主要的基本情况，因为该情况将始终被递归本身触发。
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在在技术上有两个基本情况。数组为空的可能性本身就是一个基本情况，但只有在原始输入为空时才会触发。另一方面，长度为 1 的数组是主要的基本情况，因为该情况将始终被递归本身触发。
 - en: 然而，一个巧妙的小技巧可以让我们再次将代码减少到只有一个基本情况，同时仍然处理空数组的可能性。
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，一个巧妙的小技巧可以让我们再次将代码减少到只有一个基本情况，同时仍然处理空数组的可能性。
 - en: 它依赖于这样一个事实：在JavaScript中，当我们对一个仅包含一个值的数组调用`.slice(1)`时，我们会得到一个空数组。考虑到这一点，我们只需要空数组的基本情况，因为递归最终会触发这样的情况。我们可以完全消除长度为1的数组的基本情况，因为对这样的数组递归调用`sum`方法将产生一个空数组的情况。因此，以下代码可以完美工作：
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 它依赖于这样一个事实：在JavaScript中，当我们对一个仅包含一个值的数组调用`.slice(1)`时，我们会得到一个空数组。考虑到这一点，我们只需要空数组的基本情况，因为递归最终会触发这样的情况。我们可以完全消除长度为1的数组的基本情况，因为对这样的数组递归调用`sum`方法将产生一个空数组的情况。因此，以下代码可以完美工作：
 - en: '| ​  | ​`function`​ `sum(array) {` |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `sum(array) {` |'
 - en: '| ​  | ​*// 基本情况：一个空数组*​ |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​*// 基本情况：一个空数组*​ |'
 - en: '| ​  | ​`if`​ (array.length === 0) { ​`return`​ 0; } |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (array.length === 0) { ​`return`​ 0; } |'
 - en: '| ​  |  |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `array[0] + sum(array.slice(1));` |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `array[0] + sum(array.slice(1));` |'
 - en: '| ​  | } |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 而现在我们真的完成了。
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 而现在我们真的完成了。
 - en: 字符串反转
   id: totrans-60
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 字符串反转
 - en: 让我们尝试另一个例子。我们将编写一个反转字符串的`reverse`函数。如果该函数接受参数"abcde"，它将返回"edcba"。
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们尝试另一个例子。我们将编写一个反转字符串的`reverse`函数。如果该函数接受参数"abcde"，它将返回"edcba"。
 - en: 首先，让我们识别子问题。再次，这需要实践，但通常首先尝试的是当前问题的次小版本。因此，对于字符串"abcde"，我们假设子问题是"bcde"。这个子问题是原始字符串去掉第一个字符后的结果。
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，让我们识别子问题。再次，这需要实践，但通常首先尝试的是当前问题的次小版本。因此，对于字符串"abcde"，我们假设子问题是"bcde"。这个子问题是原始字符串去掉第一个字符后的结果。
 - en: 接下来，让我们想象一下，有人为我们实现了`reverse`函数。真是太好了！
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，让我们想象一下，有人为我们实现了`reverse`函数。真是太好了！
 - en: 现在，如果`reverse`函数可用，并且我们的子问题是"bcde"，这意味着我们可以调用`reverse("bcde")`，它将返回"edcb"。
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，如果`reverse`函数可用，并且我们的子问题是"bcde"，这意味着我们可以调用`reverse("bcde")`，它将返回"edcb"。
 - en: Once we can do that，处理"a"就简单多了。我们只需将其添加到字符串的末尾。
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一旦我们可以这样做，处理"a"就简单多了。我们只需将其添加到字符串的末尾。
 - en: 'So, we can write:'
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以，我们可以写：
 - en: '| ​  | ​`function`​ `reverse(string) {` |'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `reverse(string) {` |'
 - en: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
 - en: '| ​  | } |'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 我们的计算仅仅是调用`reverse`在子问题上的结果，然后将第一个字符添加到末尾。
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的计算仅仅是调用`reverse`在子问题上的结果，然后将第一个字符添加到末尾。
 - en: 一次又一次，除了基本情况，我们就完成了。我知道，这真是神奇。
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一次又一次，除了基本情况，我们就完成了。我知道，这真是神奇。
 - en: 基本情况发生在字符串只有一个字符时，因此我们可以添加以下代码行来处理它：
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 基本情况发生在字符串只有一个字符时，因此我们可以添加以下代码行来处理它：
 - en: '| ​  | ​`if`​ (string.length === 1) { ​`return`​ string[0]; } |'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (string.length === 1) { ​`return`​ string[0]; } |'
 - en: 然而，和之前的例子一样，我们可以将基本情况设为一个空字符串，从而处理这样的输入。这再次有效，因为对一个单字符字符串调用`string.slice(1)`会产生一个空字符串：
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，和之前的例子一样，我们可以将基本情况设为一个空字符串，从而处理这样的输入。这再次有效，因为对一个单字符字符串调用`string.slice(1)`会产生一个空字符串：
 - en: '| ​  | ​`function`​ `reverse(string) {` |'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `reverse(string) {` |'
 - en: '| ​  | ​`if`​ (string.length === 0) { ​`return`​ ​*''''*​; } |'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (string.length === 0) { ​`return`​ ​*''''*​; } |'
 - en: '| ​  |  |'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `reverse(string.slice(1)) + string[0];` |'
 - en: '| ​  | } |'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 然后我们就完成了。
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们就完成了。
 - en: 计数X
   id: totrans-81
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 计数X
 - en: We’re on a roll, so let’s try another example. Let’s write a function called
     countX that returns the number of “x”s in a given string. If our function is passed
     the string "axbxcxd", it’ll return 3, since there are three instances of the character
@@ -471,6 +555,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们正在顺利进行，所以让我们尝试另一个例子。让我们编写一个名为countX的函数，它返回给定字符串中“x”的数量。如果我们的函数接受字符串"axbxcxd"，它将返回3，因为字符“x”出现了三次。
 - en: Let’s first identify the subproblem. As in the previous example, we’ll say the
     subproblem is the original string minus its first character. So for "axbxcxd",
     the subproblem is "xbxcxd".
@@ -478,6 +563,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，让我们识别子问题。就像之前的例子一样，我们可以说子问题是原始字符串去掉第一个字符。因此，对于"axbxcxd"，子问题是"xbxcxd"。
 - en: Next, let’s imagine countX has already been implemented. If we call countX on
     our subproblem, by calling countX("xbxcxd"), we get 3. To that, we just need to
     add 1 if our first character is also an “x”. (If our first character is not an
@@ -486,46 +572,55 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，让我们想象countX已经实现。如果我们在子问题上调用countX，通过调用countX("xbxcxd")，我们得到3。在此基础上，如果我们的第一个字符也是“x”，我们只需加1。（如果我们的第一个字符不是“x”，我们就不需要向子问题的结果中添加任何东西。）
 - en: 'So, we can write:'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以，我们可以写：
 - en: '| ​  | `function` countX(string) { |'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` countX(string) { |'
 - en: '| ​  | `if` (string[0] === ''x'') { |'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string[0] === ''x'') { |'
 - en: '| ​  | `return` 1 + countX(string.slice(1)); |'
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 1 + countX(string.slice(1)); |'
 - en: '| ​  | } `else` { |'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` countX(string.slice(1)); |'
   id: totrans-90
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` countX(string.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: This conditional statement is straightforward. If the first character is an
     “x”, we add 1 to the result of the subproblem. Otherwise, we return the result
     of our subproblem as is.
@@ -533,11 +628,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个条件语句很简单。如果第一个字符是“x”，我们就将1加到子问题的结果上。否则，我们就直接返回子问题的结果。
 - en: Here too, we’re basically done. All we need to do is deal with the base case.
   id: totrans-94
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们基本上也完成了。我们需要做的就是处理基本情况。
 - en: 'We can say that the base case here is when a string has only one character.
     But this leads to some awkward code, since we really have two base cases, as the
     single character may be an “x” but may also not be an “x”:'
@@ -545,145 +642,174 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以说，这里的基本情况是当字符串只有一个字符时。但是这会导致一些尴尬的代码，因为我们实际上有两个基本情况，因为这个单个字符可能是“x”，也可能不是“x”：
 - en: '| ​  | `function` countX(string) { |'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` countX(string) { |'
 - en: '| ​  | `// Two base cases:` |'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 两个基本情况:` |'
 - en: '| ​  | `if` (string.length === 1) { |'
   id: totrans-98
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string.length === 1) { |'
 - en: '| ​  | `if` (string[0] === ''x'') { |'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string[0] === ''x'') { |'
 - en: '| ​  | `return` 1; |'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 1; |'
 - en: '| ​  | } `else` { |'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` 0; |'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 0; |'
 - en: '| ​  | } |'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (string[0] === ''x'') { |'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string[0] === ''x'') { |'
 - en: '| ​  | `return` 1 + countX(string.slice(1)); |'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 1 + countX(string.slice(1)); |'
 - en: '| ​  | } `else` { |'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` countX(string.slice(1)); |'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` countX(string.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 'But again, we can simplify our code and just have one single base case if we
     make our base case an empty string:'
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，如果我们将基本情况设为空字符串，我们可以简化代码，只需一个基本情况：
 - en: '| ​  | `function` countX(string) { |'
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` countX(string) { |'
 - en: '| ​  | `// Base case: an empty string` |'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 基本情况：空字符串` |'
 - en: '| ​  | `if` (string.length === 0) { `return` 0; } |'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string.length === 0) { `return` 0; } |'
 - en: '| ​  |  |'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (string[0] === ''x'') { |'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (string[0] === ''x'') { |'
 - en: '| ​  | `return` 1 + countX(string.slice(1)); |'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` 1 + countX(string.slice(1)); |'
 - en: '| ​  | } `else` { |'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` countX(string.slice(1)); |'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` countX(string.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: By definition, an empty string will always contain zero “x”s, so we truly have
     only one base case.
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 根据定义，空字符串将始终包含零个“x”，所以我们确实只有一个基本情况。

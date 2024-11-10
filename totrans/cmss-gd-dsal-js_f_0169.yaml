@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: Trie `Search`
 - en: 'The most classic trie operation is `search`—namely, determining whether a string
     is found in the trie. `Search` has two flavors: we can search to see whether the
     string is a complete word, or we can search to see whether the string is at least
@@ -15,12 +16,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最经典的 trie 操作是`search`——即确定字符串是否存在于 trie 中。`Search`有两种形式：我们可以搜索以查看字符串是否是完整的单词，或者我们可以搜索以查看字符串是否至少是一个单词前缀（即单词的开头）。这两个版本相似，但我们将实现后者，其中我们的`search`将查找前缀。这个`search`最终也会找到完整的单词，因为完整的单词至少和前缀一样好。
 - en: 'The algorithm for prefix `search` performs the following steps (they’ll become
     clearer when we walk through an example that follows):'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 前缀`search`的算法执行以下步骤（当我们通过接下来的示例进行说明时，它们会变得更加清晰）：
 - en: We establish a variable called `currentNode`. At the beginning of our algorithm,
     this points to the root node.
   id: totrans-3
@@ -28,12 +31,14 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们建立一个名为`currentNode`的变量。在算法开始时，这指向根节点。
 - en: We iterate over each character of our search string.
   id: totrans-4
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们遍历搜索字符串的每个字符。
 - en: As we point to each character of our search string, we look to see if the `currentNode`
     has a child with that character as a key.
   id: totrans-5
@@ -41,6 +46,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们指向搜索字符串中的每个字符时，我们查看`currentNode`是否有一个以该字符为键的子节点。
 - en: If it does not, we return `null`, as it means our search string does not exist
     in the trie.
   id: totrans-6
@@ -48,6 +54,7 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果没有找到，我们返回 `null`，这意味着我们的搜索字符串在 trie 中不存在。
 - en: If the `currentNode` does have a child with the current character as the key,
     we update the `currentNode` to become that child. We then go back to Step 2, continuing
     to iterate over each character in our search string.
@@ -56,18 +63,21 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果`currentNode`确实有一个以当前字符为键的子节点，我们就将`currentNode`更新为该子节点。然后我们回到第2步，继续遍历搜索字符串中的每个字符。
 - en: If we get to the end of our search string, it means we’ve found our search string.
   id: totrans-8
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们到达搜索字符串的末尾，这意味着我们找到了我们的搜索字符串。
 - en: Let’s see this in action by searching for the string `"cat"` in our trie from
     earlier.
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们通过在之前的 trie 中搜索字符串 `"cat"` 来看看这个过程的实际应用。
 - en: 'Setup: We set the `currentNode` to be the root node. (The `currentNode` is
     indicated in bold in the diagrams on the following pages.) We also point to the
     first character of our string, which is the `"c"` as shown in the top [diagram](#fig.ch17.point_to_c).'
@@ -75,11 +85,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 设置：我们将`currentNode`设置为根节点。（`currentNode`在接下来的页面的图示中以粗体表示。）我们还指向字符串的第一个字符，即 `"c"`，如顶部
+    [图示](#fig.ch17.point_to_c)所示。
 - en: '![images/tries/point_to_c.png](images/tries/point_to_c.png)'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/point_to_c.png](images/tries/point_to_c.png)'
 - en: 'Step 1: Since the root node has `"c"` as a child key, we update the `currentNode`
     to become that key’s value. We also continue iterating through the characters
     in our search string, so we point to the next character, which is the `"a"` as
@@ -88,11 +101,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第1步：由于根节点有 `"c"` 作为子键，我们将`currentNode`更新为该键的值。我们还继续遍历搜索字符串中的字符，因此我们指向下一个字符，即
+    `"a"`，如底部 [图示](#fig.ch17.point_to_a)所示。
 - en: '![images/tries/point_to_a.png](images/tries/point_to_a.png)'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/point_to_a.png](images/tries/point_to_a.png)'
 - en: 'Step 2: We inspect the `currentNode` for a child with the key of `"a"`. It
     has one, so we make that child the new `currentNode`. We then proceed to search
     for the next character in our string, which is the `"t"`:'
@@ -100,11 +116,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第2步：我们检查`currentNode`是否有一个键为 `"a"` 的子节点。它有一个，所以我们将该子节点设为新的`currentNode`。然后我们继续搜索字符串中的下一个字符，即
+    `"t"`：
 - en: '![images/tries/point_to_t.png](images/tries/point_to_t.png)'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/point_to_t.png](images/tries/point_to_t.png)'
 - en: 'Step 3: We’re now pointing to the `"t"` of our search string. Since the `currentNode`
     has a `"t"` child, we follow it, as shown in the [diagram](#fig.ch17.follow_the_t).
     Since we’ve reached the end of our search string, it means we’ve found `"cat"`
@@ -113,139 +132,168 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第3步：我们现在指向搜索字符串中的 `"t"`。由于`currentNode`有一个 `"t"` 子节点，我们跟随它，如 [图示](#fig.ch17.follow_the_t)所示。由于我们已到达搜索字符串的末尾，这意味着我们在
+    trie 中找到了 `"cat"`。
 - en: '![images/tries/follow_the_t.png](images/tries/follow_the_t.png)'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/follow_the_t.png](images/tries/follow_the_t.png)'
 - en: 'Code Implementation: Trie `Search`'
   id: totrans-18
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：Trie `Search`
 - en: 'Let’s implement trie `search` by adding a `search` method to our `Trie` class:'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们通过在`Trie`类中添加一个`search`方法来实现 trie 的 `search`：
 - en: '| ​  | `search(word)` { |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `search(word)` { |'
 - en: '| ​  | ​`let`​ `currentNode` = `this`.root; |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let`​ `currentNode` = `this`.root; |'
 - en: '| ​  |  |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (`const` `char` `of` `word`) { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`const` `char` `of` `word`) { |'
 - en: '| ​  | ​`if`​ (`currentNode.children[`**char**`]) { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`currentNode.children[`**char**`]) { |'
 - en: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
 - en: '| ​  | } `else` { |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` `null`; |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `null`; |'
 - en: '| ​  | } |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` currentNode; |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` currentNode; |'
 - en: '| ​  | } |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 我们的搜索方法接受一个表示要搜索的单词（或前缀）的字符串。
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的搜索方法接受一个表示要搜索的单词（或前缀）的字符串。
 - en: 首先，我们将根节点设为`currentNode`：
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们将根节点设为`currentNode`：
 - en: '| ​  | `let` currentNode = `this`.root; |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentNode = `this`.root; |'
 - en: 然后我们遍历搜索单词的每个字符：
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们遍历搜索单词的每个字符：
 - en: '| ​  | `for` (`const` `char` `of` word) { |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` `char` `of` word) { |'
 - en: 在每一轮循环中，我们检查当前节点是否有任何子节点，其当前字符作为键。如果存在这样的子节点，我们更新当前节点为子节点：
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在每一轮循环中，我们检查当前节点是否有任何子节点，其当前字符作为键。如果存在这样的子节点，我们更新当前节点为子节点：
 - en: '| ​  | `if` (`currentNode`.children[`char`]) { |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (`currentNode`.children[`char`]) { |'
 - en: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentNode` = `currentNode`.children[`char`]; |'
 - en: '| ​  | } |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 如果没有这样的子节点，我们返回`null`，因为这意味着我们遇到了死胡同，搜索的单词不在`trie`中。
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果没有这样的子节点，我们返回`null`，因为这意味着我们遇到了死胡同，搜索的单词不在`trie`中。
 - en: 如果我们通过了循环的结束，这意味着我们在`trie`中找到了整个单词。在这种情况下，我们返回`currentNode`。我们返回当前节点的原因，而不是仅仅返回`true`，是为了帮助我们实现自动补全功能，稍后我会解释。
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们通过了循环的结束，这意味着我们在`trie`中找到了整个单词。在这种情况下，我们返回`currentNode`。我们返回当前节点的原因，而不是仅仅返回`true`，是为了帮助我们实现自动补全功能，稍后我会解释。

@@ -4,24 +4,28 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Quicksort` 的效率'
 - en: To figure out the efficiency of `Quicksort`, let’s first determine the efficiency
     of a single partition.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 要确定 `Quicksort` 的效率，我们首先要确定单个分区的效率。
 - en: 'When we break down the steps of a partition, we’ll note that a partition involves
     two primary types of steps:'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们分解一个分区的步骤时，会注意到分区涉及两种主要类型的步骤：
 - en: 'Comparisons: We compare each of the values at hand to the `pivot`.'
   id: totrans-3
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 比较：我们将手头的每个值与 `pivot` 进行比较。
 - en: 'Swaps: When appropriate, we swap the values being pointed to by the left and
     right pointers.'
   id: totrans-4
@@ -29,6 +33,7 @@
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 交换：在适当的时候，我们交换左指针和右指针指向的值。
 - en: Each partition has at least `N` comparisons—that is, we compare each element
     of the array with the `pivot`. This is true because a partition always has the
     left and right pointers move through each cell until the left and right pointers
@@ -37,6 +42,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个分区至少有 `N` 次比较——也就是说，我们将数组的每个元素与 `pivot` 进行比较。这是正确的，因为一个分区总是让左右指针通过每个单元格移动，直到左右指针相遇。
 - en: 'The number of swaps, however, will depend upon how the data is sorted. A single
     partition can have, at most, `N / 2` swaps, as even if we’d swap values at every
     opportunity, each swap takes care of two values. As you can see in the following
@@ -45,11 +51,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 交换的次数将取决于数据的排序方式。一个单独的分区最多可以有 `N / 2` 次交换，因为即使我们在每个机会都交换值，每次交换也只处理两个值。如以下图所示，我们仅用三次交换就对六个元素进行了分区：
 - en: '![`images/divide_and_conquer_code_in_turbo_mode/three_swaps.png`](images/divide_and_conquer_code_in_turbo_mode/three_swaps.png)'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/divide_and_conquer_code_in_turbo_mode/three_swaps.png`](images/divide_and_conquer_code_in_turbo_mode/three_swaps.png)'
 - en: Now, in most cases, we’re not making a swap every step of the way. For randomly
     sorted data, we generally swap about half of the values. On average, then, we’re
     making about `N / 4` swaps.
@@ -57,6 +65,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，在大多数情况下，我们并不是在每一步都进行交换。对于随机排序的数据，我们通常会交换大约一半的值。因此，平均而言，我们大约会进行 `N / 4` 次交换。
 - en: So on average, we make about `N` comparisons and `N / 4` swaps. We can say,
     then, that there are about `1.25N` steps for `N` data elements. In `Big O` notation,
     we ignore constants, so we’d say that a partition runs in `O(N)` time.
@@ -64,6 +73,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以平均而言，我们进行大约 `N` 次比较和 `N / 4` 次交换。那么，我们可以说对于 `N` 个数据元素，大约有 `1.25N` 步骤。在 `Big
+    O` 符号中，我们忽略常数，因此我们会说一个分区的运行时间为 `O(N)`。
 - en: Now, that’s the efficiency of a single partition. But `Quicksort` involves many
     partitions, so we need to conduct further analysis to determine the efficiency
     of `Quicksort`.
@@ -71,12 +82,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，这就是单个分区的效率。但是 `Quicksort` 涉及多个分区，因此我们需要进行进一步分析以确定 `Quicksort` 的效率。
 - en: '`Quicksort` from a Bird’s-Eye View'
   id: totrans-11
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 从鸟瞰角度看 `Quicksort`
 - en: To visualize this more easily, see the [diagram](#fig.ch13.partition_numbers),
     depicting a typical `Quicksort` on an array of eight elements from a bird’s-eye
     view. In particular, the diagram shows how many elements each partition acts upon.
@@ -87,11 +100,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了更容易地可视化这一点，请查看 [图表](#fig.ch13.partition_numbers)，描绘了从鸟瞰角度看八个元素数组的典型 `Quicksort`。特别地，图表显示了每个分区作用于多少个元素。我们已省略数组中的实际数字，因为确切值并不重要。请注意，在图表中，活动子数组是没有被灰化的单元组。
 - en: '![`images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png`](images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png)'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png`](images/divide_and_conquer_code_in_turbo_mode/partition_numbers.png)'
 - en: We can see that we have eight partitions, but each partition takes place on
     subarrays of various sizes. We perform a partition on the original array of eight
     elements but also perform partitions on subarrays of sizes `4`, `3`, and `2`,
@@ -100,6 +115,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以看到我们有八个分区，但每个分区是在不同大小的子数组上进行的。我们对原始的八个元素数组进行一次分区，同时还对大小为 `4`、`3` 和 `2` 的子数组进行了分区，以及对四个大小为
+    `1` 的数组进行了另外四次分区。
 - en: 'Since `Quicksort` is essentially comprised of this series of partitions, and
     each partition takes about `N` steps for `N` elements of each subarray, if we
     add the sizes of all the subarrays together, we’ll get the total number of steps
@@ -108,96 +125,116 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于 `Quicksort` 本质上是由这一系列分区组成的，每个分区对每个子数组的 `N` 个元素大约需要 `N` 步，如果我们将所有子数组的大小加在一起，就可以得到
+    `Quicksort` 所需的总步骤数：
 - en: '| ​  | 8 elements |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 8 个元素 |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 3 elements |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 3 个元素 |'
 - en: '| ​  |  |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 1 element |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 1 个元素 |'
 - en: '| ​  |  |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 1 element |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 1 个元素 |'
 - en: '| ​  |  |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 4 elements |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 4 个元素 |'
 - en: '| ​  |  |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 2 elements |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 2 个元素 |'
 - en: '| ​  |  |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | 1 element |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 1 个元素 |'
 - en: '| ​  |  |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | + 1 element |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | + 1 个元素 |'
 - en: '| ​  | __________ |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | __________ |'
 - en: '| ​  |  |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | Total = About 21 steps |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 总计 = 大约21步 |'
 - en: We see that where the original array has 8 elements, `Quicksort` takes about
     21 steps. This assumes a best- or average-case scenario, where the pivot ends
     up roughly in the middle of the subarray after each partition.
@@ -205,42 +242,50 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们看到原始数组有8个元素时，`快速排序`大约需要21步。这假设是在最佳或平均情况下，枢轴在每次分区后大致位于子数组的中间。
 - en: 'For an array of 16 elements, `Quicksort` takes about 64 steps, and for an array
     of 32 elements, `Quicksort` takes about 160 steps. Take a look at this table:'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于16个元素的数组，`快速排序`大约需要64步，而对于32个元素的数组，`快速排序`大约需要160步。看看这个表格：
 - en: '| `N` | `Quicksort Steps (approx.)` |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `N` | `快速排序步骤（大约）` |'
 - en: '| --- | --- |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| 4 | 8 |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 4 | 8 |'
 - en: '| 8 | 24 |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 8 | 24 |'
 - en: '| 16 | 64 |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 16 | 64 |'
 - en: '| 32 | 160 |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 32 | 160 |'
 - en: (While in our example earlier, the number of `Quicksort` steps for an array
     of size 8 was 21, I put 24 in this table. The exact number can vary from case
     to case, and 24 is also a reasonable approximation. I specifically made it 24
@@ -249,17 +294,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （在之前的例子中，大小为8的数组的`快速排序`步骤数为21，我在这个表格中放了24。确切的步骤数因情况而异，24也是一个合理的近似。我特意将其设为24，以便使接下来的解释更清晰。）
 - en: The Big O of `Quicksort`
   id: totrans-43
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`快速排序`的大O'
 - en: How do we categorize `Quicksort` in terms of Big O notation?
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们如何在大O符号中对`快速排序`进行分类？
 - en: 'If we look at the pattern shown earlier, we’ll note that the number of `Quicksort`
     steps for `N` elements in the array is about `N` multiplied by `log N`, as shown
     in the following table:'
@@ -267,53 +315,63 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们查看之前显示的模式，会注意到数组中`N`个元素的`快速排序`步骤数大约是`N`乘以`log N`，如下面的表格所示：
 - en: '| `N` | `log N` | `N * log N` | `Quicksort Steps (approx.)` |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `N` | `log N` | `N * log N` | `快速排序步骤（大约）` |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| 4 | 2 | 8 | 8 |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 4 | 2 | 8 | 8 |'
 - en: '| 8 | 3 | 24 | 24 |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 8 | 3 | 24 | 24 |'
 - en: '| 16 | 4 | 64 | 64 |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 16 | 4 | 64 | 64 |'
 - en: '| 32 | 5 | 160 | 160 |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 32 | 5 | 160 | 160 |'
 - en: In fact, this is exactly how to express the efficiency of `Quicksort`. It’s
     an algorithm of `O(N log N)`. We’ve discovered a new category of Big O!
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 实际上，这正是表达`快速排序`效率的方法。它是一个`O(N log N)`的算法。我们发现了一个新的大O类别！
 - en: The [`graph`](#fig.ch13.big_o_graph) shows how `O(N log N)` looks beside other
     categories of Big O.
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '[图表](#fig.ch13.big_o_graph)展示了`O(N log N)`与其他大O类别的比较。'
 - en: '![images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png](images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png)'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png](images/divide_and_conquer_code_in_turbo_mode/big_o_graph.png)'
 - en: Now, it’s not a coincidence that the number of steps in `Quicksort` just happens
     to align with `N * log N`. If we think about `Quicksort` more broadly, we can
     see why it’s this way.
@@ -321,6 +379,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，`快速排序`的步骤数正好与`N * log N`对齐并不是偶然。如果我们更广泛地思考`快速排序`，就可以理解为什么会这样。
 - en: Each time we partition the array, we end up breaking it down into two subarrays.
     Assuming the pivot ends up somewhere in the middle of the array—which is what
     happens in the average case—these two subarrays are of roughly equal sizes.
@@ -328,6 +387,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每次我们对数组进行分区时，都会将其分解为两个子数组。假设枢轴大致位于数组的中间——这正是平均情况下的情况——这两个子数组大致相等。
 - en: 'How many times can we break an array into halves until we’ve broken it completely
     down to the point where each subarray is of size 1? For an array of size `N`,
     this will take us `log N` times. Take a look at the following diagram:'
@@ -335,11 +395,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以将一个数组分成两半多少次，直到完全分解到每个子数组的大小为1？对于大小为`N`的数组，这将需要`log N`次。看看下面的图示：
 - en: '![images/divide_and_conquer_code_in_turbo_mode/halvings.png](images/divide_and_conquer_code_in_turbo_mode/halvings.png)'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/divide_and_conquer_code_in_turbo_mode/halvings.png](images/divide_and_conquer_code_in_turbo_mode/halvings.png)'
 - en: As you can see, for an array of size 8, it takes us three halvings until we’ve
     reduced the array into eight individual elements. This is `log N`, and fits with
     our definition of `log N` as being the number of times it takes to halve something
@@ -348,6 +410,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如你所见，对于大小为8的数组，我们需要三次二分，直到将数组缩减为八个单独的元素。这是`log N`，符合我们对`log N`的定义，即将某物二分直到达到1所需的次数。
 - en: So this is why `Quicksort` takes `N * log N` steps. We have `log N` halvings,
     and for each halving, we perform a partition on all the subarrays whose elements
     add up to `N`. (They add up to `N` because all the subarrays are simply pieces
@@ -356,6 +419,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以这就是为什么`快速排序`需要`N * log N`步的原因。我们有`log N`次二分，每次二分时，对所有元素总和为`N`的子数组进行分区。（它们的总和为`N`是因为所有子数组只是原始`N`个元素数组的一部分。）
 - en: This is illustrated in the previous diagram. At the top of the diagram, for
     example, we partition the original array of eight elements, creating two subarrays
     of size `4`。 We then partition both subarrays of size `4`，which means that we’re
@@ -364,6 +428,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这在前面的图示中有所说明。例如，在图的顶部，我们将原始的八个元素的数组划分为两个大小为`4`的子数组。然后我们再将这两个大小为`4`的子数组进行划分，这意味着我们又一次在划分八个元素。
 - en: Bear in mind that `O(N * log N)` is just an approximation. In reality, we first
     perform an extra `O(N)` partition on the original array as well. Additionally,
     an array doesn’t cleanly break into two even halves, since the pivot is not part
@@ -372,14 +437,17 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请记住，`O(N * log N)`只是一个近似值。实际上，我们首先对原始数组执行额外的`O(N)`划分。此外，一个数组并不能干净利落地分成两个相等的部分，因为枢轴并不参与划分。
 - en: 'Here’s what a more realistic example looks like, where we ignore the pivot
     after each partition:'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是一个更现实的例子，我们在每次划分后忽略枢轴的情况：
 - en: '![`images/divide_and_conquer_code_in_turbo_mode/realistic.png`](images/divide_and_conquer_code_in_turbo_mode/realistic.png)'
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/divide_and_conquer_code_in_turbo_mode/realistic.png`](images/divide_and_conquer_code_in_turbo_mode/realistic.png)'

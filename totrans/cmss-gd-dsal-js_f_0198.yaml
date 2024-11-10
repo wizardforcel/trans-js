@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 魔法查找
 - en: One of my favorite go-to optimization techniques is to ask myself, “If I could
     magically find a desired piece of information in `O(1)` time, can I make my algorithm
     faster?” If the answer to this is yes, I then use a data structure (often a hash
@@ -12,134 +13,160 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我最喜欢的优化技巧之一是问自己：“如果我可以在 `O(1)` 时间内魔法般地找到所需的信息，我能让我的算法更快吗？”如果答案是肯定的，我会使用一种数据结构（通常是哈希表）来实现这种魔法。我称这种技术为“魔法查找”。
 - en: Let me clarify this technique with an example.
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我用一个例子来澄清这种技术。
 - en: Magically Looking Up Authors
   id: totrans-3
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 魔法查找作者
 - en: Let’s say we’re writing library software and we have data about books and their
     authors contained in two separate arrays.
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们正在编写图书馆软件，关于书籍和其作者的数据分别包含在两个单独的数组中。
 - en: 'Specifically, the array of authors looks like this:'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 特别地，作者数组看起来像这样：
 - en: '| ​  | `const` authors = [ |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` authors = [ |'
 - en: '| ​  | `{ authorId: 1, name: ''Virginia Woolf'' }, |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 1, name: ''弗吉尼亚·伍尔夫'' }, |'
 - en: '| ​  | `{ authorId: 2, name: ''Leo Tolstoy'' }, |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 2, name: ''列夫·托尔斯泰'' }, |'
 - en: '| ​  | `{ authorId: 3, name: ''Dr. Seuss'' }, |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 3, name: ''苏斯博士'' }, |'
 - en: '| ​  | `{ authorId: 4, name: ''J. K. Rowling'' }, |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 4, name: ''J.K.罗琳'' }, |'
 - en: '| ​  | `{ authorId: 5, name: ''Mark Twain'' }, |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 5, name: ''马克·吐温'' }, |'
 - en: '| ​  | `]; |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `]; |'
 - en: As you can see, it’s an array of hash tables, with each hash table containing
     an author’s name and ID.
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如你所见，这是一个哈希表的数组，每个哈希表包含一个作者的姓名和ID。
 - en: 'We also have a separate array containing data about books:'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们还有一个单独的数组，包含有关书籍的数据：
 - en: '| ​  | `const` books = [ |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` books = [ |'
 - en: '| ​  | `{ authorId: 3, title: ''Hop on Pop'' }, |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 3, title: ''Hop on Pop'' }, |'
 - en: '| ​  | `{ authorId: 1, title: ''Mrs. Dalloway'' }, |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 1, title: ''达洛维夫人'' }, |'
 - en: '| ​  | `{ authorId: 4, title: ''Harry Potter and the Sorcerers Stone'' }, |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 4, title: ''哈利·波特与魔法石'' }, |'
 - en: '| ​  | `{ authorId: 1, title: ''To the Lighthouse'' }, |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 1, title: ''到灯塔去'' }, |'
 - en: '| ​  | `{ authorId: 2, title: ''Anna Karenina'' }, |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 2, title: ''安娜·卡列尼娜'' }, |'
 - en: '| ​  | `{ authorId: 5, title: ''The Adventures of Tom Sawyer'' }, |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 5, title: ''汤姆·索亚历险记'' }, |'
 - en: '| ​  | `{ authorId: 3, title: ''The Cat in the Hat'' }, |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 3, title: ''帽子里的猫'' }, |'
 - en: '| ​  | `{ authorId: 2, title: ''War and Peace'' }, |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 2, title: ''战争与和平'' }, |'
 - en: '| ​  | `{ authorId: 3, title: ''Green Eggs and Ham'' }, |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 3, title: ''绿鸡蛋和火腿'' }, |'
 - en: '| ​  | `{ authorId: 5, title: ''The Adventures of Huckleberry Finn'' }, |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ authorId: 5, title: ''哈克贝里·费恩历险记'' }, |'
 - en: '| ​  | `]; |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `]; |'
 - en: Like the authors array, the books array contains a number of hash tables. Each
     hash table contains a book’s title and the `authorId`, which can allow us to determine
     the book’s author using the data from the authors array. “Hop on Pop”, for example,
@@ -149,204 +176,247 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像作者数组一样，书籍数组包含多个哈希表。每个哈希表包含一本书的标题和 `authorId`，这使我们可以使用作者数组中的数据来确定书籍的作者。例如，“Hop
+    on Pop”的 `authorId` 是3。这意味着“Hop on Pop”的作者是 `苏斯博士`，因为他的ID是3，如作者数组所示。
 - en: 'Now, let’s say we want to write code that combined this information together
     to create an array in the following format:'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，假设我们想编写代码，将这些信息组合在一起，以创建以下格式的数组：
 - en: '| ​  | `const` booksWithAuthors = [ |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` booksWithAuthors = [ |'
 - en: '| ​  | `{ author: ''Dr. Seuss'', title: ''Hop on Pop'' }, |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''苏斯博士'', title: ''Hop on Pop'' }, |'
 - en: '| ​  | `{ author: ''Virginia Woolf'', title: ''Mrs. Dalloway'' }, |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''弗吉尼亚·伍尔夫'', title: ''达洛维夫人'' }, |'
 - en: '| ​  | `{ author: ''J. K. Rowling'', title: ''Harry Potter and the Sorcerers
     Stone'' }, |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''J.K.罗琳'', title: ''哈利·波特与魔法石'' }, |'
 - en: '| ​  | `{ author: ''Virginia Woolf'', title: ''To the Lighthouse'' }, |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''弗吉尼亚·伍尔夫'', title: ''到灯塔去'' }, |'
 - en: '| ​  | `{ author: ''Leo Tolstoy'', title: ''Anna Karenina'' }, |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''列夫·托尔斯泰'', title: ''安娜·卡列尼娜'' }, |'
 - en: '| ​  | `{ author: ''Mark Twain'', title: ''The Adventures of Tom Sawyer'' },
     |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''马克·吐温'', title: ''汤姆·索亚历险记'' }, |'
 - en: '| ​  | `{ author: ''Dr. Seuss'', title: ''The Cat in the Hat'' }, |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''苏斯博士'', title: ''帽子里的猫'' }, |'
 - en: '| ​  | `{ author: ''Leo Tolstoy'', title: ''War and Peace'' }, |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''列夫·托尔斯泰'', title: ''战争与和平'' }, |'
 - en: '| ​  | `{ author: ''Dr. Seuss'', title: ''Green Eggs and Ham'' }, |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{ author: ''苏斯博士'', title: ''绿鸡蛋和火腿'' }, |'
 - en: '| ​  | { author: `''Mark Twain''`, title: `''The Adventures of Huckleberry
     Finn'' }, |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | { author: `''马克·吐温''`, title: `''哈克贝里·费恩历险记'' }, |'
 - en: '| ​  | ]; |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ]; |'
 - en: '-   为此，我们可能需要遍历书籍数组，并将每本书连接到其相应的作者。我们具体该如何进行呢？'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   为此，我们可能需要遍历书籍数组，并将每本书连接到其相应的作者。我们具体该如何进行呢？'
 - en: '-   一个解决方案可能是使用嵌套循环。外循环将遍历每本书，对于每本书，我们将运行一个内循环，检查每个作者，直到找到连接 ID 的那个。以下是这种方法的实现：'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   一个解决方案可能是使用嵌套循环。外循环将遍历每本书，对于每本书，我们将运行一个内循环，检查每个作者，直到找到连接 ID 的那个。以下是这种方法的实现：'
 - en: '| ​  | `function` connectBooksWithAuthors(books, authors) { |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` connectBooksWithAuthors(books, authors) { |'
 - en: '| ​  | `const` booksWithAuthors = []; |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` booksWithAuthors = []; |'
 - en: '| ​  |  |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` book `of` books) { |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` book `of` books) { |'
 - en: '| ​  | `for` (`const` author `of` authors) { |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` author `of` authors) { |'
 - en: '| ​  | `if` (book.authorId === author.authorId) { |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (book.authorId === author.authorId) { |'
 - en: '| ​  | booksWithAuthors.push({ title: book.title, author: author.name }); |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | booksWithAuthors.push({ title: book.title, author: author.name }); |'
 - en: '| ​  | } |'
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` booksWithAuthors; |'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` booksWithAuthors; |'
 - en: '| ​  | } |'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   在我们能够优化代码之前，我们需要满足我们的前提条件，并确定当前算法的 Big O。'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   在我们能够优化代码之前，我们需要满足我们的前提条件，并确定当前算法的 Big O。'
 - en: '-   这个算法的时间复杂度是 O(N * M)，因为对于每本 N 本书，我们需要遍历 M 个作者以找到书的作者。'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这个算法的时间复杂度是 O(N * M)，因为对于每本 N 本书，我们需要遍历 M 个作者以找到书的作者。'
 - en: '-   现在，让我们看看是否能做得更好。'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   现在，让我们看看是否能做得更好。'
 - en: '-   首先我们需要做的就是想出最佳的 Big O。在这种情况下，我们绝对需要遍历所有 N 本书，因此似乎不可能超越 O(N)。由于 O(N) 是我能想到的最快速度，而且并不完全不可能，我们可以说
     O(N) 是我们设想的最佳 Big O。'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   首先我们需要做的就是想出最佳的 Big O。在这种情况下，我们绝对需要遍历所有 N 本书，因此似乎不可能超越 O(N)。由于 O(N) 是我能想到的最快速度，而且并不完全不可能，我们可以说
+    O(N) 是我们设想的最佳 Big O。'
 - en: '-   我们现在准备使用新的神奇查找技巧。为此，我会问自己本节开头提到的问题：“如果我能以 O(1) 的时间神奇地找到所需的信息，我能否让我的算法更快？”'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   我们现在准备使用新的神奇查找技巧。为此，我会问自己本节开头提到的问题：“如果我能以 O(1) 的时间神奇地找到所需的信息，我能否让我的算法更快？”'
 - en: '-   让我们将其应用到我们的场景中。我们当前运行一个外循环，遍历所有书籍。目前，对于每本书，我们运行一个内循环，尝试在作者数组中找到该书的 authorId。'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   让我们将其应用到我们的场景中。我们当前运行一个外循环，遍历所有书籍。目前，对于每本书，我们运行一个内循环，尝试在作者数组中找到该书的 authorId。'
 - en: '-   但如果我们拥有以 O(1) 的时间找到作者的魔法能力会怎样？如果我们每次想查找一个作者时，不必遍历所有作者，而是能够立即找到该作者？那将为我们的算法带来巨大的速度提升，因为我们可能会消除内循环，并将代码的速度提升到令人称道的
     O(N)。'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   但如果我们拥有以 O(1) 的时间找到作者的魔法能力会怎样？如果我们每次想查找一个作者时，不必遍历所有作者，而是能够立即找到该作者？那将为我们的算法带来巨大的速度提升，因为我们可能会消除内循环，并将代码的速度提升到令人称道的
+    O(N)。'
 - en: '-   现在我们已经确定这个神奇的查找能力可以帮助我们，下一步是尝试让这项魔法活起来。'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   现在我们已经确定这个神奇的查找能力可以帮助我们，下一步是尝试让这项魔法活起来。'
 - en: '-   引入额外的数据结构'
   id: totrans-64
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   引入额外的数据结构'
 - en: '-   我们可以实现这种神奇查找能力的最简单方法之一是将额外的数据结构引入我们的代码。我们将使用这个数据结构以特定方式存储数据，从而使我们能够快速查找该数据。在许多情况下，哈希表是完美的数据结构，因为它具有
     O(1) 的查找速度，正如你在第 8 章中学到的，[*Blazing Fast Lookup with Hash Tables*](f_0076.xhtml#chp.hashes)。'
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   我们可以实现这种神奇查找能力的最简单方法之一是将额外的数据结构引入我们的代码。我们将使用这个数据结构以特定方式存储数据，从而使我们能够快速查找该数据。在许多情况下，哈希表是完美的数据结构，因为它具有
+    O(1) 的查找速度，正如你在第 8 章中学到的，[*哈希表的快速查找*](f_0076.xhtml#chp.hashes)。'
 - en: Right now, because the author hash tables are stored in an array, it will always
     take us `O(M)` steps (`M` being the number of authors) to find any given `authorId`
     within that array. But if we store that same information in a hash table, we now
@@ -355,123 +425,148 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，由于作者哈希表存储在数组中，查找任何给定的 `authorId` 始终需要 `O(M)` 步（`M` 为作者的数量）。但如果我们将相同的信息存储在哈希表中，我们就能获得在仅
+    `O(1)` 时间内找到每位作者的神奇能力。
 - en: 'Here’s one possibility of what this hash table could look like:'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是这个哈希表可能的样子：
 - en: '| ​  | `authorHashTable =` |'
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `authorHashTable =` |'
 - en: '| ​  | `{1: ''Virginia Woolf'', 2: ''Leo Tolstoy'', 3: ''Dr. Seuss'',` |'
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{1: ''Virginia Woolf'', 2: ''Leo Tolstoy'', 3: ''Dr. Seuss'',` |'
 - en: '| ​  | `4: ''J. K. Rowling'', 5: ''Mark Twain''}` |'
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `4: ''J. K. Rowling'', 5: ''Mark Twain''}` |'
 - en: In this hash table, each key is the author’s ID, and the value of each key is
     the author’s name.
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个哈希表中，每个键是作者的 ID，每个键的值是作者的姓名。
 - en: 'So let’s optimize our algorithm by first moving the authors data into this
     hash table and only then run our loop through the books:'
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以让我们通过首先将作者数据移入这个哈希表，然后再运行我们的书籍循环来优化算法：
 - en: '| ​  | `function connectBooksWithAuthors(books, authors) {` |'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function connectBooksWithAuthors(books, authors) {` |'
 - en: '| ​  | `const booksWithAuthors = [];` |'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const booksWithAuthors = [];` |'
 - en: '| ​  | `const authorHashTable = {};` |'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const authorHashTable = {};` |'
 - en: '| ​  |  |'
   id: totrans-76
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for (const author of authors) {` |'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for (const author of authors) {` |'
 - en: '| ​  | `authorHashTable[author.authorId] = author.name;` |'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `authorHashTable[author.authorId] = author.name;` |'
 - en: '| ​  | `}` |'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for (const book of books) {` |'
   id: totrans-81
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for (const book of books) {` |'
 - en: '| ​  | `booksWithAuthors.push({` |'
   id: totrans-82
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `booksWithAuthors.push({` |'
 - en: '| ​  | `title: book.title,` |'
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `title: book.title,` |'
 - en: '| ​  | `author: authorHashTable[book.authorId]` |'
   id: totrans-84
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `author: authorHashTable[book.authorId]` |'
 - en: '| ​  | `});` |'
   id: totrans-85
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `});` |'
 - en: '| ​  | `}` |'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: '| ​  |  |'
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return booksWithAuthors;` |'
   id: totrans-88
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return booksWithAuthors;` |'
 - en: '| ​  | `}` |'
   id: totrans-89
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `}` |'
 - en: In this version, we first iterate through the authors array and use that data
     to create the `authorHashTable`. This takes `M` steps, with `M` being the number
     of authors.
@@ -479,6 +574,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个版本中，我们首先遍历作者数组，并使用这些数据创建 `authorHashTable`。这需要 `M` 步，`M` 是作者的数量。
 - en: We then iterate through the list of books and use the `authorHashTable` to “magically”
     find each author in a single step. This loop takes `N` steps, with `N` being the
     number of books.
@@ -486,6 +582,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们遍历书籍列表，并使用 `authorHashTable` “神奇”地在一步中找到每位作者。这个循环需要 `N` 步，`N` 是书籍的数量。
 - en: This optimized algorithm takes a grand total of `O(N + M)` steps, since we run
     a single loop through the `N` books and a single loop through the `M` authors.
     This is drastically faster than our original algorithm, which took `O(N * M)`.
@@ -493,6 +590,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个优化后的算法总共需要`O(N + M)`步，因为我们对`N`本书进行一次循环，对`M`个作者进行一次循环。这比我们原来的算法快得多，原算法需要`O(N
+    * M)`。
 - en: It’s worth noting that by creating the extra hash table, we’re using up an additional
     `O(M)` space, whereas our initial algorithm didn’t take up any extra space at
     all. However, this is great optimization if we’re willing to sacrifice the memory
@@ -501,6 +600,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 值得注意的是，通过创建额外的哈希表，我们使用了额外的`O(M)`空间，而我们最初的算法根本没有占用任何额外空间。然而，如果我们愿意为了速度牺牲内存，这就是一个很好的优化。
 - en: We made this magic happen by first dreaming what magical `O(1)` lookups could
     do for us, and we then granted ourselves our own wish by using a hash table to
     store our data in an easy-to-find way.
@@ -508,6 +608,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们通过首先想象神奇的`O(1)`查找能为我们做些什么，然后通过使用哈希表以易于查找的方式存储数据来实现这个魔法。
 - en: The fact that we can look up hash table data in `O(1)` time isn’t new, as we
     looked at this back in Chapter 8, [*Blazing Fast Lookup with Hash Tables*](f_0076.xhtml#chp.hashes).
     The specific tip I’m sharing here, though, is to constantly imagine that you can
@@ -519,18 +620,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们能够在`O(1)`时间查找哈希表数据并不是新鲜事，因为我们在第8章[*使用哈希表的极速查找*](f_0076.xhtml#chp.hashes)中讨论过这个。不过，我在这里分享的具体提示是要不断想象你可以对任何类型的数据执行`O(1)`查找，并注意这是否会加速你的代码。一旦你有了如何利用`O(1)`查找的视野，你就可以尝试使用哈希表或其他数据结构将这个梦想变为现实。
 - en: The Two Sum Problem
   id: totrans-96
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 两数之和问题
 - en: Let’s look at another scenario in which we can benefit from magical lookups.
     This is one of my favorite optimization examples.
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们看看另一个我们可以从神奇查找中受益的场景。这是我最喜欢的优化示例之一。
 - en: The `two sum` problem is a well-known coding exercise. The task is to write
     a `function` that accepts an `array` of numbers and returns `true` or `false`
     depending on whether there are any two numbers in the `array` that add up to `10`
@@ -540,37 +644,44 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`two sum`问题是一个众所周知的编码练习。任务是编写一个`function`，接受一个数字`array`并返回`true`或`false`，具体取决于`array`中是否有两个数字加起来为`10`（或另一个给定数字）。为简便起见，假设`array`中不会有重复数字。'
 - en: 'Let’s say this is our `array`:'
   id: totrans-99
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设这是我们的`array`：
 - en: '| ​  | [2, 0, 4, 1, 7, 9] |'
   id: totrans-100
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | [2, 0, 4, 1, 7, 9] |'
 - en: Our `function` would return `true`, since the `1` and `9` add up to `10`.
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的`function`将返回`true`，因为`1`和`9`加起来为`10`。
 - en: 'But let’s look at the following `array`:'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但让我们看看以下的`array`：
 - en: '| ​  | [2, 0, 4, 5, 3, 9] |'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | [2, 0, 4, 5, 3, 9] |'
 - en: In this case, we return `false`. Even though the three numbers `2`, `5`, and
     `3` add up to `10`, we specifically need two numbers to add up to `10`.
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，我们返回`false`。尽管三个数字`2`、`5`和`3`加起来是`10`，但我们特别需要两个数字加起来为`10`。
 - en: 'The first solution that comes to mind is to use nested loops to compare each
     number to every other number and see if they add up to `10`. Here’s a JavaScript
     implementation:'
@@ -578,78 +689,93 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们想到的第一个解决方案是使用嵌套循环将每个数字与其他每个数字进行比较，看看它们是否加起来为`10`。下面是一个JavaScript实现：
 - en: '| ​  | ​`function`​ `twoSum`(`array`) { |'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `twoSum`(`array`) { |'
 - en: '| ​  | ​`for`​ (`let` i = 0; i < `array.length`; i += 1) { |'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`let` i = 0; i < `array.length`; i += 1) { |'
 - en: '| ​  | ​`for`​ (`let` j = 0; j < `array.length`; j += 1) { |'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`let` j = 0; j < `array.length`; j += 1) { |'
 - en: '| ​  | ​`if`​ (i !== j && `array[i]` + `array[j]` === `10`) { |'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (i !== j && `array[i]` + `array[j]` === `10`) { |'
 - en: '| ​  | ​`return`​ ​`true`; |'
   id: totrans-110
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ ​`true`; |'
 - en: '| ​  | } |'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-112
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-113
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-114
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ ​`false`; |'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ ​`false`; |'
 - en: '| ​  | } |'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: As always, before attempting an optimization, we need to satisfy our prereq
     and figure out the current `Big O` of our code.
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 一如既往，在尝试优化之前，我们需要满足我们的前提条件，并弄清楚我们代码的当前`Big O`。
 - en: As is typical in a nested-loop algorithm, this `function` has a runtime of `O(N²)`.
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像嵌套循环算法中典型的情况一样，这个`function`的运行时间为`O(N²)`。
 - en: Next, to see if our algorithm is worth optimizing, we need to see if the best-imaginable
     `Big O` would be any better.
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，为了看看我们的算法是否值得优化，我们需要看看最理想的`Big O`是否会更好。
 - en: In this case, it would seem that we absolutely have to visit each number in
     the `array` at least once. So, we couldn’t beat `O(N)`. And if someone told me
     that there’s an `O(N)` solution to this problem, I suppose I’d believe them. So
@@ -658,24 +784,29 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，似乎我们必须至少访问一次`array`中的每个数字。所以，我们无法超过`O(N)`。如果有人告诉我这个问题有一个`O(N)`的解决方案，我想我会相信他们。因此，让我们将`O(N)`视为我们能想象的最佳`Big
+    O`。
 - en: 'Now, let’s ask ourselves the magical lookup question: “If I could magically
     find a desired piece of information in `O(1)` time, can I make my algorithm faster?”'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，让我们问自己一个神奇的查找问题：“如果我可以在`O(1)`时间内神奇地找到所需的信息，我能让我的算法更快吗？”
 - en: Sometimes it helps to begin walking through our current implementation while
     asking this question along the way, so let’s do that.
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有时，边走边检查我们当前的实现会有所帮助，所以让我们这样做。
 - en: Let’s mentally walk through our outer loop with the example `array` of `[2,
     0, 4, 1, 7, 9]`. This loop begins with the first number, which is the number `2`.
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们心里走过我们的外部循环，使用`array`示例`[2, 0, 4, 1, 7, 9]`。这个循环以第一个数字开始，也就是数字`2`。
 - en: Now, what piece of information might we desire to look up while we’re looking
     at the `2`? Again, we want to know if this `2` could be added to another number
     in the `array` to provide a sum of `10`.
@@ -683,6 +814,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们在查看`2`时可能想要查找什么信息？再一次，我们想知道这个`2`是否可以与`array`中的另一个数字相加得到`10`。
 - en: Thinking about it further, while looking at the `2`, I’d want to know whether
     there’s an `8` somewhere in this array. If we could, magically, do an `O(1)` lookup
     and know that there’s an `8` in the array, we could immediately return `true`.
@@ -691,146 +823,177 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 更进一步思考，当查看`2`时，我想知道这个数组中是否有一个`8`。如果我们能够神奇地在`O(1)`时间内查找并知道数组中有一个`8`，我们就可以立即返回`true`。我们将`8`称为`2`的对应数，因为这两个数字相加得到`10`。
 - en: Similarly, when we move on to the `0`, we’d want to do an `O(1)` lookup to find
     its counterpart—a `10`—in the array, and so on.
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，当我们移动到`0`时，我们想要进行一次`O(1)`查找，以在数组中找到它的对应数`10`，依此类推。
 - en: 通过这种方法，我们可以仅遍历一次数组，并在此过程中进行神奇的`O(1)`查找，以查看每个数字的对应数是否存在于数组中。只要我们找到任何数字的对应数，就返回`true`，但如果我们到达数组的末尾而没有找到任何数字对应数，则返回`false`。
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过这种方法，我们可以仅遍历一次数组，并在此过程中进行神奇的`O(1)`查找，以查看每个数字的对应数是否存在于数组中。只要我们找到任何数字的对应数，就返回`true`，但如果我们到达数组的末尾而没有找到任何数字对应数，则返回`false`。
 - en: 现在我们已经确定这些神奇的`O(1)`查找会带来好处，让我们试着通过引入一个额外的数据结构来施展我们的魔法。再次强调，哈希表通常是进行魔法查找的默认选项，因为它的读取时间是`O(1)`。（哈希表加速算法的效果简直让人惊讶。）
   id: totrans-128
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们已经确定这些神奇的`O(1)`查找会带来好处，让我们试着通过引入一个额外的数据结构来施展我们的魔法。再次强调，哈希表通常是进行魔法查找的默认选项，因为它的读取时间是`O(1)`。（哈希表加速算法的效果简直让人惊讶。）
 - en: 由于我们希望能够在`O(1)`时间内查找数组中的任何数字，因此我们将这些数字作为键存储在哈希表中。哈希表可能如下所示：
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于我们希望能够在`O(1)`时间内查找数组中的任何数字，因此我们将这些数字作为键存储在哈希表中。哈希表可能如下所示：
 - en: '| ​  | `{2: true, 0: true, 4: true, 1: true, 7: true, 9: true}` |'
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{2: true, 0: true, 4: true, 1: true, 7: true, 9: true}` |'
 - en: 我们可以使用任何任意项作为值；让我们决定使用`true`。
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以使用任何任意项作为值；让我们决定使用`true`。
 - en: 现在我们可以在`O(1)`时间内查找任何数字，我们如何查找数字的对应数？我们注意到，当我们迭代`2`时，我们知道对应数应该是`8`。我们之所以知道这一点，是因为我们直觉上知道`2
     + 8 = 10`。
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们可以在`O(1)`时间内查找任何数字，我们如何查找数字的对应数？我们注意到，当我们迭代`2`时，我们知道对应数应该是`8`。我们之所以知道这一点，是因为我们直觉上知道`2
+    + 8 = 10`。
 - en: 实质上，我们可以通过将某个数字从10中减去来计算它的对应数。因为`10 - 2 = 8`，这意味着`8`是`2`的对应数。
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 实质上，我们可以通过将某个数字从10中减去来计算它的对应数。因为`10 - 2 = 8`，这意味着`8`是`2`的对应数。
 - en: 我们现在拥有创建一个非常快速的算法所需的所有元素：
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在拥有创建一个非常快速的算法所需的所有元素：
 - en: '| ​  | ​`function`​ `twoSum(array)` { |'
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `twoSum(array)` { |'
 - en: '| ​  | ​`const`​ `hashTable` = {}; |'
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`const`​ `hashTable` = {}; |'
 - en: '| ​  |  |'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (`​`​`const`​ `value` ​`of`​ `array`) { |'
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (`​`​`const`​ `value` ​`of`​ `array`) { |'
 - en: '| ​  | ​`if`​ (`hashTable[10 - value]`) { |'
   id: totrans-139
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`hashTable[10 - value]`) { |'
 - en: '| ​  | ​`return`​ ​`true`; |'
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ ​`true`; |'
 - en: '| ​  | } ​`else`​ { |'
   id: totrans-141
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } ​`else`​ { |'
 - en: '| ​  | `hashTable[value]` = ​`true`; |'
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `hashTable[value]` = ​`true`; |'
 - en: '| ​  | } |'
   id: totrans-143
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ ​`false`; |'
   id: totrans-146
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ ​`false`; |'
 - en: '| ​  | } |'
   id: totrans-147
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 该算法仅遍历数组中的每个数字一次。
   id: totrans-148
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 该算法仅遍历数组中的每个数字一次。
 - en: 当我们访问每个数字时，我们检查哈希表中是否包含当前数字的对应数作为键。我们将其计算为`10 - value`。（例如，如果`value`是`3`，对应数将是`7`，因为`10
     - 3 = 7`。）
   id: totrans-149
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们访问每个数字时，我们检查哈希表中是否包含当前数字的对应数作为键。我们将其计算为`10 - value`。（例如，如果`value`是`3`，对应数将是`7`，因为`10
+    - 3 = 7`。）
 - en: 如果我们找到任何数字的对应数，我们立即返回`true`，这意味着我们找到了两个加起来等于10的数字。
   id: totrans-150
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们找到任何数字的对应数，我们立即返回`true`，这意味着我们找到了两个加起来等于10的数字。
 - en: 此外，当我们遍历每个数字时，我们将数字作为键插入哈希表。这就是我们在遍历数组时填充哈希表的方法。
   id: totrans-151
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此外，当我们遍历每个数字时，我们将数字作为键插入哈希表。这就是我们在遍历数组时填充哈希表的方法。
 - en: With this approach, we drastically increased the algorithm’s speed to `O(N)`。我们通过将所有数据元素存储在一个哈希表中来实现这一点，目的是在循环中能够执行`O(1)`查找。
   id: totrans-152
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过这种方法，我们将算法的速度大幅提高到`O(N)`。我们通过将所有数据元素存储在一个哈希表中来实现这一点，目的是在循环中能够执行`O(1)`查找。
 - en: 把哈希表视为你的魔法棒，成为你注定要成为的编程巫师。（好吧，够了。）
   id: totrans-153
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 把哈希表视为你的魔法棒，成为你注定要成为的编程巫师。（好吧，够了。）

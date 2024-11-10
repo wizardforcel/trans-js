@@ -4,92 +4,110 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 偶数的平均值
 - en: The following method accepts an array of numbers and returns the mean average
     of all its even numbers. How would we express its efficiency in terms of Big O?
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 以下方法接受一个数字数组并返回所有偶数的平均值。我们如何用大 O 来表达它的效率呢？
 - en: '| ​  | `function` averageOfEvenNumbers(array) { |'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` averageOfEvenNumbers(array) { |'
 - en: '| ​  | `let` sum = 0; |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` sum = 0; |'
 - en: '| ​  | `let` countOfEvenNumbers = 0; |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` countOfEvenNumbers = 0; |'
 - en: '| ​  |  |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for` (`const` number `of` array) { |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` (`const` number `of` array) { |'
 - en: '| ​  | `if` (number % 2 === 0) { |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (number % 2 === 0) { |'
 - en: '| ​  | sum += number; |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | sum += number; |'
 - en: '| ​  | countOfEvenNumbers += 1; |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | countOfEvenNumbers += 1; |'
 - en: '| ​  | } |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | }; |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | }; |'
 - en: '| ​  |  |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (countOfEvenNumbers === 0) { `return` `null`; } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (countOfEvenNumbers === 0) { `return` `null`; } |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` Math.floor(sum / countOfEvenNumbers); |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` Math.floor(sum / countOfEvenNumbers); |'
 - en: '| ​  | } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Here’s how to break the code down to determine its efficiency.
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 下面是如何拆解代码以确定其效率的方法。
 - en: 'Remember that Big O is all about answering the key question: if there are `N`
     data elements, how many steps will the algorithm take? Therefore, the first thing
     we want to do is determine what the `N` data elements are.'
@@ -97,6 +115,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请记住，大 O 符号的核心是回答一个关键问题：如果有 `N` 个数据元素，算法将执行多少步骤？因此，我们首先要做的是确定 `N` 个数据元素是什么。
 - en: In this case, the algorithm is processing the array of numbers passed into this
     method. These, then, would be the `N` data elements, with `N` being the size of
     the array.
@@ -104,12 +123,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这种情况下，算法正在处理传递给该方法的数字数组。这些就是 `N` 个数据元素，其中 `N` 是数组的大小。
 - en: Next, we have to determine how many steps the algorithm takes to process these
     `N` values.
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们需要确定算法处理这些 `N` 值所需的步骤数。
 - en: We can see the guts of the algorithm is the loop that iterates over each number
     inside the array, so we’ll want to analyze that first. Since the loop iterates
     over each of the `N` elements, we know the algorithm takes at least `N` steps.
@@ -117,6 +138,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以看到算法的核心是遍历数组中每个数字的循环，所以我们首先要分析这个循环。由于循环遍历每个 `N` 元素，我们知道算法至少需要 `N` 步骤。
 - en: 'Looking inside the loop, though, we can see that a varying number of steps
     occur within each round of the loop. For each and every number, we check whether
     the number is even. Then, if the number is even, we perform two more steps: we
@@ -126,6 +148,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，查看循环内部，我们可以看到每一轮循环中会发生不同数量的步骤。对于每一个数字，我们检查这个数字是否是偶数。然后，如果数字是偶数，我们再执行两个步骤：修改
+    `sum` 变量和修改 `countOfEvenNumbers` 变量。因此，对于偶数，我们比对奇数多执行两个步骤。
 - en: As you’ve learned, Big O focuses primarily on worst-case scenarios. In our case,
     the worst case is when all the numbers are even, in which case we perform three
     steps during each round of the loop. Because of this, we can say that for `N`
@@ -135,6 +159,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如你所学，大 O 主要关注最坏情况。在我们的例子中，最坏情况是所有数字都是偶数，在这种情况下，我们在每一轮循环中执行三步。因此，我们可以说，对于 `N`
+    个数据元素，我们的算法需要 `3N` 步骤。也就是说，对于每一个 `N` 数字，我们的算法执行三步。
 - en: 'Now, our method performs a few other steps outside of the loop as well. Before
     the loop, we initialize the two variables and set them to `0`。Technically，这些是两步。After
     the loop, we perform another step: the division of `sum / countOfEvenNumbers`。Technically,
@@ -144,9 +170,12 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们的方法在循环外还执行了一些其他步骤。在循环之前，我们初始化两个变量并将其设置为 `0`。从技术上讲，这两步。循环之后，我们执行另一个步骤：`sum
+    / countOfEvenNumbers` 的除法。从技术上讲，我们的算法在 `3N` 步骤之外多了三步，所以总步骤数是 `3N + 3`。
 - en: However, you also learned that Big O notation ignores constant numbers, so instead
     of calling our algorithm `O(3N + 3)`，we simply call it `O(N)`。
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，你也学到了大 O 符号忽略常数，所以我们不叫我们的算法 `O(3N + 3)`，而是简单地称它为 `O(N)`。

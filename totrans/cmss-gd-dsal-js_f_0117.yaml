@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`通过记忆化的动态编程`'
 - en: Luckily, we do have options, and that is through something called `dynamic programming`.
     `Dynamic programming` is the process of optimizing recursive problems that have
     overlapping subproblems.
@@ -11,6 +12,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 幸运的是，我们确实有选择，那就是通过一种称为`dynamic programming`的方式。`动态编程`是优化具有重叠子问题的递归问题的过程。
 - en: (Don’t pay too much attention to the word `dynamic`. There’s some debate as
     to how the term came about, and there’s nothing obviously `dynamic` about the
     techniques I’m about to demonstrate.)
@@ -18,12 +20,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （不要过于关注单词`dynamic`。关于这个术语的起源有一些争议，而且我接下来要演示的技术并没有明显的`dynamic`特征。）
 - en: Optimizing an algorithm with `dynamic programming` is typically accomplished
     with one of two techniques.
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 用`动态编程`优化算法通常采用两种技术之一。
 - en: The first technique is something called `memoization`. And no, that’s not a
     typo. Pronounced `meh-moe-ih-ZAY-shun`, `memoization` is a simple, but brilliant,
     technique for reducing recursive calls in cases of overlapping subproblems.
@@ -31,6 +35,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第一个技术被称为`memoization`。没错，这不是一个错字。发音为`meh-moe-ih-ZAY-shun`，`memoization`是一种简单而巧妙的技术，用于在重叠子问题的情况下减少递归调用。
 - en: Essentially, `memoization` reduces recursive calls by remembering previously
     computed `functions`. (In this respect, `memoization` really is like its similar-sounding
     word `memorization`.)
@@ -38,6 +43,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 本质上，`memoization`通过记住先前计算的`functions`来减少递归调用。（在这方面，`memoization`确实像它的发音相似的单词`memorization`。）
 - en: 'In our `Fibonacci` example, the first time `fib(3)` is called, the `function`
     does its computation and returns the number `2`. However, before moving on, the
     `function` stores this result inside a hash table. The hash table will look something
@@ -46,16 +52,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的`Fibonacci`示例中，第一次调用`fib(3)`时，`function`进行计算并返回数字`2`。然而，在继续之前，`function`会将此结果存储在哈希表中。哈希表大致如下：
 - en: '| ​  | {3: 2} |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | {3: 2} |'
 - en: This indicates that the result of `fib(3)` is the number `2`.
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这表明`fib(3)`的结果是数字`2`。
 - en: 'Similarly, our code will `memoize` the results of all new computations it encounters.
     After encountering `fib(4)`, `fib(5)`, and `fib(6)`, for example, our hash table
     will look like this:'
@@ -63,42 +72,50 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，我们的代码会`memoize`它遇到的所有新计算的结果。例如，在遇到`fib(4)`、`fib(5)`和`fib(6)`之后，我们的哈希表将看起来像这样：
 - en: '| ​  | { |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | { |'
 - en: '| ​  | 3: 2, |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 3: 2, |'
 - en: '| ​  | 4: 3, |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 4: 3, |'
 - en: '| ​  | 5: 5, |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 5: 5, |'
 - en: '| ​  | 6: 8 |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | 6: 8 |'
 - en: '| ​  | } |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 'Now that we have this hash table, we can use it to prevent future recursive
     calls. Here’s the way this works:'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在我们有了这个哈希表，可以用它来防止未来的递归调用。其工作原理如下：
 - en: Without `memoization`, `fib(4)` would normally call `fib(3)` and `fib(2)`, which
     in turn make their own recursive calls. Now that we have this hash table, we can
     approach things differently. Instead of `fib(4)` just blithely calling `fib(3)`,
@@ -109,6 +126,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果没有`memoization`，`fib(4)`通常会调用`fib(3)`和`fib(2)`，这又会产生各自的递归调用。现在有了这个哈希表，我们可以采取不同的方法。举例来说，`fib(4)`不会再轻率地调用`fib(3)`，而是首先检查哈希表，看看`fib(3)`的结果是否已经计算过。只有当`3`这个键不在哈希表中时，`function`才会继续调用`fib(3)`。
 - en: '`Memoization` goes for the jugular of overlapping subproblems. The whole issue
     with overlapping subproblems is that we end up computing the same recursive calls
     over and over again. With `memoization`, though, each time we make a new calculation,
@@ -118,17 +136,20 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Memoization`直接切入重叠子问题的核心。重叠子问题的主要问题在于我们不断计算相同的递归调用。但是通过`memoization`，每次进行新的计算时，我们都会将结果存储在哈希表中以供将来使用。这样，只有在之前从未计算过时，我们才会进行计算。'
 - en: Okay, this all sounds good, but there’s one glaring problem. How does each recursive
     function get access to this hash table?
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 好吧，这一切听起来不错，但有一个明显的问题。每个递归函数如何访问这个哈希表？
 - en: 'The answer is this: we pass the hash table as a second parameter to the `function`.'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 答案是：我们将哈希表作为`function`的第二个参数传递。
 - en: Because the hash table is a specific object in memory, we’re able to pass it
     from one recursive call to the next, even though we’re modifying it as we go.
     This is true even as we unwind the call stack. Even though the hash table may
@@ -138,224 +159,269 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于哈希表是内存中的特定对象，我们能够在每个递归调用之间传递它，即使我们在此过程中修改它。这在我们解除调用栈时也同样成立。即使在最初调用时哈希表可能是空的，但在最初调用执行完成时，那个哈希表可以充满数据。
 - en: 实现备忘录化
   id: totrans-22
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 实现备忘录化
 - en: 为了将哈希表传递下去，我们修改我们的函数，使其接受两个参数，哈希表作为第二个参数。我们将这个哈希表称为`memo`，如同备忘录化：
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了将哈希表传递下去，我们修改我们的函数，使其接受两个参数，哈希表作为第二个参数。我们将这个哈希表称为`memo`，如同备忘录化：
 - en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `fib(n, memo={})` { |'
 - en: 注意，我们将`memo`设置为默认参数；这样，我们在第一次调用它时就不必传入一个空的哈希表。因此，我们可以简单地使用以下方式调用函数：
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意，我们将`memo`设置为默认参数；这样，我们在第一次调用它时就不必传入一个空的哈希表。因此，我们可以简单地使用以下方式调用函数：
 - en: '| ​  | `fib(6);` |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `fib(6);` |'
 - en: 每次`fib`调用自身时，它还会传递哈希表，这样哈希表就会在此过程中填满。
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每次`fib`调用自身时，它还会传递哈希表，这样哈希表就会在此过程中填满。
 - en: 这里是函数的其余部分：
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是函数的其余部分：
 - en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `fib(n, memo={})` { |'
 - en: '| ​  | ​`if`​ (`n === 0` || `n === 1`) { |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`n === 0` || `n === 1`) { |'
 - en: '| ​  | ​`return`​ `n;` |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `n;` |'
 - en: '| ​  | } |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`if`​ (!`memo[n]`) { |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (!`memo[n]`) { |'
 - en: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
 - en: '| ​  | } |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `memo[n];` |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `memo[n];` |'
 - en: '| ​  | } |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 让我们逐行分析。
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们逐行分析。
 - en: 同样，我们的函数现在接受两个参数，即`n`和备忘录哈希表：
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，我们的函数现在接受两个参数，即`n`和备忘录哈希表：
 - en: '| ​  | ​`function`​ `fib(n, memo={})` { |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `fib(n, memo={})` { |'
 - en: 首先，基本情况 0 和 1 都会自动返回`n`，并且不受备忘录化的影响。
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，基本情况 0 和 1 都会自动返回`n`，并且不受备忘录化的影响。
 - en: 在进行任何递归调用之前，我们的代码首先检查`fib(n)`是否已经为给定的`n`计算过：
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在进行任何递归调用之前，我们的代码首先检查`fib(n)`是否已经为给定的`n`计算过：
 - en: '| ​  | ​`if`​ (!`memo[n]`) { |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (!`memo[n]`) { |'
 - en: （如果`n`的计算已经在哈希表中，我们只需使用`return memo[n]`返回结果。）
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （如果`n`的计算已经在哈希表中，我们只需使用`return memo[n]`返回结果。）
 - en: 只有在对`n`的计算尚未完成时，我们才会继续进行计算：
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 只有在对`n`的计算尚未完成时，我们才会继续进行计算：
 - en: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `memo[n] = fib(n - 2, memo) + fib(n - 1, memo);` |'
 - en: 在这里，我们将计算的结果存储在备忘录哈希表中，因此我们永远不必再次计算它。
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们将计算的结果存储在备忘录哈希表中，因此我们永远不必再次计算它。
 - en: 还要注意，我们每次调用`fib`函数时都会将`memo`作为参数传递。这是共享备忘录哈希表的关键。
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 还要注意，我们每次调用`fib`函数时都会将`memo`作为参数传递。这是共享备忘录哈希表的关键。
 - en: 如您所见，算法的核心部分保持不变。我们仍然在使用递归来解决问题，因为`fib`的计算仍然基本上是`fib(n - 2) + fib(n - 1)`。然而，如果我们计算的数字是新的，我们会将结果存储在哈希表中；如果我们计算的数字之前已经计算过，我们只需从哈希表中获取结果，而不是重新计算。
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如您所见，算法的核心部分保持不变。我们仍然在使用递归来解决问题，因为`fib`的计算仍然基本上是`fib(n - 2) + fib(n - 1)`。然而，如果我们计算的数字是新的，我们会将结果存储在哈希表中；如果我们计算的数字之前已经计算过，我们只需从哈希表中获取结果，而不是重新计算。
 - en: 当我们在备忘录版本中映射递归调用时，我们得到了这个：
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们在备忘录版本中映射递归调用时，我们得到了这个：
 - en: '![images/dynamic_programming/memoized_fib.png](images/dynamic_programming/memoized_fib.png)'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/memoized_fib.png](images/dynamic_programming/memoized_fib.png)'
 - en: 在这个图中，所有被框住的调用是从哈希表中检索结果的调用。
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个图中，所有被框住的调用是从哈希表中检索结果的调用。
 - en: 那么我们函数的 Big O 现在是什么？让我们看看对不同类型的`N`我们进行多少次递归调用：
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 那么我们函数的 Big O 现在是什么？让我们看看对不同类型的`N`我们进行多少次递归调用：
 - en: '| N Elements | Number of Calls |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| N 元素 | 调用次数 |'
 - en: '| --- | --- |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| 1 | 1 |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 1 | 1 |'
 - en: '| 2 | 3 |'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 2 | 3 |'
 - en: '| 3 | 5 |'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 3 | 5 |'
 - en: '| 4 | 7 |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 4 | 7 |'
 - en: '| 5 | 9 |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 5 | 9 |'
 - en: '| 6 | 11 |'
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 6 | 11 |'
 - en: 我们可以看到，对于`N`，我们进行了`(2N) - 1`次调用。由于在 Big O 中我们省略常数，这个算法是`O(N)`。
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以看到，对于`N`，我们进行了`(2N) - 1`次调用。由于在 Big O 中我们省略常数，这个算法是`O(N)`。
 - en: 这是对`O(2^N)`的一个惊人改进。去备忘录化吧！
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是对`O(2^N)`的一个惊人改进。去备忘录化吧！

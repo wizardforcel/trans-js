@@ -4,12 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 插入
 - en: As I mentioned earlier, binary search trees are at their best when it comes
     to insertion. Now we’ll see why.
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如我之前提到的，二叉搜索树在插入时表现最佳。现在我们将看到原因。
 - en: 'Say we want to insert the number 45 into our example tree. The first thing
     we’d have to do is find the correct node to attach the 45 to. To begin our search,
     we start at the root, as shown in the following illustration:'
@@ -17,57 +19,68 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设我们想将数字45插入我们的示例树。我们首先需要找到合适的节点来附加45。为了开始搜索，我们从根节点开始，如下图所示：
 - en: '![images/binary_trees/bst_6.png](images/binary_trees/bst_6.png)'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_6.png](images/binary_trees/bst_6.png)'
 - en: 'Since 45 is less than 50, we drill down to the left child:'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于45小于50，我们向左子节点深入：
 - en: '![images/binary_trees/bst_10.png](images/binary_trees/bst_10.png)'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_10.png](images/binary_trees/bst_10.png)'
 - en: 'Since 45 is greater than 25, we must inspect the right child:'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于45大于25，我们必须检查右子节点：
 - en: '![images/binary_trees/bst_11.png](images/binary_trees/bst_11.png)'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_11.png](images/binary_trees/bst_11.png)'
 - en: 'Since 45 is greater than 33, we check the 33’s right child:'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于45大于33，我们检查33的右子节点：
 - en: '![images/binary_trees/bst_12.png](images/binary_trees/bst_12.png)'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_12.png](images/binary_trees/bst_12.png)'
 - en: At this point, we’ve reached a node that has no children, so we have nowhere
     to go. This means we’re ready to perform our insertion.
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，我们到达了一个没有子节点的节点，因此无处可去。这意味着我们准备执行插入操作。
 - en: 'Since 45 is greater than 40, we insert it as a right child of the 40:'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于45大于40，我们将其作为40的右子节点插入：
 - en: '![images/binary_trees/bst_13.png](images/binary_trees/bst_13.png)'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/binary_trees/bst_13.png](images/binary_trees/bst_13.png)'
 - en: In this example, insertion took five steps, consisting of four search steps
     plus one insertion step. Insertion always takes just one extra step beyond a search,
     which means insertion takes (`log N`) + 1 steps. In Big O notation, which ignores
@@ -76,6 +89,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，插入共进行了五步，包括四步搜索和一步插入。插入总是比搜索多一步，这意味着插入需要(`log N`) + 1步。在忽略常数的情况下，用大O记法表示就是`O(log
+    N)`。
 - en: In an ordered array, by contrast, insertion takes `O(N)`, because in addition
     to search, we must shift a lot of data to the right to make room for the value
     we’re inserting.
@@ -83,6 +98,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 相比之下，在有序数组中，插入需要`O(N)`，因为除了搜索外，我们还必须将大量数据向右移动以为要插入的值腾出空间。
 - en: This is what makes binary search trees so efficient. While ordered arrays have
     `O(log N)` search and `O(N)` insertion, binary search trees have `O(log N)` search
     and `O(log N)` insertion. This becomes critical in an application in which you
@@ -91,225 +107,272 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这就是为什么二叉搜索树如此高效的原因。虽然有序数组的搜索时间复杂度为`O(log N)`，插入时间复杂度为`O(N)`，但二叉搜索树的搜索和插入时间复杂度都是`O(log
+    N)`。在需要频繁更改数据的应用中，这一点尤其关键。
 - en: 'Code Implementation: Binary Search Tree Insertion'
   id: totrans-16
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：二叉搜索树插入
 - en: 'Here’s a JavaScript implementation of inserting a new value into a binary search
     tree. Like the search function, it’s recursive:'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是一个将新值插入二叉搜索树的JavaScript实现。与搜索功能一样，它是递归的：
 - en: '| ​  | `import` TreeNode `from` *''./tree_node.js''*; |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `import` TreeNode `from` *''./tree_node.js''*; |'
 - en: '| ​  |  |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `function` insert(value, node) { |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` insert(value, node) { |'
 - en: '| ​  | `if` (value < node.value) { |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (value < node.value) { |'
 - en: '| ​  | `if` (!node.leftChild) { |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!node.leftChild) { |'
 - en: '| ​  | `node.leftChild = new TreeNode(value);` |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.leftChild = new TreeNode(value);` |'
 - en: '| ​  | } `else` { |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | insert(value, node.leftChild); |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | insert(value, node.leftChild); |'
 - en: '| ​  | } |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } `else` `if` (value > node.value) { |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` `if` (value > node.value) { |'
 - en: '| ​  | `if` (!node.rightChild) { |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!node.rightChild) { |'
 - en: '| ​  | `node.rightChild = new TreeNode(value);` |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.rightChild = new TreeNode(value);` |'
 - en: '| ​  | } `else` { |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | insert(value, node.rightChild); |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | insert(value, node.rightChild); |'
 - en: '| ​  | } |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: The insert function accepts a value that we’re going to insert and a node that
     serves as the ancestor node for which our value will become a descendant.
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 插入函数接受我们要插入的值和作为祖先节点的节点，该节点的后代将是我们的值。
 - en: 'First, we check whether the value is less than the value of the current node:'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先，我们检查该值是否小于当前节点的值：
 - en: '| ​  | `if` (value < node.value) { |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (value < node.value) { |'
 - en: If the value is less than the node, we know that we need to insert the value
     somewhere among the left descendants of the node.
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果值小于节点值，我们知道需要在节点的左侧后代中插入该值。
 - en: 然后我们检查当前节点是否有左子节点。如果节点没有左子节点，我们就将值作为左子节点，因为这正是值应该所在的位置：
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们检查当前节点是否有左子节点。如果节点没有左子节点，我们就将值作为左子节点，因为这正是值应该所在的位置：
 - en: '| ​  | `if` (!`node.leftChild`) { |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!`node.leftChild`) { |'
 - en: '| ​  | `node.leftChild = new TreeNode(value);` |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `node.leftChild = new TreeNode(value);` |'
 - en: '| ​  | } |'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这是基本情况，因为我们不需要进行任何递归调用。
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是基本情况，因为我们不需要进行任何递归调用。
 - en: 然而，如果节点已经有左子节点，我们不能将值放在那里。相反，我们对左子节点递归调用`insert`，继续搜索可以放置值的位置：
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，如果节点已经有左子节点，我们不能将值放在那里。相反，我们对左子节点递归调用`insert`，继续搜索可以放置值的位置：
 - en: '| ​  | `else` { |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `else` { |'
 - en: '| ​  | `insert(value, node.leftChild);` |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `insert(value, node.leftChild);` |'
 - en: '| ​  | } |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 最终，我们会遇到一个没有子节点的后代节点，值将放在那里。
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最终，我们会遇到一个没有子节点的后代节点，值将放在那里。
 - en: 剩余的函数是完全相反的；它处理值大于当前节点的情况。
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 剩余的函数是完全相反的；它处理值大于当前节点的情况。
 - en: 插入的顺序
   id: totrans-50
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 插入的顺序
 - en: 重要的是要注意，只有在创建随机排序数据的树时，树通常才会最终变得平衡。然而，如果我们将有序数据插入树中，树可能会变得不平衡且效率降低。例如，如果我们按照以下顺序插入数据——1,
     2, 3, 4, 5——我们会得到如下的树：
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 重要的是要注意，只有在创建随机排序数据的树时，树通常才会最终变得平衡。然而，如果我们将有序数据插入树中，树可能会变得不平衡且效率降低。例如，如果我们按照以下顺序插入数据——1,
+    2, 3, 4, 5——我们会得到如下的树：
 - en: '![`images/binary_trees/bst_14.png`](images/binary_trees/bst_14.png)'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/binary_trees/bst_14.png`](images/binary_trees/bst_14.png)'
 - en: 这棵树是完全线性的，因此在这棵树中搜索5将花费`O(N)`。
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这棵树是完全线性的，因此在这棵树中搜索5将花费`O(N)`。
 - en: 然而，如果我们按以下顺序插入相同的数据——3, 2, 4, 1, 5——树将会均衡：
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，如果我们按以下顺序插入相同的数据——3, 2, 4, 1, 5——树将会均衡：
 - en: '![`images/binary_trees/bst_15.png`](images/binary_trees/bst_15.png)'
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/binary_trees/bst_15.png`](images/binary_trees/bst_15.png)'
 - en: 只有平衡的树才能使搜索时间为`O(log N)`。
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 只有平衡的树才能使搜索时间为`O(log N)`。
 - en: 因此，如果你想将有序数组转换为二叉搜索树，首先要随机化数据的顺序。
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，如果你想将有序数组转换为二叉搜索树，首先要随机化数据的顺序。
 - en: 结果表明，在最坏的情况下，当树完全不平衡时，搜索是`O(N)`。在最佳情况下，当树完全平衡时，搜索是`O(log N)`。在典型情况下，当数据以随机顺序插入时，树会比较平衡，搜索大约需要`O(log
     N)`。
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 结果表明，在最坏的情况下，当树完全不平衡时，搜索是`O(N)`。在最佳情况下，当树完全平衡时，搜索是`O(log N)`。在典型情况下，当数据以随机顺序插入时，树会比较平衡，搜索大约需要`O(log
+    N)`。

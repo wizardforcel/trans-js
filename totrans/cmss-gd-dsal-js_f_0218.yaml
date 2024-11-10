@@ -4,11 +4,14 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   第 13 章'
 - en: '-   These are the solutions to the exercises found in the section [`Exercises`](f_0129.xhtml#divide.and.conquer.in.turbo.mode.exercises).'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这些是 [`Exercises`](f_0129.xhtml#divide.and.conquer.in.turbo.mode.exercises)
+    部分中练习的解决方案。'
 - en: '-   If we sort the numbers, we know that the three greatest numbers will be
     at the end of the array, and we can just multiply them together. The sorting will
     take O(N log N):'
@@ -17,48 +20,56 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如果我们对数字进行排序，我们知道最大的三个数字将在数组的末尾，我们可以直接将它们相乘。排序的时间复杂度为 O(N log N)：'
 - en: '| ​  | ​`function`​ `greatestProductOf3(array) {` |'
   id: totrans-3
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `greatestProductOf3(array) {` |'
 - en: '| ​  | `array.sort((a, b) => a - b);` |'
   id: totrans-4
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array.sort((a, b) => a - b);` |'
 - en: '| ​  |  |'
   id: totrans-5
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `array[array.length - 1] *` |'
   id: totrans-6
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `array[array.length - 1] *` |'
 - en: '| ​  | `array[array.length - 2] *` |'
   id: totrans-7
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array[array.length - 2] *` |'
 - en: '| ​  | `array[array.length - 3];` |'
   id: totrans-8
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array[array.length - 3];` |'
 - en: '| ​  | } |'
   id: totrans-9
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   (This code takes for granted that there are at least three values in the
     array. You can add code to handle arrays where this is not the case.)'
   id: totrans-10
@@ -66,6 +77,7 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   （这段代码假设数组中至少有三个值。你可以添加代码来处理不满足这一条件的数组。）'
 - en: '-   If we presort the array, we can then expect each number to be at its own
     index. That is, the 0 should be at index 0, the 1 should be at index 1, and so
     on. We can then iterate through the array looking for a number that doesn’t equal
@@ -75,72 +87,84 @@
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如果我们对数组进行预排序，那么我们可以期待每个数字都在其对应的索引上。也就是说，0 应该在索引 0，1 应该在索引 1，依此类推。然后我们可以遍历数组，寻找一个不等于索引的数字。一旦找到，我们就知道跳过了缺失的数字：'
 - en: '| ​  | ​`function`​ `findMissingNumber(array) {` |'
   id: totrans-12
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `findMissingNumber(array) {` |'
 - en: '| ​  | `array.sort((a, b) => a - b);` |'
   id: totrans-13
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array.sort((a, b) => a - b);` |'
 - en: '| ​  |  |'
   id: totrans-14
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (​`const`​ `[index, num]` ​`of`​ `array.entries()) {` |'
   id: totrans-15
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (​`const`​ `[index, num]` ​`of`​ `array.entries()) {` |'
 - en: '| ​  | ​`if`​ (`num !== index`) { |'
   id: totrans-16
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`num !== index`) { |'
 - en: '| ​  | ​`return`​ `index;` |'
   id: totrans-17
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `index;` |'
 - en: '| ​  | } |'
   id: totrans-18
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-19
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-20
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ ​`null`​; |'
   id: totrans-21
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ ​`null`​; |'
 - en: '| ​  | } |'
   id: totrans-22
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   The sorting takes N log N steps, and the loop afterward takes N steps.
     However, we reduce the expression (N log N) + N to O(N log N) since the added
     N is a lower order compared to N log N.'
@@ -149,114 +173,134 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   排序需要 N log N 步骤，而后面的循环需要 N 步骤。然而，我们将表达式 (N log N) + N 简化为 O(N log N)，因为添加的
+    N 相较于 N log N 是较低的阶。'
 - en: '-   This implementation uses nested loops and is O(N²):'
   id: totrans-24
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   这个实现使用了嵌套循环，时间复杂度为 O(N²)：'
 - en: '| ​  | ​`function`​ `max(array) {` |'
   id: totrans-25
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `max(array) {` |'
 - en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
   id: totrans-26
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
 - en: '| ​  |  |'
   id: totrans-27
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (​`const`​ `i` ​`of`​ `array`) { |'
   id: totrans-28
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (​`const`​ `i` ​`of`​ `array`) { |'
 - en: '| ​  | ​`let`​ `iIsGreatestNumber` = ​`true`​; |'
   id: totrans-29
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let`​ `iIsGreatestNumber` = ​`true`​; |'
 - en: '| ​  |  |'
   id: totrans-30
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (​`const`​ `j` ​`of`​ `array`) { |'
   id: totrans-31
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (​`const`​ `j` ​`of`​ `array`) { |'
 - en: '| ​  | ​`if`​ (`j > i`) { |'
   id: totrans-32
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`j > i`) { |'
 - en: '| ​  | `iIsGreatestNumber` = ​`false`​; |'
   id: totrans-33
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `iIsGreatestNumber` = ​`false`​; |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-35
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-36
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`if`​ (`iIsGreatestNumber`) { |'
   id: totrans-37
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`iIsGreatestNumber`) { |'
 - en: '| ​  | ​`return`​ `i;` |'
   id: totrans-38
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `i;` |'
 - en: '| ​  | } |'
   id: totrans-39
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-40
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-41
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   The next implementation simply sorts the array and returns the last number.
     The sorting is O(N log N):'
   id: totrans-42
@@ -264,48 +308,56 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   下一个实现简单地对数组进行排序并返回最后一个数字。排序的时间复杂度是 O(N log N)：'
 - en: '| ​  | ​`function`​ `max(array) {` |'
   id: totrans-43
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `max(array) {` |'
 - en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
   id: totrans-44
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
 - en: '| ​  |  |'
   id: totrans-45
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `array.sort((a, b) => a - b);` |'
   id: totrans-46
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array.sort((a, b) => a - b);` |'
 - en: '| ​  |  |'
   id: totrans-47
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `array[array.length - 1];` |'
   id: totrans-48
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `array[array.length - 1];` |'
 - en: '| ​  | } |'
   id: totrans-49
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   Our next and final implementation is O(N) since we iterate just once over
     the array:'
   id: totrans-50
@@ -313,81 +365,95 @@
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   我们的下一个也是最后一个实现是 O(N)，因为我们只需对数组进行一次遍历：'
 - en: '| ​  | ​`function`​ `max(array) {` |'
   id: totrans-51
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`function`​ `max(array) {` |'
 - en: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
   id: totrans-52
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`array.length === 0`) { ​`return`​ ​`null`​; } |'
 - en: '| ​  |  |'
   id: totrans-53
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`let`​ `greatestNumberSoFar` = `array[0]`; |'
   id: totrans-54
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`let`​ `greatestNumberSoFar` = `array[0]`; |'
 - en: '| ​  |  |'
   id: totrans-55
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`for`​ (​`const`​ `number` ​`of`​ `array`) { |'
   id: totrans-56
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`for`​ (​`const`​ `number` ​`of`​ `array`) { |'
 - en: '| ​  | ​`if`​ (`number > greatestNumberSoFar`) { |'
   id: totrans-57
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`if`​ (`number > greatestNumberSoFar`) { |'
 - en: '| ​  | `greatestNumberSoFar` = `number`; |'
   id: totrans-58
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `greatestNumberSoFar` = `number`; |'
 - en: '| ​  | } |'
   id: totrans-59
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-60
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-61
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`return`​ `greatestNumberSoFar;` |'
   id: totrans-62
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`return`​ `greatestNumberSoFar;` |'
 - en: '| ​  | } |'
   id: totrans-63
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'

@@ -4,239 +4,287 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 双向链表作为队列
 - en: 因为双向链表可以立即访问列表的前端和末尾，它们可以在任一侧以 O(1) 插入数据，也可以在任一侧以 O(1) 删除数据。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为双向链表可以立即访问列表的前端和末尾，它们可以在任一侧以 O(1) 插入数据，也可以在任一侧以 O(1) 删除数据。
 - en: 因为双向链表可以在 O(1) 时间内在末尾插入数据，并在 O(1) 时间内从前面删除数据，因此它们是队列的完美底层数据结构。
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因为双向链表可以在 O(1) 时间内在末尾插入数据，并在 O(1) 时间内从前面删除数据，因此它们是队列的完美底层数据结构。
 - en: 我们看过[​*Queues*​](f_0092.xhtml#sect.queues)，你会记得它们是只能在末尾插入数据、从开头移除数据的项列表。你了解到队列是抽象数据类型的一个示例，我们能够使用数组在底层实现它们。
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们看过[​*队列*​](f_0092.xhtml#sect.queues)，你会记得它们是只能在末尾插入数据、从开头移除数据的项列表。你了解到队列是抽象数据类型的一个示例，我们能够使用数组在底层实现它们。
 - en: 现在，由于队列在末尾插入并从开头删除，数组作为底层数据结构的效果有限。虽然数组在末尾插入的时间复杂度是 O(1)，但在开头删除的时间复杂度是 O(N)。
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，由于队列在末尾插入并从开头删除，数组作为底层数据结构的效果有限。虽然数组在末尾插入的时间复杂度是 O(1)，但在开头删除的时间复杂度是 O(N)。
 - en: 双向链表在末尾插入和从开头删除的时间复杂度都是 O(1)。这使它非常适合作为队列的底层数据结构。
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 双向链表在末尾插入和从开头删除的时间复杂度都是 O(1)。这使它非常适合作为队列的底层数据结构。
 - en: 代码实现：基于双向链表的队列
   id: totrans-6
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：基于双向链表的队列
 - en: 在实现队列之前，我们首先要为`DoublyLinkedList`类添加一个方法。这个`popHead`方法从列表中移除头节点并返回它：
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在实现队列之前，我们首先要为`DoublyLinkedList`类添加一个方法。这个`popHead`方法从列表中移除头节点并返回它：
 - en: '| ​  | popHead() { |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | popHead() { |'
 - en: '| ​  | `const` poppedNode = `this`.firstNode; |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` poppedNode = `this`.firstNode; |'
 - en: '| ​  | `this`.firstNode = `this`.firstNode.nextNode; |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.firstNode = `this`.firstNode.nextNode; |'
 - en: '| ​  | `this`.firstNode.previousNode = `null`; |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.firstNode.previousNode = `null`; |'
 - en: '| ​  | `return` poppedNode; |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` poppedNode; |'
 - en: '| ​  | } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 如你所见，我们通过将列表的`this.firstNode`更改为当前的第二个节点，实际上删除了第一个节点。我们还确保新的头节点不链接到任何先前的节点。最后，我们返回刚刚删除的节点。
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如你所见，我们通过将列表的`this.firstNode`更改为当前的第二个节点，实际上删除了第一个节点。我们还确保新的头节点不链接到任何先前的节点。最后，我们返回刚刚删除的节点。
 - en: 有了这一点，我们现在可以创建一个基于双向链表的队列实现：
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有了这一点，我们现在可以创建一个基于双向链表的队列实现：
 - en: '| ​  | `import` DoublyLinkedList `from` *''./doubly_linked_list.js''*; |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `import` DoublyLinkedList `from` *''./doubly_linked_list.js''*; |'
 - en: '| ​  |  |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `class` Queue { |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `class` Queue { |'
 - en: '| ​  | `constructor`() { |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `constructor`() { |'
 - en: '| ​  | `this`.data = `new` DoublyLinkedList(); |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.data = `new` DoublyLinkedList(); |'
 - en: '| ​  | } |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | enqueue(element) { |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | enqueue(element) { |'
 - en: '| ​  | `this`.data.append(element); |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.data.append(element); |'
 - en: '| ​  | } |'
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | dequeue() { |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | dequeue() { |'
 - en: '| ​  | `const` dequeuedNode = `this`.data.popHead(); |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` dequeuedNode = `this`.data.popHead(); |'
 - en: '| ​  | `return` dequeuedNode.data; |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` dequeuedNode.data; |'
 - en: '| ​  | } |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | read() { |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | read() { |'
 - en: '| ​  | `if` (!`this`.data.firstNode) { `return` `null`; } |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (!`this`.data.firstNode) { `return` `null`; } |'
 - en: '| ​  |  |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` `this`.data.firstNode.data; |'
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `this`.data.firstNode.data; |'
 - en: '| ​  | } |'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '`Queue`类在我们的`DoublyLinkedList`之上实现其方法。`enqueue`方法依赖于我们`DoublyLinkedList`的`append`方法：'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Queue`类在我们的`DoublyLinkedList`之上实现其方法。`enqueue`方法依赖于我们`DoublyLinkedList`的`append`方法：'
 - en: '| ​  | enqueue(element) { |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | enqueue(element) { |'
 - en: '| ​  | `this`.data.append(element); |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `this`.data.append(element); |'
 - en: '| ​  | } |'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 同样，`dequeue`方法利用链表从列表前端删除的能力：
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 同样，`dequeue`方法利用链表从列表前端删除的能力：
 - en: '| ​  | dequeue() { |'
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | dequeue() { |'
 - en: '| ​  | `const` dequeuedNode = `this`.data.popHead(); |'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` dequeuedNode = `this`.data.popHead(); |'
 - en: '| ​  | `return` dequeuedNode.data; |'
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` dequeuedNode.data; |'
 - en: '| ​  | } |'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 通过使用双向链表实现我们的队列，我们现在可以以快速的 O(1) 速度在队列中插入和删除。这真是太棒了。
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过使用双向链表实现我们的队列，我们现在可以以快速的 O(1) 速度在队列中插入和删除。这真是太棒了。

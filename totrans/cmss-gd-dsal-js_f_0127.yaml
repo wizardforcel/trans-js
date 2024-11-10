@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 排序作为其他算法的关键
 - en: As of this writing, the fastest sorting algorithms we know of have speeds of
     `O(N log N)`. While Quicksort is one of the most popular among them, there are
     many others as well. Mergesort is another well-known `O(N log N)` sorting algorithm
@@ -12,6 +13,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 到目前为止，我们所知道的最快的排序算法速度为`O(N log N)`。虽然快速排序是其中最受欢迎的算法之一，但还有许多其他算法。归并排序是另一种著名的`O(N
+    log N)`排序算法，将在本书的第二卷中介绍。
 - en: The fact that the fastest sorting algorithms are `O(N log N)` is important,
     as this has implications for other algorithms as well. This is because there are
     algorithms that use sorting as a component of a larger process.
@@ -19,6 +22,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 快速排序算法的速度为`O(N log N)`是很重要的，因为这对其他算法也有影响。这是因为有些算法在更大的过程中使用排序作为一个组件。
 - en: For example, if you’ll recall from Chapter 4, [`Speeding Up Your Code with Big
     O`](f_0040.xhtml#chp.speeding_up), we dealt with the problem of checking whether
     there are duplicate values within an array.
@@ -26,6 +30,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 例如，如果你还记得第4章，[`用大O加速你的代码`](f_0040.xhtml#chp.speeding_up)，我们讨论了检查数组中是否有重复值的问题。
 - en: 'The first solution we looked at involved nested loops and had an efficiency
     of `O(N²)`. While we found a solution that took `O(N)`, I parenthetically hinted
     at a disadvantage with that approach having to do with extra memory consumption.
@@ -37,22 +42,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们查看的第一个解决方案涉及嵌套循环，效率为`O(N²)`。虽然我们找到了一种耗时为`O(N)`的解决方案，但我顺便提到过这种方法的一个缺点与额外的内存消耗有关。（我将在第19章，[`处理空间限制`](f_0189.xhtml#chp.dealing_with_space_constraints)中详细讨论这一点。）所以让我们假设`O(N)`的方法不适用。还有其他方法可以改进二次的`O(N²)`解决方案吗？提示：解决方案与排序有关！
 - en: We can build a beautiful algorithm if we presort the array.
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们对数组进行预排序，我们可以构建一个优秀的算法。
 - en: Let’s say the original array was `[5, 9, 3, 2, 4, 5, 6]`. This array has two
     instances of `5`, so we do have a case of duplicates.
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 假设原始数组是`[5, 9, 3, 2, 4, 5, 6]`。这个数组有两个`5`的实例，因此我们确实有重复的情况。
 - en: Now, if we first sorted this array, it would become `[2, 3, 4, 5, 5, 6, 9]`.
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，如果我们先对这个数组进行排序，它将变成`[2, 3, 4, 5, 5, 6, 9]`。
 - en: Next, we can use a single loop to iterate over each number. As we inspect each
     number, we’d check whether it’s identical to the next number. If it is, we’ve
     found a duplicate. If we get to the end of the loop without finding a duplicate,
@@ -61,12 +70,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们可以使用单个循环遍历每个数字。在检查每个数字时，我们会检查它是否与下一个数字相同。如果是的话，我们就找到了一个重复值。如果在循环结束时没有找到重复值，那么我们就知道没有重复值。
 - en: The trick here is that by presorting the numbers, we end up bunching duplicate
     numbers together.
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里的技巧在于，通过预先排序数字，我们最终将重复数字聚在了一起。
 - en: In our example, we’d start by looking at the first number, which is the `2`.
     We’d check whether it’s identical to the next number. The next number is `3`,
     so they’re not duplicates.
@@ -74,6 +85,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的示例中，我们将从第一个数字开始，也就是`2`。我们会检查它是否与下一个数字相同。下一个数字是`3`，所以它们不是重复值。
 - en: We’d then check the `3` against the following number, which happens to be a
     `4`, allowing us to move on. We’d check the `4` against the `5`, and we’d move
     on again.
@@ -81,6 +93,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们会检查`3`是否与下一个数字相同，而下一个数字是`4`，这允许我们继续。我们会将`4`与`5`进行比较，然后再次继续。
 - en: At this point, we’d inspect the first `5` and check it against the following
     number, which is the second `5`. Aha! We found a pair of duplicate numbers, and
     we can return `true`.
@@ -88,66 +101,79 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，我们会检查第一个`5`，并将其与下一个数字进行比较，也就是第二个`5`。哈！我们找到了一个重复数字对，可以返回`true`。
 - en: 'Here’s a JavaScript implementation of this:'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里是这个算法的JavaScript实现：
 - en: '| ​  | `function hasDuplicateValue(array) {` |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function hasDuplicateValue(array) {` |'
 - en: '| ​  | `array.sort((a, b) => a - b);` |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `array.sort((a, b) => a - b);` |'
 - en: '| ​  |  |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for (let index = 0; index < array.length - 1; index += 1) {` |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for (let index = 0; index < array.length - 1; index += 1) {` |'
 - en: '| ​  | `if (array[index] === array[index + 1]) {` |'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if (array[index] === array[index + 1]) {` |'
 - en: '| ​  | `return true`; |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return true`; |'
 - en: '| ​  | } |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return false`; |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return false`; |'
 - en: '| ​  | } |'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: Here we use JavaScript’s built-in sort function. The argument `(a, b) => a -
     b` is necessary to ensure that JavaScript sorts integers correctly, and doesn’t
     sort them as if they were strings.
@@ -155,12 +181,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这里，我们使用 JavaScript 的内置排序函数。参数`(a, b) => a - b`是必要的，以确保 JavaScript 正确排序整数，而不是像处理字符串那样排序它们。
 - en: Now, this is an algorithm that used sorting as one of its components. What’s
     the Big O of this algorithm?
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，这是一个将排序作为其组成部分的算法。那么，这个算法的 Big O 是多少呢？
 - en: We start out by sorting the array. We can assume that JavaScript’s sort function
     uses something like `Quicksort` under the hood and has an efficiency of `O(N log
     N)`. Next, we spend up to `N` steps iterating through the array. Our algorithm,
@@ -169,6 +197,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们首先对数组进行排序。我们可以假设 JavaScript 的排序函数在内部使用类似于`快速排序`的算法，并且其效率为`O(N log N)`。接下来，我们最多需要`N`步来遍历数组。因此，我们的算法需要`(N
+    log N) + N`步。
 - en: You learned that when we have multiple orders added together, Big O notation
     keeps only the highest order of `N` because the lower orders are trivial beside
     the higher orders. Here as well, `N` is trivial beside `N log N`, so we reduce
@@ -177,12 +207,15 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你已经了解到，当我们将多个阶数相加时，大 O 符号只保留最高阶的`N`，因为低阶与高阶相比是微不足道的。在这里，`N`在`N log N`面前也是微不足道的，因此我们将表达式简化为`O(N
+    log N)`。
 - en: So, that’s it! We’ve used sorting to develop an algorithm that is `O(N log N)`,
     which is a significant improvement over the original `O(N²)` algorithm.
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 就这样！我们使用排序开发了一个复杂度为`O(N log N)`的算法，这比原来的`O(N²)`算法有了显著的改进。
 - en: Plenty of algorithms employ sorting as part of a larger process. We now know
     that any time we do so, we have an algorithm that is at least `O(N log N)`. Of
     course, the algorithm may be slower than this if it has other things going on,
@@ -191,3 +224,5 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 很多算法在更大的过程中使用排序。我们现在知道，每当我们这样做时，算法的复杂度至少是`O(N log N)`。当然，如果算法有其他操作，它的速度可能会比这慢，但我们知道`O(N
+    log N)`始终是基准。

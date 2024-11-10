@@ -4,392 +4,468 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Dijkstra`算法'
 - en: 有许多算法可以解决最短路径问题，其中最著名的是`Edsger Dijkstra`于1959年发现的算法。毫不奇怪，这个算法被称为`Dijkstra`算法。
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 有许多算法可以解决最短路径问题，其中最著名的是`Edsger Dijkstra`于1959年发现的算法。毫不奇怪，这个算法被称为`Dijkstra`算法。
 - en: 在本节中，我们将使用`Dijkstra`算法来寻找在我们的城市航班示例中的最低路径。
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在本节中，我们将使用`Dijkstra`算法来寻找在我们的城市航班示例中的最低路径。
 - en: '`Dijkstra`算法设置'
   id: totrans-3
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Dijkstra`算法设置'
 - en: 首先要注意的是，`Dijkstra`算法带来了一个免费的附加功能。当我们完成时，我们不仅会找到从`Atlanta`到`El Paso`的最低价格，还会找到从`Atlanta`到所有已知城市的最低价格。正如你所看到的，算法就是这样工作的；我们最终收集到所有这些数据。因此，我们将知道从`Atlanta`到`Chicago`的最低价格，从`Atlanta`到`Denver`的最低价格，等等。
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 首先要注意的是，`Dijkstra`算法带来了一个免费的附加功能。当我们完成时，我们不仅会找到从`亚特兰大`到`埃尔帕索`的最低价格，还会找到从`亚特兰大`到所有已知城市的最低价格。正如你所看到的，算法就是这样工作的；我们最终收集到所有这些数据。因此，我们将知道从`亚特兰大`到`芝加哥`的最低价格，从`亚特兰大`到`丹佛`的最低价格，等等。
 - en: 为了进行设置，我们将创建一种存储从起始城市到所有其他已知目的地的最低已知价格的方法。在接下来的代码中，我们将为此使用哈希表。然而，在我们的示例演示中，我们将使用如下的可视化表格：
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了进行设置，我们将创建一种存储从起始城市到所有其他已知目的地的最低已知价格的方法。在接下来的代码中，我们将为此使用哈希表。然而，在我们的示例演示中，我们将使用如下的可视化表格：
 - en: '| 从`Atlanta`到： | `City #1` | `City #2` | `City #3` | 其他 |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`亚特兰大`到： | `城市 #1` | `城市 #2` | `城市 #3` | 其他 |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | ? | ? | ? | ? |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | ? | ? | ? | ? |'
 - en: 算法将从`Atlanta`顶点开始，因为这是我们目前唯一知道的城市。随着我们发现新城市，我们将把它们添加到我们的表格中，并记录从`Atlanta`到这些城市的最低价格。
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 算法将从`亚特兰大`顶点开始，因为这是我们目前唯一知道的城市。随着我们发现新城市，我们将把它们添加到我们的表格中，并记录从`亚特兰大`到这些城市的最低价格。
 - en: 当算法完成时，表格将如下所示：
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当算法完成时，表格将如下所示：
 - en: '| 从`Atlanta`到： | `Boston` | `Chicago` | `Denver` | `El Paso` |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`亚特兰大`到： | `波士顿` | `芝加哥` | `丹佛` | `埃尔帕索` |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | `$100` | `$200` | `$160` | `$280` |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `$100` | `$200` | `$160` | `$280` |'
 - en: 在代码中，这将用一个哈希表表示，结构如下：
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在代码中，这将用一个哈希表表示，结构如下：
 - en: '| ​  | `{"Atlanta": 0, "Boston": 100, "Chicago": 200,` |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `{"亚特兰大": 0, "波士顿": 100, "芝加哥": 200,` |'
 - en: '| ​  | `"Denver": 160, "El Paso": 280}` |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `"丹佛": 160, "埃尔帕索": 280}` |'
 - en: （注意，`Atlanta`在哈希表中也有一个值为`0`。我们需要这个值使算法正常工作，但这也合理，因为从`Atlanta`到`Atlanta`不需要花费任何费用，因为你已经在那里！）
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （注意，`亚特兰大`在哈希表中也有一个值为`0`。我们需要这个值使算法正常工作，但这也合理，因为从`亚特兰大`到`亚特兰大`不需要花费任何费用，因为你已经在那里！）
 - en: 在我们的代码中，以及后续内容中，我们将称这个表为`cheapestPricesTable`，因为它存储从起始城市到所有其他目的地的最低价格。
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的代码中，以及后续内容中，我们将称这个表为`cheapestPricesTable`，因为它存储从起始城市到所有其他目的地的最低价格。
 - en: 现在，如果我们只想弄清楚到达特定目的地的最低价格，`cheapestPricesTable`将包含我们所需的所有数据。但我们可能还想知道实际的路径，以便获得最低价格。例如，如果我们想从`Atlanta`到`El
     Paso`，我们不仅想知道最低价格是`$280`；我们还想知道，为了获得这个价格，我们需要飞行`Atlanta--Denver--Chicago--El Paso`这条特定路径。
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，如果我们只想弄清楚到达特定目的地的最低价格，`cheapestPricesTable`将包含我们所需的所有数据。但我们可能还想知道实际的路径，以便获得最低价格。例如，如果我们想从`亚特兰大`到`埃尔帕索`，我们不仅想知道最低价格是`$280`；我们还想知道，为了获得这个价格，我们需要飞行`亚特兰大--丹佛--芝加哥--埃尔帕索`这条特定路径。
 - en: 为了实现这一点，我们还需要另一个表格，我们称之为`cheapestPreviousStopoverCityTable`。该表的目的将在我们深入算法时变得清晰，因此我会暂时不解释。现在，展示它在算法结束时的样子就足够了。
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了实现这一点，我们还需要另一个表格，我们称之为`cheapestPreviousStopoverCityTable`。该表的目的将在我们深入算法时变得清晰，因此我会暂时不解释。现在，展示它在算法结束时的样子就足够了。
 - en: '| 从亚特兰大出发的最便宜的前停留城市： | 波士顿 | 芝加哥 | 丹佛 | 埃尔帕索 |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大出发的最便宜的前停留城市： | 波士顿 | 芝加哥 | 丹佛 | 埃尔帕索 |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | 亚特兰大 | 丹佛 | 亚特兰大 | 芝加哥 |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | 亚特兰大 | 丹佛 | 亚特兰大 | 芝加哥 |'
 - en: （注意，这个表格也将使用哈希表实现。）
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: （注意，这个表格也将使用哈希表实现。）
 - en: '`Dijkstra’s Algorithm Steps`'
   id: totrans-25
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Dijkstra’s Algorithm Steps`'
 - en: 现在一切都已设置好，以下是 Dijkstra 算法的步骤。为了清晰起见，我将以城市为例描述该算法，但您可以将“城市”一词替换为“顶点”，以使其适用于任何加权图。还要注意，当我们通过示例逐步讲解时，这些步骤会变得更加清晰。但现在，开始吧：
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在一切都已设置好，以下是 Dijkstra 算法的步骤。为了清晰起见，我将以城市为例描述该算法，但您可以将“城市”一词替换为“顶点”，以使其适用于任何加权图。还要注意，当我们通过示例逐步讲解时，这些步骤会变得更加清晰。但现在，开始吧：
 - en: 我们访问起始城市，使其成为我们的“当前城市”。
   id: totrans-27
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们访问起始城市，使其成为我们的“当前城市”。
 - en: 我们检查从当前城市到每个相邻城市的价格。
   id: totrans-28
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们检查从当前城市到每个相邻城市的价格。
 - en: 如果从起始城市到相邻城市的价格低于`cheapestPricesTable`中当前的价格（或者相邻城市尚未在`cheapestPricesTable`中）：
   id: totrans-29
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果从起始城市到相邻城市的价格低于`cheapestPricesTable`中当前的价格（或者相邻城市尚未在`cheapestPricesTable`中）：
 - en: a. 我们更新`cheapestPricesTable`以反映这一更便宜的价格。
   id: totrans-30
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: a. 我们更新`cheapestPricesTable`以反映这一更便宜的价格。
 - en: b. 我们更新`cheapestPreviousStopoverCityTable`，使相邻城市成为键，当前城市成为值。
   id: totrans-31
   prefs:
   - PREF_IND
   stylish: true
   type: TYPE_NORMAL
+  zh: b. 我们更新`cheapestPreviousStopoverCityTable`，使相邻城市成为键，当前城市成为值。
 - en: 然后我们访问从起始城市出发的未访问城市中价格最低的城市，使其成为当前城市。
   id: totrans-32
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们访问从起始城市出发的未访问城市中价格最低的城市，使其成为当前城市。
 - en: 我们重复步骤 2 到 4，直到访问每个已知城市。
   id: totrans-33
   prefs:
   - PREF_OL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们重复步骤 2 到 4，直到访问每个已知城市。
 - en: 再次强调，当我们逐步讲解示例时，这一切会更容易理解。
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 再次强调，当我们逐步讲解示例时，这一切会更容易理解。
 - en: '`Dijkstra’s Algorithm Walk-Through`'
   id: totrans-35
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Dijkstra’s Algorithm Walk-Through`'
 - en: 让我们逐步讲解 Dijkstra 算法。
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们逐步讲解 Dijkstra 算法。
 - en: 为了开始，我们的`cheapestPricesTable`仅包含亚特兰大：
   id: totrans-37
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了开始，我们的`cheapestPricesTable`仅包含亚特兰大：
 - en: '| 从亚特兰大到： |'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大到： |'
 - en: '| --- |'
   id: totrans-39
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- |'
 - en: '| `$0` |'
   id: totrans-40
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `$0` |'
 - en: 在算法开始时，亚特兰大是我们唯一可以访问的城市；我们尚未“发现”其他城市。
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在算法开始时，亚特兰大是我们唯一可以访问的城市；我们尚未“发现”其他城市。
 - en: 步骤 1：我们正式访问亚特兰大，并使其成为`currentCity`。
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 步骤 1：我们正式访问亚特兰大，并使其成为`currentCity`。
 - en: 为了表明这是`currentCity`，我们会用线将其包围。并且为了记录我们已经访问过它，我们会加上一个勾号：
   id: totrans-43
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了表明这是`currentCity`，我们会用线将其包围。并且为了记录我们已经访问过它，我们会加上一个勾号：
 - en: '![images/graphs/weighted_graph_4.png](images/graphs/weighted_graph_4.png)'
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/graphs/weighted_graph_4.png](images/graphs/weighted_graph_4.png)'
 - en: 在接下来的步骤中，我们将检查每个`currentCity`的相邻城市。这就是我们发现新城市的方式；如果我们能够访问的城市有我们之前不知道的相邻城市，我们可以将它们添加到我们的地图中。
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在接下来的步骤中，我们将检查每个`currentCity`的相邻城市。这就是我们发现新城市的方式；如果我们能够访问的城市有我们之前不知道的相邻城市，我们可以将它们添加到我们的地图中。
 - en: 步骤 2：与亚特兰大相邻的一座城市是波士顿。正如我们所见，从亚特兰大到波士顿的价格是`$100`。然后我们检查`cheapestPricesTable`，看看这是否是从亚特兰大到波士顿的已知最便宜价格，但结果是我们还没有记录从亚特兰大到波士顿的任何价格。这意味着这是从亚特兰大到波士顿的已知最便宜航班（截至目前），因此我们将其添加到`cheapestPricesTable`：
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 步骤 2：与亚特兰大相邻的一座城市是波士顿。正如我们所见，从亚特兰大到波士顿的价格是`$100`。然后我们检查`cheapestPricesTable`，看看这是否是从亚特兰大到波士顿的已知最便宜价格，但结果是我们还没有记录从亚特兰大到波士顿的任何价格。这意味着这是从亚特兰大到波士顿的已知最便宜航班（截至目前），因此我们将其添加到`cheapestPricesTable`：
 - en: '| 从亚特兰大到： | 波士顿 |'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大到： | 波士顿 |'
 - en: '| --- | --- |'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| `$0` | `$100` |'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `$0` | `$100` |'
 - en: 由于我们对`cheapestPricesTable`进行了更改，现在也需要修改`cheapestPreviousStopoverCityTable`，将相邻城市（`Boston`）作为键，`currentCity`作为值：
   id: totrans-50
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于我们对`cheapestPricesTable`进行了更改，现在也需要修改`cheapestPreviousStopoverCityTable`，将相邻城市（`波士顿`）作为键，`currentCity`作为值：
 - en: '| Cheapest Previous Stopover City from Atlanta: | `Boston` |'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大出发的最便宜的前停留城市： | `波士顿` |'
 - en: '| --- | --- |'
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '|  | `Atlanta` |'
   id: totrans-53
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `亚特兰大` |'
 - en: 将这些数据添加到此表中意味着为了获得从`Atlanta`到`Boston`的最便宜已知价格（`$100`），我们需要在访问`Boston`之前立即访问`Atlanta`。此时，这显而易见，因为`Atlanta`是我们知道的到达`Boston`的唯一途径。然而，随着我们的进行，我们会看到为什么第二个表变得有用。
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 将这些数据添加到此表中意味着为了获得从`亚特兰大`到`波士顿`的最便宜已知价格（`$100`），我们需要在访问`波士顿`之前立即访问`亚特兰大`。此时，这显而易见，因为`亚特兰大`是我们知道的到达`波士顿`的唯一途径。然而，随着我们的进行，我们会看到为什么第二个表变得有用。
 - en: 第3步：我们已经查看了`Boston`，但`Atlanta`还有另一个相邻城市，`Denver`。我们检查价格（`$160`）是否是从`Atlanta`到`Denver`的最便宜已知路线，但`Denver`在`cheapestPricesTable`中根本没有，因此我们将其添加为已知最便宜航班：
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第3步：我们已经查看了`Boston`，但`Atlanta`还有另一个相邻城市，`Denver`。我们检查价格（`$160`）是否是从`Atlanta`到`Denver`的最便宜已知路线，但`Denver`在`cheapestPricesTable`中根本没有，因此我们将其添加为已知最便宜航班：
 - en: '| From `Atlanta` To: | `Boston` | `Denver` |'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`Atlanta`到： | `Boston` | `Denver` |'
 - en: '| --- | --- | --- |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| `$0` | `$100` | `$160` |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `$0` | `$100` | `$160` |'
 - en: 然后，我们还将`Denver`和`Atlanta`作为键值对添加到`cheapestPreviousStopoverCityTable`中：
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后，我们还将`Denver`和`Atlanta`作为键值对添加到`cheapestPreviousStopoverCityTable`中：
 - en: '| Cheapest Previous Stopover City from `Atlanta`: | `Boston` | `Denver` |'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`Atlanta`到的最便宜的前一个中转城市： | `Boston` | `Denver` |'
 - en: '| --- | --- | --- |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '|  | `Atlanta` | `Atlanta` |'
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `Atlanta` | `Atlanta` |'
 - en: 第4步：到这时，我们已经检查了`Atlanta`的所有相邻城市，所以是时候访问下一个城市了。但我们需要弄清楚下一个要访问哪个城市。
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第4步：到这时，我们已经检查了`Atlanta`的所有相邻城市，所以是时候访问下一个城市了。但我们需要弄清楚下一个要访问哪个城市。
 - en: 现在，正如之前算法步骤中所述，我们只会继续访问尚未访问的城市。此外，在未访问的城市中，我们总是选择首先访问从起始城市到达的最便宜已知路线的城市。我们可以从`cheapestPricesTable`中获取这些数据。
   id: totrans-64
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，正如之前算法步骤中所述，我们只会继续访问尚未访问的城市。此外，在未访问的城市中，我们总是选择首先访问从起始城市到达的最便宜已知路线的城市。我们可以从`cheapestPricesTable`中获取这些数据。
 - en: 在我们的例子中，我们知道的唯一尚未访问的城市是`Boston`或`Denver`。通过查看`cheapestPricesTable`，我们可以看到，从`Atlanta`到`Boston`的价格比从`Atlanta`到`Denver`的价格更便宜，因此我们接下来要访问`Boston`。
   id: totrans-65
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的例子中，我们知道的唯一尚未访问的城市是`Boston`或`Denver`。通过查看`cheapestPricesTable`，我们可以看到，从`Atlanta`到`Boston`的价格比从`Atlanta`到`Denver`的价格更便宜，因此我们接下来要访问`Boston`。
 - en: 第5步：我们访问`Boston`并将其指定为`currentCity`：
   id: totrans-66
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第5步：我们访问`Boston`并将其指定为`currentCity`：
 - en: '![images/graphs/weighted_graph_5.png](images/graphs/weighted_graph_5.png)'
   id: totrans-67
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/graphs/weighted_graph_5.png](images/graphs/weighted_graph_5.png)'
 - en: 接下来，我们将检查`Boston`的相邻城市。
   id: totrans-68
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们将检查`Boston`的相邻城市。
 - en: 第6步：`Boston`有两个相邻城市，`Chicago`和`Denver`。（`Atlanta`不被视为相邻城市，因为我们不能从`Boston`飞往`Atlanta`。）
   id: totrans-69
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第6步：`Boston`有两个相邻城市，`Chicago`和`Denver`。（`Atlanta`不被视为相邻城市，因为我们不能从`Boston`飞往`Atlanta`。）
 - en: 我们应该先访问哪个城市——`Chicago`还是`Denver`？同样，我们希望首先访问从`Atlanta`飞往该城市的价格最低的城市。那么我们来算一下。
   id: totrans-70
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们应该先访问哪个城市——`Chicago`还是`Denver`？同样，我们希望首先访问从`Atlanta`飞往该城市的价格最低的城市。那么我们来算一下。
 - en: 从`Boston`到`Chicago`的价格是`$120`。查看`cheapestPricesTable`，我们可以看到从`Atlanta`到`Boston`的最便宜路线是`$100`。这意味着从`Atlanta`到`Chicago`的最便宜航班，以`Boston`作为之前的中转城市，价格为`$220`。
   id: totrans-71
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从`Boston`到`Chicago`的价格是`$120`。查看`cheapestPricesTable`，我们可以看到从`Atlanta`到`Boston`的最便宜路线是`$100`。这意味着从`Atlanta`到`Chicago`的最便宜航班，以`Boston`作为之前的中转城市，价格为`$220`。
 - en: 由于此时这是从`Atlanta`到`Chicago`的唯一已知价格，我们将其添加到`cheapestPricesTable`。我们将其插入到表的中间，以保持城市的字母顺序：
   id: totrans-72
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于此时这是从`Atlanta`到`Chicago`的唯一已知价格，我们将其添加到`cheapestPricesTable`。我们将其插入到表的中间，以保持城市的字母顺序：
 - en: '| From `Atlanta` To: | `Boston` | `Chicago` | `Denver` |'
   id: totrans-73
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`Atlanta`到： | `Boston` | `Chicago` | `Denver` |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-74
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| `$0` | `$100` | `$220` | `$160` |'
   id: totrans-75
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `$0` | `$100` | `$220` | `$160` |'
 - en: 'Again, because we made a change to that table, we’ll also modify the `cheapestPreviousStopoverCityTable`.
     The adjacent city always becomes the key, and the `currentCity` always becomes
     the value, so the table becomes:'
@@ -397,28 +473,33 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 再次，因为我们对该表进行了更改，所以我们也将修改`cheapestPreviousStopoverCityTable`。相邻城市始终成为键，而`currentCity`始终成为值，因此表格变为：
 - en: '| Cheapest Previous Stopover City from `Atlanta`: | `Boston` | `Chicago` |
     `Denver` |'
   id: totrans-77
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`Atlanta`到的最便宜的前一个中转城市： | `Boston` | `Chicago` | `Denver` |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-78
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '|  | `Atlanta` | `Boston` | `Atlanta` |'
   id: totrans-79
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `Atlanta` | `Boston` | `Atlanta` |'
 - en: In our quest to find the city to visit next, we analyzed `Chicago`. We’ll inspect
     `Denver` next.
   id: totrans-80
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在寻找下一个要访问的城市的过程中，我们分析了`Chicago`。接下来我们将检查`Denver`。
 - en: 'Step 7: Let’s now look at the edge between `Boston` and `Denver`. We can see
     that the price is `$180`\. Since the cheapest flight from `Atlanta` to `Boston`,
     again, is `$100`, that would mean the cheapest flight from `Atlanta` to `Denver`
@@ -427,6 +508,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第7步：现在让我们看一下`Boston`和`Denver`之间的边缘。我们可以看到价格是`$180`。由于从`Atlanta`到`Boston`的最便宜航班再次是`$100`，这意味着从`Atlanta`到`Denver`的最便宜航班通过`Boston`作为前一个中转城市的价格为`$280`。
 - en: This gets a little interesting, because when we inspect our `cheapestPricesTable`
     we can see that the cheapest route from `Atlanta` to `Denver` is `$160` which
     is cheaper than the `Atlanta–Boston–Denver` route. Accordingly, we do not modify
@@ -436,12 +518,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这变得有些有趣，因为当我们检查我们的`cheapestPricesTable`时，可以看到从`Atlanta`到`Denver`的最便宜路线是`$160`，这比`Atlanta–Boston–Denver`的路线便宜。因此，我们不会修改我们的表格；我们希望将`$160`保留为从`Atlanta`到`Denver`的已知最便宜路线。
 - en: We’re done with this step, and since we’ve looked at all of `Boston`’s adjacent
     cities, we can now visit our next city.
   id: totrans-83
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们完成了这一步，既然我们已经查看了`Boston`的所有相邻城市，现在可以访问下一个城市。
 - en: 'Step 8: The current known unvisited cities are `Chicago` and `Denver`. Again,
     the one we visit next—and pay careful attention to this—is the city with the cheapest
     known path from our starting city (`Atlanta`).'
@@ -449,6 +533,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第8步：当前已知的未访问城市是`Chicago`和`Denver`。我们下一步访问的城市——请特别注意——是从我们的起始城市（`Atlanta`）到达的最便宜已知路径的城市。
 - en: 'Looking at our `cheapestPricesTable` we can see that it’s cheaper to go from
     `Atlanta` to `Denver` (`$160`) than it is to go from `Atlanta` to `Chicago` (`$220`),
     so that means that we visit `Denver` next:'
@@ -456,16 +541,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从我们的`cheapestPricesTable`来看，从`亚特兰大`到`丹佛`的费用（`$160`）比从`亚特兰大`到`芝加哥`（`$220`）便宜，因此我们接下来访问`丹佛`：
 - en: '![`images/graphs/weighted_graph_6.png`](images/graphs/weighted_graph_6.png)'
   id: totrans-86
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![`images/graphs/weighted_graph_6.png`](images/graphs/weighted_graph_6.png)'
 - en: Next up, we’ll look at `Denver`’s adjacent cities.
   id: totrans-87
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们将查看`丹佛`的邻近城市。
 - en: 'Step 9: `Denver` has two adjacent cities, `Chicago` and `El Paso`. Which of
     these cities will we visit next? To find out, we need to analyze the prices to
     each city. Let’s start with `Chicago`.'
@@ -473,6 +561,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 步骤9：`丹佛`有两个邻近城市，`芝加哥`和`埃尔帕索`。我们接下来要访问哪个城市？要找出答案，我们需要分析到每个城市的价格。让我们从`芝加哥`开始。
 - en: It costs just `$40` to go from `Denver` to `Chicago` (a good deal!), which means
     the cheapest flight from `Atlanta` to `Chicago` through `Denver` as the previous
     stopover city would be `$200` since the cheapest route from `Atlanta` to `Denver`
@@ -481,6 +570,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 从`丹佛`到`芝加哥`只需`$40`（非常划算！），这意味着通过`丹佛`作为前一个中转城市，从`亚特兰大`到`芝加哥`的最便宜航班费用将为`$200`，因为从`亚特兰大`到`丹佛`的最便宜路线是`$160`。
 - en: 'When looking at the `cheapestPricesTable` we can see that the current cheapest
     price from `Atlanta` to `Chicago` is `$220`\. That means this new route we just
     found to `Chicago` through `Denver` is even cheaper, so we can update the `cheapestPricesTable`
@@ -489,21 +579,25 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 查看`cheapestPricesTable`时，我们可以看到从`亚特兰大`到`芝加哥`的当前最低价格是`$220`。这意味着我们刚刚找到的通过`丹佛`到`芝加哥`的新路线甚至更便宜，因此我们可以相应地更新`cheapestPricesTable`：
 - en: '| From `Atlanta` To: | `Boston` | `Chicago` | `Denver` |'
   id: totrans-91
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`亚特兰大`到： | `波士顿` | `芝加哥` | `丹佛` |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-92
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| `$0` | `$100` | `$200` | `$160` |'
   id: totrans-93
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| `$0` | `$100` | `$200` | `$160` |'
 - en: 'Whenever we update the `cheapestPricesTable`, we also have to update the `cheapestPreviousStopoverCityTable`.
     We set the adjacent city (`Chicago`) as the key and the `currentCity` (`Denver`)
     as the value. Now, in this case, `Chicago` already exists as a key. This means
@@ -512,22 +606,26 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每当我们更新`cheapestPricesTable`时，也必须更新`cheapestPreviousStopoverCityTable`。我们将邻近城市（`芝加哥`）设为键，将`当前城市`（`丹佛`）设为值。现在，在这种情况下，`芝加哥`已经存在为一个键。这意味着我们将把它的值从`波士顿`覆盖为`丹佛`：
 - en: '| Cheapest Previous Stopover City from `Atlanta`: | `Boston` | `Chicago` |
     `Denver` |'
   id: totrans-95
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`亚特兰大`出发的最便宜的中转城市： | `波士顿` | `芝加哥` | `丹佛` |'
 - en: '| --- | --- | --- | --- |'
   id: totrans-96
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '|  | `Atlanta` | `Denver` | `Atlanta` |'
   id: totrans-97
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `亚特兰大` | `丹佛` | `亚特兰大` |'
 - en: '`What this means is that to nab the cheapest flight path from Atlanta to Chicago,
     we need to stop over at Denver as the city immediately prior to Chicago; that
     is, Denver should be our second-to-last stop before we proceed to Chicago. Only
@@ -536,6 +634,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`这意味着要获得从亚特兰大到芝加哥的最便宜航班，我们需要在前往芝加哥之前，先在丹佛停留；也就是说，丹佛应该是我们到芝加哥之前的倒数第二个停留点。只有这样我们才能省下最多的钱。`'
 - en: '`This information will be useful in determining the cheapest path from Atlanta
     to our destination city, as you’ll see in a little bit. Hang on, we’re almost
     there!`'
@@ -543,6 +642,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`这些信息将有助于确定从亚特兰大到我们的目的地城市的最便宜路径，稍后你会看到。等等，我们快到了！`'
 - en: '`Step 10: Denver has another adjacent city, El Paso. The price from Denver
     to El Paso is $140\. We can now construct our first known price from Atlanta to
     El Paso. The cheapestPricesTable tells us the cheapest price from Atlanta to Denver
@@ -552,54 +652,64 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`步骤10：丹佛有另一个邻近城市，埃尔帕索。从丹佛到埃尔帕索的价格是$140。我们现在可以构建从亚特兰大到埃尔帕索的第一个已知价格。cheapestPricesTable告诉我们从亚特兰大到丹佛的最低价格是$160。这意味着如果我们再从丹佛到埃尔帕索，将增加$140，使从亚特兰大到埃尔帕索的总价格为$300。我们可以将其添加到cheapestPricesTable中：`'
 - en: '| From Atlanta To: | Boston | Chicago | Denver | El Paso |'
   id: totrans-101
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大到： | 波士顿 | 芝加哥 | 丹佛 | 埃尔帕索 |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-102
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| $0 | $100 | $200 | $160 | $300 |'
   id: totrans-103
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| $0 | $100 | $200 | $160 | $300 |'
 - en: '`We must then also add the key-value pair of El Paso-Denver to our cheapestPreviousStopoverCityTable:`'
   id: totrans-104
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`我们还必须将埃尔帕索-丹佛的键值对添加到我们的cheapestPreviousStopoverCityTable中：`'
 - en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
     | El Paso |'
   id: totrans-105
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从亚特兰大出发的最便宜的中转城市： | 波士顿 | 芝加哥 | 丹佛 | 埃尔帕索 |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-106
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | Atlanta | Denver | Atlanta | Denver |'
   id: totrans-107
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | 亚特兰大 | 丹佛 | 亚特兰大 | 丹佛 |'
 - en: '`Again, this means that to save the most money when flying from Atlanta to
     El Paso, our second-to-last stop should be Denver.`'
   id: totrans-108
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`这意味着为了在从Atlanta到El Paso的航班中节省最多的钱，我们的倒数第二个停留应该是Denver。`'
 - en: '`We’ve seen all our currentCity’s adjacent cities, so it’s time to visit our
     next city.`'
   id: totrans-109
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`我们已经查看了currentCity的所有相邻城市，因此是时候访问下一个城市。`'
 - en: '`Step 11: We have two known unvisited cities, Chicago and El Paso. Since it’s
     cheaper to get from Atlanta to Chicago ($200) than it is to get from Atlanta to
     El Paso ($300), we visit Chicago next, as shown in the following graph:`'
@@ -607,11 +717,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`第11步：我们有两个已知的未访问城市，Chicago和El Paso。由于从Atlanta到Chicago的费用（$200）比从Atlanta到El
+    Paso的费用（$300）更便宜，因此我们接下来访问Chicago，如下图所示：`'
 - en: '![images/graphs/weighted_graph_7.png](images/graphs/weighted_graph_7.png)'
   id: totrans-111
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/graphs/weighted_graph_7.png](images/graphs/weighted_graph_7.png)'
 - en: '`Step 12: Chicago has only one adjacent city, El Paso. The price from Chicago
     to El Paso is $80 (not bad). With this information, we can now calculate the cheapest
     price from Atlanta to El Paso when assuming that Chicago is our second-to-last
@@ -620,6 +733,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`第12步：Chicago只有一个相邻城市，El Paso。从Chicago到El Paso的价格是$80（不错）。有了这个信息，我们现在可以计算从Atlanta到El
+    Paso的最便宜价格，假设Chicago是我们的倒数第二个停留城市。`'
 - en: '`The cheapestPricesTable shows us that the cheapest path from Atlanta to Chicago
     is $200\. Adding the $80 to this means the cheapest price from Atlanta to El Paso
     with Chicago as the second-to-last stop would cost $280.`'
@@ -627,6 +742,8 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`cheapestPricesTable告诉我们，从Atlanta到Chicago的最便宜路径是$200。再加上$80，意味着从Atlanta到El
+    Paso的最便宜价格，假设Chicago是倒数第二个停留，将花费$280。`'
 - en: '`Wait! This is cheaper than the currently known cheapest path from Atlanta
     to El Paso. In our cheapestPricesTable, we see that the cheapest known price is
     $300\. But when we fly through Chicago, the price is $280, which is cheaper.`'
@@ -634,621 +751,749 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`等等！这比目前已知的从Atlanta到El Paso的最便宜路径更便宜。在我们的cheapestPricesTable中，我们看到已知的最便宜价格是$300。然而，当我们经由Chicago时，价格是$280，更便宜。`'
 - en: '`Accordingly, we need to update the cheapestPricesTable to indicate our newly
     found cheapest path to El Paso:`'
   id: totrans-115
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`因此，我们需要更新cheapestPricesTable，以指示我们新找到的到El Paso的最便宜路径：`'
 - en: '| From Atlanta To: | Boston | Chicago | Denver | El Paso |'
   id: totrans-116
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从Atlanta到： | Boston | Chicago | Denver | El Paso |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-117
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| $0 | $100 | $200 | $160 | $280 |'
   id: totrans-118
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| $0 | $100 | $200 | $160 | $280 |'
 - en: '`We also need to update the cheapestPreviousStopoverCityTable, with El Paso
     as the key and Chicago as the value:`'
   id: totrans-119
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`我们还需要更新cheapestPreviousStopoverCityTable，以`El Paso`为键，`Chicago`为值：`'
 - en: '| Cheapest Previous Stopover City from Atlanta: | Boston | Chicago | Denver
     | El Paso |'
   id: totrans-120
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从Atlanta出发的最便宜前一个停留城市： | Boston | Chicago | Denver | El Paso |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-121
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | Atlanta | Denver | Atlanta | Chicago |'
   id: totrans-122
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | Atlanta | Denver | Atlanta | Chicago |'
 - en: '`Chicago`没有更多相邻城市，所以我们现在可以访问下一个城市。'
   id: totrans-123
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`Chicago`没有更多相邻城市，所以我们现在可以访问下一个城市。'
 - en: 第13步：`El Paso`是唯一已知的未访问城市，因此让我们将其设为`currentCity`，如图所示：
   id: totrans-124
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第13步：`El Paso`是唯一已知的未访问城市，因此让我们将其设为`currentCity`，如图所示：
 - en: '![images/graphs/weighted_graph_8.png](images/graphs/weighted_graph_8.png)'
   id: totrans-125
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/graphs/weighted_graph_8.png](images/graphs/weighted_graph_8.png)'
 - en: 第14步：`El Paso`只有一个出境航班，即飞往`Boston`。该航班费用为`$100`。现在，`cheapestPricesTable`揭示从`Atlanta`到`El
     Paso`的最便宜价格为`$280`。因此，如果我们从`Atlanta`飞往`Boston`，而`El Paso`是倒数第二个停留城市，我们的总费用将为`$380`。这比从`Atlanta`到`Boston`的最便宜已知价格（`$100`）更贵，因此我们不会更新任何表格。
   id: totrans-126
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 第14步：`El Paso`只有一个出境航班，即飞往`Boston`。该航班费用为`$100`。现在，`cheapestPricesTable`揭示从`Atlanta`到`El
+    Paso`的最便宜价格为`$280`。因此，如果我们从`Atlanta`飞往`Boston`，而`El Paso`是倒数第二个停留城市，我们的总费用将为`$380`。这比从`Atlanta`到`Boston`的最便宜已知价格（`$100`）更贵，因此我们不会更新任何表格。
 - en: 由于我们已访问每个已知城市，现在我们拥有找到从`Atlanta`到`El Paso`最便宜路径所需的所有信息。
   id: totrans-127
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 由于我们已访问每个已知城市，现在我们拥有找到从`Atlanta`到`El Paso`最便宜路径所需的所有信息。
 - en: 寻找最短路径
   id: totrans-128
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 寻找最短路径
 - en: 如果我们只想知道从`Atlanta`到`El Paso`的最便宜价格，我们可以在`cheapestPricesTable`中查看，发现是`$280`。但如果我们想找出飞往获得该低价的确切路径，我们还有最后一件事要做。
   id: totrans-129
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们只想知道从`Atlanta`到`El Paso`的最便宜价格，我们可以在`cheapestPricesTable`中查看，发现是`$280`。但如果我们想找出飞往获得该低价的确切路径，我们还有最后一件事要做。
 - en: 还记得`cheapestPreviousStopoverCityTable`吗？现在是使用这些数据的时候了。
   id: totrans-130
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 还记得`cheapestPreviousStopoverCityTable`吗？现在是使用这些数据的时候了。
 - en: 目前，`cheapestPreviousStopoverCityTable`看起来是这样的：
   id: totrans-131
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 目前，`cheapestPreviousStopoverCityTable`看起来是这样的：
 - en: '| 从`Atlanta`出发的最便宜的前一个停留城市： | `Boston` | `Chicago` | `Denver` | `El Paso` |'
   id: totrans-132
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| 从`Atlanta`出发的最便宜的前一个停留城市： | `Boston` | `Chicago` | `Denver` | `El Paso` |'
 - en: '| --- | --- | --- | --- | --- |'
   id: totrans-133
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '|  | `Atlanta` | `Denver` | `Atlanta` | `Chicago` |'
   id: totrans-134
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `Atlanta` | `Denver` | `Atlanta` | `Chicago` |'
 - en: 我们可以利用这个表来绘制从`Atlanta`到`El Paso`的最短路径——如果我们向后走的话。
   id: totrans-135
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以利用这个表来绘制从`Atlanta`到`El Paso`的最短路径——如果我们向后走的话。
 - en: 让我们查看`El Paso`。它对应的城市是`Chicago`。这意味着从`Atlanta`到`El Paso`的最便宜路线涉及在飞往`El Paso`之前停留在`Chicago`。让我们将其写下来：
   id: totrans-136
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们查看`El Paso`。它对应的城市是`Chicago`。这意味着从`Atlanta`到`El Paso`的最便宜路线涉及在飞往`El Paso`之前停留在`Chicago`。让我们将其写下来：
 - en: '| ​  | `Chicago -> El Paso` |'
   id: totrans-137
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `Chicago -> El Paso` |'
 - en: 现在，如果我们在`cheapestPreviousStopoverCityTable`中查找`Chicago`，可以看到它对应的值是`Denver`。这意味着从`Atlanta`到`Chicago`的最便宜路线涉及在`Chicago`之前停留在`Denver`。让我们将其添加到我们的图示中：
   id: totrans-138
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，如果我们在`cheapestPreviousStopoverCityTable`中查找`Chicago`，可以看到它对应的值是`Denver`。这意味着从`Atlanta`到`Chicago`的最便宜路线涉及在`Chicago`之前停留在`Denver`。让我们将其添加到我们的图示中：
 - en: '| ​  | `Denver -> Chicago -> El Paso` |'
   id: totrans-139
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `Denver -> Chicago -> El Paso` |'
 - en: 如果我们然后在`cheapestPreviousStopoverCityTable`中查找`Denver`，可以看到从`Atlanta`到`Denver`的最便宜航班是直接从`Atlanta`飞往`Denver`：
   id: totrans-140
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果我们然后在`cheapestPreviousStopoverCityTable`中查找`Denver`，可以看到从`Atlanta`到`Denver`的最便宜航班是直接从`Atlanta`飞往`Denver`：
 - en: '| ​  | `Atlanta -> Denver -> Chicago -> El Paso` |'
   id: totrans-141
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `Atlanta -> Denver -> Chicago -> El Paso` |'
 - en: 现在，`Atlanta`恰好是我们的起始城市，因此这条路线正是我们从`Atlanta`到`El Paso`获取最便宜价格的确切路径。
   id: totrans-142
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，`Atlanta`恰好是我们的起始城市，因此这条路线正是我们从`Atlanta`到`El Paso`获取最便宜价格的确切路径。
 - en: 让我们回顾一下我们用来连接最便宜路径的逻辑。
   id: totrans-143
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们回顾一下我们用来连接最便宜路径的逻辑。
 - en: 请记住，`cheapestPreviousStopoverCityTable`包含每个目的地在到达该目的地之前的倒数第二个停留城市，以便在从`Atlanta`飞往时获得最便宜的价格。
   id: totrans-144
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请记住，`cheapestPreviousStopoverCityTable`包含每个目的地在到达该目的地之前的倒数第二个停留城市，以便在从`Atlanta`飞往时获得最便宜的价格。
 - en: 因此，从`cheapestPreviousStopoverCityTable`中，我们可以看到从`Atlanta`到`El Paso`的最便宜价格意味着：
   id: totrans-145
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 因此，从`cheapestPreviousStopoverCityTable`中，我们可以看到从`Atlanta`到`El Paso`的最便宜价格意味着：
 - en: 我们需要直接从`Chicago`飞往`El Paso`，并且
   id: totrans-146
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们需要直接从`Chicago`飞往`El Paso`，并且
 - en: 我们需要直接从`Denver`飞往`Chicago`，并且
   id: totrans-147
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们需要直接从`Denver`飞往`Chicago`，并且
 - en: 我们需要直接从`Atlanta`飞往`Denver`。
   id: totrans-148
   prefs:
   - PREF_UL
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们需要直接从`Atlanta`飞往`Denver`。
 - en: 这意味着以下内容是我们最便宜的路径：
   id: totrans-149
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这意味着以下内容是我们最便宜的路径：
 - en: '| ​  | `Atlanta -> Denver -> Chicago -> El Paso` |'
   id: totrans-150
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `Atlanta -> Denver -> Chicago -> El Paso` |'
 - en: 而且…就是这样。哇！
   id: totrans-151
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 而且…就是这样。哇！
 - en: 代码实现：Dijkstra算法
   id: totrans-152
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 代码实现：Dijkstra算法
 - en: 在我们进入实际算法之前，我们可以使用以下代码设置我们之前的示例：
   id: totrans-153
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们进入实际算法之前，我们可以使用以下代码设置我们之前的示例：
 - en: '| ​  | `const`​ `atlanta` = `new`​ `City`(`''Atlanta''`); |'
   id: totrans-154
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `atlanta` = `new`​ `City`(`''Atlanta''`); |'
 - en: '| ​  | `const`​ `boston` = `new`​ `City`(`''Boston''`); |'
   id: totrans-155
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `boston` = `new`​ `City`(`''Boston''`); |'
 - en: '| ​  | `const`​ `chicago` = `new`​ `City`(`''Chicago''`); |'
   id: totrans-156
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `chicago` = `new`​ `City`(`''Chicago''`); |'
 - en: '| ​  | `const`​ `denver` = `new`​ `City`(`''Denver''`); |'
   id: totrans-157
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `denver` = `new`​ `City`(`''Denver''`); |'
 - en: '| ​  | `const`​ `elPaso` = `new`​ `City`(`''El Paso''`); |'
   id: totrans-158
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `elPaso` = `new`​ `City`(`''El Paso''`); |'
 - en: '| ​  |  |'
   id: totrans-159
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `atlanta.addRoute`(`boston`, 100); |'
   id: totrans-160
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `atlanta.addRoute`(`boston`, 100); |'
 - en: '| ​  | `atlanta.addRoute`(`denver`, 160); |'
   id: totrans-161
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `atlanta.addRoute`(`denver`, 160); |'
 - en: '| ​  | `boston.addRoute`(`chicago`, 120); |'
   id: totrans-162
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `boston.addRoute`(`chicago`, 120); |'
 - en: '| ​  | `boston.addRoute`(`denver`, 180); |'
   id: totrans-163
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `boston.addRoute`(`denver`, 180); |'
 - en: '| ​  | `chicago.addRoute`(`elPaso`, 80); |'
   id: totrans-164
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `chicago.addRoute`(`elPaso`, 80); |'
 - en: '| ​  | `denver.addRoute`(`chicago`, 40); |'
   id: totrans-165
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `denver.addRoute`(`chicago`, 40); |'
 - en: '| ​  | `denver.addRoute`(`elPaso`, 140); |'
   id: totrans-166
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `denver.addRoute`(`elPaso`, 140); |'
 - en: '| ​  | `elPaso.addRoute`(`boston`, 100); |'
   id: totrans-167
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `elPaso.addRoute`(`boston`, 100); |'
 - en: 最后，这是Dijkstra算法的代码。它并不轻松阅读，而且可能是本书中最复杂的代码。不过，如果你准备好仔细研究它，继续阅读吧。
   id: totrans-168
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最后，这是Dijkstra算法的代码。它并不轻松阅读，而且可能是本书中最复杂的代码。不过，如果你准备好仔细研究它，继续阅读吧。
 - en: 在我们的实现中，这个方法并不在`City`类内部，而是在外部。该方法接受两个`City`实例并返回它们之间的最短路径：
   id: totrans-169
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的实现中，这个方法并不在`City`类内部，而是在外部。该方法接受两个`City`实例并返回它们之间的最短路径：
 - en: '| ​  | `function`​ `dijkstraShortestPath`(`startingCity`, `finalDestination`)
     { |'
   id: totrans-170
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function`​ `dijkstraShortestPath`(`startingCity`, `finalDestination`)
+    { |'
 - en: '| ​  | `const`​ `cheapestPricesTable` = {}; |'
   id: totrans-171
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `cheapestPricesTable` = {}; |'
 - en: '| ​  | `const`​ `cheapestPreviousStopoverCityTable` = {}; |'
   id: totrans-172
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `cheapestPreviousStopoverCityTable` = {}; |'
 - en: '| ​  | `let`​ `unvisitedCities` = [`startingCity`]; |'
   id: totrans-173
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `unvisitedCities` = [`startingCity`]; |'
 - en: '| ​  | `const`​ `visitedCities` = {}; |'
   id: totrans-174
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `visitedCities` = {}; |'
 - en: '| ​  |  |'
   id: totrans-175
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `cheapestPricesTable`[`startingCity.name`] = 0; |'
   id: totrans-176
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `cheapestPricesTable`[`startingCity.name`] = 0; |'
 - en: '| ​  | `let`​ `currentCity` = `startingCity`; |'
   id: totrans-177
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `currentCity` = `startingCity`; |'
 - en: '| ​  |  |'
   id: totrans-178
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while`​ (`unvisitedCities.length` > 0) { |'
   id: totrans-179
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while`​ (`unvisitedCities.length` > 0) { |'
 - en: '| ​  | `visitedCities`[`currentCity.name`] = `true`; |'
   id: totrans-180
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `visitedCities`[`currentCity.name`] = `true`; |'
 - en: '| ​  | `unvisitedCities` = `unvisitedCities.filter`((`city`) => `city` !==
     `currentCity`); |'
   id: totrans-181
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `unvisitedCities` = `unvisitedCities.filter`((`city`) => `city` !==
+    `currentCity`); |'
 - en: '| ​  |  |'
   id: totrans-182
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for`​ (`const`​ `adjacentCity` ​`of`​ `currentCity.routes.keys()`)
     { |'
   id: totrans-183
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for`​ (`const`​ `adjacentCity` ​`of`​ `currentCity.routes.keys()`)
+    { |'
 - en: '| ​  | `const`​ `price` = `currentCity.routes.get`(`adjacentCity`); |'
   id: totrans-184
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `price` = `currentCity.routes.get`(`adjacentCity`); |'
 - en: '| ​  |  |'
   id: totrans-185
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if`​ (!`visitedCities`[`adjacentCity.name`] && |'
   id: totrans-186
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ (!`visitedCities`[`adjacentCity.name`] && |'
 - en: '| ​  | `!unvisitedCities`[`adjacentCity`] { |'
   id: totrans-187
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `!unvisitedCities`[`adjacentCity`] { |'
 - en: '| ​  | `unvisitedCities.push`(`adjacentCity`); |'
   id: totrans-188
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `unvisitedCities.push`(`adjacentCity`); |'
 - en: '| ​  | } |'
   id: totrans-189
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-190
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `const`​ `priceThroughCurrentCity` = |'
   id: totrans-191
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `priceThroughCurrentCity` = |'
 - en: '| ​  | (`cheapestPricesTable`[`currentCity.name`] + `price`); |'
   id: totrans-192
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | (`cheapestPricesTable`[`currentCity.name`] + `price`); |'
 - en: '| ​  |  |'
   id: totrans-193
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if`​ (!`cheapestPricesTable`[`adjacentCity.name`] &#124;&#124; `priceThroughCurrentCity`
     |'
   id: totrans-194
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if`​ (!`cheapestPricesTable`[`adjacentCity.name`] &#124;&#124; `priceThroughCurrentCity`
+    |'
 - en: '| ​  | < `cheapestPricesTable`[`adjacentCity.name`] < `cheapestPrice`) { |'
   id: totrans-195
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | < `cheapestPricesTable`[`adjacentCity.name`] < `cheapestPrice`) { |'
 - en: '| ​  | `cheapestPricesTable`[`adjacentCity.name`] = `priceThroughCurrentCity`;
     |'
   id: totrans-196
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `cheapestPricesTable`[`adjacentCity.name`] = `priceThroughCurrentCity`;
+    |'
 - en: '| ​  | `cheapestPreviousStopoverCityTable`[`adjacentCity.name`] = |'
   id: totrans-197
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `cheapestPreviousStopoverCityTable`[`adjacentCity.name`] = |'
 - en: '| ​  | `currentCity.name`; |'
   id: totrans-198
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentCity.name`; |'
 - en: '| ​  | } |'
   id: totrans-199
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-200
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-201
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `let`​ `cheapestPrice` = `Infinity`; |'
   id: totrans-202
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `cheapestPrice` = `Infinity`; |'
 - en: '| ​  |  |'
   id: totrans-203
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `for`​ (`const`​ `city` ​`of`​ `unvisitedCities`) { |'
   id: totrans-204
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for`​ (`const`​ `city` ​`of`​ `unvisitedCities`) { |'
 - en: '| ​  | `if`​ (`cheapestPricesTable`[`city.name`] < `cheapestPrice`) { |'
   id: totrans-205
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `if`​ (`cheapestPricesTable`[`city.name`] < `cheapestPrice`) { |'
 - en: '| ​  | `cheapestPrice` = `cheapestPricesTable`[`city.name`]; |'
   id: totrans-206
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `cheapestPrice` = `cheapestPricesTable`[`city.name`]; |'
 - en: '| ​  | `currentCity` = `city`; |'
   id: totrans-207
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentCity` = `city`; |'
 - en: '| ​  | } |'
   id: totrans-208
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-209
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-210
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-211
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `const`​ `shortestPath` = []; |'
   id: totrans-212
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const`​ `shortestPath` = []; |'
 - en: '| ​  | `let`​ `currentCityName` = `finalDestination.name`; |'
   id: totrans-213
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let`​ `currentCityName` = `finalDestination.name`; |'
 - en: '| ​  |  |'
   id: totrans-214
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `while` (currentCityName) { |'
   id: totrans-215
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentCityName) { |'
 - en: '| ​  | `shortestPath.unshift(currentCityName);` |'
   id: totrans-216
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `shortestPath.unshift(currentCityName);` |'
 - en: '| ​  | `currentCityName = cheapestPreviousStopoverCityTable[currentCityName];`
     |'
   id: totrans-217
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `currentCityName = cheapestPreviousStopoverCityTable[currentCityName];`
+    |'
 - en: '| ​  | } |'
   id: totrans-218
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-219
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `return` shortestPath; |'
   id: totrans-220
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` shortestPath; |'
 - en: '| ​  | } |'
   id: totrans-221
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 我们有相当多的代码在这里，所以让我们分解一下。
   id: totrans-222
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们有相当多的代码在这里，所以让我们分解一下。
 - en: '`The dijkstraShortestPath` function accepts two vertices，代表`startingCity`和`finalDestination`。'
   id: totrans-223
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`The dijkstraShortestPath`函数接受两个顶点，代表`startingCity`和`finalDestination`。'
 - en: 最终，我们的函数将返回一个表示最便宜路径的字符串数组。对于我们的例子，这个函数会返回：
   id: totrans-224
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 最终，我们的函数将返回一个表示最便宜路径的字符串数组。对于我们的例子，这个函数会返回：
 - en: '| ​  | ["Atlanta", "Denver", "Chicago", "El Paso"] |'
   id: totrans-225
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ["亚特兰大", "丹佛", "芝加哥", "埃尔帕索"] |'
 - en: 我们的函数首先做的是设置驱动整个算法的两个主要表：
   id: totrans-226
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们的函数首先做的是设置驱动整个算法的两个主要表：
 - en: '| ​  | `const` cheapestPricesTable = {}; |'
   id: totrans-227
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` cheapestPricesTable = {}; |'
 - en: '| ​  | `const` cheapestPreviousStopoverCityTable = {}; |'
   id: totrans-228
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` cheapestPreviousStopoverCityTable = {}; |'
 - en: 然后我们设置方式来跟踪我们已访问的城市和尚未访问的城市：
   id: totrans-229
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们设置方式来跟踪我们已访问的城市和尚未访问的城市：
 - en: '| ​  | `let` unvisitedCities = [startingCity]; |'
   id: totrans-230
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` unvisitedCities = [startingCity]; |'
 - en: '| ​  | `const` visitedCities = {}; |'
   id: totrans-231
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` visitedCities = {}; |'
 - en: 请注意，我们预填充`unvisitedCities`，使`startingCity`成为数组中的唯一项。
   id: totrans-232
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 请注意，我们预填充`unvisitedCities`，使`startingCity`成为数组中的唯一项。
 - en: 似乎很奇怪的是，`unvisitedCities`是一个数组，而`visitedCities`是一个哈希表。我们将`visitedCities`设为哈希表的原因是，在接下来的代码中我们仅将其用于查找，而哈希表在时间复杂度方面是理想选择。
   id: totrans-233
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 似乎很奇怪的是，`unvisitedCities`是一个数组，而`visitedCities`是一个哈希表。我们将`visitedCities`设为哈希表的原因是，在接下来的代码中我们仅将其用于查找，而哈希表在时间复杂度方面是理想选择。
 - en: 对于`unvisitedCities`最佳数据结构的选择则没有那么简单。在我们接下来的代码中，我们访问的下一个城市总是从起始城市到达的最便宜的未访问城市。理想情况下，我们总是希望立即获取未访问城市中最便宜的选项。我们访问这些数据的代码会更简单，如果数据结构是数组的话。
   id: totrans-234
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 对于`unvisitedCities`最佳数据结构的选择则没有那么简单。在我们接下来的代码中，我们访问的下一个城市总是从起始城市到达的最便宜的未访问城市。理想情况下，我们总是希望立即获取未访问城市中最便宜的选项。如果数据结构是数组的话，我们访问这些数据的代码会更简单。
 - en: 事实上，优先队列非常适合这个，因为它的整个功能是提供对一组项目中最小（或最大）值的便捷访问。正如你在第16章中看到的， [​*Keeping Your
     Priorities Straight with Heaps*​](f_0153.xhtml#chp.heaps)，堆通常是实现优先队列的最佳数据结构。然而，我选择使用一个简单的数组来实现，仅仅是为了保持代码尽可能简单和小，因为
     Dijkstra 的算法本身已经相当复杂。但我鼓励你尝试用优先队列替换这个数组。
@@ -1256,304 +1501,370 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实上，优先队列非常适合这个，因为它的整个功能是提供对一组项目中最小（或最大）值的便捷访问。正如你在第16章中看到的， [​*保持你的优先级清晰，通过堆*​](f_0153.xhtml#chp.heaps)，堆通常是实现优先队列的最佳数据结构。然而，我选择使用一个简单的数组来实现，仅仅是为了保持代码尽可能简单和小，因为
+    Dijkstra 的算法本身已经相当复杂。但我鼓励你尝试用优先队列替换这个数组。
 - en: 接下来，我们向`cheapestPricesTable`添加第一个键值对，`startingCity`作为键，0作为值。这是合理的，因为到达`startingCity`的费用是零，因为我们已经在那儿了：
   id: totrans-236
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们向`cheapestPricesTable`添加第一个键值对，`startingCity`作为键，0作为值。这是合理的，因为到达`startingCity`的费用是零，因为我们已经在那儿了：
 - en: '| ​  | `cheapestPricesTable[startingCity.name] = 0;` |'
   id: totrans-237
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `cheapestPricesTable[startingCity.name] = 0;` |'
 - en: 作为最后的设置，我们指定`startingCity`为我们的`currentCity`：
   id: totrans-238
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 作为最后的设置，我们指定`startingCity`为我们的`currentCity`：
 - en: '| ​  | `let` currentCity = startingCity; |'
   id: totrans-239
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentCity = startingCity; |'
 - en: 我们现在开始算法的核心，它以一个循环的形式运行，只要`unvisitedCities`包含任何城市。在这个循环中，我们通过将当前城市的名称添加到`visitedCities`哈希表中来标记`currentCity`为已访问。
   id: totrans-240
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们现在开始算法的核心，它以一个循环的形式运行，只要`unvisitedCities`包含任何城市。在这个循环中，我们通过将当前城市的名称添加到`visitedCities`哈希表中来标记`currentCity`为已访问。
 - en: '|  | `while (unvisitedCities.length > 0) {` |'
   id: totrans-241
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `while (unvisitedCities.length > 0) {` |'
 - en: '|  | `visitedCities[currentCity.name] = true;` |'
   id: totrans-242
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `visitedCities[currentCity.name] = true;` |'
 - en: 根据定义，由于我们已经访问了`currentCity`，我们需要将其从未访问城市列表中移除：
   id: totrans-243
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 根据定义，由于我们已经访问了`currentCity`，我们需要将其从未访问城市列表中移除：
 - en: '|  | `unvisitedCities = unvisitedCities.filter((city) => city !== currentCity);`
     |'
   id: totrans-244
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `unvisitedCities = unvisitedCities.filter((city) => city !== currentCity);`
+    |'
 - en: 这个JavaScript过滤器语法创建了一个未访问城市数组的副本，除了移除了`currentCity`。
   id: totrans-245
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个JavaScript过滤器语法创建了一个未访问城市数组的副本，除了移除了`currentCity`。
 - en: 接下来，在`while`循环中，我们开始另一个循环，迭代`currentCity`的所有相邻城市：
   id: totrans-246
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，在`while`循环中，我们开始另一个循环，迭代`currentCity`的所有相邻城市：
 - en: '|  | `for (const adjacentCity of currentCity.routes.keys()) {` |'
   id: totrans-247
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `for (const adjacentCity of currentCity.routes.keys()) {` |'
 - en: 在这个内部循环中，我们首先获取从`currentCity`到当前迭代的相邻城市的路线价格：
   id: totrans-248
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个内部循环中，我们首先获取从`currentCity`到当前迭代的相邻城市的路线价格：
 - en: '|  | `const price = currentCity.routes.get(adjacentCity);` |'
   id: totrans-249
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `const price = currentCity.routes.get(adjacentCity);` |'
 - en: 然后，如果相邻城市是我们从未访问过的城市，我们将每个相邻城市添加到未访问城市的数组中。此外，只有当相邻城市不在未访问城市中时，我们才添加它：
   id: totrans-250
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后，如果相邻城市是我们从未访问过的城市，我们将每个相邻城市添加到未访问城市的数组中。此外，只有当相邻城市不在未访问城市中时，我们才添加它：
 - en: '|  | `if (!visitedCities[adjacentCity.name] && !unvisitedCities[adjacentCity])
     {` |'
   id: totrans-251
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `if (!visitedCities[adjacentCity.name] && !unvisitedCities[adjacentCity])
+    {` |'
 - en: '|  | `unvisitedCities.push(adjacentCity);` |'
   id: totrans-252
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `unvisitedCities.push(adjacentCity);` |'
 - en: '|  | } |'
   id: totrans-253
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | } |'
 - en: 接下来，我们计算从起始城市到相邻城市的最便宜的价格，假设`currentCity`是倒数第二个停靠站。我们通过使用`cheapestPricesTable`查找到`currentCity`的已知最便宜路线，然后将其与从`currentCity`到相邻城市的路线价格相加。这一计算结果存储在一个名为`priceThroughCurrentCity`的变量中：
   id: totrans-254
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 接下来，我们计算从起始城市到相邻城市的最便宜的价格，假设`currentCity`是倒数第二个停靠站。我们通过使用`cheapestPricesTable`查找到`currentCity`的已知最便宜路线，然后将其与从`currentCity`到相邻城市的路线价格相加。这一计算结果存储在一个名为`priceThroughCurrentCity`的变量中：
 - en: '|  | `const priceThroughCurrentCity =` |'
   id: totrans-255
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `const priceThroughCurrentCity =` |'
 - en: '|  | `(cheapestPricesTable[currentCity.name] + price);` |'
   id: totrans-256
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `(cheapestPricesTable[currentCity.name] + price);` |'
 - en: 然后我们在`cheapestPricesTable`中查看这个`price_through_currentCity`是否现在是从起始城市到相邻城市的最便宜已知航班。如果相邻城市尚未在`cheapestPricesTable`中，这个价格在定义上就是已知的最便宜价格：
   id: totrans-257
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们在`cheapestPricesTable`中查看这个`price_through_currentCity`是否现在是从起始城市到相邻城市的最便宜已知航班。如果相邻城市尚未在`cheapestPricesTable`中，这个价格在定义上就是已知的最便宜价格：
 - en: '|  | `if (!cheapestPricesTable[adjacentCity.name] || priceThroughCurrentCity`
     |'
   id: totrans-258
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `if (!cheapestPricesTable[adjacentCity.name] || priceThroughCurrentCity`
+    |'
 - en: '|  | `< cheapestPricesTable[adjacentCity.name]) {` |'
   id: totrans-259
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `< cheapestPricesTable[adjacentCity.name]) {` |'
 - en: 如果`priceThroughCurrentCity`现在是从起始城市到相邻城市的最便宜路线，我们更新两个主要表；即，我们在`cheapestPricesTable`中存储相邻城市的新价格，并在`cheapestPreviousStopoverCityTable`中使用相邻城市的名称作为键，`currentCity`的名称作为值：
   id: totrans-260
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果`priceThroughCurrentCity`现在是从起始城市到相邻城市的最便宜路线，我们更新两个主要表；即，我们在`cheapestPricesTable`中存储相邻城市的新价格，并在`cheapestPreviousStopoverCityTable`中使用相邻城市的名称作为键，`currentCity`的名称作为值：
 - en: '|  | `cheapestPricesTable[adjacentCity.name] = priceThroughCurrentCity;` |'
   id: totrans-261
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `cheapestPricesTable[adjacentCity.name] = priceThroughCurrentCity;` |'
 - en: '|  | `cheapestPreviousStopoverCityTable[adjacentCity.name] = currentCity.name;`
     |'
   id: totrans-262
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `cheapestPreviousStopoverCityTable[adjacentCity.name] = currentCity.name;`
+    |'
 - en: 在迭代完`currentCity`的所有相邻城市后，是时候访问下一个城市了。我们使用以下代码片段找到从起始城市可以到达的最便宜的未访问城市，并将其声明为我们的新`currentCity`：
   id: totrans-263
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在迭代完`currentCity`的所有相邻城市后，是时候访问下一个城市了。我们使用以下代码片段找到从起始城市可以到达的最便宜的未访问城市，并将其声明为我们的新`currentCity`：
 - en: '|  | `let cheapestPrice = Infinity;` |'
   id: totrans-264
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  | `let cheapestPrice = Infinity;` |'
 - en: '|  |  |'
   id: totrans-265
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '|  |  |'
 - en: '| ​  | `for` ( `const` city `of` unvisitedCities) { |'
   id: totrans-266
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `for` ( `const` city `of` unvisitedCities) { |'
 - en: '| ​  | `if` (cheapestPricesTable[city.name] < cheapestPrice) { |'
   id: totrans-267
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (cheapestPricesTable[city.name] < cheapestPrice) { |'
 - en: '| ​  | cheapestPrice = cheapestPricesTable[city.name]; |'
   id: totrans-268
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | cheapestPrice = cheapestPricesTable[city.name]; |'
 - en: '| ​  | currentCity = city; |'
   id: totrans-269
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentCity = city; |'
 - en: '| ​  | } |'
   id: totrans-270
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-271
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 上述代码创建了一个`cheapestPrice`变量并将其设置为无穷大。这是一个小技巧，以确保我们遇到的每个价格都低于`cheapestPrice`的初始值。然后，循环遍历每个`unvisitedCities`，检查每个城市与`cheapestPricesTable`。每次找到更便宜的城市时，它会将`currentCity`设置为该城市。到循环结束时，`currentCity`将确实指向最便宜的未访问城市。
   id: totrans-272
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 上述代码创建了一个`cheapestPrice`变量并将其设置为无穷大。这是一个小技巧，以确保我们遇到的每个价格都低于`cheapestPrice`的初始值。然后，循环遍历每个`unvisitedCities`，检查每个城市与`cheapestPricesTable`。每次找到更便宜的城市时，它会将`currentCity`设置为该城市。到循环结束时，`currentCity`将确实指向最便宜的未访问城市。
 - en: 主`while`循环在`unvisitedCities`数组为空时结束。这意味着我们访问了图中的所有城市！
   id: totrans-273
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 主`while`循环在`unvisitedCities`数组为空时结束。这意味着我们访问了图中的所有城市！
 - en: 此时，两个表已完全填充了我们需要的所有数据。如果我们愿意，我们此时可以简单地返回`cheapestPricesTable`，并查看从`startingCity`到所有已知城市的最低价格。
   id: totrans-274
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 此时，两个表已完全填充了我们需要的所有数据。如果我们愿意，我们此时可以简单地返回`cheapestPricesTable`，并查看从`startingCity`到所有已知城市的最低价格。
 - en: 不过，我们继续寻找到达`finalDestination`的精确最便宜路径。
   id: totrans-275
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 不过，我们继续寻找到达`finalDestination`的精确最便宜路径。
 - en: 为了设置这些，我们创建一个名为`shortestPath`的数组，这是我们在函数末尾返回的内容：
   id: totrans-276
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 为了设置这些，我们创建一个名为`shortestPath`的数组，这是我们在函数末尾返回的内容：
 - en: '| ​  | `const` shortestPath = []; |'
   id: totrans-277
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` shortestPath = []; |'
 - en: 我们还创建了一个名为`currentCityName`的变量，最初以`finalDestination`的名称开始：
   id: totrans-278
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们还创建了一个名为`currentCityName`的变量，最初以`finalDestination`的名称开始：
 - en: '| ​  | `let` currentCityName = finalDestination.name; |'
   id: totrans-279
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `let` currentCityName = finalDestination.name; |'
 - en: 我们接着开始一个`while`循环，以填充`shortestPath`。这个循环将以反向顺序插入所有城市，从`finalDestination`开始，逐步回到`startingCity`：
   id: totrans-280
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们接着开始一个`while`循环，以填充`shortestPath`。这个循环将以反向顺序插入所有城市，从`finalDestination`开始，逐步回到`startingCity`：
 - en: '| ​  | `while` (currentCityName) { |'
   id: totrans-281
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `while` (currentCityName) { |'
 - en: '| ​  | shortestPath.unshift(currentCityName); |'
   id: totrans-282
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | shortestPath.unshift(currentCityName); |'
 - en: 然后我们使用`cheapestPreviousStopoverCityTable`来找到应该是当前`currentCityName`之前的停留城市。这个前一个城市现在变成新的`currentCityName`：
   id: totrans-283
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然后我们使用`cheapestPreviousStopoverCityTable`来找到应该是当前`currentCityName`之前的停留城市。这个前一个城市现在变成新的`currentCityName`：
 - en: '| ​  | currentCityName = cheapestPreviousStopoverCityTable[currentCityName];
     |'
   id: totrans-284
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | currentCityName = cheapestPreviousStopoverCityTable[currentCityName];
+    |'
 - en: '`shortestPath`现在包含了从`finalDestination`到`startingCity`的反向路径，因此这就是我们最终返回的内容：'
   id: totrans-285
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`shortestPath`现在包含了从`finalDestination`到`startingCity`的反向路径，因此这就是我们最终返回的内容：'
 - en: '| ​  | `return` shortestPath; |'
   id: totrans-286
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` shortestPath; |'
 - en: 尽管我们的实现涉及城市和价格，但所有变量名都可以更改为处理任何加权图的最短路径。
   id: totrans-287
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 尽管我们的实现涉及城市和价格，但所有变量名都可以更改为处理任何加权图的最短路径。
 - en: Dijkstra算法的效率
   id: totrans-288
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: Dijkstra算法的效率
 - en: Dijkstra算法是找到加权图中最短路径的一般描述，但并未指定精确的代码实现。实际上，存在多种变体可供编写该算法。
   id: totrans-289
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: Dijkstra算法是找到加权图中最短路径的一般描述，但并未指定精确的代码实现。实际上，存在多种变体可供编写该算法。
 - en: 在我们的代码演示中，例如，我们为`unvisitedCities`数据结构使用了简单数组，但我提到可以改用优先队列。
   id: totrans-290
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在我们的代码演示中，例如，我们为`unvisitedCities`数据结构使用了简单数组，但我提到可以改用优先队列。
 - en: 事实证明，精确的实现对算法的时间复杂度有相当大的影响。但至少让我们分析一下我们的实现。
   id: totrans-291
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 事实证明，精确的实现对算法的时间复杂度有相当大的影响。但至少让我们分析一下我们的实现。
 - en: 当我们使用一个简单的数组来跟踪尚未访问的城市（`unvisitedCities`）时，我们的算法可能需要最多`O(V²)`步。这是因为Dijkstra算法的最坏情况是每个顶点都有一条边连接到图中的每个其他顶点。在这种情况下，对于我们访问的每个顶点，我们检查从该顶点到每个其他顶点的路径权重。这是`V`个顶点乘以`V`个顶点，即`O(V²)`。
   id: totrans-292
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们使用一个简单的数组来跟踪尚未访问的城市（`unvisitedCities`）时，我们的算法可能需要最多`O(V²)`步。这是因为Dijkstra算法的最坏情况是每个顶点都有一条边连接到图中的每个其他顶点。在这种情况下，对于我们访问的每个顶点，我们检查从该顶点到每个其他顶点的路径权重。这是`V`个顶点乘以`V`个顶点，即`O(V²)`。
 - en: 其他实现，例如使用优先队列而不是数组，会带来更快的速度。同样，Dijkstra算法有多种变体，每种变体都需要独立分析以确定其精确的时间复杂度。
   id: totrans-293
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 其他实现，例如使用优先队列而不是数组，会带来更快的速度。同样，Dijkstra算法有多种变体，每种变体都需要独立分析以确定其精确的时间复杂度。
 - en: 无论你选择哪种算法实现，都是比另一种选择要好的选择，后者是找到图中每一条可能的路径，然后选择最快的一条。Dijkstra算法提供了一种可靠的方法，使我们能够有条理地穿过图形，并精准找到最短路径。
   id: totrans-294
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 无论你选择哪种算法实现，都是比另一种选择要好的选择，后者是找到图中每一条可能的路径，然后选择最快的一条。Dijkstra算法提供了一种可靠的方法，使我们能够有条理地穿过图形，并精准找到最短路径。

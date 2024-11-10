@@ -4,187 +4,224 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 不必要的递归调用
 - en: 这是一个递归函数，用于从数组中找到最大数：
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是一个递归函数，用于从数组中找到最大数：
 - en: '| ​  | `function` max(array) { |'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` max(array) { |'
 - en: '| ​  | `if` (array.length === 0) { `return` `null`; } |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 0) { `return` `null`; } |'
 - en: '| ​  |  |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (array.length === 1) { `return` array[0]; } |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 1) { `return` array[0]; } |'
 - en: '| ​  |  |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
 - en: '| ​  | `return` array[0]; |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` array[0]; |'
 - en: '| ​  | } `else` { |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` `max`(array.slice(1)); |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `max`(array.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 每个递归调用的本质是将单个数字（`array[0]`）与剩余数组中的最大数字进行比较。（为了计算剩余数组中的最大数，我们调用了当前函数`max`，这就是使函数递归的原因。）
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 每个递归调用的本质是将单个数字（`array[0]`）与剩余数组中的最大数字进行比较。（为了计算剩余数组中的最大数，我们调用了当前函数`max`，这就是使函数递归的原因。）
 - en: 我们通过条件语句实现比较。条件语句的前半部分如下：
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们通过条件语句实现比较。条件语句的前半部分如下：
 - en: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array[0] > `max`(array.slice(1))) { |'
 - en: '| ​  | `return` array[0]; |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` array[0]; |'
 - en: '| ​  | } |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这段代码表示，如果单个数字（`array[0]`）大于已经确定为剩余数组的最大数（`max(array.slice(1))`），那么根据定义，`array[0]`必须是最大数，因此我们返回它。
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这段代码表示，如果单个数字（`array[0]`）大于已经确定为剩余数组的最大数（`max(array.slice(1))`），那么根据定义，`array[0]`必须是最大数，因此我们返回它。
 - en: 这是条件语句的后半部分：
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这是条件语句的后半部分：
 - en: '| ​  | `else` { |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `else` { |'
 - en: '| ​  | `return` `max`(array.slice(1)); |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` `max`(array.slice(1)); |'
 - en: '| ​  | } |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这个第二段代码表示，如果`array[0]`不大于剩余数组中的最大数，那么剩余数组中的最大数一定是总体的最大数，我们返回它。
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个第二段代码表示，如果`array[0]`不大于剩余数组中的最大数，那么剩余数组中的最大数一定是总体的最大数，我们返回它。
 - en: 虽然这段代码有效，但它包含了一个隐藏的低效。如果仔细观察，您会注意到我们的代码中有两次出现了`max(array.slice(1))`，分别在条件语句的两半中。
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 虽然这段代码有效，但它包含了一个隐藏的低效。如果仔细观察，您会注意到我们的代码中有两次出现了`max(array.slice(1))`，分别在条件语句的两半中。
 - en: 问题在于每次提到`max(array.slice(1))`时，我们都会触发一连串的递归调用。
   id: totrans-25
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 问题在于每次提到`max(array.slice(1))`时，我们都会触发一连串的递归调用。
 - en: 让我们用数组`[1, 2, 3, 4]`来分解这个例子。
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们用数组`[1, 2, 3, 4]`来分解这个例子。
 - en: 我们知道，我们将开始比较`1`与剩余数组`[2, 3, 4]`的最大数。这将进一步比较`2`与剩余数组`[3, 4]`的最大值，而后又比较`3`与`[4]`。这也会触发对`[4]`本身的一个递归调用，这是基线情况。
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们知道，我们将开始比较`1`与剩余数组`[2, 3, 4]`的最大数。这将进一步比较`2`与剩余数组`[3, 4]`的最大值，而后又比较`3`与`[4]`。这也会触发对`[4]`本身的一个递归调用，这是基线情况。
 - en: 然而，为了真正了解我们的代码如何执行，我们将从分析底部调用开始，并逐步向上工作调用链。
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 然而，为了真正了解我们的代码如何执行，我们将从分析底部调用开始，并逐步向上工作调用链。
 - en: 让我们开始吧。
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们开始吧。
 - en: 最大递归遍历
   id: totrans-30
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: 最大递归遍历
 - en: 当我们调用`max([4])`时，函数简单地返回数字`4`。这再次是因为我们的基线情况是数组只包含一个元素，如下面这行代码所规定的：
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们调用`max([4])`时，函数简单地返回数字`4`。这再次是因为我们的基线情况是数组只包含一个元素，如下面这行代码所规定的：
 - en: '| ​  | `if` (array.length === 1) { |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 1) { |'
 - en: '| ​  | `return` array[0]; |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` array[0]; |'
 - en: '| ​  | } |'
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这非常简单——这是一个单独的函数调用：
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这非常简单——这是一个单独的函数调用：
 - en: '![images/dynamic_programming/single_function_call.png](images/dynamic_programming/single_function_call.png)'
   id: totrans-36
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/single_function_call.png](images/dynamic_programming/single_function_call.png)'
 - en: 'Moving up the call chain, let’s see what happens when we call `max([3, 4])`.
     In the first half of the conditional statement (`if (array[0] > max(array.slice(1)))`),
     we compare the 3 to `max([4])`. But calling `max([4])` is itself a recursive call.
@@ -193,11 +230,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 向上回溯调用链，让我们看看当我们调用`max([3, 4])`时会发生什么。在条件语句的前半部分（`if (array[0] > max(array.slice(1)))`），我们将3与`max([4])`进行比较。但是调用`max([4])`本身就是一个递归调用。下面的图示描绘了`max([3,
+    4])`调用`max([4])`的过程：
 - en: '![images/dynamic_programming/first_recursive_call.png](images/dynamic_programming/first_recursive_call.png)'
   id: totrans-38
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/first_recursive_call.png](images/dynamic_programming/first_recursive_call.png)'
 - en: Note that next to the arrow, we put the label “1st” to indicate that this recursive
     call was triggered by the first half of the conditional statement within `max([3,
     4])`.
@@ -205,6 +245,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 注意，在箭头旁边，我们放置了标签“1st”以表示这个递归调用是由`max([3, 4])`条件语句的前半部分触发的。
 - en: After this step has been completed, our code can now compare the 3 with the
     result of `max([4])`. Since the 3 is not greater than that result (4), we trigger
     the second half of the conditional. (This is the code, `return max(array.slice(1)).`)
@@ -213,17 +254,21 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在完成这一步后，我们的代码现在可以将3与`max([4])`的结果进行比较。由于3不大于该结果（4），我们触发条件的第二部分。（这段代码是`return
+    max(array.slice(1));`）在这种情况下，我们返回`max([4])`。
 - en: 'But when our code returns `max([4])`, it triggers the actual function call
     of `max([4])`. This is now the second time we’ve triggered the `max([4])` call:'
   id: totrans-41
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但是当我们的代码返回`max([4])`时，它触发了实际的函数调用`max([4])`。这已经是我们第二次触发`max([4])`的调用：
 - en: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
   id: totrans-42
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
 - en: As you can see, the function, `max([3, 4])` ends up calling `max([4])` twice.
     Of course, we’d rather try to avoid doing this if we don’t have to. If we’ve already
     computed the result of `max([4])` once, why should we call the same function again
@@ -232,37 +277,44 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如你所见，函数`max([3, 4])`最后调用了`max([4])`两次。当然，如果我们不需要的话，最好避免这样做。如果我们已经计算过`max([4])`的结果，为什么还要再次调用同样的函数来获取相同的结果呢？
 - en: This problem gets a lot worse when we move just one level up the call chain.
   id: totrans-44
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们向上移动一个调用链级别时，这个问题会变得更加严重。
 - en: Here’s what happens when we call `max([2, 3, 4])`.
   id: totrans-45
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们调用`max([2, 3, 4])`时，会发生以下情况。
 - en: 'During the first half of the conditional, we compare the 2 against `max([3,
     4])`, which we’ve already determined looks like this:'
   id: totrans-46
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在条件的前半部分，我们将2与`max([3, 4])`进行比较，而我们已经确定这看起来是这样的：
 - en: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
   id: totrans-47
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/second_recursive_call.png](images/dynamic_programming/second_recursive_call.png)'
 - en: 'So `max([2, 3, 4])` calling `max([3, 4])` then, would look like this:'
   id: totrans-48
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以`max([2, 3, 4])`调用`max([3, 4])`的情况如下：
 - en: '![images/dynamic_programming/max_2_3_4_first.png](images/dynamic_programming/max_2_3_4_first.png)'
   id: totrans-49
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/max_2_3_4_first.png](images/dynamic_programming/max_2_3_4_first.png)'
 - en: 'But here’s the kicker. This is just for the first half of the conditional of
     `max([2, 3, 4])`. For the second half of the conditional, we end up calling `max([3,
     4])` again:'
@@ -270,16 +322,19 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 但这里有个关键点。这只是`max([2, 3, 4])`条件的前半部分。对于条件的后半部分，我们又调用了`max([3, 4])`：
 - en: '![images/dynamic_programming/max_2_3_4_second.png](images/dynamic_programming/max_2_3_4_second.png)'
   id: totrans-51
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/max_2_3_4_second.png](images/dynamic_programming/max_2_3_4_second.png)'
 - en: Yikes!
   id: totrans-52
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 哎呀！
 - en: Let’s dare to move to the top of the call chain, calling `max([1, 2, 3, 4])`.
     When all is said and done, after we call `max` for both halves of the conditional,
     we get what is shown in the [diagram](#fig.ch12.max_1_2_3_4).
@@ -287,56 +342,67 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 让我们勇敢地回到调用链的顶部，调用`max([1, 2, 3, 4])`。经过所有操作后，在我们为条件的两个部分调用`max`之后，我们得到如[图示](#fig.ch12.max_1_2_3_4)所示的结果。
 - en: '![images/dynamic_programming/max_1_2_3_4.png](images/dynamic_programming/max_1_2_3_4.png)'
   id: totrans-54
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/dynamic_programming/max_1_2_3_4.png](images/dynamic_programming/max_1_2_3_4.png)'
 - en: So when we call `max([1, 2, 3, 4])`, we actually end up triggering the `max`
     function fifteen times.
   id: totrans-55
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 所以当我们调用`max([1, 2, 3, 4])`时，实际上我们触发了`max`函数十五次。
 - en: 'We can see this visually by adding the statement, `console.log(''RECURSION'')`
     to the beginning of our function:'
   id: totrans-56
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们可以通过在函数开头添加语句`console.log('RECURSION')`来直观地看到这一点：
 - en: '| ​  | **function**​ `max(array)` { |'
   id: totrans-57
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | **function**​ `max(array)` { |'
 - en: '| ​  | `console.log(''RECURSION'');` |'
   id: totrans-58
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `console.log(''RECURSION'');` |'
 - en: '| ​  |  |'
   id: totrans-59
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `// remaining code omitted for brevity` |'
   id: totrans-60
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 省略其余代码以简化` |'
 - en: '| ​  | } |'
   id: totrans-61
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: When we then run our code, we’ll see the word `RECURSION` printed to our terminal
     fifteen times.
   id: totrans-62
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 当我们运行代码时，会看到单词`RECURSION`在终端打印了十五次。
 - en: 现在，我们确实需要其中一些调用，但并不是所有的调用。例如，我们确实需要计算`max([4])`，但一个这样的函数调用就足以得到计算结果。但是在这里，我们调用了该函数八次。
   id: totrans-63
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 现在，我们确实需要其中一些调用，但并不是所有的调用。例如，我们确实需要计算`max([4])`，但一个这样的函数调用就足够得出计算结果。然而在这里，我们调用了该函数八次。

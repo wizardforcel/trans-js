@@ -4,92 +4,110 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: 小小的修正对大O的影响
 - en: 'Thankfully, there’s an easy way to eliminate all these extra recursive calls.
     We’ll call `max` only once within our code, and save the result to a variable:'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 感谢，有一种简单的方法可以消除所有这些额外的递归调用。我们将在代码中仅调用一次`max`，并将结果保存到一个变量中：
 - en: '| ​  | `function` max(array) { |'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `function` max(array) { |'
 - en: '| ​  | `if` (array.length === 0) { `return` `null`; } |'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 0) { `return` `null`; } |'
 - en: '| ​  |  |'
   id: totrans-4
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `if` (array.length === 1) { `return` array[0]; } |'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array.length === 1) { `return` array[0]; } |'
 - en: '| ​  |  |'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `// Calculate the max of the remainder of the array` |'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 计算数组其余部分的最大值` |'
 - en: '| ​  | `// and store it inside a variable:` |'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 并将其存储在一个变量中:` |'
 - en: '| ​  | `const` maxOfRemainder = max(array.slice(1)); |'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `const` maxOfRemainder = max(array.slice(1)); |'
 - en: '| ​  |  |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | `// Comparison of first number against this variable:` |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `// 将第一个数字与这个变量进行比较:` |'
 - en: '| ​  | `if` (array[0] > maxOfRemainder) { |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `if` (array[0] > maxOfRemainder) { |'
 - en: '| ​  | `return` array[0]; |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` array[0]; |'
 - en: '| ​  | } `else` { |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } `else` { |'
 - en: '| ​  | `return` maxOfRemainder; |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `return` maxOfRemainder; |'
 - en: '| ​  | } |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: By implementing this simple modification, we end up calling `max` a mere four
     times. Try it out yourself by adding the `console.log('RECURSION')` line and running
     the code.
@@ -97,15 +115,18 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 通过实现这个简单的修改，我们最终只调用了`max`四次。通过添加`console.log('RECURSION')`行并运行代码，自己试试看吧。
 - en: The trick here is we’re making each necessary function call once and saving
     the result in a variable so we don’t have to ever call that function again.
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这里的窍门是我们每个必要的函数调用只进行一次，并将结果保存在一个变量中，这样就不必再次调用该函数。
 - en: The difference in efficiency between our initial function and our ever-so-slightly
     modified function is stark.
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 我们初始函数与稍微修改过的函数之间的效率差异显著。

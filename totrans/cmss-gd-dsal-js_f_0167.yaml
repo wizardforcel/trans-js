@@ -4,180 +4,216 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   字典树'
 - en: '-   字典树是一种理想用于基于文本的功能（如自动补全）的树。在我们深入了解字典树的工作原理之前，先让我们讨论一下它的发音。'
   id: totrans-1
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   字典树是一种理想用于基于文本的功能（如自动补全）的树。在我们深入了解字典树的工作原理之前，先让我们讨论一下它的发音。'
 - en: '-   在我（未被要求的）意见中，字典树是命名最不幸的数据结构之一。字典树一词源于单词“retrieval”。因此，从技术上讲，它应该发音为“tree”。但由于那会与“tree”这个词混淆（“tree”是所有基于树的数据结构的通用术语），大多数人将“trie”发音为“try”。一些资源将这种数据结构称为前缀树或数字树，但不可思议的是，字典树仍然是最受欢迎的名称。所以，你看到了。'
   id: totrans-2
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   在我（未被要求的）意见中，字典树是命名最不幸的数据结构之一。字典树一词源于单词“retrieval”。因此，从技术上讲，它应该发音为“tree”。但由于那会与“tree”这个词混淆（“tree”是所有基于树的数据结构的通用术语），大多数人将“trie”发音为“try”。一些资源将这种数据结构称为前缀树或数字树，但不可思议的是，字典树仍然是最受欢迎的名称。所以，你看到了。'
 - en: '-   在深入细节之前，这是最后一条评论。字典树的文档不像本书中的其他数据结构那样完善，许多不同资源以略微不同的方式实现字典树。我选择了一种我认为最简单易懂的特定实现，但你会发现其他实现。无论如何，大多数实现背后的基本思想仍然是相同的。'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   在深入细节之前，这是最后一条评论。字典树的文档不像本书中的其他数据结构那样完善，许多不同资源以略微不同的方式实现字典树。我选择了一种我认为最简单易懂的特定实现，但你会发现其他实现。无论如何，大多数实现背后的基本思想仍然是相同的。'
 - en: '-   字典树节点'
   id: totrans-4
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   字典树节点'
 - en: '-   像大多数其他树一样，字典树是一个指向其他节点的节点集合。然而，字典树并不是一个二叉树。虽然二叉树不允许任何节点有超过两个子节点，但字典树节点可以有任意数量的子节点。'
   id: totrans-5
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   像大多数其他树一样，字典树是一个指向其他节点的节点集合。然而，字典树并不是一个二叉树。虽然二叉树不允许任何节点有超过两个子节点，但字典树节点可以有任意数量的子节点。'
 - en: '-   在我们的实现中，每个字典树节点包含一个哈希表，其中键是英文字母，值是字典树的其他节点。请看下面的图示：'
   id: totrans-6
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   在我们的实现中，每个字典树节点包含一个哈希表，其中键是英文字母，值是字典树的其他节点。请看下面的图示：'
 - en: '![images/tries/abc_trie.png](images/tries/abc_trie.png)'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/tries/abc_trie.png](images/tries/abc_trie.png)'
 - en: '-   在这里，根节点包含一个哈希表，键为"a"、"b"和"c"。这些值是其他字典树节点，作为该节点的子节点。这些子节点也包含哈希表，最终将指向它们的子节点。（目前，我们将子节点的哈希表留空，但将来它们会包含数据。）'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   在这里，根节点包含一个哈希表，键为"a"、"b"和"c"。这些值是其他字典树节点，作为该节点的子节点。这些子节点也包含哈希表，最终将指向它们的子节点。（目前，我们将子节点的哈希表留空，但将来它们会包含数据。）'
 - en: '-   实际字典树节点的实现非常简单。以下是我们`TrieNode`类的JavaScript版本：'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   实际字典树节点的实现非常简单。以下是我们`TrieNode`类的JavaScript版本：'
 - en: '| ​  | ​`class`​ `TrieNode` { |'
   id: totrans-10
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`class`​ `TrieNode` { |'
 - en: '| ​  | ​`constructor`​() { |'
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`constructor`​() { |'
 - en: '| ​  | ​`this`​.children = {}; |'
   id: totrans-12
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.children = {}; |'
 - en: '| ​  | } |'
   id: totrans-13
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-14
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  |  |'
   id: totrans-15
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`export` ​`default` ​`TrieNode`; |'
   id: totrans-16
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`export` ​`default` ​`TrieNode`; |'
 - en: '-   如你所见，`TrieNode`仅包含一个哈希表。'
   id: totrans-17
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如你所见，`TrieNode`仅包含一个哈希表。'
 - en: '-   如果我们在控制台打印之前示例中的根节点数据，我们将得到类似这样的内容：'
   id: totrans-18
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   如果我们在控制台打印之前示例中的根节点数据，我们将得到类似这样的内容：'
 - en: '| ​  | { |'
   id: totrans-19
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | { |'
 - en: '| ​  | `a: TrieNode { }`, |'
   id: totrans-20
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `a: TrieNode { }`, |'
 - en: '| ​  | `b: TrieNode { }`, |'
   id: totrans-21
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `b: TrieNode { }`, |'
 - en: '| ​  | `c: TrieNode { }` |'
   id: totrans-22
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | `c: TrieNode { }` |'
 - en: '| ​  | } |'
   id: totrans-23
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '-   再次，在这个哈希表中，键是单个字符字符串，值是其他`TrieNodes`的实例。'
   id: totrans-24
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   再次，在这个哈希表中，键是单个字符字符串，值是其他`TrieNodes`的实例。'
 - en: '-   字典树类'
   id: totrans-25
   prefs:
   - PREF_H3
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   字典树类'
 - en: '-   为了完整创建我们的字典树，我们还需要一个单独的`Trie`类，以跟踪根节点：'
   id: totrans-26
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '-   为了完整创建我们的字典树，我们还需要一个单独的`Trie`类，以跟踪根节点：'
 - en: '| ​  | ​`import` ​`TrieNode` ​`from` ​*''./trie_node.js''*​; |'
   id: totrans-27
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`import` ​`TrieNode` ​`from` ​*''./trie_node.js''*​; |'
 - en: '| ​  |  |'
   id: totrans-28
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  |  |'
 - en: '| ​  | ​`class`​ `Trie` { |'
   id: totrans-29
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`class`​ `Trie` { |'
 - en: '| ​  | ​`constructor`​() { |'
   id: totrans-30
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`constructor`​() { |'
 - en: '| ​  | ​`this`​.root = ​`new`​ `TrieNode()`; |'
   id: totrans-31
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | ​`this`​.root = ​`new`​ `TrieNode()`; |'
 - en: '| ​  | } |'
   id: totrans-32
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: '| ​  | } |'
   id: totrans-33
   prefs: []
   stylish: true
   type: TYPE_TB
+  zh: '| ​  | } |'
 - en: 这个类跟踪一个`this.root`变量，指向根节点。在这个实现中，当我们创建一个新的`Trie`时，它以一个空的`TrieNode`作为根节点开始。
   id: totrans-34
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这个类跟踪一个`this.root`变量，指向根节点。在这个实现中，当我们创建一个新的`Trie`时，它以一个空的`TrieNode`作为根节点开始。
 - en: 随着我们在本章中的进展，我们将向这个`Trie`类添加我们的字典树操作方法。
   id: totrans-35
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 随着我们在本章中的进展，我们将向这个`Trie`类添加我们的字典树操作方法。

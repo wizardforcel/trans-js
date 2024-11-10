@@ -4,6 +4,7 @@
   - PREF_H2
   stylish: true
   type: TYPE_NORMAL
+  zh: '`链表`'
 - en: Like an array, a linked list is a data structure that represents a list of items.
     While on the surface arrays and linked lists look and act quite similarly, under
     the hood there are big differences.
@@ -11,6 +12,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 像数组一样，链表是一种表示项目列表的数据结构。尽管在表面上数组和链表看起来和表现得相似，但在内部却存在很大差异。
 - en: As mentioned in Chapter 1, [​*Why Data Structures Matter*​](f_0013.xhtml#chp.understanding_data_structures),
     memory inside a computer can be visualized as a giant set of cells in which bits
     of data are stored. You learned that when creating an array, your code finds a
@@ -20,11 +22,13 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 正如第1章提到的，[​*数据结构为何重要*​](f_0013.xhtml#chp.understanding_data_structures)，计算机内的内存可以被视为一组巨大的单元格，其中存储着数据位。你了解到，当创建数组时，你的代码会在内存中找到一组连续的空单元格，并指定它们用于存储你的应用数据，如[所示](#fig.ch14.array_3)。
 - en: '![images/understanding_arrays/array_3.png](images/understanding_arrays/array_3.png)'
   id: totrans-3
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/understanding_arrays/array_3.png](images/understanding_arrays/array_3.png)'
 - en: You also saw that the computer has the ability to access any memory address
     in one step and can use that power to also immediately access any index within
     the array. If you wrote code that said, “Look up the value at index `4`,” your
@@ -36,6 +40,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 你还看到计算机能够在一步之内访问任何内存地址，并利用这一能力立即访问数组中的任何索引。如果你编写了这样一段代码：“查找索引为`4`的值”，你的计算机可以在一步之内找到那个单元。这是因为你的程序知道数组的起始内存地址——假设是内存地址`1000`——因此知道如果想查找索引`4`，它只需跳转到内存地址`1004`。
 - en: Linked lists, on the other hand, work differently. Instead of being a contiguous
     block of memory, the data from linked lists can be scattered across different
     cells throughout the computer’s memory.
@@ -43,6 +48,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 另一方面，链表的工作方式不同。链表中的数据不是连续存储在内存块中，而是可以散布在计算机内存的不同单元中。
 - en: 'Connected data that are dispersed throughout memory are known as `nodes`. In
     a linked list, each `node` represents one item in the list. The big question,
     then, is this: if the `nodes` are not next to each other in memory, how does the
@@ -51,23 +57,27 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 分散在内存中的连接数据被称为`节点`。在链表中，每个`节点`代表列表中的一个项目。那么大问题是：如果这些`节点`在内存中不相邻，计算机如何知道哪些`节点`是同一个链表的一部分？
 - en: 'This is the key to the linked list: each `node` also comes with a little extra
     information—namely, the memory address of the next `node` in the list.'
   id: totrans-7
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这就是链表的关键：每个`节点`还附带一小段额外信息——即列表中下一个`节点`的内存地址。
 - en: 'This extra piece of data—this pointer to the next node’s memory address—is
     known as a `link`. Here’s a visual depiction of a linked list:'
   id: totrans-8
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 这一额外的数据——指向下一个节点内存地址的指针——被称为`链接`。以下是链表的可视化表示：
 - en: '![images/pitting_linked_lists_against_arrays/linked_list_1.png](images/pitting_linked_lists_against_arrays/linked_list_1.png)'
   id: totrans-9
   prefs: []
   stylish: true
   type: TYPE_IMG
+  zh: '![images/pitting_linked_lists_against_arrays/linked_list_1.png](images/pitting_linked_lists_against_arrays/linked_list_1.png)'
 - en: 'In this example, we have a linked list that contains four pieces of data: `"a"`,
     `"b"`, `"c"`, and `"d"`. However, it uses eight cells of memory to store this
     data, because each `node` consists of two memory cells. The first cell holds the
@@ -78,12 +88,14 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们有一个包含四个数据项的链表：“`a`”、“`b`”、“`c`”和“`d`”。然而，它使用了八个内存单元来存储这些数据，因为每个`节点`由两个内存单元组成。第一个单元存储实际数据，而第二个单元作为`链接`，指示下一个`节点`在内存中的起始位置。最后一个`节点`的`链接`包含`null`，因为链表在此结束。
 - en: A linked list’s first node is also referred to as its `head` and its last node
     its `tail`. We may use the terms `head` and `first node` interchangeably.
   id: totrans-11
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 链表的第一个节点也称为其`头`，最后一个节点称为其`尾`。我们可以将`头`和`第一个节点`互换使用。
 - en: If the computer knows at which memory address the linked list begins, it has
     all it needs to begin working with the list! Since each `node` contains a `link`
     to the next `node`, all the computer needs to do is follow each `link` to string
@@ -92,6 +104,7 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: 如果计算机知道链表开始的内存地址，那么它就具备了开始操作该链表所需的所有信息！由于每个`节点`都包含指向下一个`节点`的`链接`，计算机所需做的就是沿着每个`链接`将整个列表串联起来。
 - en: '`The fact that a linked list’s data can be spread throughout the computer’s
     memory` is a potential advantage it has over the `array`. `An array`, by contrast,
     needs to find an entire block of contiguous cells to store its data, which can
@@ -103,3 +116,4 @@
   prefs: []
   stylish: true
   type: TYPE_NORMAL
+  zh: '`链表的数据可以分散在计算机的内存中`是它相对于`数组`的一个潜在优势。相反，`数组`需要找到一整块连续的内存单元来存储其数据，随着`数组`大小的增长，这可能变得越来越困难。`这些细节由你的编程语言在后台管理`，因此你可能不需要担心它们。然而，很快你会看到`链表`和`数组`之间还有更明显的差异，我们可以深入探讨。'
